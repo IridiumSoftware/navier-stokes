@@ -15,8 +15,8 @@ Columns: `NS-ID | Class | Evidence type | Status | Scope | Artifact / Citation`.
 | NS-007 | OBSTRUCTION | external-theorem | :cited | PDE | Nečas–Růžička–Šverák (1996); Tsai (1998) |
 | NS-008 | OBSTRUCTION | external-theorem | :cited | PDE | Tao (2016), JAMS — averaged-NS blowup |
 | NS-009 | OBSTRUCTION | external-theorem | :cited | PDE/Euler | Constantin–E–Titi (1994); Isett (2018); BDLSV (2019); Onsager (1949) |
-| NS-010 | DIAGNOSTIC | external-theorem | :argued | PDE-method | Foias–Temam (1989); Sulem–Sulem–Frisch (1983) — *in-repo computation pending* |
-| NS-011 | DIAGNOSTIC | external-theorem | :argued | PDE-method | Sulem–Sulem–Frisch (1983); Matsumoto–Bec–Frisch — *pending* |
+| NS-010 | DIAGNOSTIC | external-theorem + computed | :tested | PDE-method (validated in 1D-model) | Foias–Temam (1989); SSF (1983); `scripts/burgers_analyticity_strip.jl`, `docs/ns010_analyticity_strip_companion.md` — T-01 PASS |
+| NS-011 | DIAGNOSTIC | external-theorem + computed | :tested | PDE-method (validated in 1D-model) | SSF (1983); Matsumoto–Bec–Frisch; `scripts/burgers_analyticity_strip.jl` — T-02 PASS (inviscid) |
 | NS-012 | RESULT (live) | external-theorem | :cited | PDE (complex data) | Li & Sinai (2008), JEMS |
 | NS-013 | CONJECTURE | none | :open | PDE | — (real ⇐ complex implication open) |
 | NS-020 | FALSIFIED | computed | :falsified | discrete-topology | `scripts/navier_stokes_homology_diagnostic.jl` (+.out.txt) |

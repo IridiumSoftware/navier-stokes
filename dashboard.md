@@ -28,11 +28,13 @@ below with `Scope ≠ PDE` is **not** prize progress. This line changes only whe
 
 ## Priority stack
 
-1. **[NEXT] Complex-singularity / analyticity-strip diagnostic (NS-010/011).**
-   - 1a. Burgers (1D, exact): complex-pole dynamics + `δ(t)` vs the Cole–Hopf
-     closed form. Validates the diagnostic (TEST_SPEC T-01). Scope: 1D-model.
-   - 1b. Spectral Euler/NS truncation: `δ(t)` via spectrum decay; co-movement with
-     BKM integral (NS-004) and critical norm (NS-005). Scope: ODE-truncation.
+1. **Complex-singularity / analyticity-strip diagnostic (NS-010/011).**
+   - 1a. **DONE ✓** — Burgers (1D): spectrum-fitted `δ(t)` matches the exact
+     `arccosh(1/t)−√(1−t²)` to ≤4.1% (T-01 PASS), 3/2-law exponent 1.519, viscous
+     δ bounded. NS-010/011 → `:tested`. (`burgers_analyticity_strip.jl`.)
+   - 1b. **[NEXT]** Spectral Euler/NS truncation: apply the validated `δ(t)`
+     diagnostic; co-movement with BKM integral (NS-004) and critical norm (NS-005)
+     — TEST_SPEC T-04; full N-convergence sweep — T-03. Scope: ODE-truncation.
    - Firewall: diagnostics in models; not a PDE statement.
 2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
    Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the

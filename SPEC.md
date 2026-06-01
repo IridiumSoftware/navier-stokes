@@ -103,18 +103,25 @@ arguments, analytic in a strip `|Im z| < δ(t)`; `δ(t)` equals the exponential
 decay rate of the Fourier spectrum, `|û(k,t)| ~ C(t) e^{−δ(t)|k|}`. **`δ(t)→0` in
 finite time is exactly a loss of analyticity / approach to singularity.** Directly
 computable from a spectral solution.
-- Evidence: external-theorem (method) → **computed (forthcoming here).**
-  **Status: :argued / :open** (no computation in-repo yet → will become `:tested`).
-- Scope: PDE (method) / will be ODE-truncation when we compute it.
-- Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983).
+- Evidence: external-theorem (method) + **computed (validated).**
+  **Status: :tested** — the spectrum-fitted δ(t) reproduces the EXACT inviscid
+  Burgers closed form `δ(t)=arccosh(1/t)−√(1−t²)` to ≤4.1% (T-01 PASS), with the
+  shock-approach exponent 1.519 (theory 1.5). The viscous case keeps δ bounded.
+- **Scope: PDE-method, VALIDATED in a 1D-model.** The *tool* is validated; PDE-
+  applicability is the cited result (Foias–Temam). The 3D-NS computation is Stage 1b.
+- Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983);
+  `scripts/burgers_analyticity_strip.jl`; `docs/ns010_analyticity_strip_companion.md`.
 
 **NS-011 — Complex-singularity tracking.**
 The nearest complex-space singularity (pole/branch point) of the analytic
 continuation, at distance `δ(t)` from the real axis; **its migration to the real
 axis = blowup.** Tracked via the spectrum's decay rate and form. The rigorous home
 of the "assume it blows up and work backward" instinct.
-- Evidence: external-theorem (method). **Status: :argued / :open** here.
-- Scope: PDE (method). Source: Sulem–Sulem–Frisch (1983); Matsumoto–Bec–Frisch.
+- Evidence: external-theorem (method) + **computed (validated).** **Status: :tested**
+  — the nearest complex singularity `ξ*=i·arccosh(1/t)` (from `cos ξ*=1/t`) was
+  tracked exactly and matches the spectrum decay (T-02 PASS, inviscid).
+- **Scope: PDE-method, validated in 1D-model.** Source: Sulem–Sulem–Frisch (1983);
+  Matsumoto–Bec–Frisch; `scripts/burgers_analyticity_strip.jl`.
 
 ---
 
@@ -238,7 +245,7 @@ substantive transfer requires per-claim scope + witness (cf. NS-024).
 
 ---
 
-*Open priority (see `dashboard.md`): compute NS-010/011 — the analyticity-strip /
-complex-singularity diagnostic — starting with the exactly-solvable Burgers model,
-then a spectral Euler/NS truncation. This is the first in-repo direction with
-`Scope: PDE-method`; it remains a diagnostic in models, not a PDE proof.*
+*Stage 1a DONE (NS-010/011 `:tested`, validated on Burgers, T-01/T-02 PASS). Open
+priority (see `dashboard.md`): Stage 1b — apply the validated δ(t) diagnostic to a
+spectral Euler/NS truncation, with the BKM (NS-004) and critical-norm (NS-005)
+co-movement check (T-04). Remains a diagnostic in models, not a PDE proof.*

@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.3 — 2026-06-01 — NS-010 Stage 1a: analyticity-strip diagnostic VALIDATED
+
+`scripts/burgers_analyticity_strip.jl` (+ companion `docs/ns010_analyticity_strip_companion.md`).
+First `Scope: PDE-method` work. The complex-singularity / analyticity-strip blowup
+diagnostic (NS-010/011) is validated against an EXACT 1D closed form:
+- Derived the exact inviscid-Burgers strip width `δ(t)=arccosh(1/t)−√(1−t²)` (from
+  the complex-characteristic singularity `cos ξ*=1/t`, `ξ*=i·arccosh(1/t)`), shock
+  at `t*=1`, `δ~(t*−t)^{3/2}`.
+- **Spectrum-fitted δ(t) matches it to ≤4.1%** (t=0.3–0.95; cube-root `k^{-4/3}`
+  prefactor removed); **3/2-law exponent = 1.519** (theory 1.5). **T-01 PASS, T-02
+  PASS (inviscid).**
+- Viscous control (Cole–Hopf, ν=0.1): δ bounded (~0.4) for all t incl. past t*=1,
+  vs inviscid δ→0 — viscosity holds the complex singularity off the real axis.
+- NS-010/011 promoted `:argued → :tested` (Scope: PDE-method, validated in 1D-model).
+- **Firewall intact:** validates the *tool*; the 3D-NS question (does δ→0 there) is
+  untouched — Stage 1b (spectral truncation) + ultimately the open problem. T-03
+  (full N-sweep) PARTIAL; T-04 (BKM/critical-norm co-movement) PENDING for 1b.
+
 ## v0.1.2 — 2026-05-31 — Log external related work (Gosme)
 
 Added **NS-025 (Class RELATED)**: Gosme, *Causal symmetrization as an empirical

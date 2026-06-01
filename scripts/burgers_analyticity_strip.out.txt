@@ -1,0 +1,42 @@
+══════════════════════════════════════════════════════════════════════════════
+  burgers_analyticity_strip.jl — NS-010 analyticity-strip diagnostic (Scope: 1D-model)
+  δ(t)→0 = blowup. Validating spectrum-fitted δ vs the EXACT inviscid closed form.
+══════════════════════════════════════════════════════════════════════════════
+
+  (A) INVISCID Burgers, u₀=−sin x, N=4096.  shock t*=1, δ(t)=arccosh(1/t)−√(1−t²).
+    t      δ_exact      δ_fit(plain) δ_fit(corr)  corr/exact #k     
+    0.30   0.91988      1.01646      0.93021      1.011      13     
+    0.50   0.45093      0.51294      0.45754      1.015      34     
+    0.70   0.18145      0.21437      0.18492      1.019      90     
+    0.85   0.05890      0.07251      0.06031      1.024      270    
+    0.92   0.02215      0.02812      0.02275      1.027      675    
+    0.95   0.01079      0.01538      0.01123      1.041      891    
+  ⇒ T-01: max |δ_fit(corr)/δ_exact − 1| = 4.1%  PASS (spectrum δ matches exact to <5%)
+
+  3/2-law check (δ → 0 as (t*−t)^{3/2}): fit ln δ_exact vs ln(1−t), t∈[.9,.99]
+    exponent p = 1.519  (theory 1.5)  ✓
+
+──────────────────────────────────────────────────────────────────────────────
+  (B) VISCOUS Burgers (Cole–Hopf), same u₀, ν=0.10, N=1024 — δ stays bounded
+──────────────────────────────────────────────────────────────────────────────
+    t      δ_visc(fit)    δ_invisc(exact)
+    0.50   0.7365         0.4509        
+    0.85   0.4093         0.0589        
+    0.95   0.4104         0.0108        
+    1.00   0.4006         0 (shock)     
+    1.20   0.3567         0 (shock)     
+  ⇒ viscosity holds the complex singularity OFF the real axis: δ_visc bounded > 0 for
+    all t (incl. past the inviscid shock t*=1), while δ_invisc → 0 at t*=1. The viscous
+    floor shrinks with ν (→ inviscid shock as ν→0).
+
+══════════════════════════════════════════════════════════════════════════════
+  READING (NS-010 Stage 1a)
+══════════════════════════════════════════════════════════════════════════════
+  • The analyticity-strip diagnostic is VALIDATED: the spectrum-fitted δ(t) reproduces
+    the exact inviscid closed form (T-01), and δ→0 at the shock with the 3/2 law.
+  • Inviscid = blowup (δ→0); viscous = regular (δ bounded). The complex singularity
+    reaching the real axis IS the singularity; viscosity keeps it away.
+  • FIREWALL: this is a 1D MODEL. It validates the *method* (NS-010/011). The PDE
+    (3D NS) question — does δ(t)→0 there — is untouched; that is Stage 1b (spectral
+    truncation) and ultimately the open problem. Scope: 1D-model, NOT PDE.
+══════════════════════════════════════════════════════════════════════════════

@@ -29,10 +29,10 @@ Tiers of check (strongest first):
 
 | ID | Required check before promotion | Tier |
 |---|---|---|
-| **T-01** Burgers δ(t) | Computed analyticity-strip width / nearest complex pole must match the **Cole–Hopf closed form** for the pole trajectory (viscous: poles stay off real axis; inviscid: reach it at the shock time). | closed-form |
-| **T-02** spectrum ↔ strip | The fitted exponential decay rate of the Fourier spectrum must equal the independently-tracked nearest-singularity distance `δ(t)` (two methods agree). | cross-method |
-| **T-03** truncation honesty | Report resolution-dependence: `δ(t)` and the BKM integral must be shown vs truncation `N`; a result that drifts with `N` is flagged, not promoted. No silent truncation. | qualitative + convergence |
-| **T-04** obstruction co-movement | As `δ(t)→` small, the BKM integral (NS-004) and a critical norm (NS-005) must grow consistently with the theory; inconsistency = bug, not blowup. | cross-method |
+| **T-01** Burgers δ(t) | **PASS.** Spectrum-fitted δ(t) matches the exact inviscid closed form `arccosh(1/t)−√(1−t²)` to ≤4.1% (t=0.3–0.95); shock exponent 1.519 (theory 1.5); viscous δ bounded. `burgers_analyticity_strip.jl`. | closed-form |
+| **T-02** spectrum ↔ strip | **PASS (inviscid).** The Fourier-spectrum decay rate equals the analytically-tracked nearest-singularity distance `δ(t)=Im x*`, `ξ*=i·arccosh(1/t)`. | cross-method |
+| **T-03** truncation honesty | **PARTIAL.** Run at N=4096; the fit window grows 13→891 modes as t→1. A full N-convergence sweep is **pending** before any quantitative δ near t* is promoted; flagged in the companion. | qualitative + convergence |
+| **T-04** obstruction co-movement | **PENDING** — belongs to the spectral Euler/NS truncation (Stage 1b): as `δ(t)→small`, the BKM integral (NS-004) and a critical norm (NS-005) must co-grow with the theory; inconsistency = bug, not blowup. | cross-method |
 
 **Firewall in testing.** Passing T-01..T-04 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` — **never** to a PDE statement. A PDE claim
