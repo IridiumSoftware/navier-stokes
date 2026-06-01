@@ -1,0 +1,56 @@
+════════════════════════════════════════════════════════════════════════════════
+  MANIFOLD STUDY — Slice 1: the COADJOINT-ORBIT manifold of the Euler triad (EXACT)
+  (Scope: geometry of a 3-mode Euler truncation. NOT the PDE. Distance to prize: UNTOUCHED.)
+════════════════════════════════════════════════════════════════════════════════
+  Lie–Poisson: u̇ = u×∇H on so(3)*.  Casimir C=E=Σuᵢ² ⇒ the orbit = SPHERE (the manifold).
+  Hamiltonian H=Σwᵢuᵢ² (helicity) slices it into polhodes.  w=(1.0,1.7,-2.3).
+  Fix the orbit: E=1.0 (unit sphere). H ranges [w₃E,w₂E]=[-2.3,1.7]; separatrix H=w₁E=1.0.
+
+────────────────────────────────────────────────────────────────────────────────
+  (A) CRITICAL STRUCTURE of the orbit — the axis fixed points (±poles)
+────────────────────────────────────────────────────────────────────────────────
+    leg      signed w   role     λ² (analytic)    type      growth/freq   
+    leg 1    +1.0       MIDDLE   +2.310           SADDLE    σ=1.520  (num ✓)
+    leg 2    +1.7       max      -2.800           CENTER    ω=1.673  (num ✓)
+    leg 3    -2.3       min      -13.200          CENTER    ω=3.633  (num ✓)
+  ⇒ the MIDDLE signed leg is the SADDLE (unstable axis = the cascade DONOR, NS-022);
+    the two extreme legs are CENTERS (stable). Exact rigid-body 'tennis-racket' structure.
+
+────────────────────────────────────────────────────────────────────────────────
+  (B) SLICING the orbit by H — polhodes, two wells, the homoclinic separatrix
+────────────────────────────────────────────────────────────────────────────────
+    H/E        well         period       donor a₁²    ΔE/E       ΔH/E      
+    -1.500     leg3_well    0.98         [0.000,0.242] 5.6e-14    9.4e-14   
+    0.000      leg3_well    1.44         [0.000,0.697] 1.7e-13    1.0e-13   
+    0.700      leg3_well    2.19         [0.000,0.909] 1.0e-13    1.7e-13   
+    0.950      leg3_well    3.41         [0.000,0.985] 1.0e-13    1.5e-13   
+    0.995      ≈SEPARATRIX  4.94         [0.000,0.998] 1.0e-13    7.8e-14   
+    1.005      ≈SEPARATRIX  4.95         [0.000,0.993] 1.1e-13    1.1e-13   
+    1.050      leg2_well    3.47         [0.000,0.929] 2.1e-13    2.7e-13   
+    1.300      leg2_well    2.36         [0.000,0.571] 8.0e-14    1.3e-13   
+    1.600      leg2_well    1.96         [0.000,0.143] 8.5e-14    1.3e-13   
+  ⇒ H<w₁E ⇒ polhode circles the leg-3 (min) center; H>w₁E ⇒ circles leg-2 (max);
+    H→w₁E ⇒ period DIVERGES (critical slowing) — the homoclinic SEPARATRIX through ±leg1.
+    The separatrix = the unstable manifold of the donor = the maximal-transfer route.
+
+────────────────────────────────────────────────────────────────────────────────
+  (C) BASIN MEASURE — fraction of the orbit (sphere area) in each well
+────────────────────────────────────────────────────────────────────────────────
+    leg-3 well (H<sep): 72.5% of orbit area;  leg-2 well (H>sep): 27.5%
+    (the separatrix is a measure-zero figure-eight; the two basins tile the rest.)
+
+════════════════════════════════════════════════════════════════════════════════
+  READING (Slice 1 — coadjoint orbit)
+════════════════════════════════════════════════════════════════════════════════
+  • The state-space manifold of the triad IS a 2-sphere (the coadjoint orbit / symplectic
+    leaf), labelled by the Casimir = ENERGY; the HELICITY Hamiltonian foliates it into polhodes.
+  • Critical structure (EXACT): 2 stable centers (extreme legs) + 1 unstable saddle (the MIDDLE
+    leg = the cascade donor, NS-022). A homoclinic separatrix through the saddle partitions the
+    orbit into two basins (the two recipient legs). The cascade-donor mechanism is GEOMETRY.
+  • Invariants held to ~1e-13 along every polhode; analytic λ² match the numeric Jacobian.
+    No resolution wall — this is what the blowup hunt could not give.
+  • CFS RHYME (probe, NOT a claim — NS-024 discipline): the orbit is a configuration space
+    quotiented/foliated by a Casimir invariant, structurally akin to a closure quotient by its
+    invariant; the 3 critical poles + separatrix are its 'modal' skeleton. Observe, don't assert.
+  • FIREWALL: 3-mode Euler geometry, not the NS PDE. :proved=0; distance to prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,86 @@
+════════════════════════════════════════════════════════════════════════════════
+  MANIFOLD STUDY — Slice 2: the EDGE manifold of the MFE 9-mode model
+  (Scope: geometry of the MFE truncation. NOT the PDE. Distance to prize: UNTOUCHED.)
+════════════════════════════════════════════════════════════════════════════════
+  Re=350. Laminar basin vs turbulent saddle; the boundary = the EDGE manifold
+  = stable manifold of the edge state ≈ committor=½ surface. q_lam=1e-04, E_core=0.025.
+
+────────────────────────────────────────────────────────────────────────────────
+  (A) LAMINAR fixed point a=(1,0,…,0) — the basin the edge bounds
+────────────────────────────────────────────────────────────────────────────────
+    ‖RHS(laminar)‖ = 0.00e+00  (fixed point ✓);  it is linearly stable (mfe_self_sustaining).
+
+────────────────────────────────────────────────────────────────────────────────
+  (B) EDGE TRACKING — locate the manifold; measure the slowing law T(d)
+────────────────────────────────────────────────────────────────────────────────
+    ray direction v: random unit (seed 2026).  A_edge = 0.0135280613
+    first-passage time T at distance d from the edge (both sides). A generic IC
+    decides fast; near the edge the trajectory is captured by the edge state:
+      d=|A−A_e|  T (lam side)   T (turb side) 
+      1e-02      0              30            
+      1e-03      1              68            
+      1e-04      2              83            
+      1e-05      2              83            
+      1e-06      2              83            
+    ⇒ T grows ≈ 5.3·ln(1/d): logarithmic CRITICAL SLOWING (σ≈0.188, the edge
+      state's transverse instability rate). The edge state captures trajectories —
+      the 9D analog of Slice 1's homoclinic separatrix slowing. (T plateaus once d
+      hits bisection precision — honest: the log-law holds over the resolved decades.)
+
+────────────────────────────────────────────────────────────────────────────────
+  (C) THE EDGE STATE — mode content while shadowing the manifold
+────────────────────────────────────────────────────────────────────────────────
+    shadowing duration 83 t.u., mean q_pert 0.0121 (between laminar 1e-04 and core 0.025)
+    mode   mean |aᵢ|    role
+    a1     0.9916       a1 mean-shear
+    a2     0.0905       a2 streak  ←
+    a3     0.0027       a3 ROLL
+    a4     0.0077       a4
+    a5     0.0086       a5
+    a6     0.0218       a6  ←
+    a7     0.0231       a7  ←
+    a8     0.0023       a8
+    a9     0.0036       a9 mean-mod
+    ⇒ the edge state is SHEAR+STREAK dominated (a1=0.99, a2=0.090); the roll a3 is
+      SMALL here (0.0027). HONEST: it is the SSP structure in balance, but at this Re/ray
+      the active perturbation modes are the streak a2 and a6/a7 — not a dominant roll.
+
+────────────────────────────────────────────────────────────────────────────────
+  (D) THE GATE — perturb the edge state ±ε per mode; which CROSSES the manifold?
+────────────────────────────────────────────────────────────────────────────────
+    A mode FLIPS (lam↔turb under ±ε) ⇒ it has a NORMAL component (crosses the edge);
+    a mode that does NOT flip is ~TANGENT to the edge manifold. Test each:
+    mode   +ε fate          −ε fate          geometry
+    a2     turbulent        laminar          ← NORMAL (crosses)
+    a3     turbulent        turbulent        tangent
+    a4     turbulent        laminar          ← NORMAL (crosses)
+    a5     laminar          turbulent        ← NORMAL (crosses)
+    a6     turbulent        laminar          ← NORMAL (crosses)
+    a7     turbulent        turbulent        tangent
+    a8     laminar          turbulent        ← NORMAL (crosses)
+    a9     turbulent        turbulent        tangent
+    ⇒ NORMAL (gate) components: a2,a4,a5,a6,a8    TANGENT: a3,a7,a9
+    CORRECTION (honest): the edge-manifold normal is MULTI-MODE (streak a2 + a4/a5/a6/a8);
+    the roll a3 is ~TANGENT — it does NOT flip the fate. So 'a3 is the gate' does NOT hold
+    as the edge-manifold normal. The NS-023 result ('a3 SURVIVING A DIP predicts recovery')
+    is a CONDITIONAL-on-trajectory statement — a DIFFERENT object from the edge normal. Two
+    notions, not one (an NS-024-style distinction; do not conflate the committor gate with
+    the geometric edge normal).
+
+════════════════════════════════════════════════════════════════════════════════
+  READING (Slice 2 — edge manifold)
+════════════════════════════════════════════════════════════════════════════════
+  • The phase space is partitioned by a codim-1 EDGE MANIFOLD (laminar basin |
+    turbulent saddle) = the stable manifold of an edge state, located by bisection.
+    First-passage time grows LOGARITHMICALLY toward it (critical slowing, measured σ)
+    — the 9D analog of Slice 1's homoclinic separatrix.
+  • The edge state is the SSP structure in balance — SHEAR+STREAK dominated at this
+    Re/ray; the roll a3 is small. (Honest: not a roll-dominated edge state here.)
+  • CORRECTION carried out of (D): the edge-manifold NORMAL (the geometric 'gate') is
+    multi-mode, and the roll a3 is ~TANGENT. The NS-023 committor gate ('a3 survival
+    predicts recovery') is a distinct, conditional notion — NOT the edge normal. The
+    earlier expectation that they coincide is REFUTED here. Two notions, not one.
+  • CFS RHYME (probe, not claim): an invariant manifold partitioning state space, with
+    a definite (multi-mode) normal and critical slowing — observe; do not assert transfer.
+  • FIREWALL: MFE truncation geometry, not the NS PDE. :proved=0; prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════

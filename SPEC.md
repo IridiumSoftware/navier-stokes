@@ -8,7 +8,8 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 5 our RESULTS/FALSIFIED, 1 RELATED (external), 2 PROGRAM. `:proved` = 0.
+1 CONJECTURE, 6 our RESULTS/FALSIFIED, 1 RELATED (external), 2 PROGRAM, 1 GEOMETRY.
+`:proved` = 0. (23 entries.)
 
 ---
 
@@ -295,6 +296,49 @@ ledger — encoded as a 20-node corpus with `deps` = the genuine logical premise
 - Depends_on: NS-030 (structurally references NS-001..025).
 - Source: `discovery/ns_obstruction_corpus.json`,
   `discovery/ns_triad_discovery.out.txt`, `docs/ns_triad_discovery_companion.md`.
+
+**NS-032 — Stage 1c-3D Step 2: gated blowup hunt (inviscid Taylor–Green) — NULL.**
+The canonical Euler near-singularity probe (Brachet TGV, vortex stretching
+unopposed), run at N=32 and N=64 with the three gates from Step 1 / NS-031: G1
+RESOLVED (energy conserved), G2 CONVERGED (δ agrees N=32 vs 64), G3 CO-MOVING
+(δ→0 with BKM→∞). Result: δ narrows 2.10→0.37 (resolved window), but **G2 FAILS**
+(δ disagrees ~50% across N — the Step-1 δ-fit fragility) and **G3 FAILS** (δ
+bottoms at 0.37, never near 0; BKM finite). **Verdict: INCONCLUSIVE / no blowup
+evidence at accessible resolution** — the gates correctly flag a resolution-limited
+inviscid cascade rather than pass a false positive. (A real near-singularity study
+needs N≳512 / FFTW; the established result is that the gate protocol returns the
+honest NULL.) The decline *decelerates*, weakly consistent with (not evidence for)
+the literature's no-finite-time-singularity reading.
+- Evidence: computed. **Status: :tested (null result). Scope: inviscid-3D-truncation
+  — NOT the PDE.** `:proved` count unchanged (0).
+- Depends_on: NS-010 (Stage 1c-3D Step 1), NS-004 (BKM gate T-06), NS-031 (gates).
+- Source: `scripts/spectral_3d_blowup_candidate.jl` (+ `.out.txt`).
+
+**NS-033 — Geometric structure of the NS state-space manifold (4-slice study).**
+A CFS-style geometric reconnaissance (exact, no resolution wall) of the Euler/NS
+truncations' state space as a Lie–Poisson manifold foliated by the physical
+invariants:
+- **Slice 1 (coadjoint orbit, exact):** the triad's state space is the Euler
+  rigid body — Casimir=energy sphere, helicity-Hamiltonian polhodes; middle leg =
+  saddle (cascade donor), homoclinic separatrix, invariants to ~1e-13.
+- **Slice 2 (edge manifold, MFE):** laminar|turbulent boundary located by edge
+  tracking; logarithmic critical slowing (σ≈0.19); edge state shear+streak
+  dominated. **Correction: the edge-manifold normal (the geometric "gate") is
+  multi-mode and the roll a3 is ~TANGENT — the naive "a3=gate" is refuted; the
+  NS-023 committor-gate is a distinct conditional notion (two notions, not one).**
+- **Slice 3 (invariant/scaling quotient):** rotation-invariant scalars (E,Ω,P,H to
+  1e-15); the scaling (NS-002) non-compact direction makes E,Ω,P gauge — only
+  scale-invariant H and E·Ω descend. **Supercriticality = energy's physical
+  exponent −1, which requires the domain (λ⁻³) rescaling, not field-scaling alone.**
+- **Slice 4 (Arnold curvature):** sectional curvature via Koszul, **verified κ≡¼
+  on bi-invariant SO(3)**; the anisotropic rigid-body metric has a negative plane
+  (κ(2,3)=−0.91); Lyapunov λ>0 on the chaotic MFE saddle vs ≈0 on the integrable
+  triad — Arnold's unpredictability, measured. (Slices 1 & 4 = one rigid body, two
+  sides.)
+- Evidence: computed (exact where stated; curvature verified). **Status: :tested.
+  Scope: geometry of finite truncations — NOT the PDE.** `:proved` unchanged (0).
+- Depends_on: NS-021, NS-022, NS-010, NS-002.
+- Source: `scripts/manifold_{1,2,3,4}_*.jl` (+ `.out.txt`), `docs/manifold_study_companion.md`.
 
 ---
 

@@ -1,0 +1,71 @@
+════════════════════════════════════════════════════════════════════════════════
+  spectral_3d_blowup_candidate.jl — NS-010 Stage 1c-3D STEP 2: BLOWUP HUNT (GATED)
+  (Scope: 3D inviscid-Euler pseudospectral truncation. NOT the PDE. Honest default: NULL.)
+  Candidate: inviscid Taylor–Green (Brachet 1983), vortex stretching unopposed.
+  Gates: G1 RESOLVED (E conserved), G2 CONVERGED (δ agrees N=32 vs 64), G3 CO-MOVING (BKM).
+════════════════════════════════════════════════════════════════════════════════
+
+  Running inviscid TGV at N=32 and N=64 (this is the resolution-limited part)…
+
+  N=64 trajectory (the finer grid):
+    t      E/E0         tail_frac  Z/Z0       ‖ω‖∞      δ(t)       BKM      
+    0.00   1.000000     5.8e-31    1.000      2.000     —          0.00     
+    0.25   1.000000     1.9e-27    1.007      1.969     2.099      0.50     
+    0.50   1.000000     9.1e-20    1.027      1.880     1.476      0.98     
+    0.75   1.000000     5.2e-15    1.061      1.745     1.132      1.43     
+    1.00   1.000000     8.4e-12    1.112      1.577     0.908      1.85     
+    1.25   1.000000     1.5e-09    1.181      1.393     0.754      2.22     
+    1.50   1.000000     6.3e-08    1.272      1.410     0.647      2.57     
+    1.75   1.000000     9.5e-07    1.387      1.619     0.571      2.95     
+    2.00   1.000000     7.0e-06    1.532      1.881     0.516      3.38     
+    2.25   1.000000     3.0e-05    1.710      2.162     0.472      3.89     
+    2.50   1.000000     8.8e-05    1.927      2.624     0.435      4.49     
+    2.75   1.000000     2.0e-04    2.188      3.206     0.403      5.22     
+    3.00   1.000000     3.8e-04    2.503      3.995     0.374      6.12     
+    3.25   1.000000     6.8e-04    2.885      5.263     0.353      7.27     
+    3.50   1.000000     1.3e-03    3.364      6.194     0.332      8.71     
+    3.75   1.000000     2.4e-03    3.994      9.010     0.311      10.61    
+    4.00   1.000000     4.5e-03    4.862      13.685    0.290      13.44    
+    4.25   1.000000     7.8e-03    6.072      18.258    0.270      17.44    
+    4.50   1.000000     1.2e-02    7.652      20.983    0.254      22.34    
+    4.75   1.000000     1.8e-02    9.442      20.386    0.244      27.51    
+    5.00   1.000000     2.4e-02    11.188     20.170    0.237      32.58    
+
+────────────────────────────────────────────────────────────────────────────────
+  GATE EVALUATION
+────────────────────────────────────────────────────────────────────────────────
+  G1 RESOLVED: energy stays conserved (tail<1%, |E/E0−1|<1%) only up to t_res ≈ 3.00
+     (N=32: 3.00, N=64: 4.25). BEYOND t_res the inviscid cascade has hit the 2/3 cutoff —
+     δ there is a resolution artifact, not physics.
+
+  G2 CONVERGED: δ(t), N=32 vs N=64, over the RESOLVED window:
+    t      δ(N=32)      δ(N=64)      |Δ|/δ     
+    0.50   1.721        1.476        16.6      %
+    1.00   1.190        0.908        31.1      %
+    1.50   0.928        0.647        43.4      %
+    2.00   0.764        0.516        48.2      %
+    2.50   0.649        0.435        49.1      %
+    3.00   0.575        0.374        53.6      %  (past t_res — not counted)
+     ⇒ max relative δ-disagreement within the resolved window: 49%.
+
+  G3 CO-MOVING: within the resolved window, δ(N=64) bottoms at 0.374 (NOT →0);
+     BKM ∫‖ω‖∞ = 6.12 at t_res — finite and growing smoothly, no divergence.
+
+════════════════════════════════════════════════════════════════════════════════
+  VERDICT (NS-010 Stage 1c-3D, Step 2)
+════════════════════════════════════════════════════════════════════════════════
+  G1 a resolved window exists (t_res>0)............ yes
+  G2 δ converged across N within it (<10%)......... NO (max 49%)
+  G3 δ→0 (≲0.05) co-moving with BKM→∞ in it........ NO (δ_min=0.374, BKM finite)
+
+  ⇒ VERDICT: INCONCLUSIVE / NO blowup evidence at accessible resolution. The δ-decline is
+    NOT N-converged within the resolved window (G2 fails — the Step-1 δ-fit fragility) and/or
+    δ does not approach 0 before the resolution wall (G3 fails); BKM stays finite. This is the
+    CORRECT firewall outcome: the gates flag a resolution-limited inviscid cascade rather than
+    pass a false-positive singularity. A real near-singularity study needs N≳512 (FFTW) — out
+    of reach of this hermetic hand-rolled kernel; what IS established is that the gate PROTOCOL
+    correctly returns NULL here.
+
+  FIREWALL: inviscid 3D truncation, not the NS PDE. Distance to the prize: UNTOUCHED. :proved=0.
+  Even a clean δ→0 here would be Euler (ν=0), and still only suggestive — never the Clay result.
+════════════════════════════════════════════════════════════════════════════════

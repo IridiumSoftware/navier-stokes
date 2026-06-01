@@ -35,7 +35,18 @@ so Step 2 (blowup candidate) is GATED on BKM co-movement + spectral N-convergenc
 not the δ-fit alone. Distance to prize: UNTOUCHED. Epistemics capped: a 3D δ→0
 would be suggestive-in-a-truncation, never a proof.
 
-## Status summary (v0.1.8, 2026-06-01)
+**STEP-2 NULL + MANIFOLD STUDY DONE (v0.1.9, NS-032 + NS-033).** Step 2 (inviscid
+Taylor–Green blowup hunt) → **gated INCONCLUSIVE**: gates correctly flag the
+resolution limit (no false-positive blowup). Then pivoted to the EXACT geometric
+route — a 4-slice **state-space manifold study** (NS-033, no resolution wall):
+(1) coadjoint orbit (triad=rigid body, exact); (2) MFE edge manifold (log slowing;
+**"a3=gate" refuted — a3 is tangent, committor-gate ≠ edge-normal, two notions**);
+(3) invariant/scaling quotient (**supercriticality = the non-compact scaling
+direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, verified
+κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
+the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
+
+## Status summary (v0.1.9, 2026-06-01)
 
 - **`physical_invariants.md`** added — tiered invariant constraint set (Tier 1
   hard / Tier 2 phenomenology / Tier 3 established), closure-v5 / possibilistic-

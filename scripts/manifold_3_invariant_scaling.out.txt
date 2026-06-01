@@ -1,0 +1,73 @@
+════════════════════════════════════════════════════════════════════════════════
+  MANIFOLD STUDY — Slice 3: INVARIANT coordinates + the SCALING quotient
+  (Scope: geometry of a 3D truncation. NOT the PDE. Distance to prize: UNTOUCHED.)
+════════════════════════════════════════════════════════════════════════════════
+  Embed a real divergence-free state in (E,H,Ω,P); act with the symmetry group;
+  observe which invariants are scale-COVARIANT (gauge) vs scale-INVARIANT (meaningful).
+
+  state: seeded helical field (kmax=2), N=32.  div-free; H≠0.
+    E=0.500000  H=-0.443714  Ω=1.395773  P=4.444978
+
+────────────────────────────────────────────────────────────────────────────────
+  (A) ROTATION (90° about z; det=+1) — the COMPACT generator
+────────────────────────────────────────────────────────────────────────────────
+    invariant    original       rotated        Δrel      
+    E            0.500000       0.500000       1.0e-15
+    H            -0.443714      -0.443714      5.0e-16
+    Ω            1.395773       1.395773       9.5e-16
+    P            4.444978       4.444978       1.0e-15
+    ⇒ E,Ω,P (scalars) and H (PSEUDOscalar) all INVARIANT to machine precision under a
+      proper rotation. Compact symmetry ⇒ the invariants live on its quotient already;
+      H's sign is preserved (a reflection would flip it). Rotation scales: meaningful as-is.
+
+────────────────────────────────────────────────────────────────────────────────
+  (B) SCALING u↦λu(λx) — the NON-COMPACT generator (NS-002)
+────────────────────────────────────────────────────────────────────────────────
+    Subtlety (got this right after a first wrong pass): the mode-shift k→λk on a FIXED
+    torus with a FIXED mean gives the FIELD-frame exponents E~λ², H~λ³, Ω~λ⁴, P~λ⁶.
+    Verify those are EXACT (ratio Iλ/(λ^p·I₀) → 1):
+    λ      clipped  E/(λ²E₀)       H/(λ³H₀)       Ω/(λ⁴Ω₀)       P/(λ⁶P₀)      
+    2      0        1.000000       1.000000       1.000000       1.000000      
+    3      0        1.000000       1.000000       1.000000       1.000000      
+    The NS scaling symmetry ALSO rescales the DOMAIN 𝕋_{2π}→𝕋_{2π/λ} — a λ⁻³ volume
+    factor in every integral. PHYSICAL exponent = field exponent − 3:
+        E ~ λ⁻¹   (SUPERCRITICAL: negative ⇒ →0 as λ→∞)
+        H ~ λ⁰    (SCALE-INVARIANT — the topological Casimir)
+        Ω ~ λ⁺¹ ,  P ~ λ⁺³   (scale-COVARIANT)
+    ⇒ the supercriticality lives in the DOMAIN/measure scaling, not the amplitude alone —
+      you cannot see it from field-scaling on a fixed box. Scale is a genuine coordinate.
+
+────────────────────────────────────────────────────────────────────────────────
+  (C) THE SCALING QUOTIENT — physical exponent q of each combination (q=0 ⇒ descends)
+────────────────────────────────────────────────────────────────────────────────
+    combination      physical q     scale-invariant?
+    H                λ^0            ← YES (descends to quotient)
+    E·Ω              λ^0            ← YES (descends to quotient)
+    E                λ^-1           no (gauge)
+    Ω                λ^1            no (gauge)
+    E·√Ω             λ^-0.5         no (gauge)
+    P/Ω²             λ^1            no (gauge)
+    H/√(E·Ω)         λ^0            ← YES (descends to quotient)
+    ⇒ H (q=0) and E·Ω (q=−1+1=0) are SCALE-INVARIANT ⇒ the 'meaningful' coordinates of the
+      scaling quotient. The scale-invariant quotient is the CRITICAL level — exactly the norm
+      class (NS-002/NS-005) where regularity is decided; absolute E,Ω,P are pure gauge there.
+
+════════════════════════════════════════════════════════════════════════════════
+  READING (Slice 3 — invariant coordinates + scaling quotient)
+════════════════════════════════════════════════════════════════════════════════
+  • The symmetry group SPLITS the manifold's invariants two ways:
+    – ROTATION (compact): E,Ω,P,H are scalars/pseudoscalar ⇒ invariant. Meaningful as-is.
+    – SCALING (non-compact, NS-002): E~λ⁻¹, Ω~λ⁺¹, P~λ⁺³ are scale-COVARIANT (GAUGE);
+      only H~λ⁰ and E·Ω~λ⁰ are scale-INVARIANT and descend to the quotient.
+  • 'SOME SCALES ARE NOT MEANINGFUL' (Aaron) = the scaling-orbit directions: absolute E,Ω,P
+    are pure gauge; only scale-invariant combinations carry physics. Scale is a genuine
+    NON-COMPACT coordinate you must quotient — and the physical exponents need BOTH the
+    field-scaling AND the domain (measure) rescaling (the λ⁻³). Field-scaling alone misses it.
+  • SUPERCRITICALITY (NS-002), GEOMETRICALLY: the one Tier-1 coercive control, ENERGY, has
+    physical exponent −1 (E~λ⁻¹ → 0 as λ→∞) — gauge at small scales, so it cannot control the
+    scale-invariant (critical) quotient where blowup would live. The Step-2 resolution wall is
+    the SAME fact in numerical clothing: no finite grid resolves the scale-invariant tail.
+  • CFS RHYME (probe, not claim): invariant-coordinate + symmetry-quotient analysis is the
+    CFS method; here the invariants are NS's own physical ones. Observe; do not assert transfer.
+  • FIREWALL: 3D-truncation geometry, not the NS PDE. :proved=0; prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════

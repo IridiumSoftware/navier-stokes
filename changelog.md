@@ -1,5 +1,39 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.9 — 2026-06-01 — Step-2 gated null (NS-032) + the state-space manifold study (NS-033)
+
+**NS-032 — Stage 1c-3D Step 2, the gated blowup hunt → NULL.**
+`scripts/spectral_3d_blowup_candidate.jl`. Inviscid Taylor–Green (Brachet, the
+canonical Euler near-singularity probe), N=32 & 64, three gates (G1 resolved,
+G2 N-converged, G3 BKM co-moving). δ narrows 2.10→0.37 but **G2 fails** (~50%
+δ-disagreement across N — the Step-1 δ-fit fragility) and **G3 fails** (δ bottoms
+0.37, BKM finite). **INCONCLUSIVE — the gates correctly flag a resolution-limited
+cascade, no false-positive blowup.** Decline decelerates (weakly consistent with,
+not evidence for, no-finite-time-singularity). `:tested` null, Scope inviscid-3D.
+
+**NS-033 — the NS state-space manifold study (4 exact slices).** CFS-style
+geometric reconnaissance (no resolution wall) — `scripts/manifold_{1,2,3,4}_*.jl`
++ `docs/manifold_study_companion.md`:
+- **Slice 1 coadjoint orbit (exact):** triad = Euler rigid body; Casimir=energy
+  sphere, helicity polhodes, middle-leg saddle (cascade donor), separatrix,
+  invariants ~1e-13.
+- **Slice 2 edge manifold (MFE):** laminar|turbulent boundary, log critical
+  slowing σ≈0.19, shear+streak edge state. **CORRECTION: the edge-manifold normal
+  is multi-mode and the roll a3 is ~TANGENT — "a3=gate" refuted; the NS-023
+  committor-gate is a distinct conditional notion (two notions, not one).**
+- **Slice 3 invariant/scaling quotient:** rotation-invariant (1e-15); scaling
+  field-exponents (λ²,λ³,λ⁴,λ⁶) exact. **CORRECTION: physical exponents need the
+  λ⁻³ domain rescaling — E~λ⁻¹ supercritical, H~λ⁰ invariant; supercriticality is
+  a measure/scale fact, not amplitude. H, E·Ω descend to the critical quotient.**
+- **Slice 4 Arnold curvature:** Koszul sectional curvature **verified κ≡¼ on
+  bi-invariant SO(3)**; anisotropic rigid body has a negative plane (κ(2,3)=−0.91);
+  Lyapunov λ>0 (MFE saddle) vs ≈0 (integrable triad) = Arnold unpredictability.
+- The study **re-derives the firewall's thesis geometrically**: supercriticality =
+  the non-compact scaling direction of the invariant quotient; the cascade donor =
+  a coadjoint saddle + a negatively-curved plane. `:tested`, Scope geometry.
+- Two honest corrections recorded mid-build (Slices 2, 3), not buried.
+- Counts → 23 entries; `:proved` = 0. **Distance to prize: UNTOUCHED.**
+
 ## v0.1.8 — 2026-06-01 — NS-010 Stage 1c-3D Step 1: the 3D regularity control
 
 First 3D move — deliberately the known-regular CONTROL, not a blowup hunt.

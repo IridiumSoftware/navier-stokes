@@ -27,6 +27,8 @@ Columns: `NS-ID | Class | Evidence type | Status | Scope | Artifact / Citation`.
 | NS-025 | RELATED | external-theorem | :cited | software-ecosystems / phenomenology (NOT PDE) | Gosme, arXiv:2512.09352 (2025) — causal-symmetrization signature of operational closure; bears on NS-023/024 |
 | NS-030 | PROGRAM | argued | :argued | methodology | this repo's discipline; DESIGN §5 |
 | NS-031 | PROGRAM | computed | :tested | methodology (program self-map, NOT PDE) | `discovery/ns_obstruction_corpus.json` + `discovery/ns_triad_discovery.out.txt`; companion `docs/ns_triad_discovery_companion.md`; engine = TCE `Discovery.Triadic` via `SpecBridge` |
+| NS-032 | RESULT (null) | computed | :tested | inviscid-3D-truncation (NOT PDE) | `scripts/spectral_3d_blowup_candidate.jl` (+.out.txt) — gated blowup hunt, INCONCLUSIVE (G2/G3 fail; gates flag resolution limit, no false positive) |
+| NS-033 | GEOMETRY | computed | :tested | geometry of finite truncations (NOT PDE) | `scripts/manifold_{1,2,3,4}_*.jl` (+.out.txt); companion `docs/manifold_study_companion.md`; Slice-4 curvature verified κ≡¼ on bi-invariant SO(3) |
 
 **Coverage:** every NS-ID has a row. **No orphans:** every in-repo artifact named
 above exists under `scripts/` or `docs/`. **Status honesty:** no `:proved`; all
