@@ -115,15 +115,29 @@ computable from a spectral solution.
   spectral solver reproduce the exact CLM strip `δ(t)=ln(2/t)` to <1% (N-robust,
   N∈{512,1024,2048}), and δ→0 co-diverges with the BKM integral (T-04 PASS) at the
   vortex-stretching blowup t*=2. Validates the tool chain on the NS-004 mechanism.
-- **Stage 1c (2D control, pseudospectral):** the diagnostic correctly reports
+- **Stage 1c-2D (2D control, pseudospectral):** the diagnostic correctly reports
   REGULARITY — δ bounded (≥0.23, never →0), BKM finite, and energy/enstrophy/‖ω‖∞
   conserved to <1e-6 (2D Euler — solver-validation via the Tier-1 invariants) — thus
   DISTINGUISHING 2D regularity from CLM blowup (Stage 1b, δ→0). The 2D side of the
   NS-004 / 2D-3D-gap invariant story (`physical_invariants.md`).
+- **Stage 1c-3D Step 1 (3D control, pseudospectral — the open regime):** the 3D
+  solver (rotational form + Leray projection, hand-rolled 3D FFT, vortex stretching
+  LIVE) is VALIDATED by exact conservation of the two 3D Tier-1 Euler invariants —
+  ENERGY and **HELICITY** (both to 0.0000%, `div_max≈1e-12`); helicity is the
+  3D-specific check 2D could not give. On the viscous, well-resolved Taylor–Green
+  control the diagnostic correctly reports REGULARITY (δ bounded ≥0.605, BKM finite
+  ≈14.2, energy decays). **CAVEAT (documented):** the exponential-strip δ-fit is
+  **NOT resolution-robust in the inviscid/under-resolved regime** — it varies ~50%
+  non-monotonically across N∈{16,32,64} on a developing inviscid cascade (the fit
+  band is window-sensitive once a power-law range forms). The solver is robust; the
+  δ-slope-fit is the fragile piece — exactly where a blowup hunt operates. ⇒ any
+  Step-2 δ→0 must be gated on BKM co-movement (T-06) + true spectral N-convergence,
+  not the slope alone. Scope: 3D-truncation; still not the PDE.
 - Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983);
   `scripts/burgers_analyticity_strip.jl`, `docs/ns010_analyticity_strip_companion.md`;
   `scripts/spectral_clm_blowup.jl`, `docs/ns010_stage1b_clm_companion.md`;
-  `scripts/spectral_2d_control.jl`, `docs/ns010_stage1c_2d_companion.md`.
+  `scripts/spectral_2d_control.jl`, `docs/ns010_stage1c_2d_companion.md`;
+  `scripts/spectral_3d_control.jl`, `docs/ns010_stage1c_3d_companion.md`.
 
 **NS-011 — Complex-singularity tracking.**
 The nearest complex-space singularity (pole/branch point) of the analytic

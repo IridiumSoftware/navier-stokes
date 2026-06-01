@@ -15,7 +15,7 @@ Columns: `NS-ID | Class | Evidence type | Status | Scope | Artifact / Citation`.
 | NS-007 | OBSTRUCTION | external-theorem | :cited | PDE | Nečas–Růžička–Šverák (1996); Tsai (1998) |
 | NS-008 | OBSTRUCTION | external-theorem | :cited | PDE | Tao (2016), JAMS — averaged-NS blowup |
 | NS-009 | OBSTRUCTION | external-theorem | :cited | PDE/Euler | Constantin–E–Titi (1994); Isett (2018); BDLSV (2019); Onsager (1949) |
-| NS-010 | DIAGNOSTIC | external-theorem + computed | :tested | PDE-method (validated in 1D + 2D models) | FT(1989); SSF(1983); `burgers_analyticity_strip.jl` (T-01) + `spectral_clm_blowup.jl` (1b: T-03/T-04) + `spectral_2d_control.jl` (1c-2D: T-05 regularity control); companions ns010_*_companion.md |
+| NS-010 | DIAGNOSTIC | external-theorem + computed | :tested | PDE-method (validated in 1D + 2D + 3D-viscous-control models; δ-fit NOT resolution-robust for inviscid/under-resolved 3D — documented) | FT(1989); SSF(1983); `burgers_analyticity_strip.jl` (T-01) + `spectral_clm_blowup.jl` (1b: T-03/T-04) + `spectral_2d_control.jl` (1c-2D: T-05) + `spectral_3d_control.jl` (1c-3D: T-06/T-07 — 3D solver E+H validated, viscous-control regular, inviscid δ-fit caveat); companions ns010_*_companion.md |
 | NS-011 | DIAGNOSTIC | external-theorem + computed | :tested | PDE-method (validated in 1D-models) | SSF(1983); Matsumoto–Bec–Frisch; `burgers_analyticity_strip.jl` (T-02 inviscid) + `spectral_clm_blowup.jl` (CLM simple-pole δ=ln(2/t)) |
 | NS-012 | RESULT (live) | external-theorem | :cited | PDE (complex data) | Li & Sinai (2008), JEMS |
 | NS-013 | CONJECTURE | none | :open | PDE | — (real ⇐ complex implication open) |

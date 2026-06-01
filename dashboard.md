@@ -9,7 +9,7 @@ lives in `SPEC.md`, not here.
 below with `Scope ≠ PDE` is **not** prize progress. This line changes only when a
 `:proved`, `Scope: PDE` entry exists.
 
-## CONSOLIDATION MILESTONE (v0.1.6–v0.1.7, 2026-06-01) — pre-3D
+## MILESTONE (v0.1.6–v0.1.8, 2026-06-01) — diagnostic validated 1D/2D/3D-control
 
 The NS-010/011 diagnostic is **validated two-sided** against ground truth in 3
 regimes — blowup (Burgers 1a, CLM 1b: δ→0, BKM→∞) AND regularity (2D 1c: δ bounded,
@@ -22,11 +22,20 @@ ledger (20-node corpus → `discovery/`). The program's triadic structure: keyst
 **{NS-002,003,004}** (supercriticality+energy+BKM) @1.0; live frontier
 **{NS-011,012,013}** (complex-plane attack) @0.70; PDE bridge **{NS-003,004,010}**
 (walls→diagnostic) @0.83; the closure arc is tier-walled (zero PDE/closure mixed
-triads — engine-side reproduction of NS-024's "no PDE purchase"). This sets the 3D
-attack geometry. Next is 3D — the open regime, no ground truth (epistemics capped:
-suggestive, never proof).
+triads — engine-side reproduction of NS-024's "no PDE purchase"). This set the 3D
+attack geometry.
 
-## Status summary (v0.1.7, 2026-06-01)
+**3D CONTROL DONE (v0.1.8, Stage 1c-3D Step 1).** First 3D move — the known-regular
+*control*, not a blowup hunt. The 3D pseudospectral solver is VALIDATED (3D-Euler
+energy + HELICITY conserved to 0.0000%, div_max≈machine — the 3D Tier-1 check 2D
+lacked). Viscous Taylor–Green: diagnostic correctly reports REGULARITY (δ≥0.605,
+BKM finite). **Honest caveat carried forward:** the δ-slope-fit is NOT
+resolution-robust in the inviscid/under-resolved regime (~50% spread across N) —
+so Step 2 (blowup candidate) is GATED on BKM co-movement + spectral N-convergence,
+not the δ-fit alone. Distance to prize: UNTOUCHED. Epistemics capped: a 3D δ→0
+would be suggestive-in-a-truncation, never a proof.
+
+## Status summary (v0.1.8, 2026-06-01)
 
 - **`physical_invariants.md`** added — tiered invariant constraint set (Tier 1
   hard / Tier 2 phenomenology / Tier 3 established), closure-v5 / possibilistic-
@@ -58,18 +67,24 @@ suggestive, never proof).
      diagnostic correctly reports REGULARITY — δ bounded (≥0.23), BKM finite, Euler
      invariants conserved <1e-6 (solver-validation), NS monotone-decay. Distinguishes
      2D-regular from CLM-blowup (T-05 PASS). The 2D side of the 2D/3D invariant gap.
-   - 1c-3D. **[NEXT]** 3D pseudospectral (real NS/Euler): the OPEN regime — enstrophy
-     no longer coercive (vortex stretching ON), NO exact benchmark, δ(t)→0 would be
-     the actual question. Heavier (3D FFT); a hand-rolled 3D FFT or FFTW + `Project.toml`.
-     T-04 critical-norm (NS-005) half. Epistemics shift: suggestive-in-a-truncation,
-     never a proof. Firewall paramount. Scope: ODE-truncation → the actual problem.
-     - **Attack geometry (from the NS-031 TCE self-map):** build the 3D step as the
-       triple **(NS-002 wall) — (NS-004 BKM / NS-010 strip) — (NS-011 complex
-       singularity)**. The engine's keystone is {NS-002,003,004}; its PDE bridge is
-       {NS-003,004,010} (so a 3D δ→0 counts only if it co-moves with BKM under the
-       energy budget); its live frontier is {NS-011,012,013} (blowup is *known* for
-       complex data — track whether the singularity reaches the real axis). Known-
-       regular 3D control first, then a blowup-candidate IC, always N-converged.
+   - 1c-3D Step 1 (control). **DONE ✓** — 3D pseudospectral solver
+     (`spectral_3d_control.jl`, rotational form + Leray projection, hand-rolled 3D
+     FFT, vortex stretching LIVE). **Solver VALIDATED** by exact 3D-Euler ENERGY +
+     **HELICITY** conservation (both 0.0000%, div_max≈1e-12; T-07) — the 3D Tier-1
+     check 2D could not give. Viscous Taylor–Green control: diagnostic correctly
+     reports REGULARITY (δ≥0.605 bounded, BKM finite, energy decays; T-06 affirmed
+     regular-direction). **HONEST CAVEAT:** the δ-slope-fit is NOT resolution-robust
+     in the inviscid/under-resolved regime (~50% non-monotone spread across
+     N∈{16,32,64}; window-sensitive once a power-law range forms). Solver robust,
+     δ-fit fragile — exactly where blowup lives.
+   - 1c-3D Step 2 (blowup candidate). **[NEXT]** a blowup-candidate IC in the OPEN
+     regime — enstrophy not coercive, NO benchmark, δ(t)→0 would be the actual
+     question. **GATED (from Step 1 + NS-031):** a δ→0 counts ONLY if (a) N-converged
+     in the *spectrum itself* (not just the fitted δ — see the Step-1 caveat) AND
+     (b) co-moving with BKM ∫‖ω‖∞→∞ (NS-004, T-06), per the {NS-003,004,010} bridge.
+     Build the IC on the mechanism axis {NS-002,004,009} (band-finding #1): drive
+     vortex stretching toward the anomalous-dissipation regime. Epistemics:
+     suggestive-in-a-truncation, NEVER a proof. Firewall paramount.
 2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
    Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the
    MFE saddle: directional Granger coupling between structure (roll `a₃`) and

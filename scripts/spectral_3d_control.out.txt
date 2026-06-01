@@ -1,0 +1,82 @@
+══════════════════════════════════════════════════════════════════════════════
+  spectral_3d_control.jl — NS-010 Stage 1c-3D STEP 1: REGULARITY CONTROL
+  (Scope: 3D pseudospectral ODE-truncation. NOT the PDE, NOT a blowup claim.)
+  3D Euler conserves ENERGY + HELICITY (Tier-1). Validate the solver on those,
+  then confirm the δ-diagnostic reports REGULARITY (δ bounded, BKM finite).
+══════════════════════════════════════════════════════════════════════════════
+
+  3D-FFT roundtrip self-check: max err = 0.0e+00 ✓
+
+  (A) 3D EULER (ν=0), N=32, seeded helical IC (H≠0). Euler conserves E and H.
+    t      E/E0         H/H0         Z/Z0         ‖ω‖∞      δ(t)      div_max  
+    0.0    1.000000     1.000000     1.000000     8.978     NaN       1.3e-12  
+    0.5    1.000000     1.000000     1.463153     14.896    0.458     3.6e-12  
+    1.0    1.000000     1.000000     2.712271     22.865    0.320     5.8e-12  
+    1.5    1.000000     1.000000     4.358099     25.452    0.252     5.2e-12  
+    2.0    1.000000     1.000000     6.142104     26.193    0.190     6.7e-12  
+    2.5    1.000000     1.000000     7.649736     28.094    0.135     6.5e-12  
+    3.0    1.000000     1.000000     8.575356     28.122    0.093     6.5e-12  
+  ⇒ SOLVER VALIDATED: energy 0.0000% and HELICITY 0.0000% conserved (the Tier-1 3D check 2D
+    could not give); div_max≈machine ⇒ projection exact. Enstrophy grows 8.6× (vortex
+    stretching ON). δ DECLINES 0.46→0.09: the inviscid strip NARROWS as the cascade fills
+    modes — expected Euler physics, NOT a regularity claim (3D Euler regularity is itself open);
+    by t=3 δ·k_cut≈0.9 ⇒ nearing the N=32 resolution limit. This panel validates the
+    SOLVER (E,H exact), it is not a blowup verdict.
+
+──────────────────────────────────────────────────────────────────────────────
+  (B) N-convergence of δ(t) and invariants (Euler, helical IC): N∈{16,32,64}
+──────────────────────────────────────────────────────────────────────────────
+    t      δ  (N=16 / 32 / 64)        E/E0  (N=16 / 32 / 64)    
+    0.5    0.348 / 0.458 / 0.361      1.0000 / 1.0000 / 1.0000  
+    1.0    0.219 / 0.320 / 0.243      1.0000 / 1.0000 / 1.0000  
+    1.5    0.166 / 0.252 / 0.191      1.0000 / 1.0000 / 1.0000  
+    2.0    0.114 / 0.190 / 0.148      1.0000 / 1.0000 / 1.0000  
+  ⇒ HONEST READING: energy is conserved at EVERY N (the SOLVER is resolution-robust). But the
+    δ-FIT does NOT cleanly converge — N=16/32/64 give 0.11/0.19/0.15 at t=2 (non-monotonic,
+    ~50% spread): the exponential-slope fit is WINDOW-SENSITIVE once an inviscid cascade develops
+    a power-law range (the fit band k=2..N/3 widens with N). A real limitation of δ in the
+    inviscid/under-resolved 3D regime — so any Step-2 δ→0 must lean on BKM co-movement + true
+    spectral N-convergence, NOT the slope-fit alone. (Correction: an earlier draft of this line
+    claimed clean convergence; the data do not support it — recorded, not buried.)
+
+──────────────────────────────────────────────────────────────────────────────
+  (C) 3D NS (ν=0.02), N=64, Taylor–Green vortex — the canonical regular 3D test.
+      Energy DECAYS; enstrophy GROWS-then-decays (vortex stretching then dissipation); H≡0.
+──────────────────────────────────────────────────────────────────────────────
+    t      E/E0         Z/Z0         ‖ω‖∞         δ(t)      BKM ∫‖ω‖∞
+    0.0    1.000000     1.000000     2.000        NaN       0.00     
+    0.5    0.941298     0.964292     1.833        1.558     0.96     
+    1.0    0.883538     0.966082     1.532        1.052     1.80     
+    1.5    0.824910     0.990686     1.218        0.833     2.49     
+    2.0    0.764528     1.021635     1.341        0.731     3.13     
+    2.5    0.702528     1.042088     1.524        0.684     3.84     
+    3.0    0.639920     1.040717     1.711        0.660     4.65     
+    3.5    0.578143     1.014498     1.863        0.641     5.55     
+    4.0    0.518617     0.966533     1.966        0.624     6.50     
+    4.5    0.462479     0.902578     2.061        0.612     7.51     
+    5.0    0.410505     0.828693     2.097        0.606     8.55     
+    5.5    0.363127     0.750186     2.079        0.605     9.59     
+    6.0    0.320489     0.671315     2.017        0.609     10.62    
+    6.5    0.282513     0.595253     1.922        0.618     11.60    
+    7.0    0.248959     0.524147     1.807        0.629     12.53    
+    7.5    0.219491     0.459237     1.681        0.641     13.41    
+    8.0    0.193716     0.401043     1.552        0.656     14.21    
+  ⇒ energy monotonically DECAYS; enstrophy peaks then decays; δ BOUNDED (min 0.605>0,
+    never→0); ‖ω‖∞ finite ⇒ BKM ∫‖ω‖∞ FINITE ⇒ NO blowup. The diagnostic correctly reports
+    REGULARITY on a genuinely 3D, vortex-stretching, dynamically-rich flow. Here the fit is CLEAN
+    (viscous exponential tail well-resolved: δ·k_cut≈13≫1) — unlike the inviscid (B).
+
+══════════════════════════════════════════════════════════════════════════════
+  READING (NS-010 Stage 1c-3D, Step 1 — control)
+══════════════════════════════════════════════════════════════════════════════
+  • 3D SOLVER VALIDATED: conserves energy AND helicity (Euler) to ~6 digits, div_max≈machine.
+    Helicity conservation is the 3D-specific Tier-1 check (vortex stretching is live) — 2D had none.
+  • In the VISCOUS, well-resolved control (Taylor–Green, C) the δ-diagnostic correctly reports
+    REGULARITY: δ bounded (≥0.60, never→0), BKM finite, energy decays, clean exponential tail.
+  • CAVEAT (honest): in the INVISCID developing-cascade run (B) the δ-FIT does NOT converge
+    cleanly across N — it is window-sensitive once a power-law range forms. The solver is fine
+    (E,H exact); the slope-FIT is the fragile piece — exactly the regime a blowup hunt lives in.
+  • Step 2 (blowup-candidate IC) is therefore gated on BKM co-movement (NS-004) + true spectral
+    N-convergence per the {NS-003,004,010} bridge (NS-031); a δ→0 slope alone is NOT evidence.
+  • Distance to the prize: UNTOUCHED. Scope: 3D truncation, not the PDE.
+══════════════════════════════════════════════════════════════════════════════

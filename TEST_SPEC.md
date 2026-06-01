@@ -34,8 +34,19 @@ Tiers of check (strongest first):
 | **T-03** truncation honesty | **PASS (with correction).** Stage 1b (CLM): δ_spectral N-robust to <0.1% for N∈{512,1024,2048} through t=1.98 (δ→0.010). A *predicted* small-N breakdown did NOT occur — the spectrum-slope fit is robust to cutoff under-resolution (recorded honestly). Error shown vs N; no silent truncation. | convergence |
 | **T-04** obstruction co-movement | **PASS (BKM half, CLM).** Stage 1b: δ(t)→0 co-diverges with the BKM integral ∫‖ω‖∞→∞ at the same t*=2 (exact). The NS *critical-norm* (NS-005) half is a 3D-NS test — pending the 3D escalation (no exact benchmark). | cross-method |
 | **T-05** 2D regularity control | **PASS.** 2D Euler/NS pseudospectral (`spectral_2d_control.jl`): δ bounded (≥0.23, never→0), BKM finite, and energy+enstrophy+‖ω‖∞ conserved to <1e-6 (Euler, solver-validation) / monotone decay (NS). The diagnostic correctly reports REGULARITY — distinguishing it from CLM blowup (δ→0). Validates the tool before 3D. | exact-invariant + control |
+| **T-07** 3D solver validation | **PASS.** 3D pseudospectral Euler (`spectral_3d_control.jl`, rotational form + Leray projection, hand-rolled 3D FFT): on a seeded helical IC, energy AND **helicity** conserved to 0.0000% and `div_max≈1e-12` (N=32, T=3) — the 3D-specific Tier-1 check (vortex stretching live; 2D had none). | exact-invariant |
+| **T-06** BKM co-movement gate (3D) | **DEFINED; affirmed in the regular direction.** Any reported 3D δ→0 must co-move with ∫‖ω‖∞→∞ (NS-004), else reject as a resolution artifact. Stage 1c-3D (C): viscous Taylor–Green is regular ⇒ δ bounded (≥0.605) **and** BKM finite (≈14.2) — the two move together in the regular direction. The blowup direction is the Step-2 test. | cross-method (gate) |
 
-**Firewall in testing.** Passing T-01..T-04 promotes NS-010/011 to `:tested` with
-`Scope: 1D-model` / `ODE-truncation` — **never** to a PDE statement. A PDE claim
-would require a separate convergence/limit argument, which is out of scope for a
-diagnostic and would be its own (currently nonexistent) `:proved` entry.
+**The δ-fit is NOT resolution-robust in the inviscid/under-resolved regime
+(honest caveat, Stage 1c-3D panel B).** The exponential-strip slope-fit varies
+~50% non-monotonically across N∈{16,32,64} on an inviscid developing-cascade
+field, because the fit band `k=2..N/3` is window-sensitive once a power-law range
+forms. The *solver* is resolution-robust (energy/helicity exact at every N); the
+*δ-slope-fit* is not, in that regime. T-06 + spectral N-convergence (not the
+fitted δ alone) are therefore mandatory for any Step-2 δ→0 reading.
+
+**Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
+`Scope: 1D-model` / `ODE-truncation` / `3D-truncation` — **never** to a PDE
+statement. A PDE claim would require a separate convergence/limit argument, which
+is out of scope for a diagnostic and would be its own (currently nonexistent)
+`:proved` entry.

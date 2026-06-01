@@ -1,5 +1,35 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.8 — 2026-06-01 — NS-010 Stage 1c-3D Step 1: the 3D regularity control
+
+First 3D move — deliberately the known-regular CONTROL, not a blowup hunt.
+`scripts/spectral_3d_control.jl` (+ companion `docs/ns010_stage1c_3d_companion.md`):
+3D pseudospectral solver, rotational form `∂_t û = P[(u×ω)^] − νk²û` (Leray
+projection, vortex stretching LIVE), hand-rolled radix-2 3D FFT (no FFTW), RK4,
+2/3 dealias. N=1 smoke gate (`SMOKE=1`) passed before the full sweep.
+- **(A) Solver VALIDATED** — 3D Euler on a seeded helical IC conserves ENERGY and
+  **HELICITY** to 0.0000%, div_max≈1e-12 (T-07). Helicity is the 3D-specific Tier-1
+  check 2D could not provide (vortex stretching is live; enstrophy grows ~8.6×).
+- **(C) Regularity control PASS** — viscous Taylor–Green (ν=0.02, N=64): δ bounded
+  (min 0.605, never→0), BKM ∫‖ω‖∞ finite (≈14.2), energy monotonically decays,
+  enstrophy peaks-then-decays. Clean exponential tail (well-resolved). T-06 (BKM
+  co-movement) affirmed in the regular direction.
+- **(B) HONEST CORRECTION** — the exponential-strip δ-FIT does NOT cleanly converge
+  across N∈{16,32,64} on the inviscid developing-cascade run (~50% non-monotonic
+  spread); the fit band k=2..N/3 is window-sensitive once a power-law range forms.
+  Energy is conserved at every N (the SOLVER is robust; the δ-slope-FIT is the
+  fragile piece). An earlier draft script line claimed clean convergence — corrected
+  in the script + companion, not buried. Panel A's δ-decline is the expected inviscid
+  cascade (strip narrowing as enstrophy grows), NOT a regularity claim.
+- **Consequence:** Step 2 (blowup-candidate IC) is GATED on BKM co-movement (T-06)
+  + true *spectral* N-convergence, NOT the δ-slope-fit alone — the fit is fragile
+  exactly in the inviscid/under-resolved regime a blowup hunt lives in. Build the
+  Step-2 IC on the mechanism axis {NS-002,004,009} (band-finding #1).
+- Spec: NS-010/011 Scope note extended to "1D+2D+3D(viscous-control)" with the
+  δ-fit caveat documented (status stays :tested). TEST_SPEC: T-06 (BKM gate,
+  defined/affirmed-regular) + T-07 (3D solver E+H validation, PASS). Registry +
+  dashboard updated. **Distance to prize: UNTOUCHED; Scope: 3D-truncation, not the PDE.**
+
 ## v0.1.7 — 2026-06-01 — TCE self-map: triadic coordination structure of the program (NS-031)
 
 Pre-3D structural reconnaissance. Ran TCE's `Discovery.Triadic` engine (via
