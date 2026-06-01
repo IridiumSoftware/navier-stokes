@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.15 — 2026-06-01 — Synthesis write-up of the obstruction program
+
+`docs/obstruction_program_writeup.md` — a standalone preprint-style synthesis of the
+whole arc (NS-001..034), written to survive a witness pass: enthusiasm in the framing,
+rigor in the claims. Sections: the firewall frame; the walls; the validated diagnostic +
+its charted inviscid-3D limit; the honest nulls (Step 2 + N=128); **the geometric
+capstone — three routes (scaling/NS-034, coadjoint Casimir deficit, Arnold curvature)
+converging on one structural wall**; and **§6 "the residue is speaking"** — the
+closure/GPG/triad thread, fully firewalled:
+- decay-default / closure-as-achievement; the autopoietic CTMC; GPG/hypergraph-rewrite
+  substrate (Brian's Substrate→GPG→RCFS→derived, test-first/unverified).
+- **the S↔A triad rotation** (gate = weak-edge target, rotation-covariant; (M,R) gate S
+  and turbulent roll-gate A are the same triangle rotated — `closure_triad_rotation`).
+- the witness trims: convergence "real but overstated" (C1 broad / C2 dead / C3 refuted),
+  "one notion or two? → two", Slice-2 gate-is-multi-mode, Gosme NEGATIVE — **four
+  independent trims**, with an explicit **Required Witness Check (RWC-NS)** fencing any
+  load-bearing use.
+- the honest synthesis: the residue speaks a structural GRAMMAR (triadic closure,
+  rotation-covariant gate, decay-default, the recurring wall), NOT a bridge to the PDE.
+No new spec entries (synthesis of existing); `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.14 — 2026-06-01 — High-res near-singularity hunt N=128 (recreational; confirms NS-032)
 
 `scripts/blowup_highres.jl` — "just for fun" resolution push of the Step-2 hunt

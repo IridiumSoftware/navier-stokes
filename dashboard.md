@@ -46,8 +46,13 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.14, 2026-06-01)
+## Status summary (v0.1.15, 2026-06-01)
 
+- **SYNTHESIS WRITE-UP (v0.1.15):** `docs/obstruction_program_writeup.md` — the whole
+  arc as one preprint (the walls; validated diagnostic + its limit; honest nulls; the
+  geometric capstone "three routes, one wall"; and §6 "the residue is speaking" — the
+  closure/GPG/triad-rotation thread, fully firewalled with a Required Witness Check).
+  The deliverable of the program: the map of *why* 3D resists. `:proved`=0; prize UNTOUCHED.
 - **High-res hunt N=128 (v0.1.14, recreational, confirms NS-032):** pushed the Step-2
   inviscid-TGV hunt to N=128 (8× grid, 16 threads). Resolution wall moves cleanly with
   N (t_res 3.0/4.26/≥5.0); δ drifts DOWN with N (not converged, |Δ| up to 73%) —
