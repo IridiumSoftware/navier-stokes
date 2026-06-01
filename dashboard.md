@@ -9,7 +9,12 @@ lives in `SPEC.md`, not here.
 below with `Scope ≠ PDE` is **not** prize progress. This line changes only when a
 `:proved`, `Scope: PDE` entry exists.
 
-## Status summary (v0.1.0, 2026-05-31)
+## Status summary (v0.1.1, 2026-05-31)
+
+- **`physical_invariants.md`** added — tiered invariant constraint set (Tier 1
+  hard / Tier 2 phenomenology / Tier 3 established), closure-v5 / possibilistic-
+  inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
+  (enstrophy Tier-1 in 2D, battleground in 3D).
 
 - **Ledger:** 18 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
   2 DIAGNOSTIC (`:argued`/`:open`), 2 live (`:cited`/`:open`), 5 our RESULTS

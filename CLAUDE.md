@@ -62,6 +62,13 @@ Corollaries:
 6. **`docs/*_companion.md`** — permanent record of each substantive session.
 7. Source (`scripts/`) and everything else — supporting.
 
+Plus **`physical_invariants.md`** — the tiered invariant constraint set (Tier 1
+hard / Tier 2 phenomenology / Tier 3 established), the same stratified-constraint
+discipline as the closure-v5 and possibilistic-inversion invariant files. It feeds
+the obstruction entries (NS-002/003/004) and enforces, in invariant terms, the
+Scope firewall: only Tier-1 invariants may be used as hard constraints; Tier-2
+phenomenology (K41 etc.) may not.
+
 ## Evidence types & status (adapted for a math obstruction program)
 
 | Evidence type | Meaning | Status it supports |

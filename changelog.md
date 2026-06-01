@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.1 — 2026-05-31 — Physical invariants reference
+
+Added `physical_invariants.md` — the tiered invariant constraint set for NS, in
+the lineage of the closure-v5 `physical_invariants.md` and the possibilistic-
+inversion `geophysical_invariants.md`. Tier 1 (frame-independent / hard:
+incompressibility, energy inequality, momentum, scaling symmetry→supercriticality,
+Galilean/rotation symmetries, helicity & circulation [Euler-exact / NS-decaying],
+enstrophy [2D-coercive / 3D-battleground], BKM); Tier 2 (frame-dependent
+phenomenology: K41 −5/3, increment 1/3, anomalous dissipation, intermittency, Re
+thresholds, blowup scenarios — soft only, anchoring anti-pattern if hard); Tier 3
+(established theorems = the fixed end). **Load-bearing reading recorded: the 2D/3D
+regularity gap IS an invariant-tier story — enstrophy is Tier-1 coercive in 2D, the
+battleground in 3D, leaving only the supercritical energy as Tier-1 control.** The
+tier-confusion anti-pattern is the Scope firewall in invariant terms. Wired into
+`CLAUDE.md` ground-truth hierarchy and cross-referenced to `SPEC.md` NS-IDs.
+
 ## v0.1.0 — 2026-05-31 — Repository established
 
 **Founding commit.** Set up the obstruction-program scaffold for the 3D
