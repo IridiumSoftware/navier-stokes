@@ -101,6 +101,27 @@ bi-invariant SO(3).
 - Slices 1 and 4 are the **same rigid-body object** from two sides — orbit
   structure (Casimir foliation) and metric geometry (curvature).
 
+### Slice 3 — RIGOROUS follow-up (NS-034: the scaling-exponent calculus)
+The Slice-3 reading ("supercriticality = the non-compact scaling quotient") was
+the most load-bearing finding, so it was upgraded to an **exact calculus**
+(`scripts/manifold_3b_criticality.jl`). The NS dilation `D_λ` assigns every
+homogeneous norm an exact rational exponent `‖u_λ‖_X=λ^{σ_X}‖u‖_X`:
+`σ(L^q)=1−3/q`, `σ(Ḣ^s)=s−½`, `σ(L^p_tL^q_x)=1−3/q−2/p`.
+- **Classification:** CRITICAL (σ=0, scale-invariant, descends to the dilation
+  quotient) = {L³, Ḣ^{1/2}, BMO⁻¹, **Prodi–Serrin–ESS 2/p+3/q=1**}; SUPERCRITICAL
+  (σ<0) = the a-priori-controlled **energy (σ=−1)** and **dissipation (σ=−1)**.
+- **Verified:** `σ(Ḣ^s)=s−½` recovered to quadrature precision for continuous
+  λ (s=0→λ^{−½} decays; s=½→≡1 flat = critical; s=1→λ^{+½} grows); the PS borderline
+  `2/p+3/q=1` ⟺ σ=0 exactly.
+- **Supercriticality as a precise descent failure:** the regularity question is
+  scale-invariant (lives on the quotient); the controlled quantities have σ<0 (a
+  Leray bound `‖u‖_{L²}≤M` gives `‖u_λ‖_{L²}≤λ^{−½}M→0`, vacuous at small scales);
+  the regularity-deciding norms have σ=0 (uncontrolled). **Controlled σ<0, deciding
+  σ=0, no overlap — the wall, exactly. This unifies NS-002 with NS-005.**
+- The analytic exponents are **exact (algebraic)**; the entry (NS-034) is `:argued`
+  because it *frames* the obstruction (standard criticality theory, re-derived +
+  verified) and proves no regularity. `:proved` unchanged (0).
+
 ---
 
 ## §3 — Verification

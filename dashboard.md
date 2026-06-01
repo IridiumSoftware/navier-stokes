@@ -46,17 +46,18 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.9, 2026-06-01)
+## Status summary (v0.1.10, 2026-06-01)
 
 - **`physical_invariants.md`** added — tiered invariant constraint set (Tier 1
   hard / Tier 2 phenomenology / Tier 3 established), closure-v5 / possibilistic-
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 21 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
-  2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 5 our RESULTS
-  (1 `:falsified`, 3 `:tested`-with-non-PDE-Scope, 1 `:argued`), 1 RELATED
-  (`:cited`), 2 PROGRAM (`:argued` method + `:tested` TCE self-map NS-031). `:proved` = 0.
+- **Ledger:** 24 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+  2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 6 our RESULTS/FALSIFIED
+  (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
+  1 RELATED (`:cited`), 2 PROGRAM, 1 GEOMETRY (NS-033 manifold study `:tested`),
+  1 ANALYSIS (NS-034 scaling calculus `:argued`, the rigorous Slice 3). `:proved` = 0.
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.
 - **Witnessed:** the closure↔turbulence convergence trimmed to "broad/generic"

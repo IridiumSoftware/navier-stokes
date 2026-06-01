@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.10 — 2026-06-01 — Slice 3 made rigorous: the scaling-exponent calculus (NS-034)
+
+Upgraded the manifold study's most load-bearing finding ("supercriticality = the
+non-compact scaling quotient") from a torus demonstration to an **exact calculus**
+(`scripts/manifold_3b_criticality.jl`).
+- **Exact exponents** (change of variables on ℝ³): σ(L^q)=1−3/q, σ(Ḣ^s)=s−½,
+  σ(L^p_tL^q_x)=1−3/q−2/p. CRITICAL (σ=0, scale-invariant, descends to the dilation
+  quotient) = {L³, Ḣ^{1/2}, BMO⁻¹, **Prodi–Serrin 2/p+3/q=1**}; SUPERCRITICAL (σ<0)
+  = energy (σ=−1) and dissipation (σ=−1), the a-priori-controlled quantities.
+- **Verified** continuous-λ: σ(Ḣ^s)=s−½ to quadrature precision (s=0 decays λ^{−½};
+  s=½ flat ≡1 = critical; s=1 grows); PS borderline ⟺ σ=0 exactly.
+- **Supercriticality as a precise descent failure:** controlled norms σ<0 (a Leray
+  bound is vacuous as λ→∞), regularity-deciding norms σ=0 (uncontrolled), no overlap
+  = the wall. **Unifies NS-002 (supercriticality) ↔ NS-005 (critical-norm criterion).**
+- Added **NS-034** (Class ANALYSIS, evidence algebraic+computed, **:argued** — the
+  analytic exponents are exact but the entry FRAMES the obstruction, standard
+  criticality theory re-derived + verified; NOT a regularity proof). NS-002 evidence
+  strengthened to cite it. Companion Slice-3 §2 extended. Counts → 24 entries.
+  **`:proved`=0; distance to prize UNTOUCHED** (a framing of the wall, not a breach of it).
+
 ## v0.1.9 — 2026-06-01 — Step-2 gated null (NS-032) + the state-space manifold study (NS-033)
 
 **NS-032 — Stage 1c-3D Step 2, the gated blowup hunt → NULL.**

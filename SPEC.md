@@ -8,8 +8,8 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 6 our RESULTS/FALSIFIED, 1 RELATED (external), 2 PROGRAM, 1 GEOMETRY.
-`:proved` = 0. (23 entries.)
+1 CONJECTURE, 6 our RESULTS/FALSIFIED, 1 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
+1 ANALYSIS (scaling calculus). `:proved` = 0. (24 entries.)
 
 ---
 
@@ -36,8 +36,12 @@ singularity would live**. The scale-*invariant* ("critical") norms — `L³`,
 `Ḣ^{1/2}`, `BMO^{-1}` — are exactly the borderline ones, and none is globally
 controlled a priori. This supercriticality is the structural reason 3D is open
 and 2D (where the controlled enstrophy sits on the right side of scaling) is not.
-- Evidence: argued (standard). **Status: :argued.** Scope: PDE.
-- Source: standard; see Tao's expositions on criticality.
+- Evidence: argued (standard), now backed by the **exact scaling-exponent calculus
+  (NS-034)** — the criticality classification is derived and numerically verified
+  in-repo (energy σ=−1 supercritical; critical locus σ=0 = {L³, Ḣ^{1/2},
+  Prodi–Serrin 2/p+3/q=1}). **Status: :argued** (framing/no-go, not a proof). Scope: PDE.
+- Source: standard (Tao's criticality expositions); rigorous form in
+  `scripts/manifold_3b_criticality.jl` (NS-034).
 
 **NS-003 — Energy is the only coercive global control (Leray).**
 Global weak (Leray–Hopf) solutions exist for all time and obey the energy
@@ -339,6 +343,30 @@ invariants:
   Scope: geometry of finite truncations — NOT the PDE.** `:proved` unchanged (0).
 - Depends_on: NS-021, NS-022, NS-010, NS-002.
 - Source: `scripts/manifold_{1,2,3,4}_*.jl` (+ `.out.txt`), `docs/manifold_study_companion.md`.
+- **Rigorous follow-up of Slice 3:** NS-034 (the exact scaling-exponent calculus).
+
+**NS-034 — The scaling-exponent (criticality) calculus: supercriticality made exact.**
+The rigorous form of Slice 3. The NS dilation `D_λ: u↦λu(λx,λ²t)` (λ∈ℝ₊,
+NON-COMPACT) assigns every homogeneous norm an **exact rational exponent** σ_X with
+`‖u_λ‖_X=λ^{σ_X}‖u‖_X` (change of variables on ℝ³): `σ(L^q)=1−3/q`,
+`σ(Ḣ^s)=s−½`, `σ(L^p_tL^q_x)=1−3/q−2/p`. Classification: **CRITICAL** (σ=0,
+scale-invariant, **descends to the dilation quotient**) = {L³, Ḣ^{1/2}, BMO⁻¹, and
+the **Prodi–Serrin–ESS locus 2/p+3/q=1** exactly}; **SUPERCRITICAL** (σ<0) = the
+a-priori-controlled energy (σ_E=−1) and dissipation (σ=−1). **Supercriticality is
+a precise DESCENT FAILURE:** the regularity question is scale-invariant (lives on
+the quotient), but the controlled quantities have σ<0 (do not descend; a bound
+`‖u‖_{L²}≤M` gives `‖u_λ‖_{L²}≤λ^{−½}M→0` — vacuous at the small scales where a
+singularity lives), while the regularity-deciding norms have σ=0 (uncontrolled).
+Controlled σ<0, deciding σ=0, **no overlap = the wall**. This **unifies NS-002
+(supercriticality) and NS-005 (the critical-norm criterion)**: the regularity
+threshold IS the scale-invariant quotient.
+- Evidence: **algebraic** (exact scaling exponents, change of variables) +
+  **computed** (continuous-λ verification: `σ(Ḣ^s)=s−½` recovered to quadrature
+  precision; PS borderline ⟺ σ=0). **Status: :argued.** Scope: PDE (framing of the
+  obstruction — standard criticality theory re-derived + verified; **NOT** a
+  regularity proof; does not close the σ<0 / σ=0 gap). `:proved` unchanged (0).
+- Depends_on: NS-002, NS-005.
+- Source: `scripts/manifold_3b_criticality.jl` (+ `.out.txt`).
 
 ---
 
