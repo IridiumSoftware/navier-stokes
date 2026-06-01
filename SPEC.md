@@ -8,8 +8,8 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 6 our RESULTS/FALSIFIED, 1 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
-1 ANALYSIS (scaling calculus). `:proved` = 0. (24 entries.)
+1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
+1 ANALYSIS (scaling calculus). `:proved` = 0. (25 entries.)
 
 ---
 
@@ -151,6 +151,9 @@ computable from a spectral solution.
     the strain (small scales = the cutoff-sensitive part); sensitivity to the singularity *is*
     small-scale dependence. S_ω peaks ~0.18 (resolved) then decays, but the decay is
     resolution-contaminated (no clean verdict). The right OBJECT; the verdict stays resolution-gated.
+    **PRINCIPLE (NS-035, Ryan):** the diagnostic must be SCOPE-coupled (resolution-invariant), not
+    resolution-coupled — δ failed because resolution differences are epistemic (Class I); a real
+    singularity is scope-coupled (Class II), detectable only by a resolution-converged scope-divergence.
 - Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983);
   `scripts/burgers_analyticity_strip.jl`, `docs/ns010_analyticity_strip_companion.md`;
   `scripts/spectral_clm_blowup.jl`, `docs/ns010_stage1b_clm_companion.md`;
@@ -284,6 +287,36 @@ explicit: a *necessary statistical* signature *consistent with* operational clos
   Do not conflate; witness any convergence before believing it (cf. NS-024).
   ("Structural zombie" rhymes with our "self-sustaining until it is not" —
   resonance to examine in the closure domain, not a PDE bridge.)
+
+**NS-035 — Ryan: emergence is coupled to SCOPE, not level (the diagnostic principle).**
+Alex Ryan, *Emergence is coupled to scope, not level*, arXiv:nlin/0609011 (2006);
+*Complexity* (Wiley). Replaces "level" with **scope S** (the spatial/temporal extent —
+which components), **resolution R** (finest distinguishable distinction; *epistemic*),
+and state. Class I (**weak/epistemic**) emergence = macro & micro differ only in
+**resolution** (a coarse-graining map exists ⇒ a limitation of the observer). Class II
+(**novel/ontological**) emergence = differ in **scope** (present only at a minimal
+macrostate M\*, absent in any narrower scope; e.g. the Möbius χ — a resolution-independent
+topological invariant). **Why it bears (near-literal map: resolution↔grid N, scope↔domain
+integral):**
+- Gives the **principle** behind the diagnostic arc (NS-010/NS-032): the δ-slope-fit is a
+  *resolution* operation (Class I, epistemic — drifts with N, categorically blind to a
+  genuine singularity); the σ=0 invariants (helicity, E·Ω, S_ω) are *scope* quantities
+  (Class II — where novel/ontological emergence, incl. real blowup, would live). δ was the
+  WRONG CLASS.
+- The **robustness↔sensitivity tension** (Grok probe) = the scope(ontological/robust)–
+  resolution(epistemic/fine) split, irreducible.
+- **Re-reads:** helicity/the Casimirs = Ryan-novel-emergent (scope-coupled topological)
+  invariants ⇒ the Casimir deficit (Slice 6) = a deficit of ontological invariants;
+  supercriticality (NS-002/NS-034) = a resolution-coupled control vs a scope-coupled question.
+- **New criterion:** a true (Class II) singularity ⟺ a SCOPE quantity diverges and the
+  divergence CONVERGES as N→∞ (a resolution-coupled δ→0 drift is Class I, inconclusive).
+  Ryan's minimal macrostate M\* ↔ CKN (NS-006): track the minimal scope carrying the
+  production (localizing ≤1D = Class II; spreading = Class I).
+- Evidence: external-theorem (conceptual framework). **Status: :cited.** **Scope:
+  conceptual lens / methodology — NOT the PDE.** A frame on the truncations + diagnostics,
+  not a result; the interpretive claim ("blowup = Ryan-novel-emergent") is witness-gated
+  (RWC-NS). Bears on NS-010, NS-032, NS-034, NS-006. `:proved` unchanged (0).
+- Source: arXiv:nlin/0609011; companion `docs/ryan_scope_resolution_lens.md`.
 
 ---
 

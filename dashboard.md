@@ -46,8 +46,15 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.17, 2026-06-01)
+## Status summary (v0.1.18, 2026-06-01)
 
+- **RYAN SCOPE/RESOLUTION LENS (v0.1.18, NS-035):** Ryan's "emergence coupled to SCOPE
+  not level" (arXiv:nlin/0609011) gives the PRINCIPLE behind the diagnostic arc —
+  resolution=Class-I epistemic (why δ drifts/fails), scope=Class-II ontological (why the
+  σ=0 quantities are the right class; real blowup, if any, is scope-coupled). Explains the
+  robustness↔sensitivity tension; re-reads supercriticality + the Casimir deficit; new
+  criterion (Class-II = resolution-converged scope-divergence) + M\*↔CKN handle. Conceptual
+  lens, NOT PDE; `docs/ryan_scope_resolution_lens.md`. :proved=0.
 - **σ=0-DETECTOR QUESTION ANSWERED (v0.1.17):** Grok Move-1 anchored to the vortex-
   stretching **production skewness** S_ω=P/⟨|ω|²⟩^{3/2} (dΩ/dt=P verified). It's the
   RIGHT detector class — **both** resolution-robust (4.8% vs δ's 63%) **and**

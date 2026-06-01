@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.18 — 2026-06-01 — The Ryan scope/resolution lens (NS-035): the principle behind the diagnostic
+
+Recorded Alex Ryan, *Emergence is coupled to scope, not level* (arXiv:nlin/0609011,
+2006), as **NS-035 (RELATED, :cited)** + companion `docs/ryan_scope_resolution_lens.md`.
+Near-literal map (resolution↔grid N, scope↔domain integral) ⇒ it *grounds* the whole
+diagnostic arc:
+- **The principle behind σ=0:** the δ-slope-fit is a RESOLUTION operation = Ryan Class I
+  (weak/epistemic — drifts with N, categorically blind to a genuine singularity); the σ=0
+  invariants (helicity, E·Ω, S_ω) are SCOPE quantities = Class II (where novel/ontological
+  emergence, incl. real blowup, lives). **δ was the wrong CLASS** — not just fragile.
+- The **robustness↔sensitivity tension** = the scope(ontological/robust)–resolution(epistemic/
+  fine) split, irreducible.
+- **Re-reads:** helicity/Casimirs = Ryan-novel-emergent (scope-coupled topological) invariants
+  ⇒ Casimir deficit = a deficit of ontological invariants; supercriticality (NS-002/034) =
+  resolution-coupled control vs scope-coupled question.
+- **New criterion:** Class-II singularity ⟺ a SCOPE quantity diverges AND the divergence
+  CONVERGES as N→∞ (a δ→0 resolution drift is Class I, inconclusive). Ryan's minimal
+  macrostate M\* ↔ CKN (NS-006): track the minimal scope carrying the production (≤1D
+  localizing = Class II; spreading = Class I) — the next concrete diagnostic direction.
+- Conceptual lens (tighter than the witness-trimmed closure/GPG bridge, but the interpretive
+  "blowup=Ryan-novel-emergent" claim is RWC-NS-gated). NS-010 note + counts → 25 entries.
+  `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.17 — 2026-06-01 — The σ=0-detector question, answered (production skewness) + an amendment
 
 Grok's 2nd Oracle pass refined "Critical Gate Flux" (Move 1) → anchored to the
