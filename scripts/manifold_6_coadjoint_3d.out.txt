@@ -1,0 +1,54 @@
+══════════════════════════════════════════════════════════════════════════════════
+  MANIFOLD STUDY — Slice 6: 3D-Euler COADJOINT / ISOVORTICAL structure
+  (Scope: geometry of ideal flow, 2D vs 3D truncations. NOT the PDE. Prize: UNTOUCHED.)
+══════════════════════════════════════════════════════════════════════════════════
+  Euler = coadjoint-orbit flow; ω frozen-in (Lie-dragged). CASIMIRS = orbit invariants.
+  THE CASIMIR DEFICIT: 2D has ∞ (every ∫f(ω)) ⇒ rigid ⇒ regular;  3D has ~1 (helicity) ⇒
+  loose ⇒ vortex stretching unconstrained ⇒ open. This panel exhibits that difference.
+
+──────────────────────────────────────────────────────────────────────────────────
+  (B) 2D EULER — ∫f(ω) family + sorted vorticity DISTRIBUTION conserved (∞ Casimirs)
+──────────────────────────────────────────────────────────────────────────────────
+    t      ∫ω²/∫ω²₀     ∫ω⁴/∫ω⁴₀     ∫|ω|/₀       max|ω|/₀     distrib L∞  
+    0.0    1.000000     1.000000     1.000000     1.000000     0.00e+00    
+    0.5    1.000000     1.000000     0.999984     1.000000     1.21e-02    
+    1.0    1.000000     1.000000     1.000009     1.000000     1.89e-02    
+    1.5    1.000000     1.000000     0.999995     1.000000     1.88e-02    
+    2.0    1.000000     1.000000     0.999985     1.000000     1.10e-02    
+    2.5    1.000000     1.000000     0.999999     1.000000     1.83e-02    
+    3.0    1.000000     1.000000     1.000058     1.000003     1.47e-02    
+  ⇒ ALL ∫f(ω) conserved (≈1) and the sorted vorticity multiset barely moves: 2D Euler only
+    REARRANGES ω (isovortical). ∞ Casimirs ⇒ enstrophy bounded ⇒ rigid orbit ⇒ REGULAR.
+    (Small drift grows only when the enstrophy cascade reaches the 2/3 cutoff — resolution.)
+
+──────────────────────────────────────────────────────────────────────────────────
+  (C) 3D EULER — HELICITY (the Casimir) conserved, ∫|ω|² / max|ω| NOT (stretching)
+──────────────────────────────────────────────────────────────────────────────────
+    t      H/H₀ (Casimir) E/E₀         ∫|ω|²/₀      max|ω|/₀    
+    0.00   1.000000     1.000000     1.000000     1.000000    
+    0.25   1.000000     1.000000     1.078953     1.032998    
+    0.50   1.000000     1.000000     1.309317     1.296558    
+    0.75   1.000000     1.000000     1.706011     1.694955    
+    1.00   1.000000     1.000000     2.272737     2.139363    
+    1.25   1.000000     1.000000     2.996901     2.730714    
+    1.50   1.000000     1.000000     3.859655     2.853035    
+    1.75   1.000000     1.000000     4.832146     3.317989    
+    2.00   1.000000     1.000000     5.929732     3.587528    
+  ⇒ HELICITY conserved to ~machine (the topological Casimir — vortex-line linking, Moffatt),
+    energy conserved (Euler), but ENSTROPHY ∫|ω|² and max|ω| GROW: ω is STRETCHED, not merely
+    rearranged. The ∫f(|ω|) family is NOT conserved — only helicity. ONE Casimir ⇒ loose orbit.
+
+══════════════════════════════════════════════════════════════════════════════════
+  READING (Slice 6 — the coadjoint Casimir deficit)
+══════════════════════════════════════════════════════════════════════════════════
+  • Both 2D and 3D Euler are coadjoint-orbit flows (ω frozen-in). The difference is the
+    CASIMIR COUNT: 2D conserves the WHOLE vorticity distribution (∞ Casimirs ∫f(ω)) and only
+    REARRANGES ω (isovortical) ⇒ enstrophy bounded ⇒ rigid orbit ⇒ global regularity.
+  • 3D conserves essentially ONLY helicity (the topological Casimir); vortex stretching moves
+    the state along the orbit in ways the single Casimir cannot bound ⇒ ∫|ω|² unconstrained.
+  • THIS is the coadjoint-geometric root of the 2D/3D gap — the SAME wall seen three ways:
+    enstrophy non-coercive (`physical_invariants.md`), energy supercritical (Slice 3/NS-002,034),
+    and now the CASIMIR DEFICIT (∞→1). The geometry says the obstruction is structural, not incidental.
+  • FIREWALL: ideal-flow (Euler) geometry, 2D vs 3D; NOT the 3D-NS PDE (viscosity breaks the
+    Casimirs anyway). The Casimir deficit FRAMES why 3D is hard; it does not resolve it. :proved=0.
+══════════════════════════════════════════════════════════════════════════════════

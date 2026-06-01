@@ -145,6 +145,29 @@ coadjoint `B(v_k,v_l)=(k×l)(|k|²/|k−l|²)v_{k−l}`, connection
   normalization-dependent (flagged). Slices 1+4+5 are one Lie-group object — orbit,
   finite curvature, ∞-dim curvature.
 
+### Slice 6 — 3D-Euler coadjoint / isovortical structure: the CASIMIR DEFICIT (`manifold_6_coadjoint_3d.jl`)
+The geometric capstone. Euler flow is the coadjoint-orbit (Lie–Poisson) flow on the
+divergence-free fields; vorticity ω is frozen-in (Lie-dragged), so a solution stays
+on the **isovortical sheet** (coadjoint orbit) of its initial vorticity. The
+**Casimirs** (functions constant on every orbit) are the rigid invariants the
+dynamics cannot touch — and their COUNT differs starkly between 2D and 3D:
+- **2D Euler (∞ Casimirs):** ω is a scalar, only advected ⇒ *every* `∫f(ω)` is
+  conserved. Demonstrated: `∫ω²`, `∫ω⁴`, `∫|ω|`, `max|ω|` all conserved to **1.000000**,
+  and the **sorted vorticity distribution** barely moves (L∞ ~1e-2) — the flow only
+  REARRANGES ω (isovortical). ∞ Casimirs ⇒ enstrophy bounded ⇒ rigid orbit ⇒ **regular**.
+- **3D Euler (~1 Casimir):** ω is a vector, Lie-dragged AND **stretched** (ω·∇u).
+  Demonstrated: **HELICITY conserved to 1.000000** (the topological Casimir —
+  vortex-line linking, Moffatt) and energy conserved, but **∫|ω|² grows ×6 and
+  max|ω| ×3.6** over t∈[0,2] — ω is stretched, not rearranged. The `∫f(|ω|)` family
+  is NOT conserved; essentially only helicity is. One Casimir ⇒ loose orbit ⇒ vortex
+  stretching unconstrained ⇒ **the open problem**.
+- **The capstone reading:** the CASIMIR DEFICIT (∞→1) is the coadjoint-geometric
+  statement of the 2D/3D gap — the *same wall* as enstrophy non-coercivity
+  (`physical_invariants.md`) and energy supercriticality (Slice 3 / NS-002, NS-034),
+  now in orbit-invariant terms. (Honest: 3D enstrophy growth is resolution-limited,
+  shown over the resolved window; viscosity breaks the Casimirs anyway — this is
+  ideal-flow geometry, not the NS PDE.)
+
 ---
 
 ## §3 — Verification

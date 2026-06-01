@@ -355,11 +355,19 @@ invariants:
   reproduced (data, not asserted). Negative curvature ⇒ exponential geodesic
   divergence = Arnold's ~2-week weather-predictability horizon. (Slices 1,4,5 = one
   Lie-group object.)
-- Evidence: computed (exact where stated; Slice-4 curvature verified κ≡¼, Slice-5
-  verified k∥l⇒0+symmetry). **Status: :tested. Scope: geometry of 2D ideal flow /
-  finite truncations — NOT the 3D PDE.** `:proved` unchanged (0).
-- Depends_on: NS-021, NS-022, NS-010, NS-002.
-- Source: `scripts/manifold_{1,2,3,4,5}_*.jl` (+ `.out.txt`), `docs/manifold_study_companion.md`.
+- **Slice 6 (3D-Euler coadjoint / isovortical structure — the CASIMIR DEFICIT):**
+  Euler = coadjoint-orbit flow (ω frozen-in). Demonstrated exactly: **2D Euler
+  conserves the whole ∫f(ω) family** (∫ω²,∫ω⁴,∫|ω|,max|ω| to 1.000000) + the sorted
+  vorticity distribution — only REARRANGES ω (∞ Casimirs, isovortical ⇒ rigid orbit
+  ⇒ regular); **3D Euler conserves HELICITY to 1.000000** (the topological Casimir)
+  but **∫|ω|² grows ×6, max|ω| ×3.6** (vortex stretching) — only ~1 Casimir ⇒ loose
+  orbit ⇒ open. The Casimir deficit (∞→1) is the coadjoint-geometric form of the
+  2D/3D gap — same wall as enstrophy non-coercivity + energy supercriticality (NS-034).
+- Evidence: computed (exact where stated; Slice-4 κ≡¼ verified, Slice-5 k∥l⇒0+symmetry,
+  Slice-6 helicity conserved / enstrophy not). **Status: :tested. Scope: geometry of
+  2D & 3D ideal flow / finite truncations — NOT the 3D-NS PDE.** `:proved` unchanged (0).
+- Depends_on: NS-021, NS-022, NS-010, NS-002, NS-004.
+- Source: `scripts/manifold_{1,2,3,4,5,6}_*.jl` (+ `.out.txt`), `docs/manifold_study_companion.md`.
 - **Rigorous follow-up of Slice 3:** NS-034 (the exact scaling-exponent calculus).
 
 **NS-034 — The scaling-exponent (criticality) calculus: supercriticality made exact.**

@@ -46,8 +46,14 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.12, 2026-06-01)
+## Status summary (v0.1.13, 2026-06-01)
 
+- **NS-033 Slice 6 (v0.1.13) — the CASIMIR DEFICIT (coadjoint capstone):** 2D Euler
+  conserves the whole ∫f(ω) family (∞ Casimirs, only rearranges ω ⇒ rigid orbit ⇒
+  regular); 3D Euler conserves helicity (1 Casimir) but enstrophy ∫|ω|² grows ×6
+  (vortex stretching ⇒ loose orbit ⇒ open). The 2D/3D gap, in orbit-invariant terms —
+  the same wall as enstrophy non-coercivity + energy supercriticality (NS-034). Three
+  geometric routes, one wall. (Ideal-flow geometry, NOT the 3D-NS PDE.)
 - **Gosme/MFE symmetrization test (v0.1.12, NS-021×NS-025) → NEGATIVE:** the queued
   experiment is done. Gosme's maturity-symmetrization signature is NOT robustly
   reproduced in the MFE saddle (roll a₃ activity-driven; streak a₂ de-symmetrizes at

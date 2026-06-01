@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.13 — 2026-06-01 — Slice 6: 3D-Euler coadjoint/isovortical structure — the Casimir deficit
+
+`scripts/manifold_6_coadjoint_3d.jl` (extends NS-033). The geometric capstone:
+Euler = coadjoint-orbit flow (vorticity frozen-in / Lie-dragged); the 2D/3D gap is
+the **CASIMIR DEFICIT**.
+- **2D Euler (∞ Casimirs):** ∫ω², ∫ω⁴, ∫|ω|, max|ω| conserved to 1.000000 + the
+  sorted vorticity distribution preserved — the flow only REARRANGES ω (isovortical)
+  ⇒ enstrophy bounded ⇒ rigid orbit ⇒ regular.
+- **3D Euler (~1 Casimir):** HELICITY conserved to 1.000000 (topological Casimir,
+  vortex-line linking — Moffatt) + energy conserved, but ∫|ω|² grows ×6 and max|ω| ×3.6
+  over t∈[0,2] (vortex stretching) — the ∫f(|ω|) family is NOT conserved ⇒ loose orbit
+  ⇒ open.
+- **The capstone:** the Casimir deficit (∞→1) is the coadjoint-geometric statement of
+  the 2D/3D gap — the SAME wall as enstrophy non-coercivity (`physical_invariants.md`)
+  and energy supercriticality (Slice 3 / NS-002, NS-034), now in orbit-invariant terms.
+  Three independent geometric routes, one wall.
+- Compact 2D Euler inline (distinct names; spectral_2d_control has no include-guard);
+  3D via the guarded spectral_3d_control. Honest: 3D enstrophy growth resolution-limited
+  (resolved window shown); viscosity breaks the Casimirs — ideal-flow geometry, NOT NS.
+- Folded into NS-033 (now 6 slices). **`:proved`=0; distance to prize UNTOUCHED.**
+
 ## v0.1.12 — 2026-06-01 — Gosme/MFE symmetrization test (NS-021×NS-025) → NEGATIVE
 
 Ran the queued NS-025 phenomenology experiment: does Gosme's causal-symmetrization
