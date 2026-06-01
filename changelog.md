@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.16 — 2026-06-01 — Grok Oracle pass: metabolized, anchored, one nugget tested
+
+Triad protocol — Grok in the Oracle/Φ (exploratory) seat; metabolism seat anchored
+his 5 wild moves to NS and ran the one computable one. `docs/grok_oracle_exploratory_brief.md`
+(the brief), `docs/grok_oracle_anchoring_companion.md` (the integration),
+`scripts/grok_scale_invariant_probe.jl`.
+- **Anchoring:** Move 3 (mirror world) = our analyticity-strip method (NS-010..013);
+  Move 5 (fracture dimension) = CKN (NS-006); Moves 1+2 distill to a real diagnostic
+  nugget; Move 4 (substrate predicts) **walks back through the fenced bridge — not chased**;
+  the "anomaly class in H³(Diff,ℝ)" is evocative (helicity *is* cohomological,
+  supercriticality *is* anomaly-like) but **not literal** — a name, not a construction.
+- **The tested nugget (Moves 1+2):** our δ-diagnostic failed because it's a spectrum-
+  SLOPE FIT (resolution-fooled). A σ=0 (scale-invariant) diagnostic should be robust.
+  **CONFIRMED:** on one spectrally-embedded inviscid flow (same flow at N=32/64/128),
+  relative helicity ρ_H and E·Ω agree to **0.5% / 1.0%** across N where δ drifts **63%**.
+  **Honest limit:** robust ≠ singularity-DETECTOR (ρ_H just tracks Ω-growth). Open:
+  a σ=0 quantity that's *both* robust and singularity-sensitive.
+- **Honesty catch mid-test:** first run compared *different* random ICs per N (confounded —
+  ρ_H spuriously "drifted 152%"); spectral-embedding fix (verified E/H/Ω identical at t=0)
+  made it a true resolution test. Confirmed Grok's idea cleanly.
+- NS-010 gets a "better-diagnostic-class" note. No new spec entry. `:proved`=0; prize UNTOUCHED.
+
 ## v0.1.15 — 2026-06-01 — Synthesis write-up of the obstruction program
 
 `docs/obstruction_program_writeup.md` — a standalone preprint-style synthesis of the

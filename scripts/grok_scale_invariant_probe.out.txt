@@ -1,0 +1,63 @@
+════════════════════════════════════════════════════════════════════════════════════
+  grok_scale_invariant_probe.jl — is a σ=0 (scale-invariant) diagnostic resolution-robust
+  where the δ-slope-fit is NOT?  (Grok Oracle Moves 1+2, anchored. threads=16.)
+  (Scope: inviscid-Euler truncation. NOT the PDE. :proved=0; prize UNTOUCHED.)
+════════════════════════════════════════════════════════════════════════════════════
+  ran N=32   in 10 s
+  ran N=64   in 62 s
+  ran N=128  in 489 s
+
+  resolved window (tail<1% at N=64 & N=128): t ≤ 1.26
+
+────────────────────────────────────────────────────────────────────────────────────
+  RESOLUTION-ROBUSTNESS — |Δ|(N=64 vs N=128)/value, in the resolved window
+────────────────────────────────────────────────────────────────────────────────────
+    t      δ (fit)  N=64 / 128 / Δ%   ρ_H (σ=0)  N=64 / 128 / Δ% E·Ω (σ=0) Δ%          
+    0.50   0.474 / 0.328 / 45%        -0.031 / -0.031 / 0.0%     1.3151 / 1.3151 / 0.0%
+    1.00   0.310 / 0.190 / 63%        -0.023 / -0.023 / 0.5%     2.3846 / 2.4088 / 1.0%
+    1.50   0.243 / 0.150 / 62%        -0.016 / -0.016 / 5.2%     4.8365 / 5.3483 / 9.6%
+    2.00   0.202 / 0.125 / 61%        -0.012 / -0.010 / 16.5%    9.5514 / 12.9558 / 26.3%
+    2.50   0.165 / 0.102 / 61%        -0.008 / -0.006 / 38.8%    18.5269 / 35.6724 / 48.1%
+    3.00   0.130 / 0.079 / 64%        -0.006 / -0.004 / 68.3%    32.2841 / 91.4217 / 64.7%
+
+  MAX disagreement in resolved window:  δ-fit 63%   ρ_H 0.5%   E·Ω 1.0%
+
+────────────────────────────────────────────────────────────────────────────────────
+  N=128 trajectory — does ρ_H carry a scale-invariant signal? (H,E conserved; Ω grows)
+────────────────────────────────────────────────────────────────────────────────────
+    t      δ          ρ_H        Ω/Ω₀       tail      
+    0.00   —          -0.0361    1.000      0.0e+00   
+    0.26   0.561      -0.0347    1.083      4.1e-15   
+    0.50   0.328      -0.0315    1.315      2.1e-08   
+    0.75   0.234      -0.0274    1.729      7.9e-06   
+    1.00   0.190      -0.0233    2.409      1.5e-04   
+    1.26   0.167      -0.0191    3.555      9.1e-04   
+    1.50   0.150      -0.0156    5.348      3.1e-03   
+    1.75   0.137      -0.0126    8.244      8.1e-03   
+    2.00   0.125      -0.0100    12.956     1.8e-02   
+    2.26   0.114      -0.0078    21.337     3.9e-02   
+    2.50   0.102      -0.0060    35.673     7.9e-02   
+    2.75   0.090      -0.0047    59.183     1.5e-01   
+    3.00   0.079      -0.0038    91.428     2.5e-01   
+    3.26   0.068      -0.0032    128.161    3.6e-01   
+    3.50   0.059      -0.0029    159.293    4.6e-01   
+    3.75   0.052      -0.0027    182.906    5.2e-01   
+    4.00   0.046      -0.0026    199.432    5.7e-01   
+    4.26   0.041      -0.0025    211.258    6.1e-01   
+    4.50   0.037      -0.0024    219.539    6.3e-01   
+    4.75   0.034      -0.0024    226.049    6.5e-01   
+
+════════════════════════════════════════════════════════════════════════════════════
+  VERDICT — Grok's σ=0-diagnostic conjecture, anchored & tested
+════════════════════════════════════════════════════════════════════════════════════
+  • In the resolved window, the δ-slope-FIT disagrees 63% across N (the known artifact),
+    while the σ=0 invariants ρ_H and E·Ω agree to 0.5% / 1.0%.
+  • CONFIRMED (the anchored part of Grok's Move 1): a SCALE-INVARIANT (σ=0) diagnostic is
+    RESOLUTION-ROBUST where the spectrum-slope fit is not — because it is an exact integral
+    of conserved/critical quantities (helicity Casimir + E·Ω), not a fit over the cascade.
+  • HONEST LIMIT (the un-anchored part): robust ≠ a blowup DETECTOR. ρ_H simply tracks Ω-growth
+    via its denominator (H,E conserved); it does not 'see' a singularity the way δ→0 was meant to.
+    A useful σ=0 detector must be BOTH resolution-robust AND singularity-sensitive — ρ_H gives the
+    first for free, the second is still open. Grok's 'anomaly-class' object would need to supply both.
+  • FIREWALL: inviscid-Euler truncation; :proved=0; distance to the prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════

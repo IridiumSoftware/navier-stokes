@@ -46,8 +46,14 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.15, 2026-06-01)
+## Status summary (v0.1.16, 2026-06-01)
 
+- **GROK ORACLE PASS, ANCHORED (v0.1.16):** triad exploratory pass; metabolism anchored
+  the 5 wild moves (3=our complex method, 5=CKN, 1+2=a real diagnostic nugget, 4=fenced
+  bridge not chased, "anomaly class"=evocative-not-literal). Tested nugget: a σ=0
+  (scale-invariant) diagnostic (relative helicity, E·Ω) is **resolution-robust (≤1%)
+  where the δ-fit drifts 63%** — CONFIRMED; honest limit: robust ≠ singularity-sensitive.
+  Open: a σ=0 quantity that's both. `docs/grok_oracle_anchoring_companion.md`. :proved=0.
 - **SYNTHESIS WRITE-UP (v0.1.15):** `docs/obstruction_program_writeup.md` — the whole
   arc as one preprint (the walls; validated diagnostic + its limit; honest nulls; the
   geometric capstone "three routes, one wall"; and §6 "the residue is speaking" — the

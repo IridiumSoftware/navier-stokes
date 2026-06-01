@@ -138,6 +138,12 @@ computable from a spectral solution.
   δ-slope-fit is the fragile piece — exactly where a blowup hunt operates. ⇒ any
   Step-2 δ→0 must be gated on BKM co-movement (T-06) + true spectral N-convergence,
   not the slope alone. Scope: 3D-truncation; still not the PDE.
+  - **Better-diagnostic-CLASS finding (Grok-Oracle follow-up, `docs/grok_oracle_anchoring_companion.md`):**
+    σ=0 (scale-invariant) invariants — relative helicity `ρ_H=H/(2√(EΩ))` and `E·Ω` —
+    are **resolution-robust** (≤1% across N=64↔128 on one embedded flow) where the δ-fit
+    drifts 63%, because they are exact integrals of conserved/critical quantities, not
+    spectrum-slope fits. **But robust ≠ singularity-sensitive** (ρ_H just tracks Ω-growth).
+    Open: find a σ=0 quantity that is *both* robust and singularity-sensitive.
 - Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983);
   `scripts/burgers_analyticity_strip.jl`, `docs/ns010_analyticity_strip_companion.md`;
   `scripts/spectral_clm_blowup.jl`, `docs/ns010_stage1b_clm_companion.md`;
