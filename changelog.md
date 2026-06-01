@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.12 — 2026-06-01 — Gosme/MFE symmetrization test (NS-021×NS-025) → NEGATIVE
+
+Ran the queued NS-025 phenomenology experiment: does Gosme's causal-symmetrization
+signature (structure↔activity Granger coupling becomes bidirectional at maturity)
+appear in the MFE 9-mode saddle? `scripts/mfe_gosme_symmetrization.jl`.
+- Operationalization: structure = streak a₂ / roll a₃; activity = fluctuation energy
+  Σ₄..₉ aᵢ² (disjoint — avoids the q_pert⊃a₃² confound the queue note missed);
+  maturity ↦ Re (250→400); directional Granger (Geweke); symmetrization index SI.
+- Sanity passed (white noise ⇒ G≈0). **Result: NO robust maturity-symmetrization
+  signature.** Roll a₃ is activity-DRIVEN at every Re (G(A→S)≫G(S→A), SI low); streak
+  a₂ is bidirectional at low–mid Re (SI≈0.997 @Re300) but DE-symmetrizes by Re=400;
+  the proxies disagree on the trend; high-Re coupling near the noise floor. **The Gosme
+  signature is NOT reproduced** — honest negative, consistent with NS-024's broad/generic.
+- **Confirmation-bias guard:** caught and corrected an initial cherry-picked "present"
+  verdict (lenient slope-test on one proxy) → the honest mixed/negative reading.
+- Recorded under NS-025 (queued experiment DONE) + registry; no new entry (a negative
+  phenomenology probe). Scope: ODE-truncation. **`:proved`=0; distance to prize UNTOUCHED.**
+
 ## v0.1.11 — 2026-06-01 — Slice 5: Arnold curvature of SDiff(T²) (extends NS-033)
 
 The ∞-dim sibling of Slice 4 — `scripts/manifold_5_sdiff_curvature.jl`. Arnold

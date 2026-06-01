@@ -1,0 +1,43 @@
+════════════════════════════════════════════════════════════════════════════════
+  mfe_gosme_symmetrization.jl — NS-021×NS-025: Gosme symmetrization in the MFE saddle?
+  (Scope: ODE-truncation / phenomenology. NOT the PDE, NOT a closure claim. Prize: UNTOUCHED.)
+════════════════════════════════════════════════════════════════════════════════
+  STRUCTURE = streak a₂ / roll a₃ ;  ACTIVITY = fluctuation energy Σ_{4..9}aᵢ² (disjoint).
+  Directional Granger G(·→·); SYMMETRIZATION index SI=2·min/(sum)∈[0,1] (1=bidirectional).
+  Gosme: SI ↑ with maturity (here: Re ↑, the saddle gets more self-sustaining).
+
+  (0) SANITY (independent white noise): G(x→y)=0.0011  G(y→x)=0.0001  (≈0 expected ✓)
+
+────────────────────────────────────────────────────────────────────────────────
+  (A) Re-SWEEP — does structure↔activity coupling SYMMETRIZE as Re (maturity) grows?
+────────────────────────────────────────────────────────────────────────────────
+    Re     #traj   ROLL a₃: G(S→A)/G(A→S)/SI STREAK a₂: G(S→A)/G(A→S)/SI           
+    250    12       0.015 /  0.264 / 0.110       0.046 /  0.096 / 0.649
+    300    12       0.012 /  0.282 / 0.083       0.053 /  0.053 / 0.997
+    350    12       0.022 /  0.125 / 0.297       0.073 /  0.149 / 0.657
+    400    12       0.007 /  0.037 / 0.311       0.002 /  0.015 / 0.253
+
+  SI trend vs Re:  roll a₃ slope=+0.0819   streak a₂ slope=-0.1530
+  ⇒ HONEST VERDICT: the proxies DISAGREE on the trend (roll a₃ SI rises but stays LOW =
+    activity-DRIVEN throughout, G(A→S)≫G(S→A); streak a₂ SI is high mid-Re but FALLS by
+    Re=400). At Re=400 the Granger values (~0.002–0.04) are near the noise floor (~0.001),
+    so the high-'maturity' point is unreliable. ⇒ NO robust maturity-symmetrization signature.
+    (robust-both-proxies test: FAIL.)  The Gosme signature is NOT reproduced in this MFE
+    operationalization — an honest NEGATIVE, consistent with NS-024's broad/generic verdict.
+
+════════════════════════════════════════════════════════════════════════════════
+  READING (NS-021×NS-025 — Gosme symmetrization in MFE)
+════════════════════════════════════════════════════════════════════════════════
+  • Sanity passed (independent noise ⇒ G≈0). The Granger machinery is sound.
+  • RESULT — NEGATIVE / AMBIGUOUS: no robust maturity-symmetrization signature. The roll a₃
+    is activity-DRIVEN at every Re (G(A→S)≫G(S→A); SI low even if rising); the streak a₂ is
+    bidirectional at low–mid Re (SI up to 0.997 at Re=300) but DE-symmetrizes by Re=400. The
+    two proxies DISAGREE on the trend, and the high-Re coupling is near the noise floor. The
+    Gosme signature is NOT reproduced here. (Caught + corrected a cherry-picked 'present'
+    verdict — confirmation-bias guard, per the validator-bias lesson.)
+  • FIREWALL: ODE-truncation / phenomenology — NOT the 3D-NS PDE; NOT a closure claim.
+  • CAUTION (NS-025): Gosme 'symmetrization' (bidirectional causal coupling) ≠ our (M,R)
+    'structural symmetry → inert' (NS-023). Whatever the result, the two notions are NOT
+    equated here (cf. Slice 2's 'two notions, not one'). Witness any convergence (NS-024).
+  • :proved=0; distance to prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════

@@ -254,8 +254,17 @@ explicit: a *necessary statistical* signature *consistent with* operational clos
 - Relevance: (a) an *independent external operationalization* of the (M,R)/closure
   framework we modeled abstractly (NS-023); (b) a concrete, testable bridge to our
   models — *does the symmetrization signature appear in the MFE saddle?* (structure
-  = roll `a₃`, activity = perturbation energy, directional Granger coupling) →
-  queued phenomenology experiment under NS-021, Scope: ODE-truncation.
+  = streak `a₂`/roll `a₃`, activity = fluctuation energy Σ₄..₉, directional Granger).
+- **QUEUED EXPERIMENT — DONE, NEGATIVE (`scripts/mfe_gosme_symmetrization.jl`).** Ran
+  the Granger symmetrization test across Re=250..400 (Gosme's exploratory→mature ↦ Re↑).
+  Sanity passed (white noise ⇒ G≈0). **Result: NO robust maturity-symmetrization
+  signature.** The roll `a₃` is activity-DRIVEN at every Re (G(A→S)≫G(S→A); symmetrization
+  index SI low even if rising); the streak `a₂` is bidirectional at low–mid Re (SI≈0.997
+  at Re=300) but DE-symmetrizes by Re=400; the two proxies disagree on the trend, and the
+  high-Re coupling is near the noise floor. **The Gosme signature is NOT reproduced in the
+  MFE saddle** — an honest negative, consistent with NS-024's broad/generic verdict. (An
+  initial cherry-picked "present" reading was caught and corrected — confirmation-bias guard.)
+  Scope: ODE-truncation; bears on NS-021/NS-024, not the PDE.
 - **CAUTION (flagged, NOT claimed):** Gosme's "symmetrization" (bidirectional
   *causal coupling* = mature closure) is a *different sense of symmetry* from our
   (M,R) result "*structural* symmetry → inert / the seam makes it alive" (NS-023).

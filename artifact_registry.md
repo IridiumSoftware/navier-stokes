@@ -24,7 +24,7 @@ Columns: `NS-ID | Class | Evidence type | Status | Scope | Artifact / Citation`.
 | NS-022 | RESULT | computed | :tested | 3-ODE model | `scripts/triad_closure_vs_cascade.jl` |
 | NS-023 | RESULT | computed | :tested | abstract closure (separate domain) | `scripts/closure_autopoiesis_{small,structured,canon}.jl`, `closure_{knfamily_scaling,mr_gate,q102_richgate,triad_rotation,offgas}.jl` |
 | NS-024 | RESULT | argued (witnessed) | :argued | analogy (no PDE purchase) | `docs/seam_order_convergence_witness_{brief,verdict}.md` |
-| NS-025 | RELATED | external-theorem | :cited | software-ecosystems / phenomenology (NOT PDE) | Gosme, arXiv:2512.09352 (2025) — causal-symmetrization signature of operational closure; bears on NS-023/024 |
+| NS-025 | RELATED | external-theorem | :cited | software-ecosystems / phenomenology (NOT PDE) | Gosme, arXiv:2512.09352 (2025) — causal-symmetrization signature of operational closure; bears on NS-023/024. **Queued MFE test DONE → NEGATIVE:** `scripts/mfe_gosme_symmetrization.jl` (+.out.txt) — Granger symmetrization NOT reproduced in the MFE saddle (proxies disagree, near noise floor at high Re); Scope ODE-truncation |
 | NS-030 | PROGRAM | argued | :argued | methodology | this repo's discipline; DESIGN §5 |
 | NS-031 | PROGRAM | computed | :tested | methodology (program self-map, NOT PDE) | `discovery/ns_obstruction_corpus.json` + `discovery/ns_triad_discovery.out.txt`; companion `docs/ns_triad_discovery_companion.md`; engine = TCE `Discovery.Triadic` via `SpecBridge` |
 | NS-032 | RESULT (null) | computed | :tested | inviscid-3D-truncation (NOT PDE) | `scripts/spectral_3d_blowup_candidate.jl` (+.out.txt) — gated blowup hunt, INCONCLUSIVE (G2/G3 fail; gates flag resolution limit, no false positive) |

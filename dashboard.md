@@ -46,8 +46,13 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.11, 2026-06-01)
+## Status summary (v0.1.12, 2026-06-01)
 
+- **Gosme/MFE symmetrization test (v0.1.12, NS-021×NS-025) → NEGATIVE:** the queued
+  experiment is done. Gosme's maturity-symmetrization signature is NOT robustly
+  reproduced in the MFE saddle (roll a₃ activity-driven; streak a₂ de-symmetrizes at
+  high Re; proxies disagree; near noise floor). Honest negative (a cherry-picked
+  "present" verdict was caught + corrected). Scope: ODE-truncation, NOT PDE.
 - **NS-033 Slice 5 (v0.1.11):** Arnold curvature of SDiff(T²) — 2D ideal flow as
   geodesics; verified k∥l⇒flat + symmetry; sign census 84% negative (Arnold) / 9%
   positive (Misiołek), both reproduced; the geometric root of the ~2-week weather
