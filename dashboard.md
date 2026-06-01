@@ -9,7 +9,16 @@ lives in `SPEC.md`, not here.
 below with `Scope ≠ PDE` is **not** prize progress. This line changes only when a
 `:proved`, `Scope: PDE` entry exists.
 
-## Status summary (v0.1.1, 2026-05-31)
+## CONSOLIDATION MILESTONE (v0.1.6, 2026-06-01) — pre-3D
+
+The NS-010/011 diagnostic is **validated two-sided** against ground truth in 3
+regimes — blowup (Burgers 1a, CLM 1b: δ→0, BKM→∞) AND regularity (2D 1c: δ bounded,
+BKM finite) — with a hermetic FFT (1D+2D, self-checked). Internal cross-audit PASS
+(A1 spec↔registry parity, A3 artifacts exist, A4 zero `:proved`). Tool chain trusted;
+firewall loaded. See `docs/validation_milestone.md`. **Distance to prize: UNTOUCHED.**
+Next is 3D — the open regime, no ground truth (epistemics capped: suggestive, never proof).
+
+## Status summary (v0.1.6, 2026-06-01)
 
 - **`physical_invariants.md`** added — tiered invariant constraint set (Tier 1
   hard / Tier 2 phenomenology / Tier 3 established), closure-v5 / possibilistic-

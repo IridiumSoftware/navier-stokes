@@ -1,5 +1,19 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.6 — 2026-06-01 — Consolidation: validated-diagnostic milestone + internal audit
+
+Pre-3D consolidation checkpoint (`docs/validation_milestone.md`).
+- **Internal cross-audit PASS** (TCE-style): A1 spec↔registry ID parity (20 IDs),
+  A3 every referenced artifact exists (+ every `.jl` has its `.out.txt`), A4 firewall
+  intact (**zero** `:proved` status; only reserved-language mentions).
+- **Validation ladder consolidated:** the NS-010/011 diagnostic is two-sided —
+  correctly reports blowup (1a Burgers exact δ; 1b CLM exact δ + BKM co-movement)
+  AND regularity (1c 2D: δ bounded, invariants conserved <1e-6) against ground truth.
+  Hermetic radix-2 FFT (1D+2D), self-checked. Tool chain trusted before 3D.
+- Dashboard milestone recorded; distance-to-prize UNTOUCHED.
+- Open (decisions, not done here): push/remote; prune the migrated turbulence scripts
+  from TCE; and "run the TCE" prep step before the 3D escalation.
+
 ## v0.1.5 — 2026-06-01 — NS-010 Stage 1c (2D): the regularity control
 
 `scripts/spectral_2d_control.jl` (+ companion). 2D pseudospectral NS/Euler
