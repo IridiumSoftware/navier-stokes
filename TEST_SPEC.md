@@ -31,8 +31,8 @@ Tiers of check (strongest first):
 |---|---|---|
 | **T-01** Burgers δ(t) | **PASS.** Spectrum-fitted δ(t) matches the exact inviscid closed form `arccosh(1/t)−√(1−t²)` to ≤4.1% (t=0.3–0.95); shock exponent 1.519 (theory 1.5); viscous δ bounded. `burgers_analyticity_strip.jl`. | closed-form |
 | **T-02** spectrum ↔ strip | **PASS (inviscid).** The Fourier-spectrum decay rate equals the analytically-tracked nearest-singularity distance `δ(t)=Im x*`, `ξ*=i·arccosh(1/t)`. | cross-method |
-| **T-03** truncation honesty | **PARTIAL.** Run at N=4096; the fit window grows 13→891 modes as t→1. A full N-convergence sweep is **pending** before any quantitative δ near t* is promoted; flagged in the companion. | qualitative + convergence |
-| **T-04** obstruction co-movement | **PENDING** — belongs to the spectral Euler/NS truncation (Stage 1b): as `δ(t)→small`, the BKM integral (NS-004) and a critical norm (NS-005) must co-grow with the theory; inconsistency = bug, not blowup. | cross-method |
+| **T-03** truncation honesty | **PASS (with correction).** Stage 1b (CLM): δ_spectral N-robust to <0.1% for N∈{512,1024,2048} through t=1.98 (δ→0.010). A *predicted* small-N breakdown did NOT occur — the spectrum-slope fit is robust to cutoff under-resolution (recorded honestly). Error shown vs N; no silent truncation. | convergence |
+| **T-04** obstruction co-movement | **PASS (BKM half, CLM).** Stage 1b: δ(t)→0 co-diverges with the BKM integral ∫‖ω‖∞→∞ at the same t*=2 (exact). The NS *critical-norm* (NS-005) half is a 3D-NS test — pending Stage 1c (2D→3D, no exact benchmark). | cross-method |
 
 **Firewall in testing.** Passing T-01..T-04 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` — **never** to a PDE statement. A PDE claim

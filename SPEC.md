@@ -50,7 +50,9 @@ A solution smooth on `[0,T)` extends past `T` iff `∫₀ᵀ ‖ω(t)‖_{L∞} 
 finite-time singularity **requires** the vorticity-`L∞` integral to diverge —
 i.e. unbounded vortex stretching. Any blowup construction must engineer this.
 - Evidence: external-theorem. **Status: :cited.** Scope: PDE.
-- Source: Beale–Kato–Majda (1984).
+- Source: Beale–Kato–Majda (1984). *Corroborated computationally:* the δ(t)↔BKM
+  co-divergence is exhibited in the CLM vortex-stretching model (NS-010 Stage 1b,
+  T-04 PASS) — `scripts/spectral_clm_blowup.jl`. Scope of that demo: 1D-model.
 
 **NS-005 — Conditional (critical-norm) regularity: Prodi–Serrin–Ladyzhenskaya.**
 If `u ∈ L^p_t L^q_x` with `2/p + 3/q ≤ 1`, `q>3`, the solution is smooth (endpoint
@@ -109,8 +111,13 @@ computable from a spectral solution.
   shock-approach exponent 1.519 (theory 1.5). The viscous case keeps δ bounded.
 - **Scope: PDE-method, VALIDATED in a 1D-model.** The *tool* is validated; PDE-
   applicability is the cited result (Foias–Temam). The 3D-NS computation is Stage 1b.
+- **Stage 1b (CLM, pseudospectral):** the diagnostic + a real RK4/dealiased
+  spectral solver reproduce the exact CLM strip `δ(t)=ln(2/t)` to <1% (N-robust,
+  N∈{512,1024,2048}), and δ→0 co-diverges with the BKM integral (T-04 PASS) at the
+  vortex-stretching blowup t*=2. Validates the tool chain on the NS-004 mechanism.
 - Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983);
-  `scripts/burgers_analyticity_strip.jl`; `docs/ns010_analyticity_strip_companion.md`.
+  `scripts/burgers_analyticity_strip.jl`, `docs/ns010_analyticity_strip_companion.md`;
+  `scripts/spectral_clm_blowup.jl`, `docs/ns010_stage1b_clm_companion.md`.
 
 **NS-011 — Complex-singularity tracking.**
 The nearest complex-space singularity (pole/branch point) of the analytic

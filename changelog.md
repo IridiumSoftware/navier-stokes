@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.4 — 2026-06-01 — NS-010 Stage 1b: spectral solver + BKM co-movement (CLM)
+
+`scripts/spectral_clm_blowup.jl` (+ companion). Apply the validated δ(t) diagnostic
+to a *real pseudospectral solver* of the Constantin–Lax–Majda model `ω_t=ωH(ω)` —
+the 1D vortex-stretching (NS-004) analog that genuinely blows up.
+- Hand-rolled radix-2 FFT (no FFTW dependency), self-checked vs manual DFT (5e-13).
+- Derived exact CLM strip `δ(t)=ln(2/t)` (complex singularity `x*=π/2+i ln(2/t)`),
+  blowup `t*=2`, simple pole. δ_fit reproduces it exactly.
+- **T-04 PASS (BKM half):** δ→0 co-diverges with ∫‖ω‖∞→∞ at the same t*=2.
+- **T-03 PASS (with honest correction):** solver+δ N-robust to <0.1% for
+  N∈{512,1024,2048} through t=1.98. I predicted a small-N breakdown there; there is
+  none — the spectrum-slope fit is robust to cutoff under-resolution. Recorded as a
+  correction, not buried.
+- NS-010/011 stay `:tested` (now exercised on a 2nd exact benchmark + a real
+  time-stepper); NS-004 corroborated computationally.
+- **Firewall:** validates the tool chain on the vortex-stretching nonlinearity in a
+  1D model. Does NOT touch 3D-NS regularity. NEXT = Stage 1c (2D→3D, no benchmark).
+
 ## v0.1.3 — 2026-06-01 — NS-010 Stage 1a: analyticity-strip diagnostic VALIDATED
 
 `scripts/burgers_analyticity_strip.jl` (+ companion `docs/ns010_analyticity_strip_companion.md`).

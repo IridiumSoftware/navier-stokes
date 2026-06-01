@@ -32,10 +32,14 @@ below with `Scope ≠ PDE` is **not** prize progress. This line changes only whe
    - 1a. **DONE ✓** — Burgers (1D): spectrum-fitted `δ(t)` matches the exact
      `arccosh(1/t)−√(1−t²)` to ≤4.1% (T-01 PASS), 3/2-law exponent 1.519, viscous
      δ bounded. NS-010/011 → `:tested`. (`burgers_analyticity_strip.jl`.)
-   - 1b. **[NEXT]** Spectral Euler/NS truncation: apply the validated `δ(t)`
-     diagnostic; co-movement with BKM integral (NS-004) and critical norm (NS-005)
-     — TEST_SPEC T-04; full N-convergence sweep — T-03. Scope: ODE-truncation.
-   - Firewall: diagnostics in models; not a PDE statement.
+   - 1b. **DONE ✓** — pseudospectral CLM (vortex-stretching blowup, t*=2): solver +
+     δ-fit reproduce exact `δ=ln(2/t)` to <1% N-robust (T-03 PASS); δ→0 co-diverges
+     with BKM ∫‖ω‖∞ at t*=2 (T-04 PASS, BKM half). Hand-rolled FFT, self-checked.
+     (`spectral_clm_blowup.jl`.)
+   - 1c. **[NEXT]** 2D → 3D pseudospectral (real NS/Euler): apply δ(t) where there is
+     **no exact benchmark** — the open regime. Needs FFTW → `Project.toml`/`Manifest`
+     (package discipline). T-04 critical-norm (NS-005) half. Scope: ODE-truncation →
+     the actual problem. Firewall: diagnostics in models; not a PDE statement.
 2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
    Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the
    MFE saddle: directional Granger coupling between structure (roll `a₃`) and

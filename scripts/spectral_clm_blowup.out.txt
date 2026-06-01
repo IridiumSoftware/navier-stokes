@@ -1,0 +1,50 @@
+══════════════════════════════════════════════════════════════════════════════
+  spectral_clm_blowup.jl — NS-010 Stage 1b (Scope: 1D-model + spectral truncation)
+  CLM ω_t=ωH(ω): vortex-stretching blowup at t*=2, exact δ(t)=ln(2/t). Testing the solver.
+══════════════════════════════════════════════════════════════════════════════
+
+  FFT self-check: max|fft−manualDFT|=5.0e-13, roundtrip err=8.9e-16 ✓
+
+──────────────────────────────────────────────────────────────────────────────
+  (A) EXACT solution: δ(t), ‖ω‖∞(t), BKM ∫‖ω‖∞ — do δ→0 and BKM→∞ at t*=2?
+──────────────────────────────────────────────────────────────────────────────
+    t      δ_exact      δ_fit(FFT)   ‖ω‖∞         BKM ∫₀ᵗ     
+    0.40   1.60944      1.60944      1.04         0.21        
+    0.80   0.91629      0.91629      1.19         0.65        
+    1.20   0.51083      0.51083      1.56         1.21        
+    1.60   0.22314      0.22314      2.78         2.07        
+    1.80   0.10536      0.10536      5.26         2.88        
+    1.90   0.05129      0.05129      10.26        3.65        
+    1.95   0.02532      0.02532      20.25        4.42        
+  ⇒ δ_exact=ln(2/t)→0 at t*=2 (linear, simple pole); ‖ω‖∞~1/(2−t)→∞ so BKM ∫‖ω‖∞→∞.
+    δ_fit(FFT) reproduces ln(2/t). T-04 (δ↔BKM co-divergence at the SAME t*=2): PASS.
+
+──────────────────────────────────────────────────────────────────────────────
+  (B) Pseudospectral solver (RK4, 2/3-dealias): δ_spectral vs ln(2/t), N-convergence
+──────────────────────────────────────────────────────────────────────────────
+    t      | δ_spectral(N=512/1024/2048) | rel.err vs ln(2/t)        
+    1.60   | 0.2231 / 0.2231 / 0.2231   | -0.0% / +0.0% / -0.0%     
+    1.90   | 0.0513 / 0.0513 / 0.0513   | +0.0% / -0.0% / +0.0%     
+    1.95   | 0.0253 / 0.0253 / 0.0253   | +0.0% / +0.0% / -0.0%     
+    1.98   | 0.0101 / 0.0101 / 0.0101   | +0.0% / +0.0% / +0.0%     
+  (exact δ at t=1.6/1.9/1.95/1.98 = 0.2231/0.0513/0.0253/0.0101; grid scale 2π/N = 0.0123/0.0061/0.0031)
+  ⇒ T-03: the solver+diagnostic reproduce the exact strip to <1% for ALL N∈{512,1024,2048}
+    through t=1.98 (δ down to 0.010) — N-ROBUST, no resolution-induced deviation observed,
+    even where δ falls below the N=512 grid scale (0.012). [Honest correction: I predicted a
+    small-N breakdown here; there is none. The spectrum-SLOPE fit reads δ from the bulk of the
+    resolved band, so it is insensitive to under-resolution at the cutoff — the diagnostic is
+    robust.] A genuine breakdown needs δ ≲ a few grid modes (t≳1.99); not probed, to avoid
+    conflating spatial under-resolution with time-integration error near t*. No silent truncation.
+
+══════════════════════════════════════════════════════════════════════════════
+  READING (NS-010 Stage 1b)
+══════════════════════════════════════════════════════════════════════════════
+  • A real pseudospectral solver + the δ(t) diagnostic reproduce the EXACT CLM strip
+    ln(2/t) (T-03 N-convergence), and δ→0 co-moves with the BKM integral ∫‖ω‖∞→∞ at
+    the same blowup time t*=2 (T-04). The machinery works on the vortex-stretching
+    nonlinearity (the NS-004 mechanism), in a model that genuinely blows up.
+  • FIREWALL: CLM is a 1D model and the solver is a finite truncation. This validates
+    the *tool chain* (solver + δ + BKM co-movement). It does NOT touch 3D-NS regularity
+    — that is the open problem and the next escalation (2D→3D pseudospectral), where
+    there is no exact benchmark and where δ(t)→0 would be the actual question.
+══════════════════════════════════════════════════════════════════════════════
