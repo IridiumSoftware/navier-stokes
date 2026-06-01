@@ -8,7 +8,7 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 5 our RESULTS/FALSIFIED, 1 RELATED (external), 1 PROGRAM. `:proved` = 0.
+1 CONJECTURE, 5 our RESULTS/FALSIFIED, 1 RELATED (external), 2 PROGRAM. `:proved` = 0.
 
 ---
 
@@ -255,6 +255,32 @@ external witnessing of convergences. This *method* is the part that transfers to
 the other open programs (CFS, closure-quotient, possibilistic-inversion);
 substantive transfer requires per-claim scope + witness (cf. NS-024).
 - Evidence: argued. **Status: :argued.** Scope: methodology.
+
+**NS-031 — The program's own triadic coordination structure (TCE self-map).**
+Running TCE's `Discovery.Triadic` engine (via `SpecBridge`) on this obstruction
+ledger — encoded as a 20-node corpus with `deps` = the genuine logical premises,
+`layer` = program depth, and `logic` tier carrying the Scope firewall
+(`classical` = PDE-analysis domain; `other:closure` = the model arc;
+`bridge` = NS-024/NS-030 only) — yields a stable triadic structure:
+- **Keystone obstruction triad {NS-002, NS-003, NS-004} @ 1.0** (supercriticality
+  + energy-only-coercivity + BKM): the tightest coordination unit; the trio any
+  3D proof must coordinate.
+- **Live complex-plane attack triad {NS-011, NS-012, NS-013} @ 0.70**
+  (complex-singularity tracking + Li–Sinai complex blowup + the open real⇐complex
+  conjecture): the frontier.
+- **PDE bridge {NS-003, NS-004, NS-010} @ 0.83**: the walls → the validated
+  diagnostic tool (a 3D δ(t)→0 is meaningful only if it co-moves with BKM).
+- The closure arc {NS-021..025} is **tier-walled**: a programmatic scan of all
+  64 triads finds **zero** that mix the PDE-analysis tier with the closure tier;
+  the bridge NS-024 has one pairwise cross-tier edge (→NS-009) that never closes
+  a triangle — an *independent* engine-side reproduction of NS-024's witnessed
+  "broad/generic, no PDE purchase" verdict.
+- Evidence: computed (deterministic, reproducible). **Status: :tested.**
+  **Scope: methodology — a self-map of the program's dependency graph, NOT the
+  PDE.** `:proved` count unchanged (0).
+- Depends_on: NS-030 (structurally references NS-001..025).
+- Source: `discovery/ns_obstruction_corpus.json`,
+  `discovery/ns_triad_discovery.out.txt`, `docs/ns_triad_discovery_companion.md`.
 
 ---
 

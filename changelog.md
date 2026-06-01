@@ -1,5 +1,32 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.7 — 2026-06-01 — TCE self-map: triadic coordination structure of the program (NS-031)
+
+Pre-3D structural reconnaissance. Ran TCE's `Discovery.Triadic` engine (via
+`SpecBridge`, test-suite `triadic-coordination-runonspec`) on the NS obstruction
+ledger encoded as a 20-node corpus (`discovery/ns_obstruction_corpus.json`): `deps`
+= genuine logical premises from SPEC prose, `layer` = program depth, `logic` tier
+carrying the Scope firewall (`classical` PDE-analysis / `other:closure` model arc /
+`bridge` = NS-024,NS-030 only). `status: proved_conditional` is the engine's
+anchor-eligibility flag, **decoupled from the PDE-proof firewall** (`:proved` still 0).
+- **64 triads → 10 independent units** (edge-disjoint dedup). Keystone obstruction
+  triad **{NS-002,003,004} @1.0** (supercriticality+energy+BKM); pure-scaling
+  {NS-002,007,009} @1.0; closure-arc {NS-023,024,025} @1.0; Leray-energy cluster
+  {NS-005,006,008} @0.78; **live complex-plane attack triad {NS-011,012,013} @0.70**;
+  PDE bridge **{NS-003,004,010} @0.83** (walls → validated diagnostic).
+- **Firewall reproduced, not assumed:** a scan of all 64 triads finds **zero**
+  mixing the PDE-analysis tier with the closure tier; the bridge NS-024 has one
+  pairwise cross-tier edge (→NS-009) that never closes a triangle — an independent
+  engine-side reproduction of NS-024's witnessed "broad/generic, no PDE purchase."
+- NS-001 (root) and NS-021 (MFE) appear in no triad (universal-premise / most-isolated);
+  {NS-010,011,012} is subsumed by NS-013 (collapse filter).
+- Added **NS-031** (Class PROGRAM, `computed`, **:tested**, **Scope: methodology —
+  NOT PDE**), registry row, companion `docs/ns_triad_discovery_companion.md`,
+  reproducible log `discovery/ns_triad_discovery.out.txt`. Counts → 21 entries;
+  `:proved` = 0. **Sets the 3D attack geometry** (NS-002 wall — NS-004/010 — NS-011).
+- Housekeeping: TCE de-dup DONE (turbulence scripts pruned from TCE @`8fcf1b4`);
+  navier-stokes is their sole home. **Distance to prize: UNTOUCHED.**
+
 ## v0.1.6 — 2026-06-01 — Consolidation: validated-diagnostic milestone + internal audit
 
 Pre-3D consolidation checkpoint (`docs/validation_milestone.md`).

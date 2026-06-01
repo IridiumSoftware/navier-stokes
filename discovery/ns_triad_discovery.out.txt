@@ -1,0 +1,366 @@
+TCE TriadDiscovery on the NS obstruction program — reproducible run log
+engine: triadic-coordination-2.0.0 (Discovery.Triadic via SpecBridge), cabal 3.14.2.0, ghc 9.6.7
+corpus: navier-stokes/discovery/ns_obstruction_corpus.json (20 entries)
+invocation: SPEC_JSON=<corpus> [filters] cabal run triadic-coordination-runonspec
+
+================================================================================
+VIEW A — full structural map (FILTER_PROVED_ONLY=0 MIN_LAYER_SPREAD=0 MIN_KINDS=1 FILTER_DEDUP=0)
+================================================================================
+──────────────────────────────────────────────────────────────────
+  TCE SpecBridge run on: /Users/aarongreen/Desktop/navier-stokes/discovery/ns_obstruction_corpus.json
+  Mode:                   single-sort (SHOW_BANDS unset)
+  Top N:                  64
+  Min layer spread:       0
+  Min distinct kinds:     1
+  Status filter (proved-only):  False
+  Include :proved-conditional:  False
+  Edge-disjoint dedup:          False
+  Excluded members:             0
+──────────────────────────────────────────────────────────────────
+
+  Decoded entries:                            20
+  Total candidates from engine:               64
+  After exclude-members filter:               64
+  After proved-only filter:                   64
+  After layer-spread filter (≥0):           64
+  After kind-diversity filter (≥1 kinds):    64
+  After edge-disjoint dedup:                  64
+  Showing top 64:
+
+  #  1  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+  #  2  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  #  3  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  #  4  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  #  5  score=1.0
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  #  6  score=1.0
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+  #  7  score=0.9523
+      NS-024  [L4 oth:result/brg/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  #  8  score=0.9444
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  #  9  score=0.8968
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  # 10  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+  # 11  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+  # 12  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 13  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 14  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 15  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 16  score=0.8333
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+  # 17  score=0.8333
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-010  [L3 Lm/cls/P|]
+  # 18  score=0.7833
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+  # 19  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 20  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 21  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 22  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 23  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 24  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 25  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 26  score=0.7777
+      NS-007  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 27  score=0.7777
+      NS-007  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 28  score=0.7777
+      NS-008  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 29  score=0.7333
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+  # 30  score=0.7222
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+  # 31  score=0.7222
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 32  score=0.7222
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 33  score=0.7222
+      NS-002  [L1 Pr/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 34  score=0.7222
+      NS-002  [L1 Pr/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 35  score=0.7222
+      NS-002  [L1 Pr/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 36  score=0.7222
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+  # 37  score=0.7222
+      NS-003  [L1 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 38  score=0.7000
+      NS-011  [L4 Lm/cls/P|]
+      NS-012  [L5 Th/cls/P|]
+      NS-013  [L5 oth:conjecture/cls/P|]
+  # 39  score=0.7000
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  # 40  score=0.6944
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  # 41  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+  # 42  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 43  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-010  [L3 Lm/cls/P|]
+  # 44  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+  # 45  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 46  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+  # 47  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 48  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 49  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 50  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 51  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 52  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 53  score=0.6666
+      NS-004  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 54  score=0.6666
+      NS-004  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 55  score=0.6666
+      NS-004  [L1 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 56  score=0.6523
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  # 57  score=0.5555
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+  # 58  score=0.5555
+      NS-002  [L1 Pr/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 59  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+  # 60  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 61  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  # 62  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  # 63  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 64  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+
+──────────────────────────────────────────────────────────────────
+  DONE
+──────────────────────────────────────────────────────────────────
+
+================================================================================
+VIEW B — independent coordination units (edge-disjoint dedup; MIN_LAYER_SPREAD=0 MIN_KINDS=1)
+================================================================================
+  Showing top 64:
+
+  #  1  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+  #  2  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  #  3  score=1.0
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+  #  4  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  #  5  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  #  6  score=0.7777
+      NS-008  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  #  7  score=0.7000
+      NS-011  [L4 Lm/cls/P|]
+      NS-012  [L5 Th/cls/P|]
+      NS-013  [L5 oth:conjecture/cls/P|]
+  #  8  score=0.7000
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  #  9  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  # 10  score=0.5555
+      NS-003  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+
+──────────────────────────────────────────────────────────────────
+  DONE
+──────────────────────────────────────────────────────────────────
+
+================================================================================
+VIEW C — cross-domain bridges (engine default MIN_LAYER_SPREAD=2 MIN_KINDS=2, deduped)
+================================================================================
+  Showing top 40:
+
+  #  1  score=0.9444
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  #  2  score=0.8333
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-010  [L3 Lm/cls/P|]
+  #  3  score=0.6523
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+      NS-030  [L5 oth:program/brg/P|]
+
+──────────────────────────────────────────────────────────────────
+  DONE
+──────────────────────────────────────────────────────────────────
+
+================================================================================
+FIREWALL CHECK — triads mixing the PDE-analysis tier (classical) with the closure tier (other:closure):
+  (no MIXED lines above => NO PDE/closure cross-tier triad exists => firewall holds emergently)
+================================================================================

@@ -9,25 +9,34 @@ lives in `SPEC.md`, not here.
 below with `Scope ≠ PDE` is **not** prize progress. This line changes only when a
 `:proved`, `Scope: PDE` entry exists.
 
-## CONSOLIDATION MILESTONE (v0.1.6, 2026-06-01) — pre-3D
+## CONSOLIDATION MILESTONE (v0.1.6–v0.1.7, 2026-06-01) — pre-3D
 
 The NS-010/011 diagnostic is **validated two-sided** against ground truth in 3
 regimes — blowup (Burgers 1a, CLM 1b: δ→0, BKM→∞) AND regularity (2D 1c: δ bounded,
 BKM finite) — with a hermetic FFT (1D+2D, self-checked). Internal cross-audit PASS
 (A1 spec↔registry parity, A3 artifacts exist, A4 zero `:proved`). Tool chain trusted;
 firewall loaded. See `docs/validation_milestone.md`. **Distance to prize: UNTOUCHED.**
-Next is 3D — the open regime, no ground truth (epistemics capped: suggestive, never proof).
 
-## Status summary (v0.1.6, 2026-06-01)
+**TCE self-map DONE (v0.1.7, NS-031).** Ran TCE's `Discovery.Triadic` on the NS
+ledger (20-node corpus → `discovery/`). The program's triadic structure: keystone
+**{NS-002,003,004}** (supercriticality+energy+BKM) @1.0; live frontier
+**{NS-011,012,013}** (complex-plane attack) @0.70; PDE bridge **{NS-003,004,010}**
+(walls→diagnostic) @0.83; the closure arc is tier-walled (zero PDE/closure mixed
+triads — engine-side reproduction of NS-024's "no PDE purchase"). This sets the 3D
+attack geometry. Next is 3D — the open regime, no ground truth (epistemics capped:
+suggestive, never proof).
+
+## Status summary (v0.1.7, 2026-06-01)
 
 - **`physical_invariants.md`** added — tiered invariant constraint set (Tier 1
   hard / Tier 2 phenomenology / Tier 3 established), closure-v5 / possibilistic-
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 18 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
-  2 DIAGNOSTIC (`:argued`/`:open`), 2 live (`:cited`/`:open`), 5 our RESULTS
-  (1 `:falsified`, 3 `:tested`-with-non-PDE-Scope, 1 `:argued`), 1 PROGRAM.
+- **Ledger:** 21 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+  2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 5 our RESULTS
+  (1 `:falsified`, 3 `:tested`-with-non-PDE-Scope, 1 `:argued`), 1 RELATED
+  (`:cited`), 2 PROGRAM (`:argued` method + `:tested` TCE self-map NS-031). `:proved` = 0.
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.
 - **Witnessed:** the closure↔turbulence convergence trimmed to "broad/generic"
@@ -54,6 +63,13 @@ Next is 3D — the open regime, no ground truth (epistemics capped: suggestive, 
      the actual question. Heavier (3D FFT); a hand-rolled 3D FFT or FFTW + `Project.toml`.
      T-04 critical-norm (NS-005) half. Epistemics shift: suggestive-in-a-truncation,
      never a proof. Firewall paramount. Scope: ODE-truncation → the actual problem.
+     - **Attack geometry (from the NS-031 TCE self-map):** build the 3D step as the
+       triple **(NS-002 wall) — (NS-004 BKM / NS-010 strip) — (NS-011 complex
+       singularity)**. The engine's keystone is {NS-002,003,004}; its PDE bridge is
+       {NS-003,004,010} (so a 3D δ→0 counts only if it co-moves with BKM under the
+       energy budget); its live frontier is {NS-011,012,013} (blowup is *known* for
+       complex data — track whether the singularity reaches the real axis). Known-
+       regular 3D control first, then a blowup-candidate IC, always N-converged.
 2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
    Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the
    MFE saddle: directional Granger coupling between structure (roll `a₃`) and
@@ -62,8 +78,8 @@ Next is 3D — the open regime, no ground truth (epistemics capped: suggestive, 
    Gosme-vs-(M,R)-symmetry comparison caution-flagged (NS-025).
 3. Tighten the obstruction citations (page-level refs for NS-005 endpoint, NS-009
    constants) — `:cited` hygiene.
-4. Decide TCE de-duplication: the 15 scripts are also committed in TCE @79e5e35;
-   prune from TCE or mark migrated (mirror of the closure-v5 physics migration).
+4. **DONE** — TCE de-duplication: the 15 turbulence scripts + 2 seam docs pruned
+   from TCE (commit `8fcf1b4`, local-only; navier-stokes is now their sole home).
 
 ## Open gaps / honest unknowns
 

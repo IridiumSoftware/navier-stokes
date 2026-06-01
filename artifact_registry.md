@@ -26,6 +26,7 @@ Columns: `NS-ID | Class | Evidence type | Status | Scope | Artifact / Citation`.
 | NS-024 | RESULT | argued (witnessed) | :argued | analogy (no PDE purchase) | `docs/seam_order_convergence_witness_{brief,verdict}.md` |
 | NS-025 | RELATED | external-theorem | :cited | software-ecosystems / phenomenology (NOT PDE) | Gosme, arXiv:2512.09352 (2025) — causal-symmetrization signature of operational closure; bears on NS-023/024 |
 | NS-030 | PROGRAM | argued | :argued | methodology | this repo's discipline; DESIGN §5 |
+| NS-031 | PROGRAM | computed | :tested | methodology (program self-map, NOT PDE) | `discovery/ns_obstruction_corpus.json` + `discovery/ns_triad_discovery.out.txt`; companion `docs/ns_triad_discovery_companion.md`; engine = TCE `Discovery.Triadic` via `SpecBridge` |
 
 **Coverage:** every NS-ID has a row. **No orphans:** every in-repo artifact named
 above exists under `scripts/` or `docs/`. **Status honesty:** no `:proved`; all

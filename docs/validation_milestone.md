@@ -25,7 +25,7 @@ manual DFT to machine precision — hermetic, no FFTW dependency.
 ## Internal cross-audit (TCE-style A1/A3/A4) — PASS
 
 - **A1 coverage:** every `SPEC.md` NS-ID has an `artifact_registry.md` row, and vice
-  versa (20 IDs: NS-001..013, NS-020..025, NS-030).
+  versa (21 IDs: NS-001..013, NS-020..025, NS-030..031 — NS-031 added at v0.1.7).
 - **A3 artifacts:** every referenced `scripts/*.jl` and `docs/*.md` exists; every
   `.jl` has its `.out.txt`.
 - **A4 firewall:** **zero** entries with status `:proved` (the only `:proved` text is
