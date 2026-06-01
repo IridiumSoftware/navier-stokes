@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.14 — 2026-06-01 — High-res near-singularity hunt N=128 (recreational; confirms NS-032)
+
+`scripts/blowup_highres.jl` — "just for fun" resolution push of the Step-2 hunt
+(NS-032) to N=128 (2× linear, 8× grid points), hermetic hand-rolled FFT, multithreaded
+(16 cores; threaded fft3 roundtrip verified 2e-15). Inviscid Taylor–Green, T=5.
+- **Resolution wall moves cleanly with N:** t_res ≈ 3.0 / 4.26 / ≥5.0 for N=32/64/128.
+  More resolution buys more resolved cascade time (finer 2/3 cutoff), not removal.
+- **δ does NOT converge — it drifts DOWN monotonically with N** (at fixed t,
+  δ(N=32)>δ(N=64)>δ(N=128); |Δ|₆₄,₁₂₈ up to 73%, growing with time). The δ-slope-fit
+  tracks the widening fit band over the developing power-law range, not a converged
+  analyticity strip. Confirmed at a THIRD resolution — pushing N does NOT rescue the
+  δ-diagnostic for inviscid 3D. δ-decline decelerates (consistent with no finite-time TGV
+  singularity, the literature reading). BKM finite (→38), energy conserved, enstrophy ×15.
+- **Verdict UNCHANGED in kind: a higher-res INCONCLUSIVE.** Vivid demonstration of why the
+  real studies need N≳512 — the problem is genuinely hard, not just under-computed here.
+- Recorded as a recreational extension of NS-032 (no new entry); SPEC/registry noted.
+  **`:proved`=0; distance to prize UNTOUCHED.** (First file to break hermetic? No — still
+  hand-rolled FFT, no FFTW; only added: `Base.Threads` + `julia -t`.)
+
 ## v0.1.13 — 2026-06-01 — Slice 6: 3D-Euler coadjoint/isovortical structure — the Casimir deficit
 
 `scripts/manifold_6_coadjoint_3d.jl` (extends NS-033). The geometric capstone:

@@ -324,8 +324,16 @@ honest NULL.) The decline *decelerates*, weakly consistent with (not evidence fo
 the literature's no-finite-time-singularity reading.
 - Evidence: computed. **Status: :tested (null result). Scope: inviscid-3D-truncation
   — NOT the PDE.** `:proved` count unchanged (0).
+- **High-res confirmation (recreational, `scripts/blowup_highres.jl`):** pushed the
+  hunt to N=128 (2× linear, 8× grid, 16 threads, hermitic hand-rolled FFT). The
+  resolution wall moves cleanly with N (t_res ≈ 3.0/4.26/≥5.0 for N=32/64/128) — more
+  resolution buys more resolved time, not removal. δ does NOT converge: it drifts DOWN
+  monotonically with N (|Δ|₆₄,₁₂₈ up to 73%), confirming the δ-slope-fit tracks the
+  widening fit band, not a converged strip — the verdict stays a higher-res INCONCLUSIVE.
+  (Even a clean δ→0 would be inviscid Euler in a truncation; real studies need N≳512.)
 - Depends_on: NS-010 (Stage 1c-3D Step 1), NS-004 (BKM gate T-06), NS-031 (gates).
-- Source: `scripts/spectral_3d_blowup_candidate.jl` (+ `.out.txt`).
+- Source: `scripts/spectral_3d_blowup_candidate.jl` (+ `.out.txt`);
+  `scripts/blowup_highres.jl` (+ `.out.txt`, N=128 confirmation).
 
 **NS-033 — Geometric structure of the NS state-space manifold (4-slice study).**
 A CFS-style geometric reconnaissance (exact, no resolution wall) of the Euler/NS

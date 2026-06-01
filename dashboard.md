@@ -46,8 +46,13 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.13, 2026-06-01)
+## Status summary (v0.1.14, 2026-06-01)
 
+- **High-res hunt N=128 (v0.1.14, recreational, confirms NS-032):** pushed the Step-2
+  inviscid-TGV hunt to N=128 (8× grid, 16 threads). Resolution wall moves cleanly with
+  N (t_res 3.0/4.26/≥5.0); δ drifts DOWN with N (not converged, |Δ| up to 73%) —
+  pushing resolution does NOT rescue the δ-diagnostic. Higher-res INCONCLUSIVE; vivid
+  why real studies need N≳512. :proved=0, prize UNTOUCHED.
 - **NS-033 Slice 6 (v0.1.13) — the CASIMIR DEFICIT (coadjoint capstone):** 2D Euler
   conserves the whole ∫f(ω) family (∞ Casimirs, only rearranges ω ⇒ rigid orbit ⇒
   regular); 3D Euler conserves helicity (1 Casimir) but enstrophy ∫|ω|² grows ×6
