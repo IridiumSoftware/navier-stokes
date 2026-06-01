@@ -93,6 +93,7 @@ is not `PDE` unless they are a verified PDE statement (none are).
 - **FALSIFIED** — a ruled-out approach.
 - **RESULT** — our own computed finding (always with Scope).
 - **CONJECTURE** — an open conjecture worth tracking.
+- **RELATED** — external work bearing on a program entry (cited, with Scope).
 - **PROGRAM** — meta-entries about method and cross-project use.
 
 ## Language tooling & package discipline

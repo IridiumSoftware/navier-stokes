@@ -24,6 +24,7 @@ Columns: `NS-ID | Class | Evidence type | Status | Scope | Artifact / Citation`.
 | NS-022 | RESULT | computed | :tested | 3-ODE model | `scripts/triad_closure_vs_cascade.jl` |
 | NS-023 | RESULT | computed | :tested | abstract closure (separate domain) | `scripts/closure_autopoiesis_{small,structured,canon}.jl`, `closure_{knfamily_scaling,mr_gate,q102_richgate,triad_rotation,offgas}.jl` |
 | NS-024 | RESULT | argued (witnessed) | :argued | analogy (no PDE purchase) | `docs/seam_order_convergence_witness_{brief,verdict}.md` |
+| NS-025 | RELATED | external-theorem | :cited | software-ecosystems / phenomenology (NOT PDE) | Gosme, arXiv:2512.09352 (2025) — causal-symmetrization signature of operational closure; bears on NS-023/024 |
 | NS-030 | PROGRAM | argued | :argued | methodology | this repo's discipline; DESIGN §5 |
 
 **Coverage:** every NS-ID has a row. **No orphans:** every in-repo artifact named

@@ -8,7 +8,7 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 5 our RESULTS/FALSIFIED, 1 PROGRAM. `:proved` = 0.
+1 CONJECTURE, 5 our RESULTS/FALSIFIED, 1 RELATED (external), 1 PROGRAM. `:proved` = 0.
 
 ---
 
@@ -190,6 +190,39 @@ deep "is the seam's incompleteness one notion or two?" answered **two**.
 - Evidence: argued (externally witnessed). **Status: :argued.**
   **Scope: abstract structural analogy — NO analytic purchase on the PDE.**
 - Source: `docs/seam_order_convergence_witness_{brief,verdict}.md`.
+
+---
+
+## RELATED (external work bearing on the closure-theory side — NOT the PDE)
+
+**NS-025 — Gosme: causal symmetrization as an empirical signature of operational
+closure.** Anthony Gosme, *Causal symmetrization as an empirical signature of
+operational autonomy in complex systems*, arXiv:2512.09352 (Dec 2025). Empirically
+operationalizes the closure-to-efficient-causation / (M,R) / autopoiesis framework
+on **50 collaborative software ecosystems** (11,042 system-months). Order parameter
+`Γ` (structural persistence under component turnover) is **bimodal** (Hartigan dip
+p=0.0126; phase transition exploratory→mature, 1.77× variance collapse); at maturity
+**"causal symmetrization"** emerges — Granger structure↔activity coupling shifts
+0.71 (activity-driven) → 0.94 (bidirectional). A composite viability index
+(activity+structural persistence) beats activity-alone (AUC 0.88 vs 0.81), flagging
+**"structural zombies"** (sustained activity masking architectural decay). Author is
+explicit: a *necessary statistical* signature *consistent with* operational closure,
+**not** biological life or mechanistic closure; substrate-independent.
+- Evidence: external-theorem (empirical study). **Status: :cited.**
+- **Scope: software-ecosystems / phenomenology — NOT NS-PDE.** A Tier-2
+  phenomenological diagnostic (per `physical_invariants.md`); **cannot bear on the
+  prize.** Bears on NS-023/024 (the closure-theory side), not on regularity.
+- Relevance: (a) an *independent external operationalization* of the (M,R)/closure
+  framework we modeled abstractly (NS-023); (b) a concrete, testable bridge to our
+  models — *does the symmetrization signature appear in the MFE saddle?* (structure
+  = roll `a₃`, activity = perturbation energy, directional Granger coupling) →
+  queued phenomenology experiment under NS-021, Scope: ODE-truncation.
+- **CAUTION (flagged, NOT claimed):** Gosme's "symmetrization" (bidirectional
+  *causal coupling* = mature closure) is a *different sense of symmetry* from our
+  (M,R) result "*structural* symmetry → inert / the seam makes it alive" (NS-023).
+  Do not conflate; witness any convergence before believing it (cf. NS-024).
+  ("Structural zombie" rhymes with our "self-sustaining until it is not" —
+  resonance to examine in the closure domain, not a PDE bridge.)
 
 ---
 

@@ -34,9 +34,15 @@ below with `Scope ≠ PDE` is **not** prize progress. This line changes only whe
    - 1b. Spectral Euler/NS truncation: `δ(t)` via spectrum decay; co-movement with
      BKM integral (NS-004) and critical norm (NS-005). Scope: ODE-truncation.
    - Firewall: diagnostics in models; not a PDE statement.
-2. Tighten the obstruction citations (page-level refs for NS-005 endpoint, NS-009
+2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
+   Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the
+   MFE saddle: directional Granger coupling between structure (roll `a₃`) and
+   activity (perturbation energy); does it symmetrize on the self-sustaining branch
+   and collapse at relaminarization? Scope: ODE-truncation — NOT the PDE. Keep the
+   Gosme-vs-(M,R)-symmetry comparison caution-flagged (NS-025).
+3. Tighten the obstruction citations (page-level refs for NS-005 endpoint, NS-009
    constants) — `:cited` hygiene.
-3. Decide TCE de-duplication: the 15 scripts are also committed in TCE @79e5e35;
+4. Decide TCE de-duplication: the 15 scripts are also committed in TCE @79e5e35;
    prune from TCE or mark migrated (mirror of the closure-v5 physics migration).
 
 ## Open gaps / honest unknowns

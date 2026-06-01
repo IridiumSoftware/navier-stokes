@@ -1,5 +1,20 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.2 — 2026-05-31 — Log external related work (Gosme)
+
+Added **NS-025 (Class RELATED)**: Gosme, *Causal symmetrization as an empirical
+signature of operational autonomy in complex systems*, arXiv:2512.09352 (Dec 2025)
+— verified real (paper fetched; Aaron's cited title was a close paraphrase). An
+external empirical operationalization of the closure-to-efficient-causation /
+(M,R) framework on 50 software ecosystems: order parameter Γ (bimodal phase
+transition), "causal symmetrization" (Granger structure↔activity coupling 0.71→0.94
+at maturity), "structural zombies." **Scope: software-ecosystems / phenomenology —
+NOT NS-PDE; cannot bear on the prize.** Bears on NS-023/024 (closure-theory side).
+Added Class `RELATED` to `CLAUDE.md`; registry row; flagged the symmetrization-vs-
+(M,R)-symmetry comparison as caution-not-claim. Queued a phenomenology experiment:
+test whether the symmetrization signature appears in the MFE saddle (Granger
+structure=roll a₃ vs activity=perturbation energy), Scope: ODE-truncation.
+
 ## v0.1.1 — 2026-05-31 — Physical invariants reference
 
 Added `physical_invariants.md` — the tiered invariant constraint set for NS, in
