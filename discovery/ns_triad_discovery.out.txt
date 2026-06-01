@@ -364,3 +364,96 @@ VIEW C — cross-domain bridges (engine default MIN_LAYER_SPREAD=2 MIN_KINDS=2, 
 FIREWALL CHECK — triads mixing the PDE-analysis tier (classical) with the closure tier (other:closure):
   (no MIXED lines above => NO PDE/closure cross-tier triad exists => firewall holds emergently)
 ================================================================================
+
+================================================================================
+VIEW D — stratified bands (SHOW_BANDS=1 TOP_N_PER_BAND=30; FILTER_PROVED_ONLY=0 MIN_LAYER_SPREAD=0 MIN_KINDS=1)
+  HIGH score>=0.85 'multi-angle on one object' | MID [0.70,0.85) 'cross-framing invariance' | LOW [0.55,0.70) 'structural echo'
+================================================================================
+  HIGH BAND — multi-angle on one object
+  score ≥ 0.85  —  3 deduped candidates  —  showing top 30
+
+  #  1  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+  #  2  score=1.0
+      NS-002  [L1 Pr/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  #  3  score=1.0
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+
+──────────────────────────────────────────────────────────────────
+  MID BAND — cross-framing invariance
+  score in [0.7, 0.85)  —  10 deduped candidates  —  showing top 30
+
+  #  1  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+  #  2  score=0.8333
+      NS-002  [L1 Pr/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  #  3  score=0.8333
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-010  [L3 Lm/cls/P|]
+  #  4  score=0.7833
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-025  [L4 oth:related/oth:other:closure/P|]
+  #  5  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+  #  6  score=0.7777
+      NS-005  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+  #  7  score=0.7777
+      NS-007  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  #  8  score=0.7222
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+  #  9  score=0.7000
+      NS-011  [L4 Lm/cls/P|]
+      NS-012  [L5 Th/cls/P|]
+      NS-013  [L5 oth:conjecture/cls/P|]
+  # 10  score=0.7000
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-024  [L4 oth:result/brg/P|]
+      NS-030  [L5 oth:program/brg/P|]
+
+──────────────────────────────────────────────────────────────────
+  LOW BAND — convergence / structural echo
+  score in [0.55, 0.7)  —  5 deduped candidates  —  showing top 30
+
+  #  1  score=0.6944
+      NS-022  [L3 oth:result/oth:other:closure/P|]
+      NS-023  [L3 oth:result/oth:other:closure/P|]
+      NS-030  [L5 oth:program/brg/P|]
+  #  2  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+  #  3  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+  #  4  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+  #  5  score=0.6666
+      NS-003  [L1 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
+
+──────────────────────────────────────────────────────────────────
+  DONE

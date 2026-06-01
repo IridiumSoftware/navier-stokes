@@ -81,6 +81,40 @@ suggestive, never proof).
 4. **DONE** — TCE de-duplication: the 15 turbulence scripts + 2 seam docs pruned
    from TCE (commit `8fcf1b4`, local-only; navier-stokes is now their sole home).
 
+## Band-finding follow-ups (from the NS-031 TCE self-map)
+
+Eight items from the HIGH/MID/LOW band stratification (companion §2 "Band
+stratification"). MID = "cross-framing invariance" is where the actionable
+couplings sit; HIGH is foundational redundancy; LOW is structural echo (no new
+PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
+
+1. **Mechanism axis {NS-002, NS-004, NS-009} (MID @0.833, NEW).** In 3D, design
+   the blowup-candidate IC to drive vortex stretching (NS-004) *toward* the
+   anomalous-dissipation regime (NS-009) against supercriticality (NS-002) — not
+   just watch δ→0 in isolation. The "how it blows up" complement to the keystone.
+2. **PDE bridge {NS-003, NS-004, NS-010} (MID @0.833).** Make BKM co-movement the
+   *formal gate* for any 3D δ→0: add a TEST_SPEC row (T-06) asserting δ→0 ⇒
+   ∫‖ω‖∞→∞ co-divergence, else reject as a resolution artifact.
+3. **Dead-ends triple {NS-007, NS-008, NS-020} (MID @0.778, NEW).** Add a
+   "what-NOT-to-do" checklist for the 3D attack: not exact self-similar (NS-007),
+   not energy-only (NS-008), not topology-only (NS-020, our own falsified arc).
+4. **Norm-axis {NS-002, NS-005, NS-020} (MID @0.722).** Track that the 3D target
+   is a *critical-norm* (NS-005) blowup — the only path NS-002 leaves open; the
+   homology failure (NS-020) is the negative evidence that it is the norm.
+5. **CKN consistency guard {NS-002, NS-003, NS-006} (MID @0.833).** Add a check:
+   a 3D numerical near-singularity must respect CKN (singular set parabolic-dim
+   ≤1); a δ→0 spread over more than a 1D spacetime set is an artifact, not blowup.
+6. **Live frontier {NS-011, NS-012, NS-013} (MID floor @0.70).** Pair the 3D
+   complex-singularity tracking with the open real⇐complex question (NS-013):
+   does the nearest complex singularity reach the real axis? (Li–Sinai NS-012 is
+   the known complex-data blowup.)
+7. **Closure triad {NS-022, NS-023, NS-025} (MID @0.783).** The queued MFE
+   causal-symmetrization (Gosme) test — closure-side only, Scope: ODE-truncation
+   (= priority-stack item 2). Keep tier-walled from the PDE side.
+8. **Recalibrate band thresholds.** The 0.85/0.70/0.55 cutoffs are closure-v5
+   defaults for a several-hundred-entry corpus; recalibrate (or document as
+   relative-only) before over-reading the 20-node absolute scores.
+
 ## Open gaps / honest unknowns
 
 - NS-013: does complex-data blowup (NS-012) imply anything for real data? `:open`.

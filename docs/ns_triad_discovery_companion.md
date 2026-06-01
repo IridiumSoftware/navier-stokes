@@ -124,6 +124,67 @@ delivered by the discovery engine rather than by the witness panel.
   *isolated* substantive node: it roots only at NS-001 and is tier-walled from
   the PDE side — honest, the 9-mode model is the least-connected piece of the arc.
 
+### Band stratification (HIGH / MID / LOW) — where the actionable couplings live
+
+Re-running with `SHOW_BANDS=1` partitions the deduped pool by score into the
+engine's three interpretive bands. The structural finding: **the HIGH band is
+foundational redundancy; the operationally useful couplings sit in MID, where a
+wall meets its consequence meets its diagnostic ("cross-framing invariance").**
+
+**HIGH band — "multi-angle on one object" (score ≥ 0.85), 3 units.** The
+keystone {NS-002, NS-003, NS-004}, the pure-scaling {NS-002, NS-007, NS-009},
+and the tier-walled closure unit {NS-023, NS-024, NS-025}. These are the
+foundational triples — many premises converging on one place — not new readings.
+
+**MID band — "cross-framing invariance" (score ∈ [0.70, 0.85)), 10 units.**
+This is where the actionable structure is, including two readings the dedup-10
+list did not surface:
+
+- **{NS-002, NS-004, NS-009} @ 0.833 — the *mechanism* axis (NEW).** Complement
+  of the keystone *control* axis {002,003,004}: supercriticality (controlled
+  norm useless at small scales) × BKM (blowup needs unbounded vortex stretching)
+  × Onsager (energy can dissipate anomalously below 1/3) — i.e. *how* a blowup
+  would actually proceed, sharing the NS-002 wall. **3D consequence:** a
+  blowup-candidate IC should drive vortex stretching (NS-004) *toward* the
+  anomalous-dissipation regime (NS-009), not merely watch δ→0 in isolation.
+- **{NS-003, NS-004, NS-010} @ 0.833 — the PDE bridge** (walls → validated
+  tool). It lands in MID, not HIGH: the operationally useful link is itself a
+  cross-framing one. A 3D δ→0 counts only with BKM co-movement.
+- **{NS-007, NS-008, NS-020} @ 0.778 — the "dead-ends / obituary" triple (NEW).**
+  The three fenced-off method classes: no exact self-similar (NS-007), no
+  energy-only method (NS-008, Tao), and *our own* falsified homology (NS-020).
+  The engine files our negative result alongside the literature's no-gos; any 3D
+  attack must dodge all three.
+- **{NS-002, NS-005, NS-020} @ 0.722 — "the difficulty is the norm," three ways.**
+  Supercriticality (the norm is the wall) + critical-norm regularity (control a
+  critical norm ⇒ smooth) + the homology failure (failed *because* it could not
+  see the norm). Negative evidence bound to the norm axis.
+- **{NS-002, NS-003, NS-006} @ 0.833 — CKN as a consistency check.** Partial
+  regularity (singular set parabolic-dim ≤ 1) is the energy/scaling story applied
+  to singular-set *size*. Guard rail: a 3D near-singularity spread over more than
+  a 1D spacetime set would contradict CKN — a built-in sanity test on any
+  numerical near-blowup.
+- The live frontier {NS-011, NS-012, NS-013} @ 0.70 sits at the MID floor
+  (fitting: the frontier is where framings meet, not where they stack), alongside
+  the regularity-criteria clusters {005,006,008}, {005,007,009} and the
+  closure-domain model triad {022,023,025} and {022,024,030}.
+
+**LOW band — "convergence / structural echo" (score ∈ [0.55, 0.70)), 5 units.**
+**No new PDE nugget — honest.** These are the keystone's *downward shadows*:
+{002,003,005}, {002,004,006}, {003,004,007} each pair two of the three keystone
+walls with one layer-2 criterion, confirming the keystone genuinely *generates*
+the criteria (each emphasizing a different pair). Plus the closure self-echo
+{022,023,030} and {003,009,020}. The engine confirming the dependency hierarchy
+is real, not a signal to chase.
+
+**Threshold caveat (honesty).** The band cutoffs (0.85 / 0.70 / 0.55) are
+closure-v5's defaults, calibrated for a several-hundred-entry corpus. On 20 nodes
+the *absolute* scores are not directly comparable to closure-v5's; the banding is
+a useful **relative** stratification only. Do not read the exact thresholds as
+load-bearing (a follow-up item: recalibrate for a 20-node corpus before
+over-interpreting). Reproducible: `SHOW_BANDS=1 TOP_N_PER_BAND=30 …` (View D in
+`discovery/ns_triad_discovery.out.txt`).
+
 ---
 
 ## §3 — Verification

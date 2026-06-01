@@ -24,6 +24,15 @@ anchor-eligibility flag, **decoupled from the PDE-proof firewall** (`:proved` st
   NOT PDE**), registry row, companion `docs/ns_triad_discovery_companion.md`,
   reproducible log `discovery/ns_triad_discovery.out.txt`. Counts → 21 entries;
   `:proved` = 0. **Sets the 3D attack geometry** (NS-002 wall — NS-004/010 — NS-011).
+- **Band stratification folded in** (companion §2 + run-log View D): HIGH =
+  foundational redundancy; **MID = "cross-framing invariance" is where the
+  actionable couplings sit** — two NEW readings beyond the dedup-10: the
+  *mechanism* axis **{NS-002,004,009}** (how it blows up: scaling×stretching×
+  anomalous-dissipation) and the *dead-ends* triple **{NS-007,008,020}** (the
+  fenced-off method classes, incl. our own falsified homology); LOW = structural
+  echo (keystone shadows, no new PDE nugget). 8 band-finding follow-ups added to
+  `dashboard.md`. Threshold caveat: 0.85/0.70/0.55 are closure-v5 defaults, not
+  recalibrated for 20 nodes (relative-only).
 - Housekeeping: TCE de-dup DONE (turbulence scripts pruned from TCE @`8fcf1b4`);
   navier-stokes is their sole home. **Distance to prize: UNTOUCHED.**
 
