@@ -1,0 +1,70 @@
+══════════════════════════════════════════════════════════════════════════════════════
+  grok_production_skewness_probe.jl — the σ=0-DETECTOR question (Grok Move 1, anchored)
+  Vortex-stretching PRODUCTION skewness S_ω=P/⟨|ω|²⟩^{3/2}, P=⟨ω·(ω·∇)u⟩. Robust AND sensitive?
+  (Scope: inviscid-Euler truncation. NOT the PDE. :proved=0; prize UNTOUCHED. threads=16.)
+══════════════════════════════════════════════════════════════════════════════════════
+  ran N=32   in 10 s
+  ran N=64   in 60 s
+  ran N=128  in 545 s
+
+──────────────────────────────────────────────────────────────────────────────────────
+  (a) CORRECTNESS — dΩ/dt ≈ P (3D-Euler enstrophy balance), N=128
+──────────────────────────────────────────────────────────────────────────────────────
+    t      dΩ/dt (fin-diff) P (computed) rel.err   
+    0.50   4.5478       4.4276       2.7e-02   
+    1.26   20.3560      19.7378      3.1e-02   
+    2.00   90.6653      85.1991      6.4e-02   
+    2.75   392.3217     399.1730     1.7e-02   
+    ⇒ match ⇒ P=⟨ω·(ω·∇)u⟩ is the genuine enstrophy production (the blowup driver).
+
+──────────────────────────────────────────────────────────────────────────────────────
+  (b) RESOLUTION-ROBUSTNESS — |Δ|(N=64↔128), resolved window t≤1.26
+──────────────────────────────────────────────────────────────────────────────────────
+    t      S_ω  64 / 128 / Δ%     ρ_H Δ%             δ Δ%          
+    0.50   0.159 / 0.159 / 0.0%   0.0                45%           
+    1.00   0.167 / 0.175 / 4.8%   0.5                63%           
+    1.50   0.121 / 0.139 / 13.1%  5.2                62%           
+    2.00   0.082 / 0.099 / 16.8%  16.5               61%           
+    2.50   0.055 / 0.066 / 16.8%  38.8               61%           
+    3.00   0.031 / 0.031 / 0.3%   68.3               64%           
+
+  MAX drift, resolved window:  S_ω 4.8%   ρ_H 0.5%   δ-fit 63%
+
+──────────────────────────────────────────────────────────────────────────────────────
+  (c) SENSITIVITY — S_ω trajectory (N=128): bounded? growing? (vs ρ_H, which is blind)
+──────────────────────────────────────────────────────────────────────────────────────
+    t      S_ω        ρ_H        Ω/Ω₀       tail      
+    0.00   0.0046     -0.0361    1.00       0.0e+00   
+    0.26   0.1050     -0.0347    1.08       4.1e-15   
+    0.50   0.1592     -0.0315    1.32       2.1e-08   
+    0.75   0.1768     -0.0274    1.73       7.9e-06   
+    1.00   0.1754     -0.0233    2.41       1.5e-04   
+    1.26   0.1596     -0.0191    3.56       9.1e-04   
+    1.50   0.1392     -0.0156    5.35       3.1e-03   
+    1.75   0.1176     -0.0126    8.24       8.1e-03   
+    2.00   0.0991     -0.0100    12.96      1.8e-02   
+    2.26   0.0830     -0.0078    21.34      3.9e-02   
+    2.50   0.0665     -0.0060    35.67      7.9e-02   
+    2.75   0.0475     -0.0047    59.18      1.5e-01   
+    3.00   0.0308     -0.0038    91.43      2.5e-01   
+    3.26   0.0180     -0.0032    128.16     3.6e-01   
+    3.50   0.0104     -0.0029    159.29     4.6e-01   
+    3.75   0.0060     -0.0027    182.91     5.2e-01   
+    4.00   0.0037     -0.0026    199.43     5.7e-01   
+    4.26   0.0024     -0.0025    211.26     6.1e-01   
+    4.50   0.0017     -0.0024    219.54     6.3e-01   
+    4.75   0.0012     -0.0024    226.05     6.5e-01   
+
+══════════════════════════════════════════════════════════════════════════════════════
+  VERDICT — Grok Move 1 (Critical Gate Flux), anchored to production skewness
+══════════════════════════════════════════════════════════════════════════════════════
+  • CORRECTNESS: dΩ/dt = P confirmed ⇒ S_ω is built on the true enstrophy-production driver.
+  • ROBUST: S_ω drifts 4.8% across N in the resolved window (vs δ-fit 63%) — resolution-robust ✓ (exact integral, not a fit).
+  • SENSITIVE: unlike ρ_H (blind, just tracks Ω), S_ω IS the stretching efficiency whose
+    boundedness-vs-growth decides finite-time enstrophy blowup (dΩ/dt=c·Ω^{3/2} ⇒ blowup iff
+    S_ω bounded below by c>0). So S_ω is the RIGHT detector CLASS: robust AND singularity-relevant.
+  • HONEST LIMIT: at N≤128 there is no real singularity to detect (resolution-limited); we have
+    found the right OBJECT, not a verdict. Whether S_ω stays bounded (regularity) or grows
+    (blowup) on the true PDE is the open question — now posed in the correct, resolution-robust variable.
+  • FIREWALL: inviscid-Euler truncation; :proved=0; distance to the prize UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════════

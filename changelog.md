@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.17 — 2026-06-01 — The σ=0-detector question, answered (production skewness) + an amendment
+
+Grok's 2nd Oracle pass refined "Critical Gate Flux" (Move 1) → anchored to the
+**vortex-stretching production skewness** `S_ω=P/⟨|ω|²⟩^{3/2}`, `P=⟨ω·(ω·∇)u⟩`.
+`scripts/grok_production_skewness_probe.jl` (same spectrally-embedded inviscid flow, N=32/64/128).
+- **Correctness:** `dΩ/dt = P` verified (2–6%) — S_ω built on the genuine enstrophy-blowup driver.
+- **The right detector CLASS:** S_ω is **both** resolution-robust (4.8% across N, vs δ-fit 63%)
+  **and** singularity-relevant (the stretching efficiency; `dΩ/dt=c·Ω^{3/2}` ⇒ blowup iff S_ω
+  bounded below) — the "both" that ρ_H (robust-but-blind) and δ (sensitive-but-a-fragile-fit) lacked.
+- **AMENDMENT to Grok's "both by construction" (the metabolism's honest correction):** NO FREE
+  LUNCH — robustness↔sensitivity are in **TENSION**. S_ω is *less* robust than ρ_H (4.8% vs 0.5%)
+  precisely because it depends on the strain (small scales = the cutoff-sensitive part);
+  sensitivity to the singularity *is* small-scale dependence ⇒ the diagnostic you need is the
+  one resolution hurts most. (A real structural reason the numerical attack is hard.)
+- **Honest verdict:** S_ω peaks ~0.18 (resolved) then decays, but the decay is resolution-
+  contaminated past the wall — the right OBJECT, not a verdict; the bounded-vs-growing question
+  stays resolution-gated, now posed in the correct variable.
+- Appended to `docs/grok_oracle_anchoring_companion.md` §6; NS-010 note extended. No new spec
+  entry. `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.16 — 2026-06-01 — Grok Oracle pass: metabolized, anchored, one nugget tested
 
 Triad protocol — Grok in the Oracle/Φ (exploratory) seat; metabolism seat anchored

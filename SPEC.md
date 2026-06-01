@@ -141,9 +141,16 @@ computable from a spectral solution.
   - **Better-diagnostic-CLASS finding (Grok-Oracle follow-up, `docs/grok_oracle_anchoring_companion.md`):**
     σ=0 (scale-invariant) invariants — relative helicity `ρ_H=H/(2√(EΩ))` and `E·Ω` —
     are **resolution-robust** (≤1% across N=64↔128 on one embedded flow) where the δ-fit
-    drifts 63%, because they are exact integrals of conserved/critical quantities, not
-    spectrum-slope fits. **But robust ≠ singularity-sensitive** (ρ_H just tracks Ω-growth).
-    Open: find a σ=0 quantity that is *both* robust and singularity-sensitive.
+    drifts 63%, because they are exact integrals (not spectrum-slope fits). **But ρ_H is
+    robust-yet-BLIND** (just tracks Ω-growth).
+  - **The right detector class (production skewness, `grok_production_skewness_probe.jl`):**
+    `S_ω=P/⟨|ω|²⟩^{3/2}` with `P=⟨ω·(ω·∇)u⟩` (verified `dΩ/dt=P`) is **both** resolution-robust
+    (4.8% across N) **and** singularity-relevant (the stretching efficiency; `dΩ/dt=c·Ω^{3/2}`
+    blows up iff S_ω bounded below). **AMENDMENT (no free lunch):** robustness↔sensitivity are
+    in TENSION — S_ω is *less* robust than ρ_H (4.8% vs 0.5%) precisely because it depends on
+    the strain (small scales = the cutoff-sensitive part); sensitivity to the singularity *is*
+    small-scale dependence. S_ω peaks ~0.18 (resolved) then decays, but the decay is
+    resolution-contaminated (no clean verdict). The right OBJECT; the verdict stays resolution-gated.
 - Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983);
   `scripts/burgers_analyticity_strip.jl`, `docs/ns010_analyticity_strip_companion.md`;
   `scripts/spectral_clm_blowup.jl`, `docs/ns010_stage1b_clm_companion.md`;

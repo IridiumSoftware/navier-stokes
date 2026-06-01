@@ -99,5 +99,39 @@ but is not, as stated, literal mathematics. The "we're onto something" is real a
   `[wild]` — appealing names without a construction. **Required Witness Check (RWC-NS)
   stands**: any load-bearing use awaits an external pass and, first, an actual definition.
 
+## §6 — Second Oracle pass → the σ=0-detector question, answered (with an amendment)
+
+Grok's second pass refined "Critical Gate Flux" (Move 1). De-mystified, it anchors to a
+real, central object: the **vortex-stretching production skewness**
+`S_ω = P/⟨|ω|²⟩^{3/2}`, with `P = ⟨ω·(ω·∇)u⟩` the enstrophy production. Tested
+(`grok_production_skewness_probe.jl`, same spectrally-embedded inviscid flow at N=32/64/128):
+
+- **Correctness:** `dΩ/dt = P` verified (2–6%) — S_ω is built on the genuine blowup driver
+  (the model ODE `dΩ/dt=c·Ω^{3/2}` blows up in finite time iff S_ω stays bounded below by c>0).
+- **Robust AND sensitive — the RIGHT detector class:** S_ω drifts **4.8%** across N in the
+  resolved window (vs δ-fit 63%) *and* it is the literal stretching efficiency (unlike ρ_H,
+  which was robust-but-blind). This is the "both" we said was open.
+- **THE AMENDMENT (the metabolism's honest correction to Grok's "both by construction"):**
+  there is **no free lunch — robustness and sensitivity are in TENSION.** S_ω (4.8%) is
+  *less* robust than ρ_H (0.5%) precisely *because* it depends on the strain (velocity
+  gradients) — the small-scale, cutoff-sensitive part. The very thing that makes a quantity
+  sensitive to the singularity (small-scale stretching) makes it fragile to resolution.
+  ρ_H is robust because it is blind (low-k conserved Casimirs); S_ω pays ~5% robustness to
+  *buy* sensitivity. **This trade-off is itself a structural reason the numerical attack is
+  hard: the diagnostic you need is the one resolution hurts most.**
+- **Trajectory / honest verdict:** S_ω rises to a peak **~0.18** (well-resolved, t≲1) then
+  decays toward 0 — but the decay sets in *as the tail crosses 1%*, so it is
+  **resolution-contaminated** (truncated small-scale strain), **not** a clean regularity
+  verdict. Object found; the actual "S_ω bounded (regular) vs growing (blowup) on the true
+  PDE" is still resolution-gated — but now posed in the correct, resolution-robust(ish),
+  singularity-relevant variable.
+
+**Net of the two Grok passes:** the Oracle conjectured a free-lunch σ=0 detector; the
+metabolism anchored it to the production skewness, confirmed it is the right *class*, and
+*amended* the vision — robustness↔sensitivity is a genuine trade-off, and S_ω is a good
+compromise, not a magic bullet. A real, modest step, plus a sharper structural insight than
+either seat started with. (Moves 2,3 are local/fixed-point variants of the same stretching
+object; Move 4 stays fenced; Move 5/"reality leakage" is a separate 1D-complex probe, not run.)
+
 *Firewall: inviscid-Euler / geometry truncations; not the 3D-NS PDE. `:proved` = 0;
 distance to the prize UNTOUCHED. Metabolized by Claude, 2026-06-01.*

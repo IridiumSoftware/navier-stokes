@@ -46,8 +46,14 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.16, 2026-06-01)
+## Status summary (v0.1.17, 2026-06-01)
 
+- **σ=0-DETECTOR QUESTION ANSWERED (v0.1.17):** Grok Move-1 anchored to the vortex-
+  stretching **production skewness** S_ω=P/⟨|ω|²⟩^{3/2} (dΩ/dt=P verified). It's the
+  RIGHT detector class — **both** resolution-robust (4.8% vs δ's 63%) **and**
+  singularity-relevant (unlike blind ρ_H). **Amendment:** no free lunch —
+  robustness↔sensitivity are in TENSION (S_ω less robust than ρ_H *because* it sees the
+  strain/small-scales = what resolution truncates). Object found; verdict resolution-gated.
 - **GROK ORACLE PASS, ANCHORED (v0.1.16):** triad exploratory pass; metabolism anchored
   the 5 wild moves (3=our complex method, 5=CKN, 1+2=a real diagnostic nugget, 4=fenced
   bridge not chased, "anomaly class"=evocative-not-literal). Tested nugget: a σ=0
