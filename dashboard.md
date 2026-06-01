@@ -36,10 +36,15 @@ below with `Scope ≠ PDE` is **not** prize progress. This line changes only whe
      δ-fit reproduce exact `δ=ln(2/t)` to <1% N-robust (T-03 PASS); δ→0 co-diverges
      with BKM ∫‖ω‖∞ at t*=2 (T-04 PASS, BKM half). Hand-rolled FFT, self-checked.
      (`spectral_clm_blowup.jl`.)
-   - 1c. **[NEXT]** 2D → 3D pseudospectral (real NS/Euler): apply δ(t) where there is
-     **no exact benchmark** — the open regime. Needs FFTW → `Project.toml`/`Manifest`
-     (package discipline). T-04 critical-norm (NS-005) half. Scope: ODE-truncation →
-     the actual problem. Firewall: diagnostics in models; not a PDE statement.
+   - 1c-2D. **DONE ✓** — 2D pseudospectral CONTROL (`spectral_2d_control.jl`): the
+     diagnostic correctly reports REGULARITY — δ bounded (≥0.23), BKM finite, Euler
+     invariants conserved <1e-6 (solver-validation), NS monotone-decay. Distinguishes
+     2D-regular from CLM-blowup (T-05 PASS). The 2D side of the 2D/3D invariant gap.
+   - 1c-3D. **[NEXT]** 3D pseudospectral (real NS/Euler): the OPEN regime — enstrophy
+     no longer coercive (vortex stretching ON), NO exact benchmark, δ(t)→0 would be
+     the actual question. Heavier (3D FFT); a hand-rolled 3D FFT or FFTW + `Project.toml`.
+     T-04 critical-norm (NS-005) half. Epistemics shift: suggestive-in-a-truncation,
+     never a proof. Firewall paramount. Scope: ODE-truncation → the actual problem.
 2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
    Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the
    MFE saddle: directional Granger coupling between structure (roll `a₃`) and

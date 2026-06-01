@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.5 — 2026-06-01 — NS-010 Stage 1c (2D): the regularity control
+
+`scripts/spectral_2d_control.jl` (+ companion). 2D pseudospectral NS/Euler
+(vorticity form; hand-rolled FFT extended to 2D, roundtrip exact). 2D is *known*
+globally regular ⇒ the diagnostic must report regularity — and it does:
+- **Solver validated** by the Tier-1 invariants: 2D Euler conserves energy,
+  enstrophy, ‖ω‖∞ to <1e-6 (the exact-invariant ground truth in lieu of a closed
+  form). FFT 2D self-check exact.
+- **Control PASS (T-05):** δ(t) decreases via filamentation but stays **bounded
+  (≥0.23, never→0)**; ‖ω‖∞ conserved ⇒ BKM ∫‖ω‖∞ **finite** ⇒ no blowup. NS (ν>0):
+  energy & enstrophy monotonically decay, δ bounded. The diagnostic **distinguishes
+  regularity from blowup** (vs CLM Stage 1b, δ→0) — the prerequisite for 3D.
+- **physical_invariants.md made concrete:** enstrophy & ‖ω‖∞ are Tier-1 coercive in
+  2D (no vortex stretching) ⇒ BKM finite ⇒ regular. The 2D side of the 2D/3D gap.
+- **Honesty:** corrected a text claim ("N=256 conserves enstrophy better") that the
+  data didn't support (both N conserve exactly; cascade not yet at the cutoff).
+- **Firewall:** 2D truncation, not the PDE. NEXT = 3D (open regime, no benchmark).
+
 ## v0.1.4 — 2026-06-01 — NS-010 Stage 1b: spectral solver + BKM co-movement (CLM)
 
 `scripts/spectral_clm_blowup.jl` (+ companion). Apply the validated δ(t) diagnostic

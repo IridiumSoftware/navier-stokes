@@ -1,0 +1,58 @@
+══════════════════════════════════════════════════════════════════════════════
+  spectral_2d_control.jl — NS-010 2D REGULARITY CONTROL (Scope: 2D ODE-truncation)
+  2D is globally regular ⇒ δ must stay BOUNDED, BKM finite (vs CLM δ→0). Solver check: invariants.
+══════════════════════════════════════════════════════════════════════════════
+
+  2D-FFT roundtrip self-check: max err = 0.0e+00 ✓
+
+  (A) 2D EULER (ν=0), N=128, smooth IC. Euler conserves energy, enstrophy, ‖ω‖∞.
+    t      E/E0         Z/Z0         ‖ω‖∞/W0      δ(t)      BKM      
+    0.0    1.000000     1.000000     1.000000     NaN       0.00     
+    0.5    1.000000     1.000000     0.999715     1.454     0.66     
+    1.0    1.000000     1.000000     0.999977     0.930     1.33     
+    1.5    1.000000     1.000000     0.999911     0.648     1.99     
+    2.0    1.000000     1.000000     0.999933     0.488     2.66     
+    2.5    1.000000     1.000000     0.999859     0.382     3.32     
+    3.0    1.000000     1.000000     0.999900     0.311     3.99     
+    3.5    1.000000     1.000000     0.999561     0.263     4.65     
+    4.0    1.000000     1.000000     0.999746     0.227     5.31     
+  ⇒ energy conserved to 0.0000%; enstrophy drift 0.00% (leaks only when the cascade
+    reaches the 2/3 cutoff — resolution limit). δ stays BOUNDED (min 0.227 > 0); ‖ω‖∞
+    ≈ conserved ⇒ BKM ∫‖ω‖∞ grows ~linearly (FINITE) ⇒ NO blowup. Control behaves correctly.
+
+──────────────────────────────────────────────────────────────────────────────
+  (B) N-convergence (Euler): finer grid resolves the cascade longer
+──────────────────────────────────────────────────────────────────────────────
+    t      Z/Z0 (N=128 / 256)     δ (N=128 / 256)       
+    0.5    1.00000 / 1.00000      1.454 / 1.446         
+    1.0    1.00000 / 1.00000      0.930 / 0.926         
+    1.5    1.00000 / 1.00000      0.648 / 0.640         
+    2.0    1.00000 / 1.00000      0.488 / 0.457         
+  ⇒ δ agrees across N to a few % in the resolved regime. Enstrophy is conserved at BOTH N
+    here (the forward enstrophy cascade has not reached the 2/3 cutoff by T=2, so there is
+    no leak to show yet — it would leak later, and sooner at smaller N). Resolution-
+    independent while resolved; no silent truncation.
+
+──────────────────────────────────────────────────────────────────────────────
+  (C) 2D NS (ν=0.01), N=128 — viscosity ⇒ enstrophy DECAYS, δ bounded (more regular)
+──────────────────────────────────────────────────────────────────────────────
+    t      E/E0         Z/Z0         δ(t)     
+    0.0    1.000000     1.000000     NaN      
+    1.0    0.951470     0.941715     1.056    
+    2.0    0.905798     0.885312     0.736    
+    3.0    0.862931     0.829383     0.630    
+    4.0    0.822848     0.774217     0.583    
+  ⇒ energy & enstrophy monotonically DECAY (viscous dissipation); δ bounded. Strictly regular.
+
+══════════════════════════════════════════════════════════════════════════════
+  READING (NS-010 2D control)
+══════════════════════════════════════════════════════════════════════════════
+  • The validated δ-diagnostic + a 2D pseudospectral solver correctly report REGULARITY:
+    δ bounded, BKM finite, invariants conserved (Euler) / dissipated (NS). Contrast Stage 1b
+    (CLM): δ→0, BKM→∞. The diagnostic DISTINGUISHES blowup from regularity — the prerequisite
+    for trusting it on the OPEN 3D case.
+  • Concrete `physical_invariants.md`: enstrophy & ‖ω‖∞ are Tier-1 coercive invariants in 2D
+    (no vortex stretching) ⇒ BKM finite ⇒ global regularity. This is the 2D side of the 2D/3D gap.
+  • FIREWALL: 2D truncation, not the PDE. NEXT = 3D, where enstrophy is NOT coercive (vortex
+    stretching), there is NO exact benchmark, and δ(t)→0 would be the actual open question.
+══════════════════════════════════════════════════════════════════════════════

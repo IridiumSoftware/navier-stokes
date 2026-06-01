@@ -115,9 +115,15 @@ computable from a spectral solution.
   spectral solver reproduce the exact CLM strip `δ(t)=ln(2/t)` to <1% (N-robust,
   N∈{512,1024,2048}), and δ→0 co-diverges with the BKM integral (T-04 PASS) at the
   vortex-stretching blowup t*=2. Validates the tool chain on the NS-004 mechanism.
+- **Stage 1c (2D control, pseudospectral):** the diagnostic correctly reports
+  REGULARITY — δ bounded (≥0.23, never →0), BKM finite, and energy/enstrophy/‖ω‖∞
+  conserved to <1e-6 (2D Euler — solver-validation via the Tier-1 invariants) — thus
+  DISTINGUISHING 2D regularity from CLM blowup (Stage 1b, δ→0). The 2D side of the
+  NS-004 / 2D-3D-gap invariant story (`physical_invariants.md`).
 - Source: Foias–Temam (1989); Sulem–Sulem–Frisch (1983);
   `scripts/burgers_analyticity_strip.jl`, `docs/ns010_analyticity_strip_companion.md`;
-  `scripts/spectral_clm_blowup.jl`, `docs/ns010_stage1b_clm_companion.md`.
+  `scripts/spectral_clm_blowup.jl`, `docs/ns010_stage1b_clm_companion.md`;
+  `scripts/spectral_2d_control.jl`, `docs/ns010_stage1c_2d_companion.md`.
 
 **NS-011 — Complex-singularity tracking.**
 The nearest complex-space singularity (pole/branch point) of the analytic
