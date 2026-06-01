@@ -1,0 +1,51 @@
+══════════════════════════════════════════════════════════════════════════════
+  triad_closure_vs_cascade.jl — Waleffe-1992 helical triad. EXPERIMENTAL.
+  How much of 'cascade vs closure' is in the triad ALGEBRA, and how much
+  only the DRIVEN ENSEMBLE supplies. Drawing the line.
+══════════════════════════════════════════════════════════════════════════════
+
+  triad magnitudes |k₁|,|k₂|,|k₃| = 1.00,1.70,2.30
+
+  exact-invariant check:  ΔE/E = 5.73e-14   ΔH/H = 6.14e-14  (machine-zero ⇒
+    the reduced system IS the energy+helicity-conserving Euler dynamics).
+
+──────────────────────────────────────────────────────────────────────────────
+  (1) INSTABILITY RULE — seed each leg; how much energy LEAVES it?
+──────────────────────────────────────────────────────────────────────────────
+  signs        signed w                   donor    min energy retained when seeding leg
+  +++          (+1.00,+1.70,+2.30)        leg 2    [1.000, 0.000, 1.000]  ← leg 2 (donor) drains
+  ++−          (+1.00,+1.70,-2.30)        leg 1    [0.000, 1.000, 1.000]  ← leg 1 (donor) drains
+  +−+          (+1.00,-1.70,+2.30)        leg 1    [0.000, 1.000, 1.000]  ← leg 1 (donor) drains
+  +−−          (+1.00,-1.70,-2.30)        leg 2    [1.000, 0.000, 1.000]  ← leg 2 (donor) drains
+  ⇒ only the intermediate-signed leg (donor) loses its energy; the two
+    extreme-signed legs are stable (retain ≈1). Exact tennis-racket rule.
+
+──────────────────────────────────────────────────────────────────────────────
+  (2) RECIPIENT SPLIT — conservation prediction vs simulation
+──────────────────────────────────────────────────────────────────────────────
+  donor = leg 1 (|k|=1.0).  recipients legs 2,3 (|k|=1.7,2.3)
+  predicted split  f_2=0.825  f_3=0.175   (from E & H alone)
+  simulated  at peak transfer: 0.825  0.175   (match ✓)
+  energy-weighted recipient |k| = 1.81 vs donor |k| = 1.00  ⇒ net FORWARD (toward small scale)
+
+──────────────────────────────────────────────────────────────────────────────
+  (3) NO PERMANENT CASCADE IN ISOLATION — the energy returns
+──────────────────────────────────────────────────────────────────────────────
+  donor energy: start≈1.000 → min 0.000 (drained) → recovers to 1.000
+  The isolated triad is integrable; energy sloshes donor↔recipients
+  forever. A one-way cascade is NOT a property of one conservative triad.
+
+══════════════════════════════════════════════════════════════════════════════
+  WHERE THE LINE FALLS (the prediction bar, drawn)
+══════════════════════════════════════════════════════════════════════════════
+  CHEAP (triad algebra gives it):  the instability rule (intermediate-
+    signed = donor) and the conservation-fixed recipient split. A closure
+    framework can likely re-derive these — they are E+H bookkeeping.
+  EXPENSIVE (only the driven ensemble gives it):  a PERSISTENT direction.
+    Forward cascade (Thread 2 → 1/3 / death) and self-sustaining inverse
+    return (Thread 1 → SSP rolls) are ENSEMBLE-under-forcing effects; a
+    single triad merely oscillates. 'Self-sustaining until it is not' lives
+    HERE — in the driven many-triad balance, not the 3-ODE algebra.
+  ⇒ A closure theory earns the word 'turbulence' only if it predicts the
+    DRIVEN-ENSEMBLE directionality — not if it relabels the cheap algebra.
+══════════════════════════════════════════════════════════════════════════════

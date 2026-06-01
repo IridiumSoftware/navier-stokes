@@ -1,0 +1,53 @@
+══════════════════════════════════════════════════════════════════════════════
+  closure_autopoiesis_structured.jl — does closure STRUCTURE predict the dynamics?
+  EXPERIMENTAL. Generic scale-up (varied support graphs). No physics imported.
+══════════════════════════════════════════════════════════════════════════════
+  M=20 relations, ρ=β/δ=2.0 (f*=0.50, structure-independent). δ≡1.
+
+──────────────────────────────────────────────────────────────────────────────
+  (1) SCALING — fixed M & ρ; vary support structure; τ vs λ₂(Fiedler)
+──────────────────────────────────────────────────────────────────────────────
+    complex              deg    λ₂        τ           CV      R²surv 
+    ring C20 (deg2)      2      0.0979    13          0.598   0.996  
+    circ(1,2) deg4       4      0.4799    26          0.791   0.999  
+    circ(1,3) deg4       4      0.9223    37          0.956   0.997  
+    circ(1,4) deg4       4      1.4799    46          0.964   0.998  
+    circ(1,5) deg4       4      1.3820    40          0.849   0.998  
+    circ(1,6) deg4       4      1.2064    43          0.965   0.995  
+    circ(1,7) deg4       4      0.9223    36          0.820   0.999  
+    circ(1,8) deg4       4      1.7639    43          0.897   0.999  
+    circ(1,9) deg4       4      0.7639    36          0.845   0.997  
+    circ(1..4) deg8      8      2.6862    63          0.910   0.999  
+    complete K20 (d19)   19     20.0000   105         1.036   0.995  
+
+  DEG-4 SUBSET (8 graphs, degree FIXED ⇒ isolates structure):
+    Spearman(λ₂, ln τ) = +0.810   [monotonicity — the primary test]
+    linear ln τ = +0.349·λ₂ + c,  R²=0.736   [form; <1 ⇒ saturating, not non-monotone]
+    ⇒ τ tends to rise with λ₂ (weak)
+  (ring→complete also shown: degree confounds there; the deg-4 set is the clean test.)
+
+──────────────────────────────────────────────────────────────────────────────
+  (2) GATING — irregular complex: does the weakest relation gate collapse?
+──────────────────────────────────────────────────────────────────────────────
+    16 relations; degrees 1–7. Per-relation survival propensity vs structure:
+    Spearman(survival-propensity, degree)       = +0.785
+    Spearman(survival-propensity, |Fiedler|)    = -0.624  (weak node = high |Fiedler|)
+    weakest relation (lowest survival) = #2  (deg 1, |Fiedler| 0.531)
+    lowest-degree relation             = #2  (deg 1)  → match: YES ✓
+  ⇒ if survival-propensity correlates with degree (+) and the lowest-survival relation
+    is the structurally weakest, the closure STRUCTURE predicts the gate.
+
+══════════════════════════════════════════════════════════════════════════════
+  GENERIC SCALE-UP VERDICT
+══════════════════════════════════════════════════════════════════════════════
+  Read the two tests above:
+   • SCALING: if (deg-4) ln τ rises with λ₂, the complex's CONNECTIVITY — a
+     CFS-computable invariant — predicts its robustness/lifetime FORM. Structure,
+     not just rates. (Environment still sets the absolute scale via ρ.)
+   • GATING: if survival-propensity tracks degree/Fiedler, the structurally
+     weakest relation is the collapse gate — structure predicts WHICH leg.
+  Together they are the closure-SPECIFIC prediction the mean-field model lacked.
+  NEXT (canonical): replace the generic support graph with the actual CFS K_n³
+  closure complex; test whether ITS spectral gap / role structure predicts τ and
+  the gate — i.e. whether CFS's own computed structure carries the dynamics.
+══════════════════════════════════════════════════════════════════════════════

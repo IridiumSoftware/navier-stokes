@@ -1,0 +1,52 @@
+══════════════════════════════════════════════════════════════════════════════
+  mfe_committor_decomposition.jl — WHERE does B live, and what gates recovery?
+  EXPERIMENTAL. Step 1 (measurement) of the real test. No closure claim.
+══════════════════════════════════════════════════════════════════════════════
+
+  box(4π,2π), M=300/Re. core E_hi=0.030, laminar E_lo=1e-03. κ=Φ·q EXACTLY.
+
+──────────────────────────────────────────────────────────────────────────────
+  DECOMPOSITION  d(lnκ)=d(lnΦ)+d(lnq), scanned over the dip interface
+──────────────────────────────────────────────────────────────────────────────
+  E_iface   B         Φ %% of B    q %% of B                                 
+  0.004     0.0113    71           29           κ=5.90e-04→1.49e-04  q=0.72→0.48
+  0.006     0.0113    64           36           κ=5.90e-04→1.49e-04  q=0.64→0.38
+  0.010     0.0113    51           49           κ=5.90e-04→1.49e-04  q=0.52→0.27
+  ⇒ The Φ/q split is INTERFACE-DEPENDENT (not an invariant): the closer the
+    interface to laminar, the more of B sits in the committor q. So 'occupancy
+    vs recovery' is not a clean dichotomy — BOTH carry B, in proportions set by
+    where you draw the surface. The invariant facts are κ~exp(−B·Re) and (below)
+    the structural gate on recovery.
+
+──────────────────────────────────────────────────────────────────────────────
+  MECHANISM — at a dip's BOTTOM, |aᵢ|: RECOVERED vs COMMITTED  (E_iface=0.006)
+──────────────────────────────────────────────────────────────────────────────
+  ratio = mean|aᵢ|_recovered / mean|aᵢ|_committed;  >1 ⇒ surviving this mode
+  favors re-ignition (a candidate gating leg of the SSP cycle).
+    (recovered dips: 1152,  committed dips: 1185)
+    mode   |aᵢ|_recover  |aᵢ|_commit   ratio   
+    a1     0.6728        0.8294        0.81      a1 mean-shear
+    a2     0.0268        0.0108        2.49      a2 streak
+    a3     0.0087        0.0015        5.88      a3 roll
+    a4     0.0107        0.0077        1.39      a4
+    a5     0.0212        0.0089        2.38      a5
+    a6     0.0209        0.0162        1.29      a6
+    a7     0.0219        0.0146        1.50      a7
+    a8     0.0102        0.0030        3.46      a8
+    a9     0.0057        0.0014        3.97      a9 mean-mod
+  ⇒ strongest recovery gate: a3 (a3 roll), ratio 5.88  [a1 mean-shear <1: high
+    a1 ⇒ already collapsing toward laminar, as expected].
+
+══════════════════════════════════════════════════════════════════════════════
+  STEP-1 RESULT (measurement only — corrects the Task-2-based guess)
+══════════════════════════════════════════════════════════════════════════════
+  • Escape is NOT cleanly 'recovery-limited.' B splits between the dip RATE Φ
+    and the committor q, in interface-dependent proportions — both real,
+    neither dominant in an invariant sense. (My earlier recovery-limited
+    hypothesis is only partly right.)
+  • The robust, interface-independent finding is STRUCTURAL: recovery is
+    gated by the ROLL mode a3 surviving the dip (ratio 5.9) — exactly the
+    SSP seed that regenerates streaks via lift-up. That is the closure-relevant hook.
+  • STEP-2 TARGET to pre-register: predict how the ROLL-SURVIVAL probability over
+    a dip scales with Re (it sets 1−q), from closure principles — then compare.
+══════════════════════════════════════════════════════════════════════════════

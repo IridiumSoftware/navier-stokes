@@ -1,0 +1,83 @@
+══════════════════════════════════════════════════════════════════════════════
+  navier_stokes_homology_diagnostic.jl
+  Falsifying test of the homological NS reformulation. EXPERIMENTAL.
+══════════════════════════════════════════════════════════════════════════════
+
+  build self-check (N=3):  ‖∂₁∂₂‖ = 0.000e+00   (must be 0)  ✓
+
+──────────────────────────────────────────────────────────────────────────────
+  PROBE A — does refining the mesh grow H₁?  (horn (1) test)
+──────────────────────────────────────────────────────────────────────────────
+  Periodic 3-torus 𝕋³  (expect b_1 = 3 = three constant mean-flow modes)
+    N      |V|      |E|      |F|      b_1       
+    2      8        24       24       3         
+    3      27       81       81       3         
+    4      64       192      192      3         
+    5      125      375      375      3         
+    6      216      648      648      3         
+    8      512      1536     1536     3         
+  Contractible box (⊂ ℝ³, the actual NS domain)  (expect b_1 = 0)
+    N      |V|      |E|      |F|      b_1       
+    2      27       54       36       0         
+    3      64       144      108      0         
+    4      125      300      240      0         
+    6      343      882      756      0         
+  ⇒ b_1 is PINNED under refinement. Horn (1) cannot fire by refining.
+
+  Hodge-Laplacian L₁ spectrum (N=4), smallest 7 eigenvalues:
+    -1.835e-15  6.094e-16  2.355e-15  2.000e+00  2.000e+00  2.000e+00  2.000e+00
+    → 3 zero modes, then a gap to 2.000e+00  (zero-count = b_1)
+    constant-flux fields:  ‖∂₁h‖ = 0.0e+00,0.0e+00,0.0e+00   ‖∂₂ᵀh‖ = 0.0e+00,0.0e+00,0.0e+00
+    (both ≈ 0 ⇒ h_x,h_y,h_z are harmonic; they ARE the 3-dim H₁ — and inert.)
+
+──────────────────────────────────────────────────────────────────────────────
+  PROBE B — the only way to grow b_1: delete 2-cells (CHANGE topology)
+──────────────────────────────────────────────────────────────────────────────
+    #faces deleted b_1       
+    0              3         
+    20             3         
+    66             18        
+    80             21        
+    120            61        
+    200            129       
+    (b_1 holds at 3 until the N³+2=66 redundant faces are used up — the
+     kernel cushion — then climbs without bound as real handles open.)
+    ⇒ b_1 grows ONLY when cells are removed (handles punched).
+      A fixed fluid domain is never re-glued under refinement, so this
+      horn has no physical analogue. (Refinement = Probe A = b_1 fixed.)
+
+──────────────────────────────────────────────────────────────────────────────
+  PROBE C — incipient-blowup proxy: sharpen a NULL-homology field.
+──────────────────────────────────────────────────────────────────────────────
+    Field q_k = ∂₂a_k, a_k = sin(2πk·x/N) on xy-faces.  N=20, energy ‖q_k‖₂≡1.
+    k    ‖q_k‖₂    [q_k] homol  ‖∂₂ᵀq‖=vort      R(q_k) ℓ²    2sin(πk/N)
+    1    1.0000    5.64e-18     0.3129           3.1962       0.3129    
+    2    1.0000    1.97e-18     0.6180           1.6180       0.6180    
+    3    1.0000    2.71e-19     0.9080           1.1013       0.9080    
+    4    1.0000    2.71e-20     1.1756           0.8507       1.1756    
+    6    1.0000    1.54e-17     1.6180           0.6180       1.6180    
+    8    1.0000    7.83e-18     1.9021           0.5257       1.9021    
+    (max repair residual ‖∂₂a_min−q‖ = 1.0e-08; ε=1e-09.)
+    vorticity = 2sin(πk/N) EXACTLY (the discrete derivative symbol, ≈2πk/N
+    in the resolved band ⇒ linear ∝k growth); and R(q_k)=1/vort exactly.
+
+    Reading the table:
+      • [q_k] (homology class) ≈ 1e-15 for ALL k  → exactly null-homology.
+      • b_1 ≡ 3 throughout (Probe A) — unchanged by how sharp the field is.
+      • vorticity ‖∂₂ᵀq_k‖ GROWS with k (critical/Ḣ¹ norm → ∞): the cascade.
+      • ℓ² repair cost R(q_k) SHRINKS (∝1/k) — bounded, sees nothing wrong.
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT
+══════════════════════════════════════════════════════════════════════════════
+  Horn (1) [growing H₁]: FALSE under refinement. b_1 is a fixed topological
+    invariant of the domain (𝕋³→3, ℝ³→0); it only moves if you re-glue the
+    complex, which a fluid domain never does.  Homology is BLIND to blowup.
+  Horn (2) [repair cost → ∞]: entirely norm-dependent. The identical
+    zero-homology, fixed-energy, sharpening sequence has BOUNDED ℓ² repair
+    cost but DIVERGENT critical-norm content. 'Any convenient norm' is
+    carrying the whole Millennium problem (supercritical ℓ²/energy vs
+    critical Ḣ^{1/2}). The difficulty is analytic, not homological.
+  ⇒ The chain-complex/Hodge structure is real (it IS the Leray projection),
+    but it is the SOLVED part. Topology does not reformulate the problem.
+══════════════════════════════════════════════════════════════════════════════

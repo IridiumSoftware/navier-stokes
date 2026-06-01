@@ -1,0 +1,77 @@
+══════════════════════════════════════════════════════════════════════════════
+  closure_autopoiesis_small.jl — does PURE closure logic give the saddle?
+  EXPERIMENTAL. Autocatalytic closure + decay-default. No physics imported.
+══════════════════════════════════════════════════════════════════════════════
+  state x=intact closure; build b(x)=β·x(N−x)/N; decay d(x)=δ·x; x=0 = death.
+  control ρ=β/δ (construction/decay) = intrinsic Re-analog. δ≡1 throughout.
+
+──────────────────────────────────────────────────────────────────────────────
+  (A) ONE trajectory (N=24, ρ=2.5): self-sustains at x*, then collapses
+──────────────────────────────────────────────────────────────────────────────
+  x* = 14 (metastable closure level),  lifetime = 1717
+    t :  x (intact closure)
+           0 :  14  ██████████████
+          83 :  10  ██████████
+         165 :  16  ████████████████
+         248 :  10  ██████████
+         330 :   8  ████████
+         413 :   8  ████████
+         495 :  15  ███████████████
+         578 :  12  ████████████
+         660 :  15  ███████████████
+         743 :  13  █████████████
+         825 :   2  ██
+         908 :  11  ███████████
+         990 :  12  ████████████
+        1073 :  16  ████████████████
+        1155 :  16  ████████████████
+        1238 :  14  ██████████████
+        1320 :  10  ██████████
+        1403 :   9  █████████
+        1485 :  16  ████████████████
+        1568 :  15  ███████████████
+        1650 :  13  █████████████
+  ⇒ hovers near x* (alive), then a fluctuation drives x→0 (catastrophe = death).
+
+──────────────────────────────────────────────────────────────────────────────
+  (B) LIFETIME distribution (N=24, ρ=2.5, M=4000) — memoryless test
+──────────────────────────────────────────────────────────────────────────────
+    mean=1314  median=901  CV=0.981  survival-R²=0.9999  (CV≈1 & R²→1 ⇒ exponential/memoryless)
+  ⇒ same signature as the MFE saddle: constant-hazard escape, no internal clock.
+
+──────────────────────────────────────────────────────────────────────────────
+  (C) τ vs control parameter ρ   (N=20 fixed)
+──────────────────────────────────────────────────────────────────────────────
+    ρ      τ (mean)     ln τ       N·g(ρ)+c     R²surv  
+    1.5    15           2.739      1.443        1.000   
+    2.0    67           4.210      3.863        0.999   
+    2.5    412          6.022      6.326        0.998   
+    3.0    2556         7.846      8.639        1.000   
+  ln τ vs N·g(ρ):  slope=0.712 (theory→1.0), R²=0.9967  ⇒ large-deviation form CONFIRMED
+
+──────────────────────────────────────────────────────────────────────────────
+  (D) τ vs closure size N   (ρ=2.0 fixed) — exponential-in-size?
+──────────────────────────────────────────────────────────────────────────────
+    N      τ (mean)     ln τ      
+    10     13           2.532     
+    20     67           4.211     
+    30     355          5.873     
+    40     2070         7.635     
+  ln τ vs N:  slope=0.1697 /unit closure (theory g(2)=0.1931)  ⇒ τ ~ exp(N·g)
+
+══════════════════════════════════════════════════════════════════════════════
+  SMALL-MODEL VERDICT
+══════════════════════════════════════════════════════════════════════════════
+  • Pure closure logic (autocatalytic build + decay-DEFAULT, nothing imported)
+    REPRODUCES the full phenomenology: a metastable self-sustaining closed state,
+    memoryless exponential lifetimes, and τ rising steeply with the intrinsic
+    control ρ=β/δ. The 'destruction' was never imposed — it is the ground state.
+  • Functional form: τ ~ exp(N·g(ρ)), a large-deviation escape — the SAME class
+    as the MFE saddle (metastable + memoryless + steep τ(control)).
+  • HONEST LIMIT: exponential-in-size is GENERIC to metastable stochastic systems,
+    not yet closure-specific. The closure-SPECIFIC test is the SCALE-UP: put this
+    on the CFS K_n³ closure substrate and ask whether the STRUCTURE CFS computes
+    (spectral gap / rank / F-A-S role) sets g and predicts WHICH element's opening
+    triggers catastrophe (the roll/A-role analog). That is where closure would
+    earn prediction, not just host the dynamics.
+══════════════════════════════════════════════════════════════════════════════

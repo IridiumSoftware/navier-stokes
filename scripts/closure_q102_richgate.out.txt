@@ -1,0 +1,26 @@
+══════════════════════════════════════════════════════════════════════════════
+  closure_q102_richgate.jl — does the REAL CFS structure localize a gate on Q_102?
+  EXPERIMENTAL. Weighted autopoietic dynamics; richer predictors. closure-v5 Q_102.
+══════════════════════════════════════════════════════════════════════════════
+
+  Q_102: 2571 relations.  |C| weight: min/med/max = 2 / 5 / 72  (spread = 36×)
+  endpoints in a triplet (have F/A/S role): 2571 of 2571 relations
+
+──────────────────────────────────────────────────────────────────────────────
+  GATING vs RICHER STRUCTURE (weighted dynamics, ρ=2.0, 4 runs)
+──────────────────────────────────────────────────────────────────────────────
+    occupancy: min/mean/max = 0.436 / 0.494 / 0.545
+    Spearman(occupancy, own |C|)          = -0.027
+    Spearman(occupancy, weighted degree)  = -0.027
+    Spearman(occupancy, #non-A endpoints) = +0.003
+
+══════════════════════════════════════════════════════════════════════════════
+  Q_102 RICH-GATE VERDICT
+══════════════════════════════════════════════════════════════════════════════
+  • Even the REAL CFS structure (|C| weights spread 36×, weighted degree, tier,
+    triplet-role) does NOT localize a gate: all |Spearman| < 0.2. Occupancy is
+    delocalized on Q_102. The v1 negative SURVIVES the richer test.
+  • HONEST READING: Q_102 is a clean, symmetric quotient with no roll-like weak leg —
+    not even its coupling-weights or roles single one out. Gating needs heterogeneity
+    that this canonical object lacks. (A heterogeneous closure complex DOES gate — generic test.)
+══════════════════════════════════════════════════════════════════════════════

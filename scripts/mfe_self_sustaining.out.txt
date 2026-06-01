@@ -1,0 +1,81 @@
+══════════════════════════════════════════════════════════════════════════════
+  mfe_self_sustaining.jl — Moehlis–Faisst–Eckhardt (2004) 9-mode model.
+  EXPERIMENTAL. 'Self-sustaining until it is not', as a real dynamical system.
+══════════════════════════════════════════════════════════════════════════════
+
+  box L_x=4π, L_z=2π ⇒ α=0.500, β=1.571, γ=1.000
+  κ_αγ=1.1180  κ_βγ=1.8621  κ_αβγ=1.9281
+
+  (A) laminar a=(1,0,…,0):  ‖RHS‖ = 0.00e+00  (fixed point ✓)
+      tiny perturbation after t=100:  q_pert = 1.82e-03  (decays ⇒ stable ✓)
+
+──────────────────────────────────────────────────────────────────────────────
+  (B) ONE trajectory at Re=280: self-sustains, then abruptly collapses
+──────────────────────────────────────────────────────────────────────────────
+  lifetime = 2955 time units
+  trajectory:  t :  a₁ (mean shear)   q_pert (turbulent energy)
+         1 :  1.005   0.0739  ███████████████
+       185 :  0.194   0.0831  █████████████████
+       369 :  0.104   0.0610  ████████████
+       553 :  0.140   0.0724  ██████████████
+       737 :  0.145   0.0314  ██████
+       921 :  0.151   0.0289  ██████
+      1105 :  0.292   0.0354  ███████
+      1289 :  0.228   0.0302  ██████
+      1473 :  0.171   0.0530  ███████████
+      1657 :  0.482   0.0443  █████████
+      1841 :  0.098   0.0388  ████████
+      2025 :  0.115   0.0880  ██████████████████
+      2209 :  0.349   0.0801  ████████████████
+      2393 :  0.186   0.1212  ████████████████████████
+      2577 :  0.175   0.0377  ████████
+      2761 :  0.376   0.0386  ████████
+      2945 :  0.880   0.0001  
+      2955 :  0.890   0.0001  
+  ⇒ a₁ stays suppressed and q_pert stays O(0.01–0.1) while turbulent,
+    then q_pert → 0 and a₁ → 1 abruptly: 'until it is not.'
+
+──────────────────────────────────────────────────────────────────────────────
+  (C) LIFETIME DISTRIBUTION over random ICs — memoryless test
+──────────────────────────────────────────────────────────────────────────────
+  Re=260, N=600 random ICs (A=0.3):  600 ignited (life>50), 0 censored
+    t        S(t)=P(life>t)     ln S(t)
+       200     1.0000             +0.000
+       560     0.9783             -0.022
+       920     0.8317             -0.184
+      1280     0.6333             -0.457
+      1640     0.4900             -0.713
+      2000     0.4000             -0.916
+      2360     0.3233             -1.129
+      2720     0.2500             -1.386
+      3080     0.2133             -1.545
+      3440     0.1650             -1.802
+      3800     0.1283             -2.053
+      4160     0.1000             -2.303
+
+  exponential fit ln S = 0.2830 -0.00061·t  ⇒  τ = 1644 t.u.,  R² = 0.9936
+  median lifetime (ignited) = 1608 t.u.
+  R²→1 ⇒ lifetimes are EXPONENTIAL = MEMORYLESS: constant escape hazard,
+  no internal clock. Turbulence here is a chaotic SADDLE, not an attractor.
+
+──────────────────────────────────────────────────────────────────────────────
+  (D) characteristic lifetime τ vs Reynolds number
+──────────────────────────────────────────────────────────────────────────────
+    Re     #ignited   %censored   median life   mean life (≈τ)
+      240   200        0.0         1246          1579      
+      260   200        0.0         1501          1941      
+      280   200        0.0         1945          2679      
+      300   200        0.0         2526          3310      
+      320   200        0.0         3117          3860      
+  ⇒ lifetimes lengthen rapidly with Re (the MFE result): the saddle gets
+    'stickier', but escape stays memoryless — still 'until it is not.'
+
+══════════════════════════════════════════════════════════════════════════════
+  READING
+══════════════════════════════════════════════════════════════════════════════
+  This is 'self-sustaining until it is not' as an exact dynamical object:
+  the SSP triad cycle (mean-shear→streak→roll→instability→mean-shear) keeps
+  the flow turbulent on a chaotic saddle; the 'until' is a memoryless escape
+  to the laminar fixed point. No threshold of NS regularity is invoked —
+  the phenomenon is the residue, exactly as posed.
+══════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,47 @@
+══════════════════════════════════════════════════════════════════════════════
+  closure_mr_gate.jl — exact gate on the Rosen (M,R) F/A/S triad. EXPERIMENTAL.
+  Pre-registered: F→S weak ⇒ seed order S>A>F, GATE=S (replication). Closure-internal.
+══════════════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────────────
+  BASE: symmetric decay δ=1, β=3, active links=1, entailment F→S w_ent=0.2
+──────────────────────────────────────────────────────────────────────────────
+    recovery-committor from lone survivor:  F-only=0.291  A-only=0.361  S-only=0.593
+    ⇒ seed = S ;  order S>A>F   [pre-registered: S>A>F, seed=S]
+
+──────────────────────────────────────────────────────────────────────────────
+  ROBUSTNESS — sweep entailment weakness w_ent (F→S link), symmetric decay
+──────────────────────────────────────────────────────────────────────────────
+    w_ent    F-only    A-only    S-only    seed    
+    1.0      0.643     0.643     0.643     F       
+    0.7      0.570     0.598     0.635     S       
+    0.5      0.494     0.544     0.625     S       
+    0.3      0.378     0.446     0.608     S       
+    0.1      0.173     0.229     0.570     S       
+
+──────────────────────────────────────────────────────────────────────────────
+  ROBUSTNESS — sweep metabolism decay δ_F (environment exposure), w_ent=0.3
+──────────────────────────────────────────────────────────────────────────────
+    δ_F      F-only    A-only    S-only    seed    
+    1.0      0.378     0.446     0.608     S       
+    1.5      0.285     0.391     0.598     S       
+    2.0      0.228     0.353     0.592     S       
+    3.0      0.162     0.301     0.582     S       
+
+  CONTROL (w_ent=1, symmetric): F=A=S committor = 0.643,0.643,0.643 ⇒ NO gate (rotational symmetry — as expected)
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT — does the (M,R) role structure predict a gate?
+══════════════════════════════════════════════════════════════════════════════
+  • YES, and it matches the pre-registration: once the entailment F→S is the weak link,
+    the GATE (best-recovery seed) is ROBUSTLY S (replication); order S>A>F. A pure
+    symmetric 3-cycle (control) has NO gate — the gate IS the Rosen entailment asymmetry.
+  • This is a genuine CLOSURE-INTERNAL structural prediction: the role STRUCTURE alone
+    (which link is the entailment closure) determines which role re-ignites the cycle.
+
+  TURBULENCE CAVEAT (NOT a claim): the MFE recovery-gate was the ROLL, which maps to the
+  REPAIR role A (it regenerates the streak=metabolic output) — NOT to S. So the closure-
+  internal gate (S) does NOT match the turbulent gate's role (A). The role structure predicts
+  a gate on its OWN substrate, but the roll↔role bridge stays UNJUSTIFIED — consistent with
+  the whole arc's firewall. Closure predicts a gate; it is not the turbulence gate.
+══════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,42 @@
+══════════════════════════════════════════════════════════════════════════════
+  closure_offgas.jl — the seam as LIFELINE and DEATH-ROUTE (Aaron's offgassing). EXPERIMENTAL.
+══════════════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────────────
+  C1 — is the weak-edge target BOTH the seed and the mortality point? (weak F→S, w=0.2)
+──────────────────────────────────────────────────────────────────────────────
+    recovery as LONE SURVIVOR:  F=0.291  A=0.361  S=0.593   → seed (max) = S
+    recovery after LOSING one:  F=0.791  A=0.777  S=0.482   → mortality (min) = S
+  ⇒ seed=S, mortality=S, weak-edge target=S  →  SAME NODE: the seam is BOTH lifeline and death-route ✓
+
+──────────────────────────────────────────────────────────────────────────────
+  C2 — tightness tradeoff: sweep seam weakness w_ent (F→S)
+──────────────────────────────────────────────────────────────────────────────
+    w_ent    lifespan τ   gate-sharpness   mortality-localiz  regime    
+    1.00     5.3          0.000            0.000              inert/immortal
+    0.70     4.8          0.109            0.060              ALIVE     
+    0.50     4.3          0.236            0.137              ALIVE     
+    0.30     3.7          0.483            0.295              ALIVE     
+    0.10     2.9          1.226            0.752              fragile   
+    0.03     2.7          2.115            1.182              fragile   
+  (gate-sharpness = spread of lone-survivor recovery; mortality-localiz = spread of post-loss recovery.)
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT — the offgassing picture, formalized
+══════════════════════════════════════════════════════════════════════════════
+  • C1 CONFIRMED: the weak-edge target (S) is SIMULTANEOUSLY the seed (best to have) and the
+    mortality point (worst to lose). The seam is one node that is both lifeline AND death-route —
+    'living and dying through the same defect,' made exact.
+  • C2 CONFIRMED: tightening the seam (w_ent→1) buys lifespan but kills identity (sharpness→0):
+    perfect closure = immortal-but-INERT (no gate — the Q_102 over-closed limit). Opening it
+    sharpens identity but collapses lifespan (fragile). LIFE = the imperfectly-closed middle:
+    self-sustaining BECAUSE it offgasses through a seam, mortal BECAUSE of the same seam.
+
+  UNIFICATION (functional, honest): in ANY cyclic-regeneration closure, the seam plays one
+  unified role — offgas channel = gate-defining bottleneck = lifeline-and-death-route — and that
+  role is what makes the object the kind that lives-and-dies. (M,R) and turbulence share THIS.
+  STILL OPEN (firewall): the seam's ORIGIN differs — (M,R) logical entailment vs turbulence
+  nonlinear bottleneck. Functional role unified; micro-origin not (yet). And no B/scaling — the
+  dissipative MAGNITUDE remains the environment. 'Offgas/entropy' is the gloss; the math is
+  closure-loss committors, not thermodynamic entropy.
+══════════════════════════════════════════════════════════════════════════════

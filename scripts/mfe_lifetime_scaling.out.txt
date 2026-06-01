@@ -1,0 +1,53 @@
+══════════════════════════════════════════════════════════════════════════════
+  mfe_lifetime_scaling.jl — τ(Re): escape rate from the MFE saddle.
+  EXPERIMENTAL. The falsifiable prediction target for 'until it is not'.
+══════════════════════════════════════════════════════════════════════════════
+
+  N=1000 random ICs/Re, perturbation amplitude A=0.30, dt=0.05
+  Re     ignit   %cens     t₀       τ_fit     R²      τ_mle     median   
+  220    1000    0.0       407      932       0.997   919       1051     
+  250    1000    0.0       485      1150      0.995   1297      1430     
+  280    1000    0.0       587      2181      0.996   2088      2035     
+  310    1000    0.3       702      2942      0.998   3052      2814     
+  340    1000    0.3       802      4702      0.997   4926      4289     
+  370    1000    0.1       889      7207      0.998   7252      5943     
+
+──────────────────────────────────────────────────────────────────────────────
+  LAW (a) exponential:  ln τ = A + B·Re
+──────────────────────────────────────────────────────────────────────────────
+    fit:  ln τ = 3.709 + 0.01401·Re      R² = 0.9984
+    rate B = 0.01401 /Re   ⇒  τ e-folds every ΔRe = 71.4
+    Re      τ_measured     τ_law(a)
+    220     919            890
+    250     1297           1355
+    280     2088           2062
+    310     3052           3140
+    340     4926           4780
+    370     7252           7277
+
+──────────────────────────────────────────────────────────────────────────────
+  LAW (b) finite-Re_c divergence:  1/τ linear in Re → Re_c where 1/τ=0
+──────────────────────────────────────────────────────────────────────────────
+    fit:  1/τ = 2.356e-03 -6.290e-06·Re      R² = 0.9323
+    implied Re_c (1/τ→0) = 375
+    (Re_c lies ABOVE the sampled range [220,370])
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT — τ(Re), the escape rate from the self-sustaining saddle
+══════════════════════════════════════════════════════════════════════════════
+  Best in-range fit: EXPONENTIAL (law a)   (R²_exp=0.9984 vs R²_pow=0.9323).
+  Measured law:  τ(Re) ≈ exp(3.71 + 0.0140·Re)  over Re∈[220,370].
+  PHYSICAL READING: the rate of escape from the chaotic saddle DECREASES
+  exponentially as Re rises — the saddle gets exponentially 'stickier' but
+  never (in range) becomes a true attractor. 'Self-sustaining until it is
+  not' has a measured clock-rate, and it is exp(−B·Re).
+
+  ⇒ THE PREDICTION BAR, as a number: a closure theory of self-sustenance
+    must reproduce B ≈ 0.0140 /Re (the e-folding rate), or explain why
+    the escape rate is exponential in Re. Reproduce B → result. Relabel the
+    saddle as 'closure' without B → vocabulary.
+  CAVEAT (honest): 6 Re points fix the IN-RANGE trend, not the asymptotic
+    form. Exponential vs double-exponential vs eventual finite-Re_c is NOT
+    settled here (that took large pipe-flow studies); see %cens column for
+    where censoring begins to bite at high Re.
+══════════════════════════════════════════════════════════════════════════════

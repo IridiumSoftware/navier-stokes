@@ -1,0 +1,28 @@
+══════════════════════════════════════════════════════════════════════════════
+  closure_autopoiesis_canon.jl — autopoietic gating on the REAL CFS Q_102
+  EXPERIMENTAL. substrate_source: closure-v5 gpg_bipartite_verified_a (Q_102).
+══════════════════════════════════════════════════════════════════════════════
+
+  Q_102 closure complex: 102 classes, 2571 relations (edges).
+  closure-coupling line graph: deg min/mean/max = 90/98.9/100 (near-regular ⇒ homogeneous)
+  line-graph λ₂ = 46.000 (high ⇒ very robust/expander-like).
+
+──────────────────────────────────────────────────────────────────────────────
+  GATING on the canonical substrate (ρ=2.0, f*=0.50): per-relation occupancy
+──────────────────────────────────────────────────────────────────────────────
+    survival propensity: min/mean/max = 0.409 / 0.497 / 0.579  (spread = 34.1% of mean)
+    Spearman(propensity, degree)    = +0.020
+    Spearman(propensity, |Fiedler|) = -0.014
+
+══════════════════════════════════════════════════════════════════════════════
+  CANONICAL VERDICT
+══════════════════════════════════════════════════════════════════════════════
+  • Q_102 near-regular (degree spread 10.1%), highly connected (λ₂=46): a clean,
+    symmetric algebraic quotient with little structural heterogeneity.
+  • Per-relation occupancy is nearly UNIFORM (spread 34.1%), uncorrelated with structure
+    ⇒ Q_102 has NO distinguished gate; weakness is DELOCALIZED.
+  • HONEST READING: gating (a roll-like distinguished leg) is NOT generic to closure
+    complexes — it needs structural HETEROGENEITY (generic test). The canonical Q_102
+    is too symmetric to single one out: closure predicts gating WHERE heterogeneous,
+    and predicts ABSENCE of a gate on homogeneous Q_102 — a falsifiable, structure-derived call.
+══════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,8 @@
+==============================================================================
+  closure_knfamily_scaling.jl — autopoietic robustness across the REAL K_n³ family
+  EXPERIMENTAL. closure-v5 K_n³ (fidelity build). decay-default + autocatalytic repair.
+==============================================================================
+  ρ=1.15 (low, so the dense canonical quotients are samplable). relations = hyperedges.
+  quotient n_cl    M(he)     mean-deg  λ₂         CV      τ        
+  K_4³     22      190       82.2      20.360     0.677   62       
+  K_5³     35      380       142.8     25.938     0.894   220      

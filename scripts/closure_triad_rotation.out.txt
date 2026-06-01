@@ -1,0 +1,26 @@
+══════════════════════════════════════════════════════════════════════════════
+  closure_triad_rotation.jl — is the gate the WEAK-EDGE TARGET? (Aaron's rotation)
+══════════════════════════════════════════════════════════════════════════════
+  exact 8-state (M,R) CTMC. δ=1, β=3, weak weight=0.2 on ONE edge at a time.
+  making-cycle: S→A→F→S.  edge targets: F→S↦S,  S→A↦A,  A→F↦F.
+
+  weak edge        F-only    A-only    S-only    gate     = weak target?
+  F→S (entailment) 0.291     0.361     0.593     S        YES ✓ (=S)
+  S→A (feedback)   0.361     0.593     0.291     A        YES ✓ (=A)
+  A→F (repair)     0.593     0.291     0.361     F        YES ✓ (=F)
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT — Aaron's rotation
+══════════════════════════════════════════════════════════════════════════════
+  • CONFIRMED: the gate is ALWAYS the TARGET of the weak edge — a rotation-COVARIANT rule.
+    The gate mechanism is identical in every orientation; only WHICH edge is weak changes.
+  • So the (M,R) gate (S) and the turbulent gate (roll=A) are the SAME TRIANGLE ROTATED:
+    – (M,R):   weak edge = entailment F→S      ⇒ gate S (replication).
+    – turbulence: weak edge = feedback wave→roll = S→A ⇒ gate A (the roll).
+    The earlier 'S vs A disagreement' was a LABELING artifact — same mechanism (gate =
+    weak-edge target), weak edge on a different functional edge. The triangle rotated.
+  • REMAINING firewall (honest): the rule is universal, but WHY the weak edge sits where
+    it does differs in origin — (M,R) weak = logical ENTAILMENT (closure-to-efficient-
+    causation); turbulence weak = the NONLINEAR-FEEDBACK regeneration bottleneck. The gate
+    MECHANISM is shared and rotation-covariant; the weak-edge PLACEMENT is system-specific.
+══════════════════════════════════════════════════════════════════════════════

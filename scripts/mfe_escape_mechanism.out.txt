@@ -1,0 +1,77 @@
+══════════════════════════════════════════════════════════════════════════════
+  mfe_escape_mechanism.jl — WHY is τ(Re) exponential? EXPERIMENTAL.
+  Testing: closure-cycle/Kramers escape (flux-over-population) vs naive viscous decay.
+══════════════════════════════════════════════════════════════════════════════
+
+  standard box (4π,2π), M=300 trajectories/Re, E_pert sampled in the
+  quasi-stationary window [t>600, >150 t.u. before collapse].
+
+  per-Re measurements:
+    Re     τ         1/τ (κ)     viscous 1/Re  ⟨E_pert⟩_qs  
+    250    1273      7.85e-04    1.39e-02      0.0548       
+    290    2126      4.70e-04    1.20e-02      0.0540       
+    330    4146      2.41e-04    1.05e-02      0.0521       
+    370    7607      1.31e-04    9.37e-03      0.0500       
+
+──────────────────────────────────────────────────────────────────────────────
+  NAIVE viscous prediction:  κ=1/τ ∝ 1/Re  (algebraic)
+──────────────────────────────────────────────────────────────────────────────
+    Re      κ/(1/Re) = κ·Re   (constant ⟺ viscous-rate explanation holds)
+    250     0.1964
+    290     0.1364
+    330     0.0796
+    370     0.0486
+  κ·Re varies 4×  over the range ⇒ NOT constant ⇒ viscous-rate FAILS.
+  (κ drops exponentially while 1/Re drops algebraically — different physics.)
+
+──────────────────────────────────────────────────────────────────────────────
+  CLOSURE-CYCLE/Kramers prediction:  κ ∝ P_qs(E_pert<E_esc)
+  ⇒ ratio κ/P_qs ~ Re-INDEPENDENT (attempt frequency, not exponential)
+──────────────────────────────────────────────────────────────────────────────
+  E_esc = 0.002 :
+    Re     κ=1/τ        P_qs(<E)     κ/P_qs      
+    250    7.85e-04     2.180e-02    0.0360      
+    290    4.70e-04     2.910e-02    0.0162      
+    330    2.41e-04     2.156e-02    0.0112      
+    370    1.31e-04     1.739e-02    0.0076      
+    → κ/P_qs spread 161% (vs κ itself 6×);  d(lnκ)/dRe=-0.01508  d(lnP_qs)/dRe=-0.00245
+  E_esc = 0.004 :
+    Re     κ=1/τ        P_qs(<E)     κ/P_qs      
+    250    7.85e-04     6.260e-02    0.0125      
+    290    4.70e-04     5.962e-02    0.0079      
+    330    2.41e-04     4.151e-02    0.0058      
+    370    1.31e-04     3.158e-02    0.0042      
+    → κ/P_qs spread 110% (vs κ itself 6×);  d(lnκ)/dRe=-0.01508  d(lnP_qs)/dRe=-0.00604
+  E_esc = 0.008 :
+    Re     κ=1/τ        P_qs(<E)     κ/P_qs      
+    250    7.85e-04     1.146e-01    0.0069      
+    290    4.70e-04     9.688e-02    0.0049      
+    330    2.41e-04     6.825e-02    0.0035      
+    370    1.31e-04     5.055e-02    0.0026      
+    → κ/P_qs spread 95% (vs κ itself 6×);  d(lnκ)/dRe=-0.01508  d(lnP_qs)/dRe=-0.00701
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT — both naive mechanisms FAIL; the closure prediction is REFUTED
+══════════════════════════════════════════════════════════════════════════════
+  B (measured here) = d(lnκ)/dRe = 0.0151 /Re.
+  • NAIVE viscous-decay: REFUTED. κ·Re varies 4× ⇒ κ is exponential in Re,
+    while a viscous rate is algebraic (1/Re). Different physics.
+  • CLOSURE-CYCLE occupancy (κ ∝ P_qs near threshold): ALSO REFUTED.
+    The quasi-stationary weight near the laminar boundary retreats far too
+    SLOWLY — it explains only 16–47% of B (across E_esc=0.002…0.008);
+    κ/P_qs is not flat (varies ~2–2.6×). The mean quasi-stationary amplitude
+    barely moves (⟨E⟩: 0.0548→0.0500) while κ drops 6×.
+  ⇒ The exponential τ(Re) is NOT 'occupancy of a low-amplitude region.' Most of
+    B lives in the CONDITIONAL dynamics: once the flow dips toward laminar, the
+    SSP cycle increasingly RECOVERS at higher Re — escape needs dip AND failure-
+    to-recover, and the recovery probability carries the dominant Re-dependence.
+
+  HONEST SCORE for the closure lens:
+   – QUALITATIVE (it's a metastable/large-deviation escape ⇒ exponential,
+     memoryless): consistent — but this is generic dynamical-systems framing,
+     shared with the standard saddle picture, NOT a unique closure win.
+   – QUANTITATIVE: the one concrete closure-cycle prediction tested here
+     (occupancy-limited escape) FAILED. B remains unpredicted, and the data
+     point to the cycle's RECOVERY/commitment probability as where B lives.
+  This is the firewall working: a falsifiable closure prediction, mostly refuted.
+══════════════════════════════════════════════════════════════════════════════
