@@ -46,7 +46,12 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.10, 2026-06-01)
+## Status summary (v0.1.11, 2026-06-01)
+
+- **NS-033 Slice 5 (v0.1.11):** Arnold curvature of SDiff(T²) — 2D ideal flow as
+  geodesics; verified k∥l⇒flat + symmetry; sign census 84% negative (Arnold) / 9%
+  positive (Misiołek), both reproduced; the geometric root of the ~2-week weather
+  horizon. Slices 1+4+5 = one Lie-group object. (Geometry of 2D Euler, NOT the 3D PDE.)
 
 - **`physical_invariants.md`** added — tiered invariant constraint set (Tier 1
   hard / Tier 2 phenomenology / Tier 3 established), closure-v5 / possibilistic-

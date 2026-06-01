@@ -339,10 +339,18 @@ invariants:
   (κ(2,3)=−0.91); Lyapunov λ>0 on the chaotic MFE saddle vs ≈0 on the integrable
   triad — Arnold's unpredictability, measured. (Slices 1 & 4 = one rigid body, two
   sides.)
-- Evidence: computed (exact where stated; curvature verified). **Status: :tested.
-  Scope: geometry of finite truncations — NOT the PDE.** `:proved` unchanged (0).
+- **Slice 5 (Arnold curvature of SDiff(T²), ∞-dim):** 2D ideal flow as geodesics on
+  the area-preserving diffeo group; algebra built exactly ([v_k,v_l]=−(k×l)v_{k+l},
+  energy metric |k|², ∇=½([,]−B−B)). **Verified k∥l⇒C=0 (flat) + symmetry.** Sign
+  census (2256 sections): **84% negative (Arnold) / 9% positive (Misiołek)** — both
+  reproduced (data, not asserted). Negative curvature ⇒ exponential geodesic
+  divergence = Arnold's ~2-week weather-predictability horizon. (Slices 1,4,5 = one
+  Lie-group object.)
+- Evidence: computed (exact where stated; Slice-4 curvature verified κ≡¼, Slice-5
+  verified k∥l⇒0+symmetry). **Status: :tested. Scope: geometry of 2D ideal flow /
+  finite truncations — NOT the 3D PDE.** `:proved` unchanged (0).
 - Depends_on: NS-021, NS-022, NS-010, NS-002.
-- Source: `scripts/manifold_{1,2,3,4}_*.jl` (+ `.out.txt`), `docs/manifold_study_companion.md`.
+- Source: `scripts/manifold_{1,2,3,4,5}_*.jl` (+ `.out.txt`), `docs/manifold_study_companion.md`.
 - **Rigorous follow-up of Slice 3:** NS-034 (the exact scaling-exponent calculus).
 
 **NS-034 — The scaling-exponent (criticality) calculus: supercriticality made exact.**

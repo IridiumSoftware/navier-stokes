@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.11 — 2026-06-01 — Slice 5: Arnold curvature of SDiff(T²) (extends NS-033)
+
+The ∞-dim sibling of Slice 4 — `scripts/manifold_5_sdiff_curvature.jl`. Arnold
+(1966): 2D ideal flow = geodesics on the area-preserving diffeo group SDiff(T²),
+L² metric; its sectional curvature is mostly negative (the geometric root of
+weather unpredictability). Algebra built exactly: velocity modes v_k=ik^⊥e^{ik·x},
+bracket [v_k,v_l]=−(k×l)v_{k+l} (derived), energy metric ⟨v_k,v_k⟩∝|k|², coadjoint
+B(v_k,v_l)=(k×l)(|k|²/|k−l|²)v_{k−l}, connection ∇=½([,]−B−B); curvature on the
+closed finite set {a·k+b·l: a,b∈−3..3}.
+- **Verified:** k∥l (k×l=0) ⇒ C=0 (flat, commuting flows) exactly; C symmetric.
+- **Sign census** (2256 sections, k,l∈[−3,3]², DATA not asserted): **84% NEGATIVE
+  (Arnold)** / **9% POSITIVE (Misiołek, e.g. C((2,2),(2,1))=+0.35)** / 6% flat.
+  Both classical results reproduced. (My first 9-pair sample hit all-negative —
+  corrected by the full census showing genuine positive sections exist.)
+- **Predictability:** negative κ ⇒ error δ(t)≈δ₀e^{t/τ}, 1/τ=|v|√(−κ) (Jacobi);
+  Arnold's atmosphere figures ⇒ ~10⁵ amplification over 2 months = "5 more digits
+  for a 2-month forecast" ⇒ ~2-week horizon. Our curvature matches the sign/structure;
+  absolute rate is normalization-dependent (flagged).
+- Folded into NS-033 (now 5 slices; scope "2D ideal flow / finite truncations").
+  Registry + companion updated. **`:proved`=0; distance to prize UNTOUCHED** (2D Euler
+  geometry, not the 3D PDE). Slices 1+4+5 = one Lie-group object (orbit / finite curv /
+  ∞-dim curv).
+
 ## v0.1.10 — 2026-06-01 — Slice 3 made rigorous: the scaling-exponent calculus (NS-034)
 
 Upgraded the manifold study's most load-bearing finding ("supercriticality = the

@@ -1,0 +1,58 @@
+══════════════════════════════════════════════════════════════════════════════════
+  MANIFOLD STUDY — Slice 5: ARNOLD CURVATURE of SDiff(T²) (2D ideal flow)
+  (Scope: geometry of SDiff(T²), exact finite sub-computation. NOT the PDE. Prize: UNTOUCHED.)
+══════════════════════════════════════════════════════════════════════════════════
+  Arnold 1966: 2D Euler = geodesics on SDiff(T²), L² metric. Curvature ⇒ (un)predictability.
+  [v_k,v_l]=−(k×l)v_{k+l};  ⟨v_k,v_k⟩∝|k|²;  ∇=½([,]−B−B);  C=⟨R(ξ,η)η,ξ⟩/(…).
+
+──────────────────────────────────────────────────────────────────────────────────
+  (A0) VERIFICATION — parallel modes (k∥l ⇒ k×l=0) must give C=0 (flat), + symmetry
+──────────────────────────────────────────────────────────────────────────────────
+    C((1,0),(2,0)) [parallel] = 0.000e+00   ≈0 ✓ (flat)
+    C((1,0),(0,1)) = -1.25000 ;  C((0,1),(1,0)) = -1.25000   symmetric? ✓
+
+──────────────────────────────────────────────────────────────────────────────────
+  (A) SECTIONAL CURVATURES C(v_k,v_l) — sign structure
+──────────────────────────────────────────────────────────────────────────────────
+    k              l              C(k,l)       sign
+    (1, 0)         (0, 1)         -1.25000     NEGATIVE
+    (1, 0)         (1, 1)         -1.25000     NEGATIVE
+    (2, 1)         (1, 2)         -2.61000     NEGATIVE
+    (1, 0)         (2, 1)         -0.85000     NEGATIVE
+    (2, 0)         (0, 1)         -2.90000     NEGATIVE
+    (3, 1)         (1, 2)         -6.25000     NEGATIVE
+    (1, 1)         (2, -1)        -4.77000     NEGATIVE
+    (1, 0)         (3, 1)         -0.77000     NEGATIVE
+    (2, 2)         (2, 1)         0.35000      POSITIVE
+
+  (A2) FULL sign census over single-mode sections k,l ∈ [−3,3]²:
+    2256 sections: NEGATIVE 1904 (84%), POSITIVE 208 (9%), flat 144 (6%, incl. k∥l).
+  ⇒ SDiff(T²) is PREDOMINANTLY NEGATIVELY curved (≈84%) — Arnold's result — but genuine
+    POSITIVE sections exist (≈9%) — Misiołek. BOTH reproduced here (not asserted). Negative
+    curvature ⇒ neighboring fluid motions (geodesics) DIVERGE exponentially.
+
+══════════════════════════════════════════════════════════════════════════════════
+  (B) PREDICTABILITY ESTIMATE (Arnold's atmosphere argument)
+══════════════════════════════════════════════════════════════════════════════════
+    Negative sectional curvature κ<0 ⇒ a geodesic deviation (forecast error) grows as
+    δ(t) ≈ δ(0)·exp(t/τ),  with rate 1/τ = |v|·√(−κ)  (Jacobi equation; v = flow speed).
+    Arnold's atmosphere numbers: a large-scale flow ~ a few hundred km, speed ~10 m/s, gives
+    an e-folding time τ ≈ a few days; over 2 months the error amplifies by ≈ e^{(60d)/τ}.
+    With Arnold's figures this is ≈ 10^5 — i.e. to forecast 2 MONTHS ahead one would need
+    ≈ 5 MORE decimal digits of the initial state. Practical horizon ⇒ ~2 weeks.
+    Our computed curvature is NEGATIVE (e.g. C≈-1.250 for the largest-scale section),
+    matching the SIGN and structure that drive this estimate. (Absolute rate depends on the
+    physical normalization; the robust content is sign<0 ⇒ exponential error growth.)
+
+══════════════════════════════════════════════════════════════════════════════════
+  READING (Slice 5 — SDiff(T²) curvature)
+══════════════════════════════════════════════════════════════════════════════════
+  • EXACT (finite closed sub-computation, verified: k∥l⇒C=0, symmetric): SDiff(T²) is
+    PREDOMINANTLY NEGATIVELY CURVED — the ∞-dim sibling of Slice 4's anisotropic rigid body.
+  • Negative curvature ⇒ exponential divergence of fluid geodesics = Lagrangian
+    unpredictability; Arnold's famous ~2-week weather horizon / '5 digits for 2 months'.
+  • Continuous with the rest of the tour: Slice 1 (coadjoint orbit) + Slice 4 (finite
+    curvature) + Slice 5 (∞-dim curvature) are one geometric object — Arnold's Lie-group
+    picture of ideal flow — and its curvature/instability structure is what we keep meeting.
+  • FIREWALL: 2D ideal-flow geometry (Euler on T²), NOT the 3D-NS PDE. :proved=0; prize UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════

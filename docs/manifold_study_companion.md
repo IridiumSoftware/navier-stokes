@@ -122,6 +122,29 @@ homogeneous norm an exact rational exponent `‖u_λ‖_X=λ^{σ_X}‖u‖_X`:
   because it *frames* the obstruction (standard criticality theory, re-derived +
   verified) and proves no regularity. `:proved` unchanged (0).
 
+### Slice 5 — Arnold curvature of SDiff(T²), the ∞-dim group (`manifold_5_sdiff_curvature.jl`)
+The ∞-dim sibling of Slice 4: Arnold (1966) — 2D ideal flow is geodesic motion on
+the area-preserving diffeomorphism group SDiff(T²) with the L² metric, and its
+sectional curvature is mostly negative (the geometric root of weather
+unpredictability). Built the algebra exactly: velocity modes `v_k=ik^⊥e^{ik·x}`,
+bracket `[v_k,v_l]=−(k×l)v_{k+l}` (derived), energy metric `⟨v_k,v_k⟩∝|k|²`,
+coadjoint `B(v_k,v_l)=(k×l)(|k|²/|k−l|²)v_{k−l}`, connection
+`∇=½([,]−B−B)`. The sectional curvature `C(v_k,v_l)` is a finite computation
+(Arnold: only modes within 2 brackets of {k,l}); computed on the closed set
+`{a·k+b·l: a,b∈−3..3}`.
+- **Verified:** parallel modes `k∥l` (k×l=0) ⇒ commuting flows ⇒ **C=0 (flat)**,
+  exactly; curvature **symmetric** C(k,l)=C(l,k).
+- **Sign census** (k,l ∈ [−3,3]², 2256 sections, DATA not assertion): **NEGATIVE
+  84%** (Arnold — predominantly negatively curved) / **POSITIVE 9%** (Misiołek —
+  genuine positive sections exist, e.g. C((2,2),(2,1))=+0.35) / flat 6% (incl. k∥l).
+  **Both Arnold and Misiołek reproduced.**
+- **Predictability:** negative κ ⇒ forecast error δ(t)≈δ₀e^{t/τ}, rate
+  1/τ=|v|√(−κ) (Jacobi). Arnold's atmosphere figures ⇒ e-folding ~few days, ~10⁵
+  amplification over 2 months = "5 more digits to forecast 2 months ahead" ⇒ ~2-week
+  practical horizon. Our curvature has the right SIGN/structure; absolute rate is
+  normalization-dependent (flagged). Slices 1+4+5 are one Lie-group object — orbit,
+  finite curvature, ∞-dim curvature.
+
 ---
 
 ## §3 — Verification
