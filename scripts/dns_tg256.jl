@@ -22,15 +22,25 @@
 using Printf, Base.Threads, LinearAlgebra, Serialization
 include(joinpath(@__DIR__, "spectral_3d_control.jl"))
 
-# threaded transforms (override the serial ones; rhs/rk4 bind these at call time)
-function fft3(Ar); A=ComplexF64.(Ar); N=size(A,1)
+# FFT backend: NS_FFT=hand (default, threaded hand-rolled radix-2, hermetic) | fftw (tuned
+# library — needs `julia --project=.`; FFTW pinned in Manifest.toml). fft3/ifft3 dispatch;
+# rhs/field_diag bind them at call time. FFTW plans (cached, the reuse win) created in main().
+const _USE_FFTW = get(ENV,"NS_FFT","hand") == "fftw"
+_USE_FFTW && @eval using FFTW
+const _PLANS = Dict{Symbol,Any}()      # :fwd, :inv FFTW plans (size-N, created once in main)
+
+# hand-rolled threaded radix-2 (N power of two). The hermetic fallback / validation reference.
+function fft3_hand(Ar); A=ComplexF64.(Ar); N=size(A,1)
     @threads for c in 1:N; for b in 1:N; r=A[:,b,c]; fft!(r); A[:,b,c]=r; end; end
     @threads for c in 1:N; for a in 1:N; r=A[a,:,c]; fft!(r); A[a,:,c]=r; end; end
     @threads for b in 1:N; for a in 1:N; r=A[a,b,:]; fft!(r); A[a,b,:]=r; end; end; A; end
-function ifft3(A); B=copy(A); N=size(B,1)
+function ifft3_hand(A); B=copy(A); N=size(B,1)
     @threads for c in 1:N; for b in 1:N; r=B[:,b,c]; fft!(r;inv=true); B[:,b,c]=r; end; end
     @threads for c in 1:N; for a in 1:N; r=B[a,:,c]; fft!(r;inv=true); B[a,:,c]=r; end; end
     @threads for b in 1:N; for a in 1:N; r=B[a,b,:]; fft!(r;inv=true); B[a,b,:]=r; end; end; B; end
+
+fft3(Ar) = _USE_FFTW ? (_PLANS[:fwd] * ComplexF64.(Ar)) : fft3_hand(Ar)
+ifft3(A) = _USE_FFTW ? (_PLANS[:inv] * A)               : ifft3_hand(A)
 
 # production density ω·(ω·∇)u + skewness S_ω + strain–vorticity ALIGNMENT.
 # Alignment (Gemini's mechanism test for "geometric depletion", Hou–Li): the enstrophy-
@@ -131,7 +141,7 @@ function main()
     out = joinpath(@__DIR__, "dns_tg256$(tag).out.txt")
     fout = open(out,"w")
     pr(a...) = (println(stdout,a...); println(fout,a...); flush(fout); flush(stdout))
-    pr("# dns_tg256 — viscous DNS  IC=$ic  N=$N  Re=$(round(1/ν))  dt=$dt  T=$T  threads=$(nthreads())")
+    pr("# dns_tg256 — viscous DNS  IC=$ic  N=$N  Re=$(round(1/ν))  dt=$dt  T=$T  threads=$(nthreads())  fft=$(get(ENV,"NS_FFT","hand"))")
     pr("# Scope: resolved 3D pseudospectral DNS truncation; NOT the PDE; :proved=0.")
     # D30/D50/D70 = box-dim at 3 thresholds (Grok's Fact-3 robustness test); cos2int/max =
     # enstrophy-weighted strain–vorticity alignment (Gemini/Grok mechanism + persistence probe).
@@ -139,6 +149,13 @@ function main()
         "winf","delta","S_omega","D30","D50","D70","c2int","c2max"))
 
     op = make_ops(N)
+    if _USE_FFTW                                       # create + cache the FFTW plans (size-N, once)
+        FFTW.set_num_threads(parse(Int, get(ENV,"NS_FFTW_THREADS", string(nthreads()))))
+        buf = zeros(ComplexF64, N, N, N)
+        _PLANS[:fwd] = plan_fft(buf;  flags=FFTW.MEASURE)
+        _PLANS[:inv] = plan_ifft(buf; flags=FFTW.MEASURE)
+        pr("# FFT=fftw  FFTW.threads=$(FFTW.get_num_threads())  plans=MEASURE")
+    end
     # CHECKPOINT/RESUME (cache the field state): NS_CKPT=Δt>0 saves (t,U,E0,Z0) periodically
     # (overwrite, ~3·N³·16 B) ⇒ crash-proof + cheap T-extension/branching. NS_RESUME=path
     # loads a checkpoint and continues. Pure I/O — does NOT change the numerics.

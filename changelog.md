@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.36 — 2026-06-02 — FFTW.jl integrated (opt-in, pinned) + checkpoint/resume; perf path
+
+**Deliberate, recorded relaxation of the no-deps rule** (owner-authorized) for compute speed,
+done with full lockfile discipline. The hand-rolled threaded FFT remains the DEFAULT and the
+hermetic validation reference.
+
+- **FFTW.jl v1.10.0 added, pinned** (`Project.toml` + `Manifest.toml` committed; Pkg verifies
+  artifact SHAs ⇒ reproducible). Opt-in via `NS_FFT=fftw` + `julia --project=.`; default
+  `NS_FFT=hand` (unchanged behavior, no `--project` needed — keeps in-flight jobs + resume working).
+- **FFT plans cached** (created once per N, `FFTW.MEASURE`) — the reuse win. `FFTW.set_num_threads`
+  (FFTW's own threading, better than @threads-over-slices).
+- **Correctness GATE PASSED:** at N=64, FFTW reproduces the hand-rolled trajectory to all printed
+  digits (E/Z/S_ω/D/alignment identical t=0/0.5/1.0; only machine-zero noise differs). FFTW is a
+  validated drop-in. (N=64 micro-bench: 2.3× on fft3 — N=256 expected larger, cache-bound.)
+- **Checkpoint/resume** (v0.1.36 earlier commit bfe8d3a): `NS_CKPT=Δt` serializes (t,U,E0,Z0)
+  (overwrite, gitignored); `NS_RESUME=path` continues — bit-for-bit validated. Crash-proof +
+  cheap T-extension/branching.
+- **Benchmark updated** (`bench_threads.jl`) to time hand-vs-FFTW fft3 at each thread count;
+  queued (watcher `bo60fce3i`) to run `-t 6/12/18/24 --project` after C → the "where we stand"
+  data. Other Julia opts (in-place plans, rfft for real fields = further ~2×) deferred pending
+  the N=256 numbers. Metal/CUDA (the N=512 path) noted, assessed after FFTW result.
+- Scope/firewall unchanged: FFT library doesn't change the evidence class (still computational
+  Float64); `:proved`=0; prize untouched.
+
 ## v0.1.35 — 2026-06-02 — Boundary B (helical) done: verdicts IC-robust; C (vortex tubes) fired
 
 - **B (helicity boundary, H≠0) DONE** (N=256, Re=1600, energy-matched). Same qualitative

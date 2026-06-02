@@ -1,32 +1,32 @@
 #!/usr/bin/env julia
-# bench_threads.jl — thread-scaling of the 3D pseudospectral solver step-time.
-# The FFT is memory-bandwidth-bound, so more threads may saturate before all cores help.
-# Run at several `julia -t N` to find the real ceiling (which sets the cost of future DNS).
-# BENCH_SMOKE=1 → N=64 only (a fast validation that the script runs, minimal contention).
+# bench_threads.jl — thread-scaling + FFT-backend comparison for the 3D solver.
+# Times a single forward 3D FFT (the per-step bottleneck; a step is ~12–15 of these) for
+# (a) the threaded hand-rolled radix-2 and (b) FFTW (tuned, MKL/FFTW backend). Run at
+# several `julia --project=. -t N` to find the thread ceiling AND the FFTW speedup.
+# Needs --project=. (FFTW). BENCH_SMOKE=1 → N=64 only (fast validation).
 
-using Base.Threads, Printf
+using Base.Threads, Printf, FFTW
 include(joinpath(@__DIR__, "spectral_3d_control.jl"))
 
-function fft3(Ar); A=ComplexF64.(Ar); N=size(A,1)
+function fft3_hand(Ar); A=ComplexF64.(Ar); N=size(A,1)
     @threads for c in 1:N; for b in 1:N; r=A[:,b,c]; fft!(r); A[:,b,c]=r; end; end
     @threads for c in 1:N; for a in 1:N; r=A[a,:,c]; fft!(r); A[a,:,c]=r; end; end
     @threads for b in 1:N; for a in 1:N; r=A[a,b,:]; fft!(r); A[a,b,:]=r; end; end; A; end
-function ifft3(A); B=copy(A); N=size(B,1)
-    @threads for c in 1:N; for b in 1:N; r=B[:,b,c]; fft!(r;inv=true); B[:,b,c]=r; end; end
-    @threads for c in 1:N; for a in 1:N; r=B[a,:,c]; fft!(r;inv=true); B[a,:,c]=r; end; end
-    @threads for b in 1:N; for a in 1:N; r=B[a,b,:]; fft!(r;inv=true); B[a,b,:]=r; end; end; B; end
 
-function bench(N; nsteps=5)
-    op = make_ops(N); U = taylor_green_ic(N, op)
-    U = rk4(U, 0.005, 1/1600, op)                 # warm up / compile
-    t0 = time()
-    for _ in 1:nsteps; U = rk4(U, 0.005, 1/1600, op); end
-    (time() - t0) / nsteps
+function bench_hand(N; reps=8)
+    A = rand(Float64, N,N,N); fft3_hand(A)                 # warmup
+    t0=time(); for _ in 1:reps; fft3_hand(A); end; (time()-t0)/reps
+end
+function bench_fftw(N; reps=8)
+    FFTW.set_num_threads(nthreads())
+    P = plan_fft(zeros(ComplexF64,N,N,N); flags=FFTW.MEASURE)
+    A = ComplexF64.(rand(Float64, N,N,N)); P*A             # warmup
+    t0=time(); for _ in 1:reps; P*A; end; (time()-t0)/reps
 end
 
 Ns = get(ENV,"BENCH_SMOKE","")=="1" ? (64,) : (128, 256)
 for N in Ns
-    sps = bench(N)
-    @printf("threads=%-3d N=%-4d %.3f s/step   (T=10 viscous, 2000 steps ⇒ %.2f h)\n",
-            nthreads(), N, sps, sps*2000/3600)
+    h = bench_hand(N); f = bench_fftw(N)
+    @printf("threads=%-3d N=%-4d  hand=%.4f  fftw=%.4f s/fft3   speedup=%.1fx   (step≈12·fft3 ⇒ hand %.2f h / fftw %.2f h for T=10)\n",
+            nthreads(), N, h, f, h/f, h*12*2000/3600, f*12*2000/3600)
 end
