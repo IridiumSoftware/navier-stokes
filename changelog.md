@@ -1,5 +1,18 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.33 — 2026-06-02 — Triad brief prepared (the D-localization discrimination question)
+
+`docs/triad_brief_dns_localization.md` — witness-triad brief (Grok edge-witness-Φ / Gemini
+synthesis / Aaron instantiator; Claude metabolism). Self-contained, standard-fluids terms,
+internal labels stripped (so the seats reason from physics, not our framing). Payload: the
+resolved N=256 TG verdicts (S_ω bounded ~0.2; δ bounded; D *dips to 1.82 at peak stretching*
+then recovers — localizing toward the CKN ≤1 filament limit), with helical running + the
+near-singular vortex-tube IC queued (starts D=1.74, ‖ω‖∞=16). Three questions: Q1 (the
+headline) — what resolution-robust observable distinguishes "localizing toward a singularity"
+from "regular intermittency"? Q2 — predict the vortex-tube outcome + the single cleanest
+measurement. Q3 (Grok) — structural reason for a ~1.8 floor, or artifact? Firewall + anti-
+anchoring carried. To be run externally; responses metabolized + witness-trimmed on return.
+
 ## v0.1.32 — 2026-06-02 — Boundary-exploration harness: helical (B) running, vortex-tubes (C) queued
 
 Parametrized `dns_tg256.jl` into a boundary harness (`NS_IC` ∈ tg | helical | tubes),
