@@ -1,5 +1,30 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.26 — 2026-06-01 — Inverse-Born / possibilistic map of turbulence's measured constants
+
+A deliberate pivot off the prize: map *possibility* and *probability* (not just necessity)
+of the physical phenomenon, on its natural manifolds. `scripts/turbulence_nogo_map.jl`.
+
+- **The inverse-Born is literal:** the multifractal formalism is a large-deviation/Born
+  structure — `ζ_p = inf_h[ph+3−D(h)]`, so measured moments `ζ_p` are the Legendre
+  transform of the singularity spectrum `D(h)` (the possibility structure / rate function).
+  Inverse-Born = inverse Legendre `D(h)=3−max_p[ζ_p−ph]`, recovering `D(h)` from data.
+- **Panel 1 (inertial (h,D) manifold):** measured `ζ_p` match She–Lévêque to ±0.02 (ζ₃=1
+  exact); recovered `D(h)` peaks at D=3 (h≈0.38), passes the K41/Onsager pivot (h=1/3,
+  D≈2.97), and **runs down to the CKN wall (D=1 @ h=1/9)**. Forced: D≤3, concavity, ζ₃=1
+  (4/5) tangent, CKN ≤1D edge. The attractor *saturates* the CKN no-go (flagged as
+  consistency, not identity — intense filaments vs hypothetical singular set).
+- **Panel 2 (σ-ladder overlay):** h=1/3 ⟺ σ=0 (NS-036) is the rigorous pivot; h<1/3 (rough)
+  sits on the enstrophy/stretching side — local spectrum and global ladder agree on where
+  the difficulty is.
+- **Panel 3 (wall manifold (Re,y⁺)):** onset Re_c (pipe 2040 / Couette 325) = laminar
+  forbidden→possible (NS-021 lifetimes); log law κ≈0.41 forced-in-form by overlap, window
+  opens as Re→∞. Hinge: the dissipation anomaly C_ε≈0.5 (ν-independent) forces h=1/3.
+- Tags throughout: [EXACT] (4/5, D≤3, concavity) / [MEASURED] (C_K,ζ_p,μ,C_ε,κ,Re_c) /
+  [MODEL] (She–Lévêque, h↔σ beyond the pivot). New `docs/turbulence_nogo_map_companion.md`.
+- Candidate spec entry **NS-037** (possibilistic/inverse-Born map) DEFERRED — owner's call.
+  `:proved`=0; the prize was deliberately not the target.
+
 ## v0.1.25 — 2026-06-01 — DEC sandbox: structure-preserving discrete-NS substrate (discrete.rtfd part 2)
 
 The legitimate discrete direction, built honestly: a periodic cubical chain complex on 𝕋³

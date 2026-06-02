@@ -1,0 +1,107 @@
+════════════════════════════════════════════════════════════════════════════════
+  turbulence_nogo_map.jl — the inverse-Born / possibilistic map of turbulence's constants
+  necessity (no-go walls) ▸ possibility (admissible envelope) ▸ probability (measured)
+  Scope: EMPIRICAL phenomenology + the EXACT 4/5 law + the no-go constraints. NOT the PDE.
+════════════════════════════════════════════════════════════════════════════════
+
+  PANEL 1 — INERTIAL MANIFOLD  (h = local scaling exponent, D(h) = its set-dimension)
+────────────────────────────────────────────────────────────────────────────────
+  Forward (Born): ζ_p = inf_h[ p h + 3 − D(h) ].   Inverse-Born: D(h)=3−max_p[ζ_p−p h].
+
+    p    ζ_p measured ζ_p She-Lév  tag       
+    1    0.370        0.364        [MEASURED]
+    2    0.700        0.696        [MEASURED]
+    3    1.000        1.000        [EXACT 4/5]
+    4    1.280        1.280        [MEASURED]
+    5    1.530        1.538        [MEASURED]
+    6    1.770        1.778        [MEASURED]
+    7    2.010        2.001        [MEASURED]
+    8    2.230        2.211        [MEASURED]
+    (She–Lévêque [MODEL] is parameter-free and reproduces ζ_3=1 by construction.)
+
+  Inverse-Born → the singularity spectrum D(h)  [the recovered possibility structure]:
+    landmark               h         D(h)      meaning  
+    peak (most PROBABLE)   0.381     3.000     D=3: space-filling bulk
+    K41 / Onsager pivot    0.333     2.966     ζ_3=1, h=1/3 ⟺ σ=0
+    CKN filament edge      0.111     1.000     D→1: most-singular ≤1D
+    measured inverse-Legendre check:  D(h=1/3)=2.963   D(h=0.30)=2.900   D(h=0.20)=2.370
+
+  THE NO-GO MAP of the (h,D) manifold  (* = She–Lévêque spectrum):
+    ─ = D≤3 ceiling [EXACT];  · = CKN edge D=1 [EXACT no-go];  P peak  K K41/Onsager  C CKN
+  D=3.0 │──────────────────────────────*****K******P───
+  D=2.8 │                      *********               
+  D=2.6 │                 ******                       
+  D=2.4 │              ****                            
+  D=2.2 │           ***                                
+  D=2.0 │        ***                                   
+  D=1.8 │      ***                                     
+  D=1.6 │    ***                                       
+  D=1.4 │   **                                         
+  D=1.2 │  **                                          
+  D=1.0 │··C···········································
+  D=0.8 │                                              
+  D=0.6 │                                              
+  D=0.4 │                                              
+  D=0.2 │                                              
+  D=0.0 │                                              
+        └──────────────────────────────────────────────
+         h=0.10                hp=0.25               h=0.40
+
+  ⇒ FORCED  (□): D≤3 ceiling; concavity/realizability; ζ_3=1 (4/5 law) pins the slope-3
+     tangent; CKN ⇒ the most-singular end cannot lift above D=1 (≤1D filaments).
+  ⇒ POSSIBLE (◇): any concave D(h)≤3 touching the ζ_3=1 tangent with low-h endpoint ≤1.
+  ⇒ PROBABLE   : the measured spectrum — peak D=3 at h≈0.38, mean h=1/3, and it RUNS DOWN
+     TO the CKN wall (D=1 at h=1/9). The data SATURATE the CKN no-go at the singular end.
+     [consistency, not identity: SL's most-intense structures are 1D filaments; CKN bounds
+      a hypothetical SINGULAR set ≤1D — same geometry, different objects. Flagged honestly.]
+
+  PANEL 2 — σ-LADDER OVERLAY  (the local h-manifold meets the global criticality ladder)
+────────────────────────────────────────────────────────────────────────────────
+    h is LOCAL (Hölder/Besov, increments); σ is GLOBAL (Sobolev norms, NS-036). They meet
+    at ONE rigorous point — the regularity threshold — and orient the two sides:
+      h region         σ-ladder       role                  
+      h > 1/3 (smooth) σ < 0          energy side — CONTROLLED (supercritical bound)
+      h = 1/3 (pivot)  σ = 0          CRITICAL: 4/5 law ⟺ Onsager ⟺ Ḣ^{1/2}/L³
+      h < 1/3 (rough)  σ > 0          enstrophy side — stretching, the singular structures live here
+  ⇒ the intermittent / CKN-edge structures (h<1/3) sit on the SAME side of criticality as
+    the uncontrolled enstrophy rung (NS-036). The local spectrum and the global ladder agree
+    on WHERE the difficulty is — at and below h=1/3 / σ=0. (Pivot rigorous; sides qualitative.)
+
+  PANEL 3 — WALL-BOUNDED MANIFOLD  (Re, y⁺) — onset + log-overlap, NOT multifractal
+────────────────────────────────────────────────────────────────────────────────
+    Two possibilistic boundaries, both Reynolds-keyed:
+    (i) ONSET Re_c  [MEASURED]:
+        pipe Re_c≈2040 (Avila 2011);  plane Couette Re_c≈325.
+        Re < Re_c ⇒ turbulence FORBIDDEN (laminar forced, □);  Re > Re_c ⇒ POSSIBLE (◇),
+        subcritical — survives with a finite lifetime (the NS-021 memoryless τ(Re)).
+    (ii) LOG LAW  U⁺ = (1/κ)ln(y⁺)+B,  κ≈0.41, B≈5.0  [MEASURED, ~universal]:
+        FORCED form by the inner/outer overlap (Millikan matching) — but the overlap WINDOW
+        only OPENS as Re→∞ (η ≪ log layer ≪ δ). So κ is the PROBABLE constant; the log
+        window is the POSSIBLE region; it is EMPTY (forbidden) at low Re.
+  ⇒ FORCED: laminar below Re_c; the log FORM given an overlap. POSSIBLE: turbulent above
+    Re_c; the log window opening with Re. PROBABLE: κ≈0.41, and the inertial (h,D) spectrum
+    of PANEL 1 is what lives INSIDE this window once it is open. The two manifolds couple
+    through Re: PANEL 3 says WHEN/WHERE turbulence exists; PANEL 1 says WHAT it looks like.
+
+  HINGE — the dissipation anomaly (the 'zeroth law'):  C_ε = εL/u'³ → ≈0.5 as Re→∞
+    [MEASURED, ν-INDEPENDENT]. This is the empirical face of Onsager (NS-009): ε stays
+    finite as ν→0 ⇒ the spectrum must reach h=1/3 (the 4/5 law) ⇒ PANEL 1 has a singular
+    end at all. It is WHY the (h,D) manifold extends below h=1/3 — the probable, measured
+    reason the no-go walls are APPROACHED rather than sitting idle.
+
+════════════════════════════════════════════════════════════════════════════════
+  THE MAP, IN ONE LINE PER MODE
+════════════════════════════════════════════════════════════════════════════════
+  □ NECESSITY (no-go, forced):  D≤3; concavity; ζ_3=1 [4/5, EXACT]; CKN ⇒ singular end ≤1D;
+    laminar below Re_c; log FORM by overlap. (= the obstruction ledger, on these manifolds.)
+  ◇ POSSIBILITY (admissible):   concave D(h)≤3 through the 4/5 tangent, low-h endpoint ≤1;
+    turbulence above Re_c; the log/inertial window opening as Re→∞.
+  ▸ PROBABILITY (measured):     D(h) peak 3 @ h≈0.38, mean h=1/3, RUNNING DOWN TO the CKN
+    wall (D=1 @ h=1/9); C_K≈1.6, ζ_p anomalous, μ≈0.2, C_ε≈0.5, κ≈0.41. The attractor
+    SITS AGAINST the CKN no-go and is ANCHORED by the exact 4/5 law at h=1/3 / σ=0.
+  Inverse-Born delivered: from the measured moments we recovered D(h) (the possibility
+  structure) and located it inside the forced envelope. Scope: empirical; :proved=0;
+  the PRIZE is untouched and was deliberately not the target here.
+════════════════════════════════════════════════════════════════════════════════
+
+wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/turbulence_nogo_map.out.txt
