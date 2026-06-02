@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.32 — 2026-06-02 — Boundary-exploration harness: helical (B) running, vortex-tubes (C) queued
+
+Parametrized `dns_tg256.jl` into a boundary harness (`NS_IC` ∈ tg | helical | tubes),
+energy-matched to TG (E≈0.125, Re=1600) for fair cross-boundary comparison.
+
+- **B (helicity boundary, H≠0):** `helical_ic` (low-k random helical, rescaled). N=64 smoke
+  clean (H0≠0, div 4e-12, H≈conserved). **N=256 run LAUNCHED** (background, ~3.8h) — tests
+  whether the surviving 3D Casimir (NS-036) changes the resolved verdicts (S_ω bounded? D dip?).
+- **C (blowup-candidate boundary):** `vortex_tube_ic` — Kerr-style anti-parallel vortex tubes
+  along x (opposite circulation, sinusoidal centerline wiggle), ω prescribed → Leray-projected
+  div-free → u=curl⁻¹ω. N=64 smoke clean (div 4e-12, H0≈0 by anti-parallel symmetry) and
+  **already informative: ‖ω‖∞=16.5 (vs TG 2.0), D_box=1.74 at t=0 (vs TG 2.43)** — the IC
+  starts far more filamentary (near-singular character). VALIDATED + QUEUED for N=256 (fires
+  after B; can't run concurrently — both bandwidth-bound).
+- Harness + both N=64 validations committed. The N=256 science (B verdicts, C verdicts) lands
+  next. `:proved`=0; prize untouched.
+
 ## v0.1.31 — 2026-06-02 — Resolved N=256 DNS (TG Re=1600): the gated verdicts, resolved
 
 First run on the real ~6-hour budget (prior runs ~10 min). Resituated after Aaron flagged

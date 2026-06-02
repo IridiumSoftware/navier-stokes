@@ -1,0 +1,8 @@
+# dns_tg256 — viscous DNS  IC=helical  N=64  Re=1600.0  dt=0.01  T=1.0  threads=6
+# Scope: resolved 3D pseudospectral DNS truncation; NOT the PDE; :proved=0.
+# t      E/E0        H           Z/Z0        winf      delta    S_omega    Dbox   
+# IC=helical  E0=0.12500  H0=1.67947e-02  Z0=1.40267  div_max=4.2e-12
+  0.00   1.000000    1.679e-02   1.0000      4.52      NaN      0.0022     2.518  
+  0.50   0.992723    1.670e-02   1.1147      5.74      0.553    0.1237     2.475  
+  1.00   0.983812    1.649e-02   1.4673      10.59     0.367    0.1714     2.437  
+# DONE. Enstrophy peak ≈ Brachet-1983 TG Re=1600 (validation); S_ω/Dbox on the resolved field.

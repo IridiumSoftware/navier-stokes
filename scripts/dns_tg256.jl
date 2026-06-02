@@ -67,22 +67,57 @@ function box_dimension(field; frac=0.5)
     sum((xs.-xm).*(ys.-ym))/sum((xs.-xm).^2)
 end
 
+# ── boundary ICs (selected by NS_IC) ─────────────────────────────────────────────
+# helical: low-k random helical field (H≠0), energy-matched to TG (E≈0.125) for a fair
+# H≠0-vs-H=0 comparison at comparable Reynolds number / resolution.
+function helical_ic(N, op)
+    U0 = random_helical_ic(N, op)                      # normalized to E=0.5
+    s = sqrt(0.125/0.5)                                # rescale to E≈0.125 (TG energy)
+    (U0[1].*s, U0[2].*s, U0[3].*s)
+end
+# Kerr-style anti-parallel vortex tubes along x, opposite circulation, with a sinusoidal
+# centerline wiggle (NS_PERT) to drive stretching/reconnection. ω prescribed → Leray-
+# projected divergence-free → u = curl⁻¹ω (Biot–Savart). Energy-matched to TG.
+function vortex_tube_ic(N, op; a=0.30, b=0.80, ε=0.30, kx=1.0)
+    xs=[2π*(i-1)/N for i in 1:N]; y0=π
+    ωx=zeros(N,N,N)
+    @inbounds for c in 1:N, j in 1:N, i in 1:N
+        X=xs[i]; Y=xs[j]; Z=xs[c]; dz=ε*sin(kx*X)
+        zp=π+b+dz; zm=π-b-dz
+        rp2=(Y-y0)^2+(Z-zp)^2; rm2=(Y-y0)^2+(Z-zm)^2
+        ωx[i,j,c]=(exp(-rp2/a^2)-exp(-rm2/a^2))/(π*a^2)
+    end
+    ωxh=fft3(ωx); ωyh=zeros(ComplexF64,N,N,N); ωzh=zeros(ComplexF64,N,N,N)
+    kd = op.kx.*ωxh .+ op.ky.*ωyh .+ op.kz.*ωzh        # Leray-project ω div-free
+    ωxh .-= op.kx.*(kd./op.k2p); ωyh .-= op.ky.*(kd./op.k2p); ωzh .-= op.kz.*(kd./op.k2p)
+    uh = im.*(op.ky.*ωzh .- op.kz.*ωyh)./op.k2p        # u = curl⁻¹ω : û = i k×ω̂/|k|²
+    vh = im.*(op.kz.*ωxh .- op.kx.*ωzh)./op.k2p
+    wh = im.*(op.kx.*ωyh .- op.ky.*ωxh)./op.k2p
+    uh[1,1,1]=0; vh[1,1,1]=0; wh[1,1,1]=0
+    u=real.(ifft3(uh)); v=real.(ifft3(vh)); w=real.(ifft3(wh))
+    E=0.5*mean3(u.^2 .+ v.^2 .+ w.^2); s=sqrt(0.125/E)
+    (uh.*s, vh.*s, wh.*s)
+end
+
 function main()
     N   = parse(Int,  get(ENV,"NS_N","256"))
     T   = parse(Float64, get(ENV,"NS_T","10.0"))
     dt  = parse(Float64, get(ENV,"NS_DT","0.005"))
     ν   = parse(Float64, get(ENV,"NS_NU", string(1/1600)))
     smp = parse(Float64, get(ENV,"NS_SAMPLE","0.5"))
-    tag = N==256 ? "" : "_N$(N)"
+    ic  = get(ENV,"NS_IC","tg")                         # tg | helical | tubes
+    tag = (ic=="tg" ? "" : "_$(ic)") * (N==256 ? "" : "_N$(N)")
     out = joinpath(@__DIR__, "dns_tg256$(tag).out.txt")
     fout = open(out,"w")
     pr(a...) = (println(stdout,a...); println(fout,a...); flush(fout); flush(stdout))
-    pr("# dns_tg256 — viscous Taylor–Green DNS  N=$N  Re=$(round(1/ν))  dt=$dt  T=$T  threads=$(nthreads())")
+    pr("# dns_tg256 — viscous DNS  IC=$ic  N=$N  Re=$(round(1/ν))  dt=$dt  T=$T  threads=$(nthreads())")
     pr("# Scope: resolved 3D pseudospectral DNS truncation; NOT the PDE; :proved=0.")
     pr(@sprintf("# %-6s %-11s %-11s %-11s %-9s %-8s %-10s %-7s","t","E/E0","H","Z/Z0","winf","delta","S_omega","Dbox"))
 
-    op = make_ops(N); U = taylor_green_ic(N, op)
+    op = make_ops(N)
+    U = ic=="helical" ? helical_ic(N,op) : ic=="tubes" ? vortex_tube_ic(N,op) : taylor_green_ic(N,op)
     d0 = diagnose(U,op,N); Z0 = d0.Z; E0 = d0.E
+    pr(@sprintf("# IC=%s  E0=%.5f  H0=%.5e  Z0=%.5f  div_max=%.1e", ic, d0.E, d0.H, d0.Z, d0.divmax))
     t = 0.0; nexts = 0.0
     while t < T + 1e-9
         if t >= nexts - 1e-9
