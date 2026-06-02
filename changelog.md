@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.27 — 2026-06-01 — Inverse-Born PUSH: derive the cascade by obstruction (log-normal FORBIDDEN)
+
+Applied the closure-v5 inverse-Born obstruction methodology verbatim (A. Green, Apr 2026;
+`closure-v5 BUSINESS/inverse_born_methodology.md`) to the turbulence cascade.
+`scripts/turbulence_inverse_born.jl`.
+
+- **Invariant stratification (the gate):** only frame-independent invariants used as HARD
+  constraints — ζ_3=1 (4/5, exact), D≤3, ζ_p nondecreasing+concave (realizability), CKN ≤1D,
+  the codim-2 filament integer. The numbers (C_K, μ, ζ_{p≥4}, κ, C_ε) are convergence
+  targets, explicitly NOT anchored on (anti-anchoring, methodology §9).
+- **The obstruction (HARD layer only) over the cascade-model family:** log-normal (K62) is
+  **FORBIDDEN** — ζ′_p<0 for p>p*=3/μ+3/2 (≈16.5) and D(h)<0 (negative dimension): two
+  independent realizability violations. A clean structural NULL (cf. P2-A/P2-B). β-model
+  passes the hard layer but is monofractal (disfavored only at the convergence layer, flagged
+  *). K41 allowed-degenerate. log-Poisson/She–Lévêque SURVIVES — monotone, concave, ζ_3=1,
+  D(h_min)=1 exactly (codim-2), meeting the CKN ≤1D edge; survives on STRUCTURAL INTEGERS,
+  not fitted numbers.
+- **Verdict:** the null promotes "why not log-normal" to "structurally impossible at every
+  Re, in every flow." What is FORCED (structure, not numbers): ζ_3=1 tangent, monotone-concave
+  ζ_p, ≤1D singular end. The selection of log-Poisson among survivors is the WEAKER
+  frame-dependent layer — labeled as such, not promoted.
+- New `docs/turbulence_inverse_born_companion.md`. Strengthens candidate NS-037 (still
+  deferred). `:proved`=0; the prize was not the target.
+
 ## v0.1.26 — 2026-06-01 — Inverse-Born / possibilistic map of turbulence's measured constants
 
 A deliberate pivot off the prize: map *possibility* and *probability* (not just necessity)

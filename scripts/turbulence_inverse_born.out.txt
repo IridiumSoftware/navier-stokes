@@ -1,0 +1,69 @@
+════════════════════════════════════════════════════════════════════════════════
+  turbulence_inverse_born.jl — derive the cascade by OBSTRUCTION (inverse-Born push)
+  methodology: closure-v5 BUSINESS/inverse_born_methodology.md (A. Green, Apr 2026)
+  Scope: EMPIRICAL + exact 4/5 + realizability no-go's. NOT the PDE. :proved=0.
+════════════════════════════════════════════════════════════════════════════════
+
+  PANEL A — INVARIANT STRATIFICATION  (methodology §5: use a constant as a HARD
+  constraint only if FRAME-INDEPENDENT across all four dimensions; else it is a
+  CONVERGENCE TARGET we must NOT anchor on. ✓=invariant, ~=approx/varies, ✗=no.)
+────────────────────────────────────────────────────────────────────────────────
+    invariant                  time  scale scope res    verdict
+    ζ_3 = 1  (4/5 law)         ✓     ✓     ✓     ✓      HARD — exact from NS
+    D ≤ 3  (space dim)         ✓     ✓     ✓     ✓      HARD — definitional
+    ζ_p nondecreasing+concave  ✓     ✓     ✓     ✓      HARD — realizability
+    CKN: singular set ≤ 1D     ✓     ✓     ✓     ✓      HARD — theorem (resolution-protected)
+    codim-2 (1D filament int.) ✓     ✓     ~     ✓      STRUCTURAL integer (model; CKN-consistent)
+    C_K ≈ 1.6                  ✓     ~     ~     ~      convergence target — DO NOT anchor
+    μ ≈ 0.20–0.25              ✓     ~     ~     ~      convergence target — DO NOT anchor
+    ζ_p, p≥4 (values)          ✓     ~     ~     ~      convergence target — DO NOT anchor
+    κ ≈ 0.41,  C_ε ≈ 0.5       ✓     ~     ~     ~      convergence target — DO NOT anchor
+  ⇒ the obstruction below uses ONLY the five HARD rows. The numbers are never anchored —
+    they enter only as a final convergence check among the structurally-surviving models.
+
+  PANEL B — OBSTRUCTION over the cascade-model family  (apply ONLY the HARD constraints)
+────────────────────────────────────────────────────────────────────────────────
+    model              ζ_3=1   ζ' ≥ 0    D≤3     D≥0     verdict     
+    K41 (monofractal)  yes     yes (=⅓)  yes     yes     ALLOWED (degenerate: D=δ(h−⅓))
+    log-normal (K62)   yes     NO (p*≈16.5) yes     NO      FORBIDDEN   
+        └ realizability: ζ'_p=⅓−(μ/18)(2p−3) < 0 for p > p*=3/μ+3/2 (=16.5 at μ=0.20,
+          =13.5 at μ=0.25) ⇒ ζ_p turns DOWN (moments shrink) — impossible for bounded
+          increments. And D(h)=3−(9/2μ)(h−h₀)² < 0 for |h−h₀|>0.37 (negative dimension).
+          TWO independent HARD violations. A clean structural NULL (cf. P2-A/P2-B).
+    β-model (D_F=2.8)  yes     yes (=0.27) yes     yes     ALLOWED*    
+        └ passes every HARD constraint, but ζ_p is LINEAR (monofractal) ⇒ predicts NO
+          curvature. Not forbidden by structure — disfavored only at the convergence layer
+          (the measured ζ_p are concave). Honest: a frame-DEPENDENT distinction, flagged *.
+    log-Poisson (SL)   yes     yes (>⅑)  yes     yes     SURVIVES    
+        └ monotone (ζ'≥⅑>0), concave, ζ_3=1, bounded h_min=⅑=0.111; D(h_min)=1 EXACTLY
+          by the codim-2 construction (=1.058 at the p=40 truncation, →1 from above as p→∞)
+          ⇒ MEETS the CKN ≤1D edge exactly. Survives because it is built on STRUCTURAL INTEGERS
+          (codimension-2 = 1-D vortex filaments; the discrete log-Poisson hierarchy), NOT on
+          fitted numbers — exactly the 'match structure, not numbers' discipline.
+
+  PANEL C — THE INVERSE-BORN VERDICT
+────────────────────────────────────────────────────────────────────────────────
+  • THE NULL (clarifying): the log-normal cascade is FORBIDDEN — not by data preference but
+    by two HARD structural constraints (ζ_p non-monotone past p*; negative D(h)). This is a
+    possibilistic-layer result: realizability alone kills it, at every Re, in every flow.
+    Phase-promotion (§3.3): 'why not log-normal' moves from 'the data disfavor it' to
+    'it is structurally impossible.'
+  • THE SURVIVORS: K41 (degenerate), β (monofractal), and the log-Poisson/multifractal class
+    all pass the HARD layer. Among them ONLY the convergence layer (the measured concavity +
+    CKN-saturation) selects log-Poisson — and that selection is explicitly the WEAKER,
+    frame-dependent layer. We do NOT promote it to structural on the strength of the numbers.
+  • WHAT IS ACTUALLY FORCED (structure, not numbers): any admissible cascade has ζ_3=1
+    (the 4/5 tangent), monotone-concave ζ_p, and a most-singular end at D≤1 (CKN). The
+    surviving multifractal class meets these via the codim-2 filament integer — the same
+    kind of structural integer ('3 colours', 'codim 2') the closure-v5 programme trusts.
+  • ANTI-ANCHORING (§9): C_K, μ, κ, C_ε never entered as constraints — only as a final
+    consistency check among structural survivors. No model was tuned to a number.
+
+════════════════════════════════════════════════════════════════════════════════
+  ONE LINE: realizability + the 4/5 law + CKN FORBID the log-normal cascade and PIN every
+  survivor to ζ_3=1 with a ≤1-D singular end — the cascade's structure is obstructed into
+  shape by the no-go's, with the measured numbers held back as convergence targets only.
+  Scope: empirical; :proved=0; the prize was not the target.
+════════════════════════════════════════════════════════════════════════════════
+
+wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/turbulence_inverse_born.out.txt
