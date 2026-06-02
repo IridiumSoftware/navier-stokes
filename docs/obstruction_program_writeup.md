@@ -79,6 +79,17 @@ entirely in the *norm* (NS-002), which homology cannot see. (Repair-cost turned 
 to equal `1/vorticity` exactly.) A clean negative that re-diagnosed where the
 difficulty is *not*, and pointed at the live handle: the complex plane.
 
+*Confirmatory postscript (2026-06-01).* The same finite-incidence / chain-complex
+picture was independently re-derived (via Grok) — flux closure `∂₁q=0` vs. repair
+closure `q∈im ∂₂`, with a refinement-tower repair-cost `R_X(q)` and a "3D repair fires
+out of turn" reframe. It reproduces this exact obstruction. The rediscovery's own
+honest catch — `R_X(q)≈1/|ω|` — *inverts* the intended turbulence criterion: repair
+gets *cheaper* precisely where blowup threatens, which is positive confirmation that the
+homological framing is orthogonal to the real (norm-driven) wall mapped in §5. "Fires
+out of turn" is the vortex-stretching / production–dissipation race in new language;
+the proposed non-standard-analysis / surreal-number lifts remain speculative scaffolding
+on a falsified foundation. No PDE path reopened; the rediscovery accepted this verdict.
+
 ---
 
 ## 3. The diagnostic — validated, and its limits charted (NS-010/011)

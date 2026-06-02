@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.21 — 2026-06-01 — NS-020 note: independent rediscovery (Grok), confirmatory
+
+A long Grok conversation (`~/Desktop/grok.rtf`) independently re-derived the
+finite-incidence / chain-complex reformulation already FALSIFIED in NS-020 (flux
+closure `∂₁q=0` vs. repair closure `q∈im ∂₂`; refinement-tower repair-cost `R_X(q)`;
+"3D repair fires out of turn"; NSA / surreal lifts). Metabolized and logged as
+**confirmatory calibration**, not a reopened path:
+- Same `H₁` obstruction we mapped; on fixed-topology domains `dim H₁` is pinned under
+  refinement; vortex filaments are not new domain 1-cycles (`ω=∇×u` always exact).
+- Grok's own honest catch — `R_X(q)≈1/|ω|` — *inverts* the turbulence criterion and
+  confirms the difficulty is **norm-driven** (NS-002 / Casimir deficit / enstrophy
+  non-coercivity, §5), not topological. Repair gets *cheaper* exactly where blowup
+  threatens, so the homological framing is orthogonal to the real wall.
+- "Fires out of turn" = the vortex-stretching / production–dissipation race relabeled
+  (already probed rigorously via `S_ω`); NSA/surreal = speculative scaffolding on a
+  falsified foundation.
+- NS-020 entry annotated with a dated update. The rediscovery accepted the verdict.
+  No new spec entry; no script. `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.20 — 2026-06-01 — Box-counting dimension: the M*↔CKN close (and it corrects f50)
 
 `scripts/ryan_ckn_box_dimension.jl` (box-counter validated: line→1, plane→2, volume→3). The

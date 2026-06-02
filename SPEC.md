@@ -220,6 +220,20 @@ and the genuine difficulty lives entirely in the **norm choice** (= NS-002), whi
 homology cannot see. Repair-cost = 1/vorticity exactly.
 - Evidence: computed. **Status: :falsified.** Scope: discrete-topology diagnostic.
 - Source: `scripts/navier_stokes_homology_diagnostic.jl` (+ .out.txt).
+- **Update (2026-06-01) — independent rediscovery (via Grok), confirmatory.**
+  The finite-incidence / chain-complex reformulation was re-derived independently:
+  flux closure `∂₁q=0` vs. repair closure `q∈im ∂₂` on a 2-complex, with a
+  refinement-tower extension via repair-cost `R_X(q)`. It reproduces the same `H₁`
+  obstruction we already mapped. On fixed-topology domains (𝕋³/ℝ³) `dim H₁` stays
+  pinned under refinement; vortex filaments are not new domain 1-cycles
+  (`ω=∇×u` is always exact). The emergent `R_X(q)≈1/|ω|` relation *inverts* the
+  intended turbulence criterion and confirms the genuine difficulty lives in the
+  norms (supercriticality NS-002, Casimir deficit, enstrophy non-coercivity — §5 of
+  the write-up), not in topology/homology. "Repair fires out of turn" is the classic
+  vortex-stretching / production–dissipation race in new language. NSA / surreal-number
+  lifts on this foundation remain speculative scaffolding only. `:proved`=0; no PDE
+  path reopened; distance to prize untouched. (Cross-ref: `obstruction_program_writeup.md`
+  §2, §5; the rediscovery accepted this verdict.)
 
 **NS-021 — Turbulence-as-residue phenomenology (MFE saddle).**
 The Moehlis–Faisst–Eckhardt 9-mode model (eqs pinned to source) reproduces the
