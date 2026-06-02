@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.28 — 2026-06-02 — Hard layer bounds μ ∈ [0,1] (tight) — and honestly stops there
+
+Tested whether the frame-independent (hard) invariants can promote the intermittency
+exponent μ to a structural bound. `scripts/mu_hard_bound.jl`. μ = 2 − ζ_6.
+
+- **μ ≤ 1** from monotonicity (ζ_6 ≥ ζ_3 = 1, regular flow / bounded velocity); **μ ≥ 0**
+  from concavity (ζ_6 ≤ 2ζ_3 = 2). So μ ∈ [0,1], frame-independently.
+- **Tight at both ends:** K41 (linear ζ_p) saturates μ=0; ramp-then-flat saturates μ=1 —
+  both admissible (concave, nondecreasing, ζ_3=1).
+- **CKN does NOT tighten:** it bounds genuine singularities (h<0); a regular flow has h≥0
+  everywhere ⇒ no singular set ⇒ CKN vacuous on the spectrum. Concavity/D≤3 permit μ→1.
+- **Answer:** YES the hard layer bounds μ above (μ≤1), but NO TIGHTER. The observed
+  μ≈0.20–0.25 is interior; the gap to ~0.2 is frame-dependent content the anti-anchoring
+  discipline forbids importing as structure. The methodology brackets μ and honestly stops.
+- **Confirmation-bias flag (recorded):** the random ensemble's min μ=0.200 coincides with
+  the observed μ — a SAMPLING ARTIFACT of the slope generator, NOT a structural bound (true
+  lower end is 0, K41). Logged precisely so it is not mistaken for a derivation.
+- New `docs/mu_hard_bound_companion.md`. Strengthens deferred NS-037. `:proved`=0.
+
 ## v0.1.27 — 2026-06-01 — Inverse-Born PUSH: derive the cascade by obstruction (log-normal FORBIDDEN)
 
 Applied the closure-v5 inverse-Born obstruction methodology verbatim (A. Green, Apr 2026;
