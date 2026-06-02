@@ -234,6 +234,20 @@ homology cannot see. Repair-cost = 1/vorticity exactly.
   lifts on this foundation remain speculative scaffolding only. `:proved`=0; no PDE
   path reopened; distance to prize untouched. (Cross-ref: `obstruction_program_writeup.md`
   §2, §5; the rediscovery accepted this verdict.)
+- **Update (2026-06-01) — the "repair-cost grows" claim tested directly, REFUTED.**
+  A further `discrete.rtfd` pass escalated repair-cost into a "dual-closure uplift"
+  asserting the PDE is "the wrong model" because repair cost *grows exponentially under
+  3D stretching* ("repair overflow → turbulence"), proxied by enstrophy. Tested on the
+  validated 3D solver: the real minimal filling of the vorticity is the **velocity**
+  (`R_X(ω)=min{‖z‖:∇×z=ω}=‖curl⁻¹ω‖=‖u‖=√(2E)`, one derivative smoother than `ω`). On
+  inviscid Taylor–Green, enstrophy½ grows ×3.34 (‖ω‖∞ ×10) while `R_X` drifts ×1.0000
+  (= the *conserved* energy); ratio `R_X/‖ω‖` decays 0.577→0.173 (the `1/vorticity`,
+  now verified under stretching). The "grows" claim holds only of the enstrophy **proxy**
+  it was swapped for; the real cost is the energy-side (σ=−½, supercritical) quantity —
+  same wall as NS-036, relabeled. `:proved`=0. Source: `scripts/repair_cost_under_stretching.jl`
+  (+ .out.txt), `docs/repair_cost_under_stretching_companion.md`. (Scope of refutation:
+  the field/Hodge `L²`-repair version + the general derivative-smoother argument; the
+  explicit 2-chain Seifert-surface version is the DEC-sandbox follow-up.)
 
 **NS-021 — Turbulence-as-residue phenomenology (MFE saddle).**
 The Moehlis–Faisst–Eckhardt 9-mode model (eqs pinned to source) reproduces the

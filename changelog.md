@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.24 — 2026-06-01 — "repair cost grows" tested directly → REFUTED (discrete.rtfd part 1)
+
+Adjudicated the central claim of the Desktop `discrete.rtfd` "dual-closure uplift" pass
+(Grok): that repair cost `Cost(c)=inf{‖z‖:∂z=c}` grows exponentially under 3D stretching,
+"proxied by enstrophy" — its basis for "the PDE is the wrong model."
+
+- Computed the REAL cost on the validated 3D solver. The minimal filling of the vorticity
+  is the **velocity** (one derivative smoother): `R_X(ω)=‖curl⁻¹ω‖=‖u‖=√(2E)` (sanity
+  mismatch 0.0). On inviscid Taylor–Green N=64: enstrophy½ grows **×3.34** (‖ω‖∞ ×10) while
+  `R_X` drifts **×1.0000** (= conserved energy); ratio `R_X/‖ω‖` decays 0.577→0.173.
+  k-space: repair cost stays 99.8% low-band, enstrophy migrates high-band. Viscous TG:
+  `R_X` decays monotonically with energy (no "overflow").
+- **Verdict:** "grows exponentially" is true only of the enstrophy **proxy** it was swapped
+  for; the real cost is energy-side (σ=−½, supercritical) — the same NS-036 wall, relabeled.
+  Confirms NS-020 "repair-cost ≈ 1/vorticity" (now verified under stretching). The
+  document's own variational derivation (mean-curvature → low-cost) already contradicts it.
+- NS-020 annotated; new `scripts/repair_cost_under_stretching.jl` (+ .out.txt) +
+  `docs/repair_cost_under_stretching_companion.md`. No new spec entry.
+- **Scope honesty:** refutes the field/Hodge `L²`-repair version + the general
+  derivative-smoother argument; the explicit 2-chain Seifert-surface version is the next
+  step (DEC sandbox, part 2). `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.23 — 2026-06-01 — NS-036 formalized: the criticality–Casimir hinge enters the spec
 
 Promoted the v0.1.22 §5 tightening to a first-class spec entry (large-session pass):

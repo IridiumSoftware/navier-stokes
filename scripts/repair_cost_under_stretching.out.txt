@@ -1,0 +1,70 @@
+══════════════════════════════════════════════════════════════════════════════
+  repair_cost_under_stretching.jl — does the REAL repair cost grow under 3D stretching?
+  (adjudicates the `discrete.rtfd` dual-closure claim: 'repair cost grows exponentially')
+  Scope: 3D pseudospectral truncation. NOT the PDE. :proved=0; distance UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════
+  R_X(ω) = min{‖z‖ : ∇×z=ω} = ‖curl⁻¹ω‖ = ‖u‖ = √(2E)  (minimal filling of the vorticity).
+  document's PROXY = enstrophy^½ = ‖ω‖_{L²} = ‖u‖_{Ḣ¹}.  CLAIM: repair cost grows ∝ enstrophy.
+
+  sanity: ‖curl⁻¹ω‖ vs ‖u‖ mismatch = 0.0e+00 ✓  (the minimal filling IS the velocity)
+
+──────────────────────────────────────────────────────────────────────────────
+  (A) 3D EULER (ν=0), N=64, Taylor–Green — vortex stretching ON, energy CONSERVED.
+──────────────────────────────────────────────────────────────────────────────
+    t      E/E0         enstrophy½ (proxy) R_X=√(2E) (real) ratio R_X/‖ω‖ ‖ω‖∞     
+    0.0    1.000000     0.8660         0.5000         0.57735      2.00     
+    0.5    1.000000     0.8774         0.5000         0.56984      1.88     
+    1.0    1.000000     0.9131         0.5000         0.54756      1.58     
+    1.5    1.000000     0.9766         0.5000         0.51199      1.41     
+    2.0    1.000000     1.0717         0.5000         0.46653      1.88     
+    2.5    1.000000     1.2021         0.5000         0.41594      2.62     
+    3.0    1.000000     1.3701         0.5000         0.36493      3.99     
+    3.5    1.000000     1.5883         0.5000         0.31480      6.19     
+    4.0    1.000000     1.9095         0.5000         0.26185      13.68    
+    4.5    1.000000     2.3956         0.5000         0.20871      20.98    
+    5.0    1.000000     2.8967         0.5000         0.17261      20.17    
+  ⇒ enstrophy½ (the PROXY) grows ×3.34; the REAL repair cost R_X drifts ×1.0000
+    (= energy, CONSERVED to ~6 digits). They DIVERGE: the proxy rises, the real cost is flat.
+
+──────────────────────────────────────────────────────────────────────────────
+  (B) spectral location: low-band (|k|≤cut/2) fraction of each density, t=0 vs late.
+──────────────────────────────────────────────────────────────────────────────
+               repair cost (σ=0 dens.) enstrophy (σ=1 dens.) 
+    t=0        1.000                  1.000                 
+    t=3        0.998                  0.941                 
+  ⇒ repair cost lives in the LOW band (smooth); enstrophy migrates to the HIGH band
+    (the cascade). The repair cost is literally a derivative smoother than what it 'repairs'.
+
+──────────────────────────────────────────────────────────────────────────────
+  (C) 3D NS (ν=0.02), N=64, Taylor–Green — enstrophy PEAKS then decays; energy decays.
+──────────────────────────────────────────────────────────────────────────────
+    t      E/E0           enstrophy½ (proxy) R_X (real)      
+    0.0    1.000000       0.8660           0.5000          
+    1.0    0.883538       0.8512           0.4700          
+    2.0    0.764528       0.8753           0.4372          
+    3.0    0.639920       0.8835           0.4000          
+    4.0    0.518617       0.8514           0.3601          
+    5.0    0.410505       0.7884           0.3204          
+    6.0    0.320489       0.7096           0.2831          
+    7.0    0.248959       0.6270           0.2495          
+    8.0    0.193716       0.5484           0.2201          
+  ⇒ the proxy PEAKS (stretching) then falls (dissipation); the real repair cost R_X
+    MONOTONICALLY DECAYS with the energy. Repair cost tracks the CONTROLLED quantity,
+    never the battleground one. No 'overflow' anywhere.
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT
+══════════════════════════════════════════════════════════════════════════════
+  • The `discrete.rtfd` claim 'repair cost grows exponentially' is FALSE for the real cost.
+    What grows is ENSTROPHY — the PROXY it was silently swapped for. The genuine minimal
+    filling of the vorticity is the VELOCITY (one derivative smoother): R_X=‖u‖=√(2E),
+    bounded by the CONSERVED energy. (Confirms NS-020 'repair-cost≈1/vorticity'.)
+  • Repair cost sits on the ENERGY rung (σ=−½, SUPERcritical): a bound on it is scale-vacuous
+    — the SAME wall as NS-036, relabeled. The document put its controller on the wrong rung.
+  • The document's OWN variational derivation agrees (mean-curvature tension drives filaments
+    to LOW-cost configs) — it contradicts its own 'grows' headline. The 'repair overflow →
+    turbulence → wrong model' mechanism fails on its own terms.
+  • This does NOT touch the PDE. Scope: 3D truncation. :proved=0; distance UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════
+
+wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/repair_cost_under_stretching.out.txt
