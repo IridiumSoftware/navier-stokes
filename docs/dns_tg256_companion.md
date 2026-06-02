@@ -83,3 +83,37 @@ Status `:tested`; Scope: resolved 3D DNS truncation; `:proved`=0.
 
 *Firewall: resolved 3D pseudospectral DNS truncation; NOT the PDE; the prize untouched.
 `:proved`=0. Metabolized by Claude, 2026-06-02.*
+
+---
+
+## Addendum — B (helicity boundary, H≠0): the verdicts are IC-robust; helicity not cleanly isolated
+
+**2026-06-02.** Boundary B of the queue: the same resolved N=256 DNS (Re=1600, energy-matched
+E≈0.125), but a low-k random **helical** IC (H≠0) instead of Taylor–Green (H=0). `scripts/dns_tg256_helical.out.txt`.
+
+**Result (helical vs TG):**
+
+| quantity | TG (A) | helical (B) |
+|---|---|---|
+| enstrophy peak | 27.4× at t=9.0 | **8.7× at t=6.0** (earlier, lower) |
+| S_ω (developed) | bounded ≈0.20 | bounded ≈**0.147** |
+| δ (min) | 0.077, resolved | 0.081, resolved |
+| D₅₀ dip | 1.82 | **2.07** (less localized) |
+| E/E₀ at t=10 | 0.596 | 0.239 (faster decay) |
+
+- **Same qualitative verdicts (regular):** S_ω bounded, δ bounded-away-from-0 (resolved,
+  δ·k_cut≈6.9), D dips-then-recovers, energy monotone-decaying. ⇒ the resolved verdicts are
+  **not TG-specific** — they survive a different (random, helical) IC. A real IC-robustness check.
+- **Quantitative differences are CONFOUNDED, not cleanly attributable to helicity:** helical
+  peaks earlier+lower, S_ω lower, D less localized — all *suggestive* of helicity reducing
+  localized stretching (consistent with helicity partially blocking the cascade). **But** (i)
+  the IC is only **~1% relatively helical** (`ρ_H ≈ H/(2√(EΩ)) ≈ 0.011` — the random IC gives
+  weak net helicity), and (ii) it is low-k-random vs TG's smooth structure. So the differences
+  mix a weak helicity effect with an IC-spectral-content effect.
+- **Honest verdict:** B confirms the resolved verdicts are IC-robust; it does **not** cleanly
+  isolate the helicity dependence. **A clean helicity test needs a strongly-helical IC**
+  (ABC / Beltrami flow, `ρ_H ≈ ±1`, where `ω = ±λu`) — a noted refinement (a future boundary run).
+- B ran on the *pre-enhancement* pipeline (single D₅₀, no alignment/threshold-robust D); the
+  vortex-tube run (C) carries the full diagnostics.
+
+*Firewall unchanged: resolved DNS truncation; not the PDE; `:proved`=0.*

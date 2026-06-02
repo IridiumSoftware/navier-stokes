@@ -1,5 +1,20 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.35 — 2026-06-02 — Boundary B (helical) done: verdicts IC-robust; C (vortex tubes) fired
+
+- **B (helicity boundary, H≠0) DONE** (N=256, Re=1600, energy-matched). Same qualitative
+  verdicts as TG: S_ω bounded ≈0.147, δ bounded ~0.081 (resolved), D dips-then-recovers,
+  energy monotone-decaying ⇒ **the resolved verdicts are IC-robust, not TG-specific.**
+  Quantitative differences (enstrophy peak earlier+lower 8.7×@t=6; S_ω lower; D₅₀ dips only
+  to 2.07 = less localized) are *suggestive* of helicity reducing localized stretching but
+  **confounded** — the IC is only ~1% relatively helical (ρ_H≈0.011) and low-k-random vs TG's
+  smooth structure. Honest: helicity NOT cleanly isolated; a clean test needs a strongly-helical
+  ABC/Beltrami IC (ρ_H≈±1) — noted future boundary run. DNS companion addendum added.
+- **C (vortex-tube boundary, the adjudicator) FIRED** at N=256 with the enhanced pipeline
+  (threshold-robust D30/50/70 + strain–vorticity alignment). Background, ~3.9h. Tests whether
+  D floors (geometric, both seats' prediction) or pushes →1, and whether the alignment relaxes
+  after peak stretching. `:proved`=0; prize untouched.
+
 ## v0.1.34 — 2026-06-02 — Triad metabolized (Gemini+Grok): Fact 3 trimmed; alignment + threshold-D built in
 
 Both witness seats returned and CONVERGED. `docs/triad_verdict_dns_localization.md`.
