@@ -1,5 +1,33 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.22 — 2026-06-01 — §5 tightened: the criticality–Casimir hinge (a≡b), curvature is independent
+
+Analytic tightening of the write-up's §5 capstone ("three routes, one wall") into an
+exact implication chain — resolution-free, the one move left that *strengthens* rather
+than gates.
+
+- **(a) ≡ (b) is now a derivation, not an assertion**, joined at **enstrophy**. On the
+  homogeneous-Sobolev ladder (NS-034 exponents, quadratic units): energy σ=−1, critical
+  `Ḣ^{1/2}` σ=0, enstrophy `‖ω‖²_{L²}` σ=+1 — **symmetric about σ=0**, critical = the
+  geometric-mean midpoint via the elementary exact interpolation
+  `‖u‖²_{Ḣ^{1/2}} ≤ ‖u‖_{L²}·‖u‖_{Ḣ¹}`. So bounded energy + bounded enstrophy ⇒ regular,
+  and the whole 3D question collapses to **one rung**: can enstrophy be a-priori bounded?
+  = the Casimir question verbatim (2D: enstrophy is a Casimir ⇒ regular; 3D: family
+  collapses to helicity, itself σ=0 + sign-indefinite ⇒ open). Common mechanism = the
+  vortex-stretching production `P=∫ω·Sω` (= the `S_ω` detector of §3). "Enstrophy
+  non-coercivity" = the *name of the joint*, not a third coincidence.
+- **(c) curvature corrected to an *independent* companion** (honesty fix to "one fact,
+  three costumes"): Arnold's negative curvature is on SDiff(𝕋²) — the **2D, regular**
+  case — so curvature ⇒ *sensitivity* (unpredictability), not *singularity*. The same
+  "two notions" lesson as Slice 2 / the robustness↔sensitivity tension.
+- **Verified:** `scripts/criticality_casimir_hinge.jl` (+ .out.txt) — interpolation holds
+  for generic spectra (ratio ≤ 0.87) and is **sharp**: equality (ratio=1.000) *iff*
+  scale-pure (single shell); the gap below 1 *is* the multi-scale/cascade content.
+- Scope: NS scaling + elementary interpolation + exact Euler Casimir algebra.
+  **Sharpens** the wall to a single inequality on a single rung; does **not** close it.
+  `:proved`=0; distance to prize UNTOUCHED. (Spec impact: candidate NS-036 "criticality–
+  Casimir hinge" — deferred, owner's call; for now an exact `:verified` companion in §5.)
+
 ## v0.1.21 — 2026-06-01 — NS-020 note: independent rediscovery (Grok), confirmatory
 
 A long Grok conversation (`~/Desktop/grok.rtf`) independently re-derived the

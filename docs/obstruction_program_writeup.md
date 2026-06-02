@@ -180,15 +180,67 @@ sibling — SDiff(T²) — is **predominantly negatively curved** (census: 84% n
 Negative curvature ⇒ exponential divergence of nearby fluid motions = Arnold's ~2-week
 weather-predictability horizon.
 
-**The synthesis.** *Enstrophy non-coercivity* (`physical_invariants.md`), *energy
-supercriticality* (a), and the *Casimir deficit* (b) are not three coincidences — they
-are **one structural fact** (the loss of small-scale control under the 3D nonlinearity)
-wearing three geometric costumes. Curvature (c) is why even the resolved dynamics are
-Lagrangian-unpredictable. The geometry says the obstruction is **structural, not
-incidental** — which is exactly why no single classical handle closes it.
+**The synthesis — made exact (the criticality–Casimir hinge).** Routes (a) and (b)
+are not *analogous*; they are **the same inequality**, and enstrophy is the joint
+where they meet. Put the controlled and the deciding quantities on one
+homogeneous-Sobolev ladder (exponents from NS-034, exact; σ = the dilation exponent
+of the *quadratic* quantity under the NS scaling `u_λ(x)=λu(λx)`):
 
-*(All of §5 is `Scope: geometry` / ideal-flow — not the 3D-NS PDE; viscosity breaks the
-Casimirs anyway. `:proved` = 0.)*
+| quantity | norm | σ | role |
+|---|---|---|---|
+| energy | `‖u‖²_{L²}=‖u‖²_{Ḣ⁰}` | **−1** | a-priori controlled |
+| *critical* | `‖u‖²_{Ḣ^{1/2}}` (≅ `L³`, Prodi–Serrin locus) | **0** | regularity-**deciding** |
+| enstrophy | `‖u‖²_{Ḣ¹}=‖ω‖²_{L²}` | **+1** | regularity-**sufficient** |
+
+Energy (σ=−1) and enstrophy (σ=+1) sit **symmetric about the critical line σ=0**, and
+the deciding quantity is *exactly* their midpoint — not by analogy but by an elementary,
+exact interpolation (Cauchy–Schwarz on the nonnegative spectral weights, splitting the
+Fourier multiplier `|k| = |k|⁰·|k|¹`):
+
+> `‖u‖²_{Ḣ^{1/2}} ≤ ‖u‖_{L²} · ‖u‖_{Ḣ¹}` — the critical quantity is the **geometric mean**
+> of energy and enstrophy.
+
+So **bounded energy + bounded enstrophy ⇒ bounded critical norm ⇒ regular.** Energy is
+always controlled; the entire 3D question collapses to **one rung**: *can enstrophy be
+a-priori bounded?* That is the Casimir question (route b), word for word:
+
+- **2D.** Enstrophy `∫ω²` is a Casimir (the stretching term `(ω·∇)u` vanishes
+  identically) ⇒ the σ=+1 rung is controlled ⇒ critical norm controlled ⇒ **regular**. ∎
+- **3D.** The Casimir family collapses to **helicity alone** — and helicity is itself
+  **σ=0 (critical) and sign-indefinite** (coercive over *no* norm). The σ=+1 rung loses
+  its conservation law; enstrophy grows by vortex stretching ⇒ the interpolation has *no
+  upper input on the subcritical side* ⇒ critical norm uncontrolled ⇒ **open**.
+
+The single common mechanism is the **vortex-stretching production** `P = ∫ ω·Sω`: it is
+at once the term that breaks the enstrophy Casimir (b), the reason the σ=+1 rung is
+uncontrolled (a), and — closing the loop with §3 — exactly the quantity whose normalized
+form is the production skewness `S_ω` we found to be the right `σ=0`-robust detector.
+"*Enstrophy non-coercivity*" (`physical_invariants.md`) is therefore **not** a third
+coincidence; it is the **name of the joint** between (a) and (b).
+
+The hinge is verified numerically (`scripts/criticality_casimir_hinge.jl`): the
+interpolation holds for generic multi-scale spectra (`ratio ≤ 0.87`) and is **sharp** —
+equality (`ratio = 1.000`) *iff* the spectrum is scale-pure (single `|k|`-shell). The
+gap below 1 *is* the multi-scale (cascade) content: scale-purity is exactly the laminar
+limit where the geometric-mean bound is tight.
+
+**Curvature (c) is a genuinely *different* fact — and 2D proves it.** Arnold's
+negative-curvature computation is for SDiff(𝕋²), the **2D** torus, which is globally
+**regular**. So negative curvature ⇒ Lagrangian unpredictability holds in a setting with
+**no blowup**: curvature governs *sensitivity* (geodesic spreading), not *singularity*
+(norm inflation). The two are logically independent — the same "two notions" lesson
+Slice 2 taught (committor-gate ≠ edge-normal), and the robustness↔sensitivity tension of
+§3 restated. We therefore **correct** the earlier "one fact, three costumes": the honest
+picture is **(a) ≡ (b)** — one structural fact, the criticality gap *being* the Casimir
+deficit, joined at enstrophy — **with (c) an independent companion** explaining why even
+the regular regime is unpredictable. The geometry says the obstruction is **structural,
+not incidental** — which is exactly why no single classical handle closes it.
+
+*(Scope: NS scaling identities + an elementary interpolation + the exact 2D/3D Euler
+Casimir algebra — exact, resolution-free. This **sharpens** the wall to a single
+inequality on a single rung [can enstrophy be bounded?]; it **does not close** that
+inequality. Ideal-flow Casimirs; viscosity breaks them anyway. `:proved` = 0; distance
+to the prize untouched.)*
 
 ---
 

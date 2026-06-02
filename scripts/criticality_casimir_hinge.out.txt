@@ -1,0 +1,26 @@
+=== criticality-Casimir hinge: interpolation check ===
+
+Exact exponent ladder (quadratic dilation exponent sigma):
+  energy   ||u||^2_{L2}        s=0.0  ->  sigma = 2s-1 = -1
+  critical ||u||^2_{Hdot^1/2}  s=0.5  ->  sigma = 2s-1 = +0
+  enstrophy||u||^2_{Hdot^1}    s=1.0  ->  sigma = 2s-1 = +1
+  symmetric about critical line:  (-1 , +1) midpoint = 0  (= critical)
+  helicity H=∫u·ω scales as lambda^0 (CRITICAL) and is sign-indefinite (non-coercive).
+
+(1) generic random spectra (200 seeds, N=6):  max ratio lhs/rhs = 0.8710331439  (<= 1 required)
+    PASS: interpolation inequality holds (strict for multi-scale)
+
+(2) scale-pure single-shell spectra (ratio must = 1 exactly):
+    |k|^2 =  1 : ratio = 1.000000000000
+    |k|^2 =  2 : ratio = 1.000000000000
+    |k|^2 =  3 : ratio = 1.000000000000
+    |k|^2 =  5 : ratio = 1.000000000000
+    |k|^2 =  6 : ratio = 1.000000000000
+    |k|^2 =  9 : ratio = 1.000000000000
+    |k|^2 = 14 : ratio = 1.000000000000
+    max |ratio-1| over shells = 5.55e-16
+    PASS: equality iff scale-pure  =>  the gap IS the multi-scale (cascade) content
+
+Reading: the critical (regularity-deciding) quantity is the geometric mean of
+energy (controlled, sigma=-1) and enstrophy (would-decide, sigma=+1). 2D bounds
+enstrophy as a Casimir => regular; 3D loses it (Casimir deficit) => open. One rung.
