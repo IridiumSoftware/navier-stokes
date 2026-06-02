@@ -1,0 +1,14 @@
+=== thread + FFT-backend benchmark (fired after C finished) Tue Jun  2 14:38:22 PDT 2026 ===
+--- julia --project=. -t 6 ---
+threads=6   N=128   hand=0.0275  fftw=0.0037 s/fft3   speedup=7.5x   (step≈12·fft3 ⇒ hand 0.18 h / fftw 0.02 h for T=10)
+threads=6   N=256   hand=0.1539  fftw=0.0230 s/fft3   speedup=6.7x   (step≈12·fft3 ⇒ hand 1.03 h / fftw 0.15 h for T=10)
+--- julia --project=. -t 12 ---
+threads=12  N=128   hand=0.0218  fftw=0.0031 s/fft3   speedup=7.0x   (step≈12·fft3 ⇒ hand 0.15 h / fftw 0.02 h for T=10)
+threads=12  N=256   hand=0.1036  fftw=0.0187 s/fft3   speedup=5.6x   (step≈12·fft3 ⇒ hand 0.69 h / fftw 0.12 h for T=10)
+--- julia --project=. -t 18 ---
+threads=18  N=128   hand=0.0201  fftw=0.0035 s/fft3   speedup=5.7x   (step≈12·fft3 ⇒ hand 0.13 h / fftw 0.02 h for T=10)
+threads=18  N=256   hand=0.0811  fftw=0.0132 s/fft3   speedup=6.2x   (step≈12·fft3 ⇒ hand 0.54 h / fftw 0.09 h for T=10)
+--- julia --project=. -t 24 ---
+threads=24  N=128   hand=0.0217  fftw=0.0032 s/fft3   speedup=6.7x   (step≈12·fft3 ⇒ hand 0.14 h / fftw 0.02 h for T=10)
+threads=24  N=256   hand=0.0976  fftw=0.0192 s/fft3   speedup=5.1x   (step≈12·fft3 ⇒ hand 0.65 h / fftw 0.13 h for T=10)
+=== DONE Tue Jun  2 14:39:01 PDT 2026 ===

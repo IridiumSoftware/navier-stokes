@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.37 — 2026-06-02 — C (vortex tubes) = resolved reconnection; FFTW ~6× ⇒ short-T N=512 in reach
+
+**C — the adjudicator (Kerr anti-parallel vortex tubes, N=256, enhanced diagnostics).**
+A genuine vortex-RECONNECTION event at t≈5.5–6.0: ‖ω‖∞ spikes ~4× (26→97), S_ω doubles
+(0.10→0.24), δ dips to its min (0.088), and the most-intense-30% production set (D30) reads
+**≈0.99 at t=5.5 — momentarily at the CKN ≤1 filament edge** — then recovers.
+- **Triad VINDICATED on regularity:** δ bounded (never→0) + resolved (δ·k_cut≈7.5); alignment
+  stable (c²_int≈0.65, bounded-persistence ⇒ regular). The flow stays analytic.
+- **"D floors >1" REFINED:** the bulk (D50≈1.7, D70≈1.9) floors above 1, but at a real
+  reconnection the extreme tail D30 transiently touches ≤1 — the one regime meeting the
+  singular-set dimension. **CONFIRMATION-BIAS FLAG:** D30≤1 is the noisiest signal (top-30%,
+  ±0.15, single sample, recovers in one Δt); D50/D70 stay >1.5; δ bounded ⇒ NOT a blowup. The
+  ‖ω‖∞≈97 peak is at the EDGE of N=256 ⇒ a true ≤1D verdict at reconnection needs **N≥512**.
+  Enstrophy peaks only 1.8× (localized event, not a developed cascade). Companion addendum added.
+- Boundary queue A→B→C COMPLETE; NS-038 (resolved-DNS program) still DEFERRED pending owner call.
+
+**Thread + FFTW benchmark** (`scripts/thread_bench.out.txt`). At N=256: hand -t6 = 0.154
+s/fft3 (baseline); hand -t18 = 0.081 (1.9×, -t24 oversubscribes); **FFTW -t6 = 6.7×, FFTW
+-t18 = 11.7×** on the FFT. Amdahl-real full-run ≈4–6× ⇒ **N=256 T=10: 3.9h → ~40–60 min.**
+**Short-T N=512 now feasible on CPU (~3–4h with FFTW-18)** — the path to resolve C's reconnection
+(N=512 tests whether D30≤1 survives or was a resolution artifact). Full-T N=512/N=1024 → Metal.
+Recommend FFTW-18 as the production default; rfft/in-place (~2× more) deferred.
+
 ## v0.1.36 — 2026-06-02 — FFTW.jl integrated (opt-in, pinned) + checkpoint/resume; perf path
 
 **Deliberate, recorded relaxation of the no-deps rule** (owner-authorized) for compute speed,

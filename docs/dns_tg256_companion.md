@@ -117,3 +117,55 @@ E≈0.125), but a low-k random **helical** IC (H≠0) instead of Taylor–Green 
   vortex-tube run (C) carries the full diagnostics.
 
 *Firewall unchanged: resolved DNS truncation; not the PDE; `:proved`=0.*
+
+---
+
+## Addendum — C (vortex-tube / Kerr boundary): a resolved reconnection event, regular but near-filamentary
+
+**2026-06-02.** Boundary C, the adjudicator: anti-parallel vortex tubes (opposite circulation,
+sinusoidal centerline wiggle), N=256, Re=1600, energy-matched, with the enhanced diagnostics
+(threshold-robust D30/50/70 + strain–vorticity alignment). `scripts/dns_tg256_tubes.out.txt`.
+
+**The reconnection event (t≈5.5–6.0):** the tubes collide and reconnect —
+
+| t | ‖ω‖∞ | S_ω | δ | D30 | D50 | D70 | c²_int |
+|---|---|---|---|---|---|---|---|
+| 5.0 | 25.7 | 0.098 | 0.109 | 1.72 | 1.88 | 2.06 | 0.665 |
+| **5.5** | **84.4** | **0.229** | 0.105 | **0.986** | 1.66 | 1.86 | 0.658 |
+| **6.0** | **96.7** | **0.241** | **0.088** | 1.59 | 1.75 | 1.78 | 0.637 |
+| 6.5 | 77.3 | 0.172 | 0.088 | 1.45 | 1.82 | 1.87 | 0.617 |
+| 10.0 | 26.6 | 0.118 | 0.104 | 1.67 | 1.80 | 2.00 | 0.605 |
+
+- `‖ω‖∞` spikes **~4×** (26→97), `S_ω` more than doubles (0.10→0.24), `δ` dips to its minimum
+  (0.088) — a genuine, sharp vortex-reconnection event, the sharpest of the three boundaries.
+- **`D30` momentarily reads ≈0.99 at t=5.5** — the most-intense-production core transiently
+  reaches the **CKN ≤1 filament edge**, the closest approach across all runs. Then it recovers.
+
+**Adjudication (the triad's question, answered honestly):**
+- **Flow stays REGULAR** — `δ` bounded (min 0.088, never→0) and **resolved** (`δ·k_cut≈7.5`).
+  No loss of analyticity. The alignment stays **bounded/stable** through the event
+  (`c²_int≈0.64–0.67`, no runaway) — by Grok's persistence criterion, *regular*; by Gemini's
+  reading, geometric depletion keeping it regular. **Both seats vindicated on regularity.**
+- **"D floors above 1" — refined.** The *bulk* set does (D50≈1.7, D70≈1.9 even at the spike),
+  but at a real **reconnection** the most-intense 30% (D30) *transiently* touches the CKN ≤1
+  edge — sharper than either seat predicted. The one regime where the resolved dynamics meets
+  the singular-set dimension, exactly where the multifractal/CKN picture says it should.
+
+**CONFIRMATION-BIAS FLAG (load-bearing — this is NOT a near-blowup):**
+- `D30≤1` is the **noisiest** signal we have: top-30% threshold (most sensitive), 5-scale
+  box-count (±0.15), a **single sample**, and it **recovers in one Δt**. The robust measures
+  (`D50`, `D70`) stay >1.5 *at the spike*. So "≤1" is the extreme tail, transient — **not** a
+  forming singular set.
+- `δ` never approaches 0; the flow is analytic throughout. Re=1600 is regular.
+- The `‖ω‖∞≈97` peak is at the **edge of N=256 resolution** (marginally resolved); a true ≤1D
+  verdict *at the reconnection* needs **N≥512** (GPU/Metal territory). This is precisely the
+  event where higher resolution would matter.
+- Sanity: enstrophy peaks at only **1.8×** (vs TG 27×, helical 8.7×); energy barely decays
+  (0.86 at t=10). A *localized reconnection*, not a developed cascade.
+
+**Net:** a resolved, near-filamentary vortex reconnection in a globally regular flow — the
+sharpest localization of the boundary queue, transiently touching the CKN ≤1 edge in the
+extreme tail, with regularity intact. Confirms the triad; flags N≥512 as the resolution
+frontier exactly at reconnection.
+
+*Firewall unchanged: resolved DNS truncation; not the PDE; `:proved`=0; prize untouched.*
