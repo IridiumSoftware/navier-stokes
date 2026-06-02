@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.31 — 2026-06-02 — Resolved N=256 DNS (TG Re=1600): the gated verdicts, resolved
+
+First run on the real ~6-hour budget (prior runs ~10 min). Resituated after Aaron flagged
+"exhausted at laptop scale" as premature. `scripts/dns_tg256.jl` — threaded radix-2,
+N=256, viscous TG Re=1600, dt=0.005, T=10, ~3.8h on 6 threads.
+
+- **Validated vs Brachet-1983:** enstrophy peaks at t=9.0 (Z/Z₀=27.4) — the canonical TG
+  Re=1600 dissipation-peak time. Energy monotone-decaying, H≈1e-18 (TG symmetry exact). The
+  hand-rolled hermetic solver reproduces published DNS at N=256.
+- **S_ω BOUNDED ≈0.2** (transient peak 0.29 at t≈4, then settles) — the "bounded vs growing"
+  gate RESOLVED: bounded, no blowup signature (expected at Re=1600).
+- **δ(t) bounded** (min 0.077 at the peak, never→0), well-resolved (δ·k_cut≈6.5) — NS-010
+  viscous control confirmed at 256.
+- **D_box DYNAMIC** — dips to 1.82 at peak stretching (t≈4, when S_ω peaks + ‖ω‖∞ jumps to
+  ~14), recovers to ~2.0. The production set LOCALIZES toward the CKN≤1 / NS-037 filament
+  limit at peak stretching but bottoms ~1.8 (never ≤1). Refines the under-resolved N≤128
+  "static D≈2.3."
+- New `docs/dns_tg256_companion.md`. Candidate **NS-038** (resolved-DNS verdicts) DEFERRED —
+  recommend formalizing after the boundary queue (A=res/TG done, B=helicity, C=vortex-tubes).
+  Honesty: Brachet match on peak-TIME (robust); D_box is a 5-scale fit (±0.15). `:proved`=0;
+  prize untouched.
+
 ## v0.1.30 — 2026-06-02 — Touchability ranking: C_ε > exponents > C_K (refines NS-037c)
 
 Same hard-vs-frame-dependent test on the Kolmogorov constant C_K and the dissipation
