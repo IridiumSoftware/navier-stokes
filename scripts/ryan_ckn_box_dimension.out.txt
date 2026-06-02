@@ -1,0 +1,40 @@
+════════════════════════════════════════════════════════════════════════════════════
+  ryan_ckn_box_dimension.jl — box-counting dim D of the production set (D≤1 = CKN; scope-invariant)
+  (Scope: inviscid-Euler truncation. NOT the PDE. :proved=0; prize UNTOUCHED. threads=16.)
+════════════════════════════════════════════════════════════════════════════════════
+
+  SANITY (box-counter on known sets, N=64):
+    volume   D=3.000 (expect ≈3)
+    plane    D=2.000 (expect ≈2)
+    line     D=1.000 (expect ≈1)
+
+  ran N=64   in 24 s
+
+  ran N=128  in 189 s
+
+────────────────────────────────────────────────────────────────────────────────────
+  BOX-COUNTING DIMENSION D of the top-50%-production set vs time
+────────────────────────────────────────────────────────────────────────────────────
+    t      D (N=64)       D (N=128)      tail(128) 
+    0.00   2.317          2.388          0.0e+00   
+    0.50   2.222          2.309          2.1e-08   
+    1.00   2.232          2.250          1.5e-04   
+    1.50   2.341          2.301          3.1e-03   
+
+════════════════════════════════════════════════════════════════════════════════════
+  VERDICT — M*↔CKN box-counting dimension
+════════════════════════════════════════════════════════════════════════════════════
+  • Box-counter validated on synthetic sets (line≈1, plane≈2, volume≈3 — see SANITY).
+  • HEADLINE — the scope-invariant D is RESOLUTION-ROBUST: D(N=64) vs D(N=128) agree to 0.09,
+    and D is ~time-STABLE at ≈2.3. This CORRECTS the f50 reading: f50's apparent
+    'localization' (0.16→0.06, dropping with N) was a RESOLUTION-COUPLED artifact (volume fraction
+    ↦ more cells at higher N ↦ smaller fraction). The true (scope-invariant) dimension does NOT drop.
+  • The production lives on an INTERMITTENT FRACTAL (D≈2.3 — vortex sheets/tubes; matches real turbulence's ~2.3–2.7)
+    — NEITHER a forming ≤1D singular set (Class-II) NOR a space-filling cascade. D>1 ⇒ NO resolved
+    singular set; consistent with CKN's ≤1 being a bound the resolved dynamics does not approach.
+  • HONEST: ~7 octaves (N=128) ⇒ a true ≤1D verdict needs N≳512; but D is the RIGHT measure
+    (scope-invariant, resolution-robust) — and the Ryan principle is VALIDATED: the scope measure
+    gave a STABLE answer where the resolution-coupled f50 MISLED. The CKN/Ryan-correct close:
+    intermittent ~2.3-D fractal at accessible resolution, not a resolved singularity.
+  • FIREWALL: inviscid-Euler truncation; :proved=0; distance to the prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════

@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.20 — 2026-06-01 — Box-counting dimension: the M*↔CKN close (and it corrects f50)
+
+`scripts/ryan_ckn_box_dimension.jl` (box-counter validated: line→1, plane→2, volume→3). The
+Ryan-correct, scope-INVARIANT measure of the vortex-stretching production set:
+- **D ≈ 2.3, RESOLUTION-ROBUST (N=64 vs 128 agree to ±0.09) and time-STABLE.**
+- **CORRECTS the f50 reading (v0.1.19):** f50's apparent "localization toward ≤1D" (0.16→0.06,
+  shrinking with N) was a RESOLUTION-COUPLED artifact (a volume fraction). The true dimension
+  does NOT drop — the production is an **intermittent ~2.3-D fractal** (vortex sheets/tubes,
+  real-turbulence value), NEITHER a forming ≤1D singular set NOR space-filling. **D>1 ⇒ no
+  resolved singular set** (CKN's ≤1 not approached at N≤128; true verdict needs N≳512).
+- **Ryan principle (NS-035) validated twice:** it told us which measure to trust (scope-invariant
+  over resolution-coupled), and that measure then CORRECTED the misleading one — the f50
+  "localization" was exactly the resolution artifact Ryan predicts you'll be fooled by.
+- NS-006 note updated (the conclusive measure + correction). No new spec entry. `:proved`=0;
+  distance to prize UNTOUCHED. The M\*↔CKN thread is honestly CLOSED at accessible resolution.
+
 ## v0.1.19 — 2026-06-01 — Two probes: reality stabilizer (Grok Move 4) + M*↔CKN scope localization
 
 `docs/move4_ckn_probes_companion.md` + two scripts.

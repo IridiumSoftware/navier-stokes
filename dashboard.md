@@ -46,8 +46,14 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.19, 2026-06-01)
+## Status summary (v0.1.20, 2026-06-01)
 
+- **M\*↔CKN CLOSED via box-counting dimension (v0.1.20):** the scope-INVARIANT measure
+  (box-counter validated line/plane/volume→1/2/3) gives **D≈2.3, resolution-robust + stable**
+  — an intermittent ~2.3-D fractal (vortex sheets/tubes), NOT a ≤1D singular set, NOT
+  space-filling. **CORRECTS f50** (its "localization" was a resolution-coupled artifact). D>1
+  ⇒ no resolved singular set (CKN's ≤1 not approached at N≤128). Ryan principle validated:
+  the scope measure was right where the resolution-coupled one misled. `:proved`=0.
 - **TWO PROBES (v0.1.19):** (a) **Reality stabilizer (Grok Move 4)** — 1D complex Burgers;
   reality PROTECTS against complex-data blowup with a boundary λ_c≈0.03–0.05 (Cole–Hopf-
   validated), sharpening NS-013; (b) **M\*↔CKN scope localization** — the vortex-stretching

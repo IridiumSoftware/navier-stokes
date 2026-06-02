@@ -73,12 +73,18 @@ dimension `≤ 1` (1D in space-time). Singularities, if they exist, are small an
 cannot fill a region.
 - Evidence: external-theorem. **Status: :cited.** Scope: PDE.
 - Source: Caffarelli–Kohn–Nirenberg (1982); Scheffer.
-- **Scope-localization probe (Ryan-M\*↔CKN, `scripts/ryan_ckn_scope_localization.jl`):** the
-  vortex-stretching production `|ω·(ω·∇)u|` LOCALIZES in the resolved window (f50: 0.16→0.06)
-  and SHARPENS with N (the Class-II / ≤1D-singular-set signature). HONEST: f50 is a volume
-  *fraction* (resolution-coupled); the conclusive scope-invariant measure is the box-counting
-  DIMENSION (= what CKN bounds). Suggestive of concentration, not a resolved singular set at
-  N≤128. Scope: inviscid-3D-truncation; verdict resolution-gated. See `docs/move4_ckn_probes_companion.md`.
+- **Scope-localization probe (Ryan-M\*↔CKN):** track the minimal scope carrying the
+  vortex-stretching production `|ω·(ω·∇)u|`. First cut (`ryan_ckn_scope_localization.jl`): the
+  volume fraction f50 LOCALIZES (0.16→0.06) + shrinks with N — *looked* like a ≤1D-singular
+  signature. **But the conclusive, scope-INVARIANT measure (box-counting DIMENSION =
+  what CKN bounds, `ryan_ckn_box_dimension.jl`, box-counter validated line/plane/volume→1/2/3)
+  CORRECTS it:** D ≈ **2.3, resolution-ROBUST (N=64≈128, ±0.09) and time-stable** — the
+  production is an **intermittent ~2.3-D fractal** (vortex sheets/tubes, real-turbulence
+  value), **not** a forming ≤1D singular set and **not** space-filling. f50's "localization"
+  was a resolution-coupled artifact. **D>1 ⇒ no resolved singular set** (CKN's ≤1 not
+  approached at N≤128; a true verdict needs N≳512). Scope: inviscid-3D-truncation;
+  Ryan-principle (NS-035) validated — the scope measure was right where the resolution-coupled
+  one misled. See `docs/move4_ckn_probes_companion.md`.
 
 **NS-007 — No exact self-similar blowup (the easiest backward path is dead).**
 Leray's (-1/2)-self-similar blowup ansatz `u(x,t)=(2a(T−t))^{-1/2}U((x−x₀)/√(2a(T−t)))`

@@ -68,10 +68,36 @@ the resolution-invariant **dimension** is the principled refinement. Bears on NS
   boundary — sharpens the complex/real side (NS-012/013).
 - M\*↔CKN: the production *localizes and sharpens with resolution* in the resolved window —
   the Ryan-Class-II / CKN signature — but `f50` is resolution-coupled, so the conclusive
-  measure is a **box-counting dimension** (resolution-invariant, scope-coupled). **Next
-  principled step:** estimate that dimension (a true scope quantity; the Ryan-correct,
-  CKN-direct probe). Honest prior: likely still resolution-gated at N≤128, but it is the
-  right measure.
+  measure is a **box-counting dimension** (resolution-invariant, scope-coupled). It was run
+  (next sub-section), and it CORRECTED the f50 reading.
+
+## §4 — The close: box-counting dimension (`ryan_ckn_box_dimension.jl`)
+
+The Ryan-correct, scope-invariant measure (box-counter validated: line→1, plane→2, volume→3).
+Dimension D of the top-50%-production set:
+
+| t | D (N=64) | D (N=128) |
+|---|---|---|
+| 0.0 | 2.32 | 2.39 |
+| 0.5 | 2.22 | 2.31 |
+| 1.0 | 2.23 | 2.25 |
+| 1.5 | 2.34 | 2.30 |
+
+- **D ≈ 2.3, RESOLUTION-ROBUST (N=64 vs 128 agree to ~0.09) and time-STABLE** — unlike f50,
+  which dropped 0.16→0.06 and varied with N.
+- **This CORRECTS the f50 reading.** f50's apparent "localization toward ≤1D" was a
+  **resolution-coupled artifact** (a volume fraction: more cells at higher N mechanically
+  shrinks it). The true (scope-invariant) **dimension does NOT drop**.
+- The production lives on an **intermittent ~2.3-D fractal** (vortex sheets/tubes — exactly
+  real turbulence's measured ~2.3–2.7 fractal dimension of intense structures): **neither a
+  forming ≤1D singular set (Class-II) NOR a space-filling cascade (Class-I).** D>1 ⇒ **no
+  resolved singular set**; consistent with CKN's ≤1 being a bound the resolved dynamics does
+  not approach (the singular set, if any, lives below N=128).
+- **Ryan validated, twice:** the framework told us *which measure to trust* (scope-invariant
+  over resolution-coupled), and the trustworthy measure then *corrected* the misleading one —
+  the f50 "localization" I floated was exactly the resolution artifact Ryan predicts.
+- Honest: ~7 octaves (N=128) ⇒ a true ≤1D verdict needs N≳512; but D is the RIGHT measure,
+  and at accessible resolution the answer is **intermittent ~2.3-D fractal, not a singularity.**
 
 *Firewall: 1D-model / inviscid-3D-truncation; not the 3D-NS PDE. `:proved` = 0; distance to
 the prize UNTOUCHED. Metabolized by Claude, 2026-06-01.*
