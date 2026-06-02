@@ -248,6 +248,18 @@ homology cannot see. Repair-cost = 1/vorticity exactly.
   (+ .out.txt), `docs/repair_cost_under_stretching_companion.md`. (Scope of refutation:
   the field/Hodge `L²`-repair version + the general derivative-smoother argument; the
   explicit 2-chain Seifert-surface version is the DEC-sandbox follow-up.)
+- **Update (2026-06-01) — DEC sandbox (the 2-chain version + "b₁ pinned"), confirmed.**
+  Built a genuine structure-preserving cubical chain complex on 𝕋³ (Serre operators,
+  `∂∂=0` to machine zero — a legitimate DEC/mimetic substrate). Two results on the *actual
+  mesh*: (i) **`dim H₁(𝕋³)=3` at every resolution N∈{3,4,6}** — refinement does not
+  manufacture new 1-cycle classes; `b₁` is pinned (the structural core of this entry,
+  confirmed). (ii) The genuine **2-chain repair cost** `min{‖z₂‖:∂₂z₂=c₁}` of a filament
+  1-cycle does NOT overflow: peak label `‖z‖∞` *decreases* (0.66→0.38) as the loop grows,
+  total grows only sub-linearly (below √area); the only infinite-cost cycles are the 3
+  fixed H₁ generators. Completes the part-1 field/Hodge refutation in the chain picture.
+  The discrete substrate is real and kept as a sandbox; it does NOT support the
+  "dual-closure uplift / PDE-is-wrong" claim. `:proved`=0. Source:
+  `scripts/dec_repair_sandbox.jl` (+ .out.txt), `docs/dec_repair_sandbox_companion.md`.
 
 **NS-021 — Turbulence-as-residue phenomenology (MFE saddle).**
 The Moehlis–Faisst–Eckhardt 9-mode model (eqs pinned to source) reproduces the

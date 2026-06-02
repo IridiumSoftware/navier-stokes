@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.25 — 2026-06-01 — DEC sandbox: structure-preserving discrete-NS substrate (discrete.rtfd part 2)
+
+The legitimate discrete direction, built honestly: a periodic cubical chain complex on 𝕋³
+(`scripts/dec_repair_sandbox.jl`, Serre operators, std-lib SparseArrays/LinearAlgebra).
+
+- **Structure-preserving:** `∂₁∂₂=∂₂∂₃=0` to machine zero at N=2,3,4 — a real DEC/mimetic
+  substrate (and the correctness gate).
+- **"b₁ pinned under refinement" on the actual mesh:** Betti numbers `(1,3,3,1)` at
+  N∈{3,4,6} (Euler χ=0 each). `dim H₁=3` at every resolution — refinement does NOT
+  manufacture new 1-cycle classes. Confirms NS-020 structurally.
+- **The genuine 2-chain repair cost** `min{‖z₂‖:∂₂z₂=c₁}` (discrete Seifert surface,
+  SVD-pseudoinverse min-norm filling) does NOT overflow: peak label `‖z‖∞` *decreases*
+  (0.66→0.38) as a filament loop grows; total grows only sub-linearly (below √area); the
+  only ∞-cost cycles are the 3 fixed H₁ generators. Completes part 1's field/Hodge
+  refutation in the chain picture.
+- **Net:** the discrete substrate is real and kept as a sandbox, but it does NOT support
+  the `discrete.rtfd` "dual-closure uplift / the PDE is the wrong model" claim. NS-020
+  annotated (part 2); new `docs/dec_repair_sandbox_companion.md`. No new spec entry.
+  (Honesty: an earlier draft of the printed verdict said total "~√area"; corrected to
+  sub-linear + peak-decreasing to match the data, before commit.)
+  `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.24 — 2026-06-01 — "repair cost grows" tested directly → REFUTED (discrete.rtfd part 1)
 
 Adjudicated the central claim of the Desktop `discrete.rtfd` "dual-closure uplift" pass
