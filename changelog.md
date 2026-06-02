@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.29 — 2026-06-02 — NS-037 formalized: the inverse-Born / possibilistic turbulence map
+
+Promoted the v0.1.26–28 turbulence-possibilistic arc to a first-class spec entry
+(large-session pass), in a new **POSSIBILISTIC** class.
+
+- **SPEC.md** — new section "POSSIBILISTIC / EMPIRICAL MAP" + entry **NS-037** (umbrella for
+  the three artifacts): (a) the inverse-Born map (ζ_p↔D(h) Legendre; attractor runs to the
+  CKN wall); (b) the obstruction (log-normal cascade FORBIDDEN by realizability; log-Poisson
+  survives on the codim-2 integer); (c) the μ∈[0,1] hard bound (tight, no tighter; forced vs
+  frame-dependent boundary). Status `:argued`; evidence algebraic + computed; Scope EMPIRICAL
+  phenomenology + exact 4/5 + realizability (prize deliberately not the target).
+- **artifact_registry.md** — NS-037 row (new POSSIBILISTIC class; 2 honesty flags recorded).
+- **dashboard.md** — status summary + ledger. **Count corrected 25→27**: the prior "25"
+  undercounted RELATED by one (NS-025 Gosme + NS-035 Ryan = 2 RELATED); true total was 26,
+  now 27 with NS-037 (+1 POSSIBILISTIC). An A5/A6 stale-count fix folded in.
+- Methodology source: closure-v5 `BUSINESS/inverse_born_methodology.md` (A. Green, Apr 2026).
+- Audit: A1 coverage ✓ (every NS-ID has a row); A4 zero `:proved` ✓. `:proved`=0; prize untouched.
+
 ## v0.1.28 — 2026-06-02 — Hard layer bounds μ ∈ [0,1] (tight) — and honestly stops there
 
 Tested whether the frame-independent (hard) invariants can promote the intermittency

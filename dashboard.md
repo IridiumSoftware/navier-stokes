@@ -46,8 +46,16 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.22, 2026-06-01)
+## Status summary (v0.1.28, 2026-06-02)
 
+- **NS-037 FORMALIZED — inverse-Born / possibilistic map of turbulence's constants (v0.1.26–28,
+  `:argued`, new POSSIBILISTIC class; prize-focus deliberately dropped):** maps possibility +
+  probability (not just necessity) of the *phenomenon*. (a) inverse-Born = inverse Legendre of
+  the multifractal formalism (ζ_p↔D(h)); the measured attractor runs down to the CKN wall.
+  (b) the log-normal cascade is FORBIDDEN by realizability (a clean structural null); log-Poisson
+  survives, pinned by the codim-2 (1-D filament) integer. (c) the hard layer bounds μ∈[0,1]
+  (tight) but no tighter — separating *forced* (ζ_3=1, ≤1-D filament) from *frame-dependent*
+  (μ, C_K, κ). Methodology: closure-v5 `inverse_born_methodology.md`. `:proved`=0; prize untouched.
 - **§5 TIGHTENED — the criticality–Casimir hinge (v0.1.22, NS-036, `:argued`):** the §5
   capstone "three routes, one wall" made exact + resolution-free. **(a) supercriticality
   (NS-034) ≡ (b) Casimir deficit (NS-033 Slice 6), joined at ENSTROPHY:** on the Ḣ^s
@@ -123,12 +131,13 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 25 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+- **Ledger:** 27 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
   2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 6 our RESULTS/FALSIFIED
   (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
-  1 RELATED (`:cited`), 2 PROGRAM, 1 GEOMETRY (NS-033 manifold study `:tested`),
-  2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir hinge, both
-  `:argued`). `:proved` = 0.
+  2 RELATED (`:cited`; NS-025 Gosme + NS-035 Ryan), 2 PROGRAM, 1 GEOMETRY (NS-033
+  manifold study `:tested`), 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–
+  Casimir hinge, both `:argued`), 1 POSSIBILISTIC (NS-037 inverse-Born map, `:argued`).
+  `:proved` = 0. (Count corrected: prior "25" undercounted RELATED by one.)
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.
 - **Witnessed:** the closure↔turbulence convergence trimmed to "broad/generic"

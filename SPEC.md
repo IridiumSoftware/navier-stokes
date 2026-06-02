@@ -544,6 +544,53 @@ independent**.
 
 ---
 
+## POSSIBILISTIC / EMPIRICAL MAP (prize-focus deliberately dropped — maps the *phenomenon*)
+
+**NS-037 — Inverse-Born / possibilistic map of turbulence's measured constants.**
+A deliberate pivot off the Clay problem: instead of mapping *necessity* (the walls), map
+*possibility* (what the no-go's do not exclude) and *probability* (what turbulence actually
+does — the measured constants) of the physical phenomenon, on its natural manifolds, using
+the closure-v5 **inverse-Born obstruction methodology** (`closure-v5
+BUSINESS/inverse_born_methodology.md`, A. Green, Apr 2026). Three results:
+- **(a) The map (descriptive).** The multifractal formalism is a literal large-deviation /
+  Born structure: `ζ_p = inf_h[ph+3−D(h)]`, so measured moments `ζ_p` are the Legendre
+  transform of the singularity spectrum `D(h)` (the possibility structure / rate function).
+  **Inverse-Born = inverse Legendre** `D(h)=3−max_p[ζ_p−ph]` recovers `D(h)` from data. The
+  recovered spectrum peaks at `D=3` (h≈0.38), passes the K41/Onsager pivot (h=1/3 ⟺ σ=0,
+  NS-036), and **runs down to the CKN wall** (D=1 at h=1/9): the attractor sits *against*
+  the no-go. (Wall manifold: onset `Re_c` = laminar-forbidden→possible, NS-021; log law
+  forced-by-overlap. Hinge: the dissipation anomaly forces the spectrum to h=1/3.)
+- **(b) The obstruction (the cascade by no-go).** Applying only the **frame-independent**
+  hard invariants (ζ_3=1, D≤3, ζ_p monotone+concave [realizability], CKN, the codim-2
+  integer) over the finite family of cascade models: the **log-normal (K62) cascade is
+  FORBIDDEN** — `ζ′_p<0` past `p*=3/μ+3/2≈16.5` and `D(h)<0` (two realizability violations) —
+  a clean structural NULL. The log-Poisson/She–Lévêque class survives, pinned by structural
+  integers (codim-2 = 1-D filaments, `D(h_min)=1` exactly), not fitted numbers.
+- **(c) The forced/frame-dependent boundary (the discipline's payoff).** The hard layer
+  promotes the intermittency exponent to the **structural inequality `μ ∈ [0,1]`** (μ≤1 from
+  monotonicity ζ_6≥ζ_3=1; μ≥0 from concavity ζ_6≤2), **tight** (K41 saturates 0, ramp-then-
+  flat saturates 1) — but **no tighter**: CKN is vacuous for regular flow (h≥0, no singular
+  set), so the observed μ≈0.2 (interior) is frame-dependent and cannot be imported as
+  structure. The map cleanly separates what is *forced* (ζ_3=1, the ≤1-D filament integer)
+  from what is *frame-dependent* (μ, C_K, κ, C_ε — convergence targets, never anchored).
+- Evidence: **algebraic** (the Legendre duality; ζ_3=1; the realizability/concavity bounds
+  μ∈[0,1]; the log-normal `ζ′<0`/`D<0` violations — all exact) + **computed** (`D(h)`
+  inversion; the obstruction grid; the μ-bracket extremals + 10⁴-sample non-violation check).
+  **Status: :argued.** Scope: **EMPIRICAL phenomenology + the exact 4/5 law + realizability
+  no-go's — NOT the 3D-NS PDE.** The prize was deliberately not the target; `:proved`=0;
+  distance to the prize UNTOUCHED.
+- Depends_on: NS-006 (CKN), NS-009 (Onsager / 4-5 law), NS-036 (criticality–Casimir hinge),
+  NS-021 (subcritical lifetimes / onset).
+- Source: `scripts/turbulence_nogo_map.jl`, `turbulence_inverse_born.jl`, `mu_hard_bound.jl`
+  (+ `.out.txt` each); companions `docs/turbulence_nogo_map_companion.md`,
+  `turbulence_inverse_born_companion.md`, `mu_hard_bound_companion.md`.
+- **Honesty notes (recorded):** (i) the data "saturating CKN" is a geometric *consistency*,
+  not an identity (intense filaments vs hypothetical singular set); (ii) the random-ensemble
+  μ-minimum 0.200 coincides with the observed μ but is a *sampling artifact*, not a bound
+  (true lower end is 0). Both flagged so they are not mistaken for derivations.
+
+---
+
 *Stage 1a DONE (NS-010/011 `:tested`, validated on Burgers, T-01/T-02 PASS). Open
 priority (see `dashboard.md`): Stage 1b — apply the validated δ(t) diagnostic to a
 spectral Euler/NS truncation, with the BKM (NS-004) and critical-norm (NS-005)
