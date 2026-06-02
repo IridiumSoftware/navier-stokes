@@ -19,7 +19,7 @@
 # regularity problem; :proved=0. Run: julia -t auto scripts/dns_tg256.jl
 # Env overrides for the smoke: NS_N, NS_T, NS_DT, NS_NU, NS_SAMPLE.
 
-using Printf, Base.Threads, LinearAlgebra
+using Printf, Base.Threads, LinearAlgebra, Serialization
 include(joinpath(@__DIR__, "spectral_3d_control.jl"))
 
 # threaded transforms (override the serial ones; rhs/rk4 bind these at call time)
@@ -139,10 +139,21 @@ function main()
         "winf","delta","S_omega","D30","D50","D70","c2int","c2max"))
 
     op = make_ops(N)
-    U = ic=="helical" ? helical_ic(N,op) : ic=="tubes" ? vortex_tube_ic(N,op) : taylor_green_ic(N,op)
-    d0 = diagnose(U,op,N); Z0 = d0.Z; E0 = d0.E
-    pr(@sprintf("# IC=%s  E0=%.5f  H0=%.5e  Z0=%.5f  div_max=%.1e", ic, d0.E, d0.H, d0.Z, d0.divmax))
-    t = 0.0; nexts = 0.0
+    # CHECKPOINT/RESUME (cache the field state): NS_CKPT=Δt>0 saves (t,U,E0,Z0) periodically
+    # (overwrite, ~3·N³·16 B) ⇒ crash-proof + cheap T-extension/branching. NS_RESUME=path
+    # loads a checkpoint and continues. Pure I/O — does NOT change the numerics.
+    ckpt = parse(Float64, get(ENV,"NS_CKPT","0")); resume = get(ENV,"NS_RESUME","")
+    ckptf = joinpath(@__DIR__, "ckpt_$(ic)_N$(N).jls")
+    if resume != ""
+        (t, U, E0, Z0) = deserialize(resume)
+        pr(@sprintf("# RESUMED from %s at t=%.3f (E0=%.5f Z0=%.5f)", resume, t, E0, Z0))
+    else
+        U = ic=="helical" ? helical_ic(N,op) : ic=="tubes" ? vortex_tube_ic(N,op) : taylor_green_ic(N,op)
+        d0 = diagnose(U,op,N); Z0 = d0.Z; E0 = d0.E; t = 0.0
+        pr(@sprintf("# IC=%s  E0=%.5f  H0=%.5e  Z0=%.5f  div_max=%.1e", ic, d0.E, d0.H, d0.Z, d0.divmax))
+    end
+    nexts  = (t <= 1e-9) ? 0.0 : ceil((t+1e-9)/smp)*smp           # next sample time
+    nextck = ckpt>0 ? (floor(t/ckpt)+1)*ckpt : Inf                # next checkpoint (strictly after t)
     while t < T + 1e-9
         if t >= nexts - 1e-9
             d  = diagnose(U,op,N)
@@ -151,6 +162,10 @@ function main()
             pr(@sprintf("  %-6.2f %-10.6f %-10.4f %-8.2f %-7.3f %-8.4f %-7.3f %-7.3f %-7.3f %-7.3f %-7.3f",
                 t, d.E/E0, d.Z/Z0, d.winf, d.δ, fd.Sw, D30, D50, D70, fd.cos2int, fd.cos2max))
             nexts += smp
+        end
+        if ckpt>0 && t >= nextck - 1e-9
+            serialize(ckptf, (t, U, E0, Z0)); pr(@sprintf("# checkpoint t=%.3f → %s", t, basename(ckptf)))
+            nextck += ckpt
         end
         U = rk4(U, dt, ν, op); t += dt
     end

@@ -12,3 +12,6 @@
 
 # os
 .DS_Store
+
+# DNS field-state checkpoints (large, regenerable)
+scripts/ckpt_*.jls
