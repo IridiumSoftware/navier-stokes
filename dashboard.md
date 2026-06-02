@@ -46,8 +46,21 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.20, 2026-06-01)
+## Status summary (v0.1.22, 2026-06-01)
 
+- **§5 TIGHTENED — the criticality–Casimir hinge (v0.1.22, NS-036, `:argued`):** the §5
+  capstone "three routes, one wall" made exact + resolution-free. **(a) supercriticality
+  (NS-034) ≡ (b) Casimir deficit (NS-033 Slice 6), joined at ENSTROPHY:** on the Ḣ^s
+  ladder (quadratic σ) energy −1 / critical Ḣ^{1/2} 0 / enstrophy ‖ω‖²_{L²} +1 are
+  symmetric about σ=0, critical = the geometric-mean midpoint via the exact interpolation
+  `‖u‖²_{Ḣ^{1/2}}≤‖u‖_{L²}·‖u‖_{Ḣ¹}` ⇒ bounded energy+enstrophy ⇒ regular ⇒ the whole 3D
+  question collapses to ONE rung (can enstrophy be bounded?) = the Casimir question
+  verbatim; common mechanism = vortex-stretch production P=∫ω·Sω (= the S_ω detector).
+  **(c) curvature CORRECTED to an INDEPENDENT companion** (Arnold neg-curvature is on
+  SDiff(𝕋²)=2D=regular ⇒ sensitivity, not singularity). Verified
+  `criticality_casimir_hinge.jl` (interp ratio ≤0.87 generic, =1.000 iff scale-pure; the
+  gap below 1 IS the multi-scale/cascade content). Sharpens the wall to one inequality on
+  one rung; does NOT close it. `:proved`=0.
 - **M\*↔CKN CLOSED via box-counting dimension (v0.1.20):** the scope-INVARIANT measure
   (box-counter validated line/plane/volume→1/2/3) gives **D≈2.3, resolution-robust + stable**
   — an intermittent ~2.3-D fractal (vortex sheets/tubes), NOT a ≤1D singular set, NOT
@@ -110,11 +123,12 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 24 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+- **Ledger:** 25 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
   2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 6 our RESULTS/FALSIFIED
   (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
   1 RELATED (`:cited`), 2 PROGRAM, 1 GEOMETRY (NS-033 manifold study `:tested`),
-  1 ANALYSIS (NS-034 scaling calculus `:argued`, the rigorous Slice 3). `:proved` = 0.
+  2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir hinge, both
+  `:argued`). `:proved` = 0.
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.
 - **Witnessed:** the closure↔turbulence convergence trimmed to "broad/generic"

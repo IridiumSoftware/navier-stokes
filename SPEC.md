@@ -480,6 +480,42 @@ threshold IS the scale-invariant quotient.
 - Depends_on: NS-002, NS-005.
 - Source: `scripts/manifold_3b_criticality.jl` (+ `.out.txt`).
 
+**NS-036 — The criticality–Casimir hinge: supercriticality (NS-034) ≡ the Casimir
+deficit (NS-033 Slice 6), joined at enstrophy; curvature is independent.**
+The §5 capstone "three routes, one wall" made exact. Put the controlled and the
+deciding quantities on one homogeneous-Sobolev ladder (NS-034 exponents; σ = the
+dilation exponent of the **quadratic** quantity): energy `‖u‖²_{L²}` at **σ=−1**,
+critical `‖u‖²_{Ḣ^{1/2}}` (≅ `L³`, the Prodi–Serrin locus) at **σ=0**, enstrophy
+`‖u‖²_{Ḣ¹}=‖ω‖²_{L²}` at **σ=+1**. Energy and enstrophy are **symmetric about the
+critical line σ=0**, and the deciding quantity is *exactly* their geometric-mean
+midpoint by an elementary exact interpolation (Cauchy–Schwarz, `|k|=|k|⁰·|k|¹`):
+`‖u‖²_{Ḣ^{1/2}} ≤ ‖u‖_{L²}·‖u‖_{Ḣ¹}`. Hence **bounded energy + bounded enstrophy ⇒
+bounded critical norm ⇒ regular**, and the 3D question collapses to **one rung — can
+enstrophy be a-priori bounded? — which IS the Casimir question** (Slice 6) verbatim:
+2D conserves enstrophy (`(ω·∇)u≡0`) ⇒ controlled ⇒ regular; 3D's Casimir family
+collapses to **helicity alone**, itself **σ=0 and sign-indefinite** (coercive over no
+norm) ⇒ the σ=+1 rung loses its conservation law ⇒ open. The common mechanism is the
+vortex-stretching production `P=∫ω·Sω` — the term that breaks the enstrophy Casimir
+(b), the reason the σ=+1 rung is uncontrolled (a), and (up to normalization) the
+production skewness `S_ω` of the DIAGNOSTICS track (NS-010/011). So "enstrophy
+non-coercivity" is the **name of the joint** of (a) and (b), not a third fact. **Correction:** curvature
+(NS-033 Slices 4–5) is a *logically independent* companion, not a third costume —
+Arnold's negative curvature is on SDiff(𝕋²), the **2D, regular** case, so negative
+curvature ⇒ *unpredictability/sensitivity*, **not** *singularity* (same two-notions
+distinction as Slice 2). The honest synthesis is **(a) ≡ (b)** (one fact) **with (c)
+independent**.
+- Evidence: **algebraic** (exact exponents + the elementary interpolation inequality +
+  the exact 2D/3D Euler Casimir algebra of Slice 6) + **computed** (interpolation hinge
+  verified in `criticality_casimir_hinge.jl`: ratio ≤ 0.87 for generic multi-scale
+  spectra, **= 1.000 iff scale-pure** [single `|k|`-shell] — the gap below 1 *is* the
+  multi-scale/cascade content). The computed test covers the **interpolation sub-claim**;
+  the entry-level equivalence remains an argument. **Status: :argued.** Scope: NS scaling
+  + elementary interpolation + ideal-flow Casimirs — **sharpens the wall to a single
+  inequality on a single rung; does NOT close it.** `:proved` unchanged (0).
+- Depends_on: NS-034, NS-033 (Slice 6), NS-002, NS-005.
+- Source: `scripts/criticality_casimir_hinge.jl` (+ `.out.txt`);
+  `docs/criticality_casimir_hinge_companion.md`; `docs/obstruction_program_writeup.md` §5.
+
 ---
 
 *Stage 1a DONE (NS-010/011 `:tested`, validated on Burgers, T-01/T-02 PASS). Open

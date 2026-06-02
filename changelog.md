@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.23 — 2026-06-01 — NS-036 formalized: the criticality–Casimir hinge enters the spec
+
+Promoted the v0.1.22 §5 tightening to a first-class spec entry (large-session pass):
+- **SPEC.md** — new entry **NS-036** ("criticality–Casimir hinge: supercriticality
+  [NS-034] ≡ Casimir deficit [NS-033 Slice 6], joined at enstrophy; curvature
+  independent"), **`:argued`**, evidence `algebraic + computed`, Depends_on NS-034 /
+  NS-033 / NS-002 / NS-005.
+- **artifact_registry.md** — NS-036 row (test covers the interpolation sub-claim; the
+  entry-level equivalence stays `:argued` per the conjunctive-claim rule).
+- **dashboard.md** — status summary + ledger count 24→25 (ANALYSIS 1→2: NS-034 + NS-036).
+- **docs/criticality_casimir_hinge_companion.md** — new companion (§1 basis / §2 results /
+  §3 verification / §4 spec impact).
+- Test `scripts/criticality_casimir_hinge.jl` (+ .out.txt) already landed at v0.1.22.
+- Audit: A1 coverage (every NS-ID has a row) ✓; A2 status parity ✓; A3 artifacts exist ✓;
+  A4 zero `:proved` ✓. `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.22 — 2026-06-01 — §5 tightened: the criticality–Casimir hinge (a≡b), curvature is independent
 
 Analytic tightening of the write-up's §5 capstone ("three routes, one wall") into an
