@@ -19,7 +19,7 @@
 # regularity problem; :proved=0. Run: julia -t auto scripts/dns_tg256.jl
 # Env overrides for the smoke: NS_N, NS_T, NS_DT, NS_NU, NS_SAMPLE.
 
-using Printf, Base.Threads
+using Printf, Base.Threads, LinearAlgebra
 include(joinpath(@__DIR__, "spectral_3d_control.jl"))
 
 # threaded transforms (override the serial ones; rhs/rk4 bind these at call time)
@@ -32,8 +32,13 @@ function ifft3(A); B=copy(A); N=size(B,1)
     @threads for c in 1:N; for a in 1:N; r=B[a,:,c]; fft!(r;inv=true); B[a,:,c]=r; end; end
     @threads for b in 1:N; for a in 1:N; r=B[a,b,:]; fft!(r;inv=true); B[a,b,:]=r; end; end; B; end
 
-# vortex-stretching production density ω·(ω·∇)u, and the skewness S_ω
-function production(U, op)
+# production density ω·(ω·∇)u + skewness S_ω + strain–vorticity ALIGNMENT.
+# Alignment (Gemini's mechanism test for "geometric depletion", Hou–Li): the enstrophy-
+# weighted ⟨cos²(ω,e_k)⟩ with the strain eigenvectors e_k (k = max-stretch λ₊ / intermediate
+# / compression λ₋). Classic HIT signature: ω aligns with the INTERMEDIATE eigenvector
+# (cos²_int largest). A shift at peak stretching = the geometric-depletion fingerprint.
+# Eigendecomp is subsampled (stride≈N/64) — a statistical quantity, LAPACK `eigen` (stdlib).
+function field_diag(U, op)
     uh,vh,wh = U
     ωxh,ωyh,ωzh = curl_hat(uh,vh,wh,op)
     ωx=real.(ifft3(ωxh)); ωy=real.(ifft3(ωyh)); ωz=real.(ifft3(ωzh))
@@ -45,7 +50,23 @@ function production(U, op)
     sw = ωx.*dwx .+ ωy.*dwy .+ ωz.*dwz
     Pd = ωx.*su .+ ωy.*sv .+ ωz.*sw
     enst2 = mean3(ωx.^2 .+ ωy.^2 .+ ωz.^2)
-    (Sw = mean3(Pd)/enst2^1.5, Pd = Pd)
+    # strain–vorticity alignment, enstrophy-weighted, on a subsample (stride≈N/64)
+    N = size(ωx,1); st = max(1, N÷64)
+    wmax=0.0; wint=0.0; wmin=0.0; wsum=0.0
+    @inbounds for c in 1:st:N, b in 1:st:N, a in 1:st:N
+        s12=0.5*(duy[a,b,c]+dvx[a,b,c]); s13=0.5*(duz[a,b,c]+dwx[a,b,c]); s23=0.5*(dvz[a,b,c]+dwy[a,b,c])
+        S = [dux[a,b,c] s12 s13; s12 dvy[a,b,c] s23; s13 s23 dwz[a,b,c]]
+        wω = ωx[a,b,c]^2 + ωy[a,b,c]^2 + ωz[a,b,c]^2
+        wω < 1e-30 && continue
+        F = eigen(Symmetric(S))                 # eigvals ascending: vectors[:,1]=λ₋ … [:,3]=λ₊
+        ox=ωx[a,b,c]; oy=ωy[a,b,c]; oz=ωz[a,b,c]
+        cmax=(ox*F.vectors[1,3]+oy*F.vectors[2,3]+oz*F.vectors[3,3])^2/wω
+        cint=(ox*F.vectors[1,2]+oy*F.vectors[2,2]+oz*F.vectors[3,2])^2/wω
+        cmin=(ox*F.vectors[1,1]+oy*F.vectors[2,1]+oz*F.vectors[3,1])^2/wω
+        wmax+=wω*cmax; wint+=wω*cint; wmin+=wω*cmin; wsum+=wω
+    end
+    (Sw = mean3(Pd)/enst2^1.5, Pd = Pd,
+     cos2max = wmax/wsum, cos2int = wint/wsum, cos2min = wmin/wsum)
 end
 
 # box-counting dimension of the top-`frac` mass set of |field|
@@ -112,7 +133,10 @@ function main()
     pr(a...) = (println(stdout,a...); println(fout,a...); flush(fout); flush(stdout))
     pr("# dns_tg256 — viscous DNS  IC=$ic  N=$N  Re=$(round(1/ν))  dt=$dt  T=$T  threads=$(nthreads())")
     pr("# Scope: resolved 3D pseudospectral DNS truncation; NOT the PDE; :proved=0.")
-    pr(@sprintf("# %-6s %-11s %-11s %-11s %-9s %-8s %-10s %-7s","t","E/E0","H","Z/Z0","winf","delta","S_omega","Dbox"))
+    # D30/D50/D70 = box-dim at 3 thresholds (Grok's Fact-3 robustness test); cos2int/max =
+    # enstrophy-weighted strain–vorticity alignment (Gemini/Grok mechanism + persistence probe).
+    pr(@sprintf("# %-6s %-10s %-10s %-8s %-7s %-8s %-7s %-7s %-7s %-7s %-7s","t","E/E0","Z/Z0",
+        "winf","delta","S_omega","D30","D50","D70","c2int","c2max"))
 
     op = make_ops(N)
     U = ic=="helical" ? helical_ic(N,op) : ic=="tubes" ? vortex_tube_ic(N,op) : taylor_green_ic(N,op)
@@ -122,15 +146,16 @@ function main()
     while t < T + 1e-9
         if t >= nexts - 1e-9
             d  = diagnose(U,op,N)
-            pp = production(U,op)
-            Db = box_dimension(pp.Pd)
-            pr(@sprintf("  %-6.2f %-11.6f %-11.3e %-11.4f %-9.2f %-8.3f %-10.4f %-7.3f",
-                t, d.E/E0, d.H, d.Z/Z0, d.winf, d.δ, pp.Sw, Db))
+            fd = field_diag(U,op)
+            D30=box_dimension(fd.Pd;frac=0.3); D50=box_dimension(fd.Pd;frac=0.5); D70=box_dimension(fd.Pd;frac=0.7)
+            pr(@sprintf("  %-6.2f %-10.6f %-10.4f %-8.2f %-7.3f %-8.4f %-7.3f %-7.3f %-7.3f %-7.3f %-7.3f",
+                t, d.E/E0, d.Z/Z0, d.winf, d.δ, fd.Sw, D30, D50, D70, fd.cos2int, fd.cos2max))
             nexts += smp
         end
         U = rk4(U, dt, ν, op); t += dt
     end
-    pr("# DONE. Enstrophy peak ≈ Brachet-1983 TG Re=1600 (validation); S_ω/Dbox on the resolved field.")
+    pr("# DONE. Validation: enstrophy peak vs Brachet-1983 TG Re=1600. Robustness: D30/50/70.")
+    pr("# Alignment c2int/c2max = enstrophy-wtd cos²(ω,e_int/e_max); HIT signature c2int largest.")
     close(fout); println(stdout, "wrote: $out")
 end
 

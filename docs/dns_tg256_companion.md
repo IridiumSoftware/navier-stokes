@@ -39,11 +39,18 @@ the published DNS benchmark at N=256.
 2. **`δ(t)` bounded** — min 0.077 at the enstrophy peak, never → 0, well-resolved
    (`δ·k_cut ≈ 6.5 ≫ 1`). The diagnostic correctly reports regularity on a resolved flow
    (NS-010 viscous control, confirmed at 256).
-3. **`D_box` DYNAMIC** — dips to **1.82 at t≈4** (exactly when `S_ω` peaks and ‖ω‖∞ jumps to
-   ~14), recovers to ~2.0. The production set **localizes toward the CKN ≤1 / NS-037 filament
-   limit at peak stretching** but bottoms at ~1.8 — never collapsing to ≤1. The earlier N≤128
-   "static D≈2.3" was under-resolved; at N=256 the production set is a ~1.8–2.0-dim object
-   that *transiently localizes* under stretching.
+3. **`D_box` DYNAMIC** — dips to **1.82 (top-50%) at t≈4** (when `S_ω` peaks and ‖ω‖∞ jumps
+   to ~14), recovers to ~2.0. At N=256 the production set is a ~1.8–2.0-dim object that
+   *transiently localizes* under stretching (the earlier N≤128 "static D≈2.3" was
+   under-resolved).
+   > **WITNESS-TRIM (2026-06-02, `triad_verdict_dns_localization.md`).** Both triad seats
+   > (Gemini synthesis, Grok adversarial) independently trimmed the original wording here —
+   > "*localizes toward the CKN ≤1 filament limit*." `D` is **threshold-dependent**
+   > (`D30/D50/D70 = 1.54/1.74/1.92` — confirmed) and floors **above 1**; the honest reading
+   > is *a threshold-dependent ~1.5–1.9-dim tube/sheet object that does **not** approach ≤1*
+   > (geometric, à la Hou–Li depletion), **not** an approach to the singular set. The CKN ≤1
+   > bound is a theorem the resolved dynamics do not approach. Fact 3 is provisional until
+   > threshold-robustness + IC-independence (the queued vortex-tube run) confirm it.
 
 ## §3 — Verification
 

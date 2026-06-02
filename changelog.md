@@ -1,5 +1,30 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.34 — 2026-06-02 — Triad metabolized (Gemini+Grok): Fact 3 trimmed; alignment + threshold-D built in
+
+Both witness seats returned and CONVERGED. `docs/triad_verdict_dns_localization.md`.
+
+- **Convergence (independent):** (1) flow regular, distinction resolution-gated at N≤256–512;
+  (2) the ~1.8 floor is most plausibly GEOMETRIC (tube/sheet, dim in (1,2), thickness ~ δ /
+  Kolmogorov; can't reach ≤1 without δ→0; Hou–Li geometric depletion); (3) Fact 3 (D-dip) is
+  fragile.
+- **TRIM (incl. our own):** Grok's Fact-3 critique CONFIRMED — D is threshold-dependent
+  (`D30/D50/D70 = 1.54/1.74/1.92` at N=64). The earlier "production set *localizes toward the
+  CKN ≤1 filament limit*" wording is trimmed to "a threshold-dependent ~1.5–1.9-dim tube/sheet
+  object that does NOT approach ≤1." (`dns_tg256_companion.md` annotated.) Gemini's
+  "self-arrest/breathing" held as hypothesis (timing: D recovers t≈6, dissipation peak t≈9).
+- **Two Q1 discriminators (both resolution-robust-ish):** Gemini = δ(t) functional form
+  (algebraic collapse vs exponential leveling); Grok = conditional strain–vorticity alignment
+  persistence on the intense set.
+- **Pipeline enhanced (committed) → C captures it:** `dns_tg256.jl` now outputs threshold-robust
+  D (D30/D50/D70, Grok's test) + strain–vorticity alignment (cos²(ω,e_int/e_max), enstrophy-
+  weighted; Gemini/Grok mechanism). N=64 smoke validates: threshold-sensitivity confirmed;
+  alignment = classic Ashurst intermediate-eigenvector (c²_int=0.77), shifting under stretching.
+- **The vortex-tube run (C) is now the adjudicator:** both seats predict D floors (geometric,
+  IC-independent) rather than → 1. Required Witness Check carried (any "approach to singular set"
+  must clear threshold-robustness + resolution-robust estimator + IC-independence + N-convergence).
+  `:proved`=0; prize untouched. (A/B ran on the pre-enhancement pipeline; C gets the new diagnostics.)
+
 ## v0.1.33 — 2026-06-02 — Triad brief prepared (the D-localization discrimination question)
 
 `docs/triad_brief_dns_localization.md` — witness-triad brief (Grok edge-witness-Φ / Gemini
