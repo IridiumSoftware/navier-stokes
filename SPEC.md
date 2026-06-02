@@ -73,6 +73,12 @@ dimension `≤ 1` (1D in space-time). Singularities, if they exist, are small an
 cannot fill a region.
 - Evidence: external-theorem. **Status: :cited.** Scope: PDE.
 - Source: Caffarelli–Kohn–Nirenberg (1982); Scheffer.
+- **Scope-localization probe (Ryan-M\*↔CKN, `scripts/ryan_ckn_scope_localization.jl`):** the
+  vortex-stretching production `|ω·(ω·∇)u|` LOCALIZES in the resolved window (f50: 0.16→0.06)
+  and SHARPENS with N (the Class-II / ≤1D-singular-set signature). HONEST: f50 is a volume
+  *fraction* (resolution-coupled); the conclusive scope-invariant measure is the box-counting
+  DIMENSION (= what CKN bounds). Suggestive of concentration, not a resolved singular set at
+  N≤128. Scope: inviscid-3D-truncation; verdict resolution-gated. See `docs/move4_ckn_probes_companion.md`.
 
 **NS-007 — No exact self-similar blowup (the easiest backward path is dead).**
 Leray's (-1/2)-self-similar blowup ansatz `u(x,t)=(2a(T−t))^{-1/2}U((x−x₀)/√(2a(T−t)))`
@@ -188,6 +194,13 @@ Open. Complex blowup (NS-012) and the analyticity-strip picture (NS-010) suggest
 the real-data question is "does the nearest complex singularity reach the real
 axis," but no implication real⇐complex is established.
 - Evidence: none. **Status: :open.** Scope: PDE. Source: —
+- **Reality-stabilizer probe (Grok Move 4, `scripts/complex_burgers_reality_leakage.jl`):**
+  1D complex viscous Burgers (real-data heat-protected; complex-data φ-zero blowup — the 1D
+  Li–Sinai analog). A tunable reality leakage λ damping `Im(u)`: λ=0 blows up at t*=5.54
+  (Cole–Hopf-validated), and reality PROTECTS with a boundary λ_c∈(0.02,0.05) — T* rises ~22%
+  below it (delay), regular above it. Sharpens the conjecture: real regularity ⟺ the
+  conjugate complex-singularity pair stays off the real axis. Scope: 1D-model — illustrates
+  the mechanism, does NOT establish real⇐complex for 3D-NS. See `docs/move4_ckn_probes_companion.md`.
 
 ---
 

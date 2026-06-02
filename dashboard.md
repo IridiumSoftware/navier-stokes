@@ -46,8 +46,14 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.18, 2026-06-01)
+## Status summary (v0.1.19, 2026-06-01)
 
+- **TWO PROBES (v0.1.19):** (a) **Reality stabilizer (Grok Move 4)** — 1D complex Burgers;
+  reality PROTECTS against complex-data blowup with a boundary λ_c≈0.03–0.05 (Cole–Hopf-
+  validated), sharpening NS-013; (b) **M\*↔CKN scope localization** — the vortex-stretching
+  production LOCALIZES + sharpens with N (Ryan-Class-II/CKN-≤1D signature), but f50 is a
+  resolution-coupled fraction ⇒ the conclusive scope-invariant measure is the box-counting
+  DIMENSION (next step). Both Scope≠PDE; `docs/move4_ckn_probes_companion.md`. :proved=0.
 - **RYAN SCOPE/RESOLUTION LENS (v0.1.18, NS-035):** Ryan's "emergence coupled to SCOPE
   not level" (arXiv:nlin/0609011) gives the PRINCIPLE behind the diagnostic arc —
   resolution=Class-I epistemic (why δ drifts/fails), scope=Class-II ontological (why the

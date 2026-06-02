@@ -1,0 +1,44 @@
+══════════════════════════════════════════════════════════════════════════════════════
+  ryan_ckn_scope_localization.jl — M*↔CKN: does the production LOCALIZE (Class II) or SPREAD (Class I)?
+  (Scope: inviscid-Euler truncation. NOT the PDE. :proved=0; prize UNTOUCHED. threads=16.)
+══════════════════════════════════════════════════════════════════════════════════════
+  ran N=32   in 8 s
+  ran N=64   in 48 s
+  ran N=128  in 379 s
+
+──────────────────────────────────────────────────────────────────────────────────────
+  N=128 trajectory — scope of the vortex-stretching production
+──────────────────────────────────────────────────────────────────────────────────────
+    t      f50        f90        PR/N³        Ω/Ω₀       tail      
+    0.00   0.1567     0.5400     4.16e-01     1.00       0.0e+00   
+    0.50   0.1217     0.4939     3.18e-01     1.32       2.1e-08   
+    1.00   0.0791     0.4086     1.78e-01     2.41       1.5e-04   
+    1.50   0.0570     0.3446     1.14e-01     5.35       3.1e-03   
+    2.00   0.0523     0.3404     6.84e-02     12.96      1.8e-02   
+    2.50   0.0687     0.3819     1.44e-01     35.67      7.9e-02   
+    3.00   0.0991     0.4448     2.41e-01     91.43      2.5e-01   
+    3.50   0.1234     0.4910     3.13e-01     159.29     4.6e-01   
+
+──────────────────────────────────────────────────────────────────────────────────────
+  f50 vs N (resolved window t≤1.00) — does the minimal scope sharpen with resolution?
+──────────────────────────────────────────────────────────────────────────────────────
+    t      f50 N=32     f50 N=64     f50 N=128   
+    0.50   0.1231       0.1217       0.1217      
+    1.00   0.1092       0.0885       0.0791      
+    1.50   0.1091       0.0776       0.0570      
+    2.00   0.1192       0.0838       0.0523      
+
+══════════════════════════════════════════════════════════════════════════════════════
+  VERDICT — M*↔CKN scope-localization
+══════════════════════════════════════════════════════════════════════════════════════
+  • The production density is INTERMITTENT: f50 ≈ 0.157 (only ~16% of the volume carries
+    half the stretching at t=0) — consistent with turbulence's known sheet/tube intermittency.
+  • Trend in the resolved window: f50 SHRINKS (localizing) (0.157 → 0.057).
+  • Ryan/CKN reading: a Class-II (ontological) singularity would show f50 → 0 SHARPENING with N
+    (minimal scope → a measure-zero, ≤1D set). At N≤128 we see intermittency, not a resolved
+    collapse to a point — suggestive of concentration, but NOT a resolved singular set.
+  • HONEST: at accessible resolution this is the right OBJECT (minimal scope of the production)
+    but cannot resolve the ≤1D singular set CKN allows — the M*-localization, if ontological,
+    lives below N=128. The verdict is resolution-gated, now posed in the correct (scope) variable.
+  • FIREWALL: inviscid-Euler truncation; :proved=0; distance to the prize UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════════

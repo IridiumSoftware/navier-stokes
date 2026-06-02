@@ -1,0 +1,42 @@
+══════════════════════════════════════════════════════════════════════════════
+  complex_burgers_reality_leakage.jl — Grok Move 4: does 'reality' protect?
+  (Scope: 1D complex viscous Burgers. NOT the PDE. :proved=0; prize UNTOUCHED.)
+══════════════════════════════════════════════════════════════════════════════
+
+  complex viscous Burgers, ν=0.20, φ₀=1+3·e^{ix}; Cole–Hopf blowup t*=ln(b)/ν=5.493
+  reality penalty: u_t += −iλ·Im(u)  (λ→∞ forces u real ⇒ heat-protected/regular)
+
+──────────────────────────────────────────────────────────────────────────────
+  REALITY-LEAKAGE SWEEP — blowup time T*(λ)
+──────────────────────────────────────────────────────────────────────────────
+    λ        T*(λ)          fate
+    0        5.540          blowup (max|u|→108)
+    0.001    5.585          blowup (max|u|→108)
+    0.005    5.775          blowup (max|u|→103)
+    0.01     6.050          blowup (max|u|→103)
+    0.02     6.770          blowup (max|u|→100)
+    0.05     ∞              REGULAR to T=20 (max|u|=0.5)
+    0.1      ∞              REGULAR to T=20 (max|u|=0.1)
+    0.25     ∞              REGULAR to T=20 (max|u|=0.0)
+    0.5      ∞              REGULAR to T=20 (max|u|=0.0)
+    1        ∞              REGULAR to T=20 (max|u|=0.0)
+    2        ∞              REGULAR to T=20 (max|u|=0.0)
+
+  CORRECTNESS (λ=0): T*=5.540 vs Cole–Hopf t*=5.493  →  MATCH ✓ (solver validated)
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT — Grok Move 4 (reality stabilizer)
+══════════════════════════════════════════════════════════════════════════════
+  • λ=0 (complex data): blows up at t*≈5.54 (Cole–Hopf-validated). REAL data (large λ)
+    is heat-protected (no φ-zero ⇒ regular).
+  • PROTECTION CONFIRMED with a finite BOUNDARY λ_c ∈ (0.02, 0.05):
+    – BELOW it, reality leakage DELAYS blowup: T* rises 5.54→6.77 (+22%) as λ: 0→0.02;
+    – ABOVE λ_c≈0.05 the φ-zero is prevented entirely (regular). So the 'protection
+      boundary' Grok conjectured DOES exist: T* increases toward it from below, then diverges.
+  • Grok's Move-4 claim (reality protects against complex-data blowup, with a mappable
+    boundary) HOLDS in this 1D model — gradual delay below λ_c, full protection above.
+  • HONEST SCOPE: this is the 1D analog of Li–Sinai (NS-012, complex-data blowup) and the
+    real⇐complex question (NS-013). It illustrates the MECHANISM (max principle / analyticity:
+    reality keeps the complex singularity off the real axis) — it does NOT bear on 3D-NS
+    regularity. :proved=0; distance to the prize UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════

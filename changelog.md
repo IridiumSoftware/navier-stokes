@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.19 — 2026-06-01 — Two probes: reality stabilizer (Grok Move 4) + M*↔CKN scope localization
+
+`docs/move4_ckn_probes_companion.md` + two scripts.
+- **Reality stabilizer (Move 4, `complex_burgers_reality_leakage.jl`)** — complex viscous
+  Burgers (real heat-protected; complex φ-zero blowup = 1D Li–Sinai). Tunable reality leakage
+  λ damping Im(u), integrating-factor RK4. λ=0 blows up at t*=5.54 (Cole–Hopf-validated ✓);
+  **reality PROTECTS with a boundary λ_c∈(0.02,0.05)** — T* rises ~22% below it (delay),
+  regular above it. Grok's "protection boundary" confirmed. Sharpens NS-013. Scope: 1D-model.
+  (Caught + fixed a stiff-viscous instability; corrected my own first "sharp" reading.)
+- **M\*↔CKN scope localization (`ryan_ckn_scope_localization.jl`)** — track the minimal scope
+  carrying the vortex-stretching production. It **LOCALIZES** in the resolved window (f50:
+  0.16→0.06) and **SHARPENS with N** (the Ryan-Class-II / CKN-≤1D signature). **HONEST CAVEAT
+  (Ryan-internal):** f50 is a volume *fraction* (resolution-coupled); the conclusive
+  scope-invariant measure is the **box-counting DIMENSION** (= what CKN bounds) — the
+  principled next step. Suggestive of concentration, NOT a resolved singular set at N≤128.
+  Notes on NS-006, NS-013. No new spec entry. `:proved`=0; distance to prize UNTOUCHED.
+
 ## v0.1.18 — 2026-06-01 — The Ryan scope/resolution lens (NS-035): the principle behind the diagnostic
 
 Recorded Alex Ryan, *Emergence is coupled to scope, not level* (arXiv:nlin/0609011,
