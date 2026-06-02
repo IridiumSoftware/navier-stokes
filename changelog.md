@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.30 — 2026-06-02 — Touchability ranking: C_ε > exponents > C_K (refines NS-037c)
+
+Same hard-vs-frame-dependent test on the Kolmogorov constant C_K and the dissipation
+anomaly C_ε. `scripts/kolmogorov_dissipation_hard_test.jl`.
+
+- **C_K (amplitude): purely frame-dependent** — the 4/5 law is 3rd-order (touches it not),
+  realizability bounds exponents not amplitudes, only C_K>0. The SLOPE it sits on is touched:
+  ζ_2∈[2/3,1] bracketed (concavity floor 2/3=K41, monotone ceiling 1; extremals saturate
+  both) ⇒ spectral slope ∈[−2,−5/3]; but the AMPLITUDE C_K is not.
+- **C_ε (dissipation): partially touched** — RIGOROUS finite upper bound (Doering–Foias–
+  Constantin, C_ε≤c_1/Re+c_2, from the NS energy balance); positivity is the empirical zeroth
+  law (unproven, tied to the 4/5 RHS / Onsager); value frame-dependent. The most-touched of
+  {C_K, μ, C_ε} — the one inside a rigorous NS inequality.
+- **RANKING + principle:** dissipation rate (rigorous bound) > exponents (realizability
+  brackets) > spectral amplitude (untouched). NS's rigorous reach = exact laws (4/5) +
+  realizability (exponents) + energy balance (dissipation), NOT amplitudes.
+- Refines NS-037(c) (prior "frame-dependent (μ,C_K,κ,C_ε)" lumping was too coarse — C_ε has
+  a rigorous bound). NS-037 updated + Source/companion added; stays `:argued` (conjunctive
+  rule). New `docs/kolmogorov_dissipation_hard_test_companion.md`. Anti-anchoring kept.
+  `:proved`=0; prize not the target.
+
 ## v0.1.29 — 2026-06-02 — NS-037 formalized: the inverse-Born / possibilistic turbulence map
 
 Promoted the v0.1.26–28 turbulence-possibilistic arc to a first-class spec entry

@@ -1,0 +1,66 @@
+════════════════════════════════════════════════════════════════════════════════
+  kolmogorov_dissipation_hard_test.jl — does the HARD layer touch C_K or C_ε?
+  (frame-independent invariants only; measured values NOT anchored on)
+  Scope: empirical + exact 4/5 + realizability + Doering–Foias. NOT the PDE. :proved=0.
+════════════════════════════════════════════════════════════════════════════════
+
+  PANEL A — KOLMOGOROV CONSTANT C_K  (the inertial-range spectral AMPLITUDE)
+────────────────────────────────────────────────────────────────────────────────
+  Split C_K's setting into SLOPE and AMPLITUDE:
+  • SLOPE −(1+ζ_2): the hard layer BRACKETS the 2nd-order exponent ζ_2.
+      K41 extremal:        admissible=true  ζ_2=0.6667  ⇒ slope -1.667
+      front-loaded extremal: admissible=true  ζ_2=1.0000  ⇒ slope -2.000
+      random admissible search: ζ_2 ∈ [0.678, 0.803] ⊂ [2/3, 1]  (8000 spectra)
+      ⇒ ζ_2 ∈ [2/3, 1] (concavity floor 2/3 = K41; monotone ceiling 1), TIGHT. So the
+        spectral SLOPE is structurally bracketed in [−2, −5/3]; measured ζ_2≈0.70 ⇒ −1.70,
+        sitting just off the K41 floor. THE SLOPE IS TOUCHED.
+  • AMPLITUDE C_K: NOT touched. The only exact law is the 4/5 law — a THIRD-order relation
+    (it pins the ζ_3 amplitude to exactly −4/5). There is NO exact law at second order, and
+    realizability bounds EXPONENTS, not amplitudes. C_K>0 is the only structural fact; its
+    value (≈1.6) is PURELY FRAME-DEPENDENT — like μ, but worse: μ has a [0,1] bracket, C_K
+    has no nontrivial structural bound at all.
+
+  PANEL B — DISSIPATION ANOMALY C_ε = εL/u'³  (the 'zeroth law' coefficient)
+────────────────────────────────────────────────────────────────────────────────
+  Three tiers — and C_ε is the MOST-touched of the three constants:
+  • C_ε ≥ 0:  trivial (ε = ν⟨|∇u|²⟩ ≥ 0). Structural but vacuous.
+  • C_ε < ∞:  RIGOROUS — Doering–Foias–Constantin upper bound from the NS energy balance
+    + Poincaré:  C_ε ≤ c_1/Re + c_2,  so as Re→∞, C_ε ≤ c_2 < ∞. A genuine theorem-level
+    structural touch (the FORM is frame-independent; the constant c_2 is forcing-geometry-
+    dependent). This is the one turbulence 'constant' NS bounds rigorously.
+  • C_ε > 0:  EMPIRICAL (the zeroth law) — NOT proven. It is exactly the statement that the
+    cascade is real (ε survives ν→0), equivalently that the 4/5 law's RHS (−⅘εr) is nonzero.
+    Tied to Onsager (NS-009); proving it = proving anomalous dissipation occurs (open).
+  ⇒ C_ε is bracketed (0, c_2]: upper end RIGOROUS (energy balance), lower end EMPIRICAL
+    (zeroth law), value ≈0.4–0.5 frame-dependent. PARTIALLY touched — more than C_K or μ.
+
+  PANEL C — THE RANKING  (how much the hard layer touches each constant)
+────────────────────────────────────────────────────────────────────────────────
+    constant               what the hard layer gives      kind
+    C_ε (dissipation)      rigorous UPPER bound (Doering–Foias) NS energy-balance inequality
+    ζ_2, μ (exponents)     realizability BRACKETS [2/3,1],[0,1] monotone+concave+ζ_3=1
+    C_K (amplitude)        only C_K>0 — no bound          PURELY frame-dependent
+
+  THE PRINCIPLE (the discriminating finding):
+    NS's rigorous reach extends to (i) the THIRD-order exponent EXACTLY (the 4/5 law),
+    (ii) the lower-order EXPONENTS by realizability brackets, and (iii) the DISSIPATION RATE
+    by the energy-balance inequality — but NOT to spectral AMPLITUDES. 'Touchability' tracks
+    whether a constant appears in a rigorous NS relation. Exponents and the dissipation rate
+    do; the Kolmogorov amplitude C_K does not.
+
+════════════════════════════════════════════════════════════════════════════════
+  ANSWER
+════════════════════════════════════════════════════════════════════════════════
+  • C_K: PURELY frame-dependent (the worst case) — no exact law (4/5 is 3rd-order), no
+    realizability bound on an amplitude; only C_K>0. The SLOPE it sits on (ζ_2∈[2/3,1]) is
+    structurally bracketed; the AMPLITUDE is not.
+  • C_ε: PARTIALLY touched — a RIGOROUS finite upper bound (Doering–Foias, from the energy
+    balance); positivity is the empirical zeroth law; value frame-dependent. The most-
+    touched of {C_K, μ, C_ε}, because it is the one that sits inside a rigorous NS inequality.
+  • So the constants stratify: dissipation RATE > exponents > spectral AMPLITUDE. The hard
+    layer reaches exactly as far as NS's exact laws + realizability + energy balance do.
+    Measured C_K≈1.6, C_ε≈0.5 entered only here, as a convergence note. Scope: empirical;
+    :proved=0.
+════════════════════════════════════════════════════════════════════════════════
+
+wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/kolmogorov_dissipation_hard_test.out.txt

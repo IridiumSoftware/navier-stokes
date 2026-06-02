@@ -572,7 +572,16 @@ BUSINESS/inverse_born_methodology.md`, A. Green, Apr 2026). Three results:
   flat saturates 1) — but **no tighter**: CKN is vacuous for regular flow (h≥0, no singular
   set), so the observed μ≈0.2 (interior) is frame-dependent and cannot be imported as
   structure. The map cleanly separates what is *forced* (ζ_3=1, the ≤1-D filament integer)
-  from what is *frame-dependent* (μ, C_K, κ, C_ε — convergence targets, never anchored).
+  from what is *frame-dependent* (μ, C_K, κ — convergence targets, never anchored).
+  **Refinement — a "touchability" RANKING of the constants** (`kolmogorov_dissipation_hard_test.jl`):
+  the same test on C_K and C_ε stratifies how far NS's rigour reaches. **C_ε** (dissipation
+  anomaly) is the *most*-touched: it has a RIGOROUS finite upper bound (Doering–Foias–Constantin,
+  `C_ε ≤ c_1/Re + c_2`, from the NS energy balance), with positivity the empirical zeroth law
+  and value frame-dependent. **Exponents** (ζ_2∈[2/3,1], μ∈[0,1]) are bracketed by realizability.
+  **C_K** (a 2nd-order *amplitude*) is the *least*-touched — purely frame-dependent: the 4/5 law
+  is 3rd-order so touches it not at all, realizability bounds exponents not amplitudes, only
+  C_K>0 holds. Principle: NS's rigorous reach = exact laws (4/5, 3rd-order) + realizability
+  (exponents) + the energy balance (dissipation rate); it does NOT reach spectral amplitudes.
 - Evidence: **algebraic** (the Legendre duality; ζ_3=1; the realizability/concavity bounds
   μ∈[0,1]; the log-normal `ζ′<0`/`D<0` violations — all exact) + **computed** (`D(h)`
   inversion; the obstruction grid; the μ-bracket extremals + 10⁴-sample non-violation check).
@@ -581,9 +590,10 @@ BUSINESS/inverse_born_methodology.md`, A. Green, Apr 2026). Three results:
   distance to the prize UNTOUCHED.
 - Depends_on: NS-006 (CKN), NS-009 (Onsager / 4-5 law), NS-036 (criticality–Casimir hinge),
   NS-021 (subcritical lifetimes / onset).
-- Source: `scripts/turbulence_nogo_map.jl`, `turbulence_inverse_born.jl`, `mu_hard_bound.jl`
-  (+ `.out.txt` each); companions `docs/turbulence_nogo_map_companion.md`,
-  `turbulence_inverse_born_companion.md`, `mu_hard_bound_companion.md`.
+- Source: `scripts/turbulence_nogo_map.jl`, `turbulence_inverse_born.jl`, `mu_hard_bound.jl`,
+  `kolmogorov_dissipation_hard_test.jl` (+ `.out.txt` each); companions
+  `docs/turbulence_nogo_map_companion.md`, `turbulence_inverse_born_companion.md`,
+  `mu_hard_bound_companion.md`, `kolmogorov_dissipation_hard_test_companion.md`.
 - **Honesty notes (recorded):** (i) the data "saturating CKN" is a geometric *consistency*,
   not an identity (intense filaments vs hypothetical singular set); (ii) the random-ensemble
   μ-minimum 0.200 coincides with the observed μ but is a *sampling artifact*, not a bound
