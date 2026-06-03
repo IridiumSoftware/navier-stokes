@@ -15,3 +15,9 @@
 
 # DNS field-state checkpoints (large, regenerable)
 scripts/ckpt_*.jls
+
+# Swift build artifacts (Metal track)
+metal/probe_mpsfft
+metal/*.o
+metal/.build/
+metal/dns_*512*.bin
