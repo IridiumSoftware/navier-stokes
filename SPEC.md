@@ -601,6 +601,51 @@ BUSINESS/inverse_born_methodology.md`, A. Green, Apr 2026). Three results:
 
 ---
 
+## RESOLVED DNS — the boundary-exploration program (N=256, FFTW-validated)
+
+**NS-038 — Resolved N=256 DNS verdicts across three flows (the boundary queue A→B→C).**
+The first runs to use the real ~6-hour compute budget: a *resolved* viscous pseudospectral
+DNS at **N=256, Re=1600** (hand-rolled radix-2 FFT, later FFTW-validated; `δ·k_cut≈6.5–7.5`
+⇒ the analyticity strip is wider than the grid scale ⇒ resolved), **validated against the
+literature** (Taylor–Green enstrophy/dissipation peak at **t≈9.0**, matching Brachet 1983).
+Three boundaries, energy-matched (E≈0.125):
+- **A — Taylor–Green (H=0).** `S_ω` **bounded ≈0.2** (transient peak 0.29 at t≈4); `δ`
+  bounded (min 0.077, never→0); the top-production box-dimension is **dynamic** — D30 floors
+  ~1.33, D50 ~1.82, **never ≤1** under distributed stretching; the strain–vorticity alignment
+  `c²_int` **peaks at 0.72 at the stretching maximum** then relaxes (geometric depletion of
+  nonlinearity, Hou–Li, observed directly). Energy decays monotonically.
+- **B — helical (H≠0, ρ_H≈1% — weakly helical).** Same qualitative verdicts (S_ω bounded
+  ≈0.147, δ bounded, D dips-then-recovers, regular) ⇒ **the verdicts are IC-robust, not
+  TG-specific.** Quantitative differences (earlier/lower enstrophy peak; D50 floors at 2.07,
+  *less* localized) *suggest* helicity reduces localized stretching but are **confounded**
+  (weak helicity + low-k-random IC) — a clean test needs a strongly-helical (ABC/Beltrami) IC.
+- **C — anti-parallel vortex tubes (Kerr, the near-singular IC).** A genuine **reconnection
+  event** at t≈5.5–6: ‖ω‖∞ spikes ~4× (26→97), S_ω doubles (0.10→0.24), δ dips to its min
+  (0.088), and the most-intense-30% set **D30 transiently reads ≈0.99 — momentarily at the
+  CKN ≤1 filament edge** — then recovers. **Flow stays REGULAR** (δ bounded + resolved;
+  alignment stable). The ≤1 touch is **reconnection-specific** (A/B's distributed stretching
+  floors D30 ≥1.33), confirming it is a real reconnection-localization, not a TG artifact.
+- Evidence: **computed** (resolved DNS, literature-validated; FFTW≡hand-rolled cross-check
+  passes at N=64 bit-equal and N=256 on all physics). **Status: :tested.** Scope: **resolved
+  3D pseudospectral DNS truncation — NOT the 3D-NS PDE.** All flows REGULAR (as Re=1600 must
+  be); these are *resolved diagnostics*, not a blowup test. `:proved`=0; distance UNTOUCHED.
+- Depends_on: NS-010 (δ diagnostic), NS-004 (BKM/‖ω‖∞), NS-006 (CKN ≤1), NS-037 (the (h,D) /
+  multifractal framing the D-dimension instantiates).
+- Source: `scripts/dns_tg256.jl` (+ `dns_tg256{,_helical,_tubes}.out.txt`); companion
+  `docs/dns_tg256_companion.md` (A/B/C + FFTW-validation addenda); diagnostics validated in
+  `docs/triad_verdict_dns_localization.md`.
+- **Required Witness Check (RWC-038, carried from the triad).** Any future claim of an
+  "approach to the singular set" from this program MUST clear: (i) **threshold-robustness**
+  (D not an artifact of the top-X% cut — D is threshold- AND resolution-dependent; the D30≤1
+  touch is the noisiest signal, top-30%, ±0.15, single sample, recovers in one Δt); (ii) a
+  **resolution-robust dimension estimator**; (iii) **IC-independence**; (iv) **N-convergence**.
+  The C reconnection peak (‖ω‖∞≈97) is at the **edge of N=256** ⇒ a true ≤1D verdict *at
+  reconnection* needs **N≥512** (the open frontier; GPU/Metal territory). The discriminator
+  for regular-vs-singular is the *functional form* of δ(t) (algebraic collapse vs exponential
+  leveling), practically near-degenerate at N≤256.
+
+---
+
 *Stage 1a DONE (NS-010/011 `:tested`, validated on Burgers, T-01/T-02 PASS). Open
 priority (see `dashboard.md`): Stage 1b — apply the validated δ(t) diagnostic to a
 spectral Euler/NS truncation, with the BKM (NS-004) and critical-norm (NS-005)

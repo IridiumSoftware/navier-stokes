@@ -46,8 +46,17 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-## Status summary (v0.1.28, 2026-06-02)
+## Status summary (v0.1.39, 2026-06-02)
 
+- **NS-038 FORMALIZED — resolved N=256 DNS boundary program A→B→C (v0.1.31–39, `:tested`,
+  new RESOLVED-DNS class):** first use of the real 6-hour budget. Resolved viscous DNS at
+  N=256/Re=1600, FFTW-validated (≡ hand-rolled; Brachet enstrophy peak t=9). Verdicts: S_ω
+  **bounded** (~0.2 TG / 0.15 helical), δ bounded+resolved (δ·k_cut≈6.5–7.5), production-set
+  dimension dynamic (TG/helical floor D30~1.33, never ≤1; the **vortex-tube reconnection
+  transiently drives D30→0.99** at the CKN ≤1 edge — reconnection-specific, flow stays
+  regular). Geometric depletion (c²_int peaks 0.72 at stretching-max) observed. FFTW-18 ≈3.3×
+  end-to-end (N=256: 3.9h→~70min). RWC-038: ≤1D-at-reconnection needs N≥512 (edge of N=256)
+  → **next: N=512 via Metal.** `:proved`=0; all flows regular; prize untouched.
 - **NS-037 FORMALIZED — inverse-Born / possibilistic map of turbulence's constants (v0.1.26–28,
   `:argued`, new POSSIBILISTIC class; prize-focus deliberately dropped):** maps possibility +
   probability (not just necessity) of the *phenomenon*. (a) inverse-Born = inverse Legendre of
@@ -131,13 +140,14 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 27 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+- **Ledger:** 28 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
   2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 6 our RESULTS/FALSIFIED
   (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
   2 RELATED (`:cited`; NS-025 Gosme + NS-035 Ryan), 2 PROGRAM, 1 GEOMETRY (NS-033
   manifold study `:tested`), 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–
-  Casimir hinge, both `:argued`), 1 POSSIBILISTIC (NS-037 inverse-Born map, `:argued`).
-  `:proved` = 0. (Count corrected: prior "25" undercounted RELATED by one.)
+  Casimir hinge, both `:argued`), 1 POSSIBILISTIC (NS-037 inverse-Born map, `:argued`),
+  1 RESOLVED-DNS (NS-038 boundary queue A→B→C, N=256 FFTW-validated, `:tested`).
+  `:proved` = 0.
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.
 - **Witnessed:** the closure↔turbulence convergence trimmed to "broad/generic"

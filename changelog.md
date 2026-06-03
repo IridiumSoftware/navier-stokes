@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.39 — 2026-06-02 — NS-038 formalized: the resolved N=256 DNS boundary program (A→B→C)
+
+Promoted the resolved-DNS boundary queue to a first-class spec entry (large-session, new
+**RESOLVED-DNS** class).
+
+- **SPEC.md** — new section "RESOLVED DNS" + entry **NS-038**: A (TG, S_ω bounded ~0.2, δ
+  bounded, D30 floors ~1.33, c²_int peaks 0.72 = geometric depletion observed), B (helical,
+  IC-robust verdicts; helicity confounded), C (vortex tubes, reconnection event, D30→0.99
+  transient at CKN ≤1 edge, regular, reconnection-specific). Status `:tested`; Scope: resolved
+  N=256 DNS truncation (all flows regular; NOT PDE). FFTW-validated; Brachet peak t=9.
+  Depends_on NS-010/004/006/037. Carries **RWC-038** (any "approach to singular set" needs
+  threshold-robustness + resolution-robust estimator + IC-independence + N-convergence; the
+  reconnection ‖ω‖∞≈97 is at the edge of N=256 ⇒ ≤1D verdict needs N≥512).
+- **artifact_registry.md** — NS-038 row (RESOLVED-DNS class).
+- **dashboard.md** — status summary + ledger 27→28 (+1 RESOLVED-DNS).
+- Boundary queue A→B→C COMPLETE and formalized. `:proved`=0; prize untouched.
+- **Next: N=512 via Metal** (RWC-038's open frontier) — GPU port begins.
+
 ## v0.1.38 — 2026-06-02 — FFTW N=256 TG re-run: validated ≡ hand-rolled; real speedup 3.3× (not 11.7×)
 
 Re-ran canonical TG Re=1600 N=256 with FFTW (-t18) + enhanced diagnostics. Now the canonical
