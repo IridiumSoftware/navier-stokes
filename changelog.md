@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.38 — 2026-06-02 — FFTW N=256 TG re-run: validated ≡ hand-rolled; real speedup 3.3× (not 11.7×)
+
+Re-ran canonical TG Re=1600 N=256 with FFTW (-t18) + enhanced diagnostics. Now the canonical
+`scripts/dns_tg256.out.txt` (hand-rolled A preserved @779bd7b).
+
+- **VALIDATED ≡ hand-rolled:** E/E0, Z/Z0, ‖ω‖∞, S_ω match to all digits (t=9 E/E0=0.690460,
+  Z/Z0=27.39, S_ω peak 0.290; Brachet peak t=9). **δ converges** at developed times (t=9:
+  0.077 both); early-δ difference = FFT-roundoff-floor noise (NS-010 δ-fragility), washes out.
+  FFTW is a validated drop-in at full resolution.
+- **Honest speedup ≈3.3× (NOT the isolated-fft3 11.7×):** 3.9h→~70min, = ~1.9× threading
+  (6→18) × ~1.75× FFTW. The rhs is allocation/memory-bound (out-of-place P*A, ComplexF64
+  copy, GC) so FFTW's raw speed is bottled up. ⇒ in-place mul!/rfft/prealloc is the real lever
+  for N=512-on-CPU; earlier "~3-4h short-T N=512" too optimistic (true ≈10h at 3.3×). N=512 ⇒
+  in-place/rfft opt OR Metal.
+- **Clean TG baseline (new diagnostics):** D30 floors ~1.33 (never ≤1) under TG's distributed
+  stretching; c²_int PEAKS 0.72 at the stretching max then relaxes — Gemini's geometric-depletion
+  alignment-shift, observed directly.
+- **TG-vs-C sharpens C:** distributed stretching (TG) floors D30~1.33; concentrated reconnection
+  (C) drove D30→0.99 ⇒ the ≤1 touch is SPECIFIC to reconnection, not generic stretching — C's
+  near-filamentary moment is real + reconnection-driven, not a TG artifact. Both regular.
+- Companion addendum added. `:proved`=0; prize untouched.
+
 ## v0.1.37 — 2026-06-02 — C (vortex tubes) = resolved reconnection; FFTW ~6× ⇒ short-T N=512 in reach
 
 **C — the adjudicator (Kerr anti-parallel vortex tubes, N=256, enhanced diagnostics).**
