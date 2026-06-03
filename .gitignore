@@ -21,3 +21,5 @@ metal/probe_mpsfft
 metal/*.o
 metal/.build/
 metal/dns_*512*.bin
+metal/dns_gpu
+metal/dns512
