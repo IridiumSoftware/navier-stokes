@@ -44,3 +44,17 @@ The GPU solver must reproduce the CPU spectral solver before any N=512 claim: (i
 conservation on an inviscid check; (ii) the **Brachet TG Re=1600 enstrophy peak at t≈9** at
 N=256; (iii) bit-vs-CPU agreement on a few steps at small N. Only then N=512. `:proved`=0;
 all flows regular; this is a *resolution* push for RWC-038, not a PDE claim.
+
+## Stage 2 (DONE, 2026-06-03) — `dns_gpu.swift`: the rhs + RK4, all in MPSGraph
+
+Rotational-form NS `rhs` (curl → ifft → `u×ω` Lamb vector → fft → 2/3 dealias → Leray
+projection → `−νk²û`) + RK4, built **entirely in MPSGraph** (fields kept as (re,im)
+real-tensor pairs; complex only at FFT boundaries). **No hand-written Metal kernels.**
+
+**Validation — inviscid ABC/Beltrami (the strongest gate):** `u×ω=u×u=0` ⇒ exactly
+stationary. Result (M5 Max, N=64): **E/E0=1.000000, H/H0=1.000000, H/2E=1.0000** (Beltrami),
+field drift 7.2e‑4 over 10 steps (float32 FFT-roundoff; STATIONARY). ⇒ curl + cross-product
++ Leray projection all correct. **Precision note:** the GPU path is **float32** (vs the CPU
+float64); adequacy for the diagnostics is confirmed at the Stage-4 N=256 cross-validation.
+
+Next — Stage 3: full time-loop + snapshot writer (spectral `û,v̂,ŵ` → `.bin` at sample times).

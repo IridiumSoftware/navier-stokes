@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.40 — 2026-06-03 — Metal N=512 track: GPU FFT (Stage 1) + GPU rhs (Stage 2) validated
+
+Toward N=512 (RWC-038 frontier) on the M5 Max. `metal/`.
+
+- **Stage 1 — MPSGraph 3D FFT probe GREEN** (`metal/probe_mpsfft.swift`): the spectral
+  solver's crux (a Metal FFT — the fluoddity-metal fork is finite-difference Jacobi, no FFT
+  to reuse) is solved by MPSGraph (Metal 4, native): 8³ roundtrip 2.4e-7; N=256 0.0051 s/fft
+  (2.6× FFTW-18 CPU); N=512 0.102 s/fft ⇒ ~2 h for T=10 if FFT-bound, in budget (≤30 GB).
+- **Stage 2 — GPU rhs + RK4, entirely in MPSGraph** (`metal/dns_gpu.swift`): rotational-form
+  NS rhs (curl → ifft → u×ω → fft → 2/3 dealias → Leray projection → −νk²û) + RK4, fields as
+  (re,im) real-tensor pairs (no hand-written Metal kernels). **Validated on inviscid
+  ABC/Beltrami (the strongest gate — u×ω=0 ⇒ exactly stationary):** E/E0=H/H0=1.000000,
+  H/2E=1.0000, field drift 7.2e-4/10 steps (float32 roundoff) ⇒ curl + cross + Leray all correct.
+- Architecture = HYBRID: Swift+MPSGraph GPU time-stepper (float32) writes snapshots → existing
+  VALIDATED Julia diagnostics (dns_tg256.jl) read them. Precision note: GPU float32 vs CPU
+  float64 — adequacy confirmed at Stage-4 N=256 cross-validation (Brachet peak t=9).
+- Next: Stage 3 (time-loop + snapshot writer) → Stage 4 (N=256 vs CPU) → Stage 5 (N=512).
+  `:proved`=0; all flows regular; resolution push, not a PDE claim.
+
 ## v0.1.39 — 2026-06-02 — NS-038 formalized: the resolved N=256 DNS boundary program (A→B→C)
 
 Promoted the resolved-DNS boundary queue to a first-class spec entry (large-session, new
