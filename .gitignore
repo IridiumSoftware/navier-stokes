@@ -23,3 +23,6 @@ metal/.build/
 metal/dns_*512*.bin
 metal/dns_gpu
 metal/dns512
+
+metal/*.bin
+snap_*.bin
