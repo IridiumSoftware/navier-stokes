@@ -55,8 +55,13 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   dimension dynamic (TG/helical floor D30~1.33, never ≤1; the **vortex-tube reconnection
   transiently drives D30→0.99** at the CKN ≤1 edge — reconnection-specific, flow stays
   regular). Geometric depletion (c²_int peaks 0.72 at stretching-max) observed. FFTW-18 ≈3.3×
-  end-to-end (N=256: 3.9h→~70min). RWC-038: ≤1D-at-reconnection needs N≥512 (edge of N=256)
-  → **next: N=512 via Metal.** `:proved`=0; all flows regular; prize untouched.
+  end-to-end (N=256: 3.9h→~70min). RWC-038: ≤1D-at-reconnection needs N≥512 (edge of N=256).
+- **N=512 DONE via Metal — the ≤1 touch is a RESOLUTION ARTIFACT (NS-039, `:tested`):** GPU
+  spectral solver (`metal/dns_gpu.swift`, MPSGraph/Metal 4, M5 Max, float32) ≡ CPU float64 to
+  5–6 digits (TG Brachet Z/Z0=27.43@t=9; tubes N=256 D30=0.986@t=5.5 to the digit). At N=512 the
+  tubes reconnection D30 minimum **lifts 0.986 → 1.426** (finely time-sampled); N-convergence is
+  upward/away-from-1, reconnection more intense yet less localized ⇒ RWC-038 cleared, the touch
+  was numerical. `:proved`=0; all flows regular; prize untouched.
 - **NS-037 FORMALIZED — inverse-Born / possibilistic map of turbulence's constants (v0.1.26–28,
   `:argued`, new POSSIBILISTIC class; prize-focus deliberately dropped):** maps possibility +
   probability (not just necessity) of the *phenomenon*. (a) inverse-Born = inverse Legendre of
@@ -146,7 +151,8 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   2 RELATED (`:cited`; NS-025 Gosme + NS-035 Ryan), 2 PROGRAM, 1 GEOMETRY (NS-033
   manifold study `:tested`), 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–
   Casimir hinge, both `:argued`), 1 POSSIBILISTIC (NS-037 inverse-Born map, `:argued`),
-  1 RESOLVED-DNS (NS-038 boundary queue A→B→C, N=256 FFTW-validated, `:tested`).
+  2 RESOLVED-DNS (NS-038 boundary queue A→B→C, N=256 FFTW-validated; NS-039 GPU N=512
+  RWC-038 verdict — ≤1 touch is a resolution artifact; both `:tested`).
   `:proved` = 0.
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.

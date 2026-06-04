@@ -37,6 +37,8 @@ Columns: `NS-ID | Class | Evidence type | Status | Scope | Artifact / Citation`.
 
 | NS-038 | RESOLVED-DNS | computed | :tested | resolved 3D pseudospectral DNS truncation (N=256, Re=1600; NOT PDE; all flows regular) | `scripts/dns_tg256.jl` (+ `dns_tg256{,_helical,_tubes}.out.txt`); companion `docs/dns_tg256_companion.md` + `docs/triad_verdict_dns_localization.md`. Boundary queue A(TG)→B(helical)→C(tubes), N=256, FFTW-validated (≡hand-rolled; δ·k_cut≈6.5-7.5 resolved; Brachet peak t=9). Verdicts: S_ω bounded ≈0.2/0.15; δ bounded; D-dim dynamic (TG/helical floor D30~1.33, never ≤1) BUT vortex-tube RECONNECTION drives D30→0.99 transiently (CKN ≤1 edge, reconnection-specific, regular); c²_int peaks 0.72 at stretching-max = geometric depletion observed. RWC-038: ≤1D-at-reconnection verdict needs N≥512 (edge of N=256). |
 
+| NS-039 | RESOLVED-DNS | computed | :tested | resolved 3D pseudospectral DNS truncation (N=512 GPU float32 ≡ N=256 CPU float64 to 5–6 digits; Re=1600; NOT PDE; all flows regular) | `metal/dns_gpu.swift` + `scripts/load_gpu_snapshot.jl` (+ `metal/gpu_tubes{256,512,512_fine}.txt`, `gpu_tg{256,512}.txt`); companion `docs/dns_gpu_metal_companion.md`. RWC-038 N≥512 RESOLVED: tubes reconnection D30 min lifts 0.986 (N=256)→1.426 (N=512), finely time-sampled (2.019/2.013/1.426/1.721/1.563 @t=5.0–6.0) ⇒ ≤1 touch = resolution artifact (D-spectrum lifts; more-intense-yet-less-localized). GPU validated ≡ CPU: TG Brachet Z/Z0=27.43@t=9, tubes N=256 D30=0.986@t=5.5. Snapshots gitignored. |
+
 **Coverage:** every NS-ID has a row. **No orphans:** every in-repo artifact named
 above exists under `scripts/` or `docs/`. **Status honesty:** no `:proved`; all
 `computed` rows carry a non-PDE Scope; the only `Scope: PDE` rows are

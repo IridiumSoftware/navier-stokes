@@ -57,4 +57,34 @@ field drift 7.2e‑4 over 10 steps (float32 FFT-roundoff; STATIONARY). ⇒ curl 
 + Leray projection all correct. **Precision note:** the GPU path is **float32** (vs the CPU
 float64); adequacy for the diagnostics is confirmed at the Stage-4 N=256 cross-validation.
 
-Next — Stage 3: full time-loop + snapshot writer (spectral `û,v̂,ŵ` → `.bin` at sample times).
+## Stage 3+4 (DONE, 2026-06-03) — time-loop, snapshot writer, hybrid bridge, N=256 cross-validation
+
+Full GPU-resident RK4 time-loop (ping-pong tensors, no per-step CPU readback) + snapshot
+writer (spectral `û,v̂,ŵ` → `.bin`) + `scripts/load_gpu_snapshot.jl` reading them through the
+**CPU-validated** Julia diagnostics (δ, S_ω, box-D30/50/70, alignment). TG and tubes ICs both
+ported (tubes = Kerr anti-parallel vortex tubes: seed ωx → in-graph Leray-project → `û=ik×ω̂/|k|²`
+→ E-normalize, mirroring `vortex_tube_ic`).
+
+Two bugs found and fixed during bring-up:
+- **Per-step `autoreleasepool`** — MPSGraph's `g.run()` autoreleases intermediate MTLBuffers
+  that never drain in a tight loop; N=256 was OOM-killed (SIGKILL) ~100 steps in. Wrapping each
+  step in an `autoreleasepool{}` bounds memory (`cur` survives via strong refs past the drain).
+- **Relative divergence diagnostic** — the FFT is unnormalized, so energy-mode coefficients are
+  ~N³; an *absolute* `k·û≈0.05` against `|û|~3e4` is a *relative* divergence ~1e-6 = float32 ε.
+  Solver and loader now report `max|k·û|/max|û|` (N-independent, ~1e-6 ⇒ div-free).
+
+**Validation (M5 Max, float32 GPU vs float64 CPU, all to 5–6 digits):**
+- **TG N=256, t=9 Brachet peak:** Z/Z0 = **27.3902** (CPU 27.3901), E/E0 0.690462 (0.690460),
+  winf 66.93 (66.92); snapshot diagnostics δ=0.077, S_ω=0.2134, D30/50/70 = 1.650/1.963/2.191 —
+  all identical to the CPU baseline. ⇒ **float32 is adequate** for these diagnostics.
+- **Tubes N=256 reconnection (t=5.0/5.5/6.0):** winf 25.67/84.41/96.72 (CPU 25.67/84.41/96.70),
+  **D30 1.718/0.986/1.590** (CPU 1.718/0.986/1.590) — the CKN ≤1 touch (D30=0.986 at t=5.5)
+  reproduced to the digit. ⇒ GPU tubes solver trusted for the N≥512 RWC-038 push.
+
+Step cost: ~0.19 s/step at N=256, ~2.4 s/step at N=512 (M5 Max 32-core GPU).
+
+## Stage 5 (IN PROGRESS) — N=512 RWC-038 verdict
+
+N=512 tubes run (dt=0.005 ≡ N=256 for clean N-convergence; T=7; snapshots t=5.0/5.25/5.5/5.75/6.0)
+→ Julia diagnostics → does the D30≈0.99 reconnection touch survive, deepen, or rise at N=512?
+`:proved`=0; all flows REGULAR; a *resolution* push, not a PDE claim.

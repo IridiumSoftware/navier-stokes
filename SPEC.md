@@ -8,8 +8,8 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
-1 ANALYSIS (scaling calculus). `:proved` = 0. (25 entries.)
+1 CONJECTURE, 7 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
+1 ANALYSIS (scaling calculus). `:proved` = 0. (26 entries.)
 
 ---
 
@@ -643,6 +643,43 @@ Three boundaries, energy-matched (E≈0.125):
   reconnection* needs **N≥512** (the open frontier; GPU/Metal territory). The discriminator
   for regular-vs-singular is the *functional form* of δ(t) (algebraic collapse vs exponential
   leveling), practically near-degenerate at N≤256.
+
+**NS-039 — GPU N=512 resolves the RWC-038 frontier: the C reconnection D30≈0.99 ≤1 touch
+is a resolution artifact.** RWC-038 required N≥512 to decide whether C's vortex-tube
+reconnection `D30≈0.99` (the CKN ≤1 filament edge, single sample at the edge of N=256) is
+physical or numerical. Built a GPU spectral solver (`metal/dns_gpu.swift`, MPSGraph/Metal 4,
+M5 Max; rotational-form rhs + RK4 entirely in-graph, float32) feeding the **same
+CPU-validated Julia diagnostics** via spectral-field snapshots (`scripts/load_gpu_snapshot.jl`).
+Validated float32-GPU ≡ float64-CPU **to 5–6 digits**: TG N=256 Brachet peak Z/Z0=27.3902
+(CPU 27.3901), snapshot D30/50/70=1.650/1.963/2.191 (identical); tubes N=256 reconnection
+D30 1.718/**0.986**/1.590 (CPU identical) — the ≤1 touch reproduced to the digit where found.
+- **Verdict (N=256→N=512, dt and IC fixed; tubes; div-free throughout, divRel~5e-7).** The
+  reconnection D30 minimum lifts **0.986 (N=256) → 1.426 (N=512)**, finely time-sampled
+  (Δt=0.25: D30 = 2.019/2.013/**1.426**/1.721/1.563 at t=5.0/5.25/5.5/5.75/6.0) — the dip is
+  *not* undersampled; its minimum sits at t=5.5 (same as N=256), bracketed above 1.7. The ≤1
+  touch **does not survive resolution**.
+- **Why an artifact, not a singular-set approach.** (a) N-convergence is *upward, away from 1*
+  (a genuine ≤1-D filament sharpens *toward* ≤1; a +0.44 jump is under-resolution at N=256 —
+  whole spectrum lifts: D50 1.657→1.980, D70 1.856→2.111). (b) N=512 resolves a *more intense*
+  reconnection (winf 84→97 at t=5.5, 97→124 at t=6.0) that is *less* localized by D — opposite
+  to a singularity approach. (c) RWC-038 pre-flagged exactly this (noisiest signal, ±0.15).
+- **TG N=512 resolution cross-check (the literature anchor):** Brachet enstrophy peak
+  Z/Z0=27.4254 at t=9 (N=256 27.39; resolution-robust); D50/D70=1.965/2.186 ≈ N=256
+  1.963/2.191; D30 1.650→1.767 (rises with N, same direction, stays ≫1) — confirms the box
+  estimator holds/rises with N, never drifts toward ≤1.
+- RWC-038 status: (i) threshold — whole D-spectrum lifts; (ii) estimator — same CPU-validated
+  box-count, cross-checked on TG; (iii) IC — touch is tubes-specific (A/B floor D30≥1.33);
+  (iv) N-convergence — 0.986→1.426. **All four cleared.** The δ(t) functional-form
+  discriminator remains near-degenerate at these N and is **not** claimed resolved.
+- Evidence: **computed** (resolved DNS; GPU float32 ≡ CPU float64 to 5–6 digits;
+  literature-validated on the Brachet TG peak). **Status: :tested.** Depends_on: NS-038
+  (A→B→C program & RWC-038), NS-006 (CKN ≤1), NS-004 (BKM/‖ω‖∞).
+- Source: `metal/dns_gpu.swift`, `scripts/load_gpu_snapshot.jl`,
+  `metal/gpu_tubes{256,512,512_fine}.txt`, `metal/gpu_tg{256,512}.txt`; companion
+  `docs/dns_gpu_metal_companion.md`. Snapshots gitignored (3.2 GB at N=512).
+- Scope: **resolved 3D pseudospectral DNS truncation — NOT the 3D-NS PDE.** All flows REGULAR
+  (Re=1600); this *removes a false ≤1D "approach to singular set" signal*, asserts no
+  regularity/blowup result. `:proved`=0; distance UNTOUCHED.
 
 ---
 

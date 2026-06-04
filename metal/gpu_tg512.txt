@@ -1,0 +1,25 @@
+# dns_gpu  GPU=Apple M5 Max  N=512 IC=tg Re=1600 dt=0.005 T=10.0  [float32]
+# E0=0.125000 Z0=0.374999 divRel0=1.00e-05 (relative max|k·û|/max|û|; ~float32 eps ⇒ div-free)
+  0.00   E/E0=1.000000  Z/Z0=1.0000    H=-1.439e-10  winf=2.00     divRel=1.00e-05 
+  0.50   E/E0=0.998110  Z/Z0=1.0245    H=-2.135e-10  winf=1.88     divRel=9.72e-07 
+  1.00   E/E0=0.996122  Z/Z0=1.1068    H=-6.607e-10  winf=1.58     divRel=5.01e-07 
+  1.50   E/E0=0.993891  Z/Z0=1.2632    H=2.011e-10   winf=1.41     divRel=4.27e-07 
+  2.00   E/E0=0.991306  Z/Z0=1.5125    H=-3.973e-10  winf=1.87     divRel=3.69e-07 
+  2.50   E/E0=0.988179  Z/Z0=1.8792    H=-9.380e-11  winf=2.54     divRel=3.23e-07 
+  3.00   E/E0=0.984192  Z/Z0=2.4032    H=-1.431e-10  winf=3.61     divRel=2.87e-07 
+  3.50   E/E0=0.979032  Z/Z0=3.1509    H=-3.033e-10  winf=6.06     divRel=2.67e-07 
+  4.00   E/E0=0.972067  Z/Z0=4.4079    H=-6.491e-10  winf=13.60    divRel=3.00e-07 
+  4.50   E/E0=0.961926  Z/Z0=6.5305    H=1.192e-10   winf=23.50    divRel=3.14e-07 
+  5.00   E/E0=0.947487  Z/Z0=8.8045    H=-4.000e-11  winf=20.36    divRel=4.39e-07 
+  5.50   E/E0=0.929373  Z/Z0=10.3926   H=1.170e-10   winf=25.36    divRel=4.71e-07 
+  6.00   E/E0=0.908651  Z/Z0=11.7994   H=-2.978e-10  winf=28.84    divRel=5.97e-07 
+  6.50   E/E0=0.884504  Z/Z0=14.1335   H=4.466e-10   winf=48.94    divRel=7.78e-07 
+  7.00   E/E0=0.856200  Z/Z0=15.7113   H=-1.456e-09  winf=35.89    divRel=9.98e-07 
+  7.50   E/E0=0.824345  Z/Z0=18.6242   H=-2.224e-09  winf=50.41    divRel=1.07e-06 
+  8.00   E/E0=0.786321  Z/Z0=22.1285   H=-2.950e-09  winf=56.70    divRel=1.06e-06 
+  8.50   E/E0=0.741618  Z/Z0=25.4319   H=-6.526e-09  winf=51.54    divRel=1.19e-06 
+  9.00   E/E0=0.691231  Z/Z0=27.4254   H=-5.024e-09  winf=56.71    divRel=1.16e-06 
+# snapshot t=9.00 → snap_N512_tg_t9.00.bin (3221 MB)
+  9.50   E/E0=0.641850  Z/Z0=25.0206   H=-9.136e-09  winf=55.70    divRel=1.22e-06 
+  10.00  E/E0=0.595843  Z/Z0=24.0366   H=-5.782e-09  winf=97.44    divRel=1.22e-06 
+# DONE 2000 steps in 3823.9 s (1.912 s/step). Validate: TG Re=1600 enstrophy peak ≈ t=9 vs Brachet/CPU.

@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.41 — 2026-06-03 — Metal N=512 verdict: the C reconnection ≤1 touch is a resolution artifact (NS-039)
+
+Stages 3–5 of the Metal track + the RWC-038 verdict. `metal/dns_gpu.swift`, large-session.
+
+- **Stage 3+4 — GPU time-loop + snapshot writer + hybrid bridge, validated vs CPU.** Full
+  GPU-resident RK4 loop + spectral snapshot writer; `scripts/load_gpu_snapshot.jl` reads them
+  through the CPU-validated Julia diagnostics. Tubes (Kerr) IC ported to Swift. Float32-GPU ≡
+  float64-CPU to 5–6 digits: TG N=256 Brachet peak Z/Z0=27.3902 (CPU 27.3901), D30/50/70
+  identical; tubes N=256 reconnection D30=0.986@t=5.5 reproduced to the digit.
+- **Two bring-up bugs fixed:** per-step `autoreleasepool{}` (MPSGraph OOM-killed N=256 ~100
+  steps in); relative-divergence diagnostic (unnormalized FFT × float32 ⇒ report
+  max|k·û|/max|û| ~1e-6 = div-free).
+- **Stage 5 — N=512 verdict (NS-039, `:tested`).** Tubes reconnection D30 minimum lifts
+  **0.986 (N=256) → 1.426 (N=512)** (finely time-sampled, Δt=0.25). The CKN ≤1 touch is a
+  **resolution artifact**: N-convergence is upward/away-from-1, the reconnection is more intense
+  yet less localized, and the whole D-spectrum lifts. TG N=512 cross-check: Brachet peak
+  Z/Z0=27.43@t=9 (resolution-robust). All four RWC-038 clauses cleared.
+- `:proved`=0; all flows REGULAR; resolution push that *removes a false ≤1D signal*, not a PDE
+  claim. Distance UNTOUCHED. Companion `docs/dns_gpu_metal_companion.md`; SPEC NS-039 +
+  registry row + dashboard. Count 25→26.
+
 ## v0.1.40 — 2026-06-03 — Metal N=512 track: GPU FFT (Stage 1) + GPU rhs (Stage 2) validated
 
 Toward N=512 (RWC-038 frontier) on the M5 Max. `metal/`.
