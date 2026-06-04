@@ -63,7 +63,11 @@ Corollaries:
    live attack (complex plane), and the cross-project framing.
 4. **`TEST_SPEC.md`** — the verification discipline for our *computational*
    claims: what each diagnostic must reproduce (known closed forms, exact
-   limits) to be trusted.
+   limits) to be trusted. **Coverage invariant: every `computed`/`:tested`
+   entry MUST have a TEST_SPEC row** naming the check (closed-form /
+   exact-invariant / cross-method / published-number) that licenses its status —
+   TEST_SPEC is to `:tested` what the registry is to evidence. (The 2026-06-04
+   audit caught NS-031/033/038/040 with no row; F5. Don't let it recur.)
 5. **`dashboard.md`** — current status + priority stack. No scorecard copy.
 6. **`docs/*_companion.md`** — permanent record of each substantive session.
 7. Source (`scripts/`) and everything else — supporting.
@@ -131,6 +135,13 @@ research programs (CFS, closure-quotient, possibilistic-inversion):
 - **Witness elegant convergences** before promoting them.
 - **Test before committing**; a commit's computations must run and reproduce
   their stated checks (see `TEST_SPEC.md`).
+- **Keep `TEST_SPEC.md` in lockstep with `:tested`.** Whenever an entry reaches
+  (or changes) a `computed`/`:tested` status, add or update its `TEST_SPEC.md`
+  check row **in the same pass** that touches `SPEC.md` + `artifact_registry.md` —
+  a status promotion is not "done" until its licensing check is indexed there.
+  The invariant *{every `:tested` entry} ⟷ {a TEST_SPEC check row}* is part of the
+  ledger's integrity; **verify it on every cross-audit** (alongside SPEC↔registry
+  coverage and the entry counts). It was the F5 gap on 2026-06-04.
 
 ## What not to do
 
