@@ -151,7 +151,7 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 29 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+- **Ledger:** 30 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
   2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 6 our RESULTS/FALSIFIED
   (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
   2 RELATED (`:cited`; NS-025 Gosme + NS-035 Ryan), 2 PROGRAM, 1 GEOMETRY (NS-033

@@ -54,6 +54,15 @@ The firewall line is explicit: steps 1–3 are **diagnostics in models**. A
 statement about the PDE would require a convergence/limit argument we are not
 making. Crossing that line is a separate, flagged event.
 
+**Status — this plan is EXECUTED (and returned no PDE result, as designed).** Step 1
+(Burgers, NS-010 T-01) validated δ(t) against the exact Cole–Hopf closed form. Step 2
+(spectral 3D control NS-010 + the gated inviscid-TG blowup hunt NS-032) ran to **N=256↔512**
+on the GPU (§7) with the full T-06/T-08 gate ⇒ **INCONCLUSIVE / regular-leaning** — δ declines
+but the full-band fit is not N-converged and does not co-move with BKM, so the gate correctly
+refuses a resolution-artifact δ→0. Step 3 (obstruction co-movement, T-06) is the gate itself.
+The complex-plane diagnostic is now *validated and applied*; it has produced no PDE result, and
+the program has since broadened well beyond this one plan — see §7.
+
 ## 4. What the prior arc contributed (honest accounting)
 
 The turbulence/closure arc (NS-020..024) produced: a falsified approach
@@ -94,3 +103,40 @@ witnessed result earns it.**
   yet; this is the prize and is not expected from computation alone.
 - **Failure mode to avoid:** a `:tested` model result quietly migrating into prose
   as "evidence about Navier–Stokes." The Scope line exists to prevent exactly this.
+
+## 7. What the computation has produced beyond the complex-plane plan (NS-030..040)
+
+The §3 plan was the *seed*; the program grew a substantial body of scoped computation around it.
+None of it touches the prize (`:proved`=0, distance UNTOUCHED) — each is a model/truncation result
+held to the firewall. The arc, in brief (see `SPEC.md` for the entries, `docs/*_companion.md` for
+the records):
+
+- **Geometric / analytic tour (NS-033..036).** A coadjoint-orbit + edge-manifold + SDiff(T²)
+  curvature study (NS-033); the exact **scaling-exponent calculus** (NS-034) pinning the
+  critical/super-critical classification and unifying NS-002↔NS-005; the **Ryan scope-principle**
+  (NS-035, emergence coupled to scope not level); and the **criticality–Casimir hinge** (NS-036)
+  joining supercriticality ≡ Casimir-deficit at enstrophy. Mostly `:argued`/`:tested` in models.
+
+- **Possibilistic / inverse-Born map (NS-037, `:argued`).** An obstruction map of *real* turbulence
+  on its manifolds — inverse-Legendre of the multifractal formalism — forcing ζ₃=1, a
+  monotone-concave ζ_p, and a ≤1-D singular end; rules out log-normal (K62) structurally;
+  touchability ranking (dissipation-rate > exponents > amplitude). EMPIRICAL scope, prize-focus
+  deliberately dropped.
+
+- **Resolved-DNS boundary program (NS-038, `:tested`).** Resolved N=256/Re=1600 pseudospectral DNS,
+  FFTW-validated against Brachet (enstrophy peak t≈9), across three flows A (Taylor–Green) → B
+  (helical) → C (anti-parallel vortex tubes / reconnection). Verdicts: S_ω bounded, δ bounded, the
+  production-set box-dimension dynamic (floors >1 for A/B; C's reconnection transiently reads
+  D30≈0.99 — flagged as the noisiest signal, needing N≥512).
+
+- **Metal/GPU N=512 track (NS-039, NS-040, `:tested`).** A Swift + MPSGraph (Metal 4) spectral
+  solver (`metal/dns_gpu.swift`, float32, validated ≡ the float64 CPU code to 5–6 digits) lifts the
+  DNS to N=512 in ~40 min/run. **NS-039:** the C reconnection ≤1 box-dimension touch is a
+  **resolution artifact** — it lifts 0.986 (N=256) → 1.426 (N=512), resolving RWC-038. **NS-040:**
+  strong helicity **depletes (delays + concentrates) vortex stretching** — a matched-spectrum
+  controlled pair (ρ_H 0.97 vs 0.05, identical E0/Z0) shows 2–4× slower enstrophy growth,
+  resolution-robust. The GPU track also re-opened the gated Step-2 hunt at real resolution (§3).
+
+The firewall held throughout: every entry is scoped to a model/truncation, the Required Witness
+Checks did their job (e.g. RWC-038 caught a numerical artifact at N=256), and the prize stays
+untouched. The discipline (not the mathematics) is what transfers to the other programs (§5).

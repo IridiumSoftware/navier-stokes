@@ -16,13 +16,19 @@ of:
 6. our own **computational results**, each carried at its true evidence tier and
    with an explicit **SCOPE** declaration (model? truncation? the PDE?).
 
-**Status (2026-05-31, v0.1.0).** Honest baseline: **zero progress on the prize.**
-The PDE regularity question is untouched. What exists is (a) a catalogue of the
-standard obstructions, (b) one falsified approach of our own (homology), (c) a
-body of turbulence/closure *phenomenology* (finite ODE truncations + abstract
-closure models — none bearing on PDE regularity), and (d) the identification of
-the **complex plane** (analyticity strip / complex-singularity tracking) as the
-first genuinely PDE-relevant direction, not yet computed here. See `dashboard.md`.
+**Status (2026-06-04, v0.1.42).** Honest baseline: **zero progress on the prize.**
+The PDE regularity question is untouched (`:proved`=0); 30 ledger entries, all scoped.
+What exists is (a) a catalogue of the standard obstructions; (b) one falsified approach
+of our own (homology, NS-020); (c) a body of turbulence/closure *phenomenology* plus a
+possibilistic / inverse-Born map of turbulence's constants (NS-037) — finite truncations +
+empirical structure, none bearing on PDE regularity; (d) the **complex-plane** analyticity-
+strip diagnostic (NS-010), validated on Burgers/CLM/2D/3D and applied to the gated Step-2
+blowup hunt (NS-032) — INCONCLUSIVE at N=256↔512 (the gate correctly refuses a
+resolution-artifact δ→0); and (e) a **resolved-DNS** track at N=256 (boundary program
+A→B→C, NS-038) extended to **N=512 on the Metal/GPU spectral solver** — the RWC-038
+reconnection verdict (NS-039: the ≤1 box-dimension touch is a resolution artifact) and the
+clean helicity-depletion result (NS-040). Every `:tested` is model/truncation-scoped; none
+is a PDE result. See `dashboard.md`.
 
 **Owner:** Aaron Green.
 

@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.43 — 2026-06-04 — Omnibus cross-audit: ledger sound; fix count drift + doc staleness
+
+Full A0–A6 integrity sweep after the Metal/GPU arc (`audit_2026-06-04.md`). Coverage (30 SPEC =
+30 registry), per-ID status parity (0 mismatches), evidence-existence (0 missing files), and the
+`:proved`=0 / Scope firewall all hold with **zero violations**. Four findings, all count/doc drift:
+
+- **F1 (fixed)** — entry-count drift: true count **30**; SPEC count line said 27 (stale — missing
+  the POSSIBILISTIC + RESOLVED-DNS categories, predating NS-037..040), dashboard header said 29.
+  Reconciled to 30 everywhere (authoritative class tally from the registry).
+- **F2 (fixed)** — DESIGN.md was a full arc stale: synced §3 (plan EXECUTED; Step-2 INCONCLUSIVE
+  @ N=256↔512) and added §7 covering NS-030..040 (geometric/scaling tour, possibilistic/inverse-Born
+  map NS-037, resolved-DNS boundary program NS-038, Metal/GPU N=512 track NS-039/040). Firewall
+  framing (§1, §6) unchanged.
+- **F3 (fixed)** — CLAUDE.md status stamp refreshed 2026-05-31/v0.1.0 → 2026-06-04/v0.1.42 with the
+  DNS/Metal/possibilistic arc; "zero progress on the prize" preserved.
+- **F4 (note)** — no automated CI (research-script repo; recorded `.out.txt` + TEST_SPEC) — noted,
+  not a defect.
+
+No spec entries added/changed (status integrity confirmed, not modified). Distance: UNTOUCHED.
+
 ## v0.1.42 — 2026-06-04 — Step-2 gate (NS-032 @ N=512) + helicity depletes stretching (NS-040)
 
 Two GPU results + the Step-2 gate formalized. `metal/dns_gpu.swift`, large-session. `:proved`=0.

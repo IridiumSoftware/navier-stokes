@@ -8,8 +8,9 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 8 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
-1 ANALYSIS (scaling calculus). `:proved` = 0. (27 entries.)
+1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
+2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
+3 RESOLVED-DNS (NS-038/039/040). `:proved` = 0. (30 entries.)
 
 ---
 
