@@ -144,13 +144,55 @@ let tubeA:Float=0.30, tubeB:Float=0.80, tubeEps:Float=0.30, tubeKx:Float=1.0, y0
 for i in 0..<N { for j in 0..<N { for k in 0..<N {
     let x=twoPi*Float(i)/Float(N), y=twoPi*Float(j)/Float(N), z=twoPi*Float(k)/Float(N); let q=(i*N+j)*N+k
     if ic=="abc" { u0[q]=sin(z)+cos(y); v0[q]=sin(x)+cos(z); w0[q]=sin(y)+cos(x) }
+    else if ic=="abcpert" {   // ABC Beltrami (steady, ρ_H≈1) + small non-Beltrami perturbation ⇒ cascades
+        u0[q]=sin(z)+cos(y) + 0.1*sin(2*y)*cos(3*z)
+        v0[q]=sin(x)+cos(z) + 0.1*sin(2*z)*cos(3*x)
+        w0[q]=sin(y)+cos(x) + 0.1*sin(2*x)*cos(3*y)
+    }
     else if ic=="tubes" {
         let dz=tubeEps*sin(tubeKx*x); let zp=Float.pi+tubeB+dz, zm=Float.pi-tubeB-dz
         let rp2=(y-y0)*(y-y0)+(z-zp)*(z-zp), rm2=(y-y0)*(y-y0)+(z-zm)*(z-zm)
         u0[q]=(exp(-rp2/(tubeA*tubeA))-exp(-rm2/(tubeA*tubeA)))/(Float.pi*tubeA*tubeA)   // = ωx seed
     }
+    else if ic=="helical" || ic=="helicalc" { }   // built below in a separate k-set sum
     else { u0[q]=sin(x)*cos(y)*cos(z); v0[q] = -cos(x)*sin(y)*cos(z); w0[q]=0 }   // Taylor–Green
 }}}
+// Strongly-helical ICs (NS option B). Superpose +helical Beltrami waves over a low-k set:
+//   v_k(x) = e₁ cos(k·x) − s·e₂ sin(k·x),  with {e₁,e₂,k/|k|} right-handed orthonormal.
+// Each v_k satisfies curl v_k = +|k| v_k (Beltrami) for s=+1 ⇒ helicity-density positive ⇒ ρ_H≈+1
+// (the multi-shell sum is slightly below 1 by Cauchy–Schwarz). "helical": s=+1 every mode.
+// "helicalc" (CONTROL): s alternates ±1 ⇒ equal ± helical content ⇒ ρ_H≈0 at the SAME energy
+// spectrum — the matched non-helical comparison. Each real cosine wave already carries the k,−k
+// Hermitian pair, so only the upper-half k-set is summed.
+if ic=="helical" || ic=="helicalc" {
+    let kmax2 = 6   // low-k shells |k|² ∈ {1..6}
+    var mode = 0
+    for kx in -2...2 { for ky in -2...2 { for kz in 0...2 {
+        let k2 = kx*kx + ky*ky + kz*kz
+        if k2 < 1 || k2 > kmax2 { continue }
+        if kz==0 && (ky<0 || (ky==0 && kx<=0)) { continue }   // upper half ⇒ no k/−k double count
+        let kfx=Float(kx), kfy=Float(ky), kfz=Float(kz), kn=sqrt(Float(k2))
+        // e₁ = normalize(k × ẑ) = normalize((ky,−kx,0)); if k∥ẑ use x̂
+        var e1x:Float=1, e1y:Float=0, e1z:Float=0; let perp=sqrt(Float(kx*kx+ky*ky))
+        if perp > 1e-6 { e1x=kfy/perp; e1y = -kfx/perp; e1z=0 }
+        // e₂ = (k × e₁)/|k|
+        let e2x=(kfy*e1z-kfz*e1y)/kn, e2y=(kfz*e1x-kfx*e1z)/kn, e2z=(kfx*e1y-kfy*e1x)/kn
+        let s:Float = (ic=="helicalc" && mode%2==1) ? -1 : 1
+        mode += 1
+        for i in 0..<N { for j in 0..<N { for kk in 0..<N {
+            let x=twoPi*Float(i)/Float(N), y=twoPi*Float(j)/Float(N), z=twoPi*Float(kk)/Float(N)
+            let th = kfx*x + kfy*y + kfz*z; let c=cos(th), sn=sin(th); let q=(i*N+j)*N+kk
+            u0[q] += e1x*c - s*e2x*sn; v0[q] += e1y*c - s*e2y*sn; w0[q] += e1z*c - s*e2z*sn
+        }}}
+    }}}
+}
+// CPU energy-normalize the option-B ICs to E=½⟨|u|²⟩=0.125 (TG/abc are already O(1); tubes
+// normalizes in-graph). One-time scaling of the real-space field before the IC FFT.
+if ic=="helical" || ic=="helicalc" || ic=="abcpert" {
+    var e2sum=0.0; for q in 0..<N*N*N { e2sum += Double(u0[q]*u0[q]+v0[q]*v0[q]+w0[q]*w0[q]) }
+    let sc = Float(sqrt(0.125 / (0.5*e2sum/Double(N*N*N))))
+    for q in 0..<N*N*N { u0[q]*=sc; v0[q]*=sc; w0[q]*=sc }
+}
 let pu=g.placeholder(shape:dimsN(),dataType:.float32,name:"pu"), pv=g.placeholder(shape:dimsN(),dataType:.float32,name:"pv"), pw=g.placeholder(shape:dimsN(),dataType:.float32,name:"pw")
 let UH:CX, VH:CX, WH:CX
 if ic=="tubes" {
@@ -185,7 +227,8 @@ func sample(_ t:Float,_ E0:Float,_ Z0:Float){ let r=g.run(feeds:feeds(),targetTe
     let E=scal(r[Et]!),H=scal(r[Ht]!),Z=scal(r[Zt]!),W=scal(r[Wt]!),D=scal(r[Dt]!)
     log(String(format:"  %-6.2f E/E0=%-9.6f Z/Z0=%-9.4f H=%-11.3e winf=%-8.2f divRel=%-9.2e",t,E/E0,Z/Z0,H,W,D)) }
 
-log("# dns_gpu  GPU=\(dev.name)  N=\(N) IC=\(ic) Re=\(Int(1/nu)) dt=\(dt) T=\(T)  [float32]")
+let reStr = nu > 0 ? "Re=\(Int(1/nu))" : "Euler(ν=0)"   // nu=0 ⇒ inviscid; Int(1/0) would trap
+log("# dns_gpu  GPU=\(dev.name)  N=\(N) IC=\(ic) \(reStr) dt=\(dt) T=\(T)  [float32]")
 let r0=g.run(feeds:feeds(),targetTensors:[Et,Zt,Dt],targetOperations:nil); let E0=scal(r0[Et]!), Z0=scal(r0[Zt]!)
 log(String(format:"# E0=%.6f Z0=%.6f divRel0=%.2e (relative max|k·û|/max|û|; ~float32 eps ⇒ div-free)", E0, Z0, scal(r0[Dt]!)))
 // snapshot: dump spectral field (header Int32 N, Float32 t; then 6×N³ Float32 in order

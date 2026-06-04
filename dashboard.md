@@ -62,6 +62,12 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   tubes reconnection D30 minimum **lifts 0.986 → 1.426** (finely time-sampled); N-convergence is
   upward/away-from-1, reconnection more intense yet less localized ⇒ RWC-038 cleared, the touch
   was numerical. `:proved`=0; all flows regular; prize untouched.
+- **NS-040 — helicity DEPLETES vortex stretching (clean matched-spectrum pair, `:tested`):**
+  resolves the confounded boundary-run B. GPU pair helical (ρ_H=0.97) vs control helicalc
+  (ρ_H=0.05) with IDENTICAL E0=0.125 + Z0=0.534 — strong helicity grows enstrophy **2–4× slower**
+  (Z/Z0@t=6: 1.59 vs 6.67), resolution-robust N=256↔512 to 3–4 digits. Mechanism = delay +
+  concentration (suppressed cascade, then a delayed localized burst winf 154 / S_ω 0.26@t=9).
+  `docs/helicity_depletion_companion.md`. `:proved`=0; all flows regular; prize untouched.
 - **NS-037 FORMALIZED — inverse-Born / possibilistic map of turbulence's constants (v0.1.26–28,
   `:argued`, new POSSIBILISTIC class; prize-focus deliberately dropped):** maps possibility +
   probability (not just necessity) of the *phenomenon*. (a) inverse-Born = inverse Legendre of
@@ -145,14 +151,15 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 28 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+- **Ledger:** 29 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
   2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 6 our RESULTS/FALSIFIED
   (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
   2 RELATED (`:cited`; NS-025 Gosme + NS-035 Ryan), 2 PROGRAM, 1 GEOMETRY (NS-033
   manifold study `:tested`), 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–
   Casimir hinge, both `:argued`), 1 POSSIBILISTIC (NS-037 inverse-Born map, `:argued`),
-  2 RESOLVED-DNS (NS-038 boundary queue A→B→C, N=256 FFTW-validated; NS-039 GPU N=512
-  RWC-038 verdict — ≤1 touch is a resolution artifact; both `:tested`).
+  3 RESOLVED-DNS (NS-038 boundary queue A→B→C, N=256 FFTW-validated; NS-039 GPU N=512
+  RWC-038 verdict — ≤1 touch is a resolution artifact; NS-040 helicity depletes vortex
+  stretching — clean matched-spectrum pair; all `:tested`).
   `:proved` = 0.
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.
@@ -185,14 +192,13 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
      in the inviscid/under-resolved regime (~50% non-monotone spread across
      N∈{16,32,64}; window-sensitive once a power-law range forms). Solver robust,
      δ-fit fragile — exactly where blowup lives.
-   - 1c-3D Step 2 (blowup candidate). **[NEXT]** a blowup-candidate IC in the OPEN
-     regime — enstrophy not coercive, NO benchmark, δ(t)→0 would be the actual
-     question. **GATED (from Step 1 + NS-031):** a δ→0 counts ONLY if (a) N-converged
-     in the *spectrum itself* (not just the fitted δ — see the Step-1 caveat) AND
-     (b) co-moving with BKM ∫‖ω‖∞→∞ (NS-004, T-06), per the {NS-003,004,010} bridge.
-     Build the IC on the mechanism axis {NS-002,004,009} (band-finding #1): drive
-     vortex stretching toward the anomalous-dissipation regime. Epistemics:
-     suggestive-in-a-truncation, NEVER a proof. Firewall paramount.
+   - 1c-3D Step 2 (blowup candidate). **DONE ✓ (NS-032 extended, N=256↔512 GPU).** The
+     inviscid-TG hunt ran at N=256↔512 (`metal/dns_gpu.swift`) with the full T-06 (G1
+     δ·k_cut>6 / G2 spectral-N-convergence / G3 BKM) + T-08 gate (`scripts/step2_gate.jl`):
+     **INCONCLUSIVE / regular-leaning** — the full-band δ-fit is 42–48% non-converged across
+     N=256↔512 in the resolved window, and δ does not co-move with BKM at a common finite t*.
+     The gate (G2) correctly refuses a naive δ→0 as a resolution artifact. Default NULL holds;
+     `:proved`=0; suggestive-in-a-truncation only. `docs/step2_gate_inviscid_tg_companion.md`.
 2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
    Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the
    MFE saddle: directional Granger coupling between structure (roll `a₃`) and

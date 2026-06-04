@@ -29,13 +29,21 @@ function main()
     path = length(ARGS) >= 1 ? ARGS[1] : error("usage: julia load_gpu_snapshot.jl <snapshot.bin>")
     s = load_snapshot(path); N = s.N; op = make_ops(N)
     d  = diagnose(s.U, op, N)
-    fd = field_diag(s.U, op)
-    D30 = box_dimension(fd.Pd; frac=0.3); D50 = box_dimension(fd.Pd; frac=0.5); D70 = box_dimension(fd.Pd; frac=0.7)
     # RELATIVE divergence max|k·û|/max|û|: the GPU FFT is unnormalized, so absolute div_max
     # (~0.05 at float32) scales with the ~N³ coefficients and is misleading; the relative
     # form is the N-independent, honest div-free check (~float32 eps ≈ 1e-6 ⇒ div-free).
     uh,vh,wh = s.U
     dvr = maximum(abs.(op.kx.*uh .+ op.ky.*vh .+ op.kz.*wh)) / maximum(sqrt.(abs2.(uh).+abs2.(vh).+abs2.(wh)))
+    # δ-only fast mode (NS_DELTAONLY=1): skip the expensive field_diag (LAPACK eigen) +
+    # box_dimension; emit only the analyticity-strip δ (same validated delta_shell) + E/Z/winf,
+    # for the Step-2 δ(t) trajectory (G1/G2/G3). Box-D for T-08 is a separate full load at the peak.
+    if get(ENV, "NS_DELTAONLY", "0") == "1"
+        @printf("# GPU snapshot %s  N=%d  t=%.2f  (delta-only)\n", basename(path), N, s.t)
+        @printf("  E=%.6f  Z=%.5f  winf=%.2f  delta=%.4f  div_rel=%.1e\n", d.E, d.Z, d.winf, d.δ, dvr)
+        return
+    end
+    fd = field_diag(s.U, op)
+    D30 = box_dimension(fd.Pd; frac=0.3); D50 = box_dimension(fd.Pd; frac=0.5); D70 = box_dimension(fd.Pd; frac=0.7)
     @printf("# GPU snapshot %s  N=%d  t=%.2f  (diagnostics via CPU-validated Julia)\n", basename(path), N, s.t)
     @printf("  E=%.6f  Z=%.5f  H=%.4e  winf=%.2f  delta=%.3f  div_rel=%.1e (abs=%.1e, unnormalized-FFT scale)\n", d.E, d.Z, d.H, d.winf, d.δ, dvr, d.divmax)
     @printf("  S_omega=%.4f  D30=%.3f  D50=%.3f  D70=%.3f  c2int=%.3f  c2max=%.3f\n", fd.Sw, D30, D50, D70, fd.cos2int, fd.cos2max)

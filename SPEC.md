@@ -8,8 +8,8 @@ PDE statement — **none; reserved.** Firewall: only `Scope: PDE` + `:proved` co
 ever count as prize progress; there is none.
 
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
-1 CONJECTURE, 7 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
-1 ANALYSIS (scaling calculus). `:proved` = 0. (26 entries.)
+1 CONJECTURE, 8 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
+1 ANALYSIS (scaling calculus). `:proved` = 0. (27 entries.)
 
 ---
 
@@ -436,9 +436,20 @@ the literature's no-finite-time-singularity reading.
   monotonically with N (|Δ|₆₄,₁₂₈ up to 73%), confirming the δ-slope-fit tracks the
   widening fit band, not a converged strip — the verdict stays a higher-res INCONCLUSIVE.
   (Even a clean δ→0 would be inviscid Euler in a truncation; real studies need N≳512.)
-- Depends_on: NS-010 (Stage 1c-3D Step 1), NS-004 (BKM gate T-06), NS-031 (gates).
+- **N=256↔512 GPU confirmation (the N≳512 the entry called for; `metal/dns_gpu.swift`,
+  MPSGraph/Metal 4, ν=0):** ran the candidate at N=256 and N=512 with the full **T-06 (G1
+  δ·k_cut>6 / G2 spectral-N-convergence / G3 BKM co-movement) + T-08** gate, scored by
+  `scripts/step2_gate.jl`. **Verdict still INCONCLUSIVE / regular-leaning:** in the strict
+  resolved window (t≤4.5) the full-band δ-fit differs **42–48% between N=256 and N=512** (G2
+  FAILS — the documented window-sensitivity, now pinned at real resolution), δ extrapolates to
+  t*=∞ (exponential), and does **not** co-move with the winf/BKM growth (G3 FAILS). A naive δ→0
+  would be a resolution artifact; the gate refuses it. Extends the N=32/64/128 NULL to N=512 and
+  validates the gate protocol itself. Companion `docs/step2_gate_inviscid_tg_companion.md`.
+- Depends_on: NS-010 (Stage 1c-3D Step 1), NS-004 (BKM gate T-06), NS-031 (gates),
+  NS-039 (T-08 dimension-guard calibration).
 - Source: `scripts/spectral_3d_blowup_candidate.jl` (+ `.out.txt`);
-  `scripts/blowup_highres.jl` (+ `.out.txt`, N=128 confirmation).
+  `scripts/blowup_highres.jl` (+ `.out.txt`, N=128 confirmation); `scripts/step2_gate.jl` +
+  `metal/dns_gpu.swift` + `metal/euler_tg{256,512}.txt` + `metal/delta_tg{256,512}.dat` (N=512 GPU).
 
 **NS-033 — Geometric structure of the NS state-space manifold (4-slice study).**
 A CFS-style geometric reconnaissance (exact, no resolution wall) of the Euler/NS
@@ -680,6 +691,28 @@ D30 1.718/**0.986**/1.590 (CPU identical) — the ≤1 touch reproduced to the d
 - Scope: **resolved 3D pseudospectral DNS truncation — NOT the 3D-NS PDE.** All flows REGULAR
   (Re=1600); this *removes a false ≤1D "approach to singular set" signal*, asserts no
   regularity/blowup result. `:proved`=0; distance UNTOUCHED.
+
+**NS-040 — Strong helicity depletes (delays + concentrates) vortex stretching: the clean
+matched-spectrum test.** Resolves NS-038 case B (confounded, ρ_H≈1%, low-k-random). A GPU
+controlled pair — `helical` (ρ_H=0.97) vs a NON-helical control `helicalc` (ρ_H=0.05) with
+**identical E0=0.125 AND Z0=0.534374** (same energy+enstrophy spectrum, helicity flipped via the
+± helical-mode sign of a +helical Beltrami-wave superposition) — at Re=1600, **N=256↔512
+(resolution-robust to 3–4 digits)**.
+- **Net depletion:** helical enstrophy grows **2–4× slower** (Z/Z0 @t=6: 1.59 vs 6.67; @t=10:
+  6.87 vs 13.03); energy decays slower (E/E0 @t=10: 0.89 vs 0.69) ⇒ helicity inhibits the cascade.
+- **Mechanism = delay + concentration, not elimination:** the helical cascade is suppressed
+  early, then a *delayed, intense, localized* burst (winf 154, S_ω 0.26 @t=9 vs the control's
+  already-declining 0.15; burst top-production set ~1.7–2D, D30 rising with N 1.47→1.73 per
+  T-08 — not filamentary). Integral enstrophy stays far lower throughout. `abcpert` (ρ_H=0.98,
+  large-scale) is near-laminar (Z/Z0=1.15 @t=10) — extreme depletion, same direction.
+- Evidence: **computed** (GPU float32 vs a matched control; N-convergent to 3–4 digits).
+  **Status: :tested.** Depends_on: NS-038 (boundary program A→B→C), NS-022 (helical triad).
+- Source: `metal/dns_gpu.swift` (helical/helicalc/abcpert ICs) + `scripts/load_gpu_snapshot.jl`
+  + `metal/B_{helical,helicalc,abcpert}_{256,512}.txt`; companion
+  `docs/helicity_depletion_companion.md`.
+- Scope: **resolved 3D pseudospectral DNS truncation — NOT the PDE.** All flows REGULAR
+  (Re=1600); a mechanism result on helicity vs stretching, asserts no regularity claim.
+  `:proved`=0; distance UNTOUCHED.
 
 ---
 

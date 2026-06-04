@@ -35,15 +35,21 @@ Tiers of check (strongest first):
 | **T-04** obstruction co-movement | **PASS (BKM half, CLM).** Stage 1b: δ(t)→0 co-diverges with the BKM integral ∫‖ω‖∞→∞ at the same t*=2 (exact). The NS *critical-norm* (NS-005) half is a 3D-NS test — pending the 3D escalation (no exact benchmark). | cross-method |
 | **T-05** 2D regularity control | **PASS.** 2D Euler/NS pseudospectral (`spectral_2d_control.jl`): δ bounded (≥0.23, never→0), BKM finite, and energy+enstrophy+‖ω‖∞ conserved to <1e-6 (Euler, solver-validation) / monotone decay (NS). The diagnostic correctly reports REGULARITY — distinguishing it from CLM blowup (δ→0). Validates the tool before 3D. | exact-invariant + control |
 | **T-07** 3D solver validation | **PASS.** 3D pseudospectral Euler (`spectral_3d_control.jl`, rotational form + Leray projection, hand-rolled 3D FFT): on a seeded helical IC, energy AND **helicity** conserved to 0.0000% and `div_max≈1e-12` (N=32, T=3) — the 3D-specific Tier-1 check (vortex stretching live; 2D had none). | exact-invariant |
-| **T-06** BKM co-movement gate (3D) | **DEFINED; affirmed in the regular direction.** Any reported 3D δ→0 must co-move with ∫‖ω‖∞→∞ (NS-004), else reject as a resolution artifact. Stage 1c-3D (C): viscous Taylor–Green is regular ⇒ δ bounded (≥0.605) **and** BKM finite (≈14.2) — the two move together in the regular direction. The blowup direction is the Step-2 test. | cross-method (gate) |
+| **T-06** Step-2 δ→0 gate (3D, multi-condition) | **DEFINED; affirmed in the regular direction; APPLIED to the inviscid-TG Step-2 hunt at N=256↔512 (NS-032) ⇒ INCONCLUSIVE** (G2 fails: full-band δ-fit 42–48% non-converged across N=256↔512; G3 fails: no co-moving finite t* — the gate correctly refuses a naive δ→0 as a resolution artifact; `scripts/step2_gate.jl`). A reported 3D δ→0 is evidence of approach-to-singularity ONLY if ALL three hold — else the verdict is INCONCLUSIVE (honest default NULL): **G1 RESOLVED** — energy still conserved (inviscid: E/E0≈1, spectral tail below the 2/3 cutoff; δ is meaningless past the resolution wall, where E leaks). **G2 CONVERGED** — the *spectrum itself* (not just the fitted δ) agrees across resolution, now testable at **N=256↔512 on the GPU** (`metal/dns_gpu.swift`); the δ-slope-fit alone is window-sensitive (caveat below). **G3 CO-MOVING** — δ→0 co-diverges with BKM ∫‖ω‖∞→∞ (NS-004). Regular-direction affirmation: viscous Taylor–Green is regular ⇒ δ bounded (≥0.605) **and** BKM finite (≈14.2) — the two move together. | cross-method (multi-condition gate) |
+| **T-08** CKN-consistency / dimension N-convergence guard (3D) | **DEFINED (calibrated by NS-039).** A δ→0 candidate's most-intense-production set must be consistent with CKN (NS-006) partial regularity: its box-dimension must be **≤1 AND N-convergent (stable or decreasing under refinement)**. NS-039 supplies the empirical calibration — at the viscous vortex-tube reconnection the top-30% box-dimension *rose* D30 = 0.986 (N=256) → 1.426 (N=512), i.e. a ≤1 reading that does **not** survive refinement is a resolution artifact, not a CKN-admissible singular set. A Step-2 ≤1 touch that *lifts* with N (the NS-039 pattern) is therefore REJECTED; only a ≤1, N-stable/decreasing dimension co-occurring with G1–G3 + T-06 survives the gate. | cross-method (gate; NS-039 calibration) |
 
 **The δ-fit is NOT resolution-robust in the inviscid/under-resolved regime
 (honest caveat, Stage 1c-3D panel B).** The exponential-strip slope-fit varies
 ~50% non-monotonically across N∈{16,32,64} on an inviscid developing-cascade
 field, because the fit band `k=2..N/3` is window-sensitive once a power-law range
 forms. The *solver* is resolution-robust (energy/helicity exact at every N); the
-*δ-slope-fit* is not, in that regime. T-06 + spectral N-convergence (not the
-fitted δ alone) are therefore mandatory for any Step-2 δ→0 reading.
+*δ-slope-fit* is not, in that regime. T-06 (G1–G3) + T-08 (the dimension guard) —
+i.e. the *spectrum* and the *singular-set dimension* N-converged, not the fitted δ
+alone — are therefore mandatory for any Step-2 δ→0 reading. The earlier
+non-convergence was measured at N∈{16,32,64}; the GPU solver now makes the
+controlling comparison **N=256↔512** feasible (`metal/dns_gpu.swift`, ~40 min/run),
+which is where G2/T-08 acquire teeth — NS-039 demonstrated the method on the
+viscous reconnection (D30 0.986→1.426) before it is turned on the open-regime hunt.
 
 **Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` / `3D-truncation` — **never** to a PDE

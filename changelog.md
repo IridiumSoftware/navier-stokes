@@ -1,5 +1,30 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.42 — 2026-06-04 — Step-2 gate (NS-032 @ N=512) + helicity depletes stretching (NS-040)
+
+Two GPU results + the Step-2 gate formalized. `metal/dns_gpu.swift`, large-session. `:proved`=0.
+
+- **Step-2 gate formalized + executed at N=256↔512 (extends NS-032).** TEST_SPEC **T-06**
+  sharpened into the multi-condition gate (G1 δ·k_cut>6 RESOLVED / G2 spectral-N-convergence /
+  G3 BKM co-movement) and **T-08** added (CKN dimension guard, calibrated by NS-039). New scorer
+  `scripts/step2_gate.jl` + a δ-only loader mode (`NS_DELTAONLY=1`). Ran the inviscid-TG
+  blowup candidate (ν=0) at N=256↔512 → **INCONCLUSIVE / regular-leaning**: the full-band δ-fit
+  is 42–48% non-converged across N=256↔512 in the resolved window, and δ does not co-move with
+  BKM at a common finite t* (G2/G3 fail). The gate correctly refuses a naive δ→0 as a resolution
+  artifact — extends the N=32/64/128 NULL to the N≳512 NS-032 called for. Companion
+  `docs/step2_gate_inviscid_tg_companion.md`. (nu=0 header guard fix in dns_gpu.swift.)
+- **NS-040 (`:tested`) — strong helicity depletes (delays + concentrates) vortex stretching.**
+  Resolves the confounded NS-038 case B (ρ_H≈1%). A matched-spectrum controlled pair —
+  `helical` (ρ_H=0.97) vs `helicalc` (ρ_H=0.05) with IDENTICAL E0=0.125 AND Z0=0.534374 (helicity
+  flipped via the ± sign of a +helical Beltrami-wave superposition) — at Re=1600, N=256↔512.
+  Helical enstrophy grows **2–4× slower** (Z/Z0@t=6: 1.59 vs 6.67), resolution-robust to 3–4
+  digits. Mechanism = delay+concentration: cascade suppressed early, then a delayed localized
+  burst (winf 154, S_ω 0.26@t=9 vs control's declining 0.15; burst set ~1.7–2D, D rising with N
+  per T-08). `abcpert` (ρ_H=0.98, large-scale) near-laminar — same direction. Companion
+  `docs/helicity_depletion_companion.md`. New ICs in dns_gpu.swift: helical/helicalc/abcpert.
+- SPEC NS-040 + NS-032 update + registry + dashboard; TEST_SPEC T-06/T-08; count 26→27.
+  All flows REGULAR; resolution/mechanism results, not PDE claims. Distance UNTOUCHED.
+
 ## v0.1.41 — 2026-06-03 — Metal N=512 verdict: the C reconnection ≤1 touch is a resolution artifact (NS-039)
 
 Stages 3–5 of the Metal track + the RWC-038 verdict. `metal/dns_gpu.swift`, large-session.
