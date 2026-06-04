@@ -51,6 +51,19 @@ controlling comparison **N=256↔512** feasible (`metal/dns_gpu.swift`, ~40 min/
 which is where G2/T-08 acquire teeth — NS-039 demonstrated the method on the
 viscous reconnection (D30 0.986→1.426) before it is turned on the open-regime hunt.
 
+## Checks for the geometric / resolved-DNS / GPU entries (NS-031, NS-033, NS-038..040)
+
+These `:tested` computational entries grew after the original NS-010/011 + closure tables; their
+licensing checks, previously recorded only in their SPEC entries + companions, are indexed here.
+
+| ID | Check (tier) | Status of check |
+|---|---|---|
+| **T-09** NS-031 (TCE self-map) | cross-method: the triadic structure of the ledger is deterministic + reproducible; a programmatic scan of all 64 triads finds **zero** that mix the PDE-analysis tier with the closure tier — an INDEPENDENT engine-side reproduction of NS-024's externally-witnessed "broad/generic, no PDE purchase" verdict. | PASS, **Scope: ledger meta-analysis (not PDE)** |
+| **T-10** NS-033 (manifold geometry) | exact-invariant: across the slices, energy/helicity/Casimirs conserved to ~1e-13..1e-15 (coadjoint solver, scaling quotient); Koszul curvature κ≡¼ verified; Arnold-curvature sign census reproduces both Arnold (neg) and Misiołek (pos) results. Honest self-trim: the "a3=gate" reading was REFUTED (two notions, not one). | PASS, **Scope: Euler/NS-truncation geometry (not PDE)** |
+| **T-11** NS-038 (resolved-DNS A→B→C) | published-number + cross-method: Brachet-1983 TG Re=1600 enstrophy peak Z/Z0≈27.4 at t≈9 reproduced; FFTW ≡ hand-rolled FFT (bit-equal at N=64, all-physics at N=256); resolved (δ·k_cut≈6.5–7.5). | PASS, **Scope: resolved DNS truncation (not PDE)** |
+| **T-12** NS-039 (GPU N=512, RWC-038) | cross-method: float32-GPU ≡ float64-CPU **to 5–6 digits** (TG Brachet Z/Z0=27.3902 vs 27.3901; tubes reconnection D30=0.986 to the digit); div-free (relative max|k·û|/max|û|~1e-6). Verdict: the C reconnection ≤1 box-dim touch lifts 0.986→1.426 with N ⇒ resolution artifact. | PASS (verdict :tested), **Scope: resolved DNS truncation (not PDE)** |
+| **T-13** NS-040 (helicity depletion) | cross-method + control: matched-spectrum controlled pair — helical (ρ_H=0.97) vs control (ρ_H=0.05) with IDENTICAL E0=0.125 AND Z0=0.534374; depletion (2–4× slower enstrophy growth) resolution-robust N=256↔512 to 3–4 digits. | PASS, **Scope: resolved DNS truncation (not PDE)** |
+
 **Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` / `3D-truncation` — **never** to a PDE
 statement. A PDE claim would require a separate convergence/limit argument, which

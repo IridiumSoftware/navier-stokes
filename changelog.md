@@ -4,7 +4,7 @@
 
 Full A0–A6 integrity sweep after the Metal/GPU arc (`audit_2026-06-04.md`). Coverage (30 SPEC =
 30 registry), per-ID status parity (0 mismatches), evidence-existence (0 missing files), and the
-`:proved`=0 / Scope firewall all hold with **zero violations**. Four findings, all count/doc drift:
+`:proved`=0 / Scope firewall all hold with **zero violations**. Five findings, all count/doc/coverage drift:
 
 - **F1 (fixed)** — entry-count drift: true count **30**; SPEC count line said 27 (stale — missing
   the POSSIBILISTIC + RESOLVED-DNS categories, predating NS-037..040), dashboard header said 29.
@@ -17,6 +17,10 @@ Full A0–A6 integrity sweep after the Metal/GPU arc (`audit_2026-06-04.md`). Co
   DNS/Metal/possibilistic arc; "zero progress on the prize" preserved.
 - **F4 (note)** — no automated CI (research-script repo; recorded `.out.txt` + TEST_SPEC) — noted,
   not a defect.
+- **F5 (fixed)** — TEST_SPEC coverage gap (surfaced by a follow-up question after the first pass
+  under-audited TEST_SPEC). The verification-discipline doc indexed NS-010/011 + NS-020..024 +
+  (T-06/08) NS-032/039 but had no check row for `:tested` entries NS-031/033/038/040. Added rows
+  T-09..T-13; all 11 `:tested` entries now carry a documented licensing check.
 
 No spec entries added/changed (status integrity confirmed, not modified). Distance: UNTOUCHED.
 
