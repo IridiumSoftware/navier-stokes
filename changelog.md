@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.61 — 2026-06-05 — External program-review (ChatGPT) metabolized: kill criteria + §5 reconciled + §6→appendix
+
+Treated ChatGPT's strong program-level critique as a Required Witness Check and acted on it.
+Recorded in `docs/program_review_chatgpt_2026-06-05.md`; corrections to the write-up + SPEC.
+
+- **§5 ↔ §10 reconciled (and NS-036 SPEC).** "(a) ≡ (b)" → "the *same bottleneck* (enstrophy
+  non-coercivity) through two different structures, at different logical levels — mutually illuminating,
+  not one fact"; "the question collapses to enstrophy" → "a *sufficient*, most-natural route, NOT the
+  unique framing" (consistent with §10's MID refutation). This was the **third totalizing-word over-reach
+  this session** ("exhibits/line up" → "irreducibly/ENTIRE" → "≡"), caught on a cold read.
+- **§11 added — "What would falsify this map?"** Pre-registered kill criteria for the load-bearing
+  framings (retire NS-036-centrality / the ∇ξ frontier / P-centrism / the scaling–Casimir reading; or
+  the happy `Scope: PDE` `:proved` falsification). Answers the unfalsifiability failure mode; makes the
+  map killable.
+- **Pressure elevated, P de-fetishized** in §10 (P is the local breaker; the contest is P vs the
+  nonlocal pressure-Hessian counter-transport; NS-046 stated as that balance).
+- **§6 (closure/GPG residue) → Appendix A** (demoted, non-load-bearing; the trimming record retained,
+  not deleted; banner + roadmap updated). Main body is now the disciplined map (§2–5, §9–11).
+- Deferred (style, offered): the ~40% prose compression. No spec status changes (NS-036 still `:argued`).
+  `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.60 — 2026-06-05 — The mature map: obstruction_program_writeup.md brought current (NS-001..046)
 
 Updated the standalone write-up `docs/obstruction_program_writeup.md` (382→488 lines) from its

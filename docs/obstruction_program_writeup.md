@@ -22,7 +22,7 @@ truncation, or an analogy is never conflated with the PDE. Every claim carries a
 none. `:proved` = 0, by design. Distance to the prize: UNTOUCHED.** Where this
 document gets excited, it is excited about *structure* and *method*, never about a
 breach of that line — and it flags, explicitly, the one place where enthusiasm
-must be held in check by external witnessing (§6).
+must be held in check by external witnessing (Appendix A).
 
 What the program *did* produce: a falsified path, a validated diagnostic with its
 limits charted, two honest null results that refuse false positives, a geometric
@@ -39,8 +39,9 @@ syntheses it surfaced were **adversarially witnessed and refuted** — which did
 forward targets entered the ledger: **NS-045** (the helicity-depletion *mechanism*, now `:tested` —
 Beltramization) and **NS-046** (the critical coercive deformation inequality, `:open` — the honest
 statement of *where the prize sits*), under the **CCATT** governance lens. `:proved` = 0 still; distance
-UNTOUCHED. Roadmap: §2–5 the walls and the geometric capstone; §6 the speculative closure residue
-(fenced); §7 the ledger; §8 cross-project; **§9–§10 the 2026-06-05 update**.
+UNTOUCHED. Roadmap: §2–5 the walls and the geometric capstone; §7 the ledger; §8 cross-project;
+**§9–§10 the 2026-06-05 update**; **Appendix A** the speculative closure residue (demoted 2026-06-05,
+non-load-bearing — read last or skip).
 
 ---
 
@@ -213,8 +214,12 @@ Fourier multiplier `|k| = |k|⁰·|k|¹`):
 > of energy and enstrophy.
 
 So **bounded energy + bounded enstrophy ⇒ bounded critical norm ⇒ regular.** Energy is
-always controlled; the entire 3D question collapses to **one rung**: *can enstrophy be
-a-priori bounded?* That is the Casimir question (route b), word for word:
+always controlled, so **bounding enstrophy is a *sufficient* route to regularity — the most natural
+one** (the σ=+1 rung the interpolation hands you). It is **not the unique framing**: the deciding
+need is *enough critical control*, which could in principle be generated otherwise (critical-Besov,
+concentration-compactness, nonlocal cancellation, probabilistic methods — and §10's MID witness
+explicitly refuted any claim that the enstrophy/geometric route is *irreducible*). Modulo that, the
+enstrophy rung *is* the Casimir question (route b):
 
 - **2D.** Enstrophy `∫ω²` is a Casimir (the stretching term `(ω·∇)u` vanishes
   identically) ⇒ the σ=+1 rung is controlled ⇒ critical norm controlled ⇒ **regular**. ∎
@@ -243,9 +248,13 @@ negative-curvature computation is for SDiff(𝕋²), the **2D** torus, which is 
 (norm inflation). The two are logically independent — the same "two notions" lesson
 Slice 2 taught (committor-gate ≠ edge-normal), and the robustness↔sensitivity tension of
 §3 restated. We therefore **correct** the earlier "one fact, three costumes": the honest
-picture is **(a) ≡ (b)** — one structural fact, the criticality gap *being* the Casimir
-deficit, joined at enstrophy — **with (c) an independent companion** explaining why even
-the regular regime is unpredictable. The geometry says the obstruction is **structural,
+picture is **(a) and (b) are the *same bottleneck* — enstrophy non-coercivity — reached through two
+different structures** (scaling-descent-failure / Casimir-loss), *linked exactly by the interpolation*
+but living at **different logical levels** (scaling says what estimates cannot close; Casimirs say what
+invariant mechanisms exist) — so they are **mutually illuminating descriptions, not literally one
+fact**; **with (c) an independent companion** explaining why even the regular regime is unpredictable.
+*(A 2026-06-05 sharpening, per external review: "≡" overstated — these structures rhyme; they are not
+identical. The distinction matters to an analyst.)* The geometry says the obstruction is **structural,
 not incidental** — which is exactly why no single classical handle closes it.
 
 *(Scope: NS scaling identities + an elementary interpolation + the exact 2D/3D Euler
@@ -253,114 +262,6 @@ Casimir algebra — exact, resolution-free. This **sharpens** the wall to a sing
 inequality on a single rung [can enstrophy be bounded?]; it **does not close** that
 inequality. Ideal-flow Casimirs; viscosity breaks them anyway. `:proved` = 0; distance
 to the prize untouched.)*
-
----
-
-## 6. The residue is speaking — the closure / GPG / triad thread
-
-> *"Turbulence and vortices — that is the residue. Self-sustaining until it is not."*
-
-This section is the **speculative, exploratory thread**. It is fenced with a
-**Required Witness Check** (§6.4): nothing here is load-bearing, and every bridge to
-the PDE has been trimmed or refuted when witnessed. Read it as a record of a genuine
-*structural resonance* and a set of open questions — not as results.
-
-### 6.1 The reframing: decay is the default, closure is an achievement
-
-The shift that opened the arc: don't read the framework statically. **Dynamics lives in
-the rewrites.** Decay/dissipation is the *default*; a self-sustaining structure
-(turbulence; life; a dissipative structure; a Rosen (M,R) system) is an *autopoietic
-achievement* maintained against that default — "self-sustaining until it is not." A
-minimal stochastic model — autocatalytic build + decay-default, as a CTMC on a
-hypergraph of closure states — reproduces the turbulence phenomenology *intrinsically*:
-a metastable state, **memoryless (exponential) lifetimes** (CV≈1, R²≈0.9999), and a
-characteristic time `τ ~ exp(N·g(ρ))` of the **same class** as the Moehlis–Faisst–
-Eckhardt shear-turbulence saddle (NS-021/023). The "until it is not" is a *memoryless
-escape from a chaotic saddle* — a constant-hazard event, not a scheduled decay.
-
-### 6.2 The substrate: GPG and hypergraph rewrites
-
-Where do these closure states and rewrites "live"? The candidate substrate is **GPG
-(Geometric Proca Gravity)** — Brian Crabtree's transport-plus-stiffness theory,
-conjectured *upstream* of the closure framework (CFS): `Substrate → GPG → RCFS
-(closure validation) → derived structure`. Its discrete form is built on **ternary
-hypergraphs with rewrite dynamics** (`docs/discrete_gpg_construction.md`, TCE) — the
-dynamics *is* the rewriting; closure is a selected fixed-point on top. **Status:
-test-first, unverified, not re-rooted** (a construction + conjectured correspondences,
-explicitly gated on reaching `:argued`/`:verified`). For the NS arc, GPG/hypergraph-
-rewrites is simply *the closure-side substrate where the "decay-default / closure-
-achievement" grammar would live* — a conceptual home, not an established bridge to the PDE.
-
-### 6.3 The triad, and the rotation: S (closure) vs A (turbulence)
-
-The smallest stable unit in both pictures is a **triad** (a 3-cycle of coordination
-morphisms — and, not coincidentally, the elementary Fourier interaction of the NS
-nonlinearity, NS-022). A Rosen (M,R) system is a triad of roles — **metabolism F,
-repair A, replication/seed S** — on a making-cycle `S→A→F→S`. The exact 8-state (M,R)
-CTMC gives a sharp result (`closure_triad_rotation.jl`):
-
-> **The gate is always the *target of the weak edge* — a rotation-covariant rule.**
-> Weak edge `F→S` (entailment) ⇒ gate **S**; weak edge `S→A` (feedback) ⇒ gate **A**;
-> weak edge `A→F` (repair) ⇒ gate **F**. The committor triple is identical, cyclically
-> permuted.
-
-So the **(M,R) closure gate (S) and the turbulent regeneration gate (the roll, A) are
-the same triangle, rotated.** The earlier "S vs A" tension was a *labeling artifact*:
-one mechanism (gate = weak-edge target), with the weak edge sitting on a different
-functional edge in each system. *The triangle got rotated.* This is the cleanest,
-most genuinely suggestive thing the residue said — a shared, rotation-covariant gate
-**structure** across closure and turbulence.
-
-### 6.4 What the witnesses did to it — and the Required Witness Check
-
-Every attempt to promote that resonance into a *load-bearing bridge* was trimmed when
-put to an external 3-seat witness pass (Grok / Gemini / ChatGPT) or to a rigorous
-follow-up. **This is the honest core of the section:**
-
-- **The convergence is "real but overstated" (NS-024).** All three seats agreed: the
-  shared fork (closed/symmetric ⇒ inert; open ⇒ needs a degeneracy-breaker) **holds but
-  is broad** — kin to spontaneous symmetry breaking, not a special two-system bond. The
-  identity "Order = seam" is **dead** (doubly dissociable). The origin-unification is
-  **refuted**.
-- **"One notion or two?" → TWO.** The (M,R) defect is *logical* (selection required
-  before execution; decidability-under-ambiguity); the turbulence defect is *dynamical*
-  (selection enacted by noise; stability-under-noise). Analogous, not identical — patch
-  vs tear. The gate *mechanism* is shared and rotation-covariant; the *origin* of the
-  weak edge is system-specific (logical entailment vs the nonlinear-feedback bottleneck).
-- **The gate is not even a single mode (Slice 2).** In the MFE edge manifold, the roll
-  a₃ turned out **tangent** to the separating manifold; the geometric "gate" (its normal)
-  is **multi-mode**. The committor-gate ("a₃ surviving a dip predicts recovery") and the
-  edge-manifold normal are **two different objects** — "two notions, not one" *again*.
-- **The closure-transfer test came back NEGATIVE.** Gosme's empirical "causal
-  symmetrization" signature (structure↔activity coupling becoming bidirectional at
-  maturity) was tested in the MFE saddle and **not reproduced** (proxies disagree on the
-  trend; near the noise floor at high Re). An initial cherry-picked "present" reading was
-  caught and corrected — the confirmation-bias guard firing exactly as it should.
-
-> **Required Witness Check (RWC-NS).** Any future use of the closure↔turbulence↔GPG
-> resonance as *more than* a structural/methodological heuristic must first clear an
-> external witness pass. The internal default is **skepticism**: the program has now
-> trimmed or refuted this bridge **four independent times** (broad C1 / dead C2 /
-> refuted C3 / negative Gosme / two-notions ×2). The system cannot validate this from
-> inside; route it out.
-
-### 6.5 So what *is* the residue saying?
-
-Honestly — and this is the genuinely interesting part — the residue speaks a
-**grammar, not a theorem.** The *same structural vocabulary* recurs across every
-domain we probed: **triadic closure** as the minimum stable unit; a **rotation-covariant
-gate** (the weak-edge target) that decides persistence-vs-collapse; **decay as default,
-closure as achievement**; and a **wall** (supercriticality ≡ Casimir deficit ≡ enstrophy
-non-coercivity) that recurs unchanged across scaling, coadjoint, and curvature
-language. That cross-domain convergence *of structure* — closure theory, the (M,R)
-triad, the SSP cycle, the coadjoint rigid body, and the criticality wall all speaking
-the same grammar — is real and worth a research program.
-
-What it is **not** saying (yet, and possibly ever, by these methods): that this grammar
-*bridges to the PDE*. Every load-bearing bridge has been broad, dead, refuted, or
-negative under witness. The residue is telling us about the **shape of the obstruction**
-— that it is one structural wall, seen many ways, with a recurring triadic-gate grammar
-around it — not handing us a key to the door.
 
 ---
 
@@ -376,7 +277,7 @@ around it — not handing us a key to the door.
   (NS-045, `:tested`); the **deformation-closure analytic target** (NS-046, `:open`); two
   **adversarially-witnessed refutations** of tempting syntheses (LOW#1 + MID, §10) that *sharpened* the
   frontier rather than weakening it; and a four-times-trimmed, witness-disciplined account of the
-  closure resonance (NS-024/025 + §6). **32 entries; `:proved` = 0.**
+  closure resonance (NS-024/025 + Appendix A). **32 entries; `:proved` = 0.**
 - **The deliverable is the map** — a precise account of *why* 3D Navier–Stokes resists
   every classical handle, from scaling, coadjoint, curvature, topology, and closure
   directions at once, with every dead end and every overreach recorded rather than buried.
@@ -458,7 +359,12 @@ was missing: a **coercive critical deformation inequality** in which the **nonlo
 step, and any depletion claim required to *export to a quantitative inequality*. The MID-witness lesson
 is built into it: local alignment is not enough; it must survive the **nonlocal pressure-kernel
 counter-transport**. This is the honest statement of *where the prize sits* — a precise open target,
-**not** progress.
+**not** progress. **The load-bearing half is the nonlocality, not the production.** `P` is only the
+*local* σ=+1 breaker; the equation is constitutively nonlocal — pressure is recovered by a singular
+integral (`∇²p = |S|²−|Ω|²`), not an auxiliary — so the contest is `P` *against* the pressure-Hessian
+counter-transport. Centering `P` alone (a "production fetish") under-weights exactly the half that is
+not local; NS-046 is therefore stated as that **balance**, with the pressure term elevated, not
+appended.
 
 **The mechanism, certified (NS-045).** Independently, the helicity-depletion result was given a
 mechanism audit: on the exact matched-spectrum pair (rebuilt in the ± helical basis; `|ΔE|=1.4e-17`,
@@ -479,6 +385,144 @@ validated by it.)
 *(Scope throughout §10: the refutations and NS-045 are DNS-truncation / methodological; NS-046 is a
 `Scope: PDE-analysis` open target. `:proved` = 0; distance UNTOUCHED. The net effect of the day is a
 **sharper map**, not a nearer prize.)*
+
+---
+
+## 11. What would falsify this map? (kill criteria)
+
+A map that absorbs every outcome as "sharpened" stops learning — a fair external-review catch
+(2026-06-05): without explicit kill criteria the framework risks unfalsifiability. The program already
+kills *individual* claims by witness (NS-020, LOW#1, MID); these are **pre-registered kill criteria for
+the map's load-bearing framings** — each would *retire or demote* a framing, not merely "sharpen" it:
+
+- **Retire NS-036-centrality (the enstrophy rung)** — a critical-norm regularity mechanism that controls
+  `L³`/`Ḣ^{1/2}` *without* routing through an enstrophy (`Ḣ¹`) bound (a self-contained critical-Besov or
+  concentration-compactness argument). Then "the question *is* the enstrophy question" is obsolete.
+- **Retire the geometric (`∇ξ`) frontier** — a harmonic-analytic route (paraproducts + the pressure
+  singular integral) that closes the critical bound *bypassing* vortex-direction geometry. Then NS-046's
+  geometric framing is a side-channel, not the frontier. *(This is exactly what the Idea-1 obstruction
+  probe tests: does the LP-local route escape the wall, or reduce to it?)*
+- **Retire P-centrism** — evidence (DNS or analytic) that the production `P` is *not* the controlling
+  quantity: a regularity criterion insensitive to `P`, or a scenario where `P` stays bounded while a
+  critical norm diverges. Then the `P = ∫|ω|²(ξ·Sξ)` focus is wrong.
+- **Retire the scaling/Casimir framing** — a sharper formulation in which supercriticality and the
+  Casimir deficit *come apart* (one closes, the other does not). Then §5's "same bottleneck" reading
+  fails and they were never the same wall.
+- **Falsify the firewall's premise (the happy one)** — any `Scope: PDE`, `:proved` result. At that point
+  "distance UNTOUCHED" is superseded by actual progress.
+
+If one fires, the corresponding entry/section is demoted *in the open* — the way NS-020 and LOW#1/MID
+already were. **The map earns its keep only by staying killable.**
+
+---
+
+## Appendix A. The closure / GPG / triad residue (speculative; non-load-bearing)
+
+> **Demoted to an appendix on 2026-06-05** (per external review). This thread is **speculative and non-load-bearing**; the obstruction map proper is the main body (§2–§5, §9–§10). It is kept as an honest record of a structural resonance that was *trimmed or refuted four independent times* when witnessed — not as a result. Read it last, or skip it. (The trimming record itself is the asset here, not the resonance.)
+
+> *"Turbulence and vortices — that is the residue. Self-sustaining until it is not."*
+
+This section is the **speculative, exploratory thread**. It is fenced with a
+**Required Witness Check** (§A.4): nothing here is load-bearing, and every bridge to
+the PDE has been trimmed or refuted when witnessed. Read it as a record of a genuine
+*structural resonance* and a set of open questions — not as results.
+
+### A.1 The reframing: decay is the default, closure is an achievement
+
+The shift that opened the arc: don't read the framework statically. **Dynamics lives in
+the rewrites.** Decay/dissipation is the *default*; a self-sustaining structure
+(turbulence; life; a dissipative structure; a Rosen (M,R) system) is an *autopoietic
+achievement* maintained against that default — "self-sustaining until it is not." A
+minimal stochastic model — autocatalytic build + decay-default, as a CTMC on a
+hypergraph of closure states — reproduces the turbulence phenomenology *intrinsically*:
+a metastable state, **memoryless (exponential) lifetimes** (CV≈1, R²≈0.9999), and a
+characteristic time `τ ~ exp(N·g(ρ))` of the **same class** as the Moehlis–Faisst–
+Eckhardt shear-turbulence saddle (NS-021/023). The "until it is not" is a *memoryless
+escape from a chaotic saddle* — a constant-hazard event, not a scheduled decay.
+
+### A.2 The substrate: GPG and hypergraph rewrites
+
+Where do these closure states and rewrites "live"? The candidate substrate is **GPG
+(Geometric Proca Gravity)** — Brian Crabtree's transport-plus-stiffness theory,
+conjectured *upstream* of the closure framework (CFS): `Substrate → GPG → RCFS
+(closure validation) → derived structure`. Its discrete form is built on **ternary
+hypergraphs with rewrite dynamics** (`docs/discrete_gpg_construction.md`, TCE) — the
+dynamics *is* the rewriting; closure is a selected fixed-point on top. **Status:
+test-first, unverified, not re-rooted** (a construction + conjectured correspondences,
+explicitly gated on reaching `:argued`/`:verified`). For the NS arc, GPG/hypergraph-
+rewrites is simply *the closure-side substrate where the "decay-default / closure-
+achievement" grammar would live* — a conceptual home, not an established bridge to the PDE.
+
+### A.3 The triad, and the rotation: S (closure) vs A (turbulence)
+
+The smallest stable unit in both pictures is a **triad** (a 3-cycle of coordination
+morphisms — and, not coincidentally, the elementary Fourier interaction of the NS
+nonlinearity, NS-022). A Rosen (M,R) system is a triad of roles — **metabolism F,
+repair A, replication/seed S** — on a making-cycle `S→A→F→S`. The exact 8-state (M,R)
+CTMC gives a sharp result (`closure_triad_rotation.jl`):
+
+> **The gate is always the *target of the weak edge* — a rotation-covariant rule.**
+> Weak edge `F→S` (entailment) ⇒ gate **S**; weak edge `S→A` (feedback) ⇒ gate **A**;
+> weak edge `A→F` (repair) ⇒ gate **F**. The committor triple is identical, cyclically
+> permuted.
+
+So the **(M,R) closure gate (S) and the turbulent regeneration gate (the roll, A) are
+the same triangle, rotated.** The earlier "S vs A" tension was a *labeling artifact*:
+one mechanism (gate = weak-edge target), with the weak edge sitting on a different
+functional edge in each system. *The triangle got rotated.* This is the cleanest,
+most genuinely suggestive thing the residue said — a shared, rotation-covariant gate
+**structure** across closure and turbulence.
+
+### A.4 What the witnesses did to it — and the Required Witness Check
+
+Every attempt to promote that resonance into a *load-bearing bridge* was trimmed when
+put to an external 3-seat witness pass (Grok / Gemini / ChatGPT) or to a rigorous
+follow-up. **This is the honest core of the section:**
+
+- **The convergence is "real but overstated" (NS-024).** All three seats agreed: the
+  shared fork (closed/symmetric ⇒ inert; open ⇒ needs a degeneracy-breaker) **holds but
+  is broad** — kin to spontaneous symmetry breaking, not a special two-system bond. The
+  identity "Order = seam" is **dead** (doubly dissociable). The origin-unification is
+  **refuted**.
+- **"One notion or two?" → TWO.** The (M,R) defect is *logical* (selection required
+  before execution; decidability-under-ambiguity); the turbulence defect is *dynamical*
+  (selection enacted by noise; stability-under-noise). Analogous, not identical — patch
+  vs tear. The gate *mechanism* is shared and rotation-covariant; the *origin* of the
+  weak edge is system-specific (logical entailment vs the nonlinear-feedback bottleneck).
+- **The gate is not even a single mode (Slice 2).** In the MFE edge manifold, the roll
+  a₃ turned out **tangent** to the separating manifold; the geometric "gate" (its normal)
+  is **multi-mode**. The committor-gate ("a₃ surviving a dip predicts recovery") and the
+  edge-manifold normal are **two different objects** — "two notions, not one" *again*.
+- **The closure-transfer test came back NEGATIVE.** Gosme's empirical "causal
+  symmetrization" signature (structure↔activity coupling becoming bidirectional at
+  maturity) was tested in the MFE saddle and **not reproduced** (proxies disagree on the
+  trend; near the noise floor at high Re). An initial cherry-picked "present" reading was
+  caught and corrected — the confirmation-bias guard firing exactly as it should.
+
+> **Required Witness Check (RWC-NS).** Any future use of the closure↔turbulence↔GPG
+> resonance as *more than* a structural/methodological heuristic must first clear an
+> external witness pass. The internal default is **skepticism**: the program has now
+> trimmed or refuted this bridge **four independent times** (broad C1 / dead C2 /
+> refuted C3 / negative Gosme / two-notions ×2). The system cannot validate this from
+> inside; route it out.
+
+### A.5 So what *is* the residue saying?
+
+Honestly — and this is the genuinely interesting part — the residue speaks a
+**grammar, not a theorem.** The *same structural vocabulary* recurs across every
+domain we probed: **triadic closure** as the minimum stable unit; a **rotation-covariant
+gate** (the weak-edge target) that decides persistence-vs-collapse; **decay as default,
+closure as achievement**; and a **wall** (enstrophy non-coercivity — the same bottleneck seen through
+supercriticality *and* the Casimir deficit, not literally one fact; cf. §5's 2026-06-05 correction)
+that recurs across scaling, coadjoint, and curvature language. That cross-domain convergence *of structure* — closure theory, the (M,R)
+triad, the SSP cycle, the coadjoint rigid body, and the criticality wall all speaking
+the same grammar — is real and worth a research program.
+
+What it is **not** saying (yet, and possibly ever, by these methods): that this grammar
+*bridges to the PDE*. Every load-bearing bridge has been broad, dead, refuted, or
+negative under witness. The residue is telling us about the **shape of the obstruction**
+— that it is one structural wall, seen many ways, with a recurring triadic-gate grammar
+around it — not handing us a key to the door.
 
 ---
 

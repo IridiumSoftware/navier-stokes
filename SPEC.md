@@ -546,8 +546,9 @@ threshold IS the scale-invariant quotient.
 - Depends_on: NS-002, NS-005.
 - Source: `scripts/manifold_3b_criticality.jl` (+ `.out.txt`).
 
-**NS-036 — The criticality–Casimir hinge: supercriticality (NS-034) ≡ the Casimir
-deficit (NS-033 Slice 6), joined at enstrophy; curvature is independent.**
+**NS-036 — The criticality–Casimir hinge: supercriticality (NS-034) and the Casimir
+deficit (NS-033 Slice 6) are the *same bottleneck* (enstrophy non-coercivity) through two structures,
+joined at enstrophy; curvature is independent.**
 The §5 capstone "three routes, one wall" made exact. Put the controlled and the
 deciding quantities on one homogeneous-Sobolev ladder (NS-034 exponents; σ = the
 dilation exponent of the **quadratic** quantity): energy `‖u‖²_{L²}` at **σ=−1**,
@@ -568,8 +569,11 @@ non-coercivity" is the **name of the joint** of (a) and (b), not a third fact. *
 (NS-033 Slices 4–5) is a *logically independent* companion, not a third costume —
 Arnold's negative curvature is on SDiff(𝕋²), the **2D, regular** case, so negative
 curvature ⇒ *unpredictability/sensitivity*, **not** *singularity* (same two-notions
-distinction as Slice 2). The honest synthesis is **(a) ≡ (b)** (one fact) **with (c)
-independent**.
+distinction as Slice 2). The honest synthesis (sharpened 2026-06-05 per external review): **(a) and
+(b) are the same bottleneck — enstrophy non-coercivity — through two different structures (scaling-
+descent-failure / Casimir-loss), linked by the interpolation but at different logical levels; mutually
+illuminating, NOT literally one fact** — **with (c) independent**. ("≡" was an over-compression: scaling
+says what estimates can't close, Casimirs say what invariants exist.)
 - Evidence: **algebraic** (exact exponents + the elementary interpolation inequality +
   the exact 2D/3D Euler Casimir algebra of Slice 6) + **computed** (interpolation hinge
   verified in `criticality_casimir_hinge.jl`: ratio ≤ 0.87 for generic multi-scale
