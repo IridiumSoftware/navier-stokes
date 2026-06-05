@@ -40,8 +40,10 @@ now 30 nodes) — the matured ledger vs. NS-031's original 20 nodes. 126 candida
 
 **Findings vs NS-031:** (i) the engine independently recovered the new clusters (DNS trio; diagnostic-
 hunt) — corroboration; (ii) it elevated the **critical-norm cluster** as a HIGH coordination — a clear
-"where the live work is"; (iii) it did **not** surface the enstrophy-rung convergence (a chain, §A);
-(iv) the closure tier-wall (zero classical×closure triads) still holds at 30 nodes.
+"where the live work is"; (iii) the enstrophy-rung convergence surfaced only as a *loose MID/LOW
+coordination* (NS-036 at MID, NS-013↔DNS at LOW; see below), not HIGH — consistent with its
+reduction-chain character (§A); (iv) the closure tier-wall (zero classical×closure triads) still holds
+at 30 nodes.
 **MID band** (0.7–0.85, 49 candidates): **NS-005 is the HUB** — it anchors most MID triads (paired with
 NS-006/007/008/009/020/033/036); the **enstrophy hinge NS-036 coordinates** here ({NS-005,008,036},
 {NS-033,034,036}, {NS-008,034,036} @0.78) — the rung IS a coordination, just looser than HIGH.
