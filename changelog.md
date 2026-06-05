@@ -1,5 +1,20 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.54 — 2026-06-05 — Active-turbulence Phase 4b: faithful fluid in the interactive app (cross-repo)
+
+The "watch" half of Phase 4 — a cross-repo deliverable, not a new ledger claim (no AT entry; this
+applies AT-1..6). `:proved`=0; **distance UNTOUCHED.** Scope: phenomenology.
+
+- Retrofitted the faithful fixes into the interactive `fluoddity-metal` app
+  (`IridiumSoftware/fluoddity-metal` commit `6a3d9bf`, `docs/faithful_fluid.md`): its **uniform drag →
+  ν∇² viscosity** (scale-selective, `diffuse_velocity` kernel) and **monopole splat → net-zero force
+  dipole** — the AT-1/AT-3 fixes, grid-discretized for the live render loop. Its existing **chemotaxis**
+  (`cohesion`, the AT-5 ingredient) + **Hodge/Leray projection** are kept; new live knobs `viscosity`
+  + `dipoleLen`. Headless `--simtest` PASS (stable + projected, 0.64 ms/step).
+- ⇒ the creatures can now be **watched live on a real NS fluid**: `swift run fluoddity-metal`.
+  The interactive form of the same physics AT-6 validated spectrally. **Active-turbulence arc fully
+  complete (AT-1..6 + the interactive app).** Dashboard updated.
+
 ## v0.1.53 — 2026-06-05 — LOW #1 geometric-consistency lemma: triad-witnessed → REFUTED (2/2)
 
 Metabolized the TCE LOW-band #1 coordination {NS-013, NS-039, NS-040} (the CFM/Hou–Li-reduction ↔

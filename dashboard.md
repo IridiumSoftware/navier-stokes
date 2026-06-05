@@ -74,9 +74,12 @@ fluid self-organizes into vortices, chemotaxis makes the creatures, the two are 
 (v0.1.52) — GPU port, Phase 4a:** the faithful IF-RK4 solver re-implemented in MPSGraph
 (`metal/active_turbulence_gpu.swift`), **GPU(float32) ≡ CPU(float64) to ~6 digits** (AT-01 3.8e-6,
 AT-02 2.95e-6, forced cascade −3.48 R²=0.99 vs CPU −3.36; T-21) and **~100× faster** (3100 steps in
-3.1 s, M5 Max). The validated core for Phase 4b. **Arc: AT-1..6 COMPLETE; remaining = Phase 4b (wire
-the GPU core into the interactive fluoddity-metal app for live watching). Scope: phenomenology — NOT
-the PDE. Distance to prize: UNTOUCHED.**
+3.1 s, M5 Max). **Phase 4b DONE (cross-repo):** the faithful fixes (ν∇² viscosity + net-zero dipole
+forcing) retrofitted into the interactive `fluoddity-metal` app (`IridiumSoftware/fluoddity-metal`
+commit `6a3d9bf`, `docs/faithful_fluid.md`) — its existing chemotaxis (AT-5) + Hodge projection kept;
+`--simtest` stable+projected — so the creatures can be **watched live on a real NS fluid**. (An
+application of AT-1..6, not a new claim; no AT entry.) **ARC FULLY COMPLETE (AT-1..6 + the interactive
+app). Scope: phenomenology — NOT the PDE. Distance to prize: UNTOUCHED.**
 
 ## Status summary (v0.1.39, 2026-06-02)
 
