@@ -755,10 +755,10 @@ co-movement check (T-04). Remains a diagnostic in models, not a PDE proof.*
 ## FORWARD TARGETS — collaborator extension (Brian; `:open`)
 
 *Origin: Brian's extension notes (2026-06-05), re-numbered into the obstruction ledger (his draft
-labelled both "NS-041" on an older spec). **CCATT** appears as a load-bearing classifier in both
-entries; it is Brian's framework and is **not yet defined in this repo** — treated as a pending
-external primitive, NOT used as a defined term until Brian supplies its spec (substrate-provenance /
-named-but-undefined-primitive rule). Substrate source: Brian's notes, pending a committed definition.*
+labelled both "NS-041" on an older spec). **CCATT** = **Certified Constraint-Access Transport Theory**
+(Brian's framework, definition relayed 2026-06-05) — now recorded in `docs/ccatt_reference.md` so it is
+not a hidden primitive when cited below. Canonical upstream source (paper/repo) still TBD. CCATT is an
+epistemic/methodological governance layer; citing it does not change `:proved`=0 or the prize distance.*
 
 **NS-045 — Helicity-depletion mechanism audit (HOW does NS-040 deplete?).**
 NS-040 established that strong helicity depletes vortex stretching (matched-spectrum pair, ρ_H≈0.97 vs
@@ -788,7 +788,7 @@ spectral transfers `Π_E(k,t), Π_Z(k,t), Π_H(k,t)`; helical-mode decomposition
   mechanism only — a regular truncation cannot certify the singular-limit mechanism. `:proved`=0; prize
   untouched. (Deeper sector-transfer tensor `T^{++→+}` and the GPU N=256↔512 full pass remain optional
   follow-ups; the IC-geometry-fixed mechanism is already N-converged.)
-- Depends_on: NS-040, NS-022 (helical triad). CCATT note (pending def): "helicity scalar conservation
+- Depends_on: NS-040, NS-022 (helical triad). CCATT note (defined, `docs/ccatt_reference.md`): "helicity scalar conservation
   ⇏ mechanism certificate" — the audit exhibits the explicit transport *H-rich geometry → Beltramization
   (u∥ω) → Lamb-vector `u×ω` suppression → ω–S production depletion → delayed enstrophy growth*.
 - Source: `scripts/ns045_helicity_mechanism.jl` (+ `.out.txt` N=64, `_N128.out.txt`); companion
@@ -814,7 +814,7 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   formulation of the hard core, NOT progress.**
 - Evidence: **none (analytic target). Status: :open** (analytic target). Scope: **PDE-analysis target
   (deformation geometry / pressure–strain interaction).** `:proved`=0; prize untouched.
-- Depends_on: NS-005, NS-034, NS-036, NS-006 (CKN localization). CCATT note (pending def): "recoverable
+- Depends_on: NS-005, NS-034, NS-036, NS-006 (CKN localization). CCATT note (defined, `docs/ccatt_reference.md`): "recoverable
   transport" — every term derives from NS + eigenframe + elliptic pressure recovery + scaling,
   invariant under admissible transport (dilation, localization, pressure-kernel counter-transport).
 - Source: Brian's extension notes (2026-06-05); `docs/obstruction_program_writeup.md` §5 (the

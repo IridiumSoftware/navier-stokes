@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.59 — 2026-06-05 — CCATT defined: lifted the pending-primitive flag on NS-045/046
+
+Brian supplied the **CCATT** definition (= **Certified Constraint-Access Transport Theory**), the
+load-bearing classifier flagged "pending def" in NS-045/046. Recorded faithfully (with provenance) in
+`docs/ccatt_reference.md` so it is not a hidden primitive; lifted the pending flags in SPEC (§FORWARD
+TARGETS header + both entries) and the registry.
+
+- CCATT is a constraint-first **admissibility** framework (Constraint / Access / Transport /
+  Certification / Closure): existence is open, finite systems close only via costed/bounded access; no
+  global closure licensed; primitives must survive selection-theater **decontamination** (dominance /
+  elegance / predictive success do NOT license); authorization is inverted (admissible generator classes
+  explain exports, not vice versa).
+- Honest framing recorded: NS-045's result IS a CCATT-style **certified transport** (the explicit
+  H-geometry → Beltramization → Lamb-suppression → depletion chain, with the within-truncation loss
+  ledger), not a smuggled scalar-conservation certificate; NS-046 is a CCATT-admissible analytic target.
+- Noted (as observations, not claims) the structural parallels with the program's own discipline: "no
+  global closure" ≈ the firewall; "decontamination" ≈ the witness protocol + the totalizing-word lesson;
+  "subtract computational artifacts" ≈ LOW#1 vacuity / NS-039; "loss-ledger transport" ≈ substrate
+  provenance; "invert authorization" ≈ inverse-Born (NS-037). CCATT does not validate the program nor
+  vice versa. Epistemic framework only — `:proved`=0; distance UNTOUCHED. Canonical upstream source TBD.
+
 ## v0.1.58 — 2026-06-05 — NS-045 mechanism audit RUN → :tested: helicity depletes via BELTRAMIZATION
 
 Ran Brian's NS-045 helicity-depletion mechanism audit (`scripts/ns045_helicity_mechanism.jl`,
