@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.57 — 2026-06-05 — Brian's extension recorded: NS-045 (mechanism audit) + NS-046 (deformation-closure target)
+
+Folded Brian's two extension ideas into the obstruction ledger (his draft labelled both "NS-041" on an
+older spec; re-numbered NS-045/046, skipping the contested sim range). The ledger is now 32 entries;
+`:proved`=0 unchanged.
+
+- **NS-045 — Helicity-depletion mechanism audit (`:open`, DNS-scope).** Extends NS-040: certify *how*
+  helicity depletes (ω–S alignment / Beltramization / helical-sector transfers / delayed flux) via
+  P(t), S_ω(t), c²_int(t), spectral transfers Π_E/Z/H, and a helical-mode decomposition u₊/u₋ with
+  sector transfers, on the matched-spectrum pair. PASS = a mechanism beyond scalar helicity
+  conservation; FAIL = depletion is correlation. Caveat: within-truncation mechanism only (LOW#1 cap).
+- **NS-046 — Critical coercive deformation inequality (`:open`, PDE-analysis target).** The admissible
+  analytic object after the criticality–Casimir hinge: a coercive bound where the **nonlocal pressure
+  Hessian** `−e₃ᵀ(∇²p)e₃` + viscosity control a σ=0 norm / the production at the deformation level,
+  localized to CKN-compatible sets. Notably this **independently incorporates this session's MID-witness
+  Q2 lesson** (local ∇ξ-alignment must survive the nonlocal pressure counter-transport) — strong
+  corroboration — and adds the missing object (the pressure Hessian). A sharp formulation of the hard
+  core, NOT progress.
+- **CCATT** (Brian's load-bearing classifier in both) is recorded as a **pending external primitive —
+  NOT used as a defined term** until Brian supplies its spec (named-but-undefined-primitive rule).
+- SPEC (count→32) + registry rows + this entry. Next: **run the NS-045 mechanism audit** (per the
+  user's direction). `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.56 — 2026-06-05 — MID coordination "irreducibly geometric (∇ξ)": witnessed → C4 REFUTED
 
 Attacked the TCE MID-band coordination {NS-005, NS-008, NS-033, NS-034, NS-036} (the critical-norm /
