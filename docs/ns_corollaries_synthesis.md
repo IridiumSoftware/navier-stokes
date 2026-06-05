@@ -80,10 +80,24 @@ Genuine structural/methodological lemmas the assembled no-go understanding yield
 6. **Methodological lemma (NS-039/RWC-038):** a box-dimension "approach to a singular set" is
    untrustworthy unless its N-convergence points the *right* way (D rose 0.986→1.426) — a reusable
    diagnostic standard now codified as TEST_SPEC T-08.
+7. **Production identity + the "irreducibly geometric" over-reach — WITHDRAWN (witness-refuted,
+   2026-06-05; MID-coordination {NS-005,008,033,034,036}).** *Survives:* the exact identity
+   `P = ∫ω·Sω = ∫|ω|²(ξ·Sξ)` — the σ=+1 enstrophy-rung breaker is the enstrophy-weighted strain-
+   alignment of the vortex direction ξ; and the tight link `regularity ⟺ enstrophy-bounded ⟸ ∫P dt`
+   (last arrow sufficient-only). *Withdrawn:* the synthesis claim that the deficit is "**ENTIRE**ly /
+   **irreducibly** geometric (∇ξ)." Refuted convergently by an adversarial seat (Grok) AND an un-led
+   naive seat (ChatGPT): (Q1) NS-008 rules out energy-*only* but does not make ∇ξ-control *unique* —
+   harmonic-analysis/Besov, dispersive, probabilistic routes are not excluded; (Q2) the identity is
+   about *pointwise* alignment ξ·Sξ, not ∇ξ — the leap smuggles CFM *sufficiency* in as *necessity*
+   (the §C.3/LOW#1 proxy gap, one level up). *Softened survivor:* ∇ξ-smoothness (CFM/Hou–Li) is the
+   **best-supported candidate handle** NS-008 points to, **not** the unique route. See
+   `docs/ns_mid_geometric_deficit_verdict.md`. `:proved`=0.
 
 ## D. Disposition
 
-Consolidation only; no spec status changes (NS-031 gets a re-run note). The structurally-indicated
-next direction (per both my synthesis and the TCE) is the **critical-norm path (NS-005)** — the one
-backward route NS-002 leaves open — and the **re-witness of the CFM/Hou–Li reduction (NS-013)**.
-`:proved`=0; distance to the prize UNTOUCHED.
+Consolidation only; no spec status changes. The structurally-indicated next direction (per both this
+synthesis and the TCE) is the **critical-norm path (NS-005)** — the one backward route NS-002 leaves
+open. The re-witness of the CFM/Hou–Li geometry has now been **done twice** (LOW #1 §C.3 and the MID
+coordination §C.7) — both over-reaches were caught; the honest frontier is the *open* PDE question of
+a-priori control of the vortex-stretching production `P`, with ∇ξ-geometry the best candidate handle
+but not the proven-unique one. `:proved`=0; distance to the prize UNTOUCHED.
