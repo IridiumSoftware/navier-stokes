@@ -9,9 +9,9 @@ This is the *rigorous version of the fluoddity agent engine*: a faithful incompr
 2D Navier–Stokes fluid driven by discrete active-dipole agents (active turbulence),
 exploring whether genuine self-organization emerges. Co-located in the `navier-stokes`
 repo but bookkept separately from the obstruction ledger (`SPEC.md`, NS-001..040).
-Entries `AT-1..6` mirror the build phases (AT-5 = the chemotaxis follow-up; AT-6 = the GPU port);
-the validation checks `AT-01..04` + the AT-5 census + the AT-6 GPU≡CPU cross-check are indexed in
-`TEST_SPEC.md` (T-15..T-21). It extends the obstruction map's validated 2D solver
+Entries `AT-1..7` mirror the build phases (AT-5 = chemotaxis; AT-6 = the GPU port; AT-7 = the
+multistability/hysteresis study); the validation checks `AT-01..04` + the AT-5 census + the AT-6
+GPU≡CPU cross-check + the AT-7 hysteresis loop are indexed in `TEST_SPEC.md` (T-15..T-22). It extends the obstruction map's validated 2D solver
 (NS-010) as a substrate but asserts nothing about the PDE. Plan:
 `~/.claude/plans/jazzy-zooming-horizon.md`.
 
@@ -156,6 +156,31 @@ kernels), cross-validated against the CPU Julia. Mirrors the NS-038→NS-039 GPU
 - Source: `metal/active_turbulence_gpu.swift` (+ `active_turbulence_gpu_{at01,at02,forced}.out.txt`);
   companion `docs/active_turbulence_companion.md`. Build/run per `metal/README.md`.
 
+**AT-7 — The creatures are path-dependent: a hysteretic clumping transition.** Watching the interactive
+app (Phase 4b), the creatures are *path-dependent* — the same parameter point grows different
+structures depending on history, and they are "hard to replicate". This makes that rigorous, probing
+two faces of multistability on the faithful active system (fixed brain, N=64):
+- **Not fixed-point basin multiplicity.** An IC-ensemble (16 random initial conditions at a fixed
+  strong cohesion) all settle into the *same* foam-like many-clump phase (nClumps 14–21, density CV
+  ≈2.2 — one broad attractor with stochastic spread), so varying only the IC does **not** select
+  distinct creatures here.
+- **It is HYSTERESIS.** Ramping the chemotaxis strength `cohesion` UP (0→50, holding + measuring the
+  density CV, no reset) then DOWN traces a clean **loop**: clumps *form* (up-ramp) at cohesion ≈25–35
+  but *persist* (down-ramp) down to ≈5–15. **Loop area ∮CV d(coh)=15.4; max gap 0.59 at cohesion 30.**
+  In the transition zone (cohesion ≈10–35) the state is **bistable** — dispersed if approached from
+  below, clumped if from above. The state is a function of the *path*, not the parameters.
+- **Mechanism + reading.** Once a clump forms it deposits density whose gradient holds the agents
+  together (positive feedback ⇒ self-stabilization), enriched by the faithful fluid's real viscous
+  memory. *This is precisely why the interesting creatures are hard to replicate: they live in the
+  hysteretic transition zone, where the configuration remembers its history.* Rigorous corroboration
+  of the live observation, and of the original fluoddity study's "multistable transition zone" — now
+  characterized as a first-order-like hysteretic transition on the faithful fluid.
+- Evidence: **computed** (IC-ensemble + a cohesion hysteresis loop, density-CV order parameter).
+  **Status: :tested.** Scope: **phenomenology / 2D active-turbulence truncation — NOT the NS PDE.**
+- Depends_on: AT-3 (the agent coupling), AT-5 (chemotaxis, the order parameter's driver).
+- Source: `scripts/active_turbulence_multistability.jl` (+ `active_turbulence_multistability.out.txt`);
+  companion `docs/active_turbulence_companion.md`.
+
 ---
 
 ## Artifact registry (AT-#)
@@ -170,8 +195,9 @@ kernels), cross-validated against the CPU Julia. Mirrors the NS-038→NS-039 GPU
 | AT-4 | RESULT | computed | :tested | phenomenology / 2D active-turbulence truncation (NOT the NS PDE) | `scripts/active_turbulence_organization.jl` (+ `.out.txt`); companion `docs/active_turbulence_companion.md`. The climax: does lifelike organization emerge? Cranked to a vigorous active flow (forceGain=25, 2000 agents, u_rms≈0.6>swim, 42% vortex-dominated by Okubo–Weiss — the *fluid* self-organizes into coherent vortices). **NULL — agents do NOT cluster:** pair-correlation g(r)≈1.0 everywhere, brain-agents = dumb-swimmer control (ratio 1.00). **Reframes fluoddity:** its "creatures" were NOT emergent active turbulence — they needed (a) chemotaxis (density-aggregation; this port senses velocity only) and/or (b) the non-physical monopole forcing (convergence sinks, impossible on a divergence-free fluid). Decisive follow-up (UNTESTED): add chemotaxis. T-19. |
 | AT-5 | RESULT | computed | :tested | phenomenology / 2D active-turbulence truncation (NOT the NS PDE) | `scripts/active_turbulence_chemotaxis.jl` (+ `.out.txt`); companion `docs/active_turbulence_companion.md`. The decisive AT-4 follow-up: add the density-aggregation (chemotaxis) steering on the SAME faithful incompressible fluid + dipole forcing; control = dumb swimmers (cohesion=0). **CHEMOTAXIS CLUSTERS:** pair-correlation g(r) peaks **4.0× at contact** (1.86× near-field), decaying to uniform by r≈0.3, vs the dumb control g≈1.0 (near-field ⟨g⟩ 1.31 vs 1.00). Lifelike organization DOES survive on a faithful fluid — via **chemotaxis (aggregation), not active turbulence**; appearing on a divergence-free fluid **RULES OUT** AT-4 candidate (b) (the compressible-monopole artifact). Fluoddity's creatures = genuine chemotaxis-driven aggregation. T-20. |
 | AT-6 | RESULT | computed | :tested | phenomenology / 2D active-turbulence truncation (NOT the NS PDE) | `metal/active_turbulence_gpu.swift` (+ `active_turbulence_gpu_{at01,at02,forced}.out.txt`); companion `docs/active_turbulence_companion.md`. GPU port (Phase 4a) of the faithful IF-RK4 vorticity solver in MPSGraph (same engine as the NS-038→039 GPU DNS; built-in FFT, GPU-resident, no Metal kernels), cross-validated vs the CPU Julia. **GPU(float32) ≡ CPU(float64) to ~6 digits:** AT-01 invariants conserved 3.8e-6 (CPU 1.3e-14); AT-02 viscous decay vs exp(−ν\|k\|²t) 2.95e-6 (CPU 7.3e-16); forced cascade slope −3.48 R²=0.99 (CPU −3.36, same universal −3). **~100× faster:** 3100 steps N=128 in 3.1 s (M5 Max) vs ~3 min CPU. The validated core for Phase 4b (interactive). T-21. |
+| AT-7 | RESULT | computed | :tested | phenomenology / 2D active-turbulence truncation (NOT the NS PDE) | `scripts/active_turbulence_multistability.jl` (+ `.out.txt`); companion `docs/active_turbulence_companion.md`. Makes the live path-dependence rigorous. NOT fixed-point basin multiplicity (16-IC ensemble at fixed strong cohesion → one foam phase, CV≈2.2). It is **HYSTERESIS:** ramping cohesion 0→50→0 (no reset, density-CV order parameter) traces a clean loop — clumps form at coh≈25–35 (up) but persist to coh≈5–15 (down); **loop area 15.4, max gap 0.59 at coh 30** ⇒ bistable transition zone (coh ≈10–35): dispersed from below, clumped from above. The creatures are hard to replicate because they live in the hysteretic zone (state = f(path), not params); clumps self-stabilize via the deposited-density gradient + the fluid's viscous memory. T-22. |
 
-**Coverage (A1):** every AT-ID (AT-1..6) has a row. **No orphans:** every artifact named exists under
+**Coverage (A1):** every AT-ID (AT-1..7) has a row. **No orphans:** every artifact named exists under
 `scripts/` or `docs/`. **Firewall:** all rows `Scope: phenomenology` (≠ PDE, ≠ obstruction map);
-validation indexed in `TEST_SPEC.md` (T-15..T-21, retitled AT-#). This track does not affect the
+validation indexed in `TEST_SPEC.md` (T-15..T-22, retitled AT-#). This track does not affect the
 obstruction ledger's `:proved`=0 / distance-UNTOUCHED accounting.

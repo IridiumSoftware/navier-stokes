@@ -78,8 +78,14 @@ AT-02 2.95e-6, forced cascade −3.48 R²=0.99 vs CPU −3.36; T-21) and **~100�
 forcing) retrofitted into the interactive `fluoddity-metal` app (`IridiumSoftware/fluoddity-metal`
 commit `6a3d9bf`, `docs/faithful_fluid.md`) — its existing chemotaxis (AT-5) + Hodge projection kept;
 `--simtest` stable+projected — so the creatures can be **watched live on a real NS fluid**. (An
-application of AT-1..6, not a new claim; no AT entry.) **ARC FULLY COMPLETE (AT-1..6 + the interactive
-app). Scope: phenomenology — NOT the PDE. Distance to prize: UNTOUCHED.**
+application of AT-1..6, not a new claim; no AT entry.) **AT-7 (v0.1.55) — the creatures are
+path-dependent: a HYSTERETIC clumping transition.** From watching the live app: an IC-ensemble at
+fixed cohesion is monostable (one foam phase), but a cohesion up/down ramp traces a clean **hysteresis
+loop** (clumps form at coh≈25–35, persist to coh≈5–15; loop area 15.4, max gap 0.59; bistable zone
+coh≈10–35) — so the interesting creatures are hard to replicate because they live in the hysteretic
+zone (state = f(path), not params); clumps self-stabilize via deposited density + the fluid's viscous
+memory (T-22). **ARC COMPLETE (AT-1..7 + the interactive app). Scope: phenomenology — NOT the PDE.
+Distance to prize: UNTOUCHED.**
 
 ## Status summary (v0.1.39, 2026-06-02)
 

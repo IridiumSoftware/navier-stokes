@@ -1,0 +1,32 @@
+==============================================================================
+  active_turbulence_multistability.jl — AT-7: cohesion HYSTERESIS LOOP
+  Scope: phenomenology (2D active-turbulence). NOT the NS PDE, NOT the obstruction map.
+==============================================================================
+
+  Fixed brain + IC. Ramp cohesion 0→50→0, hold 250 steps/value, measure the density CV (clumpiness).
+  N=64, agents=1100, forceGain=22. (IC-ensemble at strong cohesion was monostable — see header.)
+
+  UP-ramp (cohesion 0→50):           DOWN-ramp (50→0):
+  coh      CV(clump)             coh      CV(clump)   
+  0        0.47                  0        0.55        
+  5        0.52                  5        0.68        
+  10       0.66                  10       0.90        
+  15       0.92                  15       1.43        
+  20       1.25                  20       1.76        
+  25       1.58                  25       1.95        
+  30       1.84                  30       2.42        
+  35       2.23                  35       2.62        
+  40       2.39                  40       2.64        
+  45       2.30                  45       2.32        
+  50       2.45                  50       2.40        
+
+  hysteresis loop area ∮ CV d(coh) = 15.4   (max gap 0.59 at cohesion 30)
+
+  VERDICT: HYSTERESIS — the down-path stays clumped well below the up-path's onset ⇒ the state depends on the DIRECTION of approach. Path-dependence is REAL: the creatures remember their history (the clumps self-stabilize once formed). This is the rigorous form of what you saw live.
+
+==============================================================================
+  • Two faces of multistability probed: fixed-point basin multiplicity (IC-ensemble: NO —
+    one foam phase) and HYSTERESIS (param-path: the loop above). The faithful fluid's real
+    viscosity gives the flow genuine memory, and formed clumps self-stabilize ⇒ history matters.
+  • FIREWALL: Scope phenomenology, NOT the PDE, NOT the obstruction map. Prize: UNTOUCHED.
+==============================================================================

@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.55 — 2026-06-05 — Active-turbulence AT-7: the creatures are path-dependent (hysteresis)
+
+Triggered by watching the live app — the creatures are path-dependent and "hard to replicate". Made
+it rigorous. `:proved`=0; **distance UNTOUCHED.** Scope: phenomenology.
+
+- **AT-7** (`scripts/active_turbulence_multistability.jl`). Probed two faces of multistability on the
+  faithful active system (fixed brain, N=64):
+  - **Not fixed-point basin multiplicity** — a 16-IC ensemble at fixed strong cohesion all settles
+    into one foam-like phase (density CV≈2.2; nClumps 14–21 = stochastic spread, not distinct basins).
+  - **It is HYSTERESIS** — ramping `cohesion` 0→50→0 (no reset, density-CV order parameter) traces a
+    clean loop: clumps **form** (up-ramp) at coh≈25–35 but **persist** (down-ramp) to coh≈5–15.
+    **Loop area ∮CV d(coh)=15.4; max gap 0.59 at coh 30.** In the transition zone (coh≈10–35) the
+    state is **bistable** — dispersed if approached from below, clumped if from above.
+- **Reading:** the interesting creatures are hard to replicate because they live in the **hysteretic
+  transition zone** — the configuration is a function of the *path*, not the parameters. Mechanism:
+  once a clump forms it deposits density whose gradient self-stabilizes it (positive feedback),
+  enriched by the faithful fluid's real viscous memory. Rigorous corroboration of the live observation
+  + the original fluoddity study's "multistable transition zone", now a first-order-like hysteretic
+  transition on the faithful fluid.
+- Ledger: AT-7 (`:tested`, SIM_SPEC.md) + AT-# registry row; TEST_SPEC T-22; companion §AT-7. Arc
+  entries AT-1..7 + the interactive app.
+
 ## v0.1.54 — 2026-06-05 — Active-turbulence Phase 4b: faithful fluid in the interactive app (cross-repo)
 
 The "watch" half of Phase 4 — a cross-repo deliverable, not a new ledger claim (no AT entry; this

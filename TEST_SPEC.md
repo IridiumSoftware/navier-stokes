@@ -53,7 +53,7 @@ viscous reconnection (D30 0.986→1.426) before it is turned on the open-regime 
 
 ## Checks for the geometric / resolved-DNS / GPU entries (NS-031, NS-033, NS-038..040) + active-turbulence (AT-1..4, `SIM_SPEC.md`)
 
-*(T-15..T-21 below license the **active-turbulence phenomenology track** AT-1..6 in `SIM_SPEC.md` — Scope ≠ PDE, ≠ obstruction map.)*
+*(T-15..T-22 below license the **active-turbulence phenomenology track** AT-1..7 in `SIM_SPEC.md` — Scope ≠ PDE, ≠ obstruction map.)*
 
 These `:tested` computational entries grew after the original NS-010/011 + closure tables; their
 licensing checks, previously recorded only in their SPEC entries + companions, are indexed here.
@@ -73,6 +73,7 @@ licensing checks, previously recorded only in their SPEC entries + companions, a
 | **T-19** AT-4 (organization census — honest NULL) | qualitative-signature (NULL): in a vigorous active flow (u_rms≈0.6>swim, 42% vortex-dominated), the agent pair-correlation g(r)≈1.0 everywhere for brain-agents AND the dumb-swimmer control (ratio 1.00) — **no clustering**. The NULL is licensed by the brain-vs-dumb control + the Okubo–Weiss flow check. The chemotaxis variant is explicitly UNTESTED (flagged). | PASS (NULL recorded), **Scope: phenomenology / 2D truncation (not PDE)** |
 | **T-20** AT-5 (chemotaxis — clustering vs control) | qualitative-signature + control: adding density-aggregation steering on the same faithful incompressible fluid, the agent pair-correlation **g(r) peaks 4.0× at contact** (1.86× near-field, near-field ⟨g⟩ 1.31) vs the dumb control's g≈1.0 (1.00) — clustering. Resolves T-19's NULL: lifelike aggregation survives via chemotaxis (not active turbulence), and on a divergence-free fluid (rules out the compressible-monopole artifact). | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
 | **T-21** AT-6 (GPU faithful fluid — GPU≡CPU cross-validation) | cross-method (GPU float32 vs CPU float64): the MPSGraph GPU port reproduces the CPU faithful solver — AT-01 invariants conserved to **3.8e-6**, AT-02 viscous decay vs `exp(−ν\|k\|²t)` to **2.95e-6** (both ≈float32 eps, CPU was 1e-14..1e-16), and the forced forward enstrophy cascade slope **−3.48 R²=0.99** (CPU −3.36, same universal −3). ~100× faster (3100 steps N=128 in 3.1 s, M5 Max). | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
+| **T-22** AT-7 (multistability — hysteresis loop) | qualitative-signature + control: an IC-ensemble (16 random ICs, fixed strong cohesion) gives one foam phase (CV≈2.2 — no basin multiplicity), while a cohesion up/down ramp (no reset, density-CV order parameter) traces a **hysteresis loop** — clumps form at coh≈25–35 but persist to coh≈5–15 (loop area 15.4, max gap 0.59 at coh 30) ⇒ a bistable transition zone. Rigorous form of the live path-dependence. | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
 
 **Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` / `3D-truncation` — **never** to a PDE

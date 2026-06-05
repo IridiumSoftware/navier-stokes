@@ -295,8 +295,51 @@ checks to float32, and the cascade slope reproduced. The three runs write commit
 ## §4.5 — Spec impact + what's left
 
 Produces **AT-6** (`:tested`, **Scope: phenomenology — NOT the NS PDE**). `:proved`=0;
-distance UNTOUCHED. **Arc entries AT-1..6.** The one remaining strand is **Phase 4b** —
-wire this validated GPU core into the interactive `fluoddity-metal` app (whose agent
-machinery + Metal rendering already exist) so the AT-5 chemotaxis creatures can be
-*watched* live on a real NS fluid. Scale (N=1024–2048) is now in budget on the GPU
-(`metal/probe_mpsfft.swift`).
+distance UNTOUCHED. **Arc entries AT-1..6.** Phase 4b (the "watch" half — wiring this
+GPU core's faithful physics into the interactive `fluoddity-metal` app) is done in that
+repo (`IridiumSoftware/fluoddity-metal` commit `6a3d9bf`, `docs/faithful_fluid.md`).
+
+---
+
+# AT-7 — the creatures are path-dependent: a hysteretic clumping transition
+
+Watching the live app raised a sharp question: the creatures are **path-dependent** —
+the same parameter point grows different structures depending on history, and they're
+"hard to replicate". `scripts/active_turbulence_multistability.jl` makes that rigorous
+on the faithful active system (fixed brain, N=64), probing two faces of multistability.
+
+## §2.6 — Result
+
+**(a) Not fixed-point basin multiplicity.** A 16-IC ensemble at a fixed strong cohesion
+all settles into the *same* foam-like many-clump phase (density CV≈2.2; nClumps 14–21 —
+a single broad attractor with stochastic spread). Varying only the initial condition
+does not select distinct creatures here.
+
+**(b) It is HYSTERESIS.** Ramp `cohesion` UP (0→50, holding + measuring the density CV,
+no reset) then DOWN — the clumpiness traces a clean **loop**:
+
+| cohesion | 0 | 10 | 15 | 20 | 25 | 30 | 35 | 40 | 45 | 50 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| **up** (from dispersed) | 0.47 | 0.66 | 0.92 | 1.25 | 1.58 | 1.84 | 2.23 | 2.39 | 2.30 | 2.45 |
+| **down** (from clumped) | 0.55 | 0.90 | 1.43 | 1.76 | 1.95 | **2.42** | 2.62 | 2.64 | 2.32 | 2.40 |
+
+Clumps **form** (up-ramp) at cohesion ≈25–35 but **persist** (down-ramp) down to ≈5–15.
+**Loop area ∮CV d(coh)=15.4; max gap 0.59 at cohesion 30.** In the transition zone
+(cohesion ≈10–35) the state is **bistable** — dispersed if approached from below,
+clumped if from above.
+
+## §3.6 — What it settles (T-22)
+
+**AT-7** (→ TEST_SPEC **T-22**): the IC-ensemble is the control (no basin multiplicity),
+the up/down ramp is the test (a hysteresis loop). The state is a function of the *path*,
+not the parameters — *which is precisely why the interesting creatures are hard to
+replicate*: they live in the hysteretic transition zone. Mechanism: a formed clump
+deposits density whose gradient holds the agents together (positive feedback ⇒
+self-stabilization), enriched by the faithful fluid's real viscous memory. This is the
+rigorous form of the live observation, and of the original fluoddity study's "multistable
+transition zone" — now a first-order-like hysteretic transition on a faithful fluid.
+
+## §4.6 — Spec impact
+
+Produces **AT-7** (`:tested`, **Scope: phenomenology — NOT the NS PDE**). `:proved`=0;
+distance UNTOUCHED. **Arc entries AT-1..7 + the interactive app.**
