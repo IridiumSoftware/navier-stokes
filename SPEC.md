@@ -10,7 +10,7 @@ ever count as prize progress; there is none.
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
 1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
-3 RESOLVED-DNS (NS-038/039/040), 2 ACTIVE-TURBULENCE (NS-041/042). `:proved` = 0. (32 entries.)
+3 RESOLVED-DNS (NS-038/039/040), 3 ACTIVE-TURBULENCE (NS-041/042/043). `:proved` = 0. (33 entries.)
 
 ---
 
@@ -792,6 +792,28 @@ steady state (N=128, E≈0.68, Z≈33), and bin the time-averaged `E(k)=½Σ|ω�
 - Depends_on: NS-041 (the faithful fluid it forces).
 - Source: `scripts/active_turbulence_forced.jl` (+ `active_turbulence_forced.out.txt`); companion
   `docs/active_turbulence_companion.md`.
+
+**NS-043 — Discrete active-dipole agents coupled to the faithful fluid: net-zero forcing (AT-03).**
+The active-matter coupling — the rigorous fluoddity. N=1500 self-propelled agents swim in the NS-042
+fluid, sense the velocity at two body-frame sensors, steer by the **ported fluoddity Fourier brain**
+(10-center mirror-symmetric sum-of-sines), are advected + **co-rotated by the local vorticity ω/2**
+(the physical leading-order reorientation), and force the fluid back as **net-zero force DIPOLES**
+(+f ahead, −f behind, each spread by a normalized Gaussian immersed-boundary kernel) through NS-041's
+curl-of-force hook.
+- **AT-03 (→ T-18) — the faithful-forcing check.** The dipole forcing injects net grid momentum
+  **(3e-15, −2e-14), relative 9.5e-18 — MACHINE ZERO**, the defining property of an active swimmer.
+  The fluoddity **monopole** (head force, no tail) injects **(−30, 20), relative 3.7e-2 — O(1)**:
+  spurious momentum, unphysical. *This is the precise sense in which the fluoddity splat was not
+  physical*, and the fix is named and verified.
+- **Stable coupled system:** over 1500 steps the agent⟷fluid system stays bounded (E, Z finite;
+  agents swim steadily at ≈0.32). At these parameters the active flow is **weak** (E≈5e-4) — net-zero
+  dipoles inject little large-scale energy ⇒ fluid speed ≪ swim speed (weak two-way coupling); Phase 3
+  cranks `forceGain`/density toward u_rms ~ swim, where collective self-organization would live.
+- Evidence: **computed** (machine-precision momentum check + stable integration). **Status: :tested.**
+  Scope: **phenomenology / 2D active-turbulence truncation — NOT the NS PDE.** `:proved`=0; UNTOUCHED.
+- Depends_on: NS-041 (curl hook + fluid), NS-042 (the forced fluid it swims in).
+- Source: `scripts/active_turbulence_agents.jl` (+ `active_turbulence_agents.out.txt`); companion
+  `docs/active_turbulence_companion.md`. Brain ported from the fluoddity engine (idea-sharing fork).
 
 ---
 

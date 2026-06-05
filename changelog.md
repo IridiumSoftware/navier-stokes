@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.48 — 2026-06-05 — Active-turbulence Phase 2: discrete active-dipole agents (NS-043)
+
+The active-matter coupling — the rigorous fluoddity. `:proved`=0; **distance UNTOUCHED.** Scope:
+phenomenology, NOT the PDE.
+
+- **Phase 2 — discrete active-dipole agents** (`scripts/active_turbulence_agents.jl`). N=1500
+  self-propelled agents swim in the faithful fluid (NS-042), sense the velocity at two body-frame
+  sensors, steer by the **ported fluoddity Fourier brain** (10-center mirror-symmetric sum-of-sines),
+  are advected + **co-rotated by local ω/2**, and force the fluid back as **net-zero force DIPOLES**
+  (+f ahead/−f behind, normalized Gaussian IB spread) through NS-041's curl hook.
+- **AT-03 (→ T-18) — the faithful-forcing check:** the dipole forcing injects net grid momentum
+  **relative 9.5e-18 = MACHINE ZERO** (the defining active-swimmer property), while the fluoddity
+  **monopole** injects O(1) (relative 3.7e-2). *That number is the precise sense in which fluoddity's
+  splat was unphysical — now fixed and verified.*
+- **Stable coupled run** (1500 steps, E/Z bounded, agents swim ≈0.32). Honest: the active flow is
+  weak at these params (E≈5e-4 — net-zero dipoles inject little large-scale energy ⇒ fluid speed ≪
+  swim speed); Phase 3 cranks `forceGain`/density toward u_rms ~ swim, where collective
+  self-organization would live.
+- Ledger: NS-043 (`:tested`, Scope phenomenology), registry row, TEST_SPEC T-18, companion updated.
+  Count 32→33. **Next:** Phase 3 — *does lifelike organization emerge?* (Okubo–Weiss vortex census,
+  agent pair-correlation g(r), E(k) shift vs the passive control).
+
 ## v0.1.47 — 2026-06-04 — Active-turbulence Phase 1: forced-turbulence control (NS-042)
 
 The faithful fluid (NS-041) is a **real turbulence engine.** `:proved`=0; **distance UNTOUCHED.**

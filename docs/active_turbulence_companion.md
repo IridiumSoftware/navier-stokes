@@ -119,3 +119,56 @@ truncation — NOT the NS PDE**). `:proved`=0; distance UNTOUCHED.
 fluoddity Fourier brain, advected + co-rotated by the flow, coupling through the
 curl-of-force hook, with the net-zero-momentum check AT-03 (→ NS-043). Optional
 deferred: the −5/3 inverse-inertial range at N≥256/high-`k_f`.
+
+---
+
+# Phase 2 — discrete active-dipole agents (NS-043)
+
+The active-matter coupling — the rigorous fluoddity. `scripts/active_turbulence_agents.jl`:
+N=1500 self-propelled agents swim in the faithful fluid (NS-042). Each, per step:
+1. **Sense** — bilinear-interpolate the velocity at two sensors (±sensorAngle,
+   sensorDist, in the agent's own (forward,left) frame), project rotation-invariantly,
+   and feed the mirror-symmetric **ported fluoddity Fourier brain** (10-center
+   sum-of-sines, `Shaders.swift:195–249` → Julia `brain()`) → (axial thrust, turn).
+2. **Force the fluid as a net-zero DIPOLE** — +f·p̂ at the head (x+ℓ/2 p̂), −f·p̂ at
+   the tail (x−ℓ/2 p̂), each spread by a **normalized** Gaussian immersed-boundary
+   kernel (Σ weights = 1), so the dipole injects *exactly zero* net momentum. The
+   fluid feels (∇×f)_z via NS-041's curl hook (no extra projection).
+3. **Advect + reorient** — ẋ = u(x) + v_swim·p̂; heading turns by the brain command
+   + the local vorticity **ω(x)/2** (the physical leading-order co-rotation).
+
+## §2.2 — Result: faithful net-zero coupling (AT-03)
+
+| forcing | net momentum Σf (relative) | reading |
+|---|---|---|
+| **dipole (faithful)** | (3e-15, −2e-14) → **9.5e-18** | **machine zero** ✓ active swimmer |
+| monopole (fluoddity) | (−30, 20) → 3.7e-2 | O(1) — spurious momentum, unphysical |
+
+This *is* the precise sense in which fluoddity's momentum-monopole `splat` was not
+physical: a real swimmer is force-free (a dipole), injecting zero net momentum. The
+fix is named (the dipole), implemented (normalized IB spread), and verified to
+machine precision. The agents are now genuinely two-way coupled to the faithful
+fluid — sensing, brain-steering, co-rotating, swimming (≈0.32).
+
+The **coupled run is stable** over 1500 steps (E, Z bounded, finite). Honest caveat:
+at these parameters the active flow is **weak** (E≈5e-4) — net-zero dipoles are
+efficient and inject little large-scale energy, so the fluid speed is ≪ the swim
+speed (weak two-way coupling). Strong collective dynamics need u_rms ~ v_swim,
+which Phase 3 reaches by cranking `forceGain` / agent density.
+
+## §3.2 — Verification (T-18)
+
+**AT-03** (→ TEST_SPEC **T-18**, exact-invariant tier): dipole net momentum machine-
+zero (rel < 1e-12) vs the O(1) monopole reference; plus a stable 1500-step coupled
+integration (finite, bounded). PASS.
+
+## §4.2 — Spec impact
+
+Produces **NS-043** (`:tested`, **Scope: phenomenology / 2D active-turbulence
+truncation — NOT the NS PDE**). `:proved`=0; distance UNTOUCHED.
+
+**Next:** Phase 3 — *does lifelike organization emerge?* Crank the coupling to a
+vigorous active flow, then census: an **Okubo–Weiss** vortex count, the agent
+**pair-correlation g(r)** / clustering, and the **E(k) shift** vs the NS-042 passive
+control (active-on vs active-off). A clean signature → a result; no signature → an
+honest NULL (the repo rewards both).

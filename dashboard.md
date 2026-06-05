@@ -55,9 +55,13 @@ hook, extending the validated 2D solver (NS-010). Validated: **AT-01** energy+en
 (v0.1.47, NS-042):** the passive forced-turbulence control proves the faithful fluid is a *real
 turbulence engine* — under steady band-limited forcing it reaches a statistically steady state with
 a **clean forward enstrophy cascade E(k)~k^−3 (slope −3.36, R²=0.99, AT-04/T-17)**, a *universal*
-Kraichnan exponent the fluoddity dial lacked. (Inverse −5/3 deferred to N≥256.) Next: Phase 2
-(discrete active-dipole agents + the ported Fourier brain, NS-043). **Scope: phenomenology — NOT
-the PDE. Distance to prize: UNTOUCHED.**
+Kraichnan exponent the fluoddity dial lacked. (Inverse −5/3 deferred to N≥256.) **Phase 2 DONE
+(v0.1.48, NS-043):** discrete active-dipole agents (1500 swimmers + ported Fourier brain) coupled to
+the faithful fluid — sense, brain-steer, co-rotate by ω/2, force back as **net-zero force dipoles**.
+**AT-03/T-18: dipole net momentum = MACHINE ZERO (rel 9.5e-18)** vs the fluoddity monopole's O(1) —
+the faithful-swimmer fix, named + verified. Stable coupled run (weak flow at these params; Phase 3
+strengthens coupling). Next: Phase 3 — *does lifelike organization emerge?* (vortex/agent census,
+E(k) shift). **Scope: phenomenology — NOT the PDE. Distance to prize: UNTOUCHED.**
 
 ## Status summary (v0.1.39, 2026-06-02)
 
