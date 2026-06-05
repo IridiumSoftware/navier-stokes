@@ -10,8 +10,8 @@ ever count as prize progress; there is none.
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
 1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
-3 RESOLVED-DNS (NS-038/039/040), 2 FORWARD-TARGET (NS-045/046, Brian's extension, `:open`).
-`:proved` = 0. (32 entries.)
+3 RESOLVED-DNS (NS-038/039/040), 2 FORWARD-TARGET (Brian's extension: NS-045 `:tested` mechanism
+audit + NS-046 `:open` analytic target). `:proved` = 0. (32 entries.)
 
 Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..5), Scope ≠ PDE.
 
@@ -773,15 +773,26 @@ spectral transfers `Π_E(k,t), Π_Z(k,t), Π_H(k,t)`; helical-mode decomposition
   mechanism *beyond* scalar helicity conservation.
 - **Fail:** depletion vanishes after conditioning on spectrum + alignment + sector transfers ⇒ NS-040
   is a phenomenological correlation, not a mechanism.
-- Evidence: **computed (to be run). Status: :open** (mechanism audit). Scope: **resolved 3D
-  pseudospectral DNS truncation — NOT the PDE.** Caveat (LOW#1 lesson): a regular truncation cannot
-  certify the *singular-limit* mechanism — this certifies the within-truncation mechanism only.
-  `:proved`=0; prize untouched.
+- **RESULT (2026-06-05) — the mechanism is (b) BELTRAMIZATION, not (a) ω–S alignment.** On the matched
+  pair (rebuilt in the ± helical basis: `|ΔE|=1.4e-17`, `|ΔZ|=2.2e-16`, ρ_H=+0.968 vs −0.069 — exact),
+  the *only* large helical-vs-control difference present **from t=0** is the Lamb-vector geometry: the
+  normalized `⟨|u×ω|²⟩/⟨|u|²|ω|²⟩` is **0.026 (helical) vs 0.69 (control), ~26×**, with `cos²(u,ω)=0.92`
+  vs 0.32. Since `u×ω` *is* the nonlinear driver, strong helicity (u∥ω) geometrically switches off the
+  production ⇒ enstrophy growth delayed; the depletion ends as the field de-Beltramizes (helical lamb²
+  0.026→0.48, ρ_H 0.97→0.80 by t=8) — NS-040's "delay + concentration", now mechanistic. The ω–S
+  alignment `c²_int` develops **near-identically** in both members (0.33→0.56 vs 0.33→0.66), so (a) is a
+  *lagging consequence*, not the cause. **N-converged 16↔64↔128** (the signal is IC-geometry-fixed).
+  PASS (Brian's condition: a delay correlating with a mechanism diagnostic beyond scalar helicity).
+- Evidence: **computed (N=16/64/128, matched-spectrum pair). Status: :tested.** Scope: **resolved 3D
+  pseudospectral DNS truncation — NOT the PDE.** Caveat (LOW#1 lesson): certifies the within-truncation
+  mechanism only — a regular truncation cannot certify the singular-limit mechanism. `:proved`=0; prize
+  untouched. (Deeper sector-transfer tensor `T^{++→+}` and the GPU N=256↔512 full pass remain optional
+  follow-ups; the IC-geometry-fixed mechanism is already N-converged.)
 - Depends_on: NS-040, NS-022 (helical triad). CCATT note (pending def): "helicity scalar conservation
-  ⇏ mechanism certificate" — the audit must exhibit the explicit transport *H-rich geometry → helical-
-  mode interaction → ω–S production depletion → delayed enstrophy growth*.
-- Source: (to be built) a helical-mode-decomposition + sector-transfer diagnostic over the NS-040
-  matched-spectrum fields.
+  ⇏ mechanism certificate" — the audit exhibits the explicit transport *H-rich geometry → Beltramization
+  (u∥ω) → Lamb-vector `u×ω` suppression → ω–S production depletion → delayed enstrophy growth*.
+- Source: `scripts/ns045_helicity_mechanism.jl` (+ `.out.txt` N=64, `_N128.out.txt`); companion
+  `docs/ns045_helicity_mechanism_companion.md`.
 
 **NS-046 — Critical coercive deformation inequality (the pressure–strain closure target).**
 The admissible analytic target after the criticality–Casimir hinge. Once regularity reduces to bounding

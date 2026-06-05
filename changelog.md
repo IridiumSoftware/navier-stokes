@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.58 — 2026-06-05 — NS-045 mechanism audit RUN → :tested: helicity depletes via BELTRAMIZATION
+
+Ran Brian's NS-045 helicity-depletion mechanism audit (`scripts/ns045_helicity_mechanism.jl`,
+reusing the validated CPU pseudospectral solver). **Verdict: the mechanism is (b) Beltramization, not
+(a) ω–S alignment.** Status `:open` → `:tested`.
+
+- **Matched-spectrum pair, exact.** Rebuilt NS-040's helical/control pair in the Craya–Herring ±
+  helical basis (random amplitude on `h₊` everywhere vs random `h±` ⇒ identical `E(k)`, hence `Z₀`,
+  helicity flipped). Verified: `|ΔE|=1.4e-17`, `|ΔZ|=2.2e-16`, `ρ_H=+0.968` vs `−0.069`, `div≈1e-13`.
+- **The mechanism.** The *only* large helical-vs-control difference present **from t=0** is the
+  Lamb-vector geometry: `⟨|u×ω|²⟩/⟨|u|²|ω|²⟩ = 0.026 vs 0.69` (~26×), `cos²(u,ω)=0.92 vs 0.32`. Since
+  `u×ω` *is* the nonlinear driver, strong helicity (u∥ω) geometrically switches off the production ⇒
+  enstrophy growth delayed; the depletion ends as the field de-Beltramizes (helical `lamb²` 0.026→0.48,
+  `ρ_H` 0.97→0.80 by t=8). The ω–S alignment `c²_int` develops **near-identically** in both members
+  (0.33→0.56 vs 0.33→0.66) ⇒ mechanism (a) is a *lagging consequence*, not the cause.
+- **N-converged 16↔64↔128** (the signal is IC-geometry-fixed, not small-scale ⇒ not a resolution
+  artifact). PASSES Brian's condition (a delay correlating with a mechanism diagnostic beyond scalar
+  helicity conservation). **Sharpens NS-040**: "delay+concentration" → "delay = Beltramization-suppressed
+  Lamb vector; burst = post-de-Beltramization".
+- Scope: resolved 3D DNS truncation — NOT the PDE; certifies the within-truncation mechanism only
+  (LOW#1 cap). Optional follow-ups: the full sector-transfer tensor `T^{++→+}` and the GPU N=256↔512
+  pass. SPEC (NS-045 :tested) + registry + companion `docs/ns045_helicity_mechanism_companion.md`.
+  `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.57 — 2026-06-05 — Brian's extension recorded: NS-045 (mechanism audit) + NS-046 (deformation-closure target)
 
 Folded Brian's two extension ideas into the obstruction ledger (his draft labelled both "NS-041" on an

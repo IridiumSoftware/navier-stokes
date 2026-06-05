@@ -9,13 +9,16 @@ lives in `SPEC.md`, not here.
 below with `Scope ≠ PDE` is **not** prize progress. This line changes only when a
 `:proved`, `Scope: PDE` entry exists.
 
-**FORWARD TARGETS recorded (2026-06-05, Brian's extension; SPEC 32 entries, both `:open`).**
-**NS-045** = helicity-depletion mechanism audit (DNS-scope; *active next — running it now*). **NS-046**
-= the critical coercive deformation inequality (PDE-analysis target; the honest "where the prize sits,"
-built on the nonlocal pressure Hessian — and it independently incorporates this session's MID-witness
-Q2 lesson). **CCATT** (Brian's classifier) is held as a pending external primitive until he specs it.
-Both `:proved`=0; prize UNTOUCHED. Recent: LOW #1 + MID coordinations both witness-REFUTED (over-reach
-caught); the per-coordination "attack" of the TCE map has plateaued — see `docs/ns_corollaries_synthesis.md`.
+**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 32 entries).**
+**NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)
+Beltramization** — strong helicity (u∥ω) crushes the Lamb vector `u×ω` (the nonlinear driver) ~26×,
+switching off production until the field de-Beltramizes (the delay) — **not** (a) ω–S alignment (which
+develops near-identically). N-converged 16↔64↔128; sharpens NS-040. DNS-scope, within-truncation only.
+**NS-046 = `:open`** — the critical coercive deformation inequality (PDE-analysis target; the honest
+"where the prize sits," built on the nonlocal pressure Hessian — independently incorporates this
+session's MID-witness Q2 lesson). **CCATT** (Brian's classifier) held as a pending external primitive
+until he specs it. Both `:proved`=0; prize UNTOUCHED. Recent: LOW #1 + MID coordinations both
+witness-REFUTED (over-reach caught); see `docs/ns_corollaries_synthesis.md`.
 
 ## MILESTONE (v0.1.6–v0.1.8, 2026-06-01) — diagnostic validated 1D/2D/3D-control
 
