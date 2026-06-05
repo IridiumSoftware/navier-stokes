@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.53 — 2026-06-05 — LOW #1 geometric-consistency lemma: triad-witnessed → REFUTED (2/2)
+
+Metabolized the TCE LOW-band #1 coordination {NS-013, NS-039, NS-040} (the CFM/Hou–Li-reduction ↔
+DNS-`c²_int` geometric-depletion link). Drafted a refute-don't-endorse witness brief and ran the
+two-seat adversarial pass (Grok edge-Φ + Gemini synthesis). **Both seats converged on REFUTED.**
+
+- **The geometric-consistency lemma (synthesis §C.3) is WITHDRAWN.** Refuted on: (Q1) the DNS is
+  regular-by-construction, so the observed depletion is *forced* — empty agreement; (Q2) `c²_int` and
+  the box-dimension are *proxies* that decouple from CFM's actual object (`∫|∇ξ|²|ω|`, the smoothness
+  of the vorticity direction) — alignment can relax while `∇ξ` kinks; (Q3) the conditional-alignment-
+  persistence probe is structurally undecidable at reachable N. (Q4) NS-040 *weakens*, not supports —
+  depletion is helicity-(constraint-)dependent, hence less relevant to the zero-helicity worst case.
+- **Firewall catch (Gemini):** the lemma's own phrasing ("the DNS exhibits the depletion theory needs;
+  theory and data line up") crossed the firewall. Confirmed; §C.3 phrasing corrected. This is the
+  validator-confirmation-bias pattern caught *in committed+pushed text* by the adversarial pass.
+- **Residue (diagnostics, not PDE):** a singular scenario, if any, must live at ~zero helicity and in
+  `∇ξ` — invisible to our `c²_int`/`D` diagnostics. The probe is dropped.
+- **NS-013 stays `:argued`** (the witness refuted a consistency *corollary*, not the reduction).
+- Docs: `docs/ns_lowf1_geometric_consistency_{brief,verdict}.md`; synthesis §C.3 + §B corrected.
+  No spec status change. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.52 — 2026-06-05 — Active-turbulence AT-6: GPU faithful-fluid core, Phase 4a (SIM_SPEC.md)
 
 The GPU port, Phase 4a of "validate then watch". `:proved`=0; **distance UNTOUCHED.** Scope:

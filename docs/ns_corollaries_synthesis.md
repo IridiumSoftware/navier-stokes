@@ -48,8 +48,9 @@ at 30 nodes.
 NS-006/007/008/009/020/033/036); the **enstrophy hinge NS-036 coordinates** here ({NS-005,008,036},
 {NS-033,034,036}, {NS-008,034,036} @0.78) — the rung IS a coordination, just looser than HIGH.
 **LOW band** (0.55–0.7, 59 candidates): #1 = **{NS-013, NS-039, NS-040} @0.70** — the CFM-reduction ↔
-DNS-`c²_int` link, found *independently by the engine* (corroborating the geometric-consistency lemma
-§C.3). Full log: `discovery/ns_triad_discovery.out.txt` (268 lines, reproducible via the invocation in
+DNS-`c²_int` link, found *independently by the engine*. (It suggested a "geometric-consistency lemma"
+[§C.3] that was subsequently **witness-refuted 2/2**; the link is real as *coordination*, but carries
+no PDE content — see the verdict doc.) Full log: `discovery/ns_triad_discovery.out.txt` (268 lines, reproducible via the invocation in
 its header).
 
 ## C. Corollaries / lemmas of the no-go map (scoped; no proofs)
@@ -63,9 +64,15 @@ Genuine structural/methodological lemmas the assembled no-go understanding yield
 2. **Dead-paths checklist (what NOT to try):** not exact self-similar (NS-007); not energy-only
    (NS-008); not topology/homology (NS-020, *falsified*); not a complex⇐real shortcut (NS-013,
    *witness-refuted*). Enumerated, scoped.
-3. **Geometric-consistency lemma:** the resolved DNS *empirically exhibits* the CFM/Hou–Li geometric
-   depletion (NS-038 measured c²_int≈0.72 at the stretching max) that conditional-regularity theory
-   needs — theory and our own data line up (a consistency, not a proof).
+3. **Geometric-consistency lemma — WITHDRAWN (witness-refuted 2/2, 2026-06-05).** The original claim
+   ("the resolved DNS *exhibits* the CFM/Hou–Li depletion theory needs; theory and our data line up")
+   **crossed the firewall** and was refuted by both seats (Grok edge-Φ + Gemini, convergent): (Q1) the
+   DNS is regular-by-construction, so the depletion is *forced* — empty agreement, not a test; (Q2)
+   `c²_int` and the box-dimension are *proxies* that decouple from CFM's actual object (the smoothness
+   of `ξ=ω/|ω|`, `∫|∇ξ|²|ω|`) — alignment can relax while `∇ξ` kinks; (Q3) the conditional-alignment-
+   persistence probe is structurally undecidable at reachable N. **Residue (diagnostics, not PDE):** a
+   singular scenario, if any, must live at ~zero helicity (NS-040/Kerr) and in `∇ξ` — *invisible* to
+   our `c²_int`/`D` diagnostics. See `docs/ns_lowf1_geometric_consistency_verdict.md`. `:proved`=0.
 4. **Exact scaling lemmas (NS-034):** the critical/super/sub classification is exact algebra (the
    Prodi–Serrin line, the σ-exponent ladder) — reusable.
 5. **Structural-impossibility lemmas (NS-037, scoped EMPIRICAL):** log-normal (K62) forbidden;
