@@ -1,5 +1,31 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.56 — 2026-06-05 — MID coordination "irreducibly geometric (∇ξ)": witnessed → C4 REFUTED
+
+Attacked the TCE MID-band coordination {NS-005, NS-008, NS-033, NS-034, NS-036} (the critical-norm /
+enstrophy-hinge center). Witness brief with a new wrinkle — **ChatGPT as a naive core witness**
+alongside the adversarial triad — run as Grok (adversarial) + ChatGPT (naive); Gemini's MID synthesis
+seat did not run.
+
+- **Survives:** the exact production identity `P = ∫ω·Sω = ∫|ω|²(ξ·Sξ)` (the σ=+1 enstrophy-rung
+  breaker is the enstrophy-weighted strain-alignment of the vortex direction ξ), and `regularity ⟺
+  enstrophy-bounded ⟸ ∫P dt` (last arrow sufficient-only; the regularity⟺enstrophy half is tight given
+  the a-priori energy bound — correcting Grok's Q3, which mislocated the slack).
+- **WITHDRAWN (C4):** "the ENTIRE deficit is irreducibly geometric (∇ξ)." Refuted convergently:
+  (Q1) NS-008 rules out energy-*only* but does not make ∇ξ-control *unique* (harmonic-analysis/Besov,
+  dispersive, probabilistic routes survive); (Q2) the identity is *pointwise* alignment ξ·Sξ, not ∇ξ —
+  smuggling CFM sufficiency in as necessity (the LOW #1 proxy gap one level up).
+- **Decisive signal:** the *naive* seat (ChatGPT, un-primed) independently circled the same
+  over-reaching sentence the adversarial seat broke ⇒ surface-level over-reach, NOT the
+  confirmation-bias signature. Negative robust even without the Gemini seat.
+- **Softened survivor:** ∇ξ-smoothness (CFM/Hou–Li) is the best-supported candidate handle NS-008
+  points to, not the unique route. NS-005/034/036 unchanged.
+- **Meta (2nd over-reach this session):** self-audit passed a totalizing-word synthesis the witness
+  broke — LOW #1 ("exhibits"/"line up") then MID ("irreducibly"/"ENTIRE").
+- Docs `docs/ns_mid_geometric_deficit_{brief,verdict}.md` + synthesis §C.7/§D landed in commit
+  `c31eef0`; this entry recorded separately to avoid a concurrent-edit collision with the live sim
+  session's changelog writes. No spec status change. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.55 — 2026-06-05 — Active-turbulence AT-7: the creatures are path-dependent (hysteresis)
 
 Triggered by watching the live app — the creatures are path-dependent and "hard to replicate". Made
