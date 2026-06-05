@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.44 — 2026-06-04 — NS-013 attacked: obstruction-map triad-REFUTED, sharpened to a geometric reduction
+
+Took on NS-013 (does complex-data blowup inform real-data regularity?). `:proved`=0; UNTOUCHED.
+
+- **Analytic obstruction-map drafted** (`docs/ns013_complex_real_obstruction.md`): Li–Sinai exploits
+  the absent energy bound; reality = energy bound + conjugate-phase symmetry ⇒ complex⇏real vacuous,
+  real-protection ⟺ the NS-002/036 enstrophy wall.
+- **Falsification ladder** (`scripts/ns013_reality_ladder{,_2d,_3d}.jl`): complex data + reality
+  leakage `−iλ·Im` across Burgers/CLM/2D/3D. Binary held (controlled models protect; CLM never);
+  an apparent monotone λ_c gradient with dimension.
+- **Triad-witnessed → REFUTED on all four checks** (`docs/ns013_triad_brief.md`, `ns013_triad_verdict.md`;
+  Grok edge-Φ + Gemini synthesis, convergent): "vacuous" asserted-not-argued; reduction loose;
+  ladder definitional / gradient a mode-density artifact; firewall over-reach. **Map withdrawn.**
+- **Sharpened, witness-survivable reduction (recorded `:argued`):** reality's Hermitian phase does NOT
+  generically deplete the cascade (real turbulence cascades) — so the protective direction reduces to
+  the **emergent Constantin–Fefferman / Hou–Li geometric depletion** (conditional, open), connecting
+  NS-013 → NS-006 → NS-038's measured `c²_int`. **NS-013 PDE question stays `:open`**; status moved
+  `:open`→`:argued` (the argued content is the reduction, flagged post-witness/not-re-witnessed).
+- Ledger: SPEC NS-013 + registry + TEST_SPEC T-14 (ladder solvers PASS; gradient REFUTED) + dashboard.
+  A clean demonstration of the witness discipline catching over-reach. Distance UNTOUCHED.
+
 ## v0.1.43 — 2026-06-04 — Omnibus cross-audit: ledger sound; fix count drift + doc staleness
 
 Full A0–A6 integrity sweep after the Metal/GPU arc (`audit_2026-06-04.md`). Coverage (30 SPEC =

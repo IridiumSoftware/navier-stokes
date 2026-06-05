@@ -200,7 +200,23 @@ remains open. Strong reason to take the complex plane seriously (NS-010/011).
 Open. Complex blowup (NS-012) and the analyticity-strip picture (NS-010) suggest
 the real-data question is "does the nearest complex singularity reach the real
 axis," but no implication real⇐complex is established.
-- Evidence: none. **Status: :open.** Scope: PDE. Source: —
+- Evidence: **manual (an argued reduction; post-witness, NOT re-witnessed).** **Status: :argued**
+  — the PDE question itself remains genuinely open; the argued content is the *reduction below*, not
+  an answer. Scope: PDE. Source: `docs/ns013_complex_real_obstruction.md` + `docs/ns013_triad_verdict.md`.
+- **Attack + triad-witness (2026-06-04).** An obstruction-map (Li–Sinai exploits the *absent* energy
+  bound; reality = the energy bound + conjugate-phase symmetry ⇒ complex⇏real vacuous, real-protection
+  ⟺ the NS-002/036 enstrophy wall), corroborated by a reality-leakage ladder (Burgers/CLM/2D/3D), was
+  **triad-witnessed → REFUTED on all four checks** (Grok edge-Φ + Gemini synthesis, convergent:
+  "vacuous" asserted-not-argued; reduction loose; ladder definitional / gradient a mode-density
+  artifact; firewall over-reach). **Withdrawn as a logical barrier.** The sharpened, witness-survivable
+  **reduction (the argued content):** reality's Hermitian phase does NOT generically deplete the
+  cascade (*real turbulence cascades*), so the protective direction reduces not to "reality=energy"
+  but to the **emergent Constantin–Fefferman / Hou–Li geometric depletion** (vorticity-direction
+  regularity ⟹ no blowup — conditional, open), connecting NS-013 → NS-006 (CKN geometric) →
+  **NS-038's measured `c²_int`** (≈0.72 at the stretching max). Model fact kept: controlled models
+  protect, CLM does not; the criticality-gradient *interpretation* is witness-refuted. `:proved`=0;
+  distance UNTOUCHED. Sources: `scripts/ns013_reality_ladder{,_2d,_3d}.jl` (+ `.out.txt`); companions
+  `docs/ns013_complex_real_obstruction.md`, `ns013_triad_verdict.md`, brief `ns013_triad_brief.md`.
 - **Reality-stabilizer probe (Grok Move 4, `scripts/complex_burgers_reality_leakage.jl`):**
   1D complex viscous Burgers (real-data heat-protected; complex-data φ-zero blowup — the 1D
   Li–Sinai analog). A tunable reality leakage λ damping `Im(u)`: λ=0 blows up at t*=5.54

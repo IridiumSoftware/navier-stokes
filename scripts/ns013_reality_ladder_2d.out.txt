@@ -1,0 +1,43 @@
+══════════════════════════════════════════════════════════════════════════════════
+  ns013_reality_ladder_2d.jl — RUNG 3 (2D NS, critical control: energy+enstrophy)
+  Scope: 2D complex pseudospectral truncation. NOT the PDE. :proved=0; prize UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════
+
+  N=64, complex IC (Re = smooth 2D vorticity, Im·=0.8). λ→∞ ⇒ real 2D NS ⇒ regular.
+
+──────────────────────────────────────────────────────────────────────────────────
+  2D EULER (ν=0)
+──────────────────────────────────────────────────────────────────────────────────
+    λ        T*(λ)        fate
+    0        2.916        blowup (max|ω|→203)
+    0.05     3.136        blowup (max|ω|→202)
+    0.1      3.420        blowup (max|ω|→202)
+    0.25     4.924        blowup (max|ω|→201)
+    0.5      ∞            REGULAR to T=8 (max|ω|=2.8)
+    1        ∞            REGULAR to T=8 (max|ω|=1.4)
+    2        ∞            REGULAR to T=8 (max|ω|=1.4)
+    5        ∞            REGULAR to T=8 (max|ω|=1.4)
+    ⇒ protection threshold λ_c ≈ 0.5
+
+──────────────────────────────────────────────────────────────────────────────────
+  2D NS (ν=0.01)
+──────────────────────────────────────────────────────────────────────────────────
+    λ        T*(λ)        fate
+    0        4.300        blowup (max|ω|→202)
+    0.05     5.504        blowup (max|ω|→200)
+    0.1      ∞            REGULAR to T=8 (max|ω|=46.0)
+    0.25     ∞            REGULAR to T=8 (max|ω|=1.1)
+    0.5      ∞            REGULAR to T=8 (max|ω|=1.1)
+    1        ∞            REGULAR to T=8 (max|ω|=1.1)
+    2        ∞            REGULAR to T=8 (max|ω|=1.1)
+    5        ∞            REGULAR to T=8 (max|ω|=1.1)
+    ⇒ protection threshold λ_c ≈ 0.1
+
+══════════════════════════════════════════════════════════════════════════════════
+  READING (2D rung — criticality gradient)
+══════════════════════════════════════════════════════════════════════════════════
+  • Compare to the 1D rungs (ns013_reality_ladder.jl): viscous Burgers protected above λ_c≈0.05;
+    inviscid CLM never protected. 2D NS has a STRONGER (critical) coercive control — energy AND
+    enstrophy (no vortex stretching). The result above places 2D on the criticality gradient.
+  • FIREWALL: 2D truncation, complex data. About 2D's control, NOT 3D-NS regularity. :proved=0.
+══════════════════════════════════════════════════════════════════════════════════

@@ -152,7 +152,7 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
 - **Ledger:** 30 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
-  2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:open`), 6 our RESULTS/FALSIFIED
+  2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:argued`), 6 our RESULTS/FALSIFIED
   (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
   2 RELATED (`:cited`; NS-025 Gosme + NS-035 Ryan), 2 PROGRAM, 1 GEOMETRY (NS-033
   manifold study `:tested`), 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–
@@ -246,7 +246,11 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
 
 ## Open gaps / honest unknowns
 
-- NS-013: does complex-data blowup (NS-012) imply anything for real data? `:open`.
+- NS-013: does complex-data blowup (NS-012) imply anything for real data? **PDE question still
+  `:open`.** Attacked 2026-06-04: obstruction-map + reality-leakage ladder → **triad-witness-REFUTED**
+  (Grok+Gemini convergent) → withdrawn; sharpened to an `:argued` reduction — the protective direction
+  is the emergent **CFM/Hou–Li geometric depletion** (conditional, open) → NS-006 + NS-038 `c²_int`.
+  `docs/ns013_triad_verdict.md`.
 - No `Project.toml`/lockfile yet — add when spectral code (FFTW) lands (package
   discipline, CLAUDE.md).
 - TEST_SPEC currently has the diagnostic-validation rows pending the NS-010 build.

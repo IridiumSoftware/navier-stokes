@@ -1,0 +1,44 @@
+══════════════════════════════════════════════════════════════════════════════════
+  ns013_reality_ladder_3d.jl — RUNG 4 (3D NS, supercritical: energy-only control)
+  Scope: 3D complex pseudospectral truncation. NOT the PDE. :proved=0; prize UNTOUCHED.
+  CAVEAT: finite truncation ⇒ real 3D is regular anyway; protection here is truncation, not PDE.
+══════════════════════════════════════════════════════════════════════════════════
+
+  N=32 complex div-free IC (random low-k, Leray-projected). div check max|k·û|=4.7e-13
+
+──────────────────────────────────────────────────────────────────────────────────
+  3D EULER (ν=0)
+──────────────────────────────────────────────────────────────────────────────────
+    λ        T*(λ)        fate
+    0        1.790        blowup (max|u|→50)
+    0.1      1.985        blowup (max|u|→53)
+    0.25     2.405        blowup (max|u|→56)
+    0.5      4.335        blowup (max|u|→52)
+    1        ∞            REGULAR to T=6 (max|u|=1.18)
+    2        ∞            REGULAR to T=6 (max|u|=1.14)
+    5        ∞            REGULAR to T=6 (max|u|=1.15)
+    ⇒ protection threshold λ_c ≈ 1
+
+──────────────────────────────────────────────────────────────────────────────────
+  3D NS (ν=0.01)
+──────────────────────────────────────────────────────────────────────────────────
+    λ        T*(λ)        fate
+    0        1.945        blowup (max|u|→50)
+    0.1      2.220        blowup (max|u|→52)
+    0.25     3.020        blowup (max|u|→51)
+    0.5      ∞            REGULAR to T=6 (max|u|=0.97)
+    1        ∞            REGULAR to T=6 (max|u|=0.90)
+    2        ∞            REGULAR to T=6 (max|u|=0.88)
+    5        ∞            REGULAR to T=6 (max|u|=0.88)
+    ⇒ protection threshold λ_c ≈ 0.5
+
+══════════════════════════════════════════════════════════════════════════════════
+  READING (3D rung — top of the ladder)
+══════════════════════════════════════════════════════════════════════════════════
+  • Ladder λ_c so far: Burgers≈0.05, CLM=∞(none), 2D-NS≈0.1, 2D-Euler≈0.5. This rung adds 3D.
+  • BINARY result (robust): models with a coercive control protect; CLM (none) does not.
+  • The numeric λ_c does NOT cleanly rank by criticality (confounded by ν/N/IC) — claimed only
+    as the binary, per the 2D rung's finding.
+  • FIREWALL: 3D truncation ⇒ real fate regular regardless; this is NOT 3D-NS PDE evidence.
+    :proved=0; distance to the prize UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════

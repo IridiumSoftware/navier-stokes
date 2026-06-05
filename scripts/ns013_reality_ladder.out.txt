@@ -1,0 +1,53 @@
+══════════════════════════════════════════════════════════════════════════════════
+  ns013_reality_ladder.jl — does 'reality' protect? Burgers (has control) vs CLM (none)
+  Scope: 1D complex models. NOT the PDE. :proved=0; prize UNTOUCHED. Tests the NS-013 map.
+══════════════════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────────────────
+  RUNG 1 — viscous Burgers (ν=0.20): REAL data globally regular (Cole–Hopf).
+    coercive control PRESENT (viscosity/max-principle). Cole–Hopf complex blowup t*=ln b/ν=5.493
+──────────────────────────────────────────────────────────────────────────────────
+    λ        T*(λ)        fate
+    0        5.540        blowup (max|u|→108)
+    0.01     6.050        blowup (max|u|→103)
+    0.05     ∞            REGULAR to T=20 (max|u|=0.5)
+    0.1      ∞            REGULAR to T=20 (max|u|=0.1)
+    0.25     ∞            REGULAR to T=20 (max|u|=0.0)
+    0.5      ∞            REGULAR to T=20 (max|u|=0.0)
+    1        ∞            REGULAR to T=20 (max|u|=0.0)
+    2        ∞            REGULAR to T=20 (max|u|=0.0)
+    5        ∞            REGULAR to T=20 (max|u|=0.0)
+    validation (λ=0): T*=5.540 vs Cole–Hopf 5.493 → MATCH ✓
+    ⇒ protection threshold λ_c ≈ 0.05  (reality PROTECTS)
+
+──────────────────────────────────────────────────────────────────────────────────
+  RUNG 2 — inviscid CLM ω_t=ωH(ω): REAL data BLOWS UP at t*=2 (pure stretching).
+    coercive control ABSENT. λ→∞ forces ω→real(cos x) ⇒ real CLM ⇒ should STILL blow up.
+──────────────────────────────────────────────────────────────────────────────────
+    λ        T*(λ)        fate
+    0        1.248        blowup (max|ω|→200)
+    0.01     1.251        blowup (max|ω|→204)
+    0.05     1.264        blowup (max|ω|→201)
+    0.1      1.281        blowup (max|ω|→201)
+    0.25     1.332        blowup (max|ω|→201)
+    0.5      1.422        blowup (max|ω|→202)
+    1        1.605        blowup (max|ω|→203)
+    2        1.854        blowup (max|ω|→202)
+    5        1.959        blowup (max|ω|→202)
+    large-λ limit (λ=5, ≈real CLM): T*=1.959  vs exact real-CLM t*=2.0
+    ⇒ protection threshold λ_c = ∞ (NONE — reality does NOT protect)
+
+══════════════════════════════════════════════════════════════════════════════════
+  VERDICT — the falsification (NS-013 obstruction-map, Step-2 probe)
+══════════════════════════════════════════════════════════════════════════════════
+  • Burgers (coercive control present): reality PROTECTS — finite λ_c; forcing real ⇒ regular.
+  • CLM (no coercive control): reality does NOT protect — forcing real ⇒ real CLM ⇒ blows up;
+    no λ_c. 'Reality protects' is therefore NOT universal: it requires a coercive control.
+  • This CORROBORATES the NS-013 obstruction-map (docs/ns013_complex_real_obstruction.md):
+    complex-blowup⇏real-blowup is vacuous because complex data escapes the very control
+    reality supplies; the protective direction needs a coercive-ENOUGH control. Next rungs
+    (2D NS = critical/enstrophy-bounded; 3D NS = supercritical/energy-only) test the criticality
+    gradient — pending (truncation-scoped).
+  • FIREWALL: 1D models. Protection here is about THESE models' control, NOT 3D-NS regularity.
+    :proved=0; distance to the prize UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════
