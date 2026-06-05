@@ -167,8 +167,57 @@ integration (finite, bounded). PASS.
 Produces **NS-043** (`:tested`, **Scope: phenomenology / 2D active-turbulence
 truncation — NOT the NS PDE**). `:proved`=0; distance UNTOUCHED.
 
-**Next:** Phase 3 — *does lifelike organization emerge?* Crank the coupling to a
-vigorous active flow, then census: an **Okubo–Weiss** vortex count, the agent
-**pair-correlation g(r)** / clustering, and the **E(k) shift** vs the NS-042 passive
-control (active-on vs active-off). A clean signature → a result; no signature → an
-honest NULL (the repo rewards both).
+---
+
+# Phase 3 — does lifelike organization emerge? (NS-044)
+
+The climax. `scripts/active_turbulence_organization.jl` cranks the coupling to a
+**vigorous** active flow (forceGain=25, N=2000 agents) and censuses for
+self-organization, with a **brain-vs-dumb-swimmer control** to isolate whether the
+*sensing brain* organizes the agents beyond generic active matter.
+
+## §2.3 — Result: NULL (and it reframes the engine)
+
+The flow is now vigorous: **u_rms ≈ 0.6 > swim 0.35**, **42% vortex-dominated**
+(Okubo–Weiss OW<0). The *fluid* self-organizes into coherent vortices — the real 2D
+phenomenon. But the **agents do not**:
+
+| census | brain-agents | dumb control |
+|---|---|---|
+| g(r) (all r) | ≈ **1.00** | ≈ **1.00** |
+| ⟨g(small r)⟩ | 1.00 | 1.00 (ratio 1.00) |
+
+**No clustering, no creatures.** Brain-sensing agents cluster no more than dumb
+swimmers, and neither clusters at all (g(r)≈1 = a random gas). **Lifelike
+organization does not emerge** from active velocity-sensing agents on a faithful
+incompressible fluid.
+
+**The payoff — this reframes the fluoddity engine.** Its "creatures/vacuoles" were
+*not* emergent active turbulence. They required two ingredients deliberately absent
+from this faithful port:
+1. **Chemotaxis** (the engine's `cohesion` term) — agents steering up the
+   **density/dye** gradient, *toward each other*. This port senses only **velocity**.
+   That was the aggregation driver.
+2. The **non-physical momentum-monopole forcing** — it makes convergence/sink
+   regions where agents pile up. On a **divergence-free** fluid this is *impossible*.
+
+So the lifelikeness was **chemotaxis + a compressible-forcing artifact**, not
+active-turbulence self-organization. On a faithful fluid with physical dipole forcing
+and velocity-sensing, the agents stir a real turbulent flow but stay uniform.
+
+## §3.3 — Verification (T-19)
+
+**NS-044** is an honest **NULL** (→ TEST_SPEC **T-19**, qualitative-signature/NULL),
+licensed by the brain-vs-dumb control and the Okubo–Weiss flow check. The chemotaxis
+variant is **explicitly UNTESTED** (flagged), not silently assumed.
+
+## §4.3 — Spec impact + the arc
+
+Produces **NS-044** (`:tested`, NULL, **Scope: phenomenology — NOT the NS PDE**).
+`:proved`=0; distance UNTOUCHED. **Active-turbulence arc Phases 0–3 COMPLETE** (the
+faithful fluid, its real cascade, the faithful agents, the organization NULL).
+
+**Decisive follow-up (untested):** add the chemotaxis term — does density-aggregation
+reproduce clustering even on the faithful incompressible fluid? That isolates whether
+*any* lifelike organization survives on a physical substrate. (Phase 4 — GPU port for
+scale — remains deferred.)

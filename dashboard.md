@@ -60,8 +60,14 @@ Kraichnan exponent the fluoddity dial lacked. (Inverse −5/3 deferred to N≥25
 the faithful fluid — sense, brain-steer, co-rotate by ω/2, force back as **net-zero force dipoles**.
 **AT-03/T-18: dipole net momentum = MACHINE ZERO (rel 9.5e-18)** vs the fluoddity monopole's O(1) —
 the faithful-swimmer fix, named + verified. Stable coupled run (weak flow at these params; Phase 3
-strengthens coupling). Next: Phase 3 — *does lifelike organization emerge?* (vortex/agent census,
-E(k) shift). **Scope: phenomenology — NOT the PDE. Distance to prize: UNTOUCHED.**
+strengthens coupling). **Phase 3 DONE (v0.1.49, NS-044) — an honest NULL that reframes fluoddity:**
+cranked to a vigorous active flow (u_rms≈0.6>swim, 42% vortex-dominated — the *fluid* self-organizes
+into coherent vortices), the AGENTS do **not** cluster (g(r)≈1.0, brain = dumb control). Lifelike
+organization does not emerge from velocity-sensing agents on a faithful fluid ⇒ fluoddity's "creatures"
+were **chemotaxis + a compressible-forcing artifact**, not active turbulence (the monopole's convergence
+sinks are impossible on a divergence-free fluid). Decisive follow-up flagged UNTESTED: add chemotaxis.
+**Arc Phases 0–3 COMPLETE** (Phase 4 GPU deferred). **Scope: phenomenology — NOT the PDE. Distance to
+prize: UNTOUCHED.**
 
 ## Status summary (v0.1.39, 2026-06-02)
 

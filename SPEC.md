@@ -10,7 +10,7 @@ ever count as prize progress; there is none.
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
 1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
-3 RESOLVED-DNS (NS-038/039/040), 3 ACTIVE-TURBULENCE (NS-041/042/043). `:proved` = 0. (33 entries.)
+3 RESOLVED-DNS (NS-038/039/040), 4 ACTIVE-TURBULENCE (NS-041/042/043/044). `:proved` = 0. (34 entries.)
 
 ---
 
@@ -814,6 +814,30 @@ curl-of-force hook.
 - Depends_on: NS-041 (curl hook + fluid), NS-042 (the forced fluid it swims in).
 - Source: `scripts/active_turbulence_agents.jl` (+ `active_turbulence_agents.out.txt`); companion
   `docs/active_turbulence_companion.md`. Brain ported from the fluoddity engine (idea-sharing fork).
+
+**NS-044 — Does lifelike organization emerge? A NULL — and it reframes the fluoddity engine.**
+The climax test of the arc. Cranked to a vigorous active flow (forceGain=25, N=2000 agents ⇒
+**u_rms≈0.6 > swim 0.35**, **42% vortex-dominated** by Okubo–Weiss — the *fluid* self-organizes into
+coherent vortices, the real 2D phenomenon), the agents are censused for self-organization.
+- **NULL — the agents do not cluster.** Pair-correlation **g(r) ≈ 1.0 everywhere** for both the
+  brain-sensing agents AND a dumb-swimmer control (ratio 1.00); no aggregation, no creatures. Lifelike
+  organization does **not** emerge from active velocity-sensing agents on a faithful incompressible
+  fluid.
+- **The reframing:** the fluoddity engine's "creatures/vacuoles" were therefore **not** emergent
+  active turbulence. They required two ingredients absent here — (a) **chemotaxis** (cohesion: steering
+  up the *density/dye* gradient, toward other agents; this port senses only velocity), and/or (b) the
+  **non-physical momentum-monopole forcing**, which created convergence/sink regions agents pile into —
+  *impossible* on a divergence-free fluid. The lifelikeness was **chemotaxis + a compressible-forcing
+  artifact**, not active-turbulence organization.
+- **Decisive follow-up (UNTESTED, flagged):** add the chemotaxis term and re-census — does
+  density-aggregation reproduce clustering on the faithful fluid? That isolates whether *any* lifelike
+  organization survives on a physical substrate.
+- Evidence: **computed** (vigorous coupled run + pair-correlation/Okubo–Weiss census, brain-vs-dumb
+  control). **Status: :tested** (an honest NULL). Scope: **phenomenology / 2D active-turbulence
+  truncation — NOT the NS PDE.** `:proved`=0; distance UNTOUCHED.
+- Depends_on: NS-043 (the agent coupling it censuses); cf. fluoddity spectrum study (the engine reframed).
+- Source: `scripts/active_turbulence_organization.jl` (+ `active_turbulence_organization.out.txt`);
+  companion `docs/active_turbulence_companion.md`.
 
 ---
 

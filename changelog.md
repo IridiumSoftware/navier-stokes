@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.49 — 2026-06-05 — Active-turbulence Phase 3: organization NULL, reframes fluoddity (NS-044)
+
+The climax of the active-turbulence arc — an honest NULL with a sharp payoff. `:proved`=0; **distance
+UNTOUCHED.** Scope: phenomenology, NOT the PDE.
+
+- **Phase 3** (`scripts/active_turbulence_organization.jl`). Cranked to a vigorous active flow
+  (forceGain=25, N=2000 agents ⇒ u_rms≈0.6 > swim 0.35, **42% vortex-dominated** by Okubo–Weiss — the
+  *fluid* self-organizes into coherent vortices). Censused the agents for self-organization: pair-
+  correlation g(r), Okubo–Weiss, brain-agents vs a dumb-swimmer control.
+- **Result — NULL:** **g(r) ≈ 1.0 everywhere** for both brain-agents and the dumb control (ratio 1.00).
+  No clustering, no creatures. Lifelike organization does **not** emerge from active velocity-sensing
+  agents on a faithful incompressible fluid.
+- **The payoff — it reframes the fluoddity engine:** its "creatures/vacuoles" were **not** emergent
+  active turbulence. They required (a) **chemotaxis** (cohesion: steering up the density gradient —
+  this port senses velocity only) and/or (b) the **non-physical momentum-monopole forcing** (which
+  makes convergence/sink regions agents pile into — *impossible* on a divergence-free fluid). The
+  lifelikeness was chemotaxis + a compressible-forcing artifact.
+- **Decisive follow-up, flagged UNTESTED:** add the chemotaxis term and re-census — does
+  density-aggregation reproduce clustering on the faithful fluid?
+- Ledger: NS-044 (`:tested`, honest NULL, Scope phenomenology), registry row, TEST_SPEC T-19, companion.
+  Count 33→34. **Active-turbulence arc Phases 0–3 COMPLETE** (Phase 4 GPU deferred).
+
 ## v0.1.48 — 2026-06-05 — Active-turbulence Phase 2: discrete active-dipole agents (NS-043)
 
 The active-matter coupling — the rigorous fluoddity. `:proved`=0; **distance UNTOUCHED.** Scope:

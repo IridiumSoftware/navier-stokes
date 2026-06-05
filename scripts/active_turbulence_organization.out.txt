@@ -1,0 +1,36 @@
+══════════════════════════════════════════════════════════════════════════════
+  active_turbulence_organization.jl — NS-044 Phase 3: does organization emerge?
+  Scope: phenomenology (2D active-turbulence). NOT the NS PDE.
+══════════════════════════════════════════════════════════════════════════════
+
+  N=128, agents=2000, steps=2000, forceGain=25 (cranked for u_rms~swim), swim=0.35
+
+  running BRAIN agents (sensing + ported Fourier brain)…
+  running DUMB swimmers (same dipoles, NO sensing) — the control…
+
+  flow: E(brain)=0.1755  E(dumb)=0.1994  (u_rms≈0.59/0.63 vs swim 0.35)
+  vortex-dominated area (Okubo–Weiss OW<0): brain=42.4%  dumb=41.8%
+
+  agent pair-correlation g(r)   [g>1 = clustering]   (r in units of box=2π)
+    r        g_brain    g_dumb    
+    0.033    1.06       0.97      
+    0.098    1.02       1.02      
+    0.164    0.99       1.01      
+    0.229    1.02       0.99      
+    0.295    0.99       0.99      
+    0.360    1.01       0.99      
+    0.425    0.99       1.00      
+    0.491    1.00       1.00      
+    0.556    0.99       1.01      
+    0.622    1.00       0.99      
+    0.687    0.99       1.01      
+    0.753    1.00       1.00      
+
+  near-field clustering ⟨g(small r)⟩: brain=1.00  dumb=1.00  (ratio 1.00)
+
+  VERDICT: NULL — no brain-driven clustering signal beyond active-matter baseline (honest).
+
+══════════════════════════════════════════════════════════════════════════════
+  • A faithful test on a real NS fluid: brain-sensing agents vs dumb active swimmers.
+  • FIREWALL: Scope phenomenology, NOT the PDE. Distance to prize: UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════
