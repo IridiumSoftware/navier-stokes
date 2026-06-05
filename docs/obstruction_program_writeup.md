@@ -1,8 +1,8 @@
 # An Obstruction Program for 3D Navier–Stokes
 ### A map of the walls — and what the residue is saying
 
-**Aaron Green** (with Claude, metabolism seat). 2026-06-01. Repository:
-`navier-stokes` (private; obstruction-program ledger NS-001..034). Companion to
+**Aaron Green** (with Claude, metabolism seat). 2026-06-01, **updated 2026-06-05**. Repository:
+`navier-stokes` (private; obstruction-program ledger NS-001..046, 32 entries). Companion to
 the per-result docs in `docs/` and the spec in `SPEC.md`.
 
 ---
@@ -29,6 +29,18 @@ limits charted, two honest null results that refuse false positives, a geometric
 account of the obstruction from three independent directions that all land on the
 same wall, and a calibration — confirmed repeatedly — of how little an unwitnessed
 cross-domain analogy is worth here.
+
+**Update (2026-06-05).** The map matured; three additions, all behind the same firewall. (i) A
+*resolved* DNS arm (N=256 CPU, FFTW-validated, + N=512 GPU) turned the resolution-gated verdicts into
+resolved ones and *removed a false ≤1-D "approach to a singular set"* signal — **§9** (NS-037–040).
+(ii) The program's own dependency structure was mined (a TCE self-map), and the two most tempting
+syntheses it surfaced were **adversarially witnessed and refuted** — which did not weaken the map but
+**sharpened the open frontier to a single analytic object** — **§10**. (iii) A collaborator's (Brian's)
+forward targets entered the ledger: **NS-045** (the helicity-depletion *mechanism*, now `:tested` —
+Beltramization) and **NS-046** (the critical coercive deformation inequality, `:open` — the honest
+statement of *where the prize sits*), under the **CCATT** governance lens. `:proved` = 0 still; distance
+UNTOUCHED. Roadmap: §2–5 the walls and the geometric capstone; §6 the speculative closure residue
+(fenced); §7 the ledger; §8 cross-project; **§9–§10 the 2026-06-05 update**.
 
 ---
 
@@ -356,10 +368,15 @@ around it — not handing us a key to the door.
 
 - **`:proved` = 0.** No `Scope: PDE` proof exists. **Distance to the prize: UNTOUCHED.**
 - **Produced:** a falsified path (NS-020); a two-sided-validated diagnostic with its
-  inviscid-3D limit charted (NS-010/011); two honest nulls (NS-032, Step 2 + high-res);
-  the exact criticality calculus (NS-034); a six-slice geometric map (NS-033) converging
-  on one wall; and a four-times-trimmed, witness-disciplined account of the closure
-  resonance (NS-024/025 + §6).
+  inviscid-3D limit charted (NS-010/011); honest nulls (NS-032, Step 2 + high-res);
+  the exact criticality calculus (NS-034) + the criticality–Casimir hinge (NS-036); a six-slice
+  geometric map (NS-033) converging on one wall; a possibilistic / inverse-Born map of the phenomenon
+  (NS-037); a **resolved-DNS arm** (NS-038/039/040 — resolved verdicts, a *cleared* false ≤1-D signal,
+  the helicity-depletion result); the **helicity-depletion mechanism certified as Beltramization**
+  (NS-045, `:tested`); the **deformation-closure analytic target** (NS-046, `:open`); two
+  **adversarially-witnessed refutations** of tempting syntheses (LOW#1 + MID, §10) that *sharpened* the
+  frontier rather than weakening it; and a four-times-trimmed, witness-disciplined account of the
+  closure resonance (NS-024/025 + §6). **32 entries; `:proved` = 0.**
 - **The deliverable is the map** — a precise account of *why* 3D Navier–Stokes resists
   every classical handle, from scaling, coadjoint, curvature, topology, and closure
   directions at once, with every dead end and every overreach recorded rather than buried.
@@ -373,6 +390,95 @@ scoped, witnessed result earns it. On this hardest of testbeds, the closure↔NS
 did **not** earn it (broad/negative, four times over) — which is itself the most useful
 calibration the program offers: a measure of exactly how little an unwitnessed
 cross-domain analogy is worth, and how much discipline it takes to find out.
+
+---
+
+## 9. The resolved-DNS arm — honest verdicts at the wall (NS-037–040)
+
+The diagnostic of §3 was resolution-gated; the budget to resolve it became available. A resolved
+viscous pseudospectral DNS at **N=256, Re=1600** (hand-rolled radix-2, later FFTW-validated;
+`δ·k_cut≈6.5–7.5` ⇒ the analyticity strip is wider than the grid ⇒ *resolved*), validated against the
+literature (Taylor–Green enstrophy peak at t≈9, Brachet 1983):
+
+- **NS-038 — resolved verdicts across three flows.** `S_ω` **bounded** (≈0.2 TG); `δ` bounded and
+  resolved; the top-production box-dimension *dynamic* (D30 floors ≥1.33 under distributed stretching);
+  the strain–vorticity alignment `c²_int` **peaks at 0.72 at the stretching maximum then relaxes**
+  (geometric depletion observed directly). The anti-parallel-tube **reconnection** transiently drove
+  `D30→0.99` — a momentary touch of the CKN ≤1 edge — which a Required Witness Check (RWC-038) flagged
+  as the noisiest signal, needing N≥512 to decide.
+- **NS-039 — the ≤1-D touch is a RESOLUTION ARTIFACT.** A GPU spectral solver (Metal, float32 ≡ CPU
+  float64 to 5–6 digits) at **N=512** lifts the reconnection `D30` minimum **0.986 → 1.426**;
+  N-convergence runs *upward, away from 1* (a genuine filament sharpens *toward* ≤1). The false
+  "approach to a singular set" is **removed**. This is the program's sharpest methodological lemma: a
+  box-dimension touch is untrustworthy unless its N-convergence points the right way (now TEST_SPEC
+  T-08).
+- **NS-040 — strong helicity depletes vortex stretching** (matched-spectrum controlled pair, ρ_H≈0.97
+  vs ≈0.05, identical E₀ and Z₀): enstrophy grows **2–4× slower**, by delay + concentration.
+
+*(Scope: resolved 3D pseudospectral DNS truncation at Re=1600 — NOT the PDE. Every flow is REGULAR, as
+it must be; these are **resolved diagnostics**, not blowup tests. Their value is exactly what a
+truncation can honestly give: *removing a false signal* (NS-039) and a *controlled mechanism
+observation* (NS-040). NS-037 maps the same phenomenon possibilistically — the inverse-Born / log-Poisson
+structure of the measured constants, running down to the CKN wall. `:proved` = 0; distance UNTOUCHED.)*
+
+## 10. The 2026-06-05 sharpening — witnessed refutations and the analytic frontier (NS-045/046, CCATT)
+
+We then mined the program's **own** structure: a TCE self-map (NS-031) of the dependency ledger. Its
+mid- and low-band coordinations are, by construction, *cross-framing invariance* — the same wall seen
+from many angles — and the two most tempting syntheses they suggested were routed to the adversarial
+**triad witness** (Grok edge-Φ, Gemini synthesis), with a **naive seat** (ChatGPT) added as a
+confirmation-bias control. **Both were refuted — and that is the map working, not failing.**
+
+- **LOW#1 `{NS-013, 039, 040}` — the "geometric-consistency lemma" (REFUTED).** The claim that the
+  resolved DNS *exhibits* the CFM/Hou–Li geometric depletion the conditional-regularity theory needs
+  was struck down on three independent grounds: it is **vacuous** (a regular-by-construction truncation
+  *must* deplete, so the agreement is forced); the measured `c²_int` and box-dimension are **proxies
+  that decouple** from CFM's actual object — the smoothness `∇ξ` of the vorticity direction (alignment
+  can relax while `∇ξ` kinks); and the proposed sharpening probe is **structurally undecidable** at
+  reachable resolution. Residue kept: *a singular scenario, if any, must live at ~zero helicity and in
+  `∇ξ` — exactly where our scalar diagnostics are blind.*
+- **MID `{NS-005, 008, 033, 034, 036}` — "regularity is irreducibly geometric (`∇ξ`)" (REFUTED).** The
+  exact production identity `P = ∫ω·Sω = ∫|ω|²(ξ·Sξ)` is real and useful, and `regularity ⟺
+  enstrophy-bounded ⟸ ∫P dt` is tight. But the *synthesis* — that the entire deficit is **irreducibly**
+  geometric — over-reached: NS-008 rules out energy-*only* methods, it does **not** make `∇ξ`-control
+  the *unique* route (harmonic-analysis/Besov, dispersive, probabilistic routes survive), and the
+  identity is *pointwise* alignment, not `∇ξ` (it smuggled a sufficiency result in as necessity). The
+  **naive seat independently circled the same over-reaching sentence** the adversarial seat broke — so
+  the flaw was on the surface, the signature of an *elegance-driven* over-claim, not a subtle one. The
+  recurring tell, both times, was a **totalizing word** ("exhibits"/"line up", "irreducibly"/"ENTIRE").
+
+**What the sharpening leaves — the analytic frontier (NS-046).** The refutations did not blur the
+target; they focused it. Everything — the criticality–Casimir hinge (§5), NS-008's "must use
+vortex-stretching geometry", the production identity, and both witnessed residues — converges on a
+single object: **the vortex-stretching production `P = ∫|ω|²(ξ·Sξ)`**, the σ=+1 enstrophy-rung breaker.
+Brian's **NS-046** states the admissible next step precisely, and supplies the piece our MID synthesis
+was missing: a **coercive critical deformation inequality** in which the **nonlocal pressure Hessian**
+`−e₃ᵀ(∇²p)e₃` (`∇²p = |S|²−|Ω|²`) together with viscosity dominates the production at critical scaling
+(σ=0), localized to CKN-compatible sets — with DNS admissible only as witness, never as the analytic
+step, and any depletion claim required to *export to a quantitative inequality*. The MID-witness lesson
+is built into it: local alignment is not enough; it must survive the **nonlocal pressure-kernel
+counter-transport**. This is the honest statement of *where the prize sits* — a precise open target,
+**not** progress.
+
+**The mechanism, certified (NS-045).** Independently, the helicity-depletion result was given a
+mechanism audit: on the exact matched-spectrum pair (rebuilt in the ± helical basis; `|ΔE|=1.4e-17`,
+`|ΔZ|=2.2e-16`), the depletion is **Beltramization** — strong helicity forces `u∥ω`, crushing the Lamb
+vector `u×ω` (the nonlinear driver) ~26× and switching off production until the field de-Beltramizes
+(the delay) — **not** ω–S alignment, which develops near-identically in both members. N-converged
+16↔64↔128. (`:tested`; within-truncation mechanism only.)
+
+**The governance lens (CCATT).** Brian's *Certified Constraint-Access Transport Theory* — a
+constraint-first admissibility framework (no global closure licensed; primitives need
+*decontamination*, not dominance/elegance; authorization inverted so admissible generator classes
+*explain* exports) — names the discipline this program already runs. NS-045's result reads as a CCATT
+**certified transport** (an explicit H-geometry → Beltramization → Lamb-suppression → depletion chain
+with its loss ledger), not a smuggled scalar certificate; NS-046 is a CCATT-admissible *target*. (Def:
+`docs/ccatt_reference.md`. Recorded as a methodological lens — it neither validates the program nor is
+validated by it.)
+
+*(Scope throughout §10: the refutations and NS-045 are DNS-truncation / methodological; NS-046 is a
+`Scope: PDE-analysis` open target. `:proved` = 0; distance UNTOUCHED. The net effect of the day is a
+**sharper map**, not a nearer prize.)*
 
 ---
 

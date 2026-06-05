@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.60 — 2026-06-05 — The mature map: obstruction_program_writeup.md brought current (NS-001..046)
+
+Updated the standalone write-up `docs/obstruction_program_writeup.md` (382→488 lines) from its
+2026-06-01 state (NS-001..034) to the mature 32-entry map. Header + §0 roadmap refreshed; §7 ledger
+summary brought current; two new sections appended, preserving the existing §0–§8 narrative:
+
+- **§9 — the resolved-DNS arm (NS-037–040):** resolved N=256/N=512 verdicts; NS-039 *removed* the false
+  ≤1-D "approach to a singular set" signal (the D30 0.986→1.426 N-lift); NS-040 helicity depletion; all
+  REGULAR resolved diagnostics, not blowup tests.
+- **§10 — the 2026-06-05 sharpening:** the TCE self-map + the two adversarially-witnessed **refutations**
+  (LOW#1 geometric-consistency; MID "irreducibly geometric") that *sharpened* rather than weakened the
+  map; the analytic frontier **NS-046** (the coercive critical deformation inequality on the nonlocal
+  pressure Hessian — the honest "where the prize sits"); the **NS-045** Beltramization mechanism; and the
+  **CCATT** governance lens. The recurring over-reach tell (totalizing words) recorded.
+
+Consolidation of already-logged results (v0.1.41–59); no new claims. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.59 — 2026-06-05 — CCATT defined: lifted the pending-primitive flag on NS-045/046
 
 Brian supplied the **CCATT** definition (= **Certified Constraint-Access Transport Theory**), the
