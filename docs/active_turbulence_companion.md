@@ -73,9 +73,49 @@ active-turbulence truncation — NOT the NS PDE**). This is the *fluid substrate
 an active-matter phenomenology study; it bears nothing on global regularity.
 `:proved`=0; distance to prize UNTOUCHED.
 
-**Next:** Phase 1 — `active_turbulence_forced.jl`: drive the faithful fluid with a
-band-limited / Kolmogorov force + large-scale drag, confirm the 2D dual cascade
-(−5/3 inverse for k<k_f, −3 enstrophy for k>k_f) — a trusted turbulence engine
-*before* any agent is added (→ NS-042, AT-04/T-18). Then Phase 2 — discrete active
-**force-dipole** agents running the (ported) fluoddity Fourier brain, coupling
-through the curl-of-force hook, with the net-zero-momentum check AT-03 (→ NS-043).
+---
+
+# Phase 1 — passive forced-turbulence control (NS-042)
+
+The control that proves the faithful fluid is a **real turbulence engine** before
+any agent is added. `scripts/active_turbulence_forced.jl` drives the NS-041 fluid
+with a steady band-limited (passive, random-phase) vorticity forcing at injection
+scale `k_f=8`, dissipated by `ν∇²` (small scales) + a low-k Rayleigh drag (large
+scales, to arrest the inverse cascade so a steady state exists), and time-averages
+`E(k)=½Σ|ω̂|²/|k|²` in statistical steady state (N=128, E≈0.68, Z≈33).
+
+## §2.1 — Result: a clean 2D enstrophy cascade
+
+| range | window | slope | R² | expectation |
+|---|---|---|---|---|
+| **forward (enstrophy)** | k∈[10,25] (k>k_f) | **−3.36** | **0.99** | Kraichnan −3 |
+| inverse (energy-containing) | k∈[2,6] (k<k_f) | +0.45 | 0.13 | (see below) |
+
+- The **forward enstrophy cascade is clean and universal: `E(k)~k^−3`** (measured
+  −3.36, slightly steeper-than-−3 from coherent vortices — the documented real-2D
+  -DNS behaviour). This is the decisive contrast with the fluoddity engine, whose
+  spectral slope was a *forcing-controlled dial* spanning −1.4..−3.1 with **no**
+  universal value (fluoddity-metal `docs/spectrum_study.md`). A real 2D NS fluid
+  has a universal −3; the faithful fluid does too. **The fix worked.**
+- The **inverse range is the energy-containing pileup** (energy accumulates below
+  `k_f`, arrested by the drag — a steady state exists), shallow/flat (slope ≈ +0.4).
+  It is **not** a resolved −5/3 inverse-inertial range: that requires ≳1 decade of
+  scale separation below `k_f`, i.e. **N≥256 at high `k_f`** — deferred. The
+  dual-cascade *structure* (steep forward, distinct shallow inverse) is present.
+
+## §3.1 — Verification (T-17)
+
+**AT-04** (→ TEST_SPEC **T-17**): in steady state the forward range is a steep
+enstrophy cascade (slope < −2.3, R² > 0.85) clearly distinct from the inverse
+range — PASS (−3.36, R²=0.99 vs +0.45). The bare-fluid checks AT-01/AT-02 (T-15/
+T-16) still hold (the forced solver shares the NS-041 IF-RK4 core).
+
+## §4.1 — Spec impact
+
+Produces **NS-042** (`:tested`, **Scope: phenomenology / 2D forced-turbulence
+truncation — NOT the NS PDE**). `:proved`=0; distance UNTOUCHED.
+
+**Next:** Phase 2 — discrete active **force-dipole** agents running the (ported)
+fluoddity Fourier brain, advected + co-rotated by the flow, coupling through the
+curl-of-force hook, with the net-zero-momentum check AT-03 (→ NS-043). Optional
+deferred: the −5/3 inverse-inertial range at N≥256/high-`k_f`.

@@ -10,7 +10,7 @@ ever count as prize progress; there is none.
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
 1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
-3 RESOLVED-DNS (NS-038/039/040), 1 ACTIVE-TURBULENCE (NS-041). `:proved` = 0. (31 entries.)
+3 RESOLVED-DNS (NS-038/039/040), 2 ACTIVE-TURBULENCE (NS-041/042). `:proved` = 0. (32 entries.)
 
 ---
 
@@ -770,6 +770,28 @@ needs, keeping its exact FFT streamfunction-Poisson `ψ̂=ω̂/|k|²` and 2/3 de
 - Source: `scripts/active_turbulence_fluid.jl` (+ `active_turbulence_fluid.out.txt`); companion
   `docs/active_turbulence_companion.md`. Reuses the fluoddity Fourier brain (idea-sharing fork,
   Phase 2). Plan: `~/.claude/plans/jazzy-zooming-horizon.md`.
+
+**NS-042 — Passive forced-turbulence control: the faithful fluid produces a real 2D enstrophy
+cascade.** Before adding agents (Phase 2), the control that licenses trusting the NS-041 fluid: drive
+it with a steady band-limited (passive, random-phase) vorticity forcing at injection scale `k_f=8`,
+dissipate by real `ν∇²` (small scales) + a low-k Rayleigh drag (large scales), run to a statistically
+steady state (N=128, E≈0.68, Z≈33), and bin the time-averaged `E(k)=½Σ|ω̂|²/|k|²`.
+- **Forward (k>k_f) — a clean Kraichnan enstrophy cascade: slope −3.36, R²=0.99** over k∈[10,25],
+  steeper-than-−3 from coherent vortices (the documented real-2D-DNS behaviour). This is a *universal*
+  inertial exponent — exactly what the fluoddity engine could NOT produce (its slope was a
+  forcing-controlled *dial* spanning −1.4..−3.1 with no universal value). The faithful fluid
+  turbulates like real 2D NS.
+- **Inverse (k<k_f)** — energy piles below `k_f` (arrested by the drag ⇒ a steady state exists); the
+  range is shallow/flat (slope ≈ +0.4), the energy-containing region — **not** a resolved −5/3
+  inverse-inertial range, which needs ≥1 decade below `k_f` ⇒ **N≥256 at high `k_f` (deferred).**
+- **AT-04 (→ T-17):** the dual-cascade *structure* — a steep forward enstrophy range distinct from a
+  shallow inverse range — is present (forward −3.36 vs inverse +0.45). The clean deliverable is the
+  forward enstrophy cascade.
+- Evidence: **computed** (steady-state, time-averaged spectrum). **Status: :tested.** Scope:
+  **phenomenology / 2D forced-turbulence truncation — NOT the NS PDE.** `:proved`=0; distance UNTOUCHED.
+- Depends_on: NS-041 (the faithful fluid it forces).
+- Source: `scripts/active_turbulence_forced.jl` (+ `active_turbulence_forced.out.txt`); companion
+  `docs/active_turbulence_companion.md`.
 
 ---
 

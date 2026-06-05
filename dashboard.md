@@ -51,9 +51,13 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 agents (active turbulence), exploring self-organization. Phase 0 = the faithful fluid substrate
 (`active_turbulence_fluid.jl`): exact `ν∇²` viscosity via IF-RK4 + a curl-of-force active-coupling
 hook, extending the validated 2D solver (NS-010). Validated: **AT-01** energy+enstrophy conserved
-1.3e-14, **AT-02** viscous mode-decay ≡ `exp(−ν|k|²t)` to 7.3e-16 (T-15/T-16). Next: Phase 1
-(passive forced dual-cascade control, NS-042) → Phase 2 (active-dipole agents, NS-043). **Scope:
-phenomenology — NOT the PDE. Distance to prize: UNTOUCHED.**
+1.3e-14, **AT-02** viscous mode-decay ≡ `exp(−ν|k|²t)` to 7.3e-16 (T-15/T-16). **Phase 1 DONE
+(v0.1.47, NS-042):** the passive forced-turbulence control proves the faithful fluid is a *real
+turbulence engine* — under steady band-limited forcing it reaches a statistically steady state with
+a **clean forward enstrophy cascade E(k)~k^−3 (slope −3.36, R²=0.99, AT-04/T-17)**, a *universal*
+Kraichnan exponent the fluoddity dial lacked. (Inverse −5/3 deferred to N≥256.) Next: Phase 2
+(discrete active-dipole agents + the ported Fourier brain, NS-043). **Scope: phenomenology — NOT
+the PDE. Distance to prize: UNTOUCHED.**
 
 ## Status summary (v0.1.39, 2026-06-02)
 

@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.47 — 2026-06-04 — Active-turbulence Phase 1: forced-turbulence control (NS-042)
+
+The faithful fluid (NS-041) is a **real turbulence engine.** `:proved`=0; **distance UNTOUCHED.**
+Scope: phenomenology, NOT the PDE.
+
+- **Phase 1 — passive forced-turbulence control** (`scripts/active_turbulence_forced.jl`). Drive the
+  NS-041 fluid with a steady band-limited (passive, random-phase) vorticity forcing at `k_f=8`,
+  dissipate by `ν∇²` + a low-k Rayleigh drag, run to a statistically steady state (N=128, E≈0.68,
+  Z≈33), time-average `E(k)`.
+- **Result:** a **clean forward enstrophy cascade `E(k)~k^−3`** — measured slope **−3.36, R²=0.99**
+  over k∈[10,25] (steeper-than-−3 from coherent vortices, as real 2D DNS shows). A *universal*
+  Kraichnan exponent — the decisive contrast with the fluoddity engine, whose slope was a
+  forcing-controlled *dial* (−1.4..−3.1, no universal value). The faithful fluid turbulates like
+  real 2D NS.
+- **Honest scope:** the inverse-energy range is the shallow energy-containing pileup (slope ≈ +0.4),
+  **not** a resolved −5/3 inverse-inertial range — that needs ≥1 decade below `k_f` ⇒ N≥256 at high
+  `k_f` (deferred). The dual-cascade *structure* (steep forward, shallow inverse) is present.
+- Ledger: NS-042 (`:tested`, Scope phenomenology), registry row, TEST_SPEC T-17 (AT-04), companion
+  updated. Count 31→32. **Next:** Phase 2 (discrete active-dipole agents + ported Fourier brain).
+
 ## v0.1.46 — 2026-06-04 — Active-turbulence track, Phase 0: the faithful fluid (NS-041)
 
 New **phenomenology** track — the rigorous version of the fluoddity agent engine: a faithful 2D
