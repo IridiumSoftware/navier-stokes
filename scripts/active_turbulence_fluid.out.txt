@@ -1,0 +1,39 @@
+══════════════════════════════════════════════════════════════════════════════
+  active_turbulence_fluid.jl — NS-041 Phase 0: the FAITHFUL 2D fluid
+  Scope: phenomenology (2D active-turbulence truncation). NOT the NS PDE.
+  Faithful vs fluoddity: uniform-drag → exact ν∇² (IF-RK4); + curl-of-force hook (f≡0 here).
+══════════════════════════════════════════════════════════════════════════════
+
+  2D-FFT roundtrip self-check: max err = 0.0e+00 ✓
+
+  (AT-01) 2D EULER (ν=0, f=0), N=128. Energy & enstrophy must be conserved.
+    t      E/E0           Z/Z0          
+    0.0    1.00000000     1.00000000    
+    1.0    1.00000000     1.00000000    
+    2.0    1.00000000     1.00000000    
+    3.0    1.00000000     1.00000000    
+    4.0    1.00000000     1.00000000    
+  ⇒ energy drift 1.27e-14 (<1e-6 ✓); enstrophy drift 1.35e-14 (leaks only at the 2/3
+    cutoff — same honest caveat as the Stage-1c control, T-05). AT-01: PASS
+
+──────────────────────────────────────────────────────────────────────────────
+  (AT-02) VISCOUS single-mode decay (ν>0, f=0): a single Fourier mode is an
+  exact 2D-Euler steady state (u·∇ω≡0) ⇒ must decay as exp(−ν|k|²t) to machine precision.
+──────────────────────────────────────────────────────────────────────────────
+    mode k=(3,2), |k|²=13, ν=0.050.   |ŵ|/|ŵ0|     exp(−νk²t)   rel.err   
+    t=0.4                               7.710516e-01 7.710516e-01 4.32e-16  
+    t=0.8                               5.945205e-01 5.945205e-01 3.73e-16  
+    t=1.2                               4.584060e-01 4.584060e-01 7.27e-16  
+    t=1.6                               3.534547e-01 3.534547e-01 4.71e-16  
+    t=2.0                               2.725318e-01 2.725318e-01 4.07e-16  
+  ⇒ max relative error vs closed form: 7.27e-16 (<1e-6 ✓). AT-02: PASS
+
+══════════════════════════════════════════════════════════════════════════════
+  READING (NS-041 Phase 0)
+══════════════════════════════════════════════════════════════════════════════
+  • The faithful 2D fluid conserves the 2D-Euler invariants (AT-01) and integrates real
+    viscosity EXACTLY (AT-02, IF-RK4) — the cascade-bearing fix over fluoddity's uniform drag.
+  • The curl-of-force hook is in place (f≡0 here); active-dipole agents couple through it
+    in Phase 2 with no extra projection (vorticity form discards f's compressive part).
+  • FIREWALL: Scope phenomenology, NOT the PDE. Distance to prize: UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════

@@ -10,7 +10,7 @@ ever count as prize progress; there is none.
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
 1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
-3 RESOLVED-DNS (NS-038/039/040). `:proved` = 0. (30 entries.)
+3 RESOLVED-DNS (NS-038/039/040), 1 ACTIVE-TURBULENCE (NS-041). `:proved` = 0. (31 entries.)
 
 ---
 
@@ -431,6 +431,15 @@ ledger — encoded as a 20-node corpus with `deps` = the genuine logical premise
 - Depends_on: NS-030 (structurally references NS-001..025).
 - Source: `discovery/ns_obstruction_corpus.json`,
   `discovery/ns_triad_discovery.out.txt`, `docs/ns_triad_discovery_companion.md`.
+- **Re-run v2 (2026-06-04, MATURED 30-node ledger NS-001..040; corpus + out.txt updated).** The
+  engine independently recovered the new clusters: **{NS-038,039,040} resolved-DNS** (HIGH @0.95),
+  **{NS-010,011,032} diagnostic→blowup-hunt** (HIGH @1.0), and elevated the **critical-norm cluster
+  {NS-005,008,033,034}** (HIGH) — NS-005 (the one open backward path NS-002 leaves) is the structural
+  HUB, also dominating the MID band. The enstrophy-rung convergence {NS-002,006,036} reads as a
+  *loose MID-band coordination* (a reduction chain, not a tight triad), and the NS-013↔DNS geometric-
+  depletion link surfaces at LOW ({NS-013,039,040} @0.70) — corroborating the c²_int consistency. The
+  closure tier-wall (NS-024/030/031 the only bridges) still holds at 30 nodes. Consolidation:
+  `docs/ns_corollaries_synthesis.md` (the no-go corollaries + this self-map). Status unchanged `:tested`.
 
 **NS-032 — Stage 1c-3D Step 2: gated blowup hunt (inviscid Taylor–Green) — NULL.**
 The canonical Euler near-singularity probe (Brachet TGV, vortex stretching
@@ -730,6 +739,37 @@ controlled pair — `helical` (ρ_H=0.97) vs a NON-helical control `helicalc` (�
 - Scope: **resolved 3D pseudospectral DNS truncation — NOT the PDE.** All flows REGULAR
   (Re=1600); a mechanism result on helicity vs stretching, asserts no regularity claim.
   `:proved`=0; distance UNTOUCHED.
+
+## ACTIVE TURBULENCE — faithful NS + active agents (phenomenology; the rigorous fluoddity)
+
+**NS-041 — Faithful 2D active-turbulence fluid: exact viscosity + the active-coupling hook.**
+The substrate for an active-matter phenomenology study — the rigorous version of the fluoddity
+agent engine (whose "fluid" is non-physical: scale-independent **uniform drag**, not viscosity;
+**momentum-monopole** forcing, not force dipoles). Extends the validated 2D vorticity–streamfunction
+pseudospectral solver (NS-010 Stage-1c, `spectral_2d_control.jl`) with the two pieces active matter
+needs, keeping its exact FFT streamfunction-Poisson `ψ̂=ω̂/|k|²` and 2/3 dealiasing:
+- **Exact viscosity via an integrating factor (IF-RK4).** The linear term `−νk²` is integrated
+  exactly (`exp(−νk²dt)`); RK4 advances only the non-stiff nonlinear+forcing part (state stored as
+  `ω̂`). Real `ν∇²` is `k²`-selective (negligible at large scales, strong at small) — the
+  cascade-bearing fix over fluoddity's uniform drag, which damps every mode equally ⇒ no inertial
+  range, no cascade.
+- **Curl-of-force coupling hook.** A body force enters the vorticity equation as
+  `(∇×f)_z = i(k_x f̂_y − k_y f̂_x)`; in vorticity form the curl **auto-discards `f`'s compressive
+  part**, so active forcing couples with **no extra projection**. Here `f≡0` (Phase 0 validates the
+  bare fluid); the active force-dipole agents arrive in Phase 2 (NS-043).
+- **Validation (AT-01/AT-02).** **AT-01** — unforced inviscid (ν=0,f=0): energy AND enstrophy
+  conserved to **1.3e-14** over T=4 (N=128) — the 2D-Euler Tier-1 invariants; a regression of T-05
+  on the IF-RK4 kernel. **AT-02** — viscous (ν>0): a single Fourier mode (an exact 2D-Euler steady
+  state, `u·∇ω≡0`) decays as `exp(−ν|k|²t)`, matching the closed form to **7.3e-16** — the
+  integrating factor is machine-exact (licenses the `ν∇²` fix).
+- Evidence: **computed** (validated against the 2D-Euler invariants and a closed-form viscous decay).
+  **Status: :tested.** Scope: **phenomenology / 2D active-turbulence truncation — NOT the NS PDE.**
+  The fluid substrate of an active-matter study; bears nothing on regularity. `:proved`=0; distance
+  UNTOUCHED.
+- Depends_on: NS-010 (the validated 2D vorticity–streamfunction solver it extends).
+- Source: `scripts/active_turbulence_fluid.jl` (+ `active_turbulence_fluid.out.txt`); companion
+  `docs/active_turbulence_companion.md`. Reuses the fluoddity Fourier brain (idea-sharing fork,
+  Phase 2). Plan: `~/.claude/plans/jazzy-zooming-horizon.md`.
 
 ---
 

@@ -46,6 +46,15 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
+**ACTIVE-TURBULENCE TRACK — Phase 0 DONE (v0.1.46, NS-041).** New phenomenology track: the
+*faithful* version of the fluoddity agent engine — a real 2D Navier–Stokes fluid driven by active
+agents (active turbulence), exploring self-organization. Phase 0 = the faithful fluid substrate
+(`active_turbulence_fluid.jl`): exact `ν∇²` viscosity via IF-RK4 + a curl-of-force active-coupling
+hook, extending the validated 2D solver (NS-010). Validated: **AT-01** energy+enstrophy conserved
+1.3e-14, **AT-02** viscous mode-decay ≡ `exp(−ν|k|²t)` to 7.3e-16 (T-15/T-16). Next: Phase 1
+(passive forced dual-cascade control, NS-042) → Phase 2 (active-dipole agents, NS-043). **Scope:
+phenomenology — NOT the PDE. Distance to prize: UNTOUCHED.**
+
 ## Status summary (v0.1.39, 2026-06-02)
 
 - **NS-038 FORMALIZED — resolved N=256 DNS boundary program A→B→C (v0.1.31–39, `:tested`,
@@ -211,6 +220,12 @@ the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
    from TCE (commit `8fcf1b4`, local-only; navier-stokes is now their sole home).
 
 ## Band-finding follow-ups (from the NS-031 TCE self-map)
+
+**v2 re-run (2026-06-04, 30-node ledger; `docs/ns_corollaries_synthesis.md`):** the engine recovered
+the new {NS-038,039,040} + {NS-010,011,032} HIGH clusters and **elevated the critical-norm cluster
+{NS-005,008,033,034} — NS-005 (the one open backward path NS-002 leaves) is the structural HUB and the
+indicated next direction.** Enstrophy-rung = loose MID coordination (chain, not tight triad); NS-013↔DNS
+geometric-depletion link at LOW. Original 20-node follow-ups below still stand.
 
 Eight items from the HIGH/MID/LOW band stratification (companion §2 "Band
 stratification"). MID = "cross-framing invariance" is where the actionable

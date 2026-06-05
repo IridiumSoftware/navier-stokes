@@ -1,5 +1,42 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.46 — 2026-06-04 — Active-turbulence track, Phase 0: the faithful fluid (NS-041)
+
+New **phenomenology** track — the rigorous version of the fluoddity agent engine: a faithful 2D
+Navier–Stokes fluid driven by active agents (active turbulence), to explore self-organization.
+`:proved`=0; **distance UNTOUCHED.** Scope: phenomenology, NOT the PDE.
+
+- **Phase 0 — the faithful fluid** (`scripts/active_turbulence_fluid.jl`). Extends the validated 2D
+  vorticity–streamfunction solver (NS-010, `spectral_2d_control.jl`) with the two pieces active
+  matter needs: (1) **exact `ν∇²` viscosity via IF-RK4** (integrating factor `exp(−νk²dt)`; the
+  cascade-bearing fix over fluoddity's scale-independent uniform drag); (2) a **curl-of-force
+  coupling hook** — a body force enters as `(∇×f)_z`, which auto-discards the compressive part, so
+  active forcing couples with no extra projection (`f≡0` here; agents in Phase 2).
+- **Validated:** AT-01 (unforced-inviscid energy+enstrophy conserved 1.3e-14, T-15), AT-02
+  (single-mode viscous decay ≡ `exp(−ν|k|²t)` to 7.3e-16, T-16).
+- Ledger: NS-041 (`:tested`, Scope phenomenology), registry row, TEST_SPEC T-15/T-16, companion
+  `docs/active_turbulence_companion.md`. Count 30→31. Plan `~/.claude/plans/jazzy-zooming-horizon.md`.
+- **Next:** Phase 1 (passive forced dual-cascade control, NS-042) → Phase 2 (active-dipole agents).
+
+## v0.1.45 — 2026-06-04 — Consolidation: TCE self-map v2 (30-node) + corollaries of the no-go map
+
+Stepped back to consolidate the mature no-go map. `:proved`=0; distance UNTOUCHED. No spec status changes.
+
+- **TCE self-map v2 (NS-031 re-run, 30-node ledger).** Re-encoded `discovery/ns_obstruction_corpus.json`
+  to 30 nodes (NS-001..040; added the geometric/possibilistic tour + resolved-DNS/GPU cluster + NS-013
+  sharpened deps) and re-ran the TCE `Discovery.Triadic` engine. The engine independently recovered the
+  new clusters — **{NS-038,039,040} resolved-DNS** and **{NS-010,011,032} diagnostic→hunt** (HIGH) —
+  and elevated the **critical-norm cluster {NS-005,008,033,034}**: NS-005 (the one open backward path
+  NS-002 leaves) is the structural HUB. The enstrophy-rung convergence reads as a *loose MID coordination*
+  (reduction chain, not a tight triad); the NS-013↔DNS-c²_int geometric link surfaces at LOW. Tier-wall
+  holds. Full log regenerated (`discovery/ns_triad_discovery.out.txt`, 30-node).
+- **Corollaries synthesis** (`docs/ns_corollaries_synthesis.md`): the 6 scoped structural/methodological
+  lemmas the no-go understanding yields — the necessary-conditions bundle for blowup, the dead-paths
+  checklist, the geometric-consistency lemma (DNS c²_int ↔ CFM), the exact scaling lemmas, the
+  possibilistic impossibilities, the box-dimension N-convergence methodology.
+- **Indicated next direction** (synthesis + TCE agree): the **critical-norm path NS-005**, plus the
+  re-witness of the NS-013 CFM/Hou–Li reduction. Consolidation only; no new claims.
+
 ## v0.1.44 — 2026-06-04 — NS-013 attacked: obstruction-map triad-REFUTED, sharpened to a geometric reduction
 
 Took on NS-013 (does complex-data blowup inform real-data regularity?). `:proved`=0; UNTOUCHED.
