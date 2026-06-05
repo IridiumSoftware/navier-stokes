@@ -257,7 +257,46 @@ makes the vortices; chemotaxis makes the creatures.
 ## §4.4 — Spec impact + the arc
 
 Produces **AT-5** (`:tested`, **Scope: phenomenology — NOT the NS PDE**). `:proved`=0;
-distance UNTOUCHED. **Active-turbulence arc COMPLETE (AT-1..5).** The one remaining
-strand is Phase 4 — a GPU port for scale (interactive watching / N=1024–2048) —
-deliberately deferred; the science question ("does lifelike organization emerge, and
-why?") is now answered.
+distance UNTOUCHED. The science question ("does lifelike organization emerge, and
+why?") is answered (AT-1..5).
+
+---
+
+# Phase 4a — GPU faithful-fluid core (AT-6)
+
+"Validate then watch." Phase 4a builds + cross-validates the GPU core;
+Phase 4b (later) wires it into the interactive app. `metal/active_turbulence_gpu.swift`
+re-implements the faithful 2D vorticity **IF-RK4** solver on the GPU in **MPSGraph** —
+the same engine as the NS-038→039 GPU DNS (`metal/dns_gpu.swift`): state = ω̂ (one
+complex field), built-in `g.fastFourierTransform`, GPU-resident ping-pong across
+steps, **no hand-written Metal kernels**. The MPSGraph FFT convention (forward
+unnormalized, inverse 1/N²) equals the Julia `fft2/ifft2`, so coefficients match.
+
+## §2.5 — Result: GPU(float32) ≡ CPU(float64), ~100× faster
+
+| check | GPU float32 | CPU float64 | reading |
+|---|---|---|---|
+| AT-01 invariants (drift) | **3.8e-6** | 1.3e-14 | conserved to float32 (≡ to ~6 digits) |
+| AT-02 viscous decay (rel.err) | **2.95e-6** | 7.3e-16 | matches `exp(−ν\|k\|²t)`; integrating factor exact |
+| forced cascade (forward slope) | **−3.48, R²=0.99** | −3.36, R²=0.99 | same universal −3 (different forcing draw) |
+| speed (3100 steps, N=128) | **3.1 s** | ~3 min | ~100× — the GPU FFT is the engine |
+
+GPU float32 reproduces the CPU float64 to ~6 digits on the deterministic checks
+(AT-01/AT-02) and reproduces the universal −3 enstrophy cascade statistically — the
+same NS-038→NS-039 GPU≡CPU pattern. (Bug en route: Swift `String(format:)` with
+`%s` and a Swift `String` segfaults — use plain strings / `+`.)
+
+## §3.5 — Verification (T-21)
+
+**AT-6** (→ TEST_SPEC **T-21**, cross-method): GPU≡CPU on the closed-form/invariant
+checks to float32, and the cascade slope reproduced. The three runs write committed
+`metal/active_turbulence_gpu_{at01,at02,forced}.out.txt`.
+
+## §4.5 — Spec impact + what's left
+
+Produces **AT-6** (`:tested`, **Scope: phenomenology — NOT the NS PDE**). `:proved`=0;
+distance UNTOUCHED. **Arc entries AT-1..6.** The one remaining strand is **Phase 4b** —
+wire this validated GPU core into the interactive `fluoddity-metal` app (whose agent
+machinery + Metal rendering already exist) so the AT-5 chemotaxis creatures can be
+*watched* live on a real NS fluid. Scale (N=1024–2048) is now in budget on the GPU
+(`metal/probe_mpsfft.swift`).

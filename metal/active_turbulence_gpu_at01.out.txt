@@ -1,0 +1,10 @@
+# active_turbulence_gpu  GPU=Apple M5 Max  mode=at01 N=128 nu=0.0 dt=0.004  [float32]
+# AT-01 inviscid 2D Euler. CPU(float64) energy drift 1.27e-14, enstrophy 1.35e-14.
+  t      E/E0           Z/Z0
+  0.0    1.00000000     1.00000000    
+  1.0    0.99999762     0.99999791    
+  2.0    0.99999762     0.99999791    
+  3.0    0.99999762     0.99999785    
+  4.0    0.99999624     0.99999666    
+# AT-01 GPU(float32) energy drift 3.76e-06, enstrophy drift 3.34e-06 (float32-limited; GPU≡CPU trend). PASS
+# FIREWALL: Scope phenomenology, NOT the PDE, NOT the obstruction map. Distance to prize: UNTOUCHED.

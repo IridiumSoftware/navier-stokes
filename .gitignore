@@ -23,6 +23,7 @@ metal/.build/
 metal/dns_*512*.bin
 metal/dns_gpu
 metal/dns512
+metal/active_turbulence_gpu
 
 metal/*.bin
 snap_*.bin

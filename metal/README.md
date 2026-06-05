@@ -88,3 +88,26 @@ Step cost: ~0.19 s/step at N=256, ~2.4 s/step at N=512 (M5 Max 32-core GPU).
 N=512 tubes run (dt=0.005 ≡ N=256 for clean N-convergence; T=7; snapshots t=5.0/5.25/5.5/5.75/6.0)
 → Julia diagnostics → does the D30≈0.99 reconnection touch survive, deepen, or rise at N=512?
 `:proved`=0; all flows REGULAR; a *resolution* push, not a PDE claim.
+
+---
+
+## SEPARATE TRACK — `active_turbulence_gpu.swift` (AT-6, the active-turbulence phenomenology track)
+
+**Not the obstruction DNS above.** This is the GPU port of the *faithful 2D active-turbulence
+fluid* (`SIM_SPEC.md`, AT-#; **Scope: phenomenology, ≠ PDE, ≠ obstruction map**). It reuses the same
+MPSGraph machinery (built-in FFT, GPU-resident ping-pong, no Metal kernels) but solves the **2D
+vorticity IF-RK4** equation (state = ω̂), cross-validated against the CPU Julia
+(`scripts/active_turbulence_fluid.jl` / `_forced.jl`).
+
+```
+swiftc -O active_turbulence_gpu.swift -o active_turbulence_gpu \
+  -framework Metal -framework MetalPerformanceShadersGraph -framework Foundation
+NS_MODE=at01   ./active_turbulence_gpu   # inviscid invariants  (→ drift 3.8e-6, float32)
+NS_MODE=at02   ./active_turbulence_gpu   # viscous decay vs exp(−νk²t)  (→ 2.95e-6)
+NS_MODE=forced ./active_turbulence_gpu   # forced cascade  (→ forward slope −3.48, R²=0.99)
+```
+
+**Validation (M5 Max, float32 GPU ≡ float64 CPU to ~6 digits; AT-6 / TEST_SPEC T-21):** AT-01 invariants
+3.8e-6 (CPU 1.3e-14), AT-02 decay 2.95e-6 (CPU 7.3e-16), forced cascade −3.48 R²=0.99 (CPU −3.36, same
+universal −3). ~100× faster than the CPU (3100 steps N=128 in 3.1 s). The validated core for Phase 4b
+(wiring into the interactive `fluoddity-metal` app for live watching). Binary gitignored.

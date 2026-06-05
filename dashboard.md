@@ -70,9 +70,13 @@ adding the density-aggregation steering, g(r) peaks **4.0× at contact** (1.86×
 control's g≈1.0 (T-20). Lifelike organization DOES survive on a faithful fluid — via **chemotaxis
 (aggregation), not active turbulence** — and on a *divergence-free* fluid, **ruling out** the
 compressible-monopole artifact. Fluoddity's creatures = genuine chemotaxis-driven aggregation; the
-fluid self-organizes into vortices, chemotaxis makes the creatures, the two are separate. **Arc
-COMPLETE (AT-1..5; Phase 4 GPU deferred). Scope: phenomenology — NOT the PDE. Distance to prize:
-UNTOUCHED.**
+fluid self-organizes into vortices, chemotaxis makes the creatures, the two are separate. **AT-6
+(v0.1.52) — GPU port, Phase 4a:** the faithful IF-RK4 solver re-implemented in MPSGraph
+(`metal/active_turbulence_gpu.swift`), **GPU(float32) ≡ CPU(float64) to ~6 digits** (AT-01 3.8e-6,
+AT-02 2.95e-6, forced cascade −3.48 R²=0.99 vs CPU −3.36; T-21) and **~100× faster** (3100 steps in
+3.1 s, M5 Max). The validated core for Phase 4b. **Arc: AT-1..6 COMPLETE; remaining = Phase 4b (wire
+the GPU core into the interactive fluoddity-metal app for live watching). Scope: phenomenology — NOT
+the PDE. Distance to prize: UNTOUCHED.**
 
 ## Status summary (v0.1.39, 2026-06-02)
 

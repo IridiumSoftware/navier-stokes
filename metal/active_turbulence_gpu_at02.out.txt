@@ -1,0 +1,10 @@
+# active_turbulence_gpu  GPU=Apple M5 Max  mode=at02 N=64 nu=0.05 dt=0.01  [float32]
+# AT-02 mode k=(3,2) |k|²=13 ν=0.050. CPU(float64) max rel.err vs closed form = 7.27e-16
+  t      |w|/|w0|       exp(-nuk2t)    rel.err
+  0.4    7.710523e-01   7.710516e-01   9.28e-07  
+  0.8    5.945213e-01   5.945205e-01   1.30e-06  
+  1.2    4.584068e-01   4.584060e-01   1.82e-06  
+  1.6    3.534556e-01   3.534546e-01   2.70e-06  
+  2.0    2.725326e-01   2.725318e-01   2.95e-06  
+# AT-02 GPU(float32) max rel.err vs closed form = 2.95e-06 (≈float32 eps ⇒ GPU≡CPU to ~6 digits). PASS
+# FIREWALL: Scope phenomenology, NOT the PDE, NOT the obstruction map. Distance to prize: UNTOUCHED.

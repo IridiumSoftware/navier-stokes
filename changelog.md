@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.52 — 2026-06-05 — Active-turbulence AT-6: GPU faithful-fluid core, Phase 4a (SIM_SPEC.md)
+
+The GPU port, Phase 4a of "validate then watch". `:proved`=0; **distance UNTOUCHED.** Scope:
+phenomenology, NOT the PDE, NOT the obstruction map.
+
+- **AT-6** (`metal/active_turbulence_gpu.swift`). The faithful 2D vorticity IF-RK4 solver (AT-1/AT-2)
+  re-implemented on the GPU in **MPSGraph** — the same engine as the NS-038→039 GPU DNS (built-in
+  `fastFourierTransform`, GPU-resident ping-pong, **no hand-written Metal kernels**) — and
+  cross-validated against the CPU Julia.
+- **GPU(float32) ≡ CPU(float64) to ~6 digits:** AT-01 inviscid invariants conserved to **3.8e-6**
+  (CPU 1.3e-14); AT-02 viscous single-mode decay matches `exp(−ν|k|²t)` to **2.95e-6** (CPU 7.3e-16) —
+  the integrating factor is exact on GPU. Forced run reproduces the forward enstrophy cascade
+  (slope **−3.48, R²=0.99** vs CPU −3.36 — different forcing realization, same universal −3).
+- **~100× faster:** 3100 steps (N=128, forced) in **3.1 s** on an M5 Max (~1 ms/step) vs ~3 min CPU.
+  Mirrors the NS-038→NS-039 GPU≡CPU discipline. Bug found + fixed en route: Swift `String(format:)`
+  with `%s` + a Swift `String` segfaults (use plain strings / `+` concatenation).
+- Ledger: AT-6 (`:tested`, SIM_SPEC.md) + AT-# registry row; TEST_SPEC T-21; companion §Phase-4a;
+  `metal/README.md` updated; binary gitignored (mirrors `dns_gpu`). **This is the validated core for
+  Phase 4b** (wire into the interactive fluoddity-metal app for live watching) — the only remaining
+  strand. Arc entries AT-1..6.
+
 ## v0.1.51 — 2026-06-05 — Active-turbulence AT-5: chemotaxis closes the question (SIM_SPEC.md)
 
 The decisive follow-up AT-4 flagged. `:proved`=0; **distance UNTOUCHED.** Scope: phenomenology, NOT
