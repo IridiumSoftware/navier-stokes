@@ -53,7 +53,7 @@ viscous reconnection (D30 0.986→1.426) before it is turned on the open-regime 
 
 ## Checks for the geometric / resolved-DNS / GPU entries (NS-031, NS-033, NS-038..040) + active-turbulence (AT-1..4, `SIM_SPEC.md`)
 
-*(T-15..T-19 below license the **active-turbulence phenomenology track** AT-1..4 in `SIM_SPEC.md` — Scope ≠ PDE, ≠ obstruction map.)*
+*(T-15..T-20 below license the **active-turbulence phenomenology track** AT-1..5 in `SIM_SPEC.md` — Scope ≠ PDE, ≠ obstruction map.)*
 
 These `:tested` computational entries grew after the original NS-010/011 + closure tables; their
 licensing checks, previously recorded only in their SPEC entries + companions, are indexed here.
@@ -71,6 +71,7 @@ licensing checks, previously recorded only in their SPEC entries + companions, a
 | **T-17** AT-2 (forced control — dual cascade) | published-number/qualitative-signature: the faithful fluid under steady band-limited forcing (N=128, k_f=8) reaches a statistically steady state with a **clean forward enstrophy cascade E(k)~k^−3** (measured slope −3.36, R²=0.99, k∈[10,25]) — the universal Kraichnan exponent, distinct from a shallow inverse range (+0.4). The −5/3 inverse-inertial range is resolution-deferred (N≥256). | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
 | **T-18** AT-3 (active agents — momentum neutrality) | exact-invariant: the discrete active-dipole forcing injects net grid momentum **relative 9.5e-18 (machine zero)** — the defining net-zero property of an active swimmer — while a monopole reference (head force, no tail) injects O(1) (relative 3.7e-2). Plus a stable 1500-step coupled run (E/Z bounded, finite). | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
 | **T-19** AT-4 (organization census — honest NULL) | qualitative-signature (NULL): in a vigorous active flow (u_rms≈0.6>swim, 42% vortex-dominated), the agent pair-correlation g(r)≈1.0 everywhere for brain-agents AND the dumb-swimmer control (ratio 1.00) — **no clustering**. The NULL is licensed by the brain-vs-dumb control + the Okubo–Weiss flow check. The chemotaxis variant is explicitly UNTESTED (flagged). | PASS (NULL recorded), **Scope: phenomenology / 2D truncation (not PDE)** |
+| **T-20** AT-5 (chemotaxis — clustering vs control) | qualitative-signature + control: adding density-aggregation steering on the same faithful incompressible fluid, the agent pair-correlation **g(r) peaks 4.0× at contact** (1.86× near-field, near-field ⟨g⟩ 1.31) vs the dumb control's g≈1.0 (1.00) — clustering. Resolves T-19's NULL: lifelike aggregation survives via chemotaxis (not active turbulence), and on a divergence-free fluid (rules out the compressible-monopole artifact). | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
 
 **Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` / `3D-truncation` — **never** to a PDE

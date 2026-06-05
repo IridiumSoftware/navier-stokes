@@ -9,8 +9,8 @@ This is the *rigorous version of the fluoddity agent engine*: a faithful incompr
 2D Navier–Stokes fluid driven by discrete active-dipole agents (active turbulence),
 exploring whether genuine self-organization emerges. Co-located in the `navier-stokes`
 repo but bookkept separately from the obstruction ledger (`SPEC.md`, NS-001..040).
-Entries `AT-1..4` mirror the build phases; the validation checks `AT-01..04` are indexed
-in `TEST_SPEC.md` (T-15..T-19). It extends the obstruction map's validated 2D solver
+Entries `AT-1..5` mirror the build phases (AT-5 = the decisive chemotaxis follow-up); the validation
+checks `AT-01..04` + the AT-5 census are indexed in `TEST_SPEC.md` (T-15..T-20). It extends the obstruction map's validated 2D solver
 (NS-010) as a substrate but asserts nothing about the PDE. Plan:
 `~/.claude/plans/jazzy-zooming-horizon.md`.
 
@@ -114,6 +114,28 @@ coherent vortices, the real 2D phenomenon), the agents are censused for self-org
 - Source: `scripts/active_turbulence_organization.jl` (+ `active_turbulence_organization.out.txt`);
   companion `docs/active_turbulence_companion.md`.
 
+**AT-5 — Chemotaxis closes the question: lifelike aggregation DOES survive on the faithful fluid.**
+The decisive follow-up AT-4 flagged. AT-4 found velocity-sensing agents do not cluster (g(r)≈1);
+it hypothesised the fluoddity "creatures" needed (a) **chemotaxis** (the omitted `cohesion`
+ingredient) and/or (b) the **non-physical monopole forcing** (convergence sinks). This isolates (a):
+on the SAME faithful incompressible fluid with the SAME net-zero dipole forcing, the agents deposit a
+density field and **steer up its gradient** (toward each other). Control = dumb swimmers (cohesion=0).
+- **CHEMOTAXIS CLUSTERS.** Pair-correlation **g(r) peaks 4.0× at contact** (r≈0.03) and 1.86× over the
+  near field for the chemo agents, decaying to uniform by r≈0.3 — while the dumb control stays a
+  uniform gas (g≈1.0). Near-field ⟨g⟩ = **1.31 (chemo) vs 1.00 (dumb)**, ratio 1.31.
+- **Closes the question + sharpens AT-4's reframing.** Lifelike organization *does* survive on a
+  faithful incompressible NS fluid — but via **chemotaxis (aggregation), not active turbulence**. And
+  because clustering appears on a **divergence-free** fluid, it is **not** the compressible-monopole
+  sink artifact ⇒ **AT-4 candidate (b) is RULED OUT.** The fluoddity creatures were genuinely
+  chemotaxis-driven aggregation — a real, substrate-independent mechanism — layered on a fluid that
+  *itself* self-organizes into vortices (AT-2/AT-4). Active turbulence makes the vortices; chemotaxis
+  makes the creatures; the two are separate.
+- Evidence: **computed** (chemo-vs-dumb pair-correlation census on the faithful fluid). **Status:
+  :tested.** Scope: **phenomenology / 2D active-turbulence truncation — NOT the NS PDE.**
+- Depends_on: AT-4 (the velocity-only NULL it resolves), AT-3 (the agent coupling), AT-1 (the fluid).
+- Source: `scripts/active_turbulence_chemotaxis.jl` (+ `active_turbulence_chemotaxis.out.txt`);
+  companion `docs/active_turbulence_companion.md`.
+
 ---
 
 ## Artifact registry (AT-#)
@@ -126,8 +148,9 @@ coherent vortices, the real 2D phenomenon), the agents are censused for self-org
 | AT-2 | RESULT | computed | :tested | phenomenology / 2D forced-turbulence truncation (NOT the NS PDE) | `scripts/active_turbulence_forced.jl` (+ `.out.txt`); companion `docs/active_turbulence_companion.md`. Passive forced-turbulence control proving the AT-1 fluid is a real turbulence engine: steady band-limited vorticity forcing at k_f=8 + ν∇² + low-k drag → statistically steady state (N=128, E≈0.68, Z≈33). **Forward enstrophy cascade E(k)~k^−3 CLEAN (slope −3.36, R²=0.99, k∈[10,25])** — a *universal* Kraichnan exponent, the contrast the fluoddity dial (−1.4..−3.1, non-universal) lacks. Inverse range = energy-containing pileup, shallow (+0.4); a resolved −5/3 inverse-inertial range needs N≥256/high k_f (deferred). AT-04 (→ T-17): dual-cascade structure present (steep forward vs shallow inverse). |
 | AT-3 | RESULT | computed | :tested | phenomenology / 2D active-turbulence truncation (NOT the NS PDE) | `scripts/active_turbulence_agents.jl` (+ `.out.txt`); companion `docs/active_turbulence_companion.md`. Discrete active-dipole agents (the rigorous fluoddity): N=1500 swimmers in the faithful fluid sense it, steer by the ported fluoddity Fourier brain, are co-rotated by local ω/2, and force it as **NET-ZERO force DIPOLES** via AT-1's curl hook. **AT-03 (→ T-18): dipole net momentum = (3e-15,−2e-14), relative 9.5e-18 = MACHINE ZERO** (faithful swimmer); the fluoddity MONOPOLE injects (−30,20) relative 3.7e-2 = O(1) spurious momentum (unphysical, shown). Stable coupled run (1500 steps, E/Z bounded, agents swim ≈0.32). Flow weak at these params (E≈5e-4, net-zero dipoles efficient); Phase 3 strengthens coupling toward u_rms~swim for organization. |
 | AT-4 | RESULT | computed | :tested | phenomenology / 2D active-turbulence truncation (NOT the NS PDE) | `scripts/active_turbulence_organization.jl` (+ `.out.txt`); companion `docs/active_turbulence_companion.md`. The climax: does lifelike organization emerge? Cranked to a vigorous active flow (forceGain=25, 2000 agents, u_rms≈0.6>swim, 42% vortex-dominated by Okubo–Weiss — the *fluid* self-organizes into coherent vortices). **NULL — agents do NOT cluster:** pair-correlation g(r)≈1.0 everywhere, brain-agents = dumb-swimmer control (ratio 1.00). **Reframes fluoddity:** its "creatures" were NOT emergent active turbulence — they needed (a) chemotaxis (density-aggregation; this port senses velocity only) and/or (b) the non-physical monopole forcing (convergence sinks, impossible on a divergence-free fluid). Decisive follow-up (UNTESTED): add chemotaxis. T-19. |
+| AT-5 | RESULT | computed | :tested | phenomenology / 2D active-turbulence truncation (NOT the NS PDE) | `scripts/active_turbulence_chemotaxis.jl` (+ `.out.txt`); companion `docs/active_turbulence_companion.md`. The decisive AT-4 follow-up: add the density-aggregation (chemotaxis) steering on the SAME faithful incompressible fluid + dipole forcing; control = dumb swimmers (cohesion=0). **CHEMOTAXIS CLUSTERS:** pair-correlation g(r) peaks **4.0× at contact** (1.86× near-field), decaying to uniform by r≈0.3, vs the dumb control g≈1.0 (near-field ⟨g⟩ 1.31 vs 1.00). Lifelike organization DOES survive on a faithful fluid — via **chemotaxis (aggregation), not active turbulence**; appearing on a divergence-free fluid **RULES OUT** AT-4 candidate (b) (the compressible-monopole artifact). Fluoddity's creatures = genuine chemotaxis-driven aggregation. T-20. |
 
-**Coverage (A1):** every AT-ID (AT-1..4) has a row. **No orphans:** every artifact named exists under
+**Coverage (A1):** every AT-ID (AT-1..5) has a row. **No orphans:** every artifact named exists under
 `scripts/` or `docs/`. **Firewall:** all rows `Scope: phenomenology` (≠ PDE, ≠ obstruction map);
-validation indexed in `TEST_SPEC.md` (T-15..T-19, retitled AT-#). This track does not affect the
+validation indexed in `TEST_SPEC.md` (T-15..T-20, retitled AT-#). This track does not affect the
 obstruction ledger's `:proved`=0 / distance-UNTOUCHED accounting.

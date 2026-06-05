@@ -65,9 +65,14 @@ cranked to a vigorous active flow (u_rms≈0.6>swim, 42% vortex-dominated — th
 into coherent vortices), the AGENTS do **not** cluster (g(r)≈1.0, brain = dumb control). Lifelike
 organization does not emerge from velocity-sensing agents on a faithful fluid ⇒ fluoddity's "creatures"
 were **chemotaxis + a compressible-forcing artifact**, not active turbulence (the monopole's convergence
-sinks are impossible on a divergence-free fluid). Decisive follow-up flagged UNTESTED: add chemotaxis.
-**Arc Phases 0–3 COMPLETE** (Phase 4 GPU deferred). **Scope: phenomenology — NOT the PDE. Distance to
-prize: UNTOUCHED.**
+sinks are impossible on a divergence-free fluid). **AT-5 (v0.1.51) CLOSES IT — chemotaxis clusters:**
+adding the density-aggregation steering, g(r) peaks **4.0× at contact** (1.86× near-field) vs the dumb
+control's g≈1.0 (T-20). Lifelike organization DOES survive on a faithful fluid — via **chemotaxis
+(aggregation), not active turbulence** — and on a *divergence-free* fluid, **ruling out** the
+compressible-monopole artifact. Fluoddity's creatures = genuine chemotaxis-driven aggregation; the
+fluid self-organizes into vortices, chemotaxis makes the creatures, the two are separate. **Arc
+COMPLETE (AT-1..5; Phase 4 GPU deferred). Scope: phenomenology — NOT the PDE. Distance to prize:
+UNTOUCHED.**
 
 ## Status summary (v0.1.39, 2026-06-02)
 

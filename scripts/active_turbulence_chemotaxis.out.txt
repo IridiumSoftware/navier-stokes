@@ -1,0 +1,36 @@
+══════════════════════════════════════════════════════════════════════════════
+  active_turbulence_chemotaxis.jl — AT-5: the decisive chemotaxis test
+  Scope: phenomenology (2D active-turbulence). NOT the NS PDE, NOT the obstruction map.
+══════════════════════════════════════════════════════════════════════════════
+
+  N=128, agents=2000, steps=2000, forceGain=25, cohesion(chemo)=40
+
+  running DUMB swimmers (cohesion=0) — the control…
+  running CHEMOTAXIS swimmers (steer up the density gradient)…
+
+  flow: E(dumb)=0.1994  E(chemo)=0.1870
+
+  agent pair-correlation g(r)   [g>1 = clustering]   (r in units of box=2π)
+    r        g_dumb     g_chemo   
+    0.033    0.97       4.00      
+    0.098    1.02       1.86      
+    0.164    1.01       1.25      
+    0.229    0.99       1.08      
+    0.295    0.99       1.04      
+    0.360    0.99       1.01      
+    0.425    1.00       1.00      
+    0.491    1.00       1.02      
+    0.556    1.01       1.00      
+    0.622    0.99       1.00      
+    0.687    1.01       1.02      
+    0.753    1.00       1.01      
+
+  near-field clustering ⟨g(small r)⟩: dumb=1.00  chemo=1.31  (ratio 1.31; chemo peak 1.86)
+
+  VERDICT: CHEMOTAXIS CLUSTERS — lifelike aggregation DOES survive on the faithful incompressible fluid.
+
+══════════════════════════════════════════════════════════════════════════════
+  • Tests whether density-aggregation (the fluoddity 'cohesion' ingredient) reproduces
+    clustering on a FAITHFUL incompressible fluid — vs AT-4's velocity-only NULL.
+  • FIREWALL: Scope phenomenology, NOT the PDE, NOT the obstruction map. Prize: UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════

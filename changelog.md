@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.51 — 2026-06-05 — Active-turbulence AT-5: chemotaxis closes the question (SIM_SPEC.md)
+
+The decisive follow-up AT-4 flagged. `:proved`=0; **distance UNTOUCHED.** Scope: phenomenology, NOT
+the PDE, NOT the obstruction map.
+
+- **AT-5** (`scripts/active_turbulence_chemotaxis.jl`). AT-4 found velocity-sensing agents do not
+  cluster (g(r)≈1) and hypothesised the fluoddity "creatures" needed (a) chemotaxis or (b) the
+  non-physical monopole forcing. This isolates (a): on the SAME faithful incompressible fluid + SAME
+  net-zero dipole forcing, agents deposit a density field and **steer up its gradient** (toward each
+  other). Control = dumb swimmers (cohesion=0).
+- **Result — CHEMOTAXIS CLUSTERS:** pair-correlation **g(r) peaks 4.0× at contact** (r≈0.03), 1.86×
+  near-field, decaying to uniform by r≈0.3; the dumb control stays a uniform gas (g≈1.0). Near-field
+  ⟨g⟩ = 1.31 (chemo) vs 1.00 (dumb).
+- **Closes the question:** lifelike organization **does** survive on a faithful incompressible NS
+  fluid — but via **chemotaxis (aggregation), not active turbulence**. Because clustering appears on a
+  **divergence-free** fluid, it is **not** the compressible-monopole sink artifact ⇒ **AT-4 candidate
+  (b) RULED OUT.** The fluoddity creatures were genuine chemotaxis-driven aggregation — a real,
+  substrate-independent mechanism — layered on a fluid that itself self-organizes into vortices
+  (AT-2/AT-4). Active turbulence makes the vortices; chemotaxis makes the creatures; they're separate.
+- Ledger: AT-5 (`:tested`, SIM_SPEC.md), AT-# registry row, TEST_SPEC T-20, companion updated.
+  **Active-turbulence arc COMPLETE (AT-1..5; Phase 4 GPU deferred).**
+
 ## v0.1.50 — 2026-06-05 — Re-home the active-turbulence track to a fenced AT-# ledger (SIM_SPEC.md)
 
 Integration/bookkeeping: the active-turbulence simulator entries shared the NS-### sequence + `SPEC.md`

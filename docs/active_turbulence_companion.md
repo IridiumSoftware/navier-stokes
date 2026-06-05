@@ -1,4 +1,4 @@
-# Companion — Active turbulence: the faithful fluid (NS-041, Phase 0)
+# Companion — Active turbulence: the faithful fluid (AT-1, Phase 0)
 
 *2026-06-04. **Every result here is `Scope ≠ PDE` (phenomenology / 2D
 active-turbulence truncation); none is prize progress. Distance to prize:
@@ -68,17 +68,17 @@ self-check passes (max err 0).
 
 ## §4 — Spec impact / firewall
 
-Produces **NS-041** (`:tested`, Class RESULT, **Scope: phenomenology / 2D
+Produces **AT-1** (`:tested`, Class RESULT, **Scope: phenomenology / 2D
 active-turbulence truncation — NOT the NS PDE**). This is the *fluid substrate* of
 an active-matter phenomenology study; it bears nothing on global regularity.
 `:proved`=0; distance to prize UNTOUCHED.
 
 ---
 
-# Phase 1 — passive forced-turbulence control (NS-042)
+# Phase 1 — passive forced-turbulence control (AT-2)
 
 The control that proves the faithful fluid is a **real turbulence engine** before
-any agent is added. `scripts/active_turbulence_forced.jl` drives the NS-041 fluid
+any agent is added. `scripts/active_turbulence_forced.jl` drives the AT-1 fluid
 with a steady band-limited (passive, random-phase) vorticity forcing at injection
 scale `k_f=8`, dissipated by `ν∇²` (small scales) + a low-k Rayleigh drag (large
 scales, to arrest the inverse cascade so a steady state exists), and time-averages
@@ -108,24 +108,24 @@ scales, to arrest the inverse cascade so a steady state exists), and time-averag
 **AT-04** (→ TEST_SPEC **T-17**): in steady state the forward range is a steep
 enstrophy cascade (slope < −2.3, R² > 0.85) clearly distinct from the inverse
 range — PASS (−3.36, R²=0.99 vs +0.45). The bare-fluid checks AT-01/AT-02 (T-15/
-T-16) still hold (the forced solver shares the NS-041 IF-RK4 core).
+T-16) still hold (the forced solver shares the AT-1 IF-RK4 core).
 
 ## §4.1 — Spec impact
 
-Produces **NS-042** (`:tested`, **Scope: phenomenology / 2D forced-turbulence
+Produces **AT-2** (`:tested`, **Scope: phenomenology / 2D forced-turbulence
 truncation — NOT the NS PDE**). `:proved`=0; distance UNTOUCHED.
 
 **Next:** Phase 2 — discrete active **force-dipole** agents running the (ported)
 fluoddity Fourier brain, advected + co-rotated by the flow, coupling through the
-curl-of-force hook, with the net-zero-momentum check AT-03 (→ NS-043). Optional
+curl-of-force hook, with the net-zero-momentum check AT-03 (→ AT-3). Optional
 deferred: the −5/3 inverse-inertial range at N≥256/high-`k_f`.
 
 ---
 
-# Phase 2 — discrete active-dipole agents (NS-043)
+# Phase 2 — discrete active-dipole agents (AT-3)
 
 The active-matter coupling — the rigorous fluoddity. `scripts/active_turbulence_agents.jl`:
-N=1500 self-propelled agents swim in the faithful fluid (NS-042). Each, per step:
+N=1500 self-propelled agents swim in the faithful fluid (AT-2). Each, per step:
 1. **Sense** — bilinear-interpolate the velocity at two sensors (±sensorAngle,
    sensorDist, in the agent's own (forward,left) frame), project rotation-invariantly,
    and feed the mirror-symmetric **ported fluoddity Fourier brain** (10-center
@@ -133,7 +133,7 @@ N=1500 self-propelled agents swim in the faithful fluid (NS-042). Each, per step
 2. **Force the fluid as a net-zero DIPOLE** — +f·p̂ at the head (x+ℓ/2 p̂), −f·p̂ at
    the tail (x−ℓ/2 p̂), each spread by a **normalized** Gaussian immersed-boundary
    kernel (Σ weights = 1), so the dipole injects *exactly zero* net momentum. The
-   fluid feels (∇×f)_z via NS-041's curl hook (no extra projection).
+   fluid feels (∇×f)_z via AT-1's curl hook (no extra projection).
 3. **Advect + reorient** — ẋ = u(x) + v_swim·p̂; heading turns by the brain command
    + the local vorticity **ω(x)/2** (the physical leading-order co-rotation).
 
@@ -164,12 +164,12 @@ integration (finite, bounded). PASS.
 
 ## §4.2 — Spec impact
 
-Produces **NS-043** (`:tested`, **Scope: phenomenology / 2D active-turbulence
+Produces **AT-3** (`:tested`, **Scope: phenomenology / 2D active-turbulence
 truncation — NOT the NS PDE**). `:proved`=0; distance UNTOUCHED.
 
 ---
 
-# Phase 3 — does lifelike organization emerge? (NS-044)
+# Phase 3 — does lifelike organization emerge? (AT-4)
 
 The climax. `scripts/active_turbulence_organization.jl` cranks the coupling to a
 **vigorous** active flow (forceGain=25, N=2000 agents) and censuses for
@@ -207,17 +207,57 @@ and velocity-sensing, the agents stir a real turbulent flow but stay uniform.
 
 ## §3.3 — Verification (T-19)
 
-**NS-044** is an honest **NULL** (→ TEST_SPEC **T-19**, qualitative-signature/NULL),
+**AT-4** is an honest **NULL** (→ TEST_SPEC **T-19**, qualitative-signature/NULL),
 licensed by the brain-vs-dumb control and the Okubo–Weiss flow check. The chemotaxis
 variant is **explicitly UNTESTED** (flagged), not silently assumed.
 
 ## §4.3 — Spec impact + the arc
 
-Produces **NS-044** (`:tested`, NULL, **Scope: phenomenology — NOT the NS PDE**).
+Produces **AT-4** (`:tested`, NULL, **Scope: phenomenology — NOT the NS PDE**).
 `:proved`=0; distance UNTOUCHED. **Active-turbulence arc Phases 0–3 COMPLETE** (the
 faithful fluid, its real cascade, the faithful agents, the organization NULL).
 
-**Decisive follow-up (untested):** add the chemotaxis term — does density-aggregation
-reproduce clustering even on the faithful incompressible fluid? That isolates whether
-*any* lifelike organization survives on a physical substrate. (Phase 4 — GPU port for
-scale — remains deferred.)
+*(Entries are AT-1..5 in `SIM_SPEC.md` after the 2026-06-05 re-home; the old NS-04x
+names map AT-k = NS-04k.)*
+
+---
+
+# AT-5 — chemotaxis closes the question
+
+The decisive AT-4 follow-up, now run. `scripts/active_turbulence_chemotaxis.jl`
+isolates the **chemotaxis** ingredient AT-4 omitted: on the *same* faithful
+incompressible fluid with the *same* net-zero dipole forcing, the agents deposit a
+density field and **steer up its gradient** (toward each other) — the aggregation
+feedback. Control = dumb swimmers (cohesion=0).
+
+## §2.4 — Result: CHEMOTAXIS CLUSTERS
+
+| g(r) | dumb (cohesion=0) | chemo (cohesion=40) |
+|---|---|---|
+| r≈0.03 (contact) | 0.97 | **4.00** |
+| r≈0.10 | 1.02 | 1.86 |
+| r≈0.16 | 1.01 | 1.25 |
+| → r≈0.3 | ≈1.0 | →1.0 |
+| near-field ⟨g⟩ | 1.00 | **1.31** |
+
+The chemo agents **clump** — a clean near-field clustering peak — while the dumb
+control stays a uniform gas. Density-aggregation overcomes the turbulent mixing.
+
+## §3.4 — What it settles (T-20)
+
+**AT-5** (→ TEST_SPEC **T-20**) resolves AT-4's NULL: *lifelike organization does
+survive on a faithful incompressible NS fluid* — but via **chemotaxis (aggregation),
+not active turbulence**. And because the clustering appears on a **divergence-free**
+fluid, it is **not** the compressible-monopole sink artifact ⇒ **AT-4 candidate (b)
+is ruled out.** The fluoddity "creatures" were genuine chemotaxis-driven aggregation —
+a real, substrate-independent mechanism — layered on a fluid that *itself*
+self-organizes into vortices (AT-2/AT-4). Two separate phenomena: active turbulence
+makes the vortices; chemotaxis makes the creatures.
+
+## §4.4 — Spec impact + the arc
+
+Produces **AT-5** (`:tested`, **Scope: phenomenology — NOT the NS PDE**). `:proved`=0;
+distance UNTOUCHED. **Active-turbulence arc COMPLETE (AT-1..5).** The one remaining
+strand is Phase 4 — a GPU port for scale (interactive watching / N=1024–2048) —
+deliberately deferred; the science question ("does lifelike organization emerge, and
+why?") is now answered.

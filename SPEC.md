@@ -12,7 +12,7 @@ Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (extern
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
 3 RESOLVED-DNS (NS-038/039/040). `:proved` = 0. (30 entries.)
 
-Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..4), Scope ≠ PDE.
+Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..5), Scope ≠ PDE.
 
 ---
 
