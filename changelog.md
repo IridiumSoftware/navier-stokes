@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.50 — 2026-06-05 — Re-home the active-turbulence track to a fenced AT-# ledger (SIM_SPEC.md)
+
+Integration/bookkeeping: the active-turbulence simulator entries shared the NS-### sequence + `SPEC.md`
+with the *obstruction map* (a different program). Re-homed into their own fenced track so the
+obstruction ledger stays clean. **No content/Scope changes; no NS-001..040 touched; firewall intact.**
+
+- **New `SIM_SPEC.md`** — "Active-turbulence phenomenology track. Scope: phenomenology / 2D
+  active-turbulence truncation — NOT the obstruction map, NOT the NS PDE; the obstruction program's
+  `:proved`=0 firewall does not gate this track." Holds the four entries **NS-041→AT-1, NS-042→AT-2,
+  NS-043→AT-3, NS-044→AT-4** (verbatim content, Scope lines, deps re-pointed to AT-#) + its own
+  AT-# artifact-registry sub-table.
+- **`SPEC.md`** — removed the NS-041..044 entries + the "ACTIVE TURBULENCE" section; count reverted to
+  **30 entries** (NS-001..040 = the obstruction map); added a pointer: "Active-turbulence
+  phenomenology track → SIM_SPEC.md (AT-1..4), Scope ≠ PDE."
+- **`artifact_registry.md`** — removed the four NS-04x rows (now in SIM_SPEC.md); added a pointer note.
+- **`TEST_SPEC.md`** — T-15..T-19 re-pointed from NS-04x to AT-1..4 (the checks are unchanged; AT-01..04
+  check names kept).
+- **`dashboard.md`** — the active-turbulence milestone now references AT-#/`SIM_SPEC.md`, not NS-###.
+- The historical Phase-0..3 entries below (v0.1.46–49, "NS-041..044") are left as immutable changelog
+  history. AT tests re-run green post-renumber.
+
 ## v0.1.49 — 2026-06-05 — Active-turbulence Phase 3: organization NULL, reframes fluoddity (NS-044)
 
 The climax of the active-turbulence arc — an honest NULL with a sharp payoff. `:proved`=0; **distance

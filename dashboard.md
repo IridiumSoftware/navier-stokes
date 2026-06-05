@@ -46,21 +46,21 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-**ACTIVE-TURBULENCE TRACK — Phase 0 DONE (v0.1.46, NS-041).** New phenomenology track: the
-*faithful* version of the fluoddity agent engine — a real 2D Navier–Stokes fluid driven by active
+**ACTIVE-TURBULENCE TRACK (fenced — entries AT-1..4 in `SIM_SPEC.md`, NOT the NS-### obstruction map).**
+Phase 0 (AT-1, v0.1.46). The *faithful* version of the fluoddity agent engine — a real 2D Navier–Stokes fluid driven by active
 agents (active turbulence), exploring self-organization. Phase 0 = the faithful fluid substrate
 (`active_turbulence_fluid.jl`): exact `ν∇²` viscosity via IF-RK4 + a curl-of-force active-coupling
 hook, extending the validated 2D solver (NS-010). Validated: **AT-01** energy+enstrophy conserved
 1.3e-14, **AT-02** viscous mode-decay ≡ `exp(−ν|k|²t)` to 7.3e-16 (T-15/T-16). **Phase 1 DONE
-(v0.1.47, NS-042):** the passive forced-turbulence control proves the faithful fluid is a *real
+(v0.1.47, AT-2):** the passive forced-turbulence control proves the faithful fluid is a *real
 turbulence engine* — under steady band-limited forcing it reaches a statistically steady state with
 a **clean forward enstrophy cascade E(k)~k^−3 (slope −3.36, R²=0.99, AT-04/T-17)**, a *universal*
 Kraichnan exponent the fluoddity dial lacked. (Inverse −5/3 deferred to N≥256.) **Phase 2 DONE
-(v0.1.48, NS-043):** discrete active-dipole agents (1500 swimmers + ported Fourier brain) coupled to
+(v0.1.48, AT-3):** discrete active-dipole agents (1500 swimmers + ported Fourier brain) coupled to
 the faithful fluid — sense, brain-steer, co-rotate by ω/2, force back as **net-zero force dipoles**.
 **AT-03/T-18: dipole net momentum = MACHINE ZERO (rel 9.5e-18)** vs the fluoddity monopole's O(1) —
 the faithful-swimmer fix, named + verified. Stable coupled run (weak flow at these params; Phase 3
-strengthens coupling). **Phase 3 DONE (v0.1.49, NS-044) — an honest NULL that reframes fluoddity:**
+strengthens coupling). **Phase 3 DONE (v0.1.49, AT-4) — an honest NULL that reframes fluoddity:**
 cranked to a vigorous active flow (u_rms≈0.6>swim, 42% vortex-dominated — the *fluid* self-organizes
 into coherent vortices), the AGENTS do **not** cluster (g(r)≈1.0, brain = dumb control). Lifelike
 organization does not emerge from velocity-sensing agents on a faithful fluid ⇒ fluoddity's "creatures"
