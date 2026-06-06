@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.63 — 2026-06-06 — Idea-3 probe: depletion is helicity-dependent — Beltramization (high-H) vs pressure counter-transport (zero-H)
+
+Ran the zero-helicity stress test (`scripts/ns046_gradxi_pressure_probe.jl`): the ∇ξ-CFM smoothness +
+the pressure-Hessian-vs-self-stretching balance, across helical (ρ_H=0.97) / control (ρ_H≈0) /
+anti-parallel tubes (ρ_H=0-exact, max-stretch = weakest Beltramization). Motivated by the LOW#1/NS-047
+residue (the danger is at zero-H / in ∇ξ; the contest is vs the nonlocal pressure).
+
+- **Finding: the two depletion mechanisms are COMPLEMENTARY, anti-correlated with helicity.**
+  Beltramization (NS-045) dominates at high H; at the **zero-helicity maximal-stretch (Kerr-tube)** case
+  where Beltramization is weakest, the **nonlocal pressure-Hessian counter-transport is DOMINANT**
+  (`⟨e₃ᵀ∇²p e₃⟩` = 1.5–11× `⟨λ₃²⟩`; it enters as `−e₃ᵀ∇²p e₃` ⇒ depletes), and the tubes attain the
+  *lowest* enstrophy growth despite maximal stretching. The control (neither mechanism strong) bursts
+  most (Z→11.4). **N-converged 64↔128** (ordering IC-identical, resolution-robust).
+- **This is a DNS witness for NS-046's framing:** its `−e₃ᵀ(∇²p)e₃` counter-transport object is the
+  operative depletion in the worst-case geometry where the analytic battle sits — and answers the LOW#1
+  zero-H residue (what holds the worst case regular, in the truncation, is the nonlocal pressure).
+- **Recorded as notes (NO new entry — NS-047 lesson):** NS-045 §extension (the complementarity, stays
+  `:tested`) + a DNS-witness note on NS-046 (stays `:open`). Companion
+  `docs/ns046_gradxi_pressure_companion.md`. Scope: DNS truncation, within-truncation only (vacuity
+  cap — observes the term, does not bound it). `:proved`=0; distance UNTOUCHED.
+- **"Both 1+3" complete:** Idea-1 (LP-route obstruction, NS-047 refuted, v0.1.62) + Idea-3 (this).
+
 ## v0.1.62 — 2026-06-05 — Idea-1 (LP-route) obstruction: NS-047 candidate witnessed → REFUTED, folded into NS-046
 
 Tested whether the Littlewood–Paley/paraproduct-local route to NS-046 escapes the wall or reduces to it

@@ -797,6 +797,19 @@ spectral transfers `Π_E(k,t), Π_Z(k,t), Π_H(k,t)`; helical-mode decomposition
   (u∥ω) → Lamb-vector `u×ω` suppression → ω–S production depletion → delayed enstrophy growth*.
 - Source: `scripts/ns045_helicity_mechanism.jl` (+ `.out.txt` N=64, `_N128.out.txt`); companion
   `docs/ns045_helicity_mechanism_companion.md`.
+- **Extension (2026-06-06, Idea-3 zero-helicity stress test) — the depletion mechanism is
+  helicity-dependent and COMPLEMENTARY.** Probed the mechanism across the helicity range
+  (helical ρ_H=0.97 / control ρ_H≈0 / **anti-parallel tubes** ρ_H=0-exact + max-stretch = the
+  weakest-Beltramization worst case). Beltramization dominates at high H; at the **zero-helicity
+  maximal-stretch (Kerr-tube)** case where Beltramization is weakest (cos²(u,ω)→0.07), the **nonlocal
+  pressure-Hessian counter-transport is DOMINANT** — `⟨e₃ᵀ(∇²p)e₃⟩` is 1.5–11× the self-amplification
+  `⟨λ₃²⟩` (it enters as `−e₃ᵀ(∇²p)e₃` ⇒ depletes the max stretch), and the tubes attain the *lowest*
+  enstrophy growth despite maximal stretching. The control (neither mechanism strong) bursts most.
+  N-converged 64↔128 (ordering IC-identical, resolution-robust). **NS-045 (Beltramization) and NS-046
+  (pressure counter-transport) are complementary depletion mechanisms, anti-correlated with helicity.**
+  Scope: DNS truncation, within-truncation only (vacuity cap). Source:
+  `scripts/ns046_gradxi_pressure_probe.jl` (+ `.out.txt`, `_N128.out.txt`); companion
+  `docs/ns046_gradxi_pressure_companion.md`. Status unchanged `:tested`.
 
 **NS-046 — Critical coercive deformation inequality (the pressure–strain closure target).**
 The admissible analytic target after the criticality–Casimir hinge. Once regularity reduces to bounding
@@ -838,3 +851,11 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   **critical Besov, not L^∞**. A diagnostic, not a no-go. (Fourth tidy-"reduces to the wall" over-reach
   this session, witness-corrected.) Brief + verdict: `docs/ns047_lp_route_brief.md`,
   `docs/ns047_lp_route_verdict.md`.
+- **DNS witness for the counter-transport object (2026-06-06, Idea-3 probe; NS-045 §extension).** In the
+  resolved truncation, NS-046's `−e₃ᵀ(∇²p)e₃` counter-transport is the **dominant** depletion exactly in
+  the **anti-parallel-tube (zero-helicity, maximal-stretch) worst case** — `⟨e₃ᵀ(∇²p)e₃⟩` is 1.5–11×
+  `⟨λ₃²⟩` (N-converged 64↔128), and that flow stays the most regular despite the weakest Beltramization.
+  This is a **witness/calibration** that the pressure-Hessian object is the operative one in the hard
+  regime — NOT the analytic step (a regular truncation observes the term; it does not bound it).
+  `scripts/ns046_gradxi_pressure_probe.jl`; companion `docs/ns046_gradxi_pressure_companion.md`.
+  `:open` unchanged.
