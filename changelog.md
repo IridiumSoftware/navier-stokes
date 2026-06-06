@@ -1,5 +1,18 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.67 — 2026-06-06 — ORSI top-level architecture recorded (docs/orsi_reference.md) — the governance parent of CCATT
+
+Transcribed + analyzed Brian's ORSI Top-Level Architecture (source: a one-page spec on Aaron's Desktop),
+recorded in `docs/orsi_reference.md` so it is not a hidden primitive (it surfaced via Grok's "ORSI lens"
+NS-046 commentary). ORSI is a constraint-first **epistemic-governance** framework — axiom
+"Constraint→Regime→Truth; truth does not license constraint"; output the MDAGC (Minimal Decontaminated
+Admissible Generator Class); 10 governance components. **It is the parent architecture of CCATT** (ORSI
+= the constitution; CCATT = its transport layer), and this program's firewall+witness discipline is a
+concrete instance of ORSI's "Formalism Legitimacy Audit" (quarantine of *export surplus*) — the arc's
+six over-reaches were export surplus. Recorded as a referenced framework, not an in-spec primitive; the
+O-R-S-I acronym expansion is not given and not guessed. Cross-project reference memory added. No spec
+change; `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.66 — 2026-06-06 — NS-046 arc triad-witnessed → interpretations REFUTED (6th over-reach), record corrected
 
 Routed the un-witnessed NS-046-arc synthesis claims (recorded data-driven last sessions) to the triad
