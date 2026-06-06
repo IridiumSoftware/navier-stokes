@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.70 — 2026-06-06 — NS-048 recorded: the exclusion / no-split frontier (dynamic complement to NS-046)
+
+A math-physics colleague's NS-attack notes (relayed 2026-06-06) independently re-derived this program's
+discipline (firewall, scaling, the stretching battlefield = our P, nonlocality, the kill-list) — and
+diagnosed our failure mode ("don't invent geometry / sacred ratios useless / reduce DOF not add" = the
+six over-reaches). The one cluster we had **not** engaged: the colleague's mindset shift — *corner the
+hypothetical singularity into a regime so rigid it's impossible* — i.e. the **singularity-exclusion /
+blowup-rescaling / Liouville-for-ancient-solutions / no-split** attack, the *dynamic* frontier.
+
+- **NS-048 added** (`:open`, unengaged candidate direction — NOT a claim): generalize NS-007's
+  self-similar exclusion to the general rescaled-limit (ancient-solution) exclusion + the no-split
+  (concentration-compactness) machinery; **reframe NS-046 from domination → exclusion**, re-tasking the
+  mapped geometry (Beltramization NS-045, pressure-Hessian NS-046, ∇ξ NS-013/CFM) as *rigidity
+  constraints* on the rescaled limit rather than uniform-domination targets.
+- **Connection to our findings:** the uniform-domination sub-probe's non-uniform/concentrated-at-cores
+  depletion is the **no-split problem's shadow** — the truncation observed the concentration; the
+  no-split machinery would resolve which rescaled limit it selects. NS-046 (inequality) and NS-048
+  (exclusion) are two faces of the same wall.
+- **Honest scope:** an attack *shape* + machinery to LEARN (concentration-compactness/Aubin–Lions,
+  Liouville theorems, backward uniqueness) — not a result, not a new gadget. SPEC (count→33) + registry.
+  Not yet in the TCE corpus (unengaged). `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.69 — 2026-06-06 — NS-032 N>512 push SIZED (10.4 s/step @N=512) + DEFERRED (poor trade)
 
 Smoke-measured the GPU cost before committing to a multi-hour run: `metal/dns_gpu.swift` inviscid TG is

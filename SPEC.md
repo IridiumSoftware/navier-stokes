@@ -10,8 +10,8 @@ ever count as prize progress; there is none.
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
 1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
-3 RESOLVED-DNS (NS-038/039/040), 2 FORWARD-TARGET (Brian's extension: NS-045 `:tested` mechanism
-audit + NS-046 `:open` analytic target). `:proved` = 0. (32 entries.)
+3 RESOLVED-DNS (NS-038/039/040), 3 FORWARD-TARGET (NS-045 `:tested` mechanism audit + NS-046 `:open`
+analytic target + NS-048 `:open` exclusion/no-split frontier). `:proved` = 0. (33 entries.)
 
 Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..5), Scope ≠ PDE.
 
@@ -906,3 +906,34 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   needs a genuine analytic idea the program does not have; the discipline forbids manufacturing one
   (six over-reaches caught this arc: four witness-, one probe-, one witness- again here).
   **Held as the standing frontier.**
+
+**NS-048 — The exclusion / no-split frontier (the *dynamic* complement to NS-046).** `:open`, **unengaged
+candidate direction — NOT a claim.** Origin: a math-physics colleague's attack notes (relayed
+2026-06-06), whose mindset shift is *don't prove "all turbulence is smooth"; corner the hypothetical
+singularity into a regime so rigid the remaining configuration is impossible.* That is the
+**singularity-exclusion / blowup-rescaling / Liouville-for-ancient-solutions** attack shape — the
+*dynamic* frontier, where this program is almost entirely *static*. We hold pieces: **NS-007** killed the
+*self-similar* case (Nečas–Růžička–Šverák); **NS-006** is the CKN local-regularity / rescaling piece;
+**NS-005** (ESS) rests on backward uniqueness. The gap: **no entry for the general rescaled-limit
+(asymptotically / discretely self-similar) exclusion, nor the *no-split* (concentration-compactness)
+mechanism** that prevents different rescaled subsequences converging to different limits.
+- **Proposed shape:** (1) assume a concentrated singular core; (2) rescale to the blowup → an ancient /
+  self-similar limit; (3) **exclude** that limit via a Liouville-type rigidity + a no-split control —
+  *re-tasking our geometry findings as rigidity constraints, not uniform-domination targets*:
+  Beltramization (NS-045), the nonlocal pressure-Hessian counter-transport (NS-046), the `∇ξ` object
+  (NS-013/CFM). This **reframes NS-046 from domination → exclusion**, sidestepping the exact wall the
+  uniform-domination sub-probe hit.
+- **Why it connects to our findings:** the sub-probe's *non-uniform, concentrated-at-cores* depletion is
+  the **no-split problem's shadow** — the truncation could only *observe* the concentration; the
+  no-split machinery is what would *resolve* which rescaled limit it selects. NS-046 (the inequality) and
+  NS-048 (the exclusion) are two faces of the same wall.
+- **Honest scope:** a candidate *attack shape* + machinery to LEARN (concentration-compactness /
+  Aubin–Lions, Liouville theorems for the rescaled limit, backward uniqueness / unique continuation) —
+  **not** a result, **not** a new geometric gadget (the colleague's own warning, and our six refuted
+  over-reaches). Status: `:open` (unengaged). Scope: PDE-analysis (frontier direction). `:proved`=0;
+  distance UNTOUCHED.
+- Depends_on: NS-007 (self-similar special case it generalizes), NS-006 (CKN/rescaling), NS-005
+  (ESS / backward uniqueness), NS-046 (the static complement), NS-002 (scaling). Source: colleague's
+  attack notes (2026-06-06, recorded in changelog v0.1.70); geometry inputs NS-013/045/046. *(Not yet in
+  the TCE self-map corpus — appropriate for a brand-new unengaged direction; add on the next re-run if
+  pursued.)*
