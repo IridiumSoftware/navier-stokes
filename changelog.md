@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.71 — 2026-06-06 — NS-048 MAPPED (the exclusion frontier's machinery) + its geometry-re-tasking hope deflated (7th over-reach, caught by thinking)
+
+Engaged NS-048 the disciplined way — *map the machinery, don't manufacture an exclusion*
+(`docs/ns048_exclusion_frontier.md`). Laid out the attack shape (assume singularity → rescale → ancient
+limit → exclude via Liouville + no-split + backward-uniqueness; Type-I vs Type-II), where the pieces sit
+(NS-007 = the self-similar sub-case DONE [Nečas–Růžička–Šverák/Tsai]; NS-006 = CKN/rescaling; NS-005 =
+the backward-uniqueness exemplar [ESS]), the gap (general non-self-similar Liouville + the no-split
+control + the Type-II branch), and the one-sentence obstruction + sub-targets. Lineages named at the
+literature level, flagged for verification (no bluffed citations).
+
+- **Honest correction (caught by working it through, not by the witness):** NS-048's own
+  "re-task our geometry as rigidity constraints on the ancient limit" is **over-optimistic — the same
+  vacuity cap.** Our geometry (NS-045/046/sub-probe) is *within-truncation*; the ancient limit is a
+  singular-limit PDE object the truncation can't reach. So the geometry is a **suggestive prior** (where
+  to probe), **not** an exclusion input; any Liouville rigidity must be proven analytically on the
+  ancient solution. The **7th tidy hope of the arc, deflated.**
+- Engaging NS-048 for real = learning the machinery (concentration-compactness, Liouville theorems,
+  backward uniqueness) + attacking one sub-target — a research undertaking, not a session task. NS-048
+  stays `:open`. No status change; `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.70 — 2026-06-06 — NS-048 recorded: the exclusion / no-split frontier (dynamic complement to NS-046)
 
 A math-physics colleague's NS-attack notes (relayed 2026-06-06) independently re-derived this program's

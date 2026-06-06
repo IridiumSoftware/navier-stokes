@@ -937,3 +937,13 @@ mechanism** that prevents different rescaled subsequences converging to differen
   attack notes (2026-06-06, recorded in changelog v0.1.70); geometry inputs NS-013/045/046. *(Not yet in
   the TCE self-map corpus — appropriate for a brand-new unengaged direction; add on the next re-run if
   pursued.)*
+- **Mapped (2026-06-06): `docs/ns048_exclusion_frontier.md`** — the machinery laid out (rescaling →
+  ancient limit → Liouville + no-split + backward-uniqueness; Type-I vs Type-II; NS-007 = the
+  self-similar sub-case done; general Liouville + no-split + Type-II = the gap), with the one-sentence
+  obstruction + sub-targets. **HONEST CORRECTION to the bullet above:** "re-task our geometry as rigidity
+  constraints" is **over-optimistic — the same vacuity cap.** Our geometry findings (NS-045/046/sub-probe)
+  are *within-truncation*; the ancient limit is a singular-limit PDE object the truncation cannot reach,
+  so any Liouville rigidity must be proven *analytically on the ancient solution*, not inherited from a
+  truncation. The honest role of the geometry is a **suggestive prior** (where to probe the ancient
+  limit), **NOT** an exclusion input. (A 7th tidy hope, deflated by working it through.) Engaging NS-048
+  for real = learning the §2 machinery + attacking one sub-target; not a session task.
