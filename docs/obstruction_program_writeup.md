@@ -294,7 +294,7 @@ cross-domain analogy is worth, and how much discipline it takes to find out.
 
 ---
 
-## 9. The resolved-DNS arm — honest verdicts at the wall (NS-037–040)
+## 9. The resolved-DNS arm — honest verdicts at the wall (NS-037–040, NS-045)
 
 The diagnostic of §3 was resolution-gated; the budget to resolve it became available. A resolved
 viscous pseudospectral DNS at **N=256, Re=1600** (hand-rolled radix-2, later FFTW-validated;
@@ -315,12 +315,26 @@ literature (Taylor–Green enstrophy peak at t≈9, Brachet 1983):
   T-08).
 - **NS-040 — strong helicity depletes vortex stretching** (matched-spectrum controlled pair, ρ_H≈0.97
   vs ≈0.05, identical E₀ and Z₀): enstrophy grows **2–4× slower**, by delay + concentration.
+- **NS-045 — the depletion *mechanism* is Beltramization** (`:tested`, N-converged 64↔128): u∥ω crushes
+  the nonlinear Lamb vector `u×ω`, switching off production until the field de-Beltramizes — *not* ω–S
+  alignment (which develops near-identically). Completes NS-040 from *what* to *how*.
+
+*A coherent body, by the engine's own reading.* A 32-node TCE self-map (NS-031) rates
+**{NS-038, 039, 040, 045}** a tight HIGH-band clique (@0.90–0.95) — "multi-angle on one object." That
+object is the **resolved-DNS empirical map of vortex stretching at Re=1600**: bounded/regular (NS-038),
+the apparent ≤1-D singular approach *removed* as a resolution artifact (NS-039), helicity-depleted
+(NS-040) by Beltramization (NS-045). What it honestly contributes is **methodology** — the RWC-038
+N-convergence standard, matched-spectrum controlled pairs, and the mechanism-audit (Beltramization vs
+alignment, vs the pressure-Hessian counter-transport of §10) — plus *one removed false signal* and *one
+mechanism*. (And, per §10's witness pass: the Beltramization "complementarity" with the pressure route
+is **IC-specific, not a general law** — recorded honestly.)
 
 *(Scope: resolved 3D pseudospectral DNS truncation at Re=1600 — NOT the PDE. Every flow is REGULAR, as
-it must be; these are **resolved diagnostics**, not blowup tests. Their value is exactly what a
-truncation can honestly give: *removing a false signal* (NS-039) and a *controlled mechanism
-observation* (NS-040). NS-037 maps the same phenomenon possibilistically — the inverse-Born / log-Poisson
-structure of the measured constants, running down to the CKN wall. `:proved` = 0; distance UNTOUCHED.)*
+it must be; these are **resolved diagnostics**, not blowup tests. The cluster's HIGH coordination is
+*structural* (homogeneous resolved-DNS entries), not a hidden discovery — and crucially **not** evidence
+about regularity: a regular truncation staying regular and depleting is necessary-not-sufficient
+(the LOW#1 firewall). NS-037 maps the same phenomenon possibilistically (inverse-Born / log-Poisson,
+running down to the CKN wall). `:proved` = 0; distance UNTOUCHED.)*
 
 ## 10. The 2026-06-05 sharpening — witnessed refutations and the analytic frontier (NS-045/046, CCATT)
 

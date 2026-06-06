@@ -1,48 +1,447 @@
 {
-  "_note": "TCE TriadDiscovery corpus encoding of the NS obstruction program (SPEC.md NS-001..040, re-encoded 2026-06-04 for the matured 30-entry ledger). Fed to the TCE engine via SpecBridge -> Discovery.Triadic.findTriadicCandidates (test-suite triadic-coordination-runonspec, SPEC_JSON env var).  FIELDS: name/kind/layer/logic/status/deps are read by the decoder; underscore-prefixed fields are human notes the decoder ignores.  DEPS are the genuine logical premises read off SPEC.md prose (e.g. NS-005 'critical norm = NS-002', NS-008 'energy(NS-003)+scaling(NS-002)', NS-010<->NS-004 BKM, NS-013<-NS-012+NS-010).  LAYER = depth in the program (problem=0 ... live frontier=5).  LOGIC TIER: classical = the PDE-analysis domain; other:closure = the closure/turbulence-model arc (a SEPARATE domain); bridge = NS-024/NS-030, the ONLY legal cross-tier links (faithful to their role as the witnessed/methodological connectors).  STATUS = 'proved_conditional' on EVERY entry is the engine's anchor-eligibility flag ONLY (the engine builds triads from isProved anchors); it reads 'established within its declared Scope/condition' and is WHOLLY DECOUPLED from the SPEC.md PDE-proof firewall, where :proved (unconditional, Scope:PDE) remains 0. No SPEC.md/registry status is altered by this file.",
-
-  "entries": [
-    { "name": "NS-001", "kind": "axiom",       "layer": 0, "logic": "classical",     "status": "proved_conditional", "deps": [],                     "_class": "PROBLEM",     "_scope": "PDE",            "_gloss": "Clay statement: 3D incompressible NS global regularity or finite-time singularity" },
-
-    { "name": "NS-002", "kind": "proposition", "layer": 1, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-001"],             "_class": "OBSTRUCTION", "_scope": "PDE",            "_gloss": "Supercriticality of the energy norm (THE central wall)" },
-    { "name": "NS-003", "kind": "theorem",     "layer": 1, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-001"],             "_class": "OBSTRUCTION", "_scope": "PDE",            "_gloss": "Energy is the only coercive global control (Leray-Hopf)" },
-    { "name": "NS-004", "kind": "theorem",     "layer": 1, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-001"],             "_class": "OBSTRUCTION", "_scope": "PDE",            "_gloss": "BKM: blowup <=> unbounded vortex stretching" },
-
-    { "name": "NS-005", "kind": "theorem",     "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002","NS-003"],    "_class": "OBSTRUCTION", "_scope": "PDE",            "_gloss": "Prodi-Serrin-ESS critical-norm conditional regularity" },
-    { "name": "NS-006", "kind": "theorem",     "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-003"],             "_class": "OBSTRUCTION", "_scope": "PDE",            "_gloss": "CKN partial regularity (singular set parabolic-dim <= 1)" },
-    { "name": "NS-007", "kind": "theorem",     "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002"],             "_class": "OBSTRUCTION", "_scope": "PDE",            "_gloss": "No exact self-similar blowup (Necas-Ruzicka-Sverak)" },
-    { "name": "NS-008", "kind": "theorem",     "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002","NS-003"],    "_class": "OBSTRUCTION", "_scope": "PDE",            "_gloss": "Tao averaged-NS blowup: no-go for energy-only methods" },
-    { "name": "NS-009", "kind": "theorem",     "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002"],             "_class": "OBSTRUCTION", "_scope": "PDE/Euler",      "_gloss": "Onsager / anomalous-dissipation threshold 1/3" },
-
-    { "name": "NS-010", "kind": "lemma",       "layer": 3, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-004"],             "_class": "DIAGNOSTIC",  "_scope": "PDE-method",     "_gloss": "Analyticity-strip width delta(t) (THE blowup diagnostic)" },
-    { "name": "NS-011", "kind": "lemma",       "layer": 4, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-010"],             "_class": "DIAGNOSTIC",  "_scope": "PDE-method",     "_gloss": "Complex-singularity tracking (migration to real axis = blowup)" },
-
-    { "name": "NS-012", "kind": "theorem",     "layer": 5, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-011","NS-007"],    "_class": "LIVE",        "_scope": "PDE-complex",    "_gloss": "Li-Sinai: finite-time blowup for COMPLEX initial data" },
-    { "name": "NS-013", "kind": "conjecture",  "layer": 5, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-012","NS-010","NS-006","NS-036"], "_class": "CONJECTURE",  "_scope": "PDE",            "_gloss": "complex-data blowup vs real regularity: :argued reduction to CFM/Hou-Li geometric depletion (map witness-refuted; question stays open)" },
-
-    { "name": "NS-020", "kind": "falsified",   "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002"],             "_class": "FALSIFIED",   "_scope": "discrete-topology","_gloss": "Homological reformulation FALSIFIED (cannot see the norm = NS-002)" },
-
-    { "name": "NS-021", "kind": "result",      "layer": 2, "logic": "other:closure", "status": "proved_conditional", "deps": ["NS-001"],             "_class": "RESULT",      "_scope": "ODE-truncation", "_gloss": "MFE 9-mode self-sustaining phenomenology (tau~exp(B*Re))" },
-    { "name": "NS-022", "kind": "result",      "layer": 3, "logic": "other:closure", "status": "proved_conditional", "deps": ["NS-001","NS-009"],    "_class": "RESULT",      "_scope": "3-ODE-model",    "_gloss": "Helical triad: cascade direction is an ensemble property" },
-    { "name": "NS-023", "kind": "result",      "layer": 3, "logic": "other:closure", "status": "proved_conditional", "deps": ["NS-021","NS-022"],    "_class": "RESULT",      "_scope": "abstract-closure","_gloss": "Autopoietic-closure phenomenology + the (M,R) rotation-covariant gate" },
-
-    { "name": "NS-024", "kind": "result",      "layer": 4, "logic": "bridge",        "status": "proved_conditional", "deps": ["NS-023","NS-009"],    "_class": "RESULT",      "_scope": "analogy",        "_gloss": "Closure<->turbulence convergence, witness-trimmed to broad/generic (BRIDGE)" },
-
-    { "name": "NS-025", "kind": "related",     "layer": 4, "logic": "other:closure", "status": "proved_conditional", "deps": ["NS-023"],             "_class": "RELATED",     "_scope": "software-phenomenology","_gloss": "Gosme arXiv:2512.09352 - causal-symmetrization signature of operational closure" },
-
-    { "name": "NS-030", "kind": "program",     "layer": 5, "logic": "bridge",        "status": "proved_conditional", "deps": ["NS-001","NS-024"],    "_class": "PROGRAM",     "_scope": "methodology",    "_gloss": "The obstruction-program method (the transferable contribution; BRIDGE)" },
-
-    { "name": "NS-031", "kind": "program",     "layer": 5, "logic": "bridge",        "status": "proved_conditional", "deps": ["NS-030"],                  "_class": "PROGRAM",      "_scope": "methodology",          "_gloss": "The program's own triadic coordination structure (TCE self-map; BRIDGE)" },
-
-    { "name": "NS-032", "kind": "result",      "layer": 5, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-010","NS-004"],         "_class": "RESULT",       "_scope": "inviscid-3D-truncation","_gloss": "Stage 1c-3D Step-2 gated blowup hunt (inviscid TG) - NULL/INCONCLUSIVE at N=256<->512 GPU" },
-    { "name": "NS-033", "kind": "result",      "layer": 3, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002","NS-003"],         "_class": "GEOMETRY",     "_scope": "Euler/NS-truncation-geom","_gloss": "Geometric structure of the NS state-space manifold (Lie-Poisson, 4 slices)" },
-    { "name": "NS-034", "kind": "theorem",     "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002","NS-005"],         "_class": "ANALYSIS",     "_scope": "PDE-scaling",          "_gloss": "Scaling-exponent (criticality) calculus: supercriticality made exact; unifies NS-002<->NS-005" },
-    { "name": "NS-035", "kind": "related",     "layer": 4, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-010","NS-006"],         "_class": "RELATED",      "_scope": "scope-principle",      "_gloss": "Ryan: emergence coupled to SCOPE not level (grounds the diagnostic arc; M*<->CKN)" },
-    { "name": "NS-036", "kind": "theorem",     "layer": 2, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-002","NS-034","NS-003"],"_class": "ANALYSIS",     "_scope": "PDE-scaling",          "_gloss": "Criticality-Casimir hinge: supercriticality(NS-002) === Casimir-deficit, joined at the ENSTROPHY rung" },
-    { "name": "NS-037", "kind": "result",      "layer": 4, "logic": "other:empirical","status": "proved_conditional","deps": ["NS-006","NS-009","NS-036"], "_class": "POSSIBILISTIC","_scope": "EMPIRICAL",            "_gloss": "Inverse-Born / possibilistic map of turbulence constants (log-normal FORBIDDEN; mu in [0,1])" },
-
-    { "name": "NS-038", "kind": "result",      "layer": 3, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-010","NS-004","NS-006","NS-037"],"_class": "RESOLVED-DNS","_scope": "resolved-DNS-truncation","_gloss": "Resolved N=256 DNS boundary program A->B->C (Brachet-validated; S_omega bounded; D dynamic)" },
-    { "name": "NS-039", "kind": "result",      "layer": 3, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-038","NS-006","NS-004"], "_class": "RESOLVED-DNS", "_scope": "resolved-DNS-truncation","_gloss": "GPU N=512 resolves RWC-038: the C reconnection <=1 box-dim touch is a RESOLUTION ARTIFACT" },
-    { "name": "NS-040", "kind": "result",      "layer": 3, "logic": "classical",     "status": "proved_conditional", "deps": ["NS-038","NS-022"],         "_class": "RESOLVED-DNS", "_scope": "resolved-DNS-truncation","_gloss": "Strong helicity DEPLETES vortex stretching (clean matched-spectrum pair, N-robust)" }
-  ]
+ "_note": "TCE TriadDiscovery corpus encoding of the NS obstruction program (SPEC.md NS-001..040, re-encoded 2026-06-04 for the matured 30-entry ledger). Fed to the TCE engine via SpecBridge -> Discovery.Triadic.findTriadicCandidates (test-suite triadic-coordination-runonspec, SPEC_JSON env var).  FIELDS: name/kind/layer/logic/status/deps are read by the decoder; underscore-prefixed fields are human notes the decoder ignores.  DEPS are the genuine logical premises read off SPEC.md prose (e.g. NS-005 'critical norm = NS-002', NS-008 'energy(NS-003)+scaling(NS-002)', NS-010<->NS-004 BKM, NS-013<-NS-012+NS-010).  LAYER = depth in the program (problem=0 ... live frontier=5).  LOGIC TIER: classical = the PDE-analysis domain; other:closure = the closure/turbulence-model arc (a SEPARATE domain); bridge = NS-024/NS-030, the ONLY legal cross-tier links (faithful to their role as the witnessed/methodological connectors).  STATUS = 'proved_conditional' on EVERY entry is the engine's anchor-eligibility flag ONLY (the engine builds triads from isProved anchors); it reads 'established within its declared Scope/condition' and is WHOLLY DECOUPLED from the SPEC.md PDE-proof firewall, where :proved (unconditional, Scope:PDE) remains 0. No SPEC.md/registry status is altered by this file.",
+ "entries": [
+  {
+   "name": "NS-001",
+   "kind": "axiom",
+   "layer": 0,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [],
+   "_class": "PROBLEM",
+   "_scope": "PDE",
+   "_gloss": "Clay statement: 3D incompressible NS global regularity or finite-time singularity"
+  },
+  {
+   "name": "NS-002",
+   "kind": "proposition",
+   "layer": 1,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-001"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE",
+   "_gloss": "Supercriticality of the energy norm (THE central wall)"
+  },
+  {
+   "name": "NS-003",
+   "kind": "theorem",
+   "layer": 1,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-001"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE",
+   "_gloss": "Energy is the only coercive global control (Leray-Hopf)"
+  },
+  {
+   "name": "NS-004",
+   "kind": "theorem",
+   "layer": 1,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-001"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE",
+   "_gloss": "BKM: blowup <=> unbounded vortex stretching"
+  },
+  {
+   "name": "NS-005",
+   "kind": "theorem",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002",
+    "NS-003"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE",
+   "_gloss": "Prodi-Serrin-ESS critical-norm conditional regularity"
+  },
+  {
+   "name": "NS-006",
+   "kind": "theorem",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-003"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE",
+   "_gloss": "CKN partial regularity (singular set parabolic-dim <= 1)"
+  },
+  {
+   "name": "NS-007",
+   "kind": "theorem",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE",
+   "_gloss": "No exact self-similar blowup (Necas-Ruzicka-Sverak)"
+  },
+  {
+   "name": "NS-008",
+   "kind": "theorem",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002",
+    "NS-003"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE",
+   "_gloss": "Tao averaged-NS blowup: no-go for energy-only methods"
+  },
+  {
+   "name": "NS-009",
+   "kind": "theorem",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002"
+   ],
+   "_class": "OBSTRUCTION",
+   "_scope": "PDE/Euler",
+   "_gloss": "Onsager / anomalous-dissipation threshold 1/3"
+  },
+  {
+   "name": "NS-010",
+   "kind": "lemma",
+   "layer": 3,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-004"
+   ],
+   "_class": "DIAGNOSTIC",
+   "_scope": "PDE-method",
+   "_gloss": "Analyticity-strip width delta(t) (THE blowup diagnostic)"
+  },
+  {
+   "name": "NS-011",
+   "kind": "lemma",
+   "layer": 4,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-010"
+   ],
+   "_class": "DIAGNOSTIC",
+   "_scope": "PDE-method",
+   "_gloss": "Complex-singularity tracking (migration to real axis = blowup)"
+  },
+  {
+   "name": "NS-012",
+   "kind": "theorem",
+   "layer": 5,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-011",
+    "NS-007"
+   ],
+   "_class": "LIVE",
+   "_scope": "PDE-complex",
+   "_gloss": "Li-Sinai: finite-time blowup for COMPLEX initial data"
+  },
+  {
+   "name": "NS-013",
+   "kind": "conjecture",
+   "layer": 5,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-012",
+    "NS-010",
+    "NS-006",
+    "NS-036"
+   ],
+   "_class": "CONJECTURE",
+   "_scope": "PDE",
+   "_gloss": "complex-data blowup vs real regularity: :argued reduction to CFM/Hou-Li geometric depletion (map witness-refuted; question stays open)"
+  },
+  {
+   "name": "NS-020",
+   "kind": "falsified",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002"
+   ],
+   "_class": "FALSIFIED",
+   "_scope": "discrete-topology",
+   "_gloss": "Homological reformulation FALSIFIED (cannot see the norm = NS-002)"
+  },
+  {
+   "name": "NS-021",
+   "kind": "result",
+   "layer": 2,
+   "logic": "other:closure",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-001"
+   ],
+   "_class": "RESULT",
+   "_scope": "ODE-truncation",
+   "_gloss": "MFE 9-mode self-sustaining phenomenology (tau~exp(B*Re))"
+  },
+  {
+   "name": "NS-022",
+   "kind": "result",
+   "layer": 3,
+   "logic": "other:closure",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-001",
+    "NS-009"
+   ],
+   "_class": "RESULT",
+   "_scope": "3-ODE-model",
+   "_gloss": "Helical triad: cascade direction is an ensemble property"
+  },
+  {
+   "name": "NS-023",
+   "kind": "result",
+   "layer": 3,
+   "logic": "other:closure",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-021",
+    "NS-022"
+   ],
+   "_class": "RESULT",
+   "_scope": "abstract-closure",
+   "_gloss": "Autopoietic-closure phenomenology + the (M,R) rotation-covariant gate"
+  },
+  {
+   "name": "NS-024",
+   "kind": "result",
+   "layer": 4,
+   "logic": "bridge",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-023",
+    "NS-009"
+   ],
+   "_class": "RESULT",
+   "_scope": "analogy",
+   "_gloss": "Closure<->turbulence convergence, witness-trimmed to broad/generic (BRIDGE)"
+  },
+  {
+   "name": "NS-025",
+   "kind": "related",
+   "layer": 4,
+   "logic": "other:closure",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-023"
+   ],
+   "_class": "RELATED",
+   "_scope": "software-phenomenology",
+   "_gloss": "Gosme arXiv:2512.09352 - causal-symmetrization signature of operational closure"
+  },
+  {
+   "name": "NS-030",
+   "kind": "program",
+   "layer": 5,
+   "logic": "bridge",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-001",
+    "NS-024"
+   ],
+   "_class": "PROGRAM",
+   "_scope": "methodology",
+   "_gloss": "The obstruction-program method (the transferable contribution; BRIDGE)"
+  },
+  {
+   "name": "NS-031",
+   "kind": "program",
+   "layer": 5,
+   "logic": "bridge",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-030"
+   ],
+   "_class": "PROGRAM",
+   "_scope": "methodology",
+   "_gloss": "The program's own triadic coordination structure (TCE self-map; BRIDGE)"
+  },
+  {
+   "name": "NS-032",
+   "kind": "result",
+   "layer": 5,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-010",
+    "NS-004"
+   ],
+   "_class": "RESULT",
+   "_scope": "inviscid-3D-truncation",
+   "_gloss": "Stage 1c-3D Step-2 gated blowup hunt (inviscid TG) - NULL/INCONCLUSIVE at N=256<->512 GPU"
+  },
+  {
+   "name": "NS-033",
+   "kind": "result",
+   "layer": 3,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002",
+    "NS-003"
+   ],
+   "_class": "GEOMETRY",
+   "_scope": "Euler/NS-truncation-geom",
+   "_gloss": "Geometric structure of the NS state-space manifold (Lie-Poisson, 4 slices)"
+  },
+  {
+   "name": "NS-034",
+   "kind": "theorem",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002",
+    "NS-005"
+   ],
+   "_class": "ANALYSIS",
+   "_scope": "PDE-scaling",
+   "_gloss": "Scaling-exponent (criticality) calculus: supercriticality made exact; unifies NS-002<->NS-005"
+  },
+  {
+   "name": "NS-035",
+   "kind": "related",
+   "layer": 4,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-010",
+    "NS-006"
+   ],
+   "_class": "RELATED",
+   "_scope": "scope-principle",
+   "_gloss": "Ryan: emergence coupled to SCOPE not level (grounds the diagnostic arc; M*<->CKN)"
+  },
+  {
+   "name": "NS-036",
+   "kind": "theorem",
+   "layer": 2,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-002",
+    "NS-034",
+    "NS-003"
+   ],
+   "_class": "ANALYSIS",
+   "_scope": "PDE-scaling",
+   "_gloss": "Criticality-Casimir hinge: supercriticality(NS-002) === Casimir-deficit, joined at the ENSTROPHY rung"
+  },
+  {
+   "name": "NS-037",
+   "kind": "result",
+   "layer": 4,
+   "logic": "other:empirical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-006",
+    "NS-009",
+    "NS-036"
+   ],
+   "_class": "POSSIBILISTIC",
+   "_scope": "EMPIRICAL",
+   "_gloss": "Inverse-Born / possibilistic map of turbulence constants (log-normal FORBIDDEN; mu in [0,1])"
+  },
+  {
+   "name": "NS-038",
+   "kind": "result",
+   "layer": 3,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-010",
+    "NS-004",
+    "NS-006",
+    "NS-037"
+   ],
+   "_class": "RESOLVED-DNS",
+   "_scope": "resolved-DNS-truncation",
+   "_gloss": "Resolved N=256 DNS boundary program A->B->C (Brachet-validated; S_omega bounded; D dynamic)"
+  },
+  {
+   "name": "NS-039",
+   "kind": "result",
+   "layer": 3,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-038",
+    "NS-006",
+    "NS-004"
+   ],
+   "_class": "RESOLVED-DNS",
+   "_scope": "resolved-DNS-truncation",
+   "_gloss": "GPU N=512 resolves RWC-038: the C reconnection <=1 box-dim touch is a RESOLUTION ARTIFACT"
+  },
+  {
+   "name": "NS-040",
+   "kind": "result",
+   "layer": 3,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-038",
+    "NS-022"
+   ],
+   "_class": "RESOLVED-DNS",
+   "_scope": "resolved-DNS-truncation",
+   "_gloss": "Strong helicity DEPLETES vortex stretching (clean matched-spectrum pair, N-robust)"
+  },
+  {
+   "name": "NS-045",
+   "kind": "result",
+   "layer": 3,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-040",
+    "NS-022"
+   ],
+   "_class": "RESOLVED-DNS",
+   "_scope": "resolved-DNS-truncation",
+   "_gloss": "Helicity-depletion MECHANISM = Beltramization (u-parallel-w crushes the Lamb vector), NOT w-S alignment; within-truncation, N-converged"
+  },
+  {
+   "name": "NS-046",
+   "kind": "conjecture",
+   "layer": 3,
+   "logic": "classical",
+   "status": "proved_conditional",
+   "deps": [
+    "NS-005",
+    "NS-034",
+    "NS-036",
+    "NS-006"
+   ],
+   "_class": "ANALYSIS",
+   "_scope": "PDE-analysis",
+   "_gloss": "Critical coercive deformation inequality: nonlocal pressure-Hessian + viscosity vs the production at sigma=0 on CKN sets -- the open frontier (NS-047 LP-route folded: Besov-live, uniformity is the gap)"
+  }
+ ]
 }

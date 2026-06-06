@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.68 — 2026-06-06 — TCE self-map v3 (32-node): NS-045/046 slot in self-consistently; §9 resolved-DNS arm completed
+
+Re-ran the TCE self-map on the matured 32-node ledger (added NS-045 + NS-046 to the corpus). The new
+entries disturb no established cluster:
+- **NS-045 (Beltramization) joins the resolved-DNS family — {NS-038,039,040,045} is now a tight
+  HIGH-band clique @0.90–0.95** ("multi-angle on one object" = the resolved-DNS empirical map of vortex
+  stretching at Re=1600). Folded into the mature map §9 (the arm now runs verdicts→artifact-correction→
+  depletion→*mechanism*), with the honest collective scope: methodology + one removed false signal + one
+  mechanism, NOT regularity progress (the HIGH coordination is structural, not a discovery).
+- **NS-046 (the deformation-inequality target) lands MID on the criticality cluster {NS-034,036,046}
+  @0.83** — the apex of the hinge.
+- **NS-045↔NS-046 reads LOW** ({NS-040,045,046} @0.68) — the engine independently rates the
+  mechanism↔target link as *loose*, corroborating the §10 witness verdict (the "complementarity" is
+  IC-specific, not a tight law).
+- Corpus → 32 nodes; NS-031 run-log regenerated (v3, 280 lines); NS-031 v3 note. No status change
+  (`:tested`); closure tier-wall intact. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.67 — 2026-06-06 — ORSI top-level architecture recorded (docs/orsi_reference.md) — the governance parent of CCATT
 
 Transcribed + analyzed Brian's ORSI Top-Level Architecture (source: a one-page spec on Aaron's Desktop),

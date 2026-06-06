@@ -443,6 +443,14 @@ ledger — encoded as a 20-node corpus with `deps` = the genuine logical premise
   depletion link surfaces at LOW ({NS-013,039,040} @0.70) — corroborating the c²_int consistency. The
   closure tier-wall (NS-024/030/031 the only bridges) still holds at 30 nodes. Consolidation:
   `docs/ns_corollaries_synthesis.md` (the no-go corollaries + this self-map). Status unchanged `:tested`.
+- **Re-run v3 (2026-06-06, 32-node ledger; added NS-045 + NS-046; corpus + out.txt updated).** The two
+  new entries slot in self-consistently, disturbing no established cluster: **NS-045 (Beltramization)
+  joins the resolved-DNS family — {NS-038,039,040,045} is now a tight HIGH-band clique @0.90–0.95**;
+  **NS-046 (the deformation-inequality target) lands in the MID band on the criticality cluster
+  {NS-034,036,046} @0.83** (the apex of the hinge, not floating free); and the NS-045↔NS-046 link reads
+  **LOW** ({NS-040,045,046} @0.68) — the engine independently rates the mechanism↔target coordination as
+  *loose*, corroborating the §10 witness verdict that the "complementarity" is IC-specific, not a tight
+  law. 155 candidates; closure tier-wall intact. Status unchanged `:tested`.
 
 **NS-032 — Stage 1c-3D Step 2: gated blowup hunt (inviscid Taylor–Green) — NULL.**
 The canonical Euler near-singularity probe (Brachet TGV, vortex stretching

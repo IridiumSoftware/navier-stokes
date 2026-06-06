@@ -1,8 +1,8 @@
-TCE TriadDiscovery on the NS obstruction program — reproducible run log (v2, MATURED 30-node ledger)
-engine: triadic-coordination-2.0.0 (Discovery.Triadic via SpecBridge); re-run 2026-06-04 (NS-031 update)
-corpus: navier-stokes/discovery/ns_obstruction_corpus.json (30 entries, NS-001..040)
+TCE TriadDiscovery on the NS obstruction program — reproducible run log (v3, 32-node ledger)
+engine: triadic-coordination-2.0.0 (Discovery.Triadic via SpecBridge); re-run 2026-06-06
+corpus: discovery/ns_obstruction_corpus.json (32 entries, NS-001..040 + NS-045/046)
 invocation: SPEC_JSON=<corpus> FILTER_PROVED_ONLY=0 MIN_LAYER_SPREAD=0 MIN_KINDS=1 FILTER_DEDUP=0 TOP_N=80 SHOW_BANDS=1 cabal run triadic-coordination-runonspec
-(prior v1 run was 20 nodes NS-001..030; this re-run adds the geometric/possibilistic tour + resolved-DNS/GPU cluster + NS-013 sharpened)
+(v3 adds NS-045 [Beltramization] + NS-046 [deformation-inequality target]; v2 was 30 nodes)
 
 ──────────────────────────────────────────────────────────────────
   TCE SpecBridge run on: /Users/aarongreen/Desktop/navier-stokes/discovery/ns_obstruction_corpus.json
@@ -17,16 +17,16 @@ invocation: SPEC_JSON=<corpus> FILTER_PROVED_ONLY=0 MIN_LAYER_SPREAD=0 MIN_KINDS
   Excluded members:             0
 ──────────────────────────────────────────────────────────────────
 
-  Decoded entries:                            30
-  Total candidates from engine:               126
-  After exclude-members filter:               126
-  After proved-only filter:                   126
-  After layer-spread filter (≥0):           126
-  After kind-diversity filter (≥1 kinds):    126
+  Decoded entries:                            32
+  Total candidates from engine:               155
+  After exclude-members filter:               155
+  After proved-only filter:                   155
+  After layer-spread filter (≥0):           155
+  After kind-diversity filter (≥1 kinds):    155
 
 ──────────────────────────────────────────────────────────────────
   HIGH BAND — multi-angle on one object
-  score ≥ 0.85  —  16 deduped candidates  —  showing top 20
+  score ≥ 0.85  —  19 deduped candidates  —  showing top 20
 
   #  1  score=1.0
       NS-002  [L1 Pr/cls/P|]
@@ -68,34 +68,46 @@ invocation: SPEC_JSON=<corpus> FILTER_PROVED_ONLY=0 MIN_LAYER_SPREAD=0 MIN_KINDS
       NS-038  [L3 oth:result/cls/P|]
       NS-039  [L3 oth:result/cls/P|]
       NS-040  [L3 oth:result/cls/P|]
-  # 11  score=0.9166
+  # 11  score=0.9267
+      NS-039  [L3 oth:result/cls/P|]
+      NS-040  [L3 oth:result/cls/P|]
+      NS-045  [L3 oth:result/cls/P|]
+  # 12  score=0.9209
+      NS-038  [L3 oth:result/cls/P|]
+      NS-040  [L3 oth:result/cls/P|]
+      NS-045  [L3 oth:result/cls/P|]
+  # 13  score=0.9166
       NS-005  [L2 Th/cls/P|]
       NS-008  [L2 Th/cls/P|]
       NS-034  [L2 Th/cls/P|]
-  # 12  score=0.9166
+  # 14  score=0.9166
       NS-005  [L2 Th/cls/P|]
       NS-033  [L3 oth:result/cls/P|]
       NS-034  [L2 Th/cls/P|]
-  # 13  score=0.8968
+  # 15  score=0.9010
+      NS-038  [L3 oth:result/cls/P|]
+      NS-039  [L3 oth:result/cls/P|]
+      NS-045  [L3 oth:result/cls/P|]
+  # 16  score=0.8968
       NS-023  [L3 oth:result/oth:other:closure/P|]
       NS-025  [L4 oth:related/oth:other:closure/P|]
       NS-030  [L5 oth:program/brg/P|]
-  # 14  score=0.8690
+  # 17  score=0.8690
       NS-024  [L4 oth:result/brg/P|]
       NS-025  [L4 oth:related/oth:other:closure/P|]
       NS-031  [L5 oth:program/brg/P|]
-  # 15  score=0.8690
+  # 18  score=0.8690
       NS-025  [L4 oth:related/oth:other:closure/P|]
       NS-030  [L5 oth:program/brg/P|]
       NS-031  [L5 oth:program/brg/P|]
-  # 16  score=0.8571
+  # 19  score=0.8571
       NS-023  [L3 oth:result/oth:other:closure/P|]
       NS-024  [L4 oth:result/brg/P|]
       NS-031  [L5 oth:program/brg/P|]
 
 ──────────────────────────────────────────────────────────────────
   MID BAND — cross-framing invariance
-  score in [0.7, 0.85)  —  49 deduped candidates  —  showing top 20
+  score in [0.7, 0.85)  —  52 deduped candidates  —  showing top 20
 
   #  1  score=0.8492
       NS-023  [L3 oth:result/oth:other:closure/P|]
@@ -113,155 +125,155 @@ invocation: SPEC_JSON=<corpus> FILTER_PROVED_ONLY=0 MIN_LAYER_SPREAD=0 MIN_KINDS
       NS-008  [L2 Th/cls/P|]
       NS-033  [L3 oth:result/cls/P|]
       NS-034  [L2 Th/cls/P|]
-  #  5  score=0.8214
+  #  5  score=0.8333
+      NS-034  [L2 Th/cls/P|]
+      NS-036  [L2 Th/cls/P|]
+      NS-046  [L3 oth:conjecture/cls/P|]
+  #  6  score=0.8214
       NS-023  [L3 oth:result/oth:other:closure/P|]
       NS-025  [L4 oth:related/oth:other:closure/P|]
       NS-031  [L5 oth:program/brg/P|]
-  #  6  score=0.7833
+  #  7  score=0.7833
       NS-005  [L2 Th/cls/P|]
       NS-008  [L2 Th/cls/P|]
       NS-036  [L2 Th/cls/P|]
-  #  7  score=0.7833
+  #  8  score=0.7833
       NS-005  [L2 Th/cls/P|]
       NS-033  [L3 oth:result/cls/P|]
       NS-036  [L2 Th/cls/P|]
-  #  8  score=0.7833
+  #  9  score=0.7833
       NS-008  [L2 Th/cls/P|]
       NS-034  [L2 Th/cls/P|]
       NS-036  [L2 Th/cls/P|]
-  #  9  score=0.7833
+  # 10  score=0.7833
       NS-022  [L3 oth:result/oth:other:closure/P|]
       NS-023  [L3 oth:result/oth:other:closure/P|]
       NS-025  [L4 oth:related/oth:other:closure/P|]
-  # 10  score=0.7833
+  # 11  score=0.7833
       NS-033  [L3 oth:result/cls/P|]
       NS-034  [L2 Th/cls/P|]
       NS-036  [L2 Th/cls/P|]
-  # 11  score=0.7777
-      NS-005  [L2 Th/cls/P|]
-      NS-006  [L2 Th/cls/P|]
-      NS-008  [L2 Th/cls/P|]
   # 12  score=0.7777
       NS-005  [L2 Th/cls/P|]
       NS-006  [L2 Th/cls/P|]
-      NS-033  [L3 oth:result/cls/P|]
+      NS-008  [L2 Th/cls/P|]
   # 13  score=0.7777
       NS-005  [L2 Th/cls/P|]
-      NS-007  [L2 Th/cls/P|]
-      NS-008  [L2 Th/cls/P|]
+      NS-006  [L2 Th/cls/P|]
+      NS-033  [L3 oth:result/cls/P|]
   # 14  score=0.7777
       NS-005  [L2 Th/cls/P|]
       NS-007  [L2 Th/cls/P|]
-      NS-009  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
   # 15  score=0.7777
       NS-005  [L2 Th/cls/P|]
       NS-007  [L2 Th/cls/P|]
-      NS-020  [L2 oth:falsified/cls/P|]
+      NS-009  [L2 Th/cls/P|]
   # 16  score=0.7777
       NS-005  [L2 Th/cls/P|]
       NS-007  [L2 Th/cls/P|]
-      NS-033  [L3 oth:result/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
   # 17  score=0.7777
       NS-005  [L2 Th/cls/P|]
-      NS-008  [L2 Th/cls/P|]
-      NS-009  [L2 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-033  [L3 oth:result/cls/P|]
   # 18  score=0.7777
       NS-005  [L2 Th/cls/P|]
       NS-008  [L2 Th/cls/P|]
-      NS-020  [L2 oth:falsified/cls/P|]
+      NS-009  [L2 Th/cls/P|]
   # 19  score=0.7777
       NS-005  [L2 Th/cls/P|]
-      NS-009  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
       NS-020  [L2 oth:falsified/cls/P|]
   # 20  score=0.7777
       NS-005  [L2 Th/cls/P|]
       NS-009  [L2 Th/cls/P|]
-      NS-033  [L3 oth:result/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
 
 ──────────────────────────────────────────────────────────────────
   LOW BAND — convergence / structural echo
-  score in [0.55, 0.7)  —  59 deduped candidates  —  showing top 20
+  score in [0.55, 0.7)  —  81 deduped candidates  —  showing top 20
 
-  #  1  score=0.6951
+  #  1  score=0.6973
+      NS-013  [L5 oth:conjecture/cls/P|]
+      NS-040  [L3 oth:result/cls/P|]
+      NS-045  [L3 oth:result/cls/P|]
+  #  2  score=0.6971
+      NS-038  [L3 oth:result/cls/P|]
+      NS-040  [L3 oth:result/cls/P|]
+      NS-046  [L3 oth:conjecture/cls/P|]
+  #  3  score=0.6951
       NS-013  [L5 oth:conjecture/cls/P|]
       NS-039  [L3 oth:result/cls/P|]
       NS-040  [L3 oth:result/cls/P|]
-  #  2  score=0.6666
-      NS-002  [L1 Pr/cls/P|]
-      NS-003  [L1 Th/cls/P|]
-      NS-008  [L2 Th/cls/P|]
-  #  3  score=0.6666
-      NS-002  [L1 Pr/cls/P|]
-      NS-003  [L1 Th/cls/P|]
-      NS-033  [L3 oth:result/cls/P|]
-  #  4  score=0.6666
-      NS-002  [L1 Pr/cls/P|]
+  #  4  score=0.6944
       NS-005  [L2 Th/cls/P|]
-      NS-008  [L2 Th/cls/P|]
-  #  5  score=0.6666
-      NS-002  [L1 Pr/cls/P|]
-      NS-005  [L2 Th/cls/P|]
-      NS-033  [L3 oth:result/cls/P|]
-  #  6  score=0.6666
-      NS-002  [L1 Pr/cls/P|]
-      NS-008  [L2 Th/cls/P|]
-      NS-033  [L3 oth:result/cls/P|]
-  #  7  score=0.6666
-      NS-003  [L1 Th/cls/P|]
-      NS-004  [L1 Th/cls/P|]
-      NS-020  [L2 oth:falsified/cls/P|]
+      NS-036  [L2 Th/cls/P|]
+      NS-046  [L3 oth:conjecture/cls/P|]
+  #  5  score=0.6816
+      NS-039  [L3 oth:result/cls/P|]
+      NS-040  [L3 oth:result/cls/P|]
+      NS-046  [L3 oth:conjecture/cls/P|]
+  #  6  score=0.6794
+      NS-040  [L3 oth:result/cls/P|]
+      NS-045  [L3 oth:result/cls/P|]
+      NS-046  [L3 oth:conjecture/cls/P|]
+  #  7  score=0.6728
+      NS-013  [L5 oth:conjecture/cls/P|]
+      NS-038  [L3 oth:result/cls/P|]
+      NS-045  [L3 oth:result/cls/P|]
   #  8  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
       NS-003  [L1 Th/cls/P|]
-      NS-005  [L2 Th/cls/P|]
       NS-008  [L2 Th/cls/P|]
   #  9  score=0.6666
+      NS-002  [L1 Pr/cls/P|]
       NS-003  [L1 Th/cls/P|]
-      NS-005  [L2 Th/cls/P|]
       NS-033  [L3 oth:result/cls/P|]
   # 10  score=0.6666
-      NS-003  [L1 Th/cls/P|]
-      NS-007  [L2 Th/cls/P|]
-      NS-009  [L2 Th/cls/P|]
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
   # 11  score=0.6666
-      NS-003  [L1 Th/cls/P|]
-      NS-007  [L2 Th/cls/P|]
-      NS-020  [L2 oth:falsified/cls/P|]
+      NS-002  [L1 Pr/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-033  [L3 oth:result/cls/P|]
   # 12  score=0.6666
-      NS-003  [L1 Th/cls/P|]
+      NS-002  [L1 Pr/cls/P|]
       NS-008  [L2 Th/cls/P|]
       NS-033  [L3 oth:result/cls/P|]
   # 13  score=0.6666
       NS-003  [L1 Th/cls/P|]
-      NS-009  [L2 Th/cls/P|]
+      NS-004  [L1 Th/cls/P|]
       NS-020  [L2 oth:falsified/cls/P|]
   # 14  score=0.6666
-      NS-004  [L1 Th/cls/P|]
-      NS-007  [L2 Th/cls/P|]
-      NS-009  [L2 Th/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
   # 15  score=0.6666
-      NS-004  [L1 Th/cls/P|]
-      NS-007  [L2 Th/cls/P|]
-      NS-020  [L2 oth:falsified/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-005  [L2 Th/cls/P|]
+      NS-033  [L3 oth:result/cls/P|]
   # 16  score=0.6666
-      NS-004  [L1 Th/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
       NS-009  [L2 Th/cls/P|]
-      NS-020  [L2 oth:falsified/cls/P|]
   # 17  score=0.6666
+      NS-003  [L1 Th/cls/P|]
       NS-007  [L2 Th/cls/P|]
-      NS-009  [L2 Th/cls/P|]
-      NS-034  [L2 Th/cls/P|]
+      NS-020  [L2 oth:falsified/cls/P|]
   # 18  score=0.6666
-      NS-007  [L2 Th/cls/P|]
-      NS-020  [L2 oth:falsified/cls/P|]
-      NS-034  [L2 Th/cls/P|]
+      NS-003  [L1 Th/cls/P|]
+      NS-008  [L2 Th/cls/P|]
+      NS-033  [L3 oth:result/cls/P|]
   # 19  score=0.6666
+      NS-003  [L1 Th/cls/P|]
       NS-009  [L2 Th/cls/P|]
       NS-020  [L2 oth:falsified/cls/P|]
-      NS-034  [L2 Th/cls/P|]
-  # 20  score=0.6523
-      NS-022  [L3 oth:result/oth:other:closure/P|]
-      NS-025  [L4 oth:related/oth:other:closure/P|]
-      NS-030  [L5 oth:program/brg/P|]
+  # 20  score=0.6666
+      NS-004  [L1 Th/cls/P|]
+      NS-007  [L2 Th/cls/P|]
+      NS-009  [L2 Th/cls/P|]
 
 ──────────────────────────────────────────────────────────────────
   DONE
