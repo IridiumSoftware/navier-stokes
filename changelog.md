@@ -1,5 +1,16 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.69 — 2026-06-06 — NS-032 N>512 push SIZED (10.4 s/step @N=512) + DEFERRED (poor trade)
+
+Smoke-measured the GPU cost before committing to a multi-hour run: `metal/dns_gpu.swift` inviscid TG is
+**10.4 s/step at N=512** (no dissipation ⇒ the spectrum fills the grid ⇒ full FFT every step). So the
+N>512 push prices at **~10–15 hr @N=768** to **~33 hr @N=1024** (+ OOM risk). **Deferred** — the verdict
+would be vacuity-capped (a truncation can't settle the PDE) and most likely another gated INCONCLUSIVE
+(the N=256↔512 δ-fit was already 42–48% non-converged; the near-singularity needs N≫1024). NS-032 stays
+the open computational frontier with a concrete price tag attached. Disciplined call: don't burn a
+half-day of GPU for a within-truncation result that can't move the prize. No status change; `:proved`=0;
+distance UNTOUCHED.
+
 ## v0.1.68 — 2026-06-06 — TCE self-map v3 (32-node): NS-045/046 slot in self-consistently; §9 resolved-DNS arm completed
 
 Re-ran the TCE self-map on the matured 32-node ledger (added NS-045 + NS-046 to the corpus). The new

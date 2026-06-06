@@ -487,6 +487,15 @@ the literature's no-finite-time-singularity reading.
 - Source: `scripts/spectral_3d_blowup_candidate.jl` (+ `.out.txt`);
   `scripts/blowup_highres.jl` (+ `.out.txt`, N=128 confirmation); `scripts/step2_gate.jl` +
   `metal/dns_gpu.swift` + `metal/euler_tg{256,512}.txt` + `metal/delta_tg{256,512}.dat` (N=512 GPU).
+- **N>512 push SIZED + DEFERRED (2026-06-06).** Measured the GPU cost directly: `metal/dns_gpu.swift`
+  inviscid TG runs at **10.4 s/step at N=512** (inviscid ⇒ the spectrum fills the grid ⇒ full FFT every
+  step). So the N>512 push is **~10–15 hr at N=768** (mixed-radix `2⁸·3`) **to ~33 hr at N=1024** (clean
+  power-of-2; + real OOM risk on the M5 Max). **Deferred** — the trade is poor: it is **vacuity-capped**
+  (a finite truncation can never settle the PDE; a δ→0 there is suggestive-in-a-truncation, never a
+  proof) and **most likely another gated INCONCLUSIVE** (the N=256↔512 δ-fit was already 42–48%
+  non-converged; the inviscid-TG near-singularity needs N≫1024 to resolve, so one resolution step most
+  probably re-hits the wall). NS-032 stays the open computational frontier, now with a concrete price
+  tag. Status unchanged (`:tested`/null); `:proved`=0; distance UNTOUCHED.
 
 **NS-033 — Geometric structure of the NS state-space manifold (4-slice study).**
 A CFS-style geometric reconnaissance (exact, no resolution wall) of the Euler/NS
