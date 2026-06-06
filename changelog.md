@@ -1,5 +1,16 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.65 — 2026-06-06 — NS-046 precise target recorded; PAUSED at the standing frontier
+
+Wrote the crisp, admissible standing statement of the open problem (`docs/ns046_target.md`): the
+critical coercive deformation inequality — critical-Besov framework (NS-047, BKM-escaped), CKN
+localization, the nonlocal pressure-Hessian + viscosity dominating the production at σ=0, the CCATT
+loss ledger, and the §11 kill criteria. The single irreducible difficulty is the **non-uniformity**
+(the depletion is core-concentrated with bulk-enhancement, viscosity ≪1 on the intense set —
+computationally pinned by the Idea-3 + uniform-domination probes; = NS-047's C2). NS-046 is **held
+paused at this statement** — closing it needs a genuine analytic idea the program does not have, and
+the discipline forbids manufacturing one. NS-046 stays `:open`. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.64 — 2026-06-06 — NS-046 uniform-domination sub-probe: the depletion is NON-UNIFORM (probe-first blocks the 5th over-reach)
 
 Before attempting any analytic NS-046 reduction, measured whether the depletion dominates the production

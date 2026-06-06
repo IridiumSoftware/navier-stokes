@@ -870,3 +870,10 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   the gap), now computationally visible. This **blocks the tempting "pressure dominates ⟹ coercive
   inequality" reduction** (it would over-reach; probe-first caught it). Companion
   `docs/ns046_uniform_domination_companion.md`. `:open` unchanged; `:proved`=0.
+- **Precise standing target recorded — NS-046 PAUSED here (2026-06-06).** The crisp, admissible
+  open-problem statement (critical-Besov framework per NS-047; CKN localization; the nonlocal
+  pressure-Hessian + viscosity vs the production at σ=0; CCATT loss ledger; the kill criteria) is
+  written in `docs/ns046_target.md`. The single irreducible difficulty is the **non-uniformity**
+  (core-concentrated depletion + bulk-enhancement, computationally pinned above) — closing it needs a
+  genuine analytic idea the program does not have, and the discipline forbids manufacturing one
+  (four witness-refuted + one probe-refuted over-reach this arc). **Held as the standing frontier.**

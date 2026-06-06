@@ -1,0 +1,73 @@
+# NS-046 — The Critical Coercive Deformation Inequality (precise open target)
+
+**Date:** 2026-06-06. **Status: `:open` (analytic target). Scope: PDE-analysis.** `:proved`=0; distance
+to the prize UNTOUCHED. This is the standing, admissible statement of *where the prize sits* for the 3D
+Navier–Stokes obstruction program — sharpened by NS-047 (the framework) and the Idea-3 / uniform-
+domination sub-probes (the irreducible difficulty, computationally pinned). It is a **target**, not a
+result; the program holds NS-046 *paused at this statement* pending a genuine analytic idea.
+
+## 1. The established reduction chain (what licenses the target)
+
+`regularity` ⟺ control a **critical (σ=0) norm** (NS-005, Prodi–Serrin–ESS) ⟸ bound **enstrophy** `∫|ω|²`
+(NS-036, via the exact interpolation `‖u‖²_{Ḣ^{1/2}} ≤ ‖u‖_{L²}‖u‖_{Ḣ¹}`, with energy always controlled)
+⟸ control the **vortex-stretching production** `P = ∫ω·Sω = ∫|ω|²(ξ·Sξ)` — the σ=+1 rung's breaker. The
+only a-priori control, energy (σ=−1), is provably insufficient (NS-008, Tao's averaged-NS). Bounding
+enstrophy is a *sufficient, most-natural* route — **not** the unique framing (critical-Besov,
+concentration-compactness, probabilistic routes survive; cf. the MID witness in §10 of the write-up).
+
+## 2. The target inequality
+
+On CKN-compatible parabolic cylinders `Q_r` (singular-set-admissible: filamentary / sheet-like /
+intermittent), in a **critical Besov framework** `Ḃ⁰_{∞,1}` — *not* `L^∞` (NS-047: this escapes the
+Beale–Kato–Majda endpoint; the harmonic-analytic route is **live**, not blocked at BKM) — establish a
+**uniform `δ>0`** such that the strain deformation is coercively controlled:
+
+> the strain self-amplification of the maximal eigenvalue `λ₃` (and hence the production `P`)
+> is dominated, at scaling σ=0, by the **nonlocal pressure-Hessian counter-transport**
+> `−e₃ᵀ(∇²p)e₃` (with `∇²p` recovered from the singular-integral Poisson solve `−Δp = ∂_iu_j∂_ju_i`)
+> **plus** viscous dissipation `ν|∇ω|²`, up to controlled lower-order terms — uniformly on `Q_r`.
+
+CCATT admissibility (every term recoverable from NS by admissible transport): acts at σ=0; controls the
+production / an implied critical norm; incorporates the nonlocal pressure **explicitly**; survives
+localization to CKN sets; DNS/model evidence admissible only as witness/counter-witness, never as the
+analytic step; any depletion claim must **export to a quantitative inequality**, not stay descriptive.
+
+## 3. The single irreducible difficulty (computationally pinned)
+
+The inequality requires the depletion to dominate **uniformly on the intense-production / high-strain
+set** — the singular-set proxy. Two within-truncation probes pin exactly where this is hard:
+
+- **Idea-3** (`ns046_gradxi_pressure_probe`): the nonlocal pressure-Hessian counter-transport *is* the
+  operative depletion in the zero-helicity maximal-stretch (Kerr-tube) worst case where Beltramization
+  (NS-045) is weakest — enstrophy-weighted ratio 1.5–11×, N-converged 64↔128. The *mechanism is real*.
+- **Uniform-domination sub-probe** (`ns046_uniform_domination_probe`): but the domination is
+  **NON-UNIFORM** — conditioned across production intensity, `⟨e₃ᵀ∇²p e₃⟩/⟨λ₃²⟩` is **negative on the
+  bulk** (the pressure *enhances* the max-stretch — Vieillefosse local-pressure stretching) and turns
+  strongly depleting **only at the extreme `|ω|` cores** (top-0.1%); viscosity is **≪1 on the intense
+  set** (supercriticality).
+
+**So the irreducible analytic difficulty is the non-uniformity:** show that the *core-concentrated*
+pressure depletion + viscosity nonetheless yield a *uniform* σ=0 coercive bound, **against the
+bulk-enhancement** — on the CKN singular set where the local Reynolds number is O(1). This is NS-047's
+C2 obstacle (uniformity on the singular set), made concrete. The would-be inequality does **not** hold
+uniformly even in the truncation; closing it analytically needs a genuine idea for the non-uniformity
+that the program does not currently have (and the discipline forbids manufacturing — four witness-
+refuted over-reaches + one probe-refuted over-reach this arc).
+
+## 4. Kill criteria (§11 of the write-up — what would retire this framing)
+
+- a critical-norm control **independent of the production/enstrophy** (self-contained critical-Besov or
+  concentration-compactness) ⇒ NS-036-centrality / P-centrism retired;
+- a harmonic-analytic route that **bypasses the vortex-direction geometry** ⇒ the geometric framing is a
+  side-channel (NS-047 already showed the route is *live*; this would show it *bypasses*);
+- supercriticality and the Casimir deficit **coming apart** under a sharper formulation ⇒ the §5 "same
+  bottleneck" reading fails;
+- the happy one: any `Scope: PDE`, `:proved` result.
+
+## 5. Dependencies / supporting entries
+
+NS-001 (problem), NS-002/034 (supercriticality), NS-005 (critical-norm criterion), NS-006 (CKN
+localization), NS-008 (energy-only no-go), NS-036 (criticality–Casimir hinge → the enstrophy rung),
+NS-045 (Beltramization — the complementary depletion at high helicity), NS-047 (the LP-route is
+live, BKM-escaped; C2 = the uniformity gap). Brian's extension notes (2026-06-05) + CCATT
+(`docs/ccatt_reference.md`).
