@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.64 — 2026-06-06 — NS-046 uniform-domination sub-probe: the depletion is NON-UNIFORM (probe-first blocks the 5th over-reach)
+
+Before attempting any analytic NS-046 reduction, measured whether the depletion dominates the production
+*uniformly on the intense set* (`scripts/ns046_uniform_domination_probe.jl`) — the load-bearing
+uniformity the would-be coercive inequality needs. **Answer: no, not even in the truncation.**
+
+- Conditioning `⟨e₃ᵀ∇²p e₃⟩/⟨λ₃²⟩` and `⟨ν|∇ω|²⟩/⟨ω·Sω⟩` on top-{100,10,1,0.1}% production (N=64,
+  helical/control/tubes): the pressure ratio is **negative on the full field** (it *enhances* the
+  max-stretch on the bulk — Vieillefosse), turns strongly positive **only at the extreme high-`|ω|`
+  cores** (top-0.1%: 8–16 tubes, →2.6 late-helical; control never dominates), and viscosity is **≪1 on
+  the intense set** (supercriticality).
+- **The domination is concentrated, NOT uniform** — exactly NS-047's C2 obstacle (uniformity is the
+  gap), now computationally visible. This **blocks the tempting "pressure dominates ⟹ coercive
+  inequality closes" reduction** (it would have been the 5th tidy over-reach this session) — and it
+  **qualifies Idea-3**: "dominant in the worst case" was an enstrophy-weighted statement about the
+  cores; conditioned across intensity, the domination is non-uniform.
+- Probe-first (the user's call) caught the over-reach *computationally before the claim* — the
+  discipline is now self-correcting, not just witness-corrected. No new entry; NS-046 stays `:open`,
+  sharpened; Idea-3 NS-046-witness note qualified. Companion
+  `docs/ns046_uniform_domination_companion.md`. Scope: DNS truncation, within-truncation only.
+  `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.63 — 2026-06-06 — Idea-3 probe: depletion is helicity-dependent — Beltramization (high-H) vs pressure counter-transport (zero-H)
 
 Ran the zero-helicity stress test (`scripts/ns046_gradxi_pressure_probe.jl`): the ∇ξ-CFM smoothness +

@@ -859,3 +859,14 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   regime — NOT the analytic step (a regular truncation observes the term; it does not bound it).
   `scripts/ns046_gradxi_pressure_probe.jl`; companion `docs/ns046_gradxi_pressure_companion.md`.
   `:open` unchanged.
+- **Uniform-domination sub-probe (2026-06-06) — the depletion is NON-UNIFORM; the inequality's
+  uniformity FAILS even in the truncation (qualifies the line above).** Conditioning the ratios on the
+  top-{100,10,1,0.1}% production set (`ns046_uniform_domination_probe.jl`): `⟨e₃ᵀ∇²p e₃⟩/⟨λ₃²⟩` is
+  **negative on the full field** (the pressure *enhances* the max-stretch on the bulk — Vieillefosse),
+  turning strongly positive (depleting) **only at the extreme high-`|ω|` cores** (top-0.1%: 8–16 in
+  tubes, →2.6 late-helical; the control never dominates), and the viscous `⟨ν|∇ω|²⟩/⟨ω·Sω⟩` is **≪1 on
+  the intense set** (supercriticality). So the Idea-3 "dominant" was an enstrophy-weighted statement
+  about the cores; the domination is **concentrated, not uniform** — exactly NS-047's C2 (uniformity is
+  the gap), now computationally visible. This **blocks the tempting "pressure dominates ⟹ coercive
+  inequality" reduction** (it would over-reach; probe-first caught it). Companion
+  `docs/ns046_uniform_domination_companion.md`. `:open` unchanged; `:proved`=0.
