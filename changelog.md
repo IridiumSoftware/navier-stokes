@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.62 — 2026-06-05 — Idea-1 (LP-route) obstruction: NS-047 candidate witnessed → REFUTED, folded into NS-046
+
+Tested whether the Littlewood–Paley/paraproduct-local route to NS-046 escapes the wall or reduces to it
+(the §11 ∇ξ-frontier kill-criterion test). Drafted a refute-don't-endorse brief, witnessed 3/3 (Grok +
+Gemini[fast-model] + naive ChatGPT, convergent). **Candidate NS-047 REFUTED; folded into NS-046 as a
+note, no new entry** (panel-unanimous).
+
+- **C1 REFUTED (load-bearing):** "controlling the pressure Hessian must hit the BKM L^∞-endpoint" is a
+  *false dichotomy* — CZ/Riesz operators are bounded on critical Besov `Ḃ⁰_{∞,1}` (no log-penalty), and
+  LP machinery slices around the L^∞ endpoint. A critical-Besov coercive bound need never invoke BKM.
+- **C2 HOLDS (modestly):** the maximal-function tail-absorption needs a local-Reynolds smallness that
+  CKN generates only on already-regular cylinders ⇒ the gap relocates to the ≤1-D singular set (NS-006);
+  a restatement of the known supercritical difficulty, not a new barrier.
+- **Net (cuts against the over-reach):** the harmonic-analytic route to NS-046 is **NOT blocked at BKM**
+  (the kill-criterion does NOT fire — a harmonic-analytic route is genuinely live); its real obstacle is
+  the supercritical smallness on the CKN singular set, and the correct framework is **critical Besov,
+  not L^∞**. NS-046 stays `:open`, sharpened.
+- **Meta: the 4th tidy-"reduces to the wall" over-reach this session** (LOW#1 → MID → §5-"≡" → NS-047-C1);
+  the naive seat + Gemini both made the surface-level catch. The discipline worked.
+- Docs `docs/ns047_lp_route_{brief,verdict}.md` + the NS-046 note. No new spec entry; no status change.
+  `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.61 — 2026-06-05 — External program-review (ChatGPT) metabolized: kill criteria + §5 reconciled + §6→appendix
 
 Treated ChatGPT's strong program-level critique as a Required Witness Check and acted on it.

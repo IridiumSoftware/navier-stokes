@@ -823,3 +823,18 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   invariant under admissible transport (dilation, localization, pressure-kernel counter-transport).
 - Source: Brian's extension notes (2026-06-05); `docs/obstruction_program_writeup.md` §5 (the
   criticality–Casimir hinge) is the upstream context.
+- **LP/harmonic-analytic route analyzed + witnessed (2026-06-05; NS-047 candidate → REFUTED, folded
+  here, NOT a new entry).** Tested whether the straightforward Littlewood–Paley / paraproduct-local-
+  coercivity scheme reduces NS-046 to known walls. Witnessed 3/3 (Grok edge-Φ + Gemini + naive ChatGPT,
+  convergent). **C1 REFUTED:** "controlling the pressure Hessian must strike the BKM L^∞-endpoint" is a
+  *false dichotomy* — CZ/Riesz operators are bounded on critical Besov `Ḃ⁰_{∞,1}` (no log-penalty), and
+  LP machinery *slices around* the L^∞ endpoint, so a critical-*Besov* coercive bound need never invoke
+  BKM (NS-004). **C2 HOLDS (modestly):** the maximal-function tail-absorption needs a local-Reynolds
+  smallness that CKN generates only on already-regular cylinders ⇒ the gap relocates to the ≤1-D
+  singular set (NS-006), where local Reynolds is O(1) — a restatement of the known supercritical
+  difficulty, not a new barrier. **Net:** the harmonic-analytic route is **NOT blocked at BKM** (the §11
+  `∇ξ`-frontier kill-criterion does NOT fire — a harmonic-analytic route is genuinely live); its real
+  obstacle is the supercritical smallness on the CKN singular set, and the correct framework is
+  **critical Besov, not L^∞**. A diagnostic, not a no-go. (Fourth tidy-"reduces to the wall" over-reach
+  this session, witness-corrected.) Brief + verdict: `docs/ns047_lp_route_brief.md`,
+  `docs/ns047_lp_route_verdict.md`.
