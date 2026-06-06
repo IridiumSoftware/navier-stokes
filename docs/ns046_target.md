@@ -32,7 +32,7 @@ production / an implied critical norm; incorporates the nonlocal pressure **expl
 localization to CKN sets; DNS/model evidence admissible only as witness/counter-witness, never as the
 analytic step; any depletion claim must **export to a quantitative inequality**, not stay descriptive.
 
-## 3. The single irreducible difficulty (computationally pinned)
+## 3. A candidate remaining difficulty (within-truncation probes; witness-corrected — NOT "the" difficulty)
 
 The inequality requires the depletion to dominate **uniformly on the intense-production / high-strain
 set** — the singular-set proxy. Two within-truncation probes pin exactly where this is hard:
@@ -46,13 +46,17 @@ set** — the singular-set proxy. Two within-truncation probes pin exactly where
   strongly depleting **only at the extreme `|ω|` cores** (top-0.1%); viscosity is **≪1 on the intense
   set** (supercriticality).
 
-**So the irreducible analytic difficulty is the non-uniformity:** show that the *core-concentrated*
-pressure depletion + viscosity nonetheless yield a *uniform* σ=0 coercive bound, **against the
-bulk-enhancement** — on the CKN singular set where the local Reynolds number is O(1). This is NS-047's
-C2 obstacle (uniformity on the singular set), made concrete. The would-be inequality does **not** hold
-uniformly even in the truncation; closing it analytically needs a genuine idea for the non-uniformity
-that the program does not currently have (and the discipline forbids manufacturing — four witness-
-refuted over-reaches + one probe-refuted over-reach this arc).
+**A natural remaining target (NOT "the" irreducible difficulty — witness-corrected, triad 3/3,
+2026-06-06):** *if* the Besov-endpoint objection is set aside (NS-047), one such target is uniform
+domination on the bad set — pursued through **Besov/integral/cancellation controls, not pointwise
+domination** (the within-truncation probes refute only the *pointwise-domination heuristic*, not the
+inequality; a regular truncation has no singular set, so its non-uniformity does not bear on the
+analytic statement). **The real difficulty may lie elsewhere** — e.g. derivative loss at the precise
+scaling where cancellations are marginal — and "*the* irreducible difficulty is the non-uniformity" was
+over-reach (the 6th this arc). Closing NS-046 needs a genuine analytic idea the program does not have;
+the discipline forbids manufacturing one. *(Honesty ledger: six over-reaches caught this arc — four by
+the adversarial witnesses [LOW#1, MID, §5-"≡", NS-047-C1], one by the probe-first call [Idea-3 "pressure
+dominates"], one by the witnesses again here [the NS-046-arc interpretations].)*
 
 ## 4. Kill criteria (§11 of the write-up — what would retire this framing)
 

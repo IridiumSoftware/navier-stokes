@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.66 — 2026-06-06 — NS-046 arc triad-witnessed → interpretations REFUTED (6th over-reach), record corrected
+
+Routed the un-witnessed NS-046-arc synthesis claims (recorded data-driven last sessions) to the triad
+(Grok + Gemini + naive ChatGPT). **Convergent 3/3: the interpretations over-reached; the within-
+truncation data stands as phenomenology.** Honesty step — these were committed+pushed claims, so the
+record is corrected:
+
+- **C1 (complementarity) → REFUTED as general; IC-specific.** The random zero-helicity control bursts
+  (no pressure dominance); only the symmetric Kerr-tube IC shows it. "zero-H ⇒ pressure dominates" is
+  false. NS-045 §extension corrected.
+- **C2 (uniform-domination) → data holds, interpretation corrected.** A regular truncation has no
+  singular set ⇒ its non-uniform *pointwise* ratios don't bear on the *analytic* inequality (which can
+  hold via Besov/integral/cancellation). "Blocks the analytic reduction / C2 computationally visible"
+  removed; genuine residue kept: the probe refutes only the *pointwise-domination heuristic* (any closing
+  inequality must use Besov/integral controls).
+- **C3 (target framing) → "the irreducible difficulty IS the non-uniformity" refuted as established.**
+  Softened to "*a* natural remaining target *if* the Besov-endpoint is set aside" (the real difficulty
+  could be elsewhere — derivative loss at marginal-cancellation scaling). `docs/ns046_target.md` §3 +
+  the NS-046 pause note corrected.
+- **Meta:** probe-first caught the *naive* over-reach, but the recorded *interpretations* over-reached
+  again — only the adversarial witness caught them. **6th over-reach this arc** (4 witness-, 1 probe-,
+  1 witness-). Brief + verdict: `docs/ns046_arc_triad_{brief,verdict}.md`. No status change (NS-045
+  `:tested`, NS-046 `:open`). `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.65 — 2026-06-06 — NS-046 precise target recorded; PAUSED at the standing frontier
 
 Wrote the crisp, admissible standing statement of the open problem (`docs/ns046_target.md`): the

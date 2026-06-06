@@ -805,8 +805,11 @@ spectral transfers `Π_E(k,t), Π_Z(k,t), Π_H(k,t)`; helical-mode decomposition
   pressure-Hessian counter-transport is DOMINANT** — `⟨e₃ᵀ(∇²p)e₃⟩` is 1.5–11× the self-amplification
   `⟨λ₃²⟩` (it enters as `−e₃ᵀ(∇²p)e₃` ⇒ depletes the max stretch), and the tubes attain the *lowest*
   enstrophy growth despite maximal stretching. The control (neither mechanism strong) bursts most.
-  N-converged 64↔128 (ordering IC-identical, resolution-robust). **NS-045 (Beltramization) and NS-046
-  (pressure counter-transport) are complementary depletion mechanisms, anti-correlated with helicity.**
+  N-converged 64↔128 (ordering IC-identical, resolution-robust). **WITNESS-CORRECTED (triad 3/3,
+  2026-06-06): the "complementary, anti-correlated-with-helicity" reading is REFUTED as a general law —
+  the *random* zero-helicity control does NOT show pressure dominance (it bursts most), so it is
+  not "zero-H ⇒ pressure dominates" but "the *Kerr-tube* (special, symmetric) IC shows stronger pressure
+  depletion than the helical run." IC-specific phenomenology, not a complementarity law.**
   Scope: DNS truncation, within-truncation only (vacuity cap). Source:
   `scripts/ns046_gradxi_pressure_probe.jl` (+ `.out.txt`, `_N128.out.txt`); companion
   `docs/ns046_gradxi_pressure_companion.md`. Status unchanged `:tested`.
@@ -866,14 +869,23 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   turning strongly positive (depleting) **only at the extreme high-`|ω|` cores** (top-0.1%: 8–16 in
   tubes, →2.6 late-helical; the control never dominates), and the viscous `⟨ν|∇ω|²⟩/⟨ω·Sω⟩` is **≪1 on
   the intense set** (supercriticality). So the Idea-3 "dominant" was an enstrophy-weighted statement
-  about the cores; the domination is **concentrated, not uniform** — exactly NS-047's C2 (uniformity is
-  the gap), now computationally visible. This **blocks the tempting "pressure dominates ⟹ coercive
-  inequality" reduction** (it would over-reach; probe-first caught it). Companion
+  about the cores; the domination is **concentrated, not uniform** in the truncation. **WITNESS-CORRECTED
+  (triad 3/3, 2026-06-06): "makes NS-047's C2 computationally visible / blocks the analytic reduction"
+  was the 6th over-reach — a regular truncation has NO singular set, so its non-uniform *pointwise*
+  ratios do NOT bear on the *analytic* inequality, which can hold via Besov/integral/cancellation
+  controls that pointwise ratios never see (the live `Ḃ⁰_{∞,1}` route).** Honest residue: the probe
+  refutes only the *pointwise-domination heuristic* (a useful narrowing — it says any closing inequality
+  must go through Besov/integral controls, not pointwise domination); it is a within-truncation
+  diagnostic, NOT evidence about the PDE inequality or the analytic obstacle. Companion
   `docs/ns046_uniform_domination_companion.md`. `:open` unchanged; `:proved`=0.
 - **Precise standing target recorded — NS-046 PAUSED here (2026-06-06).** The crisp, admissible
   open-problem statement (critical-Besov framework per NS-047; CKN localization; the nonlocal
   pressure-Hessian + viscosity vs the production at σ=0; CCATT loss ledger; the kill criteria) is
-  written in `docs/ns046_target.md`. The single irreducible difficulty is the **non-uniformity**
-  (core-concentrated depletion + bulk-enhancement, computationally pinned above) — closing it needs a
-  genuine analytic idea the program does not have, and the discipline forbids manufacturing one
-  (four witness-refuted + one probe-refuted over-reach this arc). **Held as the standing frontier.**
+  written in `docs/ns046_target.md`. **WITNESS-CORRECTED (triad 3/3, 2026-06-06): NOT "*the* irreducible
+  difficulty is the non-uniformity" (that over-claimed — 6th over-reach this arc; the real difficulty
+  could be elsewhere, e.g. derivative loss at marginal-cancellation scaling).** The honest target: IF the
+  Besov-endpoint objection is set aside (NS-047), uniform domination on the bad set is **a** natural
+  remaining target — pursued through Besov/integral controls, not pointwise domination. Closing NS-046
+  needs a genuine analytic idea the program does not have; the discipline forbids manufacturing one
+  (six over-reaches caught this arc: four witness-, one probe-, one witness- again here).
+  **Held as the standing frontier.**
