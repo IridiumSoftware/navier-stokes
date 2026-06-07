@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.83 — 2026-06-07 — Program citation audit (C0–C5): ranked verification targets; KNSS (swirl-free reduction + Lemma 6.1) is the #1 leverage point
+
+First program-level application of the C0–C5 discipline. `docs/program_citation_audit_2026-06-07.md`.
+**Foundation-hardening, not PDE progress; `:proved`=0.** Tiered the load-bearing external citations and
+ranked verification targets by `load-bearing × (gap to C3) × (global>local)`:
+- **#1 KNSS (Acta 2009): swirl-free reduction + Lemma 6.1 blow-down (C2/C1→C3).** Highest leverage — the
+  terminal reduction of *every* axisymmetric closer and the device route (i) leaned on; the whole ancient
+  approach (incl. the Type-I⟺ancient equivalence) rests on it.
+- **#2 NS-007 NRŠ/Tsai exact hypotheses (C1→C2)** — a global no-go whose exact spaces are paraphrased, not
+  primary-read; per the global>local framing, firming a global anchor is top-priority.
+- **#3 Lei–Ren–Zhang + Thm 3.7 (C1→C2/C3)** — firms (or reshapes) the arc universal "every known closer
+  bypasses S" (currently C3-for-LZZ, C1-for-these).
+- Tier-3: Pan–Li (counterexample suspicion), Tao-2016 scope, ESS/CKN details, Yu/CFZ-2017 (not
+  load-bearing). Solid C3 (no action): LZZ §5, Wang et al., CFZ multi-scale.
+Discharges the meta-review's deferred "global-no-go anchors first" retrofit as a *plan*: NS-002 solid,
+NS-005/006 C2-statements/C1-details, NS-007 = the one global anchor genuinely under-verified (#2), NS-008
+C2 (Tier-3). Recommendation: attack #1 (KNSS) first. Raises confidence of the obstruction manifold;
+distance UNTOUCHED.
+
 ## v0.1.82 — 2026-06-07 — Route (i) blow-down on the |x₃|^α conjecture: does NOT close it; corrects my own port-doc over-reach (14th); axial-only conjecture now SUSPECT
 
 Attacked the `|x₃|^α` ancient Liouville conjecture by the blow-down / Liouville-via-rescaling device.
