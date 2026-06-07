@@ -963,3 +963,11 @@ mechanism** that prevents different rescaled subsequences converging to differen
   Lei–Ren–Zhang `ℝ²×T¹`) is at its endpoint, so the restricted target collapses onto the bare KNSS
   conjecture with a thin decay/compactness collar. The 8th over-reach (a manufactured restricted theorem)
   was declined. §6 names the three real multi-paper assaults.
+- **Sub-target (C) ATTACKED (2026-06-07): `docs/ns048_swirl_sign_condition_attack.md`** — the one
+  genuinely *new* restricted class (a swirl **sign/monotonicity condition** signing the source
+  `(1/r⁴)∂_z(Γ²)`) worked through (changelog v0.1.74). **No theorem; status unchanged; `:proved`=0.** The
+  preserved sign (`Γ≥0`) doesn't sign the source; the signing sign (`∂_zΓ`) isn't dynamically preserved
+  (`∂_z`-differentiated `Γ` eq has a no-sign shear coupling) and is plausibly vacuous; even granting
+  `S≤0`, `Ω` is only a subsolution ⇒ one-sided control, never `Ω≡0`. Closes only in the degenerate
+  `∂_zΓ≡0` (columnar) case = the known periodic-in-`z` reduction (not new). (C) independently re-lands on
+  the **`z`-dependence of the swirl** as the crux — a third convergent diagnostic. 9th tidy hope deflated.

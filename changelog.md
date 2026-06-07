@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.74 — 2026-06-07 — NS-048 attack (C): the swirl SIGN-CONDITION class — doesn't help (9th hope deflated)
+
+Worked the one genuinely new restricted class from v0.1.73 §6(C) — a one-sided/monotone swirl sign
+condition meant to make the source `(1/r⁴)∂_z(Γ²)` signed and drive a maximum principle for `Ω=ω^θ/r`.
+`docs/ns048_swirl_sign_condition_attack.md`. **No theorem; `:proved`=0; NS-048 unchanged.** The decisive
+filter is dynamical consistency: (C-i) one-signed swirl `Γ≥0` IS preserved (sourceless `Γ` eq ⇒ max+min
+principle) and non-vacuous — but does **not** sign the source; (C-ii) the monotonicity `∂_zΓ≤0` that
+*would* sign `S` is **NOT preserved** — differentiating the `Γ` equation in `z` gives
+`∂_tG+b·∇G=νL_ΓG−[(∂_zu^r)∂_rΓ+(∂_zu^z)G]`, `G=∂_zΓ`, whose bracket (a no-sign zeroth-order term + a
+no-sign source) lets the meridional shear manufacture either sign — so `∂_zΓ≤0` is artificial and
+plausibly vacuous among genuinely-3D ancient solutions. And even granting `S≤0`, `Ω` is only a
+*subsolution* ⇒ one-sided (sup) control, never `Ω≡0`. The sole closable instance is the degenerate
+`∂_zΓ≡0` (columnar / `z`-independent) endpoint: `S≡0` ⇒ no-swirl KNSS ⇒ trivial — but that is essentially
+the already-known periodic-in-`z` reduction (Lei–Ren–Zhang arXiv:1911.01571; ancient-periodic
+arXiv:1902.11229), **not new** (targeted lit search found no one-signed/monotone-swirl Liouville).
+**Payoff:** (C) independently re-lands on the SAME crux as the prior two attacks — the `z`-dependence of
+the swirl. Three convergent diagnostics now: energy-tail uncontrolled in `z` (§4.1), max-principle
+temporal-not-spatial on non-compact `z` (§4.3), and the signing quantity `∂_zΓ` dynamically
+uncontrollable (here). The 9th tidy hope deflated by working it through; sanity check held (no step would
+prove the bare conjecture).
+
 ## v0.1.73 — 2026-06-06 — NS-048 ATTACK (axisym-with-swirl ancient Liouville): wall LOCALIZED, no theorem (8th over-reach declined)
 
 Attacked the most tractable NS-048 sub-target — a restricted non-self-similar Liouville theorem —
