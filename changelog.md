@@ -1,5 +1,37 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.91 — 2026-06-07 — Lockwood "Singularity Surgery" read + added as NS-049 (live/conditional, C0-C1 UNVERIFIED); external-review brief prepared with a related-work bridge
+
+Prep for ③ external forcing — the obstruction map / generator-class is going to **James Lockwood**, who
+works analytically on NS. Read all five parts of his *Singularity Surgery* (2026-04-13 working papers).
+Added SPEC entry **NS-049**, a dashboard note, and a "related work" section to
+`docs/ns_external_review_brief.md`. **`:proved`=0; prize UNTOUCHED.** (Numbered v0.1.91 — concurrent
+NS-048 audit arc holds 85–90.)
+
+**What Lockwood's program is.** A serious CKN-deformation attack: **anisotropy of the high-vorticity set
+depletes vortex stretching**, made local via the Riesz/CZ identity that the principal strain is a CZ
+operator on the *perpendicular* vorticity (`S₃₃=R₁R₃ω₂−R₂R₃ω₁`) and a weighted anisotropy defect `δ_Λ`.
+Case A (low-activity) is closed; across Parts I–V the open content is *isolated* (never a completed proof,
+his own framing) to a compactness-rigidity strict-core theorem and, by Part V, two "final selection"
+theorems — reducing regularity to "the identification of the admissible trace class."
+
+**Citation verdict (answering the question put):** (a) **no new external literature** — his papers are
+self-contained, no bibliography, only standard tools (CKN/CZ/Aubin–Lions/De Giorgi, all already in the
+map); (b) **his program itself is the new citation**, added as NS-049 at **tier C0/C1, status :open,
+UNVERIFIED** — explicitly NOT treating his depletion lemma or strict-core theorem as established (they are
+his stated unresolved inputs, in unrefereed AI-assisted working papers; the structured-local-coherence
+caution applies maximally). Verifying them (line-reading Parts III–V) would be the substantive engagement,
+not a citation.
+
+**Why it's the right recipient (and the brief's related-work bridge):** his depletion mechanism is a
+candidate for exactly the σ=0 production control we frame as NS-046, and uses the CZ/Riesz structure we
+flagged live in NS-047. Two convergences put to him in the brief: (i) his depletion via **weighted
+perpendicular-vorticity smallness** (weaker than the pointwise Constantin–Fefferman Lipschitz-ξ) is a
+**weighted/integral** control — independently matching our NS-046 conclusion that any closing inequality
+must use Besov/integral controls, not pointwise domination; (ii) his **anisotropy** trigger vs our
+**helicity/Beltramization** trigger (NS-040/045) — relation open. The two convergences are framed as
+questions for him, with the within-truncation vacuity cap stated.
+
 ## v0.1.90 — 2026-06-07 — Pan–Li verified C3 (last audit thread): it is NO-SWIRL — corrects "swirl allowed"; route-(i) counterexample suspicion WITHDRAWN (16th); combined verdict sharpened
 
 Verified the last loose citation thread — Pan–Li, read line-by-line. `docs/pan_li_verification_2026-06-07.md`.

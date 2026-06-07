@@ -295,6 +295,41 @@ axis," but no implication real⇐complex is established.
   Scope: DNS truncation; a phase surrogate diagnoses content-location, not an analytic step; `:proved`=0.
   Companions `docs/ns013_phase_production_3d_companion.md`, `docs/ns013_phase_norm_split_companion.md`.
 
+**NS-049 — Lockwood "Singularity Surgery": the anisotropy-depletion CKN-deformation program (live,
+conditional, UNVERIFIED).** James Lockwood's five-part *Singularity Surgery* (working papers, 2026-04-13)
+is a serious analytic attack on 3D-NS regularity — a deformation of the Caffarelli–Kohn–Nirenberg local
+contradiction in which **anisotropy of the high-vorticity set depletes vortex stretching**. Mechanism: the
+dangerous principal strain is a Riesz/CZ operator on the *perpendicular* vorticity,
+`S₃₃ = R₁R₃ω₂ − R₂R₃ω₁`, so a small **weighted anisotropy defect** `δ_Λ = 1 − λ_max(M_Λ)/tr(M_Λ)`
+(`M_Λ=∫∫χ(|ω|/Λ)ω⊗ω`) forces depletion. The contradiction splits into Case A (low-activity, closed by a
+div–curl/energy argument) and Case B (hard). Across Parts I–V the open content is *isolated* (never a
+completed proof — his own framing) to a **compactness-rigidity strict-core theorem** (persistent active
+enstrophy + vanishing defect ⇒ a frozen-direction core in the limit) and, by Part V, two "final selection"
+theorems (core-amplitude selection + harmonic Neumann-trace identification) — reducing regularity to "the
+identification of the admissible trace class," with the depletion lemma claimed resolved by the later parts.
+- **Evidence: external working papers** — self-contained, AI-chat-developed, single-author, NO bibliography,
+  unpublished, no external verification. **Tier: C0/C1. Status: :open** (conditional program; the "resolved"
+  depletion lemma + strict-core theorem are themselves **unverified** — do NOT cite as established). Scope:
+  PDE (a regularity-attack program, not a result). `:proved`=0; prize UNTOUCHED.
+- **Why it bears (and why Lockwood is the right external reviewer):** his depletion mechanism is a candidate
+  for exactly the σ=0 production control **NS-046** targets and *uses* the CZ/Riesz structure **NS-047**
+  found live; his depletion via **weighted perpendicular-vorticity smallness is explicitly weaker than the
+  pointwise Lipschitz-ξ (Constantin–Fefferman) condition** — a refinement of the **NS-013/045** geometric-
+  depletion arc; his strict-core rigidity sits in the family of **NS-048**'s ancient-solution rigidity. Two
+  independent convergences with this program: (i) his depletion is a **weighted/integral** control, NOT
+  pointwise — independently reaching NS-046's conclusion that *any closing inequality must use Besov/integral
+  controls, not pointwise domination*; (ii) his **anisotropy** trigger (one-directionality → 2D collapse) is
+  a different geometry than this program's **helicity/Beltramization** depletion (NS-040/045, `u∥ω`) —
+  relation open.
+- **CAUTION (structured-local-coherence, per the meta-review):** a self-contained, internally-coherent,
+  AI-assisted reduction claiming to corner NS to a final selection problem is precisely the export-surplus
+  hazard this program names. The depletion-lemma and strict-core "resolutions" require **independent
+  verification** before any promotion above C1; line-reading Parts III–V (the depletion proof + the strict-
+  core rigidity) is the substantive engagement, not a citation.
+- Depends_on: NS-046, NS-047, NS-013, NS-045, NS-048, NS-006 (the CKN framework deformed).
+- Source: J. Lockwood, *Singularity Surgery* Parts I–V (working papers, 2026-04-13; on file).
+  `substrate_source: external@Lockwood-2026:Singularity_Surgery_Part_{I–V}.pdf` (C0/C1, unverified).
+
 ---
 
 ## OUR RESULTS (this arc — every one scoped; none is PDE progress)

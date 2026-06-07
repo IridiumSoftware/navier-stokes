@@ -19,6 +19,17 @@ objects (NS-048). The ② test — phase-blindness — **sharpens S1 (a countere
 function of the coercive invariants), but is NOT a new hard method-exclusion** (over-reach declined).
 Reorganization, not progress; `:proved`=0.
 
+**NS-049 — Lockwood "Singularity Surgery" (2026-06-07, external review prep):** added a live/conditional
+entry for James Lockwood's 5-part anisotropy-depletion CKN-deformation program (the recipient of the
+external-review brief, `docs/ns_external_review_brief.md`). Anisotropy of the high-vorticity set depletes
+stretching via the Riesz/CZ principal-strain identity `S₃₃=R₁R₃ω₂−R₂R₃ω₁`; reduced across Parts I–V to a
+strict-core rigidity + a final trace-selection problem (his framing: not a completed proof). **Tier C0/C1,
+`:open`, UNVERIFIED** (self-contained AI-assisted working papers; the "resolved" depletion lemma + strict-
+core are unverified — structured-local-coherence caution). Lands on our NS-046/047 frontier; two
+convergences flagged (his weighted/integral depletion = our "must be integral, not pointwise" conclusion;
+his anisotropy trigger vs our helicity/Beltramization trigger). No new *external* citations (his papers
+have no bibliography). `:proved`=0.
+
 **FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 32 entries).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)
 Beltramization** — strong helicity (u∥ω) crushes the Lamb vector `u×ω` (the nonlinear driver) ~26×,
