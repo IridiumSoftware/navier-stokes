@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.73 — 2026-06-06 — NS-048 ATTACK (axisym-with-swirl ancient Liouville): wall LOCALIZED, no theorem (8th over-reach declined)
+
+Attacked the most tractable NS-048 sub-target — a restricted non-self-similar Liouville theorem —
+honestly: `docs/ns048_axisym_swirl_attack.md`. **No theorem; `:proved`=0; distance UNTOUCHED; NS-048
+unchanged.** Two literature-verified research passes pinned (a) the exact frontier (KNSS conjecture =
+bounded mild ancient axisym WITH swirl on ℝ³ ⇒ constant, OPEN; proven with-swirl only via decay/compact:
+Lei–Zhang–Zhao `Γ=ru^θ∈L^∞_tL^p_x` `1≤p<∞`, Pan–Li sublinear `α<1` optimal, Lei–Ren–Zhang on ℝ²×T¹) and
+(b) the exact axisymmetric structure: `Γ` transport-diffusion (no source ⇒ maximum principle,
+`‖Γ(t)‖_∞`↓); `Ω=ω^θ/r` whose ONLY production is `(1/r⁴)∂_z(Γ²)`; the closed loop Γ→Ω→(u^r,u^z)→Γ.
+Three honest attempts, each broken at the place the literature buys its hypothesis: (4.1) Caccioppoli —
+bounded-v gives `Γ=O(r)` growth, source tail borderline-non-integrable in r and uncontrolled in z;
+(4.2) **the `1/r⁴` axis singularity is NOT the obstruction** — smooth flows have `Γ=O(r²)` so the source
+is `O(1)` at the axis; the wall is at `|z|→∞`, the non-compact AXIAL direction (the source is a
+`z`-derivative) — corrects a naive near-axis reading; (4.3) the Γ maximum principle gives TEMPORAL
+monotonicity not SPATIAL decay, and non-attainment on non-compact ℝ³ kills the strong-max-principle
+route — which is exactly why Lei–Ren–Zhang compactify the axis to T¹. **Verdict:** with-swirl Liouville =
+controlling that single source in the non-compact `z` direction; there is **no soft "just-beyond" step**
+(each frontier axis is at its endpoint; the targets collapse onto the bare conjecture with a thin
+technical collar = decay/compactness of swirl in z). §6 names the three real multi-paper assaults (a
+`p=∞` Lorentz refinement of LZZ; a `T¹→ℝ` z-decay mechanism; a one-sided swirl sign condition). Sanity
+check held throughout (no step would prove the full conjecture). The 8th over-reach — a manufactured
+restricted theorem — was available and declined.
+
 ## v0.1.72 — 2026-06-06 — NS-048 machinery STUDIED (literature-verified): the exclusion/no-split apparatus, learned
 
 Learned the NS-048 machinery for real — `docs/ns048_machinery_study.md`, a STUDY artifact (not

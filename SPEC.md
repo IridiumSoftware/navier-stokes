@@ -954,3 +954,12 @@ mechanism** that prevents different rescaled subsequences converging to differen
   axisymmetric-no-swirl) and the **entire Type-II branch** (no compact rescaled limit to attack).
   Names three real sub-targets; a restricted non-self-similar Liouville (beyond axisym-no-swirl) is the
   most tractable. Carries a 16-item don't-bluff appendix (§12) of everything not primary-verified.
+- **Sub-target ATTACKED (2026-06-06): `docs/ns048_axisym_swirl_attack.md`** — the most tractable
+  sub-target (restricted non-self-similar = **axisymmetric-with-swirl ancient Liouville**) attacked
+  honestly (changelog v0.1.73). **No theorem; status unchanged; `:proved`=0.** Wall LOCALIZED to the
+  single production term `(1/r⁴)∂_z(Γ²)` in the `Ω=ω^θ/r` equation, in the **non-compact axial (`z`)
+  direction** — *not* the axis `r=0` (smooth flows have `Γ=O(r²)`, source `O(1)` there). Finding: there
+  is **no soft "just-beyond" step** — each frontier axis (Lei–Zhang–Zhao `L^p` `p<∞`, Pan–Li `α<1`,
+  Lei–Ren–Zhang `ℝ²×T¹`) is at its endpoint, so the restricted target collapses onto the bare KNSS
+  conjecture with a thin decay/compactness collar. The 8th over-reach (a manufactured restricted theorem)
+  was declined. §6 names the three real multi-paper assaults.
