@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.85 — 2026-06-07 — KNSS line-verified to C3 (audit target #1 DONE): foundation hypothesis-clean; Type-I ⟺ reattributed to Seregin–Šverák; route (i) break #2 C3-confirmed
+
+Executed citation-audit target #1: read KNSS (Acta 2009, arXiv:0709.3599) line-by-line (curl +
+pdftotext). `docs/knss_verification_2026-06-07.md`. **Foundation-hardening, not PDE progress; `:proved`=0.**
+All five items promoted C2/C1 → **C3**. The don't-bluff check did real work:
+- **POSITIVE (firms the chain):** the **swirl-free reduction (Thm 5.2)** — the terminal step of *every*
+  axisymmetric closer — is **C3 and HYPOTHESIS-CLEAN** (exactly bounded+weak+axisym+no-swirl; regularity
+  *derived* from boundedness §4; no hidden decay/suitability). mild ⊂ weak, mild ⇒ literally constant
+  (Remark 6.1). Downstream "bounded mild axisym swirl-free ⇒ trivial" is faithful.
+- **CORRECTION:** the Type-I **⟺** is **not KNSS** — KNSS **Prop 6.1** is **⇒ only** (C3); the full **⟺**
+  is **Seregin–Šverák arXiv:1811.00502** (held at **C1**, not primary-read) ⇒ **new target #1b**. Fixed
+  the machinery-study §5 attribution + the audit KNSS row.
+- **route (i) break #2 C3-CONFIRMED:** KNSS's Lemma 6.1 (the *compactness* lemma — naming corrected; it is
+  not the rescaling) needs a **uniform-`L∞` input only**; route (i)'s `|x₃|^α` blow-down fails exactly
+  that (`‖u_λ‖_∞=λ‖u‖_∞→∞`). So the compactness break is now verified against KNSS's actual input.
+- **Caveats attached:** 2D is `u=b(t)`(weak)/constant(mild); the Type-I *exclusion* (Thm 6.2) requires the
+  off-axis `|u|≤C/r` decay (KNSS flags dropping it fails).
+Net: the arc's foundation is solid (C3, clean); one over-attribution corrected (⟺ → Seregin–Šverák);
+route (i) firmed; a new C1 target (#1b) surfaced. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.84 — 2026-06-07 — Critical-norm detector race: vorticity Besov Ḃ⁰_{∞,1} is the sharpest σ=0 detector; the velocity L³ (ESS endpoint) is the bluntest
 
 *(Numbered v0.1.84 — the requested "v0.1.81" was already taken by the concurrent citation-audit arc, now at v0.1.83.)*

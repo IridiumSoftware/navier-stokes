@@ -120,8 +120,13 @@ doubt**, not merely "open."
 
 - **Lei–Zhang–Zhao** radial-decay / blow-down mechanism (arXiv:1701.00868 §5): **C3** — proof read
   line-by-line this session.
-- **KNSS "Lemma 6.1" blow-down device** (Acta 2009): **C1** — known via LZZ's *use* of it, not read at
-  source. *Load-bearing for route (i)'s framing ⇒ a verification target (§citation-audit).*
+- **KNSS blow-down device** (Acta 2009): **C3** — *line-verified 2026-06-07*
+  (`docs/knss_verification_2026-06-07.md`). **Naming corrected:** KNSS's *Lemma 6.1* is the **compactness**
+  lemma (uniform `|u_l|≤C` + `T_l↘−∞` ⇒ ancient-mild limit); the *blow-down* is an unlabeled procedure
+  before Prop 6.1 + the §5 Liouville rigidity. **Crucially, its compactness input is a uniform `L∞` bound
+  only** — which **C3-confirms break #2 above**: the `|x₃|^α` blow-down family fails exactly that
+  (`‖u_λ‖_∞=λ‖u‖_∞→∞`), so the compactness genuinely cannot be supplied. (The verification was audit
+  target #1, promoted by this very analysis pointing at it.)
 - **Pan–Li** `α<1` constancy / `α=1` sharp counterexample (the §6 suspicion): **C2** — via review
   arXiv:2101.04905 (Q.S. Zhang), not the Pan–Li primary. *Load-bearing for the counterexample suspicion ⇒
   verification target.*

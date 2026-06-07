@@ -13,7 +13,8 @@ C5 adversarially checked.
 
 | # | Citation | Tier | Supports (load-bearing role) | Global/local | Verify? |
 |---|---|---|---|---|---|
-| 1 | **KNSS, Acta 2009** — 2D & axisym-no-swirl Liouville; Type-I⟺ancient equivalence; **swirl-free reduction**; **Lemma 6.1 blow-down** | **C2** (statements); **C1** (Lemma 6.1, via LZZ's use) | *Terminal step of every axisymmetric closer*; the rescaling device route (i) leaned on; the ancient↔Type-I bridge | **Global** (foundation of the ancient approach) | **YES — #1** |
+| 1 | **KNSS, Acta 2009** — 2D & axisym-no-swirl Liouville (Thm 5.1/5.2); `|u|≤C/r`⇒0 (Thm 5.3); compactness lemma (Lemma 6.1); Type-I **⇒** ancient (Prop 6.1) | **C3** ✅ *(line-verified 2026-06-07, `docs/knss_verification_2026-06-07.md`)* | *Terminal step of every axisymmetric closer* (swirl-free reduction); the compactness behind the blow-down; the Type-I⇒ancient bridge | **Global** (foundation) | **DONE** — swirl-free reduction confirmed **hypothesis-clean** |
+| 1b | **Seregin–Šverák, arXiv:1811.00502** — the Type-I **⟺** ancient equivalence (NOT KNSS, which is ⇒ only) | **C1** (calibration-search only) | "Liouville is the linchpin" reformulation | **Global** | **YES — new (ex-#1)** |
 | 2 | **NRŠ Acta 1996 + Tsai ARMA 1998** (NS-007) — self-similar exclusion | **C1** (exact spaces: `W^{1,2}_loc∩L³`? Tsai's local-energy hypothesis — paraphrased, not primary-read) | A **global no-go** (kills the backward self-similar construction) | **Global** | **YES — #2** |
 | 3 | **Lei–Ren–Zhang (ℝ²×T¹) + "Thm 3.7"** (review's frontier closers) | **C1** (Q.S. Zhang review paragraph only) | The universal *"every known with-swirl closer bypasses S / forces Γ-decay"* (NS-048 arc) | local | **YES — #3** |
 | 4 | **Tao, JAMS 2016** (NS-008) averaged-NS blowup | **C2** (statement); scope of the killed method-class not line-verified | A **global no-go** (energy-only methods can't close NS) | **Global** | partial |
@@ -29,13 +30,18 @@ C5 adversarially checked.
 
 ## 2. The ranked verification targets (what to attack next)
 
-**#1 — KNSS (Acta 2009): the swirl-free reduction + Lemma 6.1 blow-down (C2/C1 → C3).** *Highest
-leverage.* Every axisymmetric-with-swirl closer (LZZ, LRZ, Thm 3.7, and our route (i)/(ii) framings)
-terminates by reducing to the **swirl-free** case and invoking KNSS; and route (i)'s entire device is the
-KNSS **Lemma 6.1** blow-down, currently **C1** (known only through LZZ's use of it). The whole ancient
-approach — including the Type-I⟺ancient equivalence that licenses NS-048 — rests on this one paper.
-Line-verifying the swirl-free reduction theorem and Lemma 6.1 promotes the **foundation** of the arc from
-C2/C1 to C3.
+**#1 — KNSS (Acta 2009): the swirl-free reduction + compactness lemma — ✅ DONE 2026-06-07** (C2/C1 → C3,
+`docs/knss_verification_2026-06-07.md`). Line-verified: the swirl-free reduction (Thm 5.2) is **C3 and
+hypothesis-clean** (exactly bounded+axisym+no-swirl; regularity derived); the compactness lemma (Lemma
+6.1) is **C3** with a **uniform-`L∞`-only** input — which *also* C3-confirmed route (i)'s compactness
+break. Corrections surfaced: the Type-I **⟺** is *not* KNSS (KNSS = ⇒ only, Prop 6.1) but **Seregin–Šverák
+(new C1 target #1b)**; 2D is `b(t)`(weak)/constant(mild); the Type-I *exclusion* needs the off-axis
+`|u|≤C/r` decay; "Lemma 6.1" is the *compactness* lemma, not the rescaling. Foundation of the arc is now
+solid.
+
+**#1b — Seregin–Šverák, arXiv:1811.00502 (the Type-I ⟺ ancient equivalence, C1 → C2/C3).** *Surfaced by
+target #1.* Carries the "Liouville is the linchpin" reformulation; currently calibration-search-only.
+Reading it firms the load-bearing claim that NS-048 (Type-I exclusion) ≡ the general 3D Liouville theorem.
 
 **#2 — NS-007: NRŠ (1996) + Tsai (1998) exact hypotheses (C1 → C2).** A **global no-go** (self-similar
 exclusion) whose *exact spaces* are currently paraphrased, not primary-read (machinery study §12 flag:
