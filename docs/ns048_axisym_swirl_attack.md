@@ -100,11 +100,13 @@ tail integrable — Lei–Zhang–Zhao's restriction is the minimal fix for *thi
 The factor `1/r⁴` looks like an axis catastrophe. It is not, for smooth flows. Regularity forces
 `u^θ=O(r)` near the axis, so `Γ=ru^θ=O(r²)`, hence
 $$\frac{1}{r^4}\partial_z(\Gamma^2)=\frac{2\Gamma\,\partial_z\Gamma}{r^4}=\frac{O(r^2)\cdot O(r^2)}{r^4}=O(1)\quad(r\to0).$$
-**The source is bounded at the axis.** So the obstruction is **not** the axis — it is **spatial
-infinity**, and specifically the *axial* (`z`) direction, because the production is a `z`-derivative.
-This is a genuine clarification: attacks that pour effort into the near-axis `1/r` weights are aiming at
-the wrong locus for *smooth ancient* solutions; the wall is at `|z|→∞`. (Confident; `Γ=O(r²)` is verified
-folklore — §8.)
+**The source `S` is bounded at the axis.** So the *source term that obstructs the energy estimate* is
+benign at `r=0`; the binding obstruction for that estimate is at axial infinity `|z|→∞` (the production
+is a `z`-derivative). **[WITNESS-CORRECTED 2026-06-07 — the original "the obstruction is *not* the
+axis" was an over-reach.]** This does **not** assert the axis is irrelevant to the *full problem*: the
+`1/r`-weighted operators (the `(3/r)∂_r` in (Ω), the `1/r²` in Biot–Savart) may still impose real
+constraints at `r=0`. What is shown is only that the *source* `S` does not break *there* — not that the
+axis plays no role. (Confident on `S=O(1)` at `r=0`; `Γ=O(r²)` is verified folklore — §8.)
 
 ### 4.3 Attempt — use the Γ maximum principle to extract decay. **Break: temporal ≠ spatial; non-attainment on ℝ³.**
 The maximum principle gives `M(t)=‖Γ(·,t)‖_{L^∞}` non-increasing, bounded ⇒ `M(t)→M_{-∞}≤M_0<∞` as
@@ -129,21 +131,32 @@ LRZ result; I did not read LRZ's proof line-by-line — §8.)
 **No theorem. The wall is localized, sharply, and it coincides with the conjecture itself.**
 
 1. With-swirl ancient Liouville = controlling the single source `(1/r⁴)∂_z(Γ²)` in (Ω) (§2).
-2. That control = decay/compactness of the swirl in the **unbounded directions** (§3). The most
-   delicate is the **non-compact axial direction `z`**, because the source is `∂_z(Γ²)` (§4.3); the
-   axis `r=0` is *not* the obstruction for smooth flows (§4.2).
-3. Boundedness alone gives `Γ=O(r)` growth — **no decay, no compactness** (§4.1). So the three honest
-   attempts break at exactly the place the literature buys its hypothesis.
-4. **There is no soft "just-beyond" step.** Each frontier axis is already at its endpoint: `L^p` at
-   `p<∞` (the `p=∞` endpoint *is* "swirl bounded but non-decaying" ≈ the bare conjecture); `r^α` at the
-   optimal `α<1`; `T¹` whose removal *is* the conjecture (LRZ explicitly frame `T¹→ℝ` as the remaining
-   step). The "restricted target just beyond the frontier" collapses onto the bare KNSS conjecture.
+2. That control = decay/compactness of the swirl in the **unbounded directions** (§3). For the *methods
+   tried here*, the binding direction is the **non-compact axial direction `z`**, because the source is
+   `∂_z(Γ²)` (§4.3); the source does *not* break at the axis `r=0` for smooth flows (§4.2 — though the
+   `1/r`-weighted operators may still constrain there).
+3. Boundedness alone gives `Γ=O(r)` growth — **no decay, no compactness** (§4.1). So the three
+   session-scale attempts break at the place the literature buys its hypothesis.
+4. **[WITNESS-CORRECTED 2026-06-07 — the original "there is no soft just-beyond step" was an
+   over-reach, refuted in the witness pass.]** The three *specific* frontier axes I considered are each
+   near their endpoint (`L^p` at `p<∞`; `r^α` at the optimal `α<1`; `T¹` whose removal LRZ frame as the
+   remaining `T¹→ℝ` step). **But the restricted-class space is NOT exhausted, and a soft intermediate
+   manifestly exists:** `ℝ²×T¹` is *itself* a proven class strictly between 2D and 3D (I listed it as
+   "known" above — so claiming "no intermediate class" was self-contradictory). Softer-than-conjecture
+   refinements also plausibly exist — weak-`L^p`/Lorentz swirl `Γ∈L^∞_tL^{p,∞}_x` (plausibly closable by
+   extending the De Giorgi–Nash–Moser argument on the source-free `Γ` equation + Lorentz interpolation)
+   and *small-swirl* `‖Γ‖_∞≤ε` (plausibly closable by perturbing the *complete* swirl-free KNSS proof,
+   the source being `O(ε²)`). These two are **plausible, not verified** — but their existence refutes the
+   universal claim.
 
-So the honest content of "attacking the most tractable sub-target" is: **the most tractable sub-target
-is not soft — it is the conjecture with a thin technical collar, and the collar (decay/compactness of
-swirl in `z`) is precisely the open difficulty.** This is a real, defensible finding; it is *not*
-progress on the prize, and `:proved` stays 0. The 8th over-reach (a manufactured restricted theorem)
-was available and declined.
+So the honest content of "attacking the most tractable sub-target," after the witness trim, is narrower:
+**the three frontier hypotheses I considered are individually near-endpoint, and all three session-scale
+*methods* (energy, max-principle, sign) stop at the same place — the non-compact axial direction. But
+there ARE softer restricted classes (proven: `ℝ²×T¹`; plausible: weak-`L^p`, small-swirl), so the
+sub-target does NOT simply collapse onto the bare conjecture.** Not progress on the prize; `:proved`
+stays 0. The 8th over-reach (a manufactured theorem) was declined; the **"no soft step" claim was itself
+a 10th over-reach, caught by the witness pass** (see `docs/ns048_axisym_swirl_witness_brief.md`,
+changelog v0.1.76).
 
 ---
 

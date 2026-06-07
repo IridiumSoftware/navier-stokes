@@ -48,9 +48,13 @@ class.
 `L_Γ=∂_r²−\tfrac1r∂_r+∂_z²` depend only on `r`, `∂_z` commutes with `L_Γ`, and differentiating the swirl
 equation in `z` gives
 $$\partial_t G + b\cdot\nabla G = \nu L_\Gamma G \;-\;\big[(\partial_z u^r)\,\partial_r\Gamma + (\partial_z u^z)\,G\big].$$
-The bracket is the obstruction: `−(∂_z u^z)G` is a **zeroth-order term in `G` with no sign**, and
-`−(∂_z u^r)∂_rΓ` is a **source with no sign**. So `G` does **not** satisfy a maximum principle that
-would preserve `G≤0`; the meridional shear `∂_z b` can manufacture either sign of `∂_zΓ`. Imposing
+The bracket is the obstruction. **[Sharpened post-witness:** the decisive term is the *inhomogeneous*
+`−(∂_z u^r)∂_rΓ` — an **unsigned forcing independent of `G`, generically nonzero on `{G=0}`**, which
+directly drives `G` across zero. (The other term `−(∂_z u^z)G` is zeroth-order in `G`; a bounded
+zeroth-order coefficient *alone* would not break one-sided sign preservation — an exponential-weight
+trick survives it — so the inhomogeneity, not this term, is the real reason.)**]** So `G` does **not**
+satisfy a maximum principle that would preserve `G≤0`; the meridional shear `∂_z b` can manufacture
+either sign of `∂_zΓ`. Imposing
 `∂_zΓ≤0` for all time on an ancient solution is therefore an *artificial* constraint the equation fights
 — and (see §4) the only configurations that sustain it appear to be the degenerate `∂_zΓ≡0` ones, making
 the strict class plausibly **vacuous** among genuinely 3D ancient solutions.
@@ -86,8 +90,12 @@ The strict monotonicity collapses, at its boundary, to `∂_zΓ≡0`: the swirl 
 1. `S≡0` ⇒ `Ω` solves the **sourceless** drift-diffusion — the *no-swirl* structure. A bounded ancient
    solution of it is, by the KNSS no-swirl machinery, trivial (`Ω≡0`, meridional velocity constant; an
    axisymmetric constant field is `c\,e_z`).
-2. With trivial meridional flow, `∂_tΓ = ν(∂_r²−\tfrac1r∂_r)Γ` — a heat-type equation; a bounded ancient
-   solution is constant in `(r,t)`, and boundedness of `u^θ=Γ/r` at the axis forces `Γ≡0`.
+2. With trivial meridional flow, `∂_tΓ = ν(∂_r²−\tfrac1r∂_r)Γ`. **[Sharpened post-witness:** this
+   operator is *degenerate* at `r=0`, so "heat-type ⇒ constant" needs care; the clean route is the
+   substitution `u₁=Γ/r²`, under which `Γ` solving the degenerate equation ⇔ `u₁` solving the
+   *non-degenerate* 4-D radial heat equation `∂_tu₁=ν(∂_r²+\tfrac3r∂_r)u₁`. A bounded ancient caloric
+   function is constant (classical, any dimension) ⇒ `u₁≡`const ⇒ `Γ=r²u₁`, and boundedness of
+   `u^θ=Γ/r=r·u₁` forces that constant to 0 ⇒ `Γ≡0`.**]
 
 So **columnar-swirl bounded ancient ⇒ trivial.** But this is the *degenerate* endpoint where the problem
 ceases to be genuinely 3D, and it is essentially the known reduction: the literature already has
@@ -100,26 +108,44 @@ the ancient-periodic line, arXiv:1902.11229), of which `z`-independence is the e
 
 No theorem; `:proved`=0. The sign-condition route fails for two structural reasons (§2 non-preservation /
 vacuity, §3 one-sidedness), and closes only in the degenerate source-free `∂_zΓ≡0` case (§4), which is
-already known. The intellectually useful content:
+already known. The intellectually useful content — **as honestly trimmed by the witness pass
+(2026-06-07; `docs/ns048_axisym_swirl_witness_brief.md`):**
 
-- **(C) re-lands on the exact same crux as the two prior attacks: the `z`-dependence of the swirl.** The
-  source is nonzero iff `∂_zΓ≠0`; that is what makes the problem 3D; and that is precisely the quantity
-  the sign condition can neither control dynamically nor exploit. Three independent attacks now converge:
-  - §4.1 of the parent (energy/Caccioppoli): the source tail is uncontrolled in `z`;
-  - §4.3 of the parent (maximum principle): control is temporal, not spatial, on the non-compact `z`;
-  - **this note (sign condition): the signing quantity `∂_zΓ` is not dynamically controllable.**
-- **(C) is not a soft step beyond the frontier** — consistent with the parent's §5 verdict. It is a new
-  *framing* of the restricted class, but it dissolves into the known columnar/periodic case the moment
-  one demands the hypothesis be dynamically real.
+- **(C) re-lands on the same locus the two prior attacks hit: the non-compact axial direction.** But
+  **[WITNESS-CORRECTED — the original "three independent convergent attacks" was an over-reach (echo,
+  not corroboration; an 11th over-reach).]** They are **not** three independent lines:
+  - §4.1 of the parent (energy/Caccioppoli) and **this note (sign condition)** both fail on the
+    *literally identical* term `S=(2Γ/r⁴)∂_zΓ` — one says its integral is uncontrolled in `z`, the other
+    says its sign `∂_zΓ` is uncontrollable. **Two failure modes of ONE term = echo, not independence.**
+  - Only §4.3 (maximum principle) carries near-distinct information — a *function-theoretic* obstruction
+    (non-attainment of the sup on non-compact `ℝ³`), a different category than "this term's integral has
+    a bad tail."
+  - So there are at most **~1.5 independent lines**, both pointing at the non-compact axial direction —
+    not three. And two further deflations: a **selection effect** (energy / max-principle / sign are
+    exactly the *soft* tools that predictably fail on *any* supercritical non-compact problem, so their
+    common stopping point may reflect the methods' shared softness, not an intrinsic property), and the
+    localization merely **re-derives** what the known results already encode (their hypotheses — `L^p`,
+    `α<1`, `T¹` — all function precisely by neutralizing non-compact-`z` / buying axial decay).
+- **Honest residue:** *these elementary methods all stop at the non-compact axial direction, consistent
+  with — and re-deriving — the known structure.* This is **method-failure localization**, NOT proof that
+  `z`-dependence is "**the** irreducible difficulty" (that is a claim about *all* methods; three soft
+  failures don't establish it), and NOT a new finding (the diagnosis is implicit in the known
+  hypotheses).
 
 This does **not** prove "no sign-based argument can ever work" — only that the natural one fails for these
-specific, robust reasons. A cleverer use of `Γ≥0` (the one preserved sign) coupled to a quantity other
-than `∂_zΓ` is not ruled out, but none is visible. Default: not established.
+specific, robust reasons. A cleverer use of `Γ≥0` coupled to a quantity other than `∂_zΓ` is not ruled
+out. Note also (witness, target 1): if one *additionally* assumes `ω^θ` (hence `Ω`) one-signed — a
+strictly stronger hypothesis than signing `S` — the route *does* close (non-negative ancient supersolution
+of the 5D-type operator ⇒ constant ⇒ swirl-free ⇒ KNSS), but that is a different, stronger restricted
+class. Default: not established.
 
-The 9th tidy hope — "a sign condition signs the source and a maximum principle closes it" — is deflated
-by working it through. (Honesty ledger for the NS-048 arc: the 7th over-reach was the geometry-re-tasking
-hope; the 8th was a manufactured restricted theorem, declined; this is the 9th, a sign-condition shortcut,
-deflated.)
+The 9th tidy hope — "a sign condition signs the source and a maximum principle closes it" — was deflated
+by working it through. **Honesty ledger for the NS-048 arc:** 7th = geometry-re-tasking; 8th = a
+manufactured restricted theorem (declined); 9th = the sign-condition shortcut (deflated here); **10th =
+"no soft step beyond the frontier" (over-reach, witness-refuted — `ℝ²×T¹` is itself an intermediate
+class); 11th = "three independent convergent attacks" (over-reach, witness-trimmed to ~1.5 + echo, this
+section).** The 10th/11th are the witness pass catching *this arc's own* over-reaches — the discipline
+working exactly as intended.
 
 ---
 
