@@ -1028,3 +1028,14 @@ mechanism** that prevents different rescaled subsequences converging to differen
   13th over-reach**). The `z`-anisotropic / `∂_z`-swirl machinery (`J=−∂_zv^θ/r`; `|x₃|^α u^θ`) exists only
   in finite-time regularity, **untransferred** to ancient Liouville. **Cleanest entry sub-question:** port
   those anisotropic-`z` swirl conditions to the ancient setting. Both horns open; `:proved`=0.
+- **Entry sub-question ATTEMPTED (2026-06-07): `docs/ns048_anisotropic_z_port.md`** (changelog v0.1.79).
+  Ported the `|x₃|^α u^θ` criterion (**Yu / Wang–Huang–Wei–Yu** — correction: NOT CFZ, who are
+  *radial*-weighted) to the ancient setting. **No theorem; `:proved`=0.** Condition is **scale-critical**
+  (`2/q+3/p=1−α`). **Transfer verdict:** the finite-time proof is **direct Gronwall-on-`[0,T)`** (anchored
+  to initial data + finite-`T` continuation), **not** blow-up/ancient-limit ⇒ the ancient Liouville is
+  **NOT implicit**; the port is a **genuine new question**, gap = the finite-`T`/initial-data steps.
+  **Scoped positive + limit:** `|x₃|^α` gives `z`-decay of `u^θ` ⇒ `z`-decay of `S` (`≲|z|^{−2α−1}/r²`),
+  killing the **dominant `z`-tail** of the source — but the **borderline radial-log tail survives**, so a
+  complete closer likely needs **axial `|x₃|^α` + radial (LZZ) control combined** (the source's "two
+  tails"). Honest next step: the blow-down/Liouville-rescaling route under the critical bound. Comparison
+  disciplined (`|x₃|^α` excludes the columnar case; "incomparable" not claimed).

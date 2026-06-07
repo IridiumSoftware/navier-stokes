@@ -1,5 +1,30 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.79 — 2026-06-07 — Anisotropic-z port to ancient Liouville: GENUINE new question, transfer-gap located, condition is the z-half of a likely z+r fix
+
+Executed the entry sub-question from v0.1.78 — port the finite-time anisotropic-z swirl regularity
+criterion to the bounded-ancient setting. `docs/ns048_anisotropic_z_port.md`. **No theorem; `:proved`=0;
+NS-048 unchanged.** A focused research pass read the proofs line-by-line:
+- **Citation correction:** the `|x₃|^α u^θ` (axial-weighted) criterion is **Yu (Appl. Anal. 2020) /
+  Wang–Huang–Wei–Yu (arXiv:2205.13893 Thm 1.4)**, NOT Chen–Fang–Zhang (CFZ are *radial*-weighted `r^d u^θ`).
+  Corrects the attribution in v0.1.78's frontier doc.
+- **Criticality verified:** `‖|x₃|^α u^θ‖_{L^q_tL^p_x}` scale-invariant ⇔ `2/q+3/p=1−α` (Thm 1.4's line);
+  `‖|x₃|u^θ‖_∞` critical. So it's the right kind of condition for a Liouville translation.
+- **Transferability verdict (key):** the finite-time proof is **direct Gronwall-on-`[0,T)`** (vorticity
+  energy → anisotropic Hardy–Sobolev → Gronwall anchored to initial data `(Φ₀,Ω₀)` → finite-`T`
+  continuation lemma) — **NO blow-up/ancient-limit.** So the ancient Liouville is **NOT implicit/
+  extractable**; the port is a **genuine new question**, gap = exactly those two finite-`T`/initial-data
+  steps (vacuous on `(−∞,0]`). (Hedge: CFZ's critical *radial* endpoint does route through Lei–Zhang
+  ancient Liouville — but that's `r`-weighted, not `|x₃|^α`.)
+- **Scoped positive + its limit:** the `|x₃|^α` bound gives `z`-decay of `u^θ` ⇒ `z`-decay of the source
+  (`S≲|z|^{−2α−1}/r²`, heuristic), killing the **dominant `z`-tail** of `S` (the identified obstruction) —
+  BUT the **borderline radial-log tail survives** (`∫dr/r`). Structural reading: the obstruction has two
+  tails (z dominant, r borderline); LZZ's radial `L^p` kills the r-tail, `|x₃|^α` kills the z-tail; a
+  **complete closing condition likely combines axial + radial control.** Heuristic, flagged.
+- Comparison disciplined: `|x₃|^α` excludes the columnar case; "incomparable to radial" NOT claimed
+  (13th-over-reach discipline holds). Honest next step: attempt the blow-down/Liouville-rescaling route
+  under the critical `|x₃|^α` bound (criticality is exactly what that device needs). Both horns open.
+
 ## v0.1.78 — 2026-06-07 — The swirl-source closing problem: precise formulation + positioning (the witnesses' open target, REFRAMED)
 
 Sharpened the open problem the external triad crystallized (weighted space controlling `∂_zΓ` that closes
