@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.87 — 2026-06-07 — Audit #3 DONE → verification campaign COMPLETE: LRZ + Thm 3.7 both bypass S (C3); the "every closer bypasses S" universal HOLDS, hedge lifted
+
+Executed the last audit target #3. `docs/citation_verification_round3_2026-06-07.md`. **Foundation-
+hardening, not PDE progress; `:proved`=0.** A clean confirmation (no correction):
+- **Lei–Ren–Zhang (ℝ²×T¹, arXiv:1911.01571) → C3:** bounded mild ancient axisym + Γ bounded + z-periodic ⇒
+  v≡c e_z, via DGNM/oscillation-Harnack on the Γ-transport eq (z-periodicity + ∇·b=0 supply the critical
+  scaling) forcing Γ≡0 → swirl-free → KNSS. **Bypasses S.**
+- **"Thm 3.7" → C3** (identified as Thm 1.2 of arXiv:1902.11229, the preprint [70] was split from;
+  hypothesis byte-identical): small radial oscillation ⇒ lim_{r→∞}Γ=0 via a weighted Γ-energy estimate →
+  swirl-free → Lei–Zhang–Zhao → KNSS. **Bypasses S.**
+- **Universal HOLDS:** "every known with-swirl closer bypasses S / forces Γ-decay → swirl-free" is now
+  **C3 for all three** (LZZ + LRZ + Thm 3.7); the meta-review §4 C1 hedge on "every" is **LIFTED**. The
+  frontier doc's "controlling S is a road not taken" is strengthened; the review independently corroborates
+  ("Γ-in-isolation fails without ∇·b=0" — every route tames Γ-transport, never the Ω-source).
+**Verification campaign COMPLETE:** #1 KNSS C3 (foundation hypothesis-clean) · #1b Albritton–Barker C3
+(⟺ reattributed + Type-I-conditioned) · #2 NS-007 (NRŠ C2, Tsai C3) · #3 LRZ+Thm3.7 C3. Net: 1
+over-attribution + 1 scope overstatement caught/corrected, 3 load-bearing claims confirmed; the
+obstruction manifold's foundations hardened. Remaining (optional, low-priority): S–Š 2009 CPDE 34;
+NRŠ Acta primary C2→C3. Updated: audit (#3 row + §2 + campaign-complete), frontier doc (hedge lifted).
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.1.86 — 2026-06-07 — Audit #1b + #2 DONE: the Type-I ⟺ is ALBRITTON–BARKER (not Seregin–Šverák; corrects v0.1.85) and Type-I-conditioned; NS-007 confirmed (NRŠ C2, Tsai C3)
 
 Executed audit targets #1b (Type-I ⟺) and #2 (NS-007 self-similar). `docs/citation_verification_round2_2026-06-07.md`.

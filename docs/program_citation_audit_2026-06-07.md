@@ -16,7 +16,7 @@ C5 adversarially checked.
 | 1 | **KNSS, Acta 2009** — 2D & axisym-no-swirl Liouville (Thm 5.1/5.2); `|u|≤C/r`⇒0 (Thm 5.3); compactness lemma (Lemma 6.1); Type-I **⇒** ancient (Prop 6.1) | **C3** ✅ *(line-verified 2026-06-07, `docs/knss_verification_2026-06-07.md`)* | *Terminal step of every axisymmetric closer* (swirl-free reduction); the compactness behind the blow-down; the Type-I⇒ancient bridge | **Global** (foundation) | **DONE** — swirl-free reduction confirmed **hypothesis-clean** |
 | 1b | **Albritton–Barker, arXiv:1811.00502** (2019) — the Type-I **⟺** ancient equivalence, **Type-I-conditioned** (`I<∞`); **NOT** Seregin–Šverák (a different 2009 axisym paper), **NOT** KNSS (⇒ only) | **C3** ✅ *(line-verified 2026-06-07, round 2)* | "Liouville is the linchpin" — but only NS-048 ≡ *Type-I-conditioned* Liouville (the unconditioned KNSS conjecture is strictly stronger/open) | **Global** | **DONE** — misattribution + scope corrected |
 | 2 | **NRŠ Acta 1996 + Tsai ARMA 1998** (NS-007) — self-similar exclusion | **NRŠ C2** (via Tsai's faithful reproduction; `U∈W^{1,2}_loc∩L³`⇒0) · **Tsai C3** (line-read) ✅ *(round 2)* | A **global no-go** (kills the backward self-similar construction) | **Global** | **DONE** — `L³` faithful; local-energy = Tsai (correctly attributed) |
-| 3 | **Lei–Ren–Zhang (ℝ²×T¹) + "Thm 3.7"** (review's frontier closers) | **C1** (Q.S. Zhang review paragraph only) | The universal *"every known with-swirl closer bypasses S / forces Γ-decay"* (NS-048 arc) | local | **YES — #3** |
+| 3 | **Lei–Ren–Zhang (ℝ²×T¹, arXiv:1911.01571) + "Thm 3.7"** (= Thm 1.2 of arXiv:1902.11229) | **C3** ✅ *(line-read 2026-06-07, round 3)* | The universal *"every known with-swirl closer bypasses S / forces Γ-decay"* — **both confirmed to bypass S** (DGNM/weighted-energy on Γ → swirl-free → KNSS) | local | **DONE** — universal HOLDS, C1 hedge lifted |
 | 4 | **Tao, JAMS 2016** (NS-008) averaged-NS blowup | **C2** (statement); scope of the killed method-class not line-verified | A **global no-go** (energy-only methods can't close NS) | **Global** | partial |
 | 5 | **Pan–Li, Bull. Sci. Math. 2020** — `α<1` constancy, `α=1` sharp counterexamples | **C2** (via review) | The route-(i) **counterexample suspicion** for the axial-only conjecture | local | Tier-3 |
 | 6 | **ESS 2003** (NS-005) endpoint + backward-uniqueness | **C2** (endpoint); **C1** (lemma numbering/constants, via Tao's restatement) | The L³ endpoint; M6 of the machinery study | **Global** | Tier-3 |
@@ -54,10 +54,15 @@ mechanism confirmed) — Acta 1996 PDF paywalled, so not C3. **Tsai → C3** (li
 weak-solution understanding); the local-energy version was **correctly** attributed to Tsai. Global anchor
 firmed.
 
-**#3 — Lei–Ren–Zhang + "Thm 3.7" (C1 → C2/C3).** The NS-048-arc universal *"every known with-swirl closer
-bypasses S"* is **C3 for LZZ but only C1 for these two** (review-paragraph only). Reading their primaries
-either firms the universal to C2/C3 or surfaces a closer that *does* touch S (which would itself reshape
-the frontier doc). Either outcome is informative.
+**#3 — Lei–Ren–Zhang + "Thm 3.7" — ✅ DONE 2026-06-07** (C1 → C3, round 3). Both line-read at primary
+(LRZ arXiv:1911.01571; Thm 3.7 = Thm 1.2 of arXiv:1902.11229, hypothesis byte-identical to the review's).
+**Both BYPASS S** — LRZ forces `Γ≡0` (DGNM/oscillation-Harnack on the `Γ`-transport eq, using
+z-periodicity + `∇·b=0`); Thm 3.7 forces `lim_{r→∞}Γ=0` (weighted `Γ`-energy estimate) — each → swirl-free
+→ KNSS; neither writes the `Ω`-equation or touches `S`. **Universal HOLDS; the C1 hedge is lifted** (now
+C3 for all three closers). The frontier doc's "road not taken" is strengthened, not threatened. See
+`docs/citation_verification_round3_2026-06-07.md`.
+
+**Verification campaign COMPLETE** (§ below): #1 ✅, #1b ✅, #2 ✅, #3 ✅.
 
 ---
 

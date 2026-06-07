@@ -47,9 +47,12 @@ Read line-by-line from the primary PDFs (LZZ §5; review §3):
 - **Thm 3.7 (the weakest non-periodic frontier):** `Γ` bounded + a **small radial-oscillation** condition
   `|Γ²−limsup_{r→∞}Γ²|≤(ε₀/r)limsup Γ²`, via a weighted-energy estimate. *(Review only — flagged.)*
 
-**Pattern (verified):** every known with-swirl closer is a condition **on `Γ`** (radial decay,
-`z`-periodicity, small radial oscillation) that **kills `Γ` → reduces to swirl-free**. **None controls the
-source `S`; none is phrased on `∂_zΓ`.**
+**Pattern (verified — now C3 for all three closers, 2026-06-07):** every known with-swirl closer is a
+condition **on `Γ`** (radial decay, `z`-periodicity, small radial oscillation) that **kills `Γ` → reduces
+to swirl-free**. **None controls the source `S`; none is phrased on `∂_zΓ`.** All three —
+Lei–Zhang–Zhao, Lei–Ren–Zhang (ℝ²×T¹), Thm 3.7 — were line-read at primary
+(`docs/citation_verification_round3_2026-06-07.md`); the earlier C1 hedge on "every" is **lifted**, the
+"road not taken" strengthened.
 
 ---
 
