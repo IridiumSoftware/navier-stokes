@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.77 — 2026-06-07 — EXTERNAL witness triad on the axisym-swirl arc: trim CONFIRMED + 2 refinements (12th over-reach caught)
+
+External adversarial pass (Grok edge-Φ / Venice.ai synthesis-seat, swapped for Gemini / ChatGPT naive;
+`~/Desktop/triad.rtf`) on `docs/ns048_axisym_swirl_witness_brief.md`. Metabolized into
+`docs/ns048_axisym_swirl_witness_verdict.md`. **Across three independent model families the external pass
+CONFIRMED the internal trim** — math clean (C1/C2/C3/C5/C6/C8 correct); **C9 "three independent convergent
+attacks" = ECHO (refuted unanimously)**; C4 "no soft step" overstated; no closing path found ("no theorem"
+stands); firewall intact. The pleasing meta-instance: what I'd called convergence really was echo — the
+NS-024 lesson, re-derived by the witnesses. **Two refinements the same-model pre-screen could not produce:**
+- **12th over-reach (external-caught, Venice): my own C4 correction over-reached.** I'd floated "weak-`L^p`
+  swirl plausibly closable" — but the production is `S=(2Γ/r⁴)∂_zΓ`, so `L^p` on `Γ` gives NO control of
+  `∂_zΓ`. Corrected: the open frontier is a **weighted/mixed-norm condition controlling `∂_zΓ` in `z`**,
+  strictly weaker than KNSS — or a proof none exists. (The C4 *direction* stands: `ℝ²×T¹` proven
+  intermediate; small-swirl plausible.) Even the correction needed correcting — vindicating the external
+  layer over a same-model pre-screen ([[feedback_validator_confirmation_bias]]).
+- **C7 sharpened (Venice stall-analysis): "dead end" → "no known closure mechanism," localized.** The
+  candidate bootstrap `Ω≤C ⇒ |ω^θ|≤Cr ⇒` Biot–Savart `⇒ Γ`-transport `⇒` feedback stalls at TWO concrete
+  points: (1) CZ needs `1<p<∞`, fails for linearly-`r`-growing `ω^θ∉L^∞`; (2) div-free drift + isotropic
+  diffusion generate no `z`-decay. "No theorem" stands; the negative is softer and now localized.
+Docs corrected: `ns048_axisym_swirl_attack.md` (C4), `ns048_swirl_sign_condition_attack.md` (C7);
+verdict doc added. `:proved`=0; NS-048 unchanged. Honesty ledger now 7th–12th.
+
 ## v0.1.76 — 2026-06-07 — WITNESS PASS on the axisym-swirl arc: math clean, but 2 over-reaches CAUGHT + corrected (10th, 11th)
 
 Adversarial witness pass on the whole axisymmetric-with-swirl attack arc (v0.1.73/74).

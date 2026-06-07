@@ -142,21 +142,31 @@ LRZ result; I did not read LRZ's proof line-by-line — §8.)
    near their endpoint (`L^p` at `p<∞`; `r^α` at the optimal `α<1`; `T¹` whose removal LRZ frame as the
    remaining `T¹→ℝ` step). **But the restricted-class space is NOT exhausted, and a soft intermediate
    manifestly exists:** `ℝ²×T¹` is *itself* a proven class strictly between 2D and 3D (I listed it as
-   "known" above — so claiming "no intermediate class" was self-contradictory). Softer-than-conjecture
-   refinements also plausibly exist — weak-`L^p`/Lorentz swirl `Γ∈L^∞_tL^{p,∞}_x` (plausibly closable by
-   extending the De Giorgi–Nash–Moser argument on the source-free `Γ` equation + Lorentz interpolation)
-   and *small-swirl* `‖Γ‖_∞≤ε` (plausibly closable by perturbing the *complete* swirl-free KNSS proof,
-   the source being `O(ε²)`). These two are **plausible, not verified** — but their existence refutes the
-   universal claim.
+   "known" above — so claiming "no intermediate class" was self-contradictory). A *small-swirl* class
+   `‖Γ‖_∞≤ε` is also a plausible soft target (plausibly closable by perturbing the *complete* swirl-free
+   KNSS proof, the source being `O(ε²)`; unchallenged by the external pass).
 
-So the honest content of "attacking the most tractable sub-target," after the witness trim, is narrower:
-**the three frontier hypotheses I considered are individually near-endpoint, and all three session-scale
-*methods* (energy, max-principle, sign) stop at the same place — the non-compact axial direction. But
-there ARE softer restricted classes (proven: `ℝ²×T¹`; plausible: weak-`L^p`, small-swirl), so the
-sub-target does NOT simply collapse onto the bare conjecture.** Not progress on the prize; `:proved`
-stays 0. The 8th over-reach (a manufactured theorem) was declined; the **"no soft step" claim was itself
-a 10th over-reach, caught by the witness pass** (see `docs/ns048_axisym_swirl_witness_brief.md`,
-changelog v0.1.76).
+**[EXTERNAL-WITNESS-CORRECTED 2026-06-07 — a 12th item: my own correction above over-reached.]** My first
+correction floated "weak-`L^p`/Lorentz swirl `Γ∈L^∞_tL^{p,∞}_x` plausibly closable." **That was imprecise
+— Venice (external) refuted it:** the production is `S=(2Γ/r⁴)∂_zΓ`, so *any integrability/decay on `Γ`
+alone is insufficient* — an `L^p` bound on `Γ` gives **no** control of `∂_zΓ`. The honest open frontier is
+not plain `L^p` on `Γ` but a **weighted/mixed-norm condition controlling `∂_zΓ` in `z`**:
+
+> Find a weighted space `X` on `ℝ³` with (1) boundedness in `X` strictly weaker than KNSS, and (2) it
+> forces decay of **`∂_zΓ`** enough to close the estimate on `S` — *or* prove no such `X` exists.
+
+So the **C4 *direction* stands** (the universal "no soft step" was wrong: `ℝ²×T¹` proven; small-swirl
+plausible), but the specific soft target is a `∂_zΓ`-weighted condition, not `L^p`-on-`Γ`.
+
+So the honest content of "attacking the most tractable sub-target," after both witness passes, is:
+**the three frontier hypotheses I considered are individually near-endpoint, and the session-scale
+*methods* (energy, max-principle, sign) all stop at the same place — the non-compact axial direction. But
+there ARE softer restricted classes (proven: `ℝ²×T¹`; plausible: small-swirl; the genuine open frontier:
+a weighted condition controlling `∂_zΓ` in `z`), so the sub-target does NOT collapse onto the bare
+conjecture.** Not progress; `:proved` stays 0. The 8th over-reach (a manufactured theorem) was declined;
+the **"no soft step" claim was a 10th over-reach (internal-caught, external-confirmed); the weak-`L^p`
+sub-suggestion was a 12th (external-caught)** — see `docs/ns048_axisym_swirl_witness_verdict.md`,
+changelog v0.1.77.
 
 ---
 

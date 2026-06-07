@@ -1011,3 +1011,11 @@ mechanism** that prevents different rescaled subsequences converging to differen
   not 3), plus a selection effect, and the localization merely re-derives the known hypotheses. Honest
   residue: these elementary methods all stop at the non-compact axial direction, consistent with known
   structure — method-failure localization, not proof of "the" difficulty.**]**
+- **EXTERNAL witness triad (2026-06-07): `docs/ns048_axisym_swirl_witness_verdict.md`** (Grok / Venice.ai /
+  ChatGPT; `~/Desktop/triad.rtf`; changelog v0.1.77). Across 3 model families **confirmed the trim** (math
+  clean; C9 = echo, refuted unanimously; C4 overstated; no theorem found). **Two refinements:** (12th
+  over-reach, external-caught) my own C4 fix's "weak-`L^p` swirl plausibly closable" was imprecise — `L^p`
+  on `Γ` gives **no** control of `∂_zΓ`; the open frontier is a **weighted condition controlling `∂_zΓ` in
+  `z`**, strictly weaker than KNSS, or a proof none exists. And C7 sharpened: the one-sided-bound bootstrap
+  stalls at two concrete points (CZ fails for linearly-`r`-growing `ω^θ∉L^∞`; div-free drift + isotropic
+  diffusion give no `z`-decay) ⇒ "no *known* closure mechanism," not "dead end" — "no theorem" stands.

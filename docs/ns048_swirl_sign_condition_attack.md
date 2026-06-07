@@ -71,14 +71,27 @@ parabolic maximum principle then bounds `Ω` **from above** (a bounded ancient s
 its asymptotic supremum). But a Liouville conclusion needs `Ω≡0` — i.e. control from **both** sides,
 which requires `S` signed **both** ways simultaneously, impossible for a single one-signed source.
 
-A one-sided bound `Ω≤C` does not obviously bootstrap: `Ω=ω^θ/r` one-signed (signed meridional vorticity)
-does not force the meridional flow trivial, and closing the loop would require coupling the bound back
-through Biot–Savart (`(u^r,u^z)←rΩ`) and the `Γ`-transport — not session-tractable, and not visibly
-convergent. **Default: not established.** So even in the best case the sign hypothesis yields a one-sided
-estimate, not a Liouville theorem.
+A one-sided bound `Ω≤C` does not bootstrap by any visible route. **[EXTERNAL-WITNESS-SHARPENED
+2026-06-07 — reframed from "dead end" to "no known closure mechanism," with the stall located.]** The
+candidate chain is `Ω≤C ⇒ |ω^θ|≤Cr ⇒` Biot–Savart regularity on `b=(u^r,u^z)` `⇒` transport-diffusion
+estimates on `Γ` `⇒` feedback into `S`. Venice (external) traced it to **two concrete stall points:**
+- **Stall 1 (Biot–Savart):** Calderón–Zygmund gives `‖∇b‖_{L^p}≲‖ω^θ‖_{L^p}` only for `1<p<∞`; it fails
+  at `p=∞`, and `|ω^θ|≤Cr` grows linearly in `r` (so `ω^θ∉L^∞(ℝ³)`) — the kernel is not integrable
+  against linearly-growing vorticity without extra decay.
+- **Stall 2 (transport-diffusion):** the `Γ`-drift `b·∇` is divergence-free (preserves `L^p`, generates
+  **no decay**) and the diffusion is isotropic (**cannot distinguish `r` from `z`**) — so boundedness
+  yields **no `z`-decay of `Γ`**, hence none on `∂_zΓ`, hence none on `S`.
+
+So the one-sided bound **does not propagate to any quantitative `∂_zΓ` estimate by any known route** — but
+this is "**no currently known closure mechanism**," *not* a proof of impossibility. **"No theorem" stands;
+the negative is epistemically softer and now localized.** Also note (separately): the sign is on the
+*source* `S`, not on `Ω` itself, so `Ω` stays **non-sign-definite** — the dual `C−Ω` is a *non-negative
+subsolution*, for which the parabolic Liouville theorem is **false** (it holds for non-negative
+*supersolutions*); the 5-D-Laplacian structure of the `Ω`-operator is real but, without sign-definiteness
+of the unknown, insufficient. **Default: not established.**
 
 *(This is the §2-of-the-parent break in a new guise: a maximum principle controls one extremum, and on
-the non-compact domain that is not enough.)*
+the non-compact domain that is not enough — now with the bootstrap's two stall points named.)*
 
 ---
 
