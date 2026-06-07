@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.78 — 2026-06-07 — The swirl-source closing problem: precise formulation + positioning (the witnesses' open target, REFRAMED)
+
+Sharpened the open problem the external triad crystallized (weighted space controlling `∂_zΓ` that closes
+the source `S=(2Γ/r⁴)∂_zΓ`) into a precisely-posed, literature-positioned target —
+`docs/ns048_swirl_source_frontier.md`. **No theorem; `:proved`=0; NS-048 unchanged.** A focused research
+pass read Lei–Zhang–Zhao (arXiv:1701.00868) §5 line-by-line, which **reframes the target:**
+- **Every known with-swirl ancient-Liouville closer bypasses `S` entirely.** LZZ runs De Giorgi–Nash–Moser
+  on the *source-free* `Γ` equation, uses `L^p` *purely geometrically* (ball-packing around the radius-`r`
+  circle) to get radial decay `|Γ|≤Cr^{−1/p}→0`, kills `Γ`, then invokes the swirl-free reduction. `Ω`,
+  `S`, `∂_zΓ` never appear. Same shape for Lei–Ren–Zhang (z-periodic) and Thm 3.7 (small radial
+  oscillation) — all conditions **on `Γ`**, all reduce to swirl-free, **none controls `S`**.
+- So the witnesses' "close `S` via weighted `∂_zΓ`" is a **road not taken** — a structurally different
+  strategy than the entire literature, not a weakening of it.
+- **"Strictly weaker than KNSS" is unjustified** — and the tempting "incomparable" claim is **declined as
+  a 13th over-reach**: the columnar case (`S≡0⇒Γ≡0`, via C8) suggests `S`-control may actually *force*
+  `Γ`-decay, so the comparison is genuinely open.
+- The `z`-anisotropic / `∂_z`-swirl machinery (`J=−∂_zv^θ/r`; Yu `|x₃|u^θ`; Chen–Fang–Zhang `|x₃|^α u^θ`
+  mixed-norm) **exists but only in finite-time regularity — never ported to ancient Liouville.**
+- **Cleanest concrete entry sub-question:** port those anisotropic-`z` swirl conditions to the ancient
+  setting (a bounded first step using existing machinery, no new gadget).
+Both horns (find such a space / prove none exists) remain open. Genuine contribution = the reframing +
+the verified "source-control is a road not taken" + the entry sub-question. (Session interrupted by a
+macOS TCC/sandbox EPERM after the doc was written; changelog/SPEC/commit completed on restart.)
+
 ## v0.1.77 — 2026-06-07 — EXTERNAL witness triad on the axisym-swirl arc: trim CONFIRMED + 2 refinements (12th over-reach caught)
 
 External adversarial pass (Grok edge-Φ / Venice.ai synthesis-seat, swapped for Gemini / ChatGPT naive;

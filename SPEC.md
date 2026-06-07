@@ -1019,3 +1019,12 @@ mechanism** that prevents different rescaled subsequences converging to differen
   `z`**, strictly weaker than KNSS, or a proof none exists. And C7 sharpened: the one-sided-bound bootstrap
   stalls at two concrete points (CZ fails for linearly-`r`-growing `ω^θ∉L^∞`; div-free drift + isotropic
   diffusion give no `z`-decay) ⇒ "no *known* closure mechanism," not "dead end" — "no theorem" stands.
+- **Open problem FORMULATED (2026-06-07): `docs/ns048_swirl_source_frontier.md`** (changelog v0.1.78).
+  Sharpened the witnesses' target (a weighted `∂_zΓ` space that closes `S`) by reading LZZ §5 line-by-line:
+  **every known with-swirl closer bypasses `S` — it forces `Γ`-decay (radial / z-periodic / small radial
+  oscillation) → swirl-free reduction; none controls `S`.** So "close `S` via `∂_zΓ`" is a **road not
+  taken**, not a weakening of the known road. "Strictly weaker than KNSS" is **unjustified** (the columnar
+  `S≡0⇒Γ≡0` cuts against independence — comparison OPEN; the naive "incomparable" claim **declined as a
+  13th over-reach**). The `z`-anisotropic / `∂_z`-swirl machinery (`J=−∂_zv^θ/r`; `|x₃|^α u^θ`) exists only
+  in finite-time regularity, **untransferred** to ancient Liouville. **Cleanest entry sub-question:** port
+  those anisotropic-`z` swirl conditions to the ancient setting. Both horns open; `:proved`=0.
