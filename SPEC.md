@@ -947,3 +947,10 @@ mechanism** that prevents different rescaled subsequences converging to differen
   truncation. The honest role of the geometry is a **suggestive prior** (where to probe the ancient
   limit), **NOT** an exclusion input. (A 7th tidy hope, deflated by working it through.) Engaging NS-048
   for real = learning the §2 machinery + attacking one sub-target; not a session task.
+- **Machinery STUDIED (2026-06-06): `docs/ns048_machinery_study.md`** — the §2 machinery actually
+  learned, literature-verified (7 modules M1–M7; changelog v0.1.72). A **study artifact, status
+  unchanged** (`:open`/unengaged). Locates the two open holes to the theorem level: the **general 3D
+  Liouville theorem for bounded mild ancient solutions** (⟺ Type-I exclusion — KNSS have only 2D +
+  axisymmetric-no-swirl) and the **entire Type-II branch** (no compact rescaled limit to attack).
+  Names three real sub-targets; a restricted non-self-similar Liouville (beyond axisym-no-swirl) is the
+  most tractable. Carries a 16-item don't-bluff appendix (§12) of everything not primary-verified.

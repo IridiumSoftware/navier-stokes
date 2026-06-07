@@ -1,5 +1,32 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.72 — 2026-06-06 — NS-048 machinery STUDIED (literature-verified): the exclusion/no-split apparatus, learned
+
+Learned the NS-048 machinery for real — `docs/ns048_machinery_study.md`, a STUDY artifact (not
+progress; `:proved`=0, distance UNTOUCHED; NS-048 stays `:open`/unengaged, no ledger change). Seven
+modules, each verified against the literature via a six-way parallel sweep + calibration search:
+M1 rescaling/ancient solutions (the MBAS object; Type-I/II; parabolic compactness),
+M2 CKN ε-regularity (the compactness engine; `𝒫¹(S)=0`),
+M3 self-similar exclusion DONE (Nečas–Růžička–Šverák/Tsai + the DSS-existence nuance that makes general
+exclusion hard),
+M4 Liouville for ancient solutions = THE OPEN CORE (KNSS: 2D + axisym-no-swirl done, general 3D "out of
+reach"; the **Type-I-singularity ⟺ nontrivial mild bounded ancient solution** equivalence),
+M5 concentration-compactness / profile-decomposition / no-split (Gallagher 2001, Kenig–Merle,
+Rusin–Šverák / Gallagher–Koch–Planchon / Jia–Šverák minimal-norm data; NS is dissipative ⇒ adapted not
+transplanted),
+M6 backward uniqueness + unique continuation (ESS `L^{3,∞}` endpoint via Carleman; Tao 2019 triple-log
+rate),
+M7 the Type-II frontier (separate, mostly OPEN; honestly fenced from the other-equation analogues +
+Hou numerics).
+§9 assembles the **conditional** exclusion argument and locates the two holes to the theorem level
+(general 3D Liouville ⟺ Type-I exclusion; the whole Type-II branch). §10 names the three real
+sub-targets (a restricted non-self-similar Liouville is most tractable). Don't-bluff enforced: §12 is a
+16-item flagged appendix of everything not primary-source-verified (incl. corrections: Gallagher is
+2001 not 1998; Korobkov–Tsai is half-space; "Choe–Wolf–Yang Type-I" UNVERIFIED — do not assert;
+Hou's boundary scenario is Luo–Hou Euler not NS). The 7th-over-reach correction stands: the
+within-truncation geometry (NS-045/046/`∇ξ`) is a suggestive prior on *where* to probe the ancient
+limit, never a rigidity input.
+
 ## v0.1.71 — 2026-06-06 — NS-048 MAPPED (the exclusion frontier's machinery) + its geometry-re-tasking hope deflated (7th over-reach, caught by thinking)
 
 Engaged NS-048 the disciplined way — *map the machinery, don't manufacture an exclusion*
