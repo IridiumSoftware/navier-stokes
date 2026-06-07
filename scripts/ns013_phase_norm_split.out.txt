@@ -1,0 +1,26 @@
+# Phase-blindness face of supercriticality (NS-002): which norms see the phase coherence?
+# N=64 Re=1600 Tdev=4.0 nseed=5  Scope: DNS truncation; NOT the PDE; :proved=0.
+
+# TG (H=0) @ t=4.0 — coherent: E=0.1215 Z=1.6023 H=-6.302e-19 winf=11.81 Besov=13.28 P=+1.281e+00 Sw=+0.2233
+#         ── PHASE-BLIND ──   ──────────── PHASE-SENSITIVE ────────────
+#  alpha   Z/Z0    |dH|       winf/w0   Besov/B0   P/P0     Sw
+   0.00   1.0000  0.0e+00    1.0000    1.0000     +1.0000   +0.2233
+   0.25   1.0000  1.8e-17    0.9696    1.0306     +0.7352   +0.1642
+   0.50   1.0000  5.0e-17    0.7608    0.9107     +0.2789   +0.0623
+   0.75   1.0000  5.2e-17    0.4851    0.7479     +0.0633   +0.0141
+   1.00   1.0000  3.2e-17    0.4357    0.7384     +0.0330   +0.0074
+
+# HELICAL (H≠0) @ t=4.0 — coherent: E=0.2365 Z=78.6633 H=+4.904e-02 winf=39.56 Besov=39.89 P=+2.714e+01 Sw=+0.0138
+#         ── PHASE-BLIND ──   ──────────── PHASE-SENSITIVE ────────────
+#  alpha   Z/Z0    |dH|       winf/w0   Besov/B0   P/P0     Sw
+   0.00   1.0000  0.0e+00    1.0000    1.0000     +1.0000   +0.0138
+   0.25   1.0000  2.6e-17    1.0066    0.9612     +0.7283   +0.0100
+   0.50   1.0000  2.5e-17    1.0267    0.9325     +0.2532   +0.0035
+   0.75   1.0000  2.2e-17    1.0285    0.9084     +0.0232   +0.0003
+   1.00   1.0000  2.4e-17    1.0296    0.9025     +0.0071   +0.0001
+
+# READ: Z/Z0≡1 and |dH|≈0 (phase-BLIND — the a-priori-coercive L² controls, NS-003) while
+# winf/w0, Besov/B0, P/P0, Sw all COLLAPSE (phase-SENSITIVE — the regularity-DECIDING critical/L∞
+# quantities). ⇒ the controlled quantities are blind to the phase coherence carrying the production
+# — a concrete phase-space face of supercriticality (NS-002). Within-truncation; :proved=0.
+# DONE

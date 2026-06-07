@@ -1,5 +1,66 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.81 — 2026-06-07 — Program meta-review metabolized: 3 upgrades (record + C0–C5 citation tiers + generator-class/global-no-go framing)
+
+Metabolized a ChatGPT meta-review of the whole program (`~/Desktop/chatgpt-ns.rtf`) into three upgrades.
+`docs/program_meta_review_chatgpt_2026-06-07.md` (recorded with critical annotations). **No PDE progress;
+`:proved`=0.** Critical posture: the review read our own artifacts, so its praise of the "discipline" is
+**discounted as partial echo** (validator-confirmation-bias rule); the **critiques** are the value and are
+accepted without defense — (1) no theorem-level movement (the bar); (2) numerics capped; (3) **"highly
+structured local coherence"** = the permanent risk (internal elegance > external necessity; independent
+uptake is the only test). Adopted self-description: *a search-space-compression / obstruction-and-
+methodology lab, not a proof-contender.*
+Three upgrades, two now in the `SPEC.md` header:
+- **Recorded** — the meta-review doc + annotations.
+- **Instituted — Citation reliability C0–C5:** every externally-cited theorem carries a tier (C0 unverified
+  → C5 adversarially checked); a no-go's confidence is gated by `tier × independence × scope-match`;
+  citations are witnessable objects, not trusted primitives (echo≠convergence for citations). The
+  don't-bluff rule, typed. **Worked on the NS-048 arc** (meta-review §4): immediately did informational
+  work — the conclusion "every known with-swirl closer bypasses `S`" is **C3 for Lei–Zhang–Zhao**
+  (line-read) but only **C1 for Lei–Ren–Zhang / Thm 3.7** (review-paragraph only) ⇒ the universal "every"
+  now carries a C1 hedge; the `|x₃|^α` transfer verdict rests on C3 sources (solid).
+- **Adopted — mission framing:** the ledger is a **generator-class reduction engine (= ORSI MDAGC)**; the
+  map's acceleration is **global no-go** (NS-002/007/008) over **local**; **soft no-go ≠ hard no-go**
+  (never conflate). Note: the review independently re-derived MDAGC from the artifacts (mild signal, or
+  echo — flagged).
+Not done (avoid export surplus): full-ledger C0–C5 retrofit (future bookkeeping; global-no-go anchors
+first). Route (i) proceeds with the C0–C5 discipline now governing its citations.
+
+## v0.1.80 — 2026-06-07 — Production is a PHASE-COHERENCE object (3D): two phase-scramble probes → supercriticality gets a phase-blindness face
+
+Two within-truncation witnesses extending the NS-013 phase/reality arc to 3D, folded into SPEC (NS-013
+bullet + an NS-002 phase-space-face note), dashboard, this entry. **DNS truncation; `:proved`=0; prize
+UNTOUCHED.** Sequel to v0.1.75's 1D real-vs-complex result (production `∫g³≡0` on the one-sided
+complex-blowup class; reality activates it), which flagged: *does reality's spectral/phase structure gate
+the 3D production?*
+
+**(1) Phase-production** (`scripts/ns013_phase_production_3d.jl` + `.out.txt`; companion
+`docs/ns013_phase_production_3d_companion.md`). A random-phase surrogate `û→e^{iφ(k)}û`, `φ(−k)=−φ(k)`
+preserves `|û(k)|` ⇒ E, enstrophy Z, **and helicity H** exact (verified ~1e-16 per α) + div-free, while
+destroying the cubic/triadic phase coherence; `α:0→1` sweeps coherent→scrambled, 5 seeds, on TG (H=0) and a
+helical field (H≠0) developed to t=4. **Result:** the production `∫ω·Sω` collapses **97% (TG) / 99%
+(helical)** and `S_ω→~0` while E,Z,H are pinned to machine precision ⇒ the 3D production is a
+PHASE-COHERENCE object, not a spectrum object — the 3D shadow of the 1D `one-sided ⇒ ∫g³=0` result. The
+"what transfers to 3D" question is answered **YES**.
+
+**(2) Phase-norm split** (`scripts/ns013_phase_norm_split.jl` + `.out.txt`; companion
+`docs/ns013_phase_norm_split_companion.md`). Under the SAME surrogate, which norms are phase-blind vs
+phase-sensitive? The a-priori-coercive L² invariants E,Z,H (Leray's controlled quantities, NS-003) are
+**exactly phase-BLIND** (Parseval); the regularity-deciding production `∫ω·Sω`/`S_ω` are **phase-SENSITIVE**
+(collapse in both flows). ⇒ supercriticality (NS-002) gets a concrete phase-space face: **the controlled
+quantities are blind to the phase coherence carrying the production.** HONEST NUANCE: the BKM/critical-Besov
+norms `‖ω‖∞`,`Ḃ⁰_{∞,1}` are phase-sensitive only for the COHERENT flow (TG `‖ω‖∞`→0.44) and flat for the
+already-incoherent random-helical IC — an intermittency effect, NOT a universal collapse. Claiming "the
+Besov norm collapses under scramble" would have been the **14th over-reach this arc** (caught + declined);
+the clean robust claim is production-vs-controlled, not Besov-vs-controlled.
+
+**Synthesis (the maximum-insight payoff).** Three cheap within-truncation probes (v0.1.75 real-vs-complex
+1D, and these two) now converge on the production object `∫ω·Sω` (which the no-go map funnels everything to,
+NS-036): it lives in the phase coherence (reality's conjugate/triadic structure), and the quantities we can
+control a priori are precisely the ones blind to it — a fresh lens on the keystone wall (NS-002:
+controlled = phase-blind, deciding = phase-coherent). Each is a content-location diagnostic (a phase
+surrogate), not an analytic step; vacuity cap stands; `:proved`=0.
+
 ## v0.1.79 — 2026-06-07 — Anisotropic-z port to ancient Liouville: GENUINE new question, transfer-gap located, condition is the z-half of a likely z+r fix
 
 Executed the entry sub-question from v0.1.78 — port the finite-time anisotropic-z swirl regularity

@@ -1,0 +1,24 @@
+# NS-013 phase-surrogate probe — does reality's PHASE coherence gate the 3D production ∫ω·Sω?
+# Surrogate preserves |û(k)| (⇒ E,Z,H exact) + div-free; α scrambles the cubic/triadic phase.
+# N=64  Re=1600  Tdev=4.0  dt=0.010  nseed=5  threads=6  Scope: DNS truncation; NOT the PDE; :proved=0.
+
+# TG (H=0) @ t=4.0 — developed field: E=0.12153 Z=1.60232 H=-6.3018e-19 P0=+1.2810e+00 Sw0=+0.2233 c2int=0.6265
+#  alpha  P/P0(mean±std)     Sw(mean±std)       c2int(mean)  |dE|/E   |dZ|/Z   |dH|
+   0.00   +1.000 ± 0.000   +0.2233 ± 0.0000    0.6265     0.0e+00  0.0e+00  0.0e+00
+   0.25   +0.735 ± 0.023   +0.1642 ± 0.0051    0.5216     6.9e-17  1.4e-16  1.8e-17
+   0.50   +0.279 ± 0.041   +0.0623 ± 0.0091    0.4112     9.1e-17  1.1e-16  5.0e-17
+   0.75   +0.063 ± 0.019   +0.0141 ± 0.0042    0.3698     1.4e-16  1.1e-16  5.2e-17
+   1.00   +0.033 ± 0.020   +0.0074 ± 0.0046    0.3622     1.8e-16  1.1e-16  3.2e-17
+
+# HELICAL (H≠0) @ t=4.0 — developed field: E=0.23652 Z=78.66326 H=+4.9037e-02 P0=+2.7141e+01 Sw0=+0.0138 c2int=0.3554
+#  alpha  P/P0(mean±std)     Sw(mean±std)       c2int(mean)  |dE|/E   |dZ|/Z   |dH|
+   0.00   +1.000 ± 0.000   +0.0138 ± 0.0000    0.3554     0.0e+00  0.0e+00  0.0e+00
+   0.25   +0.728 ± 0.005   +0.0100 ± 0.0001    0.3487     2.3e-17  0.0e+00  2.6e-17
+   0.50   +0.253 ± 0.015   +0.0035 ± 0.0002    0.3382     4.7e-17  0.0e+00  2.5e-17
+   0.75   +0.023 ± 0.027   +0.0003 ± 0.0004    0.3341     0.0e+00  0.0e+00  2.2e-17
+   1.00   +0.007 ± 0.024   +0.0001 ± 0.0003    0.3340     2.3e-17  0.0e+00  2.4e-17
+
+# READ: if P/P0 → ~0 and Sw → ~0 as α→1 while |dE|/E,|dZ|/Z,|dH| stay ~machine, the production is
+# carried by the PHASE coherence (reality's conjugate/triadic structure), not the amplitude
+# spectrum — the 3D shadow of the 1D `one-sided ⇒ ∫g³=0` result. Within-truncation; :proved=0.
+# DONE

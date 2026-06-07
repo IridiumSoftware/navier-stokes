@@ -322,7 +322,12 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
   (analytic signals) has `∫g³≡0` by Fourier support (3 positive wavenumbers can't sum to 0); reality
   (two-sided spectrum) ACTIVATES production (Skew 0→0.67) ⇒ the two channels are disjoint, corroborating
   "complex⇏real vacuous." 1D-specific (cubic argument doesn't transfer to 3D); `:argued`/`:proved`=0
-  unchanged. `docs/ns013_realcomplex_production_companion.md`.
+  unchanged. `docs/ns013_realcomplex_production_companion.md`. **3D phase follow-ups (2026-06-07):** the 3D
+  question is answered YES via phase-scrambled DNS surrogates — scrambling (|û(k)| fixed ⇒ E,Z,H exact)
+  collapses the production `∫ω·Sω` ~97–99% (`ns013_phase_production_3d.jl`), and the controlled L² invariants
+  are phase-BLIND while the production is phase-SENSITIVE (`ns013_phase_norm_split.jl`) — a concrete
+  phase-space face of supercriticality (NS-002). BKM/Besov-norm sensitivity is intermittency-dependent
+  (coherent-flow only; 14th over-reach declined). Within-truncation; `:proved`=0.
 - No `Project.toml`/lockfile yet — add when spectral code (FFTW) lands (package
   discipline, CLAUDE.md).
 - TEST_SPEC currently has the diagnostic-validation rows pending the NS-010 build.

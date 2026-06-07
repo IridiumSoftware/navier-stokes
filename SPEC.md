@@ -15,6 +15,26 @@ analytic target + NS-048 `:open` exclusion/no-split frontier). `:proved` = 0. (3
 
 Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..5), Scope ≠ PDE.
 
+**Citation reliability (C0–C5)** — added 2026-06-07 (program meta-review,
+`docs/program_meta_review_chatgpt_2026-06-07.md`). Every externally-cited theorem (`:cited`, and any
+no-go resting on one) carries a tier — the don't-bluff rule made typed: **C0** unverified mention ·
+**C1** secondary-source / restatement only (incl. paywalled-original-via-survey) · **C2** primary
+statement read · **C3** proof line-verified · **C4** core mechanism independently re-derived · **C5**
+adversarially checked. A no-go's confidence is gated by `tier × independence × scope-match`, and
+*citations are witnessable objects, not trusted primitives* — the citation analog of echo≠convergence
+(many papers agreeing can inherit one disciplinary blind spot ⇒ a map of assumptions, not of
+impossibilities). Tag external citations with their tier when load-bearing; flag every C0/C1. (Worked
+example on the NS-048 arc: meta-review doc §4.)
+
+**Mission framing** — added 2026-06-07. This ledger is a **generator-class reduction / search-space
+compression engine** (= ORSI's MDAGC, the Minimal Decontaminated Admissible Generator Class), **not** a
+proof-contender: it iteratively shrinks the admissible class of plausible attacks by building a
+high-fidelity obstruction manifold. Prize value still requires `Scope: PDE` + `:proved` (none). The map's
+*acceleration* comes from **global no-go** (a whole method-class excluded — NS-002 supercriticality,
+NS-008 averaged-NS, NS-007 self-similar) over **local no-go** ("this specific attempt stalls here");
+prefer global, and label which an entry is. **Soft no-go** ("current techniques fail here") ≠ **hard
+no-go** (theorem-backed impossibility) — never conflate; the representation may change.
+
 ---
 
 ## PROBLEM
@@ -46,6 +66,11 @@ and 2D (where the controlled enstrophy sits on the right side of scaling) is not
   Prodi–Serrin 2/p+3/q=1}). **Status: :argued** (framing/no-go, not a proof). Scope: PDE.
 - Source: standard (Tao's criticality expositions); rigorous form in
   `scripts/manifold_3b_criticality.jl` (NS-034).
+- **Phase-space face (witness, 2026-06-07):** in the DNS truncation the controlled L² invariants (E,Z,H)
+  are phase-BLIND (preserved exactly under a random-phase surrogate) while the regularity-deciding
+  production `∫ω·Sω` is phase-SENSITIVE (collapses ~97–99% under the same scramble) — a concrete
+  illustration that the controlled quantities cannot see the phase coherence carrying the production
+  (the NS-013 phase arc, `scripts/ns013_phase_norm_split.jl`). Within-truncation; not a proof; `:proved`=0.
 
 **NS-003 — Energy is the only coercive global control (Leray).**
 Global weak (Leray–Hopf) solutions exist for all time and obey the energy
@@ -240,6 +265,19 @@ axis," but no implication real⇐complex is established.
   cubic argument is 1D-specific (3D `∫ω·Sω` is not a single one-sided cubic, so "identically zero" does NOT
   transfer) — what transfers is the *question* (does reality's spectral structure gate the 3D production?).
   `:proved`=0; prize UNTOUCHED. Companion `docs/ns013_realcomplex_production_companion.md`.
+- **3D phase-structure follow-ups (2026-06-07).** Answer the production-object probe's flagged 3D question
+  via phase-scrambled DNS surrogates (`û→e^{iφ(k)}û`, `φ(−k)=−φ(k)`: preserves `|û(k)|` ⇒ E,Z,H exact +
+  div-free, destroys the cubic/triadic phase coherence). (i) **Phase-production**
+  (`scripts/ns013_phase_production_3d.jl`): scrambling collapses the 3D production `∫ω·Sω` by **97% (TG) /
+  99% (helical)** and `S_ω→~0` while E,Z,H are pinned to ~1e-16 ⇒ the production is a PHASE-COHERENCE
+  object, not a spectrum object — the 3D shadow of the 1D `one-sided ⇒ ∫g³=0` result; the "what transfers"
+  question answered **YES**. (ii) **Phase-norm split** (`scripts/ns013_phase_norm_split.jl`): the
+  controlled L² invariants E,Z,H are phase-BLIND while the production/`S_ω` are phase-SENSITIVE ⇒ a concrete
+  phase-space face of supercriticality (→NS-002). HONEST: the BKM/critical-Besov norms `‖ω‖∞`,`Ḃ⁰_{∞,1}` are
+  phase-sensitive only for the COHERENT flow (TG `‖ω‖∞`→0.44) and flat for the already-incoherent
+  random-helical IC — an intermittency effect, NOT a universal collapse (a 14th over-reach declined).
+  Scope: DNS truncation; a phase surrogate diagnoses content-location, not an analytic step; `:proved`=0.
+  Companions `docs/ns013_phase_production_3d_companion.md`, `docs/ns013_phase_norm_split_companion.md`.
 
 ---
 
