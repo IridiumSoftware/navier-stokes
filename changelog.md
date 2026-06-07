@@ -1,5 +1,37 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.84 — 2026-06-07 — Critical-norm detector race: vorticity Besov Ḃ⁰_{∞,1} is the sharpest σ=0 detector; the velocity L³ (ESS endpoint) is the bluntest
+
+*(Numbered v0.1.84 — the requested "v0.1.81" was already taken by the concurrent citation-audit arc, now at v0.1.83.)*
+
+Within-truncation witness for NS-005 (critical-norm criterion) / NS-010 (diagnostics), folded into SPEC
+(NS-005 detector bullet), dashboard, this entry. **DNS truncation; `:proved`=0; prize UNTOUCHED.**
+
+**The probe** (`scripts/ns046_critical_norm_race.jl` + `.out.txt`; companion
+`docs/ns046_critical_norm_race_companion.md`). GKP (2016) + ESS: *every* σ=0 critical norm must blow up at a
+singularity — but they differ as practical DETECTORS. Raced four critical norms (+ contrast/reference) on
+the Kerr anti-parallel-tube reconnection (Re=1600, N=64, the most singular-like resolved event, NS-038),
+ranked by peak/baseline sharpness:
+
+- **`‖ω‖_{Ḃ⁰_{∞,1}}` (Kozono–Taniuchi, vorticity): 2.5× — the SHARPEST**, peaks exactly at the reconnection.
+- `‖u‖_{Ḃ⁻¹_{∞,∞}}` (Koch–Tataru): 1.6×; `‖u‖_{Ḣ^{1/2}}`: 1.1×.
+- **`‖u‖_{L³}` (the ESS endpoint): 1.0× — the BLUNTEST**, monotonically *decays* through the event.
+- Contrast: energy `‖u‖_{L²}` (σ−1, controlled) flat (blind, as it must be); enstrophy (σ+1) 1.5×; `‖ω‖∞`
+  (BKM ref) 2.6× (sharpest overall — it *is* the blowup norm).
+
+**The finding: the theorem-norm ≠ the detector-norm.** `L³` carries the celebrated ESS theorem yet is the
+worst practical detector; the vorticity Besov `Ḃ⁰_{∞,1}` is ~2.5× sharper. Mechanism: the reconnection is a
+localized small-scale vorticity event, and the velocity-integral critical norms (`L³`, `Ḣ^{1/2}`) are
+large-scale-dominated, so the spike is a tiny fraction of their budget — sharp in theory (σ=0), blunt in
+practice. That **large-scale-dominance blindness is another face of supercriticality (NS-002)** and of the
+phase/intermittency arc (the sharp detectors are exactly the intermittency-sensitive ones). Practical
+upshot: hunting blowup in a DNS, monitor `Ḃ⁰_{∞,1}`/`‖ω‖∞`, not `L³`.
+
+Caps: within-truncation, REGULAR flow — a sensitivity ranking on an intense transient, NOT a blowup race;
+N=64 (ranking likely strengthens with resolution). Closes a four-probe exploration arc (real-vs-complex →
+phase-production → phase-norm-split → detector-race) that maps the production object `∫ω·Sω` as a
+phase-coherence / small-scale object the controlled quantities are blind to. `:proved`=0.
+
 ## v0.1.83 — 2026-06-07 — Program citation audit (C0–C5): ranked verification targets; KNSS (swirl-free reduction + Lemma 6.1) is the #1 leverage point
 
 First program-level application of the C0–C5 discipline. `docs/program_citation_audit_2026-06-07.md`.

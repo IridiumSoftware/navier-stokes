@@ -328,6 +328,13 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
   are phase-BLIND while the production is phase-SENSITIVE (`ns013_phase_norm_split.jl`) — a concrete
   phase-space face of supercriticality (NS-002). BKM/Besov-norm sensitivity is intermittency-dependent
   (coherent-flow only; 14th over-reach declined). Within-truncation; `:proved`=0.
+- **Critical-norm detector race (2026-06-07, `ns046_critical_norm_race.jl`, NS-005/NS-010):** raced the σ=0
+  norms (all must blow at a singularity, GKP/ESS) on the Kerr-tube reconnection — by peak/baseline
+  sharpness the **vorticity Kozono–Taniuchi `Ḃ⁰_{∞,1}` is sharpest (2.5×)**, the **velocity ESS-endpoint
+  `L³` bluntest (1.0×, decays)**; energy `L²` flat (blind). The theorem-norm ≠ the detector-norm — the
+  velocity-integral critical norms are large-scale-dominated (another face of supercriticality). Practical:
+  monitor `Ḃ⁰_{∞,1}`/`‖ω‖∞`, not `L³`. Within-truncation, regular-flow sensitivity ranking (not a blowup
+  race), N=64. `:proved`=0. `docs/ns046_critical_norm_race_companion.md`.
 - No `Project.toml`/lockfile yet — add when spectral code (FFTW) lands (package
   discipline, CLAUDE.md).
 - TEST_SPEC currently has the diagnostic-validation rows pending the NS-010 build.

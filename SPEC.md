@@ -95,6 +95,18 @@ If `u ∈ L^p_t L^q_x` with `2/p + 3/q ≤ 1`, `q>3`, the solution is smooth (en
 norm" — which NS-002 says we cannot do a priori.
 - Evidence: external-theorem. **Status: :cited.** Scope: PDE.
 - Source: Prodi (1959), Serrin (1962), Ladyzhenskaya; ESS (2003).
+- **Detector race (witness, 2026-06-07, `scripts/ns046_critical_norm_race.jl`).** All σ=0 critical norms
+  must blow up at a singularity (GKP 2016 / ESS) — but they differ sharply as practical DETECTORS. Raced on
+  the Kerr-tube reconnection (Re=1600, N=64): by peak/baseline sharpness the **vorticity Kozono–Taniuchi
+  `‖ω‖_{Ḃ⁰_{∞,1}}` is the sharpest (2.5×)** while the **velocity ESS-endpoint `‖u‖_{L³}` is the bluntest
+  (1.0×, decays through the event)**; `‖u‖_{Ḃ⁻¹_{∞,∞}}` 1.6×, `‖u‖_{Ḣ^{1/2}}` 1.1×; the controlled energy
+  `‖u‖_{L²}` (σ−1) is flat (blind, as it must be). **The theorem-norm ≠ the detector-norm:** the
+  velocity-integral critical norms are large-scale-dominated, so the localized small-scale reconnection is
+  a tiny fraction of their budget — another face of supercriticality (NS-002) and of the phase/intermittency
+  finding (`ns013_phase_norm_split`: the sharp detectors are the intermittency-sensitive ones). Practical:
+  monitor `Ḃ⁰_{∞,1}`/`‖ω‖∞` (with the δ-diagnostic NS-010), not `L³`. Scope: within-truncation, REGULAR
+  flow — a sensitivity ranking on an intense transient, NOT a blowup race; N=64 (ranking likely strengthens
+  with N). `:proved`=0. Companion `docs/ns046_critical_norm_race_companion.md`.
 
 **NS-006 — Caffarelli–Kohn–Nirenberg partial regularity.**
 For suitable weak solutions, the singular set `S` has parabolic Hausdorff
