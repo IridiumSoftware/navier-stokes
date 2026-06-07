@@ -44,13 +44,15 @@ to it — and it is now C3 and confirmed clean. **The reduction chain's terminal
 carried this hedge already (machinery study M1/M4: "constant (or `b(t)` per convention)"); now pinned to
 source. Honest cite: *weak ⇒ `b(t)`; mild ⇒ constant.*
 
-**(b) The Type-I "⟺" is NOT KNSS — it is `⇒` only in KNSS; the full equivalence is Seregin–Šverák.**
-KNSS **Prop 6.1** proves only the forward direction (*singularity ⇒ nontrivial bounded ancient mild
-solution*). KNSS does **not** state a biconditional. The full **⟺** (the "Liouville is the linchpin"
-reformulation) is **Seregin–Šverák, arXiv:1811.00502** — which we hold at **C1** (M4 calibration search,
-not primary-read). **Correction:** wherever the program writes "KNSS: Type-I ⟺ ancient," it should read
-"KNSS: ⇒ (Prop 6.1, **C3**); the ⟺ is Seregin–Šverák (**C1** — new verification target)." Applied to the
-citation audit (KNSS row) and the machinery study §5 attribution.
+**(b) The Type-I "⟺" is NOT KNSS — it is `⇒` only in KNSS.** KNSS **Prop 6.1** proves only the forward
+direction (*singularity ⇒ nontrivial bounded ancient mild solution*); KNSS states no biconditional.
+**[ATTRIBUTION SUPERSEDED 2026-06-07 by round-2 verification — `docs/citation_verification_round2_2026-06-07.md`:**
+this doc originally attributed the full **⟺** to "Seregin–Šverák, arXiv:1811.00502" (parroting the M4
+calibration label). **That is WRONG.** `arXiv:1811.00502` is **Albritton–Barker (2019)**; the ⟺ is theirs
+(Thm 1.1, line-verified **C3**), is **general 3D**, and is **Type-I-conditioned** (ancient hypothesis
+`I<∞`, a scaled-energy quantity — *not* "general Liouville"). Seregin–Šverák 2009 (CPDE 34) is a
+*different*, axisymmetric Type-I paper. So: "KNSS: ⇒ (Prop 6.1, **C3**); the **Type-I-conditioned** ⟺ is
+**Albritton–Barker** (**C3**)." Corrected in the audit and machinery study §5.**]**
 
 **(c) The Type-I *exclusion* (Thm 6.2) needs the off-axis decay `|u|≤C/r` (eq 6.6).** KNSS explicitly
 flags that dropping (6.6) makes the statement fail (`u=b(t)` counterexample). So "KNSS rules out Type-I
@@ -82,9 +84,10 @@ contrast.)
 
 - **KNSS (Acta 2009): C2/C1 → C3** for items 1–5 (audit row updated). The swirl-free reduction (§2) is
   C3 **and hypothesis-clean** — the reduction chain's foundation is solid.
-- **NEW C1 verification target surfaced:** Seregin–Šverák arXiv:1811.00502 (the Type-I **⟺**), currently
-  C1. It carries the "Liouville is the linchpin" claim, so it inherits target-priority (slots in alongside
-  audit #2/#3).
+- **NEW verification target surfaced (now DONE in round 2):** the Type-I **⟺** — which round-2
+  verification (`docs/citation_verification_round2_2026-06-07.md`) found is **Albritton–Barker
+  arXiv:1811.00502** (NOT Seregin–Šverák), **C3**, and **Type-I-conditioned** (carries the "linchpin"
+  claim in its correct narrower form: NS-048 ≡ *Type-I-conditioned* Liouville).
 - **Target #1: DONE.** Net informational work: confirmed the foundation clean (§2); reattributed the ⟺
   (§3b); attached the Type-I-exclusion off-axis caveat (§3c); fixed the Lemma-6.1 naming (§3d); and
   C3-confirmed route (i)'s compactness break (§4). `:proved`=0; nothing here is PDE progress.
@@ -99,5 +102,6 @@ numbers per the canonical PDF.
 
 **Flagged:** Acta pagination (83–105) not cross-checked vs the 26-pp preprint numbering (immaterial). The
 references KNSS cite for "no-swirl ⇒ regular" ([18],[29]) and Chen–Strain–Tsai–Yau were read only through
-KNSS's own characterization, not retrieved. **Seregin–Šverák arXiv:1811.00502 (the ⟺) remains C1** — not
-read at source this pass; the new target.
+KNSS's own characterization, not retrieved. **The Type-I ⟺ (arXiv:1811.00502)** — originally mislabeled
+here "Seregin–Šverák, C1" — is **Albritton–Barker (2019), C3, Type-I-conditioned** per round-2 verification
+(`docs/citation_verification_round2_2026-06-07.md`).

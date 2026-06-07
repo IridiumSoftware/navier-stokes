@@ -197,10 +197,14 @@ ancient solution is trivial (constant)*.
 **Type-I singularity if and only if there exists a nontrivial mild bounded ancient solution satisfying
 a Type-I decay condition.** So *general 3D Liouville ⟺ no Type-I blowup* — the Liouville theorem is not
 a tool toward the result, it is *(a reformulation of)* the result for the Type-I case.
-**[ATTRIBUTION CORRECTED 2026-06-07, KNSS line-verification:** KNSS (0709.3599) **Prop 6.1** proves only
-the **⇒** direction (singularity ⇒ nontrivial bounded ancient mild solution; **C3**, line-read); the full
-**⟺** is **Seregin–Šverák, arXiv:1811.00502** — held at **C1** (not primary-read), a verification target.
-See `docs/knss_verification_2026-06-07.md` §3b.**]**
+**[ATTRIBUTION CORRECTED 2026-06-07 (KNSS + round-2 line-verification):** KNSS (0709.3599) **Prop 6.1**
+proves only the **⇒** direction (singularity ⇒ nontrivial bounded ancient mild solution; **C3**). The full
+**⟺** is **Albritton–Barker, arXiv:1811.00502** (Thm 1.1, **C3** line-verified) — *not* Seregin–Šverák
+(a different, 2009 axisymmetric Type-I paper). **And it is Type-I-CONDITIONED:** the ancient hypothesis is
+the scaled-energy `I<∞`, so the precise statement is *"general 3D Liouville **for Type-I-conditioned**
+ancient solutions ⟺ no Type-I blowup"* — the **unconditioned** KNSS conjecture is strictly stronger and
+open. The "for the Type-I case" hedge above is correct; "general 3D Liouville ⟺" (unqualified) overstates.
+See `docs/citation_verification_round2_2026-06-07.md` §1.**]**
 
 **Extensions (verified to exist):** axisymmetric *with* swirl under structural bounds, e.g.
 `Γ=rv^θ ∈ L^∞_t L^p_x`, `1≤p<∞` (Liouville property holds); the Lei–Zhang / Chen–Strain–Tsai–Yau /

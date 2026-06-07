@@ -14,8 +14,8 @@ C5 adversarially checked.
 | # | Citation | Tier | Supports (load-bearing role) | Global/local | Verify? |
 |---|---|---|---|---|---|
 | 1 | **KNSS, Acta 2009** — 2D & axisym-no-swirl Liouville (Thm 5.1/5.2); `|u|≤C/r`⇒0 (Thm 5.3); compactness lemma (Lemma 6.1); Type-I **⇒** ancient (Prop 6.1) | **C3** ✅ *(line-verified 2026-06-07, `docs/knss_verification_2026-06-07.md`)* | *Terminal step of every axisymmetric closer* (swirl-free reduction); the compactness behind the blow-down; the Type-I⇒ancient bridge | **Global** (foundation) | **DONE** — swirl-free reduction confirmed **hypothesis-clean** |
-| 1b | **Seregin–Šverák, arXiv:1811.00502** — the Type-I **⟺** ancient equivalence (NOT KNSS, which is ⇒ only) | **C1** (calibration-search only) | "Liouville is the linchpin" reformulation | **Global** | **YES — new (ex-#1)** |
-| 2 | **NRŠ Acta 1996 + Tsai ARMA 1998** (NS-007) — self-similar exclusion | **C1** (exact spaces: `W^{1,2}_loc∩L³`? Tsai's local-energy hypothesis — paraphrased, not primary-read) | A **global no-go** (kills the backward self-similar construction) | **Global** | **YES — #2** |
+| 1b | **Albritton–Barker, arXiv:1811.00502** (2019) — the Type-I **⟺** ancient equivalence, **Type-I-conditioned** (`I<∞`); **NOT** Seregin–Šverák (a different 2009 axisym paper), **NOT** KNSS (⇒ only) | **C3** ✅ *(line-verified 2026-06-07, round 2)* | "Liouville is the linchpin" — but only NS-048 ≡ *Type-I-conditioned* Liouville (the unconditioned KNSS conjecture is strictly stronger/open) | **Global** | **DONE** — misattribution + scope corrected |
+| 2 | **NRŠ Acta 1996 + Tsai ARMA 1998** (NS-007) — self-similar exclusion | **NRŠ C2** (via Tsai's faithful reproduction; `U∈W^{1,2}_loc∩L³`⇒0) · **Tsai C3** (line-read) ✅ *(round 2)* | A **global no-go** (kills the backward self-similar construction) | **Global** | **DONE** — `L³` faithful; local-energy = Tsai (correctly attributed) |
 | 3 | **Lei–Ren–Zhang (ℝ²×T¹) + "Thm 3.7"** (review's frontier closers) | **C1** (Q.S. Zhang review paragraph only) | The universal *"every known with-swirl closer bypasses S / forces Γ-decay"* (NS-048 arc) | local | **YES — #3** |
 | 4 | **Tao, JAMS 2016** (NS-008) averaged-NS blowup | **C2** (statement); scope of the killed method-class not line-verified | A **global no-go** (energy-only methods can't close NS) | **Global** | partial |
 | 5 | **Pan–Li, Bull. Sci. Math. 2020** — `α<1` constancy, `α=1` sharp counterexamples | **C2** (via review) | The route-(i) **counterexample suspicion** for the axial-only conjecture | local | Tier-3 |
@@ -39,15 +39,20 @@ break. Corrections surfaced: the Type-I **⟺** is *not* KNSS (KNSS = ⇒ only, 
 `|u|≤C/r` decay; "Lemma 6.1" is the *compactness* lemma, not the rescaling. Foundation of the arc is now
 solid.
 
-**#1b — Seregin–Šverák, arXiv:1811.00502 (the Type-I ⟺ ancient equivalence, C1 → C2/C3).** *Surfaced by
-target #1.* Carries the "Liouville is the linchpin" reformulation; currently calibration-search-only.
-Reading it firms the load-bearing claim that NS-048 (Type-I exclusion) ≡ the general 3D Liouville theorem.
+**#1b — the Type-I ⟺ ancient equivalence — ✅ DONE 2026-06-07** (C1 → C3, round 2). **Misattribution +
+scope corrected:** `arXiv:1811.00502` is **Albritton–Barker (2019)**, NOT Seregin–Šverák (a different,
+2009 axisym paper). The ⟺ (Thm 1.1, **C3** line-verified) is a genuine general-3D biconditional, **but
+Type-I-conditioned** (ancient hypothesis `I<∞`, scaled-energy — *not* pointwise `C/√(−t)`). So the
+linchpin claim holds in its **narrower** form: *NS-048 (Type-I exclusion) ≡ the **Type-I-conditioned**
+ancient Liouville* — the **unconditioned** KNSS conjecture is strictly stronger and open. My v0.1.85
+"general Liouville" framing overstated it. (New low-priority: Seregin–Šverák 2009 CPDE 34, axisym Type-I.)
 
-**#2 — NS-007: NRŠ (1996) + Tsai (1998) exact hypotheses (C1 → C2).** A **global no-go** (self-similar
-exclusion) whose *exact spaces* are currently paraphrased, not primary-read (machinery study §12 flag:
-`U∈L³` vs `W^{1,2}_loc∩L³`; Tsai's local-energy class). Per the new mission framing (global anchors are
-top value), firming a global exclusion's hypotheses is high-priority — a dropped hypothesis here would
-silently weaken the whole self-similar branch.
+**#2 — NS-007: NRŠ (1996) + Tsai (1998) — ✅ DONE 2026-06-07** (round 2). **NRŠ → C2** (via Tsai's
+faithful primary reproduction; hypothesis `U∈W^{1,2}_loc∩L³` ⇒ `U≡0`; the `Π`-max-principle + `L³`-decay
+mechanism confirmed) — Acta 1996 PDF paywalled, so not C3. **Tsai → C3** (line-read his UBC PDF; Thm 1
+`L^q` `q∈(3,∞]`, Thm 2 local-energy strictly weaker than `L³`). Our "`L³`" cite is **faithful** (with the
+weak-solution understanding); the local-energy version was **correctly** attributed to Tsai. Global anchor
+firmed.
 
 **#3 — Lei–Ren–Zhang + "Thm 3.7" (C1 → C2/C3).** The NS-048-arc universal *"every known with-swirl closer
 bypasses S"* is **C3 for LZZ but only C1 for these two** (review-paragraph only). Reading their primaries

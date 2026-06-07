@@ -1,6 +1,30 @@
 # changelog — Navier–Stokes obstruction program
 
-## v0.1.85 — 2026-06-07 — KNSS line-verified to C3 (audit target #1 DONE): foundation hypothesis-clean; Type-I ⟺ reattributed to Seregin–Šverák; route (i) break #2 C3-confirmed
+## v0.1.86 — 2026-06-07 — Audit #1b + #2 DONE: the Type-I ⟺ is ALBRITTON–BARKER (not Seregin–Šverák; corrects v0.1.85) and Type-I-conditioned; NS-007 confirmed (NRŠ C2, Tsai C3)
+
+Executed audit targets #1b (Type-I ⟺) and #2 (NS-007 self-similar). `docs/citation_verification_round2_2026-06-07.md`.
+**Foundation-hardening, not PDE progress; `:proved`=0.** The C0–C5 discipline caught two supply-chain
+errors — both in my own v0.1.85:
+- **CORRECTION (severe, corrects v0.1.85's title): the Type-I ⟺ is Albritton–Barker (arXiv:1811.00502,
+  2019), NOT Seregin–Šverák.** v0.1.85 parroted the M4-calibration "Seregin–Šverák" label without checking
+  the arXiv id (secondary-source drift, failure-mode #2). `1811.00502` resolves to **Albritton–Barker**;
+  the S–Š paper of near-identical title is a *different*, **2009 axisymmetric** Type-I paper (CPDE 34). The
+  ⟺ (Albritton–Barker Thm 1.1) is **C3** (line-verified), **general 3D**, no swirl/smallness.
+- **SCOPE CORRECTION: the ⟺ is Type-I-CONDITIONED.** The ancient hypothesis is the scaled-energy `I<∞`
+  (not pointwise `C/√(−t)`, which is explicitly insufficient for ⇐). So the linchpin claim holds only in
+  its narrower form: **NS-048 (Type-I exclusion) ≡ Type-I-conditioned ancient Liouville** — the
+  *unconditioned* KNSS conjecture is strictly stronger and open. v0.1.85's "general Liouville" framing
+  overstated (wrong-emphasis, failure-mode #3). (The machinery-study §5 "for the Type-I case" hedge was
+  right.)
+- **#2 NS-007 CONFIRMED:** NRŠ `U∈W^{1,2}_loc∩L³ ⇒ U≡0` (the `Π=½|U|²+P+a y·U` max-principle + `L³`-decay
+  mechanism) — **C2** via Tsai's faithful primary reproduction (Acta 1996 paywalled, not line-read); Tsai
+  ARMA 1998 (`L^q` `q∈(3,∞]`; local-energy strictly weaker than `L³`) — **C3** line-read. Our `L³` cite is
+  faithful; the local-energy version was correctly attributed to Tsai.
+Corrected docs: knss_verification §3b/§5/§6 (banners), machinery study §5, audit (#1b/#2 rows + §2).
+Remaining audit target: **#3** (Lei–Ren–Zhang + Thm 3.7). New low-priority: S–Š 2009 axisym Type-I.
+`:proved`=0; distance UNTOUCHED.
+
+## v0.1.85 — 2026-06-07 — KNSS line-verified to C3 (audit target #1 DONE): foundation hypothesis-clean; Type-I ⟺ reattributed to Seregin–Šverák [SUPERSEDED by v0.1.86 — it is Albritton–Barker, Type-I-conditioned]; route (i) break #2 C3-confirmed
 
 Executed citation-audit target #1: read KNSS (Acta 2009, arXiv:0709.3599) line-by-line (curl +
 pdftotext). `docs/knss_verification_2026-06-07.md`. **Foundation-hardening, not PDE progress; `:proved`=0.**
