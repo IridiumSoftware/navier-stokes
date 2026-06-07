@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.88 — 2026-06-07 — The "combined axial+radial" conjecture COLLAPSES (redundant/stuck); 15th over-reach retired; NS-048 session-scale attacks exhausted
+
+Worked the live "combined axial+radial" conjecture (from route (i) / the port doc).
+`docs/ns048_combined_axial_radial.md`. **No theorem; `:proved`=0; NS-048 unchanged.** The scaling resolves
+it as a structural **collapse**, not a target:
+- **Self-derived two-tail scaling:** any radial decay `u^θ≲r^{−β}`, `β>0`, kills the source's `r`-tail
+  (`∫|S| r dr ~ ∫r^{−1−2β}dr` converges); axial `|x₃|^α` kills the `z`-tail ⇒ `∫|S|<∞`.
+- **But STRONG radial ⇒ REDUNDANT (C3):** `Γ∈L^p` (LZZ) or `|u|≤C/r` (KNSS Thm 5.3) each **close ALONE**;
+  the blow-down machinery needs radial `Γ`-decay and then finishes without any axial input. The axial
+  condition is never the binding constraint.
+- **WEAK radial ⇒ STUCK (robust to Pan–Li scope):** the combined condition yields only `∫|S|<∞` — the
+  **`S`-control route, which the verification campaign showed has no known mechanism** (everyone bypasses
+  `S`); and the weak-radial regime's solo status is open either way (Pan–Li C2, scope-uncertain). Either
+  branch ⇒ not a new closer.
+- **Verdict:** route (i)/port's "a complete closer needs axial+radial combined" was over-optimistic —
+  **15th honesty-ledger item, retired.** The axial half never becomes load-bearing.
+**NS-048 session-scale attacks now exhausted:** every concrete attack (energy, max-principle, sign,
+blow-down, axial port, combined) reduces to one of two genuinely-open cores — the *bare* conjecture
+(`Γ∈L^∞`) or the *un-mechanised* `S`-control route — both needing ideas the program does not have. Honest
+next options: verify Pan–Li primary (C2→C3, sharpens the weak-radial niche), or accept the frontier needs
+a new idea. `:proved`=0; distance UNTOUCHED. Updated: route-(i) SPEC pointer (combined retired).
+
 ## v0.1.87 — 2026-06-07 — Audit #3 DONE → verification campaign COMPLETE: LRZ + Thm 3.7 both bypass S (C3); the "every closer bypasses S" universal HOLDS, hedge lifted
 
 Executed the last audit target #3. `docs/citation_verification_round3_2026-06-07.md`. **Foundation-

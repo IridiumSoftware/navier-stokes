@@ -1101,3 +1101,10 @@ mechanism** that prevents different rescaled subsequences converging to differen
   radial growth; Pan–Li `α=1` sharp ⇒ axial-only conjecture **suspect, possibly false** — not constructed).
   Live conjecture now: **axial `|x₃|^α` + radial combined**; sharp sub-question = construct/exclude a
   linear-radial-growth `z`-decaying non-constant ancient solution.
+- **"Combined axial+radial" COLLAPSED (2026-06-07): `docs/ns048_combined_axial_radial.md`** (changelog
+  v0.1.88). Worked the combined conjecture: **redundant** where radial is strong (`Γ∈L^p`/LZZ or `|u|≤C/r`/
+  KNSS Thm 5.3 each **close alone**, both C3) and **stuck** where radial is weak (yields only `∫|S|<∞` = the
+  un-mechanised `S`-control route; weak-radial solo status open either way). So "needs combined" was the
+  **15th over-reach, retired.** **NS-048 session-scale attacks now exhausted** — every concrete attack
+  reduces to the *bare* conjecture (`Γ∈L^∞`) or the *un-mechanised* `S`-control route, both needing a new
+  idea. `:proved`=0.
