@@ -1077,3 +1077,15 @@ mechanism** that prevents different rescaled subsequences converging to differen
   complete closer likely needs **axial `|x₃|^α` + radial (LZZ) control combined** (the source's "two
   tails"). Honest next step: the blow-down/Liouville-rescaling route under the critical bound. Comparison
   disciplined (`|x₃|^α` excludes the columnar case; "incomparable" not claimed).
+- **Route (i) ATTEMPTED (2026-06-07): `docs/ns048_route_i_blowdown.md`** (changelog v0.1.82; first artifact
+  under the C0–C5 discipline). Blow-down / Liouville-rescaling on the `|x₃|^α` conjecture. **Does NOT close
+  it; `:proved`=0.** Decisive break (self-derived + C3-LZZ contrast): the blow-down is matched to **radial**
+  decay — LZZ's `|Γ|≲|x_h|^{−1/p}` gives `Γ_λ→0` (concentrates), but the axial `|x₃|^α` gives
+  `Γ_λ≲λ^{1−α}|x_h||x_3|^{−α}→∞` (the radial growth of `Γ=ru^θ` is *amplified*). Second break: compactness
+  fails (`‖u_λ‖_∞=λ‖u‖_∞→∞`; critical norm too weak — supercriticality). **14th honesty-ledger item:
+  corrects my own port-doc claim** that route (i) "sidesteps the radial tail" / "criticality is exactly
+  what it requires" — both wrong (route (i) needs radial control *more*; criticality ≠ sufficiency).
+  Reinforces two-tail; raises a **counterexample suspicion** (saturating gives `Γ~r|x_3|^{−α}`, linear
+  radial growth; Pan–Li `α=1` sharp ⇒ axial-only conjecture **suspect, possibly false** — not constructed).
+  Live conjecture now: **axial `|x₃|^α` + radial combined**; sharp sub-question = construct/exclude a
+  linear-radial-growth `z`-decaying non-constant ancient solution.

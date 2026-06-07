@@ -1,5 +1,32 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.82 — 2026-06-07 — Route (i) blow-down on the |x₃|^α conjecture: does NOT close it; corrects my own port-doc over-reach (14th); axial-only conjecture now SUSPECT
+
+Attacked the `|x₃|^α` ancient Liouville conjecture by the blow-down / Liouville-via-rescaling device.
+`docs/ns048_route_i_blowdown.md`. **No theorem; `:proved`=0; NS-048 unchanged.** First artifact under the
+C0–C5 citation discipline (tiers in §8). Result is a clean, informative **negative**:
+- **Decisive break (self-derived scaling + C3-LZZ contrast):** the blow-down `λ→∞` exposes spatial-infinity
+  structure and is matched to **radial** decay. Saturating the bounds: LZZ's radial `L^p` gives
+  `Γ_λ≲λ^{−1/p}|x_h|^{−1/p}→0` (concentrates — why LZZ closes); the axial `|x₃|^α` gives
+  `Γ_λ≲λ^{1−α}|x_h||x_3|^{−α}→∞` (the *radial growth* of `Γ=ru^θ` is AMPLIFIED, not concentrated). The
+  blow-down is intrinsically radial-scaling; the axial condition is orthogonal to what it needs.
+- **Second break:** compactness fails — `‖u_λ‖_∞=λ‖u‖_∞→∞`, and the critical norm is too weak to give
+  strong compactness for the NS nonlinearity (supercriticality NS-002 reappearing).
+- **14th honesty-ledger item — corrects my OWN port doc:** I'd claimed route (i) "sidesteps the radial-tail
+  problem" and "criticality is exactly what the device requires." Both wrong — route (i) is *more*
+  dependent on radial control (blow-down scales `r`); criticality is necessary, not sufficient. Deflated by
+  trying it.
+- **Reinforces the two-tail reading** (both energy + blow-down routes need radial control; `|x₃|^α` is only
+  the axial half) and **raises a counterexample suspicion:** saturating gives `Γ~r|x_3|^{−α}` (linear
+  radial growth, `u^θ` bounded), and Pan–Li [C2, via review] make `α=1` velocity growth the *sharp*
+  threshold with non-constant counterexamples ⇒ the **axial-only conjecture may be FALSE** (not
+  constructed; honest hedge). Sharp sub-question: construct or exclude a linear-radial-growth, `z`-decaying
+  non-constant ancient solution.
+Honest reformulation: the live conjecture is `|x₃|^α` (axial) **+ radial (LZZ-type) combined**; the
+axial-only version shifts from "open" to "suspect." Citation discipline note: the negative verdict rests on
+**self-derived scaling + C3**, solid; the device-framing (KNSS Lemma 6.1) is **C1** and the counterexample
+suspicion **C2** — flagged, neither load-bearing for the verdict.
+
 ## v0.1.81 — 2026-06-07 — Program meta-review metabolized: 3 upgrades (record + C0–C5 citation tiers + generator-class/global-no-go framing)
 
 Metabolized a ChatGPT meta-review of the whole program (`~/Desktop/chatgpt-ns.rtf`) into three upgrades.
