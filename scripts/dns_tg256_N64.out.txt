@@ -1,9 +1,10 @@
-# dns_tg256 — viscous Taylor–Green DNS  N=64  Re=1600.0  dt=0.01  T=2.0  threads=6
+# dns_tg256 — viscous DNS  IC=tg  N=64  Re=1600.0  dt=0.01  T=1.0  threads=4  fft=fftw
 # Scope: resolved 3D pseudospectral DNS truncation; NOT the PDE; :proved=0.
-# t      E/E0        H           Z/Z0        winf      delta    S_omega    Dbox   
-  0.00   1.000000    -1.202e-18  1.0000      2.00      NaN      0.0000     2.451  
-  0.50   0.998110    -5.010e-19  1.0245      1.88      1.479    0.0599     2.484  
-  1.00   0.996122    1.766e-18   1.1068      1.58      0.912    0.1170     2.538  
-  1.50   0.993915    4.400e-18   1.2612      1.40      0.653    0.1643     2.541  
-  2.00   0.991334    2.702e-18   1.5094      1.86      0.523    0.1947     2.476  
-# DONE. Enstrophy peak ≈ Brachet-1983 TG Re=1600 (validation); S_ω/Dbox on the resolved field.
+# t      E/E0       Z/Z0       winf     delta   S_omega  D30     D50     D70     c2int   c2max  
+# FFT=fftw  FFTW.threads=4  plans=MEASURE
+# IC=tg  E0=0.12500  H0=1.72338e-19  Z0=0.37500  div_max=8.9e-27
+  0.00   1.000000   1.0000     2.00     NaN     0.0000   2.207   2.451   2.617   0.479   0.260  
+  0.50   0.998110   1.0245     1.88     1.479   0.0599   2.197   2.484   2.698   0.367   0.329  
+  1.00   0.996122   1.1068     1.58     0.912   0.1170   2.262   2.538   2.740   0.328   0.423  
+# DONE. Validation: enstrophy peak vs Brachet-1983 TG Re=1600. Robustness: D30/50/70.
+# Alignment c2int/c2max = enstrophy-wtd cos²(ω,e_int/e_max); HIT signature c2int largest.

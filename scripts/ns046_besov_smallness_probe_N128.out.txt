@@ -1,0 +1,26 @@
+# NS-046/047 critical-Besov smallness probe — does the Ḃ⁰_{∞,1} budget show the local-Reynolds
+# smallness (C2) and the no-log CZ boundedness (C1)? Scope: resolved DNS truncation; NOT the PDE; :proved=0.
+# N=128  Re=1600  dt=0.005  T=6.0  threads=6  dyadic shells=6  IC=both
+# tubes IC: E=0.1250 Z=0.9541 rhoH=-0.000 divmax=2.9e-11
+
+# TUBES (Kerr reconnection — worst case)  N=128  nu=6.25000e-04  T=6.0  shells=6 (dyadic, |k|≤42)
+# t      winf      Besov     Bes/inf  j*(Re>=1)  Re_tail   R[min..max]   (Besov=‖ω‖_Ḃ⁰_∞1; R=‖Δ∇²p‖∞/‖ΔQ‖∞)
+0.00     16.474    18.366   1.115    3         6.99e-09  0.69..0.72
+1.00     16.511    24.817   1.503    4         8.62e-01  0.66..0.78
+2.00     21.106    31.301   1.483    5         6.15e+00  0.64..0.76
+3.00     20.334    30.936   1.521    5         6.22e+00  0.63..0.74
+4.00     23.000    36.807   1.600    5         7.99e+00  0.62..0.70
+5.00     27.141    45.680   1.683    5         6.44e+00  0.61..0.71
+6.00     56.922    65.897   1.158    5         2.70e+01  0.60..0.70
+# shell detail @ t=6.00 (peak ‖ω‖∞=56.922):
+#  j  k∈[lo,hi)   k_j      ‖Δ_jω‖∞    Re_j        R_j=‖Δ∇²p‖/‖ΔQ‖   conc1%   modes
+   0  [    1,    2)   1.44  1.3667e+00  1.053e+03         0.5978    0.0835   26
+   1  [    2,    4)   3.16  3.8685e+00  6.195e+02         0.6769    0.1773   224
+   2  [    4,    8)   6.46  8.0465e+00  3.081e+02         0.6843    0.3275   1852
+   3  [    8,   16)  13.01  1.0600e+01  1.002e+02         0.6319    0.3797   14968
+   4  [   16,   32)  26.06  1.8227e+01  4.293e+01         0.6954    0.4818   119988
+   5  [   32,   64)  37.55  2.3788e+01  2.700e+01         0.6549    0.7213   173118
+
+# TG (Brachet anchor — control)  N=128  nu=6.25000e-04  T=6.0  shells=6 (dyadic, |k|≤42)
+# t      winf      Besov     Bes/inf  j*(Re>=1)  Re_tail   R[min..max]   (Besov=‖ω‖_Ḃ⁰_∞1; R=‖Δ∇²p‖∞/‖ΔQ‖∞)
+0.00      2.000     2.000   1.000    0         2.35e-14  0.59..0.59

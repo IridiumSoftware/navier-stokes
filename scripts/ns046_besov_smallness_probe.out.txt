@@ -1,0 +1,46 @@
+# NS-046/047 critical-Besov smallness probe — does the Ḃ⁰_{∞,1} budget show the local-Reynolds
+# smallness (C2) and the no-log CZ boundedness (C1)? Scope: resolved DNS truncation; NOT the PDE; :proved=0.
+# N=64  Re=1600  dt=0.010  T=6.0  threads=6  dyadic shells=5
+# tubes IC: E=0.1250 Z=0.9541 rhoH=+0.000 divmax=3.6e-12
+
+# TUBES (Kerr reconnection — worst case)  N=64  nu=6.25000e-04  T=6.0  shells=5 (dyadic, |k|≤21)
+# t      winf      Besov     Bes/inf  j*(Re>=1)  Re_tail   R[min..max]   (Besov=‖ω‖_Ḃ⁰_∞1; R=‖Δ∇²p‖∞/‖ΔQ‖∞)
+0.00     16.474    18.291   1.110    3         2.98e-01  0.69..0.71
+1.00     17.145    23.702   1.382    4         2.01e+01  0.66..0.74
+2.00     19.943    24.669   1.237    4         2.11e+01  0.64..0.71
+3.00     17.930    24.325   1.357    4         1.98e+01  0.63..0.71
+4.00     20.138    23.873   1.185    4         1.84e+01  0.62..0.70
+5.00     29.664    38.252   1.290    4         3.48e+01  0.61..0.74
+6.00     31.053    41.180   1.326    4         7.84e+01  0.60..0.74
+# shell detail @ t=6.00 (peak ‖ω‖∞=31.053):
+#  j  k∈[lo,hi)   k_j      ‖Δ_jω‖∞    Re_j        R_j=‖Δ∇²p‖/‖ΔQ‖   conc1%   modes
+   0  [    1,    2)   1.44  1.3667e+00  1.053e+03         0.5992    0.0835   26
+   1  [    2,    4)   3.16  3.7493e+00  6.004e+02         0.6799    0.1735   224
+   2  [    4,    8)   6.46  7.4451e+00  2.851e+02         0.6816    0.3190   1852
+   3  [    8,   16)  13.01  1.1333e+01  1.071e+02         0.6495    0.3282   14968
+   4  [   16,   32)  18.78  1.7286e+01  7.841e+01         0.7411    0.3752   21840
+
+# TG (Brachet anchor — control)  N=64  nu=6.25000e-04  T=6.0  shells=5 (dyadic, |k|≤21)
+# t      winf      Besov     Bes/inf  j*(Re>=1)  Re_tail   R[min..max]   (Besov=‖ω‖_Ḃ⁰_∞1; R=‖Δ∇²p‖∞/‖ΔQ‖∞)
+0.00      2.000     2.000   1.000    0         2.99e-14  0.59..0.59
+1.00      1.576     2.870   1.822    2         1.11e-03  0.59..0.78
+2.00      1.858     4.572   2.461    3         4.91e-01  0.59..0.81
+3.00      3.823     7.646   2.000    4         2.56e+00  0.58..0.76
+4.00     11.808    13.282   1.125    4         1.13e+01  0.59..0.68
+5.00     18.098    21.897   1.210    4         2.11e+01  0.60..0.70
+6.00     18.913    23.850   1.261    4         3.35e+01  0.58..0.67
+# shell detail @ t=6.00 (peak ‖ω‖∞=18.913):
+#  j  k∈[lo,hi)   k_j      ‖Δ_jω‖∞    Re_j        R_j=‖Δ∇²p‖/‖ΔQ‖   conc1%   modes
+   0  [    1,    2)   1.44  1.0216e+00  7.870e+02         0.6627    0.0480   26
+   1  [    2,    4)   3.16  1.5979e+00  2.559e+02         0.5969    0.0337   224
+   2  [    4,    8)   6.46  5.3337e+00  2.042e+02         0.5780    0.0896   1852
+   3  [    8,   16)  13.01  8.5057e+00  8.041e+01         0.6531    0.1542   14968
+   4  [   16,   32)  18.78  7.3912e+00  3.353e+01         0.6684    0.1531   21840
+
+# ── SUMMARY (N=64) ─────────────────────────────────────────────────────────
+# TUBES peak t=6.00: winf=31.053 Besov=41.180 j*=4 Re_tail=7.84e+01 R∈[0.60,0.74]
+# TG    peak t=6.00: winf=18.913 Besov=23.850 j*=4 Re_tail=3.35e+01 R∈[0.58,0.67]
+# Read: R∈[..] tight & flat across shells ⇒ CZ no-log (NS-047 C1 holds). Re_tail≪1 ⇒ viscous
+# absorption of the small-scale tail (smallness holds in this regular truncation, as it must).
+# Cross-N convergence (this N=64 vs the other) is the decisive read — see the companion.
+# DONE

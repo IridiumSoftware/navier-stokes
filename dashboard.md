@@ -19,6 +19,15 @@ develops near-identically). N-converged 16↔64↔128; sharpens NS-040. DNS-scop
 session's MID-witness Q2 lesson). **CCATT** (Brian's classifier) held as a pending external primitive
 until he specs it. Both `:proved`=0; prize UNTOUCHED. Recent: LOW #1 + MID coordinations both
 witness-REFUTED (over-reach caught); see `docs/ns_corollaries_synthesis.md`.
+**Besov-smallness DNS probe (2026-06-07, `scripts/ns046_besov_smallness_probe.jl`):** the dyadic
+Littlewood–Paley budget **corroborates NS-047 C1** — the Riesz/pressure-Hessian ratio `R_j` is flat across
+shells and N-stable ([0.60–0.74], no log) ⇒ the CZ operator is `Ḃ⁰_{∞,1}`-bounded with no log, the
+framework choice that keeps the harmonic-analytic route live. **C2** (local-Reynolds smallness) is
+exhibited via a Reynolds sweep and shown **resolution-gated**: the frontier `j*` tracks the grid when
+under-resolved (Re=1600, Class-I) but is N-fixed at the same physical shell when resolved (Re=100,
+N=64↔128 `j*=3`, Class-II) ⇒ a resolution-stable diagnostic, unlike the δ-fit. Within-truncation witness
+(global Besov can't localize to the CKN set — complements the uniform-domination probe); `:open`/`:proved`=0
+unchanged. `docs/ns046_besov_smallness_companion.md`.
 
 ## MILESTONE (v0.1.6–v0.1.8, 2026-06-01) — diagnostic validated 1D/2D/3D-control
 
@@ -308,7 +317,12 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
   `:open`.** Attacked 2026-06-04: obstruction-map + reality-leakage ladder → **triad-witness-REFUTED**
   (Grok+Gemini convergent) → withdrawn; sharpened to an `:argued` reduction — the protective direction
   is the emergent **CFM/Hou–Li geometric depletion** (conditional, open) → NS-006 + NS-038 `c²_int`.
-  `docs/ns013_triad_verdict.md`.
+  `docs/ns013_triad_verdict.md`. **Production-object probe (2026-06-07, `ns013_realcomplex_production.jl`):**
+  ran real-vs-complex ON the production object `P=−½∫g³` (1D shadow of `∫ω·Sω`) — the complex-blowup class
+  (analytic signals) has `∫g³≡0` by Fourier support (3 positive wavenumbers can't sum to 0); reality
+  (two-sided spectrum) ACTIVATES production (Skew 0→0.67) ⇒ the two channels are disjoint, corroborating
+  "complex⇏real vacuous." 1D-specific (cubic argument doesn't transfer to 3D); `:argued`/`:proved`=0
+  unchanged. `docs/ns013_realcomplex_production_companion.md`.
 - No `Project.toml`/lockfile yet — add when spectral code (FFTW) lands (package
   discipline, CLAUDE.md).
 - TEST_SPEC currently has the diagnostic-validation rows pending the NS-010 build.

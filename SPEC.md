@@ -227,6 +227,19 @@ axis," but no implication real⇐complex is established.
   below it (delay), regular above it. Sharpens the conjecture: real regularity ⟺ the
   conjugate complex-singularity pair stays off the real axis. Scope: 1D-model — illustrates
   the mechanism, does NOT establish real⇐complex for 3D-NS. See `docs/move4_ckn_probes_companion.md`.
+- **Production-object probe (real-vs-complex, 2026-06-07, `scripts/ns013_realcomplex_production.jl`).**
+  Runs the comparison ON the production object. In 1D the exact gradient budget `d/dt½∫g²=−½∫g³−ν∫g_x²`
+  makes `P≡−½∫g³` the shadow of the 3D `∫ω·Sω`. **Result (exact, by Fourier support):** the complex-blowup
+  class = Cole–Hopf ANALYTIC SIGNALS (one-sided spectrum) ⇒ `∫g³=2π·(g³)_{k=0}=0` (three positive
+  wavenumbers cannot sum to 0) ⇒ the production object is **identically zero** through the entire complex
+  blowup (`|P|≈1e-16`, `Skew≡0` while `∫|g|²→∞`, `δ→0`); a second one-sided IC confirms it (`|Skew|~1e-15`).
+  **Imposing reality (λ↑) restores the two-sided conjugate-symmetric spectrum `û(−k)=conj û(k)` ⇒ `∫g³≠0`,
+  Skew climbs 0→0.67** — reality does NOT deplete production, its two-sidedness CREATES it. So the
+  complex-blowup channel (off-axis analyticity) and the real-flow production channel are **disjoint
+  objects**, **corroborating** the triad "complex⇏real is vacuous." Scope: 1D-model; the Fourier-support
+  cubic argument is 1D-specific (3D `∫ω·Sω` is not a single one-sided cubic, so "identically zero" does NOT
+  transfer) — what transfers is the *question* (does reality's spectral structure gate the 3D production?).
+  `:proved`=0; prize UNTOUCHED. Companion `docs/ns013_realcomplex_production_companion.md`.
 
 ---
 
@@ -895,6 +908,24 @@ uniformly, on CKN-compatible (filamentary / sheet / intermittent) high-strain se
   must go through Besov/integral controls, not pointwise domination); it is a within-truncation
   diagnostic, NOT evidence about the PDE inequality or the analytic obstacle. Companion
   `docs/ns046_uniform_domination_companion.md`. `:open` unchanged; `:proved`=0.
+- **Critical-Besov smallness probe (2026-06-07, `scripts/ns046_besov_smallness_probe.jl`) — the SPECTRAL
+  complement to the uniform-domination sub-probe; corroborates NS-047 C1, frames C2.** Measures the
+  dyadic Littlewood–Paley budget shell-by-shell: (**C1**) the Riesz/pressure-Hessian ratio
+  `R_j=‖Δ_j∇²p‖_∞/‖Δ_jQ‖_∞` is **flat across all shells and N-stable** ([0.60–0.74], no upward drift with
+  `j`; per-shell values agree N=64↔128 to ~1%) ⇒ the CZ operator is `Ḃ⁰_{∞,1}`-bounded with **NO log** —
+  NS-047 C1 corroborated computationally and resolution-robustly. (**C2**) the shell local Reynolds
+  `Re_j=‖Δ_jω‖_∞/(ν k_j²)` and its frontier `j*` are **resolution-gated**: a Reynolds sweep moves the
+  frontier from the grid edge (Re=1600, `Re_tail`≫1 — dissipation unresolved) to the interior (Re=100,
+  `Re_tail`≪1, `j*=3` — the small-scale tail viscously absorbed, smallness EXHIBITED). N-convergence
+  splits cleanly: at Re=1600 (under-resolved) `j*` tracks the grid (4→5, Class-I); at Re=100 (resolved)
+  `j*` is **fixed at the same physical shell** N=64↔128 (`k∈[8,16)`, Class-II / scope-coupled) — so when the
+  dissipation scale is resolved the Besov budget is a resolution-STABLE diagnostic (unlike the δ-fit). **Honest
+  limits:** vacuity cap (regular truncation, no singular set); Besov norms are GLOBAL Fourier objects so
+  cannot localize to the CKN set — that physical-space localization is the uniform-domination probe above;
+  together they bracket the question, neither is the analytic step. The genuine positive: the framework
+  choice that keeps the harmonic-analytic route live (critical-Besov, not L^∞) is computationally consistent
+  — a witness-level reason to keep NS-046/047 standing. `:open` unchanged; `:proved`=0. Companion
+  `docs/ns046_besov_smallness_companion.md`.
 - **Precise standing target recorded — NS-046 PAUSED here (2026-06-06).** The crisp, admissible
   open-problem statement (critical-Besov framework per NS-047; CKN localization; the nonlocal
   pressure-Hessian + viscosity vs the production at σ=0; CCATT loss ledger; the kill criteria) is
@@ -958,16 +989,25 @@ mechanism** that prevents different rescaled subsequences converging to differen
   sub-target (restricted non-self-similar = **axisymmetric-with-swirl ancient Liouville**) attacked
   honestly (changelog v0.1.73). **No theorem; status unchanged; `:proved`=0.** Wall LOCALIZED to the
   single production term `(1/r⁴)∂_z(Γ²)` in the `Ω=ω^θ/r` equation, in the **non-compact axial (`z`)
-  direction** — *not* the axis `r=0` (smooth flows have `Γ=O(r²)`, source `O(1)` there). Finding: there
-  is **no soft "just-beyond" step** — each frontier axis (Lei–Zhang–Zhao `L^p` `p<∞`, Pan–Li `α<1`,
-  Lei–Ren–Zhang `ℝ²×T¹`) is at its endpoint, so the restricted target collapses onto the bare KNSS
-  conjecture with a thin decay/compactness collar. The 8th over-reach (a manufactured restricted theorem)
-  was declined. §6 names the three real multi-paper assaults.
+  direction**; the *source* is benign at the axis `r=0` (smooth flows have `Γ=O(r²)`, source `O(1)` there
+  — though `1/r`-weighted operators may still constrain there). **[WITNESS-CORRECTED 2026-06-07,
+  changelog v0.1.76:** the original "no soft just-beyond step / collapses onto the bare conjecture" was an
+  **over-reach (10th)** — `ℝ²×T¹` is *itself* a proven intermediate class, and softer refinements
+  plausibly exist (weak-`L^p`/Lorentz swirl; small-swirl perturbing KNSS). Honest statement: the three
+  *specific* frontier hypotheses are near-endpoint and the session-scale *methods* all stop at the
+  non-compact axial direction, but the sub-target does NOT collapse onto the conjecture.**]** The 8th
+  over-reach (a manufactured restricted theorem) was declined.
 - **Sub-target (C) ATTACKED (2026-06-07): `docs/ns048_swirl_sign_condition_attack.md`** — the one
   genuinely *new* restricted class (a swirl **sign/monotonicity condition** signing the source
   `(1/r⁴)∂_z(Γ²)`) worked through (changelog v0.1.74). **No theorem; status unchanged; `:proved`=0.** The
   preserved sign (`Γ≥0`) doesn't sign the source; the signing sign (`∂_zΓ`) isn't dynamically preserved
   (`∂_z`-differentiated `Γ` eq has a no-sign shear coupling) and is plausibly vacuous; even granting
-  `S≤0`, `Ω` is only a subsolution ⇒ one-sided control, never `Ω≡0`. Closes only in the degenerate
-  `∂_zΓ≡0` (columnar) case = the known periodic-in-`z` reduction (not new). (C) independently re-lands on
-  the **`z`-dependence of the swirl** as the crux — a third convergent diagnostic. 9th tidy hope deflated.
+  `S≤0`, `Ω` is only a subsolution ⇒ one-sided control, never `Ω≡0` (the sign is on the source `S`, not
+  on the non-sign-definite `Ω` — witness-confirmed survivor). Closes only in the degenerate `∂_zΓ≡0`
+  (columnar) case = the known periodic-in-`z` reduction (not new). 9th tidy hope deflated.
+  **[WITNESS-CORRECTED 2026-06-07, changelog v0.1.76:** the claim "(C) is a *third independent
+  convergent* diagnostic / `z`-dependence is *the* irreducible difficulty" was an **over-reach (11th)** —
+  the energy attack and this sign attack act on the *same* term `S` (echo, not independence; ~1.5 lines,
+  not 3), plus a selection effect, and the localization merely re-derives the known hypotheses. Honest
+  residue: these elementary methods all stop at the non-compact axial direction, consistent with known
+  structure — method-failure localization, not proof of "the" difficulty.**]**

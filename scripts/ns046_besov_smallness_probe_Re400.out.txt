@@ -1,0 +1,47 @@
+# NS-046/047 critical-Besov smallness probe — does the Ḃ⁰_{∞,1} budget show the local-Reynolds
+# smallness (C2) and the no-log CZ boundedness (C1)? Scope: resolved DNS truncation; NOT the PDE; :proved=0.
+# N=64  Re=400  dt=0.010  T=6.0  threads=6  dyadic shells=5  IC=both
+# tubes IC: E=0.1250 Z=0.9541 rhoH=+0.000 divmax=3.6e-12
+
+# TUBES (Kerr reconnection — worst case)  N=64  nu=2.50000e-03  T=6.0  shells=5 (dyadic, |k|≤21)
+# t      winf      Besov     Bes/inf  j*(Re>=1)  Re_tail   R[min..max]   (Besov=‖ω‖_Ḃ⁰_∞1; R=‖Δ∇²p‖∞/‖ΔQ‖∞)
+0.00     16.474    18.291   1.110    3         7.44e-02  0.69..0.71
+1.00     15.573    20.957   1.346    4         3.53e+00  0.66..0.75
+2.00     16.040    20.340   1.268    4         3.95e+00  0.65..0.71
+3.00     14.206    18.734   1.319    4         2.12e+00  0.64..0.79
+4.00     13.377    18.035   1.348    4         1.94e+00  0.63..0.74
+5.00     16.187    23.158   1.431    4         2.06e+00  0.62..0.84
+6.00     26.609    34.235   1.287    4         1.14e+01  0.60..0.69
+# shell detail @ t=6.00 (peak ‖ω‖∞=26.609):
+#  j  k∈[lo,hi)   k_j      ‖Δ_jω‖∞    Re_j        R_j=‖Δ∇²p‖/‖ΔQ‖   conc1%   modes
+   0  [    1,    2)   1.44  1.3090e+00  2.521e+02         0.6047    0.0829   26
+   1  [    2,    4)   3.16  3.5642e+00  1.427e+02         0.6861    0.1781   224
+   2  [    4,    8)   6.46  6.8632e+00  6.570e+01         0.6736    0.3038   1852
+   3  [    8,   16)  13.01  1.2422e+01  2.936e+01         0.6745    0.4885   14968
+   4  [   16,   32)  18.78  1.0077e+01  1.143e+01         0.6603    0.6405   21840
+
+# TG (Brachet anchor — control)  N=64  nu=2.50000e-03  T=6.0  shells=5 (dyadic, |k|≤21)
+# t      winf      Besov     Bes/inf  j*(Re>=1)  Re_tail   R[min..max]   (Besov=‖ω‖_Ḃ⁰_∞1; R=‖Δ∇²p‖∞/‖ΔQ‖∞)
+0.00      2.000     2.000   1.000    0         7.47e-15  0.59..0.59
+1.00      1.572     2.843   1.809    2         2.28e-04  0.59..0.78
+2.00      1.790     4.380   2.447    2         9.31e-02  0.59..0.82
+3.00      3.340     6.832   2.045    3         4.15e-01  0.58..0.79
+4.00      8.027    10.169   1.267    4         1.47e+00  0.58..0.85
+5.00     15.262    17.252   1.130    4         2.84e+00  0.60..0.70
+6.00     10.404    16.387   1.575    4         2.98e+00  0.58..0.70
+# shell detail @ t=5.00 (peak ‖ω‖∞=15.262):
+#  j  k∈[lo,hi)   k_j      ‖Δ_jω‖∞    Re_j        R_j=‖Δ∇²p‖/‖ΔQ‖   conc1%   modes
+   0  [    1,    2)   1.44  1.1431e+00  2.202e+02         0.6106    0.0480   26
+   1  [    2,    4)   3.16  1.5918e+00  6.373e+01         0.6031    0.0333   224
+   2  [    4,    8)   6.46  4.3906e+00  4.203e+01         0.6044    0.1000   1852
+   3  [    8,   16)  13.01  7.6226e+00  1.801e+01         0.7001    0.2500   14968
+   4  [   16,   32)  18.78  2.5043e+00  2.840e+00         0.6770    0.1762   21840
+
+# ── SUMMARY (N=64, Re=400) ───────────────────────────────────
+# TUBES  peak t=6.00: winf=26.609 Besov=34.235 j*=4 Re_tail=1.14e+01 R∈[0.60,0.69]  → tail INERTIAL (dissipation UNRESOLVED; frontier at grid edge)
+# TG     peak t=5.00: winf=15.262 Besov=17.252 j*=4 Re_tail=2.84e+00 R∈[0.60,0.70]  → tail INERTIAL (dissipation UNRESOLVED; frontier at grid edge)
+# Read: (C1) R∈[..] tight & flat across shells ⇒ Riesz/CZ is Ḃ⁰_{∞,1}-bounded with NO log (NS-047 C1).
+#       (C2) j* = smallness frontier; Re_tail<1 ⇒ the grid reached the dissipation scale and the
+#       small-scale tail is viscously absorbed (smallness EXHIBITED); Re_tail≫1 ⇒ tail still inertial
+#       (under-resolved — smallness is resolution-gated, the RWC-038 / Ryan-Class-II discipline).
+# DONE

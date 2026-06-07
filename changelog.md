@@ -1,5 +1,77 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.76 — 2026-06-07 — WITNESS PASS on the axisym-swirl arc: math clean, but 2 over-reaches CAUGHT + corrected (10th, 11th)
+
+Adversarial witness pass on the whole axisymmetric-with-swirl attack arc (v0.1.73/74).
+`docs/ns048_axisym_swirl_witness_brief.md` (self-contained, primed-to-refute, for external relay) + an
+internal three-reviewer pre-screen (math-checker / closing-path-hunter / over-reach-critic). **Outcome:
+the mathematics is CLEAN** — the C2 source scalings (`S=O(1)` at the axis via `Γ=O(r²)`; `O(1/r²)` at
+`r→∞`; the `z`-tail divergence), the C6 `G=∂_zΓ` equation, the C7 subsolution sign, and the C8 columnar
+reduction all independently re-derived as correct; firewall intact (no step proves the bare conjecture).
+**But two interpretive over-reaches were caught and are corrected in place** (committed+pushed records,
+honest correction):
+- **10th over-reach — "no soft step beyond the frontier" (v0.1.73 §5): REFUTED.** Self-contradictory —
+  `ℝ²×T¹` was listed as a *known* result while claiming the target collapses onto the bare conjecture, yet
+  `ℝ²×T¹` *is* a proven intermediate class. Plausibly-tractable softer classes also exist (weak-`L^p`/
+  Lorentz swirl; small-swirl perturbing the complete swirl-free KNSS proof). Corrected to: the three
+  *specific* frontier hypotheses are near-endpoint, but the restricted-class space is not exhausted.
+- **11th over-reach — "three independent convergent attacks" (v0.1.74 §5): TRIMMED to ~1.5 + echo.** The
+  energy attack and the sign attack fail on the *literally identical* term `S=(2Γ/r⁴)∂_zΓ` (two failure
+  modes of one obstruction = echo, not independence); only the max-principle carries near-distinct info
+  (non-attainment on non-compact `ℝ³`). Plus a selection effect (these soft methods predictably fail on
+  any supercritical non-compact problem) and the localization merely re-derives the known hypotheses.
+  Corrected to "method-failure localization, consistent with known structure," NOT "z-dependence is THE
+  irreducible difficulty." This is exactly the NS-024 lesson (convergence is echo until witness-trimmed)
+  applied to our own claim.
+Also corrected: C2's "NOT the axis" clause (the *source* is benign at `r=0`, not "the axis is
+irrelevant"). C7 SURVIVED (sign is on the source, not on the non-sign-definite `Ω`; 5D-Laplacian
+structure real but insufficient; a crack only under the stronger `ω^θ`-one-signed hypothesis). C6 vacuity
+SURVIVED. Two presentational fixes adopted (C6: the decisive non-preservation term is the inhomogeneity
+`−(∂_zu^r)∂_rΓ`; C8: cleanest via `u₁=Γ/r²` → non-degenerate 4-D radial heat ⇒ constant). The witness
+pass worked as designed — it caught this arc's own over-reaches. Docs corrected:
+`ns048_axisym_swirl_attack.md`, `ns048_swirl_sign_condition_attack.md`; SPEC NS-048 pointers; brief
+records the pre-screen for external verification. `:proved`=0; NS-048 unchanged.
+
+## v0.1.75 — 2026-06-07 — Two exploratory probes: critical-Besov smallness (NS-046/047) + real-vs-complex on the production object (NS-013)
+
+Two witness/counter-witness probes off the no-go map, folded into SPEC (NS-013, NS-046 bullets) and
+dashboard. **Both within-truncation/1D-model; `:proved`=0; prize UNTOUCHED.**
+
+**(1) Critical-Besov smallness probe** (`scripts/ns046_besov_smallness_probe.jl` + 6 `.out.txt`; companion
+`docs/ns046_besov_smallness_companion.md`). Turns NS-047's two analytic claims into measured dyadic
+Littlewood–Paley numbers on a resolved DNS. **C1 (no-log CZ boundedness) CORROBORATED & N-robust:** the
+Riesz/pressure-Hessian ratio `R_j=‖Δ_j∇²p‖_∞/‖Δ_jQ‖_∞` is flat across shells ([0.60–0.74], no upward drift
+with `j`) and N-stable to ~1% (N=64↔128) ⇒ the CZ operator is `Ḃ⁰_{∞,1}`-bounded with no log, exactly the
+framework choice that keeps the harmonic-analytic route live. **C2 (local-Reynolds smallness) EXHIBITED &
+resolution-gated:** a Reynolds sweep {1600,400,100,25} moves the smallness frontier `j*` from the grid edge
+(Re=1600, `Re_tail`≫1, dissipation unresolved) to the interior (Re=100, `Re_tail`≪1, `j*=3`, tail
+absorbed). N-convergence splits cleanly — at Re=1600 `j*` tracks the grid (4→5, Class-I); at Re=100 `j*` is
+**fixed at the same physical shell N=64↔128** (`k∈[8,16)`, Class-II/scope-coupled) ⇒ a resolution-STABLE
+diagnostic when the dissipation scale is resolved (unlike the δ-fit). Honest limits: vacuity cap; global
+Besov can't localize to the CKN set (complements the physical-space uniform-domination probe). The genuine
+positive: the critical-Besov framework is computationally consistent — a witness-level reason to keep
+NS-046/047 standing rather than retire it.
+
+**(2) Real-vs-complex on the production object** (`scripts/ns013_realcomplex_production.jl` + `.out.txt`;
+companion `docs/ns013_realcomplex_production_companion.md`). Runs the NS-013 comparison ON the production
+object. The exact 1D gradient budget `d/dt½∫g²=−½∫g³−ν∫g_x²` makes `P≡−½∫g³` the shadow of the 3D `∫ω·Sω`
+(budget identity verified, rel.err 2.8e-4). **Exact result by Fourier support:** the complex-blowup class =
+Cole–Hopf ANALYTIC SIGNALS (one-sided spectrum) ⇒ `∫g³=2π·(g³)_{k=0}=0` (three positive wavenumbers cannot
+sum to 0) ⇒ the production object is **identically zero** through the entire complex blowup (`|P|≈1e-16`,
+`Skew≡0` while `∫|g|²→∞`, `δ→0`); a second one-sided IC confirms it. **Imposing reality (λ↑) restores the
+two-sided conjugate-symmetric spectrum ⇒ `∫g³≠0`, Skew climbs 0→0.67** — reality does NOT deplete
+production, its two-sidedness CREATES it. So the complex-blowup channel (off-axis analyticity) and the
+real-flow production channel are **disjoint objects**, corroborating the NS-013 triad "complex⇏real is
+vacuous." Honest non-transfer: the Fourier-support cubic argument is 1D-specific (3D `∫ω·Sω` is not a
+single one-sided cubic), so "identically zero" does NOT carry to 3D — what transfers is the *question*
+(does reality's spectral structure gate the 3D production?). A sharper framing of the NS-013→NS-046 link,
+recorded as a direction, not a result.
+
+Method note: both probes ran the N=1-before-fan-out discipline (smoke/identity gate, then Re-sweep /
+IC-robustness), and the real-vs-complex probe caught + corrected one of its own framings mid-run (the
+"single-mode residue" worry → the general Fourier-support theorem). No status changes; SPEC entry counts
+unchanged.
+
 ## v0.1.74 — 2026-06-07 — NS-048 attack (C): the swirl SIGN-CONDITION class — doesn't help (9th hope deflated)
 
 Worked the one genuinely new restricted class from v0.1.73 §6(C) — a one-sided/monotone swirl sign
