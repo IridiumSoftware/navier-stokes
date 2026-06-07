@@ -61,15 +61,14 @@ not apply). There the combined condition gives `∫|S|<∞` (§2) but does **not
    `S` by forcing `Γ`-decay, never by estimating `S` (C3 for LZZ, LRZ, Thm 3.7). No argument takes
    `∫|S|<∞` (or any source bound) to the Liouville conclusion. The combined condition delivers the wrong
    kind of object.
-2. **The weak-radial regime's *solo* status is itself open / verification-dependent, and EITHER WAY the
-   combined adds nothing.** The relevant result is Pan–Li (sublinear-growth Liouville, **C2** via review,
-   scope-uncertain — possibly steady-`D`-solution rather than ancient; a verification target). The robust
-   dichotomy:
-   - *If* Pan–Li (or a successor) closes the weak-radial regime **alone**, the combined is **redundant
-     there too** (radial alone closes — §3 logic extends).
-   - *If* it does **not**, the weak-radial regime is **open**, and the combined condition — yielding only
-     `∫|S|<∞` — does **not** close it (no `S`-control mechanism, point 1).
-   Either branch: **the combined condition is not a new closing condition.**
+2. **The weak-radial regime is OPEN — `[PINNED 2026-06-07 by Pan–Li verification].`** Pan–Li (the nearest
+   sublinear-growth Liouville; now line-verified **C3**, NA:RWA 2020, arXiv:1908.11591 —
+   `docs/pan_li_verification_2026-06-07.md`) is the **NO-SWIRL** case, so it does **not** apply to the
+   weak-radial *with-swirl* regime (`u^θ~r^{−β}`, nonzero swirl). The regime is therefore **genuinely
+   open** — and the combined condition, yielding only `∫|S|<∞` (the un-mechanised `S`-control route, point
+   1), does **not** close it. *(Earlier this section hedged a dichotomy "if Pan–Li closes it alone → redundant
+   / else → open"; the verification resolves it to the **open** branch.)* **The combined condition is not a
+   new closing condition.**
 
 ---
 
@@ -102,19 +101,18 @@ combined"**.)*
 
 ## 6. Refocus + citation tiers
 
-**What is *actually* next (honest):** not "combined." Two options, both real:
-- **(a) Verify Pan–Li at primary (C2→C3)** to pin whether the sublinear-radial-growth regime closes alone
-  — this either absorbs more of the conjecture into "redundant" or sharpens the open weak-radial gap. A
-  bounded verification task (extends the audit).
-- **(b) The `S`-control route's viability** is the one genuinely-unexplored direction — but it has **no
-  known mechanism** (campaign: everyone bypasses `S`), so it needs a new analytic idea, not a session task.
-The disciplined reading: **NS-048's tractable session-scale attacks are exhausted;** the residue is the
-bare conjecture + the un-mechanised `S`-control route — both needing ideas the program does not have.
+**What is *actually* next (honest):** not "combined." `[Pan–Li verification now DONE — see below.]` The one
+genuinely-unexplored direction is **the `S`-control route's viability** — but it has **no known mechanism**
+(campaign: everyone bypasses `S`), so it needs a new analytic idea, not a session task. The disciplined
+reading: **NS-048's tractable session-scale attacks are exhausted;** the residue is the bare conjecture +
+the un-mechanised `S`-control route — both needing ideas the program does not have.
 
 **Citation tiers (C0–C5):**
 - **LZZ `L^p`** (arXiv:1701.00868): **C3** — closes alone (§3).
 - **KNSS Thm 5.3** `|u|≤C/r` (arXiv:0709.3599): **C3** — closes alone (§3).
 - **"every closer bypasses `S`"** (LZZ/LRZ/Thm 3.7): **C3** — the §4.1 no-`S`-mechanism fact.
-- **Pan–Li sublinear-growth Liouville**: **C2** (review only; *scope uncertain — ancient vs steady-`D`*;
-  the §4 verdict is **robust to this**, but a primary read would sharpen the weak-radial niche).
-- **Self-derived (no citation):** the §2 two-tail scaling; the redundancy/dichotomy logic.
+- **Pan–Li sublinear-growth Liouville**: **C3** *(line-verified 2026-06-07, NA:RWA 2020, arXiv:1908.11591;
+  `docs/pan_li_verification_2026-06-07.md`)*. **CORRECTION: it is NO-SWIRL** (we'd had "swirl allowed") ⇒
+  it does **not** apply to the weak-radial *with-swirl* regime, which is therefore **open** (§4 resolved to
+  the open branch).
+- **Self-derived (no citation):** the §2 two-tail scaling; the redundancy logic.

@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.90 — 2026-06-07 — Pan–Li verified C3 (last audit thread): it is NO-SWIRL — corrects "swirl allowed"; route-(i) counterexample suspicion WITHDRAWN (16th); combined verdict sharpened
+
+Verified the last loose citation thread — Pan–Li, read line-by-line. `docs/pan_li_verification_2026-06-07.md`.
+**Foundation-hardening, not PDE progress; `:proved`=0.** Two corrections; the combined-conjecture verdict
+(v0.1.88) is confirmed + sharpened:
+- **Pan–Li is NO-SWIRL** (Thm 1.1 assumes `u^θ≡0`); it extends the *KNSS no-swirl bounded* case to sublinear
+  *growth* (`|u|≤C(√(−t)+|x|)^α`, `α<1`). **C2 → C3.** Venue corrected: **NA:RWA 56 (2020)** (arXiv:1908.11591),
+  not Bull. Sci. Math.; and "axisym swirl allowed" (a review-drift, ~C1) corrected to **no-swirl**. Resolves
+  the scope puzzle: it doesn't prove the open conjecture because it's the no-swirl regime.
+- **Load-bearing answer:** Pan–Li does **not** close the weak-radial *with-swirl* regime — it doesn't even
+  apply (nonzero swirl). So that regime is **genuinely OPEN** (not redundant); the combined verdict's
+  dichotomy resolves to the **open** branch — combined still ≠ a new closer.
+- **16th honesty-ledger item:** route (i)'s "axial-only conjecture SUSPECT/possibly-false" cited Pan–Li's
+  `α=1` counterexamples — but those are **swirl-free** (Prop 1.5), so they give **no** with-swirl
+  counterexample. **Suspicion WITHDRAWN;** the axial-only conjecture is **OPEN**. The route-(i) blow-down
+  break itself stands (self-derived); only the suspicion's basis is removed.
+**Verification campaign FULLY CLOSED:** #1 KNSS, #1b Albritton–Barker, #2 NS-007, #3 LRZ+Thm3.7, Pan–Li —
+all C2/C3, with **four** citation-supply-chain errors caught + corrected (Albritton–Barker≠S–Š; ⟺
+"general"→"Type-I-conditioned"; Lemma-6.1 naming; Pan–Li "swirl-allowed"→"no-swirl"). NS-048 standing:
+session-scale attacks exhausted; residue = bare conjecture (`Γ∈L^∞` with swirl) + un-mechanised `S`-control
+route. Corrected: route (i) §6/§7/§8, combined doc §4/§6, audit (Pan–Li row). `:proved`=0; distance
+UNTOUCHED.
+
 ## v0.1.89 — 2026-06-07 — MDAGC synthesis: the global no-go's assembled into the positive "what a blowup must be" object; the phase arc gets a global home (sharpens S1, not a new no-go)
 
 Implements the meta-review's endorsed direction (forward value = global method-exclusion / generator-class

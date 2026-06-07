@@ -88,15 +88,16 @@ geometry-re-tasking; 8th manufactured-theorem-declined; 9th sign-shortcut; 10th 
 `|x₃|^α` condition supplies only the **axial** half of the control; **a closing condition needs axial +
 radial together** (e.g. `|x₃|^α u^θ` **and** an LZZ-type radial decay of `Γ`).
 
-**Suspicion the `|x₃|^α`-ONLY conjecture may be FALSE (honest, NOT a counterexample in hand).** Saturating
-the bound gives `Γ ≲ r|x_3|^{−α}` — *linear* radial growth of the swirl (`u^θ` merely bounded). Pan–Li
-[**C2** — via review arXiv:2101.04905] establish that velocity growth `|u|≤Cr^α` forces constancy
-**only for `α<1`**, with the linear (`α=1`) threshold **sharp — non-constant counterexamples exist**. A
-bounded ancient solution with `u^θ` bounded (so `Γ` linear in `r`) and `z`-decaying could plausibly be
-such a non-constant object satisfying the `|x₃|^α` bound — i.e. a **counterexample to the axial-only
-conjecture**. I have **not** constructed one (default: not established), but the radial-growth structure
-points squarely at the Pan–Li sharpness threshold, so the axial-only conjecture should be regarded as **in
-doubt**, not merely "open."
+**The `|x₃|^α`-ONLY conjecture is genuinely OPEN.** Saturating the bound gives `Γ ≲ r|x_3|^{−α}` — *linear*
+radial growth of the swirl (`u^θ` merely bounded); no known closer reaches that with-swirl regime.
+**[CORRECTED 2026-06-07 (Pan–Li verification — 16th honesty-ledger item):** this section originally
+claimed the axial-only conjecture is "in doubt / possibly FALSE," citing Pan–Li's `α=1` sharpness. **That
+support was wrong.** Pan–Li (now line-verified **C3**, NA:RWA 2020, arXiv:1908.11591) is the **NO-SWIRL**
+case; its `α=1` counterexamples (Prop 1.5: `u^r=C₁r, u^z=−2C₁z+C₂(t)`) are **swirl-free**, so they do
+**not** evidence a *with-swirl* bounded counterexample. The blow-down break (§3) stands regardless; only the
+"possibly false" suspicion's basis is removed. Honest status: the axial-only conjecture is **OPEN /
+unknown** — no closer covers it, and Pan–Li gives no counterexample there. See
+`docs/pan_li_verification_2026-06-07.md`.**]**
 
 ---
 
@@ -107,11 +108,14 @@ doubt**, not merely "open."
   compactness fails by supercriticality (§4).
 - **It corrects my own port-doc over-reach** (route (i) ≠ radial-tail-sidestepping; criticality ≠
   sufficiency) — 14th ledger item.
-- **It reinforces the two-tail conclusion** (need axial + radial) and **raises a real counterexample
-  suspicion** for the axial-only conjecture (Pan–Li linear-growth sharpness).
-- **Honest reformulation:** the live conjecture should be **`|x₃|^α` (axial) + radial (LZZ-type) combined**
-  — and the prior on the axial-*only* version shifts toward *false / needs-supplement*, with constructing
-  (or excluding) a linear-radial-growth `z`-decaying ancient solution as the sharp sub-question.
+- **It reinforces the two-tail conclusion** (need axial + radial). *(The "counterexample suspicion" first
+  stated here was **withdrawn 2026-06-07** — it cited Pan–Li, which is NO-SWIRL and gives no with-swirl
+  counterexample, §6 + `docs/pan_li_verification_2026-06-07.md`; the axial-only conjecture is **OPEN**, not
+  "in doubt".)*
+- **Honest reformulation:** the live conjecture *seemed* to be `|x₃|^α` (axial) + radial combined — **but
+  that combined conjecture itself later COLLAPSED** (redundant where radial is strong, stuck where weak;
+  `docs/ns048_combined_axial_radial.md`). Net standing: the axial-only conjecture is OPEN; NS-048's
+  session-scale attacks are exhausted (bare conjecture + un-mechanised `S`-control route remain).
 - **No theorem; `:proved`=0; NS-048 unchanged.**
 
 ---
@@ -127,9 +131,10 @@ doubt**, not merely "open."
   only** — which **C3-confirms break #2 above**: the `|x₃|^α` blow-down family fails exactly that
   (`‖u_λ‖_∞=λ‖u‖_∞→∞`), so the compactness genuinely cannot be supplied. (The verification was audit
   target #1, promoted by this very analysis pointing at it.)
-- **Pan–Li** `α<1` constancy / `α=1` sharp counterexample (the §6 suspicion): **C2** — via review
-  arXiv:2101.04905 (Q.S. Zhang), not the Pan–Li primary. *Load-bearing for the counterexample suspicion ⇒
-  verification target.*
+- **Pan–Li** `α<1` constancy / `α=1` sharp counterexample: **C3** — *line-verified 2026-06-07*
+  (`docs/pan_li_verification_2026-06-07.md`; NA:RWA 2020, arXiv:1908.11591). **CORRECTION: Pan–Li is
+  NO-SWIRL** (we'd had "swirl allowed" via the review). Its `α=1` counterexamples are swirl-free ⇒ they do
+  **not** support the (now-withdrawn) with-swirl counterexample suspicion.
 - **Supercriticality / no-compact-embedding of the critical norm** (NS-002): **C2** — standard, mainstream.
 - **Self-derived (no citation):** the `Γ_λ(x,t)=Γ(λx,λ²t)` scale-invariance and both blow-down scalings
   (§2–§3); the `‖u_λ‖_∞=λ‖u‖_∞` compactness obstruction (§4).
