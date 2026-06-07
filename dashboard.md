@@ -9,6 +9,16 @@ lives in `SPEC.md`, not here.
 below with `Scope ≠ PDE` is **not** prize progress. This line changes only when a
 `:proved`, `Scope: PDE` entry exists.
 
+**MDAGC synthesis (2026-06-07, `docs/ns_blowup_generator_class.md`):** the program's global no-go's
+assembled into the positive necessary-conditions object — *what any 3D-NS singularity must be*: non-self-
+similar (G3) ∧ ≤1-D (G2) ∧ critical-norm-blowing (G1) ∧ energy-method-invisible (G5) ∧ Type-I-conditioned-
+ancient-or-Type-II (G4), framed by supercriticality (S1) + production-is-the-breaker (S2), with the recent
+phase-coherence/detector arc as heuristic structure (W1/W2). Dead: energy-/spectrum-only methods, exact
+self-similar, region-filling. Live attack must engage σ=0 production (NS-046) or the ancient/Type-II
+objects (NS-048). The ② test — phase-blindness — **sharpens S1 (a counterexample family: `P` is not a
+function of the coercive invariants), but is NOT a new hard method-exclusion** (over-reach declined).
+Reorganization, not progress; `:proved`=0.
+
 **FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 32 entries).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)
 Beltramization** — strong helicity (u∥ω) crushes the Lamb vector `u×ω` (the nonlinear driver) ~26×,

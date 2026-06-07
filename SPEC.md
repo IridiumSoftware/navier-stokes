@@ -34,6 +34,10 @@ high-fidelity obstruction manifold. Prize value still requires `Scope: PDE` + `:
 NS-008 averaged-NS, NS-007 self-similar) over **local no-go** ("this specific attempt stalls here");
 prefer global, and label which an entry is. **Soft no-go** ("current techniques fail here") ≠ **hard
 no-go** (theorem-backed impossibility) — never conflate; the representation may change.
+The realized MDAGC object — the positive *necessary-conditions* synthesis ("what any 3D-NS finite-time
+singularity must be," `G1∧…∧G5` hard / `S1,S2` soft / `W1,W2` witness, each tier-tagged) — is
+`docs/ns_blowup_generator_class.md` (2026-06-07; reorganization, not progress; `:proved`=0). It also fixes
+the home of the NS-013/046 phase-coherence arc as a *sharpening of S1* (NS-002), not a new no-go.
 
 ---
 

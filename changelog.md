@@ -1,5 +1,43 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.89 — 2026-06-07 — MDAGC synthesis: the global no-go's assembled into the positive "what a blowup must be" object; the phase arc gets a global home (sharpens S1, not a new no-go)
+
+Implements the meta-review's endorsed direction (forward value = global method-exclusion / generator-class
+reduction, not more local probes). New synthesis artifact `docs/ns_blowup_generator_class.md`; pointer
+added to the SPEC MDAGC-framing header + dashboard. **Reorganization, NOT PDE progress; `:proved`=0; prize
+UNTOUCHED.** (Numbered v0.1.89 — v0.1.85–88 taken by the concurrent NS-048 attack arc.)
+
+**The object.** A 3D-NS finite-time singularity, if one exists, must satisfy a conjunction of
+necessary conditions, each tier-tagged (C0–C5) and labelled hard/soft/witness:
+- **HARD (theorem-backed):** G1 blows a critical σ=0 norm (NS-005/ESS C2; GKP C1) · G2 singular set ≤1-D
+  (CKN C2) · G3 not exactly self-similar (NRŠ C2 / Tsai C3) · G4 Type-I ⇒ a nontrivial **Type-I-conditioned**
+  bounded ancient solution, else Type-II (Albritton–Barker C3 — conditioning made explicit; KNSS C3) ·
+  G5 not energy-only-excludable (Tao C2, a method-class exclusion).
+- **SOFT (framing/reduction):** S1 supercritical descent failure (NS-002/034) · S2 the vortex-stretching
+  production `∫ω·Sω` is the σ=+1-rung breaker (NS-036).
+- **WITNESS (within-truncation, heuristic):** W1 the production is a phase-coherence object · W2 sharpest
+  detector is the vorticity `Ḃ⁰_{∞,1}` (the recent four-probe arc, subordinated as generator-structure).
+
+**Compression:** dead = energy-/spectrum-only methods, exact self-similar, region-filling singularities;
+live attack must engage the σ=0 production (NS-046 static) or the ancient/Type-II objects (NS-048 dynamic)
+— one wall, two structures; the class is heavily constrained but non-empty (= the prize, holes A/B).
+
+**② The phase-blindness test (run honestly inside, §4).** Could W1 upgrade to a new hard method-exclusion?
+**No — declined.** Rigorous part (a genuine *sharpening of S1*): the phase-scramble is an explicit
+counterexample family — div-free fields with identical `(E,Z,H, full spectrum)` whose production differs
+~30× — so `P` is provably **not a function** of the coercive invariants or the amplitude spectrum (stronger
+than NS-002's scaling argument; broadens it from energy to any amplitude-spectrum quantity; ~C4). But a
+regularity *method* uses the time-evolution (carrying phase info), not the instantaneous spectrum, so
+"phase-blind methods can't work" conflates instantaneous insufficiency with dynamic impossibility — an
+over-reach declined (soft≠hard). Net: the recent NS-013/046 arc earns a **global home** as a
+counterexample-backed sharpening of supercriticality, answering the meta-review's structured-local-coherence
+critique by subordinating the local findings to the necessary-conditions object — without over-claiming a
+new barrier.
+
+Honest scope: the hard constraints are others' tier-tagged theorems; the soft/witness ones may change
+representation; the witnesses are within-truncation (vacuity cap). Independent uptake, not internal
+elegance, is the only test that this is compression and not coherent narrative.
+
 ## v0.1.88 — 2026-06-07 — The "combined axial+radial" conjecture COLLAPSES (redundant/stuck); 15th over-reach retired; NS-048 session-scale attacks exhausted
 
 Worked the live "combined axial+radial" conjecture (from route (i) / the port doc).
