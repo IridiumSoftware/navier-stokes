@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.4.0 — 2026-06-08 — Rung 2 STARTED: substrate survey corrects the "multi-year, field-wide" over-estimate + first library bite (weak-Lᵖ / Lorentz L^{p,∞}) machine-verified
+
+**Substrate survey (web + grep of the actual Mathlib source)** corrected my earlier over-statement: NOT
+"multi-year, field-wide". **Already formalized:** Sobolev spaces (`Mathlib/Analysis/Distribution/Sobolev`),
+Gagliardo–Nirenberg–Sobolev (`Mathlib/Analysis/FunctionalSpaces/SobolevInequality`), De Giorgi–Nash–Moser
+regularity (Armstrong–Kempe 2026, `scottnarmstrong/DeGiorgi`), Fefferman's NS Millennium statement
+(`lean-dojo/LeanMillenniumPrizeProblems`), and the distribution-function/Chebyshev–Markov machinery.
+**Confirmed gaps:** Lorentz/weak-Lᵖ, Littlewood–Paley/Besov, Carleman estimates, full Leray–Hopf weak
+theory — each a discrete, load-bearing library addition. So Rung 2 = bite-by-bite, not a wall.
+
+**First bite ✅ `formalization/lean-mathlib/WeakLp.lean`:** defined the **weak-Lᵖ (Lorentz `L^{p,∞}`)
+quasinorm** `wnorm f p μ = ⨆ t, t · μ{t ≤ ‖f‖ₑ}^{1/p}` and machine-verified the foundational
+**`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm` (`wnorm f p μ ≤ eLpNorm f p μ`, `0<p<∞`), proved directly
+from Mathlib's `mul_meas_ge_le_pow_eLpNorm'`. Compiled first try; verified via `lake env lean` against the
+TCE `lean4-cv` Mathlib. Confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`) → **upstreamable**;
+load-bearing (weak-`L³` = where the Ożański–Palasek double-log rate lives) + reusable (Marcinkiewicz).
+Lakefile target added. *Next bites:* weak-Lᵖ quasinorm properties + Marcinkiewicz interpolation → Besov/
+Littlewood–Paley → Carleman. `:proved`=0 for the PDE — library infrastructure, not an NS theorem; distance
+UNTOUCHED.
+
 ## v0.3.3 — 2026-06-08 — Universal-Lean completeness: pressure elimination (mixed partials) + Biot–Savart added to AxisymUniversal; full Rung-1 operator set now ∀-quantified
 
 Closed the two minor universal-Lean gaps in `formalization/lean-mathlib/AxisymUniversal.lean`.

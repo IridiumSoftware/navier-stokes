@@ -77,7 +77,21 @@ identities are formal differential-algebraic identities, exact on Laurent monomi
   Biot–Savart. The full operator structure of `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` is exact. *Scope:* the
   structural definitions/identities/operators — the algebra the analysis stands on; NOT the inequalities.
 
-### Rung 2+ — the inequalities — ⬜ long-horizon (flagged not-now)
+### Rung 2 — the inequalities — 🟡 STARTED (bite-by-bite); substrate is further along than feared
+A 2026-06-08 survey (web + grep of the actual Mathlib source) corrected an earlier "multi-year, field-wide"
+over-estimate. **Already formalized:** Sobolev spaces (`Mathlib/Analysis/Distribution/Sobolev.lean`),
+Gagliardo–Nirenberg–Sobolev (`Mathlib/Analysis/FunctionalSpaces/SobolevInequality.lean`), De Giorgi–Nash–
+Moser regularity (Armstrong–Kempe 2026, `github.com/scottnarmstrong/DeGiorgi`), Fefferman's NS Millennium
+statement (`lean-dojo/LeanMillenniumPrizeProblems`), and the distribution-function/Chebyshev machinery
+(`mul_meas_ge_le_pow_eLpNorm'`). **Confirmed gaps** (each a discrete, load-bearing library addition):
+Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Hopf weak-solution theory.
+- **First bite ✅ `lean-mathlib/WeakLp.lean`** — the **weak-Lᵖ (Lorentz `L^{p,∞}`) quasinorm** `wnorm` +
+  the foundational **`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm`, proved from `mul_meas_ge_le_pow_eLpNorm'`.
+  Load-bearing: weak-`L³` is where the Ożański–Palasek double-log rate lives; reusable across harmonic
+  analysis. Verified against Mathlib. (Upstreamable to Mathlib — no existing `wnorm`/`weakLp`/`MemWLp`.)
+- *Next bites (priority order):* weak-Lᵖ quasinorm-properties + Marcinkiewicz interpolation → Besov/
+  Littlewood–Paley → Carleman. `:proved`=0 for the PDE throughout — these are library additions, not NS
+  theorems.
 
 ## Run
 ```
@@ -89,7 +103,7 @@ runghc formalization/axisym/AxisymStructural.hs         # Rung 1 type-checked (d
 runghc formalization/axisym/AxisymOperators.hs          # Rung 1 type-checked
 lean   formalization/lean/Scaling.lean                  # Rung 0 lean-proved (native_decide, hermetic)
 lean   formalization/lean/Axisym.lean                   # Rung 1 lean-proved core (native_decide, hermetic)
-cd formalization/lean-mathlib && lake exe cache get && lake build   # Rung 0 UNIVERSAL (Mathlib, ∀ α p q)
+cd formalization/lean-mathlib && lake exe cache get && lake build   # universal Rungs 0–1 + Rung-2 WeakLp (Mathlib)
 ```
 Both exit non-zero on any identity failing to close.
 

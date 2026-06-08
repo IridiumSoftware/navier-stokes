@@ -29,3 +29,7 @@ lean_lib «ScalingUniversal» where
 @[default_target]
 lean_lib «AxisymUniversal» where
   srcDir := "."
+
+@[default_target]
+lean_lib «WeakLp» where
+  srcDir := "."

@@ -56,3 +56,13 @@ true side to coefficient 3. The full Rung-1 operator structure (incl. pressure e
 is now universal.
 
 Verified by `lake env lean AxisymUniversal.lean` against the same built Mathlib. `:proved`=0 for the PDE.
+
+## Rung 2 — the inequalities (started bite-by-bite) — `WeakLp.lean`
+A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is already formalized
+(Sobolev + Gagliardo–Nirenberg–Sobolev in Mathlib core; De Giorgi–Nash–Moser regularity, Armstrong–Kempe
+2026; Fefferman's NS Millennium statement). Remaining gaps are discrete library additions. **First bite:**
+- **`WeakLp.lean`** — the **weak-Lᵖ (Lorentz `L^{p,∞}`) quasinorm** `wnorm` and the foundational
+  **`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm`, proved from Mathlib's Chebyshev–Markov
+  `mul_meas_ge_le_pow_eLpNorm'`. A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing
+  (weak-`L³` = where Ożański–Palasek's double-log rate lives) and reusable (Marcinkiewicz interpolation).
+  Upstreamable. Next: quasinorm properties → interpolation → Besov/Littlewood–Paley → Carleman.
