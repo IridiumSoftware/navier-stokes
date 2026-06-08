@@ -127,9 +127,17 @@ problem.**
    conditional small-anisotropy-defect criterion? Every theorem carries `δ_Λ(0,1)≤ε` / `δ_Λ→0`.
 2. **What forces `δ_Λ→0` along a blow-up?** Is the `δ_Λ` bounded-below (multi-directional) case reducible,
    excludable, or genuinely outside scope? I could not find where defect-vanishing is *derived*.
+   **— Probed internally (2026-06-07, `ns049_anisotropy_defect_probe.jl`):** measured `δ_Λ` of the top-`q`
+   `|ω|` cores on the resolved DNS — *the dynamics drive `δ_Λ` UP at the intense events*. At the Kerr
+   reconnection the top-0.1% cores rise `δ_Λ`: 0.008 → 0.35 → 0.59 through the event (the bridge adds
+   directions, rank-1→3D); at peak intensity the cores are δ≈0.32–0.54 across TG/tubes/helical — bounded
+   well above one-directional. So *nothing in the resolved flow forces `δ_Λ→0`*. **Sharpened question:**
+   `δ_Λ→0` could hold only on the **rescaled ancient / Type-I limit**, not the resolved geometry — so does
+   the ancient limit one-directionalize even though resolved reconnections drive `δ_Λ` up (linking this to
+   NS-048)? Vacuity cap: resolved evidence, not proof about the singular limit.
 3. **Does the `δ_Λ→0` regime capture the physical geometry?** DNS shows intermediate-eigenvector alignment
-   (not a frozen direction) at reconnection — does the one-directional regime miss where singularities, if
-   any, would live?
+   (not a frozen direction) at reconnection, and `δ_Λ` rising at the cores (§probe above) — the
+   one-directional regime appears to miss where the resolved intense dynamics go.
 
 ---
 

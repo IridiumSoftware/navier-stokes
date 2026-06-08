@@ -35,7 +35,11 @@ derived; the multi-directional (`δ` bounded-below) case is open + unadvertised 
 (intermediate-eigenvector alignment, not frozen-direction) says that unhandled case is the physical one.
 So it's a **conditional anisotropic regularity criterion** (CF-family, weaker integral trigger), NOT the
 unconditional proof its framing implies. Depletion lemma = sound-but-unfinalized skeleton; strict-core =
-definitional `∫χ|ω×e|²=tr·δ`. Sharpest question for Lockwood: what forces `δ_Λ→0` along a blow-up?
+definitional `∫χ|ω×e|²=tr·δ`. **PROBED (`ns049_anisotropy_defect_probe.jl`): the resolved dynamics drive
+`δ_Λ` UP, not toward 0** — at the Kerr reconnection the top-0.1% `|ω|` cores rise δ 0.008→0.35→0.59 (bridge
+adds directions), and cores sit at δ≈0.32–0.54 across TG/tubes/helical (one-directional = 0). So *nothing in
+the resolved flow forces `δ_Λ→0`*; it could hold only on the rescaled ancient/Type-I limit, linking NS-049
+to NS-048. Vacuity cap (resolved, not the singular limit).
 
 **FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 32 entries).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)

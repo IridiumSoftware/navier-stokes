@@ -329,7 +329,17 @@ identification of the admissible trace class," with the depletion lemma claimed 
   program proves a **conditional** statement (asymptotically one-directional intense vorticity ⇒ regular);
   the `δ_Λ` bounded-below (multi-directional) case is nowhere addressed — and **our own NS-038**
   (intermediate-eigenvector alignment, sheet/tube reconnection, NOT frozen-direction) is direct evidence
-  that this *unhandled* case is the physically-indicated geometry. Secondary: the depletion lemma is a
+  that this *unhandled* case is the physically-indicated geometry. **Internal probe (2026-06-07,
+  `scripts/ns049_anisotropy_defect_probe.jl`, companion `docs/ns049_anisotropy_defect_companion.md`):
+  measured `δ_Λ` directly — the resolved dynamics drive it UP, not toward 0.** At the Kerr reconnection
+  `δ_Λ` of the top-0.1% `|ω|` cores rises 0.008→0.35→0.59 through the event (the bridge adds directions;
+  structure rank-1→3D); at peak intensity the cores sit at δ≈0.32 (TG, planar/sheet) / 0.35 (tubes) / 0.54
+  (helical) — bounded well above one-directional in all flows. So *nothing in the resolved flow forces
+  `δ_Λ→0`* — it runs the other way at the events where a singularity would form. **Synthesis:** therefore
+  `δ_Λ→0` could hold (if at all) only on the **rescaled ancient / Type-I blow-up limit**, not the resolved
+  geometry — linking NS-049 to **NS-048** (the sharp fair question: does the ancient limit one-directionalize
+  even though resolved reconnections drive `δ_Λ` up?). Vacuity cap: this is *resolved* evidence, not proof
+  about the singular limit. Secondary: the depletion lemma is a
   sound-but-unfinalized **skeleton** (his admission; interpolation checks; commutators/harmonic asserted);
   the strict-core "rigidity" is essentially the **definitional** identity `∫χ|ω×e|²=tr(M_Λ)·δ_Λ` (soft once
   `δ_Λ→0`). **Honest reading:** not the unconditional proof its "corners the program" framing implies, but a
