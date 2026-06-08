@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.3.2 — 2026-06-08 — Rung 1 Lean theorems UNIVERSALIZED via Mathlib: axisymmetric structural identities proved ∀ fields (not a monomial grid)
+
+`formalization/lean-mathlib/AxisymUniversal.lean` (+ lakefile target). The Rung-1 upgrade from
+`native_decide`-on-a-monomial-grid to **universally-quantified** theorems over the polynomial ring.
+**Definitional hardening, not PDE progress; `:proved`=0 for the PDE, stays 0.** For ALL
+`u : MvPolynomial (Fin 3) ℚ` (r=X0,z=X1,t=X2), via `pderiv`+`ring`:
+- **`gamma_source_free_operator`** — the Γ source-free operator identity (maximum-principle basis);
+- **`gamma_transport`** — the Γ transport identity (with the above ⇒ `∂_tΓ+b·∇Γ−νL_ΓΓ=0`, source-free);
+- **`omega_operator_transform`** — the `Ω=ω^θ/r` transform: **the `(3/r)∂_r` emerges, `1/r²` cancels**;
+- **`source_chain`** (`∂_z(Γ²)=2Γ∂_zΓ`) + **`z_indep_r_power`** (`∂_z(rᵏf)=rᵏ∂_zf`) ⇒ `S=∂_z(u₁²)`, `u₁=Γ/r²`.
+- **Denominator-clearing:** the `1/r`,`1/r²` identities are stated in `×rᵏ` polynomial form — equivalent to
+  the `1/r` form for `r≠0`, and `∀`-quantified over all polynomial fields (the formal differential-algebraic
+  content; the native_decide file checked only a monomial grid).
+- **Verified** via `lake env lean` against the TCE `lean4-cv` built Mathlib. **Soundness sanity:** a false
+  variant (`2/r ∂_r` for the correct `3/r`) was correctly **rejected** — `ring` reduced the true side to
+  coefficient 3. (Mixed-partial commutativity / Biot–Savart left to the native_decide/Julia/Haskell layers —
+  the former generic, the latter more denominator bookkeeping.)
+- **Both Lean rungs now have universal Mathlib theorems**; all layers (algebraic / type-checked /
+  native-machine / universal-machine) AGREE. `:proved`=0; distance UNTOUCHED.
+
 ## v0.3.1 — 2026-06-08 — Rung 0 Lean theorems UNIVERSALIZED via Mathlib: criticality proved ∀ α,p,q (not just exemplar triples)
 
 Upgraded the Rung-0 Lean rung from concrete-instance `native_decide` to **universally-quantified** theorems.

@@ -16,7 +16,7 @@ analysis — they do not fit the algebra→category rungs and have no Lean subst
 | explore | Python | computational | prototype / discover the identity |
 | **algebraic** | **Julia** | `algebraic` (exact `Rational`/symbolic = proof) | the algebra must close *exactly* |
 | **categorical** | **Haskell** | `type-checked` | the definitions-as-types; structure must type-check |
-| **machine** | **Lean** | `lean-proved` | machine-verified — ✅ Rungs 0–1 core (`native_decide`, hermetic) + Rung 0 **universal** (`∀`, Mathlib) |
+| **machine** | **Lean** | `lean-proved` | machine-verified — ✅ Rungs 0–1 core (`native_decide`, hermetic) + Rungs 0–1 **universal** (`∀`, Mathlib) |
 
 Each rung is a **gate**: an identity that fails to close exactly (Julia) or type-check (Haskell) is caught
 before the expensive Lean step.
@@ -43,7 +43,7 @@ the criticality classification (`[X]=0` critical · `>0` sub · `<0` super):
   supercritical; the critical spaces are scale-invariant). It does **not** verify the full obstruction
   *narrative* (that supercriticality kills energy-only methods — that is NS-008/Tao, an inequality).
 
-### Rung 1 — axisymmetric structural calculus (the NS-048 core) — ✅ Julia + Haskell + **Lean** (core identities)
+### Rung 1 — axisymmetric structural calculus (the NS-048 core) — ✅ Julia + Haskell + **Lean** (`native_decide` core + **universal** Mathlib)
 The load-bearing differential identities the whole NS-048 arc rests on, verified EXACTLY via a tiny
 **hermetic Laurent-polynomial engine** (no CAS dependency — `Symbolics.jl` was *not* needed; the
 identities are formal differential-algebraic identities, exact on Laurent monomials/polynomials):
@@ -64,9 +64,17 @@ identities are formal differential-algebraic identities, exact on Laurent monomi
   swirl source `∂_z((u^θ)²/r)` into `S=(1/r⁴)∂_z(Γ²)`; the pressure drops because `∂_r,∂_z` commute (the curl
   kills `∇p`). **(IV) Biot–Savart:** with the Stokes stream function `ψ` (`u^r=−∂_zψ`, `u^z=(1/r)∂_r(rψ)`),
   `ω^θ=−(∂_r²+(1/r)∂_r−1/r²+∂_z²)ψ` and `∇·b=0` identically.
-- **Both pass and AGREE.** Rung 1 is **complete** at the algebraic/categorical level: the full operator
-  structure of `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` is exact. *Scope:* the structural
-  *definitions/identities/operators* — the algebra the analysis stands on; NOT the inequalities/theorems.
+- `lean/Axisym.lean` — **lean-proved** core (hermetic; `native_decide` over the Laurent engine on a
+  monomial grid: the Γ source-free operator, the `(3/r)∂_r` emergence, the source identities).
+- `lean-mathlib/AxisymUniversal.lean` — **lean-proved, UNIVERSAL** (Mathlib): the load-bearing identities
+  for **all** `u : MvPolynomial (Fin 3) ℚ` — `gamma_source_free_operator`, `gamma_transport`,
+  `omega_operator_transform` (the `(3/r)∂_r` emergence), `source_chain` + `z_indep_r_power`. Stated in
+  denominator-cleared (`×rᵏ`) polynomial form (≡ the `1/r` identity for `r≠0`); proved by `pderiv`+`ring`;
+  verified against Mathlib (a false `2/r`-for-`3/r` variant was correctly rejected). See its README.
+- **All layers AGREE.** Rung 1 is **complete** (algebraic / type-checked / machine / universal-machine for
+  the core; the full operator set incl. Biot–Savart in the first three). The full operator structure of
+  `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` is exact. *Scope:* the structural definitions/identities/operators —
+  the algebra the analysis stands on; NOT the inequalities/theorems.
 
 ### Rung 2+ — the inequalities — ⬜ long-horizon (flagged not-now)
 

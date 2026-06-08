@@ -25,3 +25,7 @@ require mathlib from git
 @[default_target]
 lean_lib «ScalingUniversal» where
   srcDir := "."
+
+@[default_target]
+lean_lib «AxisymUniversal» where
+  srcDir := "."

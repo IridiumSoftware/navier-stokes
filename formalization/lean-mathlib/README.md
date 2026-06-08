@@ -35,9 +35,21 @@ Pinned (lockfile discipline): `lean-toolchain` (v4.30.0-rc2) + `lake-manifest.js
 (Mathlib `5d69f04…` + transitive deps), mirroring TCE `src/lean4-cv` so the populated
 global Mathlib cache (`~/.cache/mathlib`) is reused.
 
-## Rung 1?
-Universal (∀-quantified) Lean theorems for the Rung-1 differential identities would
-need Mathlib's `MvPolynomial`/`Finsupp` + derivation machinery (a larger formalization
-than this linear-arithmetic upgrade). The Rung-1 *core* is already machine-verified by
-`native_decide` in `../lean/Axisym.lean`; a universal Mathlib version is the next
-heavier step if wanted.
+## Rung 1 universal (`AxisymUniversal.lean`) — ✅ done
+The load-bearing axisymmetric structural identities proved for **ALL fields**
+(`∀ u : MvPolynomial (Fin 3) ℚ`, vars r=X0, z=X1, t=X2), via `pderiv` + `ring`:
+- **`gamma_source_free_operator`** — the Γ source-free operator identity (maximum-principle basis);
+- **`gamma_transport`** — the Γ transport identity (with the above ⇒ `∂_tΓ+b·∇Γ−νL_ΓΓ=0`);
+- **`omega_operator_transform`** — the `Ω=ω^θ/r` transform: the **`(3/r)∂_r` emerges**, `1/r²` cancels;
+- **`source_chain`** (`∂_z(Γ²)=2Γ∂_zΓ`) + **`z_indep_r_power`** (`∂_z(rᵏf)=rᵏ∂_zf`) ⇒ the source
+  `S=(1/r⁴)∂_z(Γ²)=∂_z(u₁²)`, `u₁=Γ/r²`.
+
+**Denominator-clearing:** the `1/r`,`1/r²` structural identities are stated in their `×rᵏ` polynomial
+form — equivalent to the `1/r` form wherever `r≠0`, and `∀`-quantified over the polynomial ring (the
+formal differential-algebraic content; the `native_decide` file checks only a monomial grid). Genuine
+mixed-partial commutativity (pressure elimination) and Biot–Savart are covered in the `native_decide` /
+Julia / Haskell layers and not re-done here (the former is generic, the latter needs more denominator
+bookkeeping). **Soundness sanity:** a false variant (`2/r ∂_r` for the correct `3/r`) was correctly
+rejected — `ring` reduced the true side to coefficient 3.
+
+Verified by `lake env lean AxisymUniversal.lean` against the same built Mathlib. `:proved`=0 for the PDE.
