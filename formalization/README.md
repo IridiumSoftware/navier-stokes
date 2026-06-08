@@ -53,11 +53,15 @@ identities are formal differential-algebraic identities, exact on Laurent monomi
 - `axisym/AxisymStructural.hs` — **type-checked / categorical** evidence (base only; the same algebra,
   with `∂_r,∂_z,∂_t` verified to be **derivations** (Leibniz law) on the field-algebra — so the identities
   are equalities of algebra elements).
-- **Both pass and AGREE.** *Scope:* these are the exact structural *definitions/identities* (what `Γ`, `Ω`,
-  `u₁`, `S` are and how they relate) — the algebra the analysis stands on; NOT the inequalities/theorems.
-- *Deferred:* the full `Ω`-equation operator derivation (from the vorticity curl) and the Biot–Savart
-  elliptic operator — the source *mechanism* (II) is verified; the full `Ω`-evolution operator is a heavier
-  symbolic derivation for a later sub-step.
+- **(III) the full `Ω`-evolution operator** (`axisym/axisym_operators.jl` + `axisym/AxisymOperators.hs`):
+  the `ω^θ→Ω` transform cancels the stretching `(u^r/r)ω^θ`, turns `∂_r²+(1/r)∂_r−1/r²+∂_z²` into the
+  `Ω`-operator `∂_r²+(3/r)∂_r+∂_z²` (the `(3/r)∂_r` *emerges*; the `1/r²` cancels), and turns the `ω^θ`
+  swirl source `∂_z((u^θ)²/r)` into `S=(1/r⁴)∂_z(Γ²)`; the pressure drops because `∂_r,∂_z` commute (the curl
+  kills `∇p`). **(IV) Biot–Savart:** with the Stokes stream function `ψ` (`u^r=−∂_zψ`, `u^z=(1/r)∂_r(rψ)`),
+  `ω^θ=−(∂_r²+(1/r)∂_r−1/r²+∂_z²)ψ` and `∇·b=0` identically.
+- **Both pass and AGREE.** Rung 1 is **complete** at the algebraic/categorical level: the full operator
+  structure of `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` is exact. *Scope:* the structural
+  *definitions/identities/operators* — the algebra the analysis stands on; NOT the inequalities/theorems.
 
 ### Rung 2+ — the inequalities — ⬜ long-horizon (flagged not-now)
 

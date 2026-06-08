@@ -1,5 +1,20 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.2.2 — 2026-06-07 — Rung 1 COMPLETE: full Ω-evolution operator + Biot–Savart verified (the (3/r)∂_r emergence, stretching cancellation, S source); Julia + Haskell agree
+
+Completed Rung 1 (the deferred operator pieces). `formalization/axisym/axisym_operators.{jl,hs}` (+ README).
+**Definitional/algebraic hardening, not PDE progress; `:proved`=0, stays 0.** Same hermetic Laurent-poly
+engine (zero deps). Verified the full operator structure of the Ω-equation:
+- **(III) ω^θ→Ω transform:** (a) the pressure drops because `∂_z,∂_r` commute (curl kills `∇p`); (b) the
+  swirl source `∂_z((u^θ)²/r)=(1/r³)∂_z(Γ²)` (centrifugal origin); (c) the **stretching `(u^r/r)ω^θ`
+  cancels** under `ω^θ=rΩ`; (d) **`L_visc(rΩ)=r·L_Ω(Ω)`** — the viscous operator
+  `∂_r²+(1/r)∂_r−1/r²+∂_z² → ∂_r²+(3/r)∂_r+∂_z²` (the **`(3/r)∂_r` emerges**, `1/r²` cancels),
+  monomial-by-monomial; (e) source transform → `S=(1/r⁴)∂_z(Γ²)`.
+- **(IV) Biot–Savart:** stream function `ψ` ⇒ `ω^θ=−(∂_r²+(1/r)∂_r−1/r²+∂_z²)ψ` and `∇·b=0` identically.
+- Julia (Base, **algebraic**) + Haskell (base, **type-checked/categorical**); **both pass and AGREE.**
+- **Rung 1 is now complete** at the algebraic/categorical level — the full operator structure of
+  `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` is exact. Next: Lean (Rung 0→1 machine-verification). `:proved`=0.
+
 ## v0.2.1 — 2026-06-07 — Rung 1 BUILT + verified: axisymmetric structural calculus (Γ source-free, Ω source S=∂_z(u₁²)), exact Julia + Haskell; both agree
 
 Second rung. `formalization/axisym/` (+ README). **Definitional/algebraic hardening, not PDE progress;
