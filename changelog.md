@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.2.0 — 2026-06-07 — Rung 0 BUILT + verified: scaling-criticality calculus, exact in Julia (algebraic) + Haskell (type-checked); both agree
+
+First rung of the formalization ladder. `formalization/scaling/` (+ `formalization/README.md`).
+**Definitional/algebraic hardening, not PDE progress; `:proved`=0 for the PDE, stays 0.** Decisions:
+Rung 0 first; Julia + Haskell this pass (Lean deferred); home = `navier-stokes` formalization sub-track.
+- **`scaling_criticality.jl` (algebraic evidence, Julia Base only):** derives each norm's scaling exponent
+  `[X]` (`‖u_λ‖_X=λ^[X]‖u‖_X`) from the change-of-variables bookkeeping and verifies, as **exact `Rational`
+  identities**: `L³`/`Ḣ^{1/2}` critical (`[X]=0`); `L²` energy **supercritical** (`[X]=−1/2` = the NS-002
+  wall); `L^∞` subcritical; `Ḣ⁰=L²`; the energy gap `[L²]−[Ḣ^{1/2}]=−1/2`; and the anisotropic `|x₃|^α`
+  criticality **`[X]=0 ⇔ 2/q+3/p=1−α`** (WHWY) — checked at genuine weighted-critical/Serrin/control
+  triples. (Caught + fixed my own mislabeled test triple before recording.)
+- **`Scaling.hs` (type-checked evidence, base only):** the same calculus with the **norm taxonomy as a
+  total sum type**, the exponent map total on it, criticality as the kernel-structured classification, plus
+  the `Ḣ⁰=L²` cross-family coherence the types make explicit.
+- **Both pass and AGREE** (identical exponents + classifications) — cross-language verified. Hermetic
+  (zero external deps; Julia 1.12.6 / GHC 9.6.7 pinned in the README).
+- **Scope honesty:** verifies the **scaling-exponent facts underlying** NS-002/NS-034 (energy supercritical;
+  critical spaces scale-invariant) — NOT the full obstruction narrative (that's NS-008/inequalities). Rung
+  1 (axisymmetric `Γ`/`Ω`/source identities) is next. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.99 — 2026-06-07 — Formalization target SCOPED: Python→Julia→Haskell→Lean ladder; tractable = the algebraic IDENTITIES (not the inequalities)
 
 Scoped the verification ladder for hardening the foundation past the C5 social floor.
