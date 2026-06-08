@@ -28,7 +28,14 @@ strict-core rigidity + a final trace-selection problem (his framing: not a compl
 core are unverified — structured-local-coherence caution). Lands on our NS-046/047 frontier; two
 convergences flagged (his weighted/integral depletion = our "must be integral, not pointwise" conclusion;
 his anisotropy trigger vs our helicity/Beltramization trigger). No new *external* citations (his papers
-have no bibliography). `:proved`=0.
+have no bibliography). `:proved`=0. **VERIFIED (engaged the math, line-read I–V,
+`docs/ns049_lockwood_verification.md`):** the whole program is conditional on the anisotropy defect
+vanishing (`δ_Λ→0`), ASSUMED in every theorem (Part III Thm 8.1 `δ≤ε`; Part IV Lemma 3.1 eq 21), never
+derived; the multi-directional (`δ` bounded-below) case is open + unadvertised — and our NS-038
+(intermediate-eigenvector alignment, not frozen-direction) says that unhandled case is the physical one.
+So it's a **conditional anisotropic regularity criterion** (CF-family, weaker integral trigger), NOT the
+unconditional proof its framing implies. Depletion lemma = sound-but-unfinalized skeleton; strict-core =
+definitional `∫χ|ω×e|²=tr·δ`. Sharpest question for Lockwood: what forces `δ_Λ→0` along a blow-up?
 
 **FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 32 entries).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)

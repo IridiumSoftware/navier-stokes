@@ -321,6 +321,22 @@ identification of the admissible trace class," with the depletion lemma claimed 
   controls, not pointwise domination*; (ii) his **anisotropy** trigger (one-directionality → 2D collapse) is
   a different geometry than this program's **helicity/Beltramization** depletion (NS-040/045, `u∥ω`) —
   relation open.
+- **VERIFICATION (2026-06-07, `docs/ns049_lockwood_verification.md`) — engaged the math (line-read I–V).
+  The central conditionality is on `δ_Λ→0`, ASSUMED not derived; the multi-directional case is open and
+  unadvertised.** The two-scale contraction (Part III Thm 8.1) holds only "with `δ_Λ(0,1)≤ε`"; Part IV's
+  Lemma 3.1 (eq 21) converts *absolute* defect smallness to *relative* (`Y_b/Z_n ≤ (ℓM_ω/4m_*)δ_Λ(0,1)`)
+  using the Case-B enstrophy lower bound, but the `→0` is still driven by the external `δ_Λ(0,1)→0`. So the
+  program proves a **conditional** statement (asymptotically one-directional intense vorticity ⇒ regular);
+  the `δ_Λ` bounded-below (multi-directional) case is nowhere addressed — and **our own NS-038**
+  (intermediate-eigenvector alignment, sheet/tube reconnection, NOT frozen-direction) is direct evidence
+  that this *unhandled* case is the physically-indicated geometry. Secondary: the depletion lemma is a
+  sound-but-unfinalized **skeleton** (his admission; interpolation checks; commutators/harmonic asserted);
+  the strict-core "rigidity" is essentially the **definitional** identity `∫χ|ω×e|²=tr(M_Λ)·δ_Λ` (soft once
+  `δ_Λ→0`). **Honest reading:** not the unconditional proof its "corners the program" framing implies, but a
+  genuine **conditional anisotropic regularity criterion** in the Constantin–Fefferman family with a
+  *weaker, integral* one-directionality trigger — citable as such, NOT the prize. (My conditionality finding
+  is C3-on-line-read; I may be missing a `δ_Λ→0` derivation — that is the sharpest open question to put to
+  Lockwood.) Status stays **C0/C1 `:open` UNVERIFIED**; `:proved`=0.
 - **CAUTION (structured-local-coherence, per the meta-review):** a self-contained, internally-coherent,
   AI-assisted reduction claiming to corner NS to a final selection problem is precisely the export-surplus
   hazard this program names. The depletion-lemma and strict-core "resolutions" require **independent

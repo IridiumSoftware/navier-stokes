@@ -1,5 +1,38 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.92 — 2026-06-07 — Engaged the Lockwood math (line-read I–V): the program is CONDITIONAL on δ_Λ→0 (assumed, not derived); a conditional anisotropic criterion, not the unconditional proof its framing implies
+
+Adversarial line-read of *Singularity Surgery* Parts I–V (the substantive engagement flagged in v0.1.91).
+New memo `docs/ns049_lockwood_verification.md`; NS-049's caution sharpened from generic "unverified" to the
+specific finding; dashboard note. **`:proved`=0; this is verification of an external object, not PDE
+progress.** Posture caveat recorded: I am an AI reading unrefereed AI-assisted working papers — the
+validator-confirmation-bias discipline applies to *me*; findings are framed as questions, not verdicts.
+
+**Headline (C3 on line-read of the stated hypotheses).** The whole program is conditional on the weighted
+anisotropy defect vanishing, **`δ_Λ(0,1)→0`, ASSUMED in every theorem, never derived:** Part III Thm 8.1's
+two-scale contraction holds only "with `δ_Λ(0,1)≤ε`"; Part IV Lemma 3.1 (eq 21) converts *absolute* defect
+smallness to *relative* (`Y_b/Z_n ≤ (ℓM_ω/4m_*)δ_Λ(0,1)`) via the Case-B enstrophy lower bound, but the
+`→0` is still driven by the external `δ_Λ(0,1)→0`. The complementary **`δ_Λ` bounded-below
+(multi-directional intense vorticity)** case is nowhere addressed and not on his remaining-problem list —
+and **our NS-038** (intermediate-eigenvector alignment, sheet/tube reconnection, NOT a frozen direction) is
+direct evidence that this *unhandled* case is the physically-indicated geometry.
+
+**Secondary findings.** The depletion lemma is a **sound-but-unfinalized skeleton** (his own framing —
+mechanism clean, interpolation arithmetic checks `3/10+3/10+2/5=1` etc., CZ at `L^{10/3}` not the `L^∞`
+trap; but cutoff commutators "harmless" + harmonic remainder "lower-order" are asserted, not estimated).
+The strict-core "rigidity" is essentially the **definitional** identity `∫χ|ω×e|²=tr(M_Λ)·δ_Λ` (so `δ_Λ→0`
+⟺ weighted-`L²` alignment; soft once that holds — Lockwood half-agrees, "no longer a global regularity
+miracle"). Part V's selection problem is downstream of and conditional on `δ_Λ→0`.
+
+**Honest verdict.** Read as unconditional regularity, "Part I corners the program" overstates it (unremoved,
+physically-suspect `δ_Λ→0` + two skeletons). Read as a **conditional anisotropic regularity criterion**
+(small weighted anisotropy defect ⇒ regular), it is a **genuine, citable contribution** in the
+Constantin–Fefferman family, with a *weaker, integral* one-directionality trigger than CF's pointwise
+Lipschitz-ξ — NOT the Millennium problem. NS-049 stays C0/C1 `:open` UNVERIFIED; caution sharpened to
+"conditional on an underived, physically-suspect defect-vanishing hypothesis." Three sharp questions for
+Lockwood recorded (conditional-vs-unconditional; what forces `δ_Λ→0`; does the `δ_Λ→0` regime capture the
+DNS geometry) — the brief's outreach framing left to Aaron's call. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.91 — 2026-06-07 — Lockwood "Singularity Surgery" read + added as NS-049 (live/conditional, C0-C1 UNVERIFIED); external-review brief prepared with a related-work bridge
 
 Prep for ③ external forcing — the obstruction map / generator-class is going to **James Lockwood**, who
