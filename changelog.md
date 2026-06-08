@@ -1,5 +1,32 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.96 — 2026-06-07 — C5 adversarial pass on |x₃|^α + Type-II rates: both SURVIVED + faithful use; hard/machine verification = NONE exists (the social-verification floor, stated plainly)
+
+C5 pass (high bar: try to DISPROVE; audit for HARD verification — formal/machine/CAP/rigorous-numerics vs
+SOCIAL = peer-review+citation; scope-check) on the two recent load-bearing results. Four hostile/audit
+agents. `docs/c5_adversarial_pass_2026-06-07.md`. **Foundation-hardening, not PDE progress; `:proved`=0.**
+- **`|x₃|^α` (Wang–Huang–Wei–Yu Thm 1.4): SURVIVED.** Adversary independently re-derived the scaling, the
+  `α<1/4` constraint (range-choice, not a ceiling), the Gronwall closing (criticality used correctly,
+  nothing dropped). **Use FAITHFUL** — the proof is forward-Gronwall-from-`t=0` (anchored to `u₀∈H²`), so
+  "doesn't transfer to ancient" is structurally correct. (`u₀∈H²` is a real hypothesis — a finite-time
+  smoothness criterion, not bare Leray–Hopf; immaterial to our use.)
+- **Type-II rates (Tao triple-log + Palasek double-log): SURVIVED.** Tao's three logs all load-bearing
+  (the `d≥4` quadruple-log is the decisive consistency check); genuine lower bound; `Thm 1.2⇒1.4` verified.
+  Palasek double-log confirmed (plain weak-`L³`, axisymmetric-only). **Use FAITHFUL** ("partial exclusion,
+  qualitative gap, diverges arbitrarily slowly" = exact content); keep the double-log "axisym weak-`L³`"-tagged.
+- **HARD-VERIFICATION ANSWER (the user's key question): NONE.** No formal/machine (Lean NS = a
+  problem-statement scaffold only; no Carleman/parabolic-NS in any proof assistant), no CAP (non-explicit
+  constants), and for `|x₃|^α` not even an independent re-proof (same-author JMAA 2023). Type-II has a
+  *genuine partial independent cross-check of the slow-divergence PHENOMENON* (Palasek's distinct method),
+  not of Tao's exact constant. Both honestly **declined to fake a verdict** on the deepest cores (Carleman
+  estimates, near-axis GN, pigeonholing constants — beyond text-level checking).
+**The epistemic floor, stated plainly:** the obstruction manifold's load-bearing foundation is **socially
+verified**, not machine-verified; the C5 pass confirms internal consistency + faithful use but cannot
+substitute for formal verification that does not exist (a multi-year Lean+mathlib effort, field-wide, not
+a session task). Honest tier going forward: **"C5-adversarial-survived; hard-verification = none (social
+floor)."** Pass was INTERNAL (weaker than external by our own confirmation-bias rule). `:proved`=0;
+distance UNTOUCHED.
+
 ## v0.1.95 — 2026-06-07 — NRŠ + ESS originals LINE-READ: both global anchors C2→C3; no load-bearing citation now rests on an un-line-read C2
 
 Line-read the two previously-paywalled/Russian originals (the last load-bearing C2s). `docs/nrs_ess_verification_2026-06-07.md`.
