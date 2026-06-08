@@ -1,5 +1,32 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.93 — 2026-06-07 — Type-II branch MAPPED (exclusion ⊕ construction, primary-read): both sides OPEN; it is the complement of the program's Type-I machinery
+
+Engaged the Type-II branch — the harder half of the exclusion program (machinery study M7), the part the
+NS-048 ancient-Liouville machinery structurally CANNOT reach. `docs/ns048_type_ii_frontier.md`. **No
+theorem; `:proved`=0; NS-048 unchanged.** Two parallel primary-source sweeps (mostly C3):
+- **Exclusion side (quantitative regularity = partial Type-II exclusion):** ESS (singularity ⇒
+  `‖u‖_{L³}→∞`); Tao 2019 **triple-log** rate; Barker–Prange **single-log + parabolic-localization**
+  (Type-I); Palasek **double-log** (axisym weak-`L³` / weighted). **THE GAP is qualitative:** rates diverge
+  *arbitrarily slowly* (loglog/logloglog); excluding Type-II needs forcing the rate faster than the
+  equation permits — the whole open problem. General Type-II exclusion = NONE (only conditional
+  scenario-exclusions, Seregin). *(Honest correction: my "near-`(T−t)^{−1/2+}` axisym exclusion" intuition
+  was wrong — it's double-log; conflated with the Leray Type-I criterion.)*
+- **Construction side: NO rigorous true-NS blowup (class (a) = NONE).** Hou = numerical only (2024 needs
+  `d≈3.188`); Chen–Hou CAP = Euler/Boussinesq-WITH-BOUNDARY (not viscous NS); rigorous blowups (Tao
+  averaged, Córdoba forced+fractional, Q.Zhang forced, Li–Sinai complex) are all DIFFERENT equations;
+  modulation toolkit (Raphaël–Schweyer/KST/MRR) is other-equations. **Viscosity is the obstacle.**
+- **Structural observations:** (i) the blowup *rate* is the single shared object (exclusion `rate≥slow` vs
+  construction `rate=faster`; the gap IS the problem); (ii) **viscosity is tool-AND-obstacle** (supplies
+  exclusion rate bounds — `d≥4` worse = fewer Leray intervals — and is the construction barrier); (iii)
+  **axisymmetric is the sharpest arena both sides**; (iv) NS-048's machinery has a **Type-I ceiling** —
+  Type-II is its complement (global statement). Type-II is where a real NS singularity, if any, MUST live
+  (ESS).
+- **Tractable entry (named, research-scale):** push the axisym weak-`L³` double-log → single-log / critical
+  Besov `Ḃ^{-1}_{∞,∞}` (Palasek's explicit conjecture, 2210.10030).
+Both sides genuinely open; the program maps Type-II precisely but cannot resolve it. Search-space
+compression, honestly scoped. SPEC NS-048 pointer added. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.92 — 2026-06-07 — Engaged the Lockwood math (line-read I–V): the program is CONDITIONAL on δ_Λ→0 (assumed, not derived); a conditional anisotropic criterion, not the unconditional proof its framing implies
 
 Adversarial line-read of *Singularity Surgery* Parts I–V (the substantive engagement flagged in v0.1.91).

@@ -1163,3 +1163,13 @@ mechanism** that prevents different rescaled subsequences converging to differen
   **15th over-reach, retired.** **NS-048 session-scale attacks now exhausted** — every concrete attack
   reduces to the *bare* conjecture (`Γ∈L^∞`) or the *un-mechanised* `S`-control route, both needing a new
   idea. `:proved`=0.
+- **Type-II branch MAPPED (2026-06-07): `docs/ns048_type_ii_frontier.md`** (changelog v0.1.93). The harder
+  half of the exclusion program (M7), the part the ancient-Liouville machinery **structurally cannot reach**
+  (Type-II = the complement of the C3 Type-I⟺ancient bridge; the program has a **Type-I ceiling**). Both
+  sides primary-read (mostly C3): **exclusion** = the quantitative-regularity rate bounds (Tao triple-log,
+  Palasek axisym double-log) — partial only, the gap to full exclusion is *qualitative* (rates diverge
+  arbitrarily slowly); **construction** = **NO rigorous true-NS blowup** (Hou numerical; Chen–Hou CAP is
+  Euler/Boussinesq-with-boundary; modified/forced/complex-NS are different equations). Structural reads:
+  the *rate* is the shared object; **viscosity is tool-and-obstacle**; axisymmetric is the sharpest arena
+  both sides. Tractable entry (research-scale): the axisym double-log → Besov rate (Palasek conjecture).
+  Both sides OPEN. `:proved`=0.
