@@ -1,5 +1,54 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.95 — 2026-06-07 — NRŠ + ESS originals LINE-READ: both global anchors C2→C3; no load-bearing citation now rests on an un-line-read C2
+
+Line-read the two previously-paywalled/Russian originals (the last load-bearing C2s). `docs/nrs_ess_verification_2026-06-07.md`.
+**Foundation-hardening, not PDE progress; `:proved`=0.** Both promote to **C3**:
+- **NRŠ (Acta Math. 176, 1996) → C3** — fetched the genuine Acta scan via **Project Euclid open access**.
+  Thm 1 (p.291): weak `U∈L³(ℝ³)⇒U≡0`; the `H=½|U|²+P+a(y·U)` max-principle + `L³`→`O(|y|⁻²)`-decay (CKN
+  ε-reg) + energy identity, all read. **Confirms our records:** hypothesis is exactly `L³`; the
+  local-energy case is explicitly LEFT OPEN (p.284) = genuinely Tsai's domain. ("Backward" is a downstream
+  adjective; substance = Thm 1.)
+- **ESS (Russ. Math. Surveys 58, 2003) → C3** — read the authors' **verbatim English version** (UMN
+  Conservancy 11299/3858); published-RMS metadata (title/abstract/TOC) visually confirmed (mathnet.ru;
+  prose is legacy-font mojibake). **Endpoint space confirmed `L_{3,∞}` (weak-`L³`), not `L³`** (Thm 1.3);
+  the §3 blow-up→ancient-limit + §4 unique-continuation + §5 backward-uniqueness + §6 Carleman structure
+  confirmed; the original uses a blow-up/compactness step (vs Tao's quantitative-Carleman-only).
+**Net:** of the five load-bearing global anchors — NS-002 (self-derivable via NS-034), **NS-005 ESS (C3
+now)**, NS-006 CKN (C2 statement, mainstream; C1 `ε₀` constants unused), **NS-007 NRŠ (C3 now)**, NS-008
+Tao (result C3, scope C2) — **none now rests on an un-corroborated, un-line-read C2.** The obstruction
+manifold's load-bearing foundation is C3 (or self-derivable / mainstream-statement) end to end. Updated:
+audit rows 2/6, Type-II §7. `:proved`=0; distance UNTOUCHED.
+
+## v0.1.94 — 2026-06-07 — Probed Lockwood's δ_Λ→0 internally: the resolved DNS drives the anisotropy defect UP at reconnection, not toward 0 — the question reduces to the ancient/Type-I limit (links NS-049→NS-048)
+
+Internal DNS probe of the NS-049 verification's sharpest question — "what forces `δ_Λ→0` along a blow-up?".
+New `scripts/ns049_anisotropy_defect_probe.jl` (+ `.out.txt`), companion
+`docs/ns049_anisotropy_defect_companion.md`; NS-049 verification entry + memo Q2 + dashboard sharpened.
+Within-truncation witness (Re=1600, REGULAR, vacuity cap); NOT the PDE; `:proved`=0; prize UNTOUCHED.
+
+**Object:** Lockwood's defect `δ_Λ=1−λ_max(M_Λ)/tr(M_Λ)`, `M_Λ=Σ_{|ω|≥Λ}ω⊗ω` (sign-blind), over the top-`q`
+`|ω|` set (`q∈{1,0.1,0.01,0.001}`), per time. N=1 gate passes (synthetic one-directional δ=0.000 / planar
+0.490 / isotropic 0.654).
+
+**Result — the resolved dynamics drive `δ_Λ` UP at the intense events, not toward 0.** TUBES (Kerr
+reconnection, the most singular-like event) *starts* one-directional (anti-parallel tubes ⇒ rank-1 `M`,
+δ≈0.008, the sign-blindness in Lockwood's favour) and `δ_Λ` of the top-0.1% cores then **rises 0.008 → 0.35
+(winf peak, t=5.5) → 0.59** as the reconnection bridge adds the perpendicular directions (structure rank-1
+→ 3D, λmax/tr 0.99→0.41). At peak intensity the cores sit at δ≈0.32 (TG — planar/sheet, rank-2) / 0.35
+(tubes) / 0.54 (helical) — bounded well above one-directional in every flow. Consistent with NS-038's
+intermediate-eigenvector alignment: the physically-realized intense geometry is multi-directional.
+
+**Bearing.** The internal answer to "what forces `δ_Λ→0`?" is: *nothing in the resolved flow — it runs the
+other way at the events where a singularity would form.* This sharpens NS-049 from "the `δ_Λ→0` hypothesis
+is assumed, not derived" to "…and the DNS drives `δ_Λ` up at intense events." **Synthesis:** therefore
+`δ_Λ→0` could hold (if at all) only on the **rescaled ancient / Type-I blow-up limit**, not the resolved
+geometry — so Lockwood's anisotropy hypothesis is really a claim about the ancient solution's directional
+structure, **linking NS-049 to NS-048**. The precise, fair, non-dismissive question for Lockwood: *does the
+Type-I rescaled limit one-directionalize even though resolved reconnections drive `δ_Λ` up?* **Vacuity cap
+(the steelman for him):** resolved evidence, NOT proof about the singular limit; N=64 coarse (trend
+robust). Brief outreach framing still left to Aaron's call. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.93 — 2026-06-07 — Type-II branch MAPPED (exclusion ⊕ construction, primary-read): both sides OPEN; it is the complement of the program's Type-I machinery
 
 Engaged the Type-II branch — the harder half of the exclusion program (machinery study M7), the part the

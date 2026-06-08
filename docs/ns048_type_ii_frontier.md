@@ -133,8 +133,9 @@ which paradigm is needed, **not** a theorem — search-space compression, honest
 ## 7. Sources + flags (C0–C5)
 
 **Exclusion (C3, primary-read):** Tao 1908.04958; Barker–Prange 2003.06717 + survey 2211.16215; Palasek
-2210.10030 / 2101.08586 / 2111.08991; Seregin 2402.13229 / 2507.08733. **ESS 2003** statement C3 (via
-Tao), original proof **C1** (Russian, unread).
+2210.10030 / 2101.08586 / 2111.08991; Seregin 2402.13229 / 2507.08733. **ESS 2003** (`L_{3,∞}` endpoint)
+**C3** — *proof line-read 2026-06-07* (`docs/nrs_ess_verification_2026-06-07.md`), via the authors'
+verbatim English version + published-RMS metadata confirmed.
 **Construction (C3, primary-read):** Hou 2107.06509, 2405.10916; Chen–Hou 2210.07191 (Part II SIAM MMS
 **C2**, via publisher summary); Tao 1402.0290; Córdoba–MZ–Zheng 2407.06776; Q. Zhang 2411.13896; Li–Sinai
 1702.07139; Raphaël–Schweyer 1301.1859; gCLM 2305.05895 (**Huang et al.**, not Chen–Hou).
