@@ -16,14 +16,14 @@ analysis — they do not fit the algebra→category rungs and have no Lean subst
 | explore | Python | computational | prototype / discover the identity |
 | **algebraic** | **Julia** | `algebraic` (exact `Rational`/symbolic = proof) | the algebra must close *exactly* |
 | **categorical** | **Haskell** | `type-checked` | the definitions-as-types; structure must type-check |
-| machine | Lean | `lean-proved` | the machine-verified theorem (deferred) |
+| **machine** | **Lean** | `lean-proved` | the machine-verified theorem (`native_decide`) — ✅ Rungs 0–1 core |
 
 Each rung is a **gate**: an identity that fails to close exactly (Julia) or type-check (Haskell) is caught
 before the expensive Lean step.
 
 ## Status
 
-### Rung 0 — scaling-criticality calculus (NS-034 / NS-002 skeleton) — ✅ Julia + Haskell (Lean deferred)
+### Rung 0 — scaling-criticality calculus (NS-034 / NS-002 skeleton) — ✅ Julia + Haskell + **Lean**
 The exact scaling exponents `[X]` (defined by `‖u_λ‖_X = λ^[X]‖u‖_X` under `u_λ(x,t)=λ^f u(λx,λ²t)`) and
 the criticality classification (`[X]=0` critical · `>0` sub · `<0` super):
 - `L³` and `Ḣ^{1/2}` **critical** (`[X]=0`); `L²` (energy) **supercritical** (`[X]=−1/2`, the NS-002 wall);
@@ -38,7 +38,7 @@ the criticality classification (`[X]=0` critical · `>0` sub · `<0` super):
   supercritical; the critical spaces are scale-invariant). It does **not** verify the full obstruction
   *narrative* (that supercriticality kills energy-only methods — that is NS-008/Tao, an inequality).
 
-### Rung 1 — axisymmetric structural calculus (the NS-048 core) — ✅ Julia + Haskell (Lean deferred)
+### Rung 1 — axisymmetric structural calculus (the NS-048 core) — ✅ Julia + Haskell + **Lean** (core identities)
 The load-bearing differential identities the whole NS-048 arc rests on, verified EXACTLY via a tiny
 **hermetic Laurent-polynomial engine** (no CAS dependency — `Symbolics.jl` was *not* needed; the
 identities are formal differential-algebraic identities, exact on Laurent monomials/polynomials):
@@ -67,8 +67,14 @@ identities are formal differential-algebraic identities, exact on Laurent monomi
 
 ## Run
 ```
-julia formalization/scaling/scaling_criticality.jl      # algebraic (exact Rational)
-runghc formalization/scaling/Scaling.hs                  # type-checked
+julia formalization/scaling/scaling_criticality.jl      # Rung 0 algebraic (exact Rational)
+runghc formalization/scaling/Scaling.hs                  # Rung 0 type-checked
+julia formalization/axisym/axisym_structural.jl         # Rung 1 algebraic (Γ source-free, source S)
+julia formalization/axisym/axisym_operators.jl          # Rung 1 algebraic (Ω-operator, Biot–Savart)
+runghc formalization/axisym/AxisymStructural.hs         # Rung 1 type-checked (derivations)
+runghc formalization/axisym/AxisymOperators.hs          # Rung 1 type-checked
+lean   formalization/lean/Scaling.lean                  # Rung 0 lean-proved (native_decide)
+lean   formalization/lean/Axisym.lean                   # Rung 1 lean-proved core (native_decide)
 ```
 Both exit non-zero on any identity failing to close.
 
@@ -76,6 +82,9 @@ Both exit non-zero on any identity failing to close.
 - **Julia 1.12.6** — Base only, no external packages (no `Manifest.toml` needed; nothing to pin beyond the
   version).
 - **GHC / runghc 9.6.7** — `base` only (no Cabal deps).
+- **Lean 4.30.0** — `import Std` (bundled with the toolchain; **no Mathlib, no external Batteries fetch**);
+  facts proved by `native_decide`. Pin: `formalization/lean/lean-toolchain`. *(`ℚ` works as `Rat`; Lean's
+  `Rat` convention `x/0=0` is exactly our `1/∞=0` ∞-sentinel.)*
 - **Both rungs are zero-dependency** (Base/base only) — `Symbolics.jl` was deliberately *avoided* in favor
   of a tiny hermetic Laurent-polynomial engine, keeping the whole track dependency-free. (A future heavier
   symbolic derivation — e.g. the full `Ω`-evolution operator — may warrant `Symbolics.jl` under a pinned

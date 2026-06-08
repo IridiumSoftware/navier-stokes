@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.3.0 — 2026-06-08 — Lean rung DONE: Rungs 0–1 machine-verified (native_decide); full Python→Julia→Haskell→Lean ladder realized for the foundational pieces
+
+The machine-verification (`lean-proved`) capstone. `formalization/lean/Scaling.lean` + `Axisym.lean`.
+**Definitional hardening, not PDE progress; `:proved`=0 for the PDE, stays 0.** Hermetic — `import Std`
+ships with the Lean 4.30.0 toolchain (**no Mathlib, no external Batteries fetch**); facts proved by
+`native_decide` (kernel-checked native evaluation). (Lean's `Rat` convention `x/0=0` *is* our `1/∞=0`
+∞-sentinel — a free coincidence.)
+- **Rung 0 (`Scaling.lean`):** the scaling-criticality theorems — `L³`/`Ḣ^{1/2}` critical, `L²` energy
+  **supercritical** (NS-002), `L^∞` sub, `Ḣ⁰=L²`, the energy gap, and the `|x₃|^α` criticality at the
+  weighted-critical / Serrin / control triples — all `native_decide`.
+- **Rung 1 (`Axisym.lean`):** ported the tiny Laurent-polynomial engine to Lean and machine-verified the
+  load-bearing core: **(I-op) `L_Γ(r u^θ)=r·lap_ang(u^θ)`** (Γ source-free operator, monomial-by-monomial
+  ⇒ all fields), **(III-d) `L_visc(rΩ)=r·L_Ω(Ω)`** (the `(3/r)∂_r` emergence), and the source identities
+  `(1/r⁴)∂_z(Γ²)=(2Γ/r⁴)∂_zΓ=∂_z(u₁²)`. (The full identity set remains in the Julia/Haskell layers; the
+  Lean covers the load-bearing core.)
+- **The full ladder Python→Julia→Haskell→Lean is now realized for both foundational rungs** (scaling
+  calculus + axisymmetric structural calculus). Three independent layers (algebraic / type-checked /
+  machine) AGREE. *Scope:* the structural definitions/identities are now `lean-proved`; the inequalities/
+  theorems (Rung 2) remain the long-horizon. `:proved`=0; distance UNTOUCHED.
+
 ## v0.2.2 — 2026-06-07 — Rung 1 COMPLETE: full Ω-evolution operator + Biot–Savart verified (the (3/r)∂_r emergence, stretching cancellation, S source); Julia + Haskell agree
 
 Completed Rung 1 (the deferred operator pieces). `formalization/axisym/axisym_operators.{jl,hs}` (+ README).
