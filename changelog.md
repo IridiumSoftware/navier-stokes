@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.4.1 — 2026-06-08 — Rung 2 bite 2: weak-Lᵖ quasinorm properties (MemWLp, monotonicity, quasi-triangle inequality) machine-verified
+
+Extended `formalization/lean-mathlib/WeakLp.lean` with the weak-Lᵖ quasinorm's core properties.
+**Library infrastructure; `:proved`=0 for the PDE.**
+- **`MemWLp f p μ`** — weak-Lᵖ membership predicate (AE-strongly-measurable + finite `wnorm`), mirroring
+  Mathlib's `MemLp`.
+- **`wnorm_mono`** — monotonicity in the pointwise enorm (via `gcongr` reducing the superlevel-set measure
+  to the pointwise inequality).
+- **`wnorm_add_le`** — the **quasi-triangle inequality** `‖f+g‖_{p,∞} ≤ 2(‖f‖_{p,∞}+‖g‖_{p,∞})` for
+  `1 ≤ p < ∞` (weak-Lᵖ is a *quasi*-normed space, not normed). Proof: the superlevel set of `f+g` at `t`
+  splits into the half-level sets of `f`,`g` (`{t≤‖f+g‖ₑ} ⊆ {t/2≤‖f‖ₑ}∪{t/2≤‖g‖ₑ}`), then measure
+  subadditivity + `ENNReal.rpow_add_le_add_rpow` (rpow subadditivity for exponent `1/p ≤ 1`) + the
+  `t=2·(t/2)` rescaling against the sup.
+- Verified via `lake env lean` against the TCE `lean4-cv` Mathlib; warning-free. *Next:* Marcinkiewicz
+  interpolation → Besov/Littlewood–Paley → Carleman. `:proved`=0; distance UNTOUCHED.
+
 ## v0.4.0 — 2026-06-08 — Rung 2 STARTED: substrate survey corrects the "multi-year, field-wide" over-estimate + first library bite (weak-Lᵖ / Lorentz L^{p,∞}) machine-verified
 
 **Substrate survey (web + grep of the actual Mathlib source)** corrected my earlier over-statement: NOT

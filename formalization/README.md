@@ -85,13 +85,14 @@ Moser regularity (Armstrong–Kempe 2026, `github.com/scottnarmstrong/DeGiorgi`)
 statement (`lean-dojo/LeanMillenniumPrizeProblems`), and the distribution-function/Chebyshev machinery
 (`mul_meas_ge_le_pow_eLpNorm'`). **Confirmed gaps** (each a discrete, load-bearing library addition):
 Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Hopf weak-solution theory.
-- **First bite ✅ `lean-mathlib/WeakLp.lean`** — the **weak-Lᵖ (Lorentz `L^{p,∞}`) quasinorm** `wnorm` +
-  the foundational **`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm`, proved from `mul_meas_ge_le_pow_eLpNorm'`.
-  Load-bearing: weak-`L³` is where the Ożański–Palasek double-log rate lives; reusable across harmonic
-  analysis. Verified against Mathlib. (Upstreamable to Mathlib — no existing `wnorm`/`weakLp`/`MemWLp`.)
-- *Next bites (priority order):* weak-Lᵖ quasinorm-properties + Marcinkiewicz interpolation → Besov/
-  Littlewood–Paley → Carleman. `:proved`=0 for the PDE throughout — these are library additions, not NS
-  theorems.
+- **First bite ✅ `lean-mathlib/WeakLp.lean`** — the **weak-Lᵖ (Lorentz `L^{p,∞}`) quasinorm** `wnorm`, the
+  membership predicate `MemWLp`, and: the **`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm` (from
+  `mul_meas_ge_le_pow_eLpNorm'`), **monotonicity** `wnorm_mono`, and the **quasi-triangle inequality**
+  `wnorm_add_le` (`‖f+g‖_{p,∞} ≤ 2(‖f‖+‖g‖)`, `1≤p<∞` — weak-Lᵖ is a *quasi*-normed space). Load-bearing:
+  weak-`L³` is where the Ożański–Palasek double-log rate lives; reusable across harmonic analysis. Verified
+  against Mathlib. (Upstreamable — no existing `wnorm`/`weakLp`/`MemWLp`.)
+- *Next bites (priority order):* Marcinkiewicz interpolation → Besov/Littlewood–Paley → Carleman.
+  `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run
 ```

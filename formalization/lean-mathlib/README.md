@@ -61,8 +61,11 @@ Verified by `lake env lean AxisymUniversal.lean` against the same built Mathlib.
 A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is already formalized
 (Sobolev + Gagliardo–Nirenberg–Sobolev in Mathlib core; De Giorgi–Nash–Moser regularity, Armstrong–Kempe
 2026; Fefferman's NS Millennium statement). Remaining gaps are discrete library additions. **First bite:**
-- **`WeakLp.lean`** — the **weak-Lᵖ (Lorentz `L^{p,∞}`) quasinorm** `wnorm` and the foundational
-  **`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm`, proved from Mathlib's Chebyshev–Markov
-  `mul_meas_ge_le_pow_eLpNorm'`. A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing
+- **`WeakLp.lean`** — the **weak-Lᵖ (Lorentz `L^{p,∞}`) quasinorm** `wnorm`, the membership predicate
+  `MemWLp`, and theorems: the foundational **`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm` (from Mathlib's
+  Chebyshev–Markov `mul_meas_ge_le_pow_eLpNorm'`); **monotonicity** `wnorm_mono`; and the
+  **quasi-triangle inequality** `wnorm_add_le` (`‖f+g‖_{p,∞} ≤ 2(‖f‖_{p,∞}+‖g‖_{p,∞})` for `1≤p<∞` —
+  weak-Lᵖ is a *quasi*-normed space; proved via the `t/2`-split + measure subadditivity +
+  `ENNReal.rpow_add_le_add_rpow`). A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing
   (weak-`L³` = where Ożański–Palasek's double-log rate lives) and reusable (Marcinkiewicz interpolation).
-  Upstreamable. Next: quasinorm properties → interpolation → Besov/Littlewood–Paley → Carleman.
+  Upstreamable. Next: Marcinkiewicz interpolation → Besov/Littlewood–Paley → Carleman.
