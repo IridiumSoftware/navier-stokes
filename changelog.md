@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.2.1 — 2026-06-07 — Rung 1 BUILT + verified: axisymmetric structural calculus (Γ source-free, Ω source S=∂_z(u₁²)), exact Julia + Haskell; both agree
+
+Second rung. `formalization/axisym/` (+ README). **Definitional/algebraic hardening, not PDE progress;
+`:proved`=0 for the PDE, stays 0.** Verified the load-bearing differential identities of the NS-048 core
+EXACTLY via a **hermetic tiny Laurent-polynomial engine** (no CAS — `Symbolics.jl` deliberately avoided;
+the identities are formal differential-algebraic, exact on Laurent monomials/polys; both layers
+zero-dependency):
+- **(I) the swirl `Γ=r u^θ` obeys a SOURCE-FREE transport–diffusion equation** (the maximum-principle
+  basis): operator identity `L_Γ(r u^θ)=r·lap_ang(u^θ)` (proved monomial-by-monomial ⇒ all fields) +
+  transport identity, closed by the `u^θ` momentum equation ⇒ `∂_tΓ+b·∇Γ−ν L_Γ Γ=0`.
+- **(II) the sole `Ω=ω^θ/r` source** `S=(1/r⁴)∂_z(Γ²)=(2Γ/r⁴)∂_zΓ=∂_z(u₁²)` (`u₁=Γ/r²`) + its
+  **centrifugal origin** `(1/r)∂_z((u^θ)²/r)=(1/r⁴)∂_z((ru^θ)²)`.
+- `axisym_structural.jl` (Julia Base, **algebraic** evidence) + `AxisymStructural.hs` (base,
+  **type-checked/categorical** — the same algebra with `∂_r,∂_z,∂_t` verified to be **derivations**
+  (Leibniz law), so the identities are equalities of algebra elements). **Both pass and AGREE.**
+- *Scope:* the exact structural definitions/identities (what `Γ`,`Ω`,`u₁`,`S` are + how they relate) —
+  the algebra the analysis stands on; NOT the inequalities/theorems. *Deferred:* the full `Ω`-evolution
+  operator (vorticity curl) + Biot–Savart elliptic operator (the source *mechanism* (II) is verified; the
+  full operator is a heavier symbolic step). Lean deferred per the depth decision. `:proved`=0.
+
 ## v0.2.0 — 2026-06-07 — Rung 0 BUILT + verified: scaling-criticality calculus, exact in Julia (algebraic) + Haskell (type-checked); both agree
 
 First rung of the formalization ladder. `formalization/scaling/` (+ `formalization/README.md`).

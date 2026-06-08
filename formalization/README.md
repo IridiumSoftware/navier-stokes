@@ -38,9 +38,26 @@ the criticality classification (`[X]=0` critical · `>0` sub · `<0` super):
   supercritical; the critical spaces are scale-invariant). It does **not** verify the full obstruction
   *narrative* (that supercriticality kills energy-only methods — that is NS-008/Tao, an inequality).
 
-### Rung 1 — axisymmetric structural calculus (the NS-048 core) — ⬜ next
-The `Γ` (source-free) / `Ω` (source `S=∂_z(u₁²)`) / Biot–Savart identities. Already C4-re-derived; the
-ladder will pin down every axisymmetric definition. Julia (`Symbolics.jl`, will add a pinned dep) + Haskell.
+### Rung 1 — axisymmetric structural calculus (the NS-048 core) — ✅ Julia + Haskell (Lean deferred)
+The load-bearing differential identities the whole NS-048 arc rests on, verified EXACTLY via a tiny
+**hermetic Laurent-polynomial engine** (no CAS dependency — `Symbolics.jl` was *not* needed; the
+identities are formal differential-algebraic identities, exact on Laurent monomials/polynomials):
+- **(I) the swirl `Γ=r u^θ` obeys a SOURCE-FREE transport–diffusion equation** (the maximum-principle
+  basis) — via the operator identity `L_Γ(r u^θ) = r·lap_ang(u^θ)` (proved *monomial-by-monomial* ⇒ all
+  fields, by linearity) + the transport identity `transport(Γ)=r·(D/Dt+Coriolis)u^θ`, closed by the `u^θ`
+  momentum equation. So `∂_tΓ+b·∇Γ−ν L_Γ Γ = 0` (no production).
+- **(II) the sole `Ω=ω^θ/r` source** `S=(1/r⁴)∂_z(Γ²)=(2Γ/r⁴)∂_zΓ=∂_z(u₁²)` (`u₁=Γ/r²`), and its
+  **centrifugal origin** `(1/r)∂_z((u^θ)²/r)=(1/r⁴)∂_z((ru^θ)²)`.
+- `axisym/axisym_structural.jl` — **algebraic** evidence (Julia Base only; the Laurent-poly engine +
+  exact derivations).
+- `axisym/AxisymStructural.hs` — **type-checked / categorical** evidence (base only; the same algebra,
+  with `∂_r,∂_z,∂_t` verified to be **derivations** (Leibniz law) on the field-algebra — so the identities
+  are equalities of algebra elements).
+- **Both pass and AGREE.** *Scope:* these are the exact structural *definitions/identities* (what `Γ`, `Ω`,
+  `u₁`, `S` are and how they relate) — the algebra the analysis stands on; NOT the inequalities/theorems.
+- *Deferred:* the full `Ω`-equation operator derivation (from the vorticity curl) and the Biot–Savart
+  elliptic operator — the source *mechanism* (II) is verified; the full `Ω`-evolution operator is a heavier
+  symbolic derivation for a later sub-step.
 
 ### Rung 2+ — the inequalities — ⬜ long-horizon (flagged not-now)
 
@@ -55,4 +72,7 @@ Both exit non-zero on any identity failing to close.
 - **Julia 1.12.6** — Base only, no external packages (no `Manifest.toml` needed; nothing to pin beyond the
   version).
 - **GHC / runghc 9.6.7** — `base` only (no Cabal deps).
-- Rung 1 will add `Symbolics.jl` (Julia) under a pinned `Manifest.toml` per the package-management discipline.
+- **Both rungs are zero-dependency** (Base/base only) — `Symbolics.jl` was deliberately *avoided* in favor
+  of a tiny hermetic Laurent-polynomial engine, keeping the whole track dependency-free. (A future heavier
+  symbolic derivation — e.g. the full `Ω`-evolution operator — may warrant `Symbolics.jl` under a pinned
+  `Manifest.toml`; not needed yet.)
