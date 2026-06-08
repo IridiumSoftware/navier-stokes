@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.99 — 2026-06-07 — Formalization target SCOPED: Python→Julia→Haskell→Lean ladder; tractable = the algebraic IDENTITIES (not the inequalities)
+
+Scoped the verification ladder for hardening the foundation past the C5 social floor.
+`docs/formalization_scope_2026-06-07.md`. **Scoping only — not the formalization; `:proved`=0, stays 0 for
+the PDE.** Key separation: the C5 black boxes are **inequalities** (Hardy–Sobolev, Carleman) — *analysis*,
+which does NOT fit the algebra→category rungs and has no mathlib substrate (multi-year, field-wide; Rung
+2+, not now). The **algebraic/differential IDENTITIES underneath** fit the ladder perfectly. Recommended
+staged plan:
+- **Rung 0 (warm-up, days–weeks):** the scaling-criticality calculus (= NS-034) — pure rational-exponent
+  algebra (`‖u_λ‖`-scaling; `2/q+3/p=1−α` criticality; energy supercriticality). Establishes the
+  4-language pipeline on a cheap, load-bearing target.
+- **Rung 1 (substantive, weeks→months):** the axisymmetric structural calculus — the `Γ` (source-free) /
+  `Ω` (source `S=∂_z(u₁²)`) / Biot–Savart identities, the NS-048 core; already C4-re-derived, so
+  formalizing is the C5→machine step; pins down every axisymmetric definition.
+- **Rung 2+ (years, flagged not-now):** the inequalities.
+Per-language: Python explore → Julia exact-`Rational`/`Symbolics.jl` (**algebraic** evidence) → Haskell
+typed/categorical (**type-checked**) → Lean (**lean-proved**); each rung a gate. Maps onto the program's
+evidence-type discipline; reuse TCE Lean `Category`/Julia/Haskell scaffolding; lockfile discipline.
+**Honest:** completing Rungs 0–1 machine-hardens the DEFINITIONS + algebraic skeleton (the program's own
+identities become `lean-proved`), NOT the PDE theorems (the inequalities stay socially-verified). Awaiting
+target/depth/home decision before building. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.98 — 2026-06-07 — C5 triad verdict metabolized: both targets SURVIVE all 3 model families; no hard verification (external-confirmed); 2 gentle self-corrections + 2 scope conditions
 
 Metabolized the external triad pass (Grok edge-Φ / **Gemini synthesis / Venice naive** — the seat swap)
