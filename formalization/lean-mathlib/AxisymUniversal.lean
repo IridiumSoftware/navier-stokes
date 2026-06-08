@@ -60,6 +60,27 @@ theorem source_chain (g : P) : pderiv 1 (g * g) = 2 * g * pderiv 1 g := by
 theorem z_indep_r_power (f : P) (k : ℕ) : pderiv 1 ((X 0)^k * f) = (X 0)^k * pderiv 1 f := by
   simp
 
+/-- **Mixed partials commute** (proved by induction on the polynomial), for ALL `p` and ALL `i,j`. -/
+theorem pderiv_comm (p : P) (i j : Fin 3) : pderiv i (pderiv j p) = pderiv j (pderiv i p) := by
+  induction p using MvPolynomial.induction_on with
+  | C a => simp
+  | add p q hp hq => simp [hp, hq]
+  | mul_X p k hp =>
+      simp [hp, Pi.single_apply, apply_ite (pderiv i), apply_ite (pderiv j)]; ring
+
+/-- **(III-a) Pressure elimination:** in the vorticity (curl of the momentum equations) the pressure
+    gradient drops, because `∂_z∂_r p = ∂_r∂_z p` — a corollary of `pderiv_comm`. -/
+theorem pressure_elimination (p : P) : pderiv 1 (pderiv 0 p) = pderiv 0 (pderiv 1 p) :=
+  pderiv_comm p 1 0
+
+/-- **(IV) Biot–Savart** (cleared ×r²). With the Stokes stream function `ψ` (`u^r = −∂_zψ`,
+    `r·u^z = ∂_r(rψ)`), the LHS is `r²·(∂_z u^r − ∂_r u^z)` (the `1/r` in `u^z` cleared) and the identity
+    `ω^θ = −(∂_r²+(1/r)∂_r−1/r²+∂_z²)ψ` becomes this polynomial equation, for ALL `ψ`. -/
+theorem biot_savart (ψ : P) :
+    -(X 0)^2 * pderiv 1 (pderiv 1 ψ) - X 0 * pderiv 0 (pderiv 0 (X 0 * ψ)) + pderiv 0 (X 0 * ψ)
+      = -((X 0)^2 * pderiv 0 (pderiv 0 ψ) + X 0 * pderiv 0 ψ - ψ + (X 0)^2 * pderiv 1 (pderiv 1 ψ)) := by
+  simp; ring
+
 #eval "Rung 1 (Lean/Mathlib): universal axisymmetric structural identities machine-verified."
 
 end NSAxisym

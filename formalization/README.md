@@ -66,15 +66,16 @@ identities are formal differential-algebraic identities, exact on Laurent monomi
   `ω^θ=−(∂_r²+(1/r)∂_r−1/r²+∂_z²)ψ` and `∇·b=0` identically.
 - `lean/Axisym.lean` — **lean-proved** core (hermetic; `native_decide` over the Laurent engine on a
   monomial grid: the Γ source-free operator, the `(3/r)∂_r` emergence, the source identities).
-- `lean-mathlib/AxisymUniversal.lean` — **lean-proved, UNIVERSAL** (Mathlib): the load-bearing identities
+- `lean-mathlib/AxisymUniversal.lean` — **lean-proved, UNIVERSAL** (Mathlib): the **full** operator set
   for **all** `u : MvPolynomial (Fin 3) ℚ` — `gamma_source_free_operator`, `gamma_transport`,
-  `omega_operator_transform` (the `(3/r)∂_r` emergence), `source_chain` + `z_indep_r_power`. Stated in
-  denominator-cleared (`×rᵏ`) polynomial form (≡ the `1/r` identity for `r≠0`); proved by `pderiv`+`ring`;
-  verified against Mathlib (a false `2/r`-for-`3/r` variant was correctly rejected). See its README.
-- **All layers AGREE.** Rung 1 is **complete** (algebraic / type-checked / machine / universal-machine for
-  the core; the full operator set incl. Biot–Savart in the first three). The full operator structure of
-  `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` is exact. *Scope:* the structural definitions/identities/operators —
-  the algebra the analysis stands on; NOT the inequalities/theorems.
+  `omega_operator_transform` (the `(3/r)∂_r` emergence), `source_chain` + `z_indep_r_power`, `pderiv_comm`
+  + `pressure_elimination`, and `biot_savart`. Stated in denominator-cleared (`×rᵏ`) polynomial form (≡ the
+  `1/r` identity for `r≠0`); proved by `pderiv`+`ring` (`pderiv_comm` by induction); verified against
+  Mathlib (a false `2/r`-for-`3/r` variant was correctly rejected). See its README.
+- **All layers AGREE.** Rung 1 is **complete** across all four layers (algebraic / type-checked / machine /
+  universal-machine), the universal layer now covering the full operator set incl. pressure elimination +
+  Biot–Savart. The full operator structure of `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` is exact. *Scope:* the
+  structural definitions/identities/operators — the algebra the analysis stands on; NOT the inequalities.
 
 ### Rung 2+ — the inequalities — ⬜ long-horizon (flagged not-now)
 

@@ -44,12 +44,15 @@ The load-bearing axisymmetric structural identities proved for **ALL fields**
 - **`source_chain`** (`∂_z(Γ²)=2Γ∂_zΓ`) + **`z_indep_r_power`** (`∂_z(rᵏf)=rᵏ∂_zf`) ⇒ the source
   `S=(1/r⁴)∂_z(Γ²)=∂_z(u₁²)`, `u₁=Γ/r²`.
 
+- **`pderiv_comm`** — mixed partials commute (proved by induction on the polynomial), and the corollary
+  **`pressure_elimination`** (`∂_z∂_r p = ∂_r∂_z p` ⇒ the curl kills `∇p`);
+- **`biot_savart`** — the Stokes stream function relation `ω^θ = −(∂_r²+(1/r)∂_r−1/r²+∂_z²)ψ`, cleared `×r²`.
+
 **Denominator-clearing:** the `1/r`,`1/r²` structural identities are stated in their `×rᵏ` polynomial
 form — equivalent to the `1/r` form wherever `r≠0`, and `∀`-quantified over the polynomial ring (the
-formal differential-algebraic content; the `native_decide` file checks only a monomial grid). Genuine
-mixed-partial commutativity (pressure elimination) and Biot–Savart are covered in the `native_decide` /
-Julia / Haskell layers and not re-done here (the former is generic, the latter needs more denominator
-bookkeeping). **Soundness sanity:** a false variant (`2/r ∂_r` for the correct `3/r`) was correctly
-rejected — `ring` reduced the true side to coefficient 3.
+formal differential-algebraic content; the `native_decide` file checks only a monomial grid). **Soundness
+sanity:** a false variant (`2/r ∂_r` for the correct `3/r`) was correctly rejected — `ring` reduced the
+true side to coefficient 3. The full Rung-1 operator structure (incl. pressure elimination + Biot–Savart)
+is now universal.
 
 Verified by `lake env lean AxisymUniversal.lean` against the same built Mathlib. `:proved`=0 for the PDE.

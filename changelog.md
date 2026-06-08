@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.3.3 — 2026-06-08 — Universal-Lean completeness: pressure elimination (mixed partials) + Biot–Savart added to AxisymUniversal; full Rung-1 operator set now ∀-quantified
+
+Closed the two minor universal-Lean gaps in `formalization/lean-mathlib/AxisymUniversal.lean`.
+**Definitional hardening, not PDE progress; `:proved`=0, stays 0.**
+- **`pderiv_comm`** — mixed partials commute for ALL `p` and ALL `i,j`, proved by induction on the
+  polynomial (`MvPolynomial.induction_on`; `mul_X` case via `Pi.single_apply` + targeted `apply_ite`
+  + `ring`). Corollary **`pressure_elimination`** (`∂_z∂_r p = ∂_r∂_z p` ⇒ the curl kills `∇p`).
+- **`biot_savart`** — the Stokes stream-function relation `ω^θ = −(∂_r²+(1/r)∂_r−1/r²+∂_z²)ψ`, cleared
+  `×r²` (the `1/r` in `u^z=(1/r)∂_r(rψ)` cancels), for ALL `ψ`; `simp`+`ring`.
+- **Rung 1 is now FULLY universal** — the entire operator structure of
+  `∂_tΩ+b·∇Ω=ν(∂_r²+(3/r)∂_r+∂_z²)Ω+S` (incl. pressure elimination + Biot–Savart) is `∀`-quantified and
+  machine-verified, matching the Julia/Haskell coverage. Verified via `lake env lean` against the TCE
+  `lean4-cv` built Mathlib. All four layers AGREE across both rungs; the formalization ladder is complete
+  for the foundational structural calculus. `:proved`=0; distance UNTOUCHED. (Remaining: Rung 2, the
+  inequalities — the multi-year long-horizon.)
+
 ## v0.3.2 — 2026-06-08 — Rung 1 Lean theorems UNIVERSALIZED via Mathlib: axisymmetric structural identities proved ∀ fields (not a monomial grid)
 
 `formalization/lean-mathlib/AxisymUniversal.lean` (+ lakefile target). The Rung-1 upgrade from
