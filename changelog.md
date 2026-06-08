@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.3.1 — 2026-06-08 — Rung 0 Lean theorems UNIVERSALIZED via Mathlib: criticality proved ∀ α,p,q (not just exemplar triples)
+
+Upgraded the Rung-0 Lean rung from concrete-instance `native_decide` to **universally-quantified** theorems.
+`formalization/lean-mathlib/ScalingUniversal.lean` (+ lakefile, lean-toolchain, lake-manifest, README).
+**Definitional hardening, not PDE progress; `:proved`=0 for the PDE, stays 0.**
+- **`lebExp_critical_iff (α p q : ℚ)`** — `‖|x₃|^α u^θ‖_{L^q_t L^p_x}` scale-invariant **⇔ `2/q+3/p=1−α`**,
+  for ALL α,p,q (the WHWY criticality, now a theorem not exemplars); **`sobExp_critical_iff`** (Ḣ^s critical
+  ⇔ s=1/2, ∀); **`energy_supercritical`** (`[L²]<0`, NS-002) + `lebExp_eq`/`energy_gap`. Proofs: `linarith`/
+  `norm_num` over ℚ (the iff is a linear rearrangement in the atoms {α,3/p,2/q}).
+- **Verified** via `lake env lean` against the TCE `lean4-cv` built Mathlib (rev `5d69f04…`, toolchain
+  v4.30.0-rc2). **Soundness sanity:** a deliberately-FALSE variant (`=2−α` for `1−α`) was correctly
+  **rejected** by `linarith` — Mathlib genuinely loaded, checker not rubber-stamping.
+- Reproducible standalone (`lake exe cache get && lake build`); pinned via lean-toolchain + lake-manifest
+  mirroring `lean4-cv` so the populated `~/.cache/mathlib` is reused. Opt-in/heavy (the hermetic
+  `native_decide` track at `lean/` stays the default). The 4 layers (algebraic / type-checked / machine /
+  universal-machine) all AGREE. *(Rung 1 universal Lean would need Mathlib MvPolynomial/derivations — a
+  heavier follow-on; the Rung-1 core stays `native_decide`-verified.)* `:proved`=0; distance UNTOUCHED.
+
 ## v0.3.0 — 2026-06-08 — Lean rung DONE: Rungs 0–1 machine-verified (native_decide); full Python→Julia→Haskell→Lean ladder realized for the foundational pieces
 
 The machine-verification (`lean-proved`) capstone. `formalization/lean/Scaling.lean` + `Axisym.lean`.

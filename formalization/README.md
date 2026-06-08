@@ -16,7 +16,7 @@ analysis — they do not fit the algebra→category rungs and have no Lean subst
 | explore | Python | computational | prototype / discover the identity |
 | **algebraic** | **Julia** | `algebraic` (exact `Rational`/symbolic = proof) | the algebra must close *exactly* |
 | **categorical** | **Haskell** | `type-checked` | the definitions-as-types; structure must type-check |
-| **machine** | **Lean** | `lean-proved` | the machine-verified theorem (`native_decide`) — ✅ Rungs 0–1 core |
+| **machine** | **Lean** | `lean-proved` | machine-verified — ✅ Rungs 0–1 core (`native_decide`, hermetic) + Rung 0 **universal** (`∀`, Mathlib) |
 
 Each rung is a **gate**: an identity that fails to close exactly (Julia) or type-check (Haskell) is caught
 before the expensive Lean step.
@@ -33,7 +33,12 @@ the criticality classification (`[X]=0` critical · `>0` sub · `<0` super):
   the change-of-variables bookkeeping, checks each criticality condition exactly).
 - `scaling/Scaling.hs` — **type-checked** evidence (base only; the norm taxonomy as a total sum type, the
   exponent map total on it, criticality as the kernel-structured classification + the `Ḣ⁰=L²` coherence).
-- **Both pass and AGREE** (identical exponents + classifications) — cross-language verified.
+- `lean/Scaling.lean` — **lean-proved** (hermetic; `native_decide` at exemplar triples; bundled Std).
+- `lean-mathlib/ScalingUniversal.lean` — **lean-proved, UNIVERSAL** (Mathlib): the criticality conditions
+  proved for **all** `α,p,q : ℚ` — `lebExp_critical_iff` (`[X]=0 ⇔ 2/q+3/p=1−α`, ∀), `sobExp_critical_iff`
+  (Ḣ^s critical ⇔ s=1/2, ∀), `energy_supercritical`. Via `linarith`/`norm_num`; verified against the TCE
+  `lean4-cv` built Mathlib (a deliberately-false variant was correctly rejected). See its README.
+- **All layers AGREE** (algebraic / type-checked / machine / universal-machine) — cross-verified.
 - *Scope note:* this verifies the **scaling-exponent facts** that *underlie* NS-002/NS-034 (energy is
   supercritical; the critical spaces are scale-invariant). It does **not** verify the full obstruction
   *narrative* (that supercriticality kills energy-only methods — that is NS-008/Tao, an inequality).
@@ -73,8 +78,9 @@ julia formalization/axisym/axisym_structural.jl         # Rung 1 algebraic (Γ s
 julia formalization/axisym/axisym_operators.jl          # Rung 1 algebraic (Ω-operator, Biot–Savart)
 runghc formalization/axisym/AxisymStructural.hs         # Rung 1 type-checked (derivations)
 runghc formalization/axisym/AxisymOperators.hs          # Rung 1 type-checked
-lean   formalization/lean/Scaling.lean                  # Rung 0 lean-proved (native_decide)
-lean   formalization/lean/Axisym.lean                   # Rung 1 lean-proved core (native_decide)
+lean   formalization/lean/Scaling.lean                  # Rung 0 lean-proved (native_decide, hermetic)
+lean   formalization/lean/Axisym.lean                   # Rung 1 lean-proved core (native_decide, hermetic)
+cd formalization/lean-mathlib && lake exe cache get && lake build   # Rung 0 UNIVERSAL (Mathlib, ∀ α p q)
 ```
 Both exit non-zero on any identity failing to close.
 
@@ -82,9 +88,12 @@ Both exit non-zero on any identity failing to close.
 - **Julia 1.12.6** — Base only, no external packages (no `Manifest.toml` needed; nothing to pin beyond the
   version).
 - **GHC / runghc 9.6.7** — `base` only (no Cabal deps).
-- **Lean 4.30.0** — `import Std` (bundled with the toolchain; **no Mathlib, no external Batteries fetch**);
-  facts proved by `native_decide`. Pin: `formalization/lean/lean-toolchain`. *(`ℚ` works as `Rat`; Lean's
-  `Rat` convention `x/0=0` is exactly our `1/∞=0` ∞-sentinel.)*
+- **Lean 4.30.0** (hermetic track, `lean/`) — `import Std` (bundled with the toolchain; **no Mathlib, no
+  external Batteries fetch**); facts proved by `native_decide`. Pin: `formalization/lean/lean-toolchain`.
+  *(`ℚ` works as `Rat`; Lean's `Rat` convention `x/0=0` is exactly our `1/∞=0` ∞-sentinel.)*
+- **Lean 4.30.0-rc2 + Mathlib** (opt-in universal track, `lean-mathlib/`) — `∀`-quantified theorems via
+  `linarith`/`norm_num`. Pinned in `lean-mathlib/{lean-toolchain,lake-manifest.json}` (Mathlib `5d69f04…`),
+  mirroring TCE `src/lean4-cv` to reuse the populated Mathlib cache. Heavy; opt-in.
 - **Both rungs are zero-dependency** (Base/base only) — `Symbolics.jl` was deliberately *avoided* in favor
   of a tiny hermetic Laurent-polynomial engine, keeping the whole track dependency-free. (A future heavier
   symbolic derivation — e.g. the full `Ω`-evolution operator — may warrant `Symbolics.jl` under a pinned

@@ -1,0 +1,6 @@
+# Lean build artifacts (lean-mathlib: lake build creates .lake/; lean writes *.olean)
+.lake/
+build/
+*.olean
+*.ilean
+*.out.txt
