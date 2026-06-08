@@ -118,6 +118,19 @@ tier label going forward: "C5-adversarial-survived; hard-verification = none (so
 This is the truthful ceiling for citation hardening short of original formalization work — which is itself
 a separate, field-wide, multi-year undertaking, not a session task.
 
+**[TRIAD-CONFIRMED + REFINED 2026-06-07 — `docs/c5_triad_witness_verdict.md`.]** An external triad (Grok
+edge-Φ / Gemini synthesis / Venice naive) independently **confirmed**: both targets SURVIVE, use is
+faithful, and **no hard verification exists** (unanimous). Refinements to adopt: (i) **`α<1/4`** — soften
+"range-choice, not a ceiling" to "the established `p`-range constraint; whether the embedding constant
+`C(α)` *also* diverges at the endpoint is an **un-tracked black box** (the paper doesn't track it; the
+triad *suspects* divergence)" — endpoint possibly a genuine barrier; immaterial to our use. (ii) **Palasek
+upgraded** from "partial cross-check" to "**structurally-independent** (Harnack-vs-Carleman) cross-check
+of the *phenomenon*" (still not of Tao's exact constant). New scope conditions: **`|x₃|^α` is an
+`H²`-continuation theorem** (not a weak-solution criterion — `Φ(0),Γ(0)` need `ω(0)∈H¹`); **Tao's
+triple-log is tied to the Leray–Hopf class** (the pigeonholing needs the global energy inequality). The
+"Type-II closed with bounded swirl" challenge (Venice) was **declined** — it conflates conditional
+regularity (the closers we mapped) with unconditional exclusion (which stays open).
+
 ---
 
 ## 6. Sources + the agents' honest limits

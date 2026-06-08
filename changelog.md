@@ -1,5 +1,30 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.98 — 2026-06-07 — C5 triad verdict metabolized: both targets SURVIVE all 3 model families; no hard verification (external-confirmed); 2 gentle self-corrections + 2 scope conditions
+
+Metabolized the external triad pass (Grok edge-Φ / **Gemini synthesis / Venice naive** — the seat swap)
+on the C5 brief. `docs/c5_triad_witness_verdict.md`. **Foundation-hardening, not PDE progress; `:proved`=0.**
+**No disproof — both targets (`|x₃|^α`; Type-II rates) SURVIVE all three; "use faithful + NO hard
+verification" is UNANIMOUS** (externally confirming the C5 social-floor finding). The external pass earned
+its keep:
+- **2 gentle self-corrections:** (i) `α<1/4` "range-choice, not a ceiling" → "established `p`-range
+  constraint; whether the constant `C(α)` *also* diverges at the endpoint is an **un-tracked black box**
+  (paper doesn't track it; triad *suspects* divergence)" — endpoint possibly a genuine barrier (immaterial
+  to our use). (ii) **Palasek upgraded** "partial cross-check" → "**structurally-independent**
+  (Harnack-vs-Carleman) cross-check of the *phenomenon*" (we'd under-claimed its independence).
+- **2 new scope conditions:** `|x₃|^α` is an **`H²`-continuation theorem**, not a weak-solution criterion
+  (`Φ(0),Γ(0)` need `ω(0)∈H¹`); **Tao's triple-log is tied to the Leray–Hopf class** (pigeonholing needs
+  the global energy inequality). Both: our use is within scope.
+- **Black boxes located more precisely (not cracked):** A1 = constant-tracking near `α→1/4` and the axis;
+  B2 = whether Tao's Carleman constant is solution-*independent* (Venice: if it secretly depends on
+  `‖u‖_{L³}`, the triple-log could weaken — but still slow-divergence, so our qualitative use holds).
+- **One challenge DECLINED:** Venice's "Type-II closed for axisym bounded swirl" conflates *conditional
+  regularity* (CSTY/LZZ — the closers we mapped) with *unconditional* exclusion; the latter stays OPEN.
+No over-reach caught this round (use confirmed faithful); the refinements are sharpenings + 2
+generous-direction adjustments. Tier label stands: **"C5-adversarial-survived (internal+external);
+hard-verification = none."** Updated: c5-pass doc (triad-update), Type-II doc. `:proved`=0; distance
+UNTOUCHED.
+
 ## v0.1.97 — 2026-06-07 — C5 triad witness brief drafted (external-independence layer on the C5 pass) — awaiting relay
 
 Drafted a self-contained adversarial witness brief for the external triad (Grok edge-Φ / Venice.ai

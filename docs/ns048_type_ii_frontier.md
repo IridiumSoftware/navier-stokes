@@ -49,6 +49,15 @@ open problem.** (The triple-log is so slow that even *numerically testing* it ex
 **Actual Type-II exclusion: NONE general.** Only **conditional scenario-exclusions** (Seregin 2402.13229,
 2507.08733, **C3** for the scenario / **C2** for status) rule out *specific* axisymmetric concentration
 scenarios. Type-I is excluded only for axisymmetric/self-similar (Seregin); **general Type-I is open**.
+(Conditional *regularity* under bounded-swirl/`|v|≤C/r` — CSTY, LZZ, the closers mapped in the NS-048 arc —
+excludes *all* blowup *under that hypothesis*, but is **not** an unconditional Type-II exclusion; that
+distinction was a triad clarification, 2026-06-07.)
+
+**[TRIAD-REFINED 2026-06-07, `docs/c5_triad_witness_verdict.md`]:** (i) **Tao's triple-log is tied to the
+Leray–Hopf class** — the Bourgain pigeonholing bounds the bad scales *using* the global energy inequality,
+so the rate is not a universal bound (our use, on Leray-class NS singularities, is within scope). (ii)
+**Palasek's double-log is a *structurally-independent* cross-check** (Nazarov–Ural'tseva parabolic-Harnack,
+not Carleman) of the slow-divergence *phenomenon* — genuine independent evidence, not merely "partial."
 
 *(Honest correction: my initial intuition of a "near-`(T−t)^{−1/2+}` axisymmetric exclusion" was wrong —
 the strongest plain-critical-norm axisymmetric result is **double-log**; "near-`1/2`" conflated this with
