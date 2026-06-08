@@ -1,5 +1,16 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.1.97 — 2026-06-07 — C5 triad witness brief drafted (external-independence layer on the C5 pass) — awaiting relay
+
+Drafted a self-contained adversarial witness brief for the external triad (Grok edge-Φ / Venice.ai
+synthesis / ChatGPT naive) — the genuinely-independent layer the internal C5 pass lacked.
+`docs/c5_triad_witness_brief.md`. Two targets (`|x₃|^α` criterion; Type-II triple/double-log rate bounds),
+each with: try-to-DISPROVE (especially the deep cores the same-model pass admitted it couldn't check —
+Carleman estimates, near-axis GN, pigeonholing constants), independent hard-verification audit, scope-check,
+and an explicit "verify-or-challenge the internal findings + say what a same-model pass MISSED." Self-contained
+(no doc/spec access) for adversarial independence; primed to refute. Awaiting relayed responses → will
+metabolize into a verdict. `:proved`=0; distance UNTOUCHED.
+
 ## v0.1.96 — 2026-06-07 — C5 adversarial pass on |x₃|^α + Type-II rates: both SURVIVED + faithful use; hard/machine verification = NONE exists (the social-verification floor, stated plainly)
 
 C5 pass (high bar: try to DISPROVE; audit for HARD verification — formal/machine/CAP/rigorous-numerics vs
