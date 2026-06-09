@@ -1,0 +1,5 @@
+# disproof-probe Python env + artifacts (reproduce: uv venv .venv && uv pip install numpy sympy)
+.venv/
+__pycache__/
+*.pyc
+*.out.txt

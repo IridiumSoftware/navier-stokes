@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.5.0 — 2026-06-08 — Disproof probes: NRŠ H-identity RECORD ERROR caught (symbolic) + Wang anisotropic Hardy–Sobolev HARDENED (numerical)
+
+Re-pointed the formalization effort at its actual goal — **disproving / hard-verifying the citations** —
+using the cheap instruments (computer-algebra + rigorous-numerics, the C5 bar), not bottom-up Lean infra.
+`disproof/` (uv venv: numpy 2.4.6, sympy 1.14.0) + `docs/disproof_probes_2026-06-08.md`. **Citation
+verification; `:proved`=0; distance UNTOUCHED.**
+- **NRŠ H-identity — RECORD ERROR FOUND** (`disproof/nrs_h_identity.py`, sympy). Our C3 line-read recorded
+  `−νΔH+(U·∇)H = −ν|∇U+aI|²+ν(∂ᵢUⱼ)(∂ⱼUᵢ)`. Symbolic check (substitute profile-eq `ΔU`, pressure-Poisson
+  `ΔP`, `div U=0`): **false as written** — it (i) drops the `a(y·∇)H` self-similar drift, (ii) RHS off by
+  `+3νa²`. **Corrected identity:** `−νΔH+(U·∇)H+a(y·∇)H = −νΣ_{i<j}(∂ᵢUⱼ−∂ⱼUᵢ)² ≤ 0`. The defect is in
+  **our transcription only**; both RHS forms are `≤0` ⇒ NRŠ Thm 1 unaffected. Corrected
+  `docs/nrs_ess_verification_2026-06-07.md` (flagged, not silently). A human-graded-C3 line-read recorded a
+  false identity; a 2-min symbolic check caught it — the disproof rung working.
+- **Wang anisotropic Hardy–Sobolev — HARDENED** (`disproof/wang_hardy.py`, numpy). Resolved the triad's
+  "α→1/4" suspicion: for `|x₃|^α` (k=1) the Thm-1.2 constraint is `α<1/p`, and at critical `p=3/(1−α)` that
+  is **exactly `α<1/4`** — the fractional-Hardy integrability endpoint, where the sharp constant diverges.
+  Numerics: no gross violation (inequality holds; max ratio ≈1.9 over 400 random tests at fixed `α<1/p`);
+  monotone growth toward the endpoint; divergence mechanism analytic (`∫|x|^{−αp}~1/(1−αp)→∞`). **Citation
+  confirmed/necessary, not disproved.** `:proved`=0; distance UNTOUCHED.
+
 ## v0.4.1 — 2026-06-08 — Rung 2 bite 2: weak-Lᵖ quasinorm properties (MemWLp, monotonicity, quasi-triangle inequality) machine-verified
 
 Extended `formalization/lean-mathlib/WeakLp.lean` with the weak-Lᵖ quasinorm's core properties.

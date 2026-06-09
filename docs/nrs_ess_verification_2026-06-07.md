@@ -20,8 +20,8 @@ bootstrap). **Hypothesis is exactly `L³`** — and the paper explicitly notes (
 self-similar singularities. **This confirms our records verbatim:** `L³` is faithful; the local-energy
 strengthening is genuinely **Tsai's** (1998), correctly attributed.
 
-**Proof mechanism (line-read):** auxiliary scalar **`H=½|U|²+P+a(y·U)`** (Lemma 3.3) satisfies
-`−νΔH+(U·∇)H = −ν|∇U+aI|² + ν(∂_iU_j)(∂_jU_i) ≤ 0` (max principle); the `L³` hypothesis forces decay
+**Proof mechanism (line-read):** auxiliary scalar **`H=½|U|²+P+a(y·U)`** (Lemma 3.3) satisfies an
+elliptic max-principle inequality `LH ≤ 0`; the `L³` hypothesis forces decay
 `|∇^kU|=O(|y|^{−3−k})`, `|∇^kP|=O(|y|^{−2−k})` (Lemma 3.2, via CKN ε-regularity) so `H=O(|y|^{−2})` ⇒
 `H≤0` everywhere ⇒ the energy identity (`∫½|U|²≤0`) ⇒ `U≡0`. Matches the `Π`-functional mechanism we'd
 recorded.
@@ -31,7 +31,16 @@ recorded.
 convention (Tsai et al.). The substance — *the only `L³` self-similar blowup profile is trivial* — is
 exactly Theorem 1. Our "no nontrivial backward self-similar in `L³`" is correct in substance.
 
-**Tier: C3 (proof line-read, primary Acta PDF).**
+**[CORRECTION 2026-06-08 — symbolic disproof probe, `docs/disproof_probes_2026-06-08.md`.]** This doc
+originally recorded the Lemma-3.3 identity as `−νΔH+(U·∇)H = −ν|∇U+aI|²+ν(∂_iU_j)(∂_jU_i)`. A sympy check
+(substituting the profile eq for `ΔU`, pressure-Poisson for `ΔP`, `div U=0`) found that **false as written**
+— it (i) **drops the `a(y·∇)H` self-similar drift** and (ii) has an RHS **off by `+3νa²`**. The
+**verified-correct identity** is
+`−νΔH + (U·∇)H + a(y·∇)H = −ν Σ_{i<j}(∂_iU_j−∂_jU_i)² = −ν|∇U|²+ν(∂_iU_j)(∂_jU_i) ≤ 0`. The error was in
+**this transcription only**; both RHS forms are `≤0`, so NRŠ Thm 1 and its `LH≤0` max-principle chain are
+**unaffected**. (Re-check NRŠ Lemma 3.3 verbatim for full certainty on the original wording.)
+
+**Tier: C3 (proof line-read, primary Acta PDF; H-identity transcription corrected 2026-06-08).**
 
 ---
 
