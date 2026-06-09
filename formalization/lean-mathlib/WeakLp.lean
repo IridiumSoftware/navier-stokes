@@ -218,6 +218,33 @@ theorem MemWLp.memLp {q r : ℝ≥0∞} (hp0 : p ≠ 0) (hpr : p < r) (hrq : r <
     {f : α → E} (hfp : MemWLp f p μ) (hfq : MemWLp f q μ) : MemLp f r μ :=
   ⟨hfp.1, eLpNorm_lt_top_of_wnorm hp0 hpr hrq hq_top hfp.1 hfp.2 hfq.2⟩
 
+variable {α' F : Type*} {m' : MeasurableSpace α'} [NormedAddCommGroup F]
+
+/-- An operator `T` has **weak type `(p, p)`** with constant `C`: it maps every `Lᵖ` function to an
+    AE-strongly-measurable function whose weak-Lᵖ quasinorm is bounded by `C · ‖f‖_{Lᵖ}`. -/
+def HasWeakType (T : (α → E) → α' → F) (p : ℝ≥0∞) (μ : Measure α) (ν : Measure α')
+    (C : ℝ≥0∞) : Prop :=
+  ∀ f, MemLp f p μ → AEStronglyMeasurable (T f) ν ∧ wnorm (T f) p ν ≤ C * eLpNorm f p μ
+
+/-- **Marcinkiewicz interpolation, operator form (qualitative):** if `T` has weak type `(p,p)` and
+    `(q,q)` with finite constants, then `T` maps `Lᵖ ∩ L^q` into `Lʳ` for every `p < r < q`.
+
+    Note the honest scope: this is the *qualitative* statement available as a direct wrapper over
+    `eLpNorm_lt_top_of_wnorm` — no sublinearity of `T` is even needed. The *strong-type* `(r,r)`
+    bound (`‖Tf‖_{Lʳ} ≲ ‖f‖_{Lʳ}` from `f ∈ Lʳ` alone) requires sublinearity and the level-dependent
+    truncation `f = f·1_{|f|>s} + f·1_{|f|≤s}` inside the layer-cake — a further formalization step. -/
+theorem HasWeakType.memLp_interpolate {q r : ℝ≥0∞} {T : (α → E) → α' → F} {ν : Measure α'}
+    {Cp Cq : ℝ≥0∞} (hp0 : p ≠ 0) (hpr : p < r) (hrq : r < q) (hq_top : q ≠ ∞)
+    (hCp : Cp ≠ ∞) (hCq : Cq ≠ ∞)
+    (hTp : HasWeakType T p μ ν Cp) (hTq : HasWeakType T q μ ν Cq)
+    {f : α → E} (hfp : MemLp f p μ) (hfq : MemLp f q μ) :
+    MemLp (T f) r ν := by
+  obtain ⟨hTf_meas, hTfp⟩ := hTp f hfp
+  obtain ⟨-, hTfq⟩ := hTq f hfq
+  exact ⟨hTf_meas, eLpNorm_lt_top_of_wnorm hp0 hpr hrq hq_top hTf_meas
+    (lt_of_le_of_lt hTfp (ENNReal.mul_lt_top hCp.lt_top hfp.2))
+    (lt_of_le_of_lt hTfq (ENNReal.mul_lt_top hCq.lt_top hfq.2))⟩
+
 #eval "Rung 2 (first bite): weak-Lᵖ quasinorm + Lᵖ ⊆ L^{p,∞} embedding + props — machine-verified."
 
 end NSWeakLp

@@ -1,5 +1,19 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.6.1 — 2026-06-09 — Marcinkiewicz OPERATOR form (qualitative) machine-verified: HasWeakType + weak-(p,p)+(q,q) ⇒ Lᵖ∩L^q → Lʳ
+
+`formalization/lean-mathlib/WeakLp.lean` extended with the operator layer. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`HasWeakType T p μ ν C`** — weak-type `(p,p)` with constant: `T` maps `Lᵖ(μ)` functions to
+  AE-strongly-measurable functions with `wnorm (T f) p ν ≤ C·‖f‖_{Lᵖ}` (two measure spaces allowed).
+- **`HasWeakType.memLp_interpolate`** — if `T` has weak type `(p,p)` and `(q,q)` with finite constants,
+  then `T f ∈ Lʳ` for every `f ∈ Lᵖ ∩ L^q` and `p<r<q`. Direct wrapper over `eLpNorm_lt_top_of_wnorm`;
+  **no sublinearity needed** at this qualitative level. Compiled first try; LEAN_EXIT=0, no sorry.
+- **Honest scope (in-file docstring):** the *strong-type* `(r,r)` bound (`‖Tf‖_{Lʳ} ≲ ‖f‖_{Lʳ}` from
+  `f ∈ Lʳ` alone) genuinely requires sublinearity + the level-dependent truncation
+  `f = f·1_{|f|>s}+f·1_{|f|≤s}` inside the layer-cake — that is the next formalization level, NOT a
+  wrapper; flagged, not started. `:proved`=0; distance UNTOUCHED.
+
 ## v0.6.0 — 2026-06-09 — Formalization ladder resumed: the MARCINKIEWICZ CORE machine-verified (weak-Lᵖ ∩ weak-L^q ⊆ Lʳ, layer-cake + two-tail split)
 
 Resumed the Rung-2 bites (formalization as its own goal). Extended

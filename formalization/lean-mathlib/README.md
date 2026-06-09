@@ -72,6 +72,10 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   `lintegral_rpow_eq_lintegral_meas_lt_mul` + the **two-tail split at `t=1`** (the `p`-tail integrable at
   `0` since `r>p`, the `q`-tail integrable at `∞` since `r<q`, via `intervalIntegrable_rpow'` /
   `integrableOn_Ioi_rpow_of_lt`). **Soundness sanity:** a false exponent variant (`r−e+1` for `r−e−1`)
-  is correctly rejected. A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing (weak-`L³`
-  = where Ożański–Palasek's double-log rate lives). Upstreamable. Next: the operator form of
-  Marcinkiewicz (sublinear `T`, weak-(p,p)+(q,q) ⇒ strong-(r,r)) → Besov/Littlewood–Paley → Carleman.
+  is correctly rejected. Plus the **operator form**: `HasWeakType T p μ ν C` (weak-type `(p,p)` with
+  constant) and **`HasWeakType.memLp_interpolate`** — `T` weak-(p,p) + weak-(q,q) (finite constants) maps
+  `Lᵖ ∩ L^q → Lʳ` for `p<r<q`, *qualitative* (no sublinearity needed; honest scope note in-file: the
+  strong-(r,r) bound from `f ∈ Lʳ` alone needs sublinearity + level-dependent truncation — a further
+  step). A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing (weak-`L³` = where
+  Ożański–Palasek's double-log rate lives). Upstreamable. Next: strong-type Marcinkiewicz →
+  Besov/Littlewood–Paley → Carleman.

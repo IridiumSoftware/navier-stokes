@@ -96,7 +96,11 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   proved via the enorm→real bridge, Mathlib's layer-cake (`lintegral_rpow_eq_lintegral_meas_lt_mul`),
   and the two-tail split at `t=1`. Soundness: a false exponent variant is rejected. This is the
   computation inside Marcinkiewicz interpolation; the operator form (sublinear `T`) is a wrapper on it.
-- *Next bites (priority order):* Marcinkiewicz operator form → Besov/Littlewood–Paley → Carleman.
+- **Third bite ✅ (Marcinkiewicz operator form, qualitative)** — `HasWeakType T p μ ν C` +
+  `HasWeakType.memLp_interpolate`: `T` weak-(p,p)+(q,q) ⇒ `T : Lᵖ∩L^q → Lʳ` (`p<r<q`), a direct wrapper
+  over the core (no sublinearity needed). The *strong*-(r,r) bound is the honest next level
+  (sublinearity + level-dependent truncation).
+- *Next bites (priority order):* strong-type Marcinkiewicz → Besov/Littlewood–Paley → Carleman.
   `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run
