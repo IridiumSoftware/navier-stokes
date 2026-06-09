@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Death-and-dying dual — closure to efficient causation</title>
+<link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+<script src="https://tikzjax.com/v1/tikzjax.js"></script>
+<style>
+  body{font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:1080px;margin:32px auto;
+       padding:0 20px;color:#1a1a1a;line-height:1.5;}
+  h1{font-size:21px;margin-bottom:2px;}
+  h2{font-size:16px;margin:34px 0 2px;border-top:1px solid #eee;padding-top:18px;}
+  .sub{color:#666;font-size:14px;margin-top:0;}
+  .lead{font-size:13.5px;color:#444;margin:6px 0 0;}
+  .fig{text-align:center;margin:14px 0 8px;overflow-x:auto;border:1px solid #eee;
+       border-radius:8px;padding:14px 6px;background:#fcfcfc;}
+  .cap{font-size:13px;color:#444;background:#f7f7f9;border-left:3px solid #888;
+       padding:9px 12px;border-radius:4px;margin-top:10px;}
+  .cap.red{border-left-color:#c00;}
+  code{background:#f0f0f3;padding:1px 4px;border-radius:3px;font-size:12.5px;}
+  .note{font-size:12px;color:#999;margin-top:26px;border-top:1px solid #eee;padding-top:12px;}
+  .scope{font-size:12.5px;color:#555;background:#fffaf0;border:1px solid #f0e2c0;
+         border-radius:6px;padding:10px 13px;margin:10px 0 0;}
+</style>
+</head>
+<body>
+
+<h1>The death-and-dying dual of closure to efficient causation</h1>
+<p class="sub">Rosen / Hofmeyr (M,R) read backwards &nbsp;·&nbsp;
+<code>Scope: categorical-analogy</code> &nbsp;·&nbsp; <code>:proved=0</code> &nbsp;·&nbsp;
+companion: <code>docs/ns_efficient_closure_death_dual.md</code></p>
+<p class="scope"><b>Read this first.</b> A structural analogy, not a claim about the PDE or about biology.
+Distance to the Clay prize <b>untouched</b>. The one honest yield is the §3 / Fig.&nbsp;4 diagnosis: "dying"
+is inexpressible in pure (metric-free) Rosen, and the layer you must add is the dissipative dynamics NS
+already carries. Everything else re-describes known structure (Lawvere fixed-point closure; the
+autocatalytic / branching <code>&lambda;&ge;1</code> threshold; an apoptosis/necrosis labelling). External
+edge-witness (Grok &Phi;, cold) reviewed and endorsed these as <i>diagnostic, not generative</i>.</p>
+
+<!-- ====================================================================== -->
+<h2>Fig. 1 &mdash; Death-as-state: the entailment loop opens (Lawvere fixed point lost)</h2>
+<p class="lead">Closure is a self-referential fixed point: <code>f</code> entails <code>&Phi;</code> entails
+<code>&beta;</code> entails <code>f</code>, guaranteed because the repair map <code>&Phi;</code> is rich
+enough ("point-surjective", Lawvere). <b>Death-as-state = that richness is lost</b> &mdash; the required
+<code>f</code> falls out of the image of <code>&Phi;</code>, the guaranteed fixed point is no longer
+guaranteed, the loop opens.</p>
+<div class="fig">
+<script type="text/tikz">
+\usetikzlibrary{arrows.meta,positioning,calc,decorations.pathmorphing}
+\begin{tikzpicture}[
+  >=Latex, line join=round, node distance=20mm,
+  obj/.style={draw=black,rounded corners=3pt,fill=blue!6,inner sep=7pt,align=center,font=\small},
+  live/.style={->,blue!70!black,line width=1pt},
+  dead/.style={->,red!65!black,line width=1pt,dash pattern=on 2pt off 2pt},
+  ann/.style={align=center,font=\scriptsize},
+]
+% ALIVE loop (left)
+\node[ann,blue!55!black] at (0,3.1) {\textbf{alive} --- loop closed (fixed point guaranteed)};
+\node[obj] (f)  at (0,1.6)    {$f:A\to B$\\\scriptsize metabolism};
+\node[obj] (P)  at (-2.0,-0.9){$\Phi:B\to B^A$\\\scriptsize repair};
+\node[obj] (b)  at (2.0,-0.9) {$\beta:B^A\to (B^A)^B$\\\scriptsize replication};
+\draw[live] (f) to[bend right=14] node[ann,left] {$\Phi(b){=}f$} (P);
+\draw[live] (P) to[bend right=14] node[ann,below] {} (b);
+\draw[live] (b) to[bend right=14] node[ann,right] {$\beta(f){=}\Phi$} (f);
+\node[ann] at (0,-0.2) {closes via $\mathrm{ev}$\\(Lawvere: $\Phi$ point-surjective\\$\Rightarrow$ fixed point)};
+
+% DEAD loop (right)
+\node[ann,red!55!black] at (8,3.1) {\textbf{dead} --- $\Phi$ no longer point-surjective};
+\node[obj,fill=red!4] (f2)  at (8,1.6)    {$f:A\to B$};
+\node[obj,fill=red!4] (P2)  at (6.0,-0.9) {$\Phi$\\\scriptsize image shrunk};
+\node[obj,fill=red!4] (b2)  at (10.0,-0.9){$\beta$};
+\draw[dead] (f2) to[bend right=14] (P2);
+\draw[dead] (P2) to[bend right=14] (b2);
+\draw[red!65!black,line width=1pt,dash pattern=on 2pt off 2pt] (b2) to[bend right=14] (8.55,1.0);
+\node[red!70!black,font=\large] at (9.0,0.75) {$\times$};
+\node[ann,red!60!black] at (8,-0.2) {required $f\notin\mathrm{im}\,\Phi$\\loop \textbf{opens}};
+\end{tikzpicture}
+</script>
+</div>
+<p class="cap">The genuine categorical <b>dual</b> of "closure to efficient causation." Mostly already in the
+literature (Soto-Andrade &amp; Varela 1984; Mossio&ndash;Longo&ndash;Stewart 2009; C&aacute;rdenas et&nbsp;al.
+2010) &mdash; recorded here as the reminder it is, not as new content.</p>
+
+<!-- ====================================================================== -->
+<h2>Fig. 2 &mdash; Dying-as-process: the loop gain &lambda; (enrich over a "strength" object)</h2>
+<p class="lead">"Metabolism and repair become <i>weaker</i>" is <b>inexpressible</b> in pure Rosen (arrows
+exist or don't; no metric). Enrich each hom over an efficacy object &mdash; <code>([0,1],&times;)</code> or
+the cost metric <code>([0,&infin;],+)</code> &mdash; and composition <i>multiplies</i> efficacies. The loop
+then has a gain <code>&lambda;</code> (Perron&ndash;Frobenius eigenvalue of the composed repair operator).</p>
+<div class="fig">
+<script type="text/tikz">
+\usetikzlibrary{arrows.meta,positioning,calc}
+\begin{tikzpicture}[
+  >=Latex, line join=round,
+  obj/.style={draw=black,circle,fill=gray!8,inner sep=4pt,minimum size=11mm,align=center,font=\scriptsize},
+  ar/.style={->,line width=1pt},
+  ann/.style={align=center,font=\scriptsize},
+]
+\foreach \x/\lab/\col/\state in {0/{$\lambda\ge 1$}/{green!50!black}/{ALIVE},4.6/{$\lambda<1$}/{orange!80!black}/{DYING},9.2/{$\lambda\to 0$}/{red!70!black}/{DEAD}}{
+  \begin{scope}[shift={(\x,0)}]
+    \node[obj] (f) at (0,1.05) {$f$};
+    \node[obj] (P) at (-0.95,-0.55) {$\Phi$};
+    \node[obj] (b) at (0.95,-0.55) {$\beta$};
+    \draw[ar,\col] (f) to[bend right=18] (P);
+    \draw[ar,\col] (P) to[bend right=18] (b);
+    \draw[ar,\col] (b) to[bend right=18] (f);
+    \node[ann,\col] at (0,1.95) {\textbf{\state}};
+    \node[ann,\col] at (0,-1.5) {\lab};
+  \end{scope}
+}
+% efficacy decay annotation under the row
+\node[ann] at (4.6,-2.35)
+  {gain $\lambda=$ product of edge efficacies around the loop \;(each $\le 1$ as repair attenuates)};
+\node[ann] at (4.6,-3.0)
+  {$\lambda=1$ is the (ir)reversible commitment --- the \emph{same} threshold as an autocatalytic set going
+   sub-critical / a branching process below criticality};
+% arrow showing direction of dying
+\draw[->,gray!60,line width=1.2pt] (1.9,2.3) -- node[ann,above,black]{dying $=\lambda$ drifting below 1} (7.4,2.3);
+\end{tikzpicture}
+</script>
+</div>
+<p class="cap"><b>This is the core move.</b> It does <i>not</i> discover a new law: <code>&lambda;</code> is a
+<i>defined</i> quantity chosen to match the alive/dying/dead trichotomy, and the threshold is the standard
+autocatalytic / branching one under a Rosen name. What the reframing adds is the <b>diagnosis</b> &mdash;
+dying lives in <i>Rosen-enriched-over-rates</i>, not in pure Rosen.</p>
+
+<!-- ====================================================================== -->
+<h2>Fig. 3 &mdash; Stratified unraveling &amp; the two death-modes</h2>
+<p class="lead">The loop depends inward (<code>&beta;</code> makes <code>&Phi;</code> makes <code>f</code>),
+so it opens outer&rarr;inner. Two ways the dissipative arrow wins: <b>necrosis</b> (broken from outside,
+no telos) vs <b>apoptosis</b> (a self-entailed off-switch &mdash; the one slot where a genuine final cause
+legitimately enters).</p>
+<div class="fig">
+<script type="text/tikz">
+\usetikzlibrary{arrows.meta,positioning,calc}
+\begin{tikzpicture}[
+  >=Latex, line join=round,
+  ring/.style={draw,circle,line width=1pt,align=center,font=\scriptsize},
+  ann/.style={align=center,font=\scriptsize},
+]
+% concentric rings: beta outer, Phi mid, f core
+\node[ring,minimum size=42mm,draw=red!55!black] (B) at (0,0) {};
+\node[ring,minimum size=27mm,draw=orange!75!black] (P) at (0,0) {};
+\node[ring,minimum size=13mm,draw=green!50!black,fill=green!8] (F) at (0,0) {$f$};
+\node[green!45!black,font=\scriptsize] at (0,-0.95) {metabolism};
+\node[orange!80!black,font=\scriptsize] at (0,1.65) {$\Phi$ repair};
+\node[red!65!black,font=\scriptsize] at (0,2.55) {$\beta$ replication};
+% loss-order annotations to the right
+\node[ann,anchor=west] at (3.0,1.9)
+  {lose \textcolor{red!65!black}{$\beta$} \;$\Rightarrow$\; \textbf{senescence}\\(alive, non-replicating)};
+\node[ann,anchor=west] at (3.0,0.4)
+  {lose \textcolor{orange!80!black}{$\Phi$} \;$\Rightarrow$\; \textbf{aging}\\(damage accumulates)};
+\node[ann,anchor=west] at (3.0,-1.1)
+  {lose \textcolor{green!50!black}{$f$} \;$\Rightarrow$\; \textbf{death}};
+\draw[->,gray!55,line width=1.1pt] (2.0,2.3) to[bend left=12] (2.0,-1.4);
+\node[ann,gray!55!black,rotate=-90] at (1.75,0.5) {opens outer$\to$inner};
+
+% two death modes box (bottom)
+\node[draw,rounded corners=3pt,fill=red!4,inner sep=6pt,ann,anchor=north,text width=4.6cm] at (-1.2,-2.9)
+  {\textbf{necrosis} --- loop broken \emph{from outside}\\(partial functor, can't extend\\$=$ the mirror of
+   blowup: \emph{collapse}) \\ \textbf{final cause: none}};
+\node[draw,rounded corners=3pt,fill=blue!5,inner sep=6pt,ann,anchor=north,text width=4.8cm] at (4.4,-2.9)
+  {\textbf{apoptosis} --- self-entailed off-switch\\(morphism whose target is its own\\dissolution, "for" the
+   whole) \\ \textbf{final cause: present} (programmed)};
+\end{tikzpicture}
+</script>
+</div>
+<p class="cap">Interpretive <b>labelling</b>, not a construction &mdash; there is no morphism here that
+"entails" apoptosis. The two final-cause slots are <i>different kinds of explanation</i> (NS empty because
+viscous dissipation has no telos; apoptosis filled because it is a <i>programmed</i> process), <b>not</b> a
+deep ontological asymmetry. Reading it as "biology supplies a final cause NS lacks, ontologically" is
+over-reach.</p>
+
+<!-- ====================================================================== -->
+<h2>Fig. 4 &mdash; The meeting point: death = the dissipative arrow winning</h2>
+<p class="lead">Rosen has the closure but <b>no metric</b> &mdash; it cannot express decay; you must add a
+dissipative arrow. Unforced incompressible NS has the dissipative arrow but <b>no sustaining metabolism</b>
+&mdash; it only decays. The enrichment "dying" forces onto Rosen <i>is</i> the dissipative dynamics NS
+already carries. They reach for the same missing structure from opposite sides.</p>
+<div class="fig">
+<script type="text/tikz">
+\usetikzlibrary{arrows.meta,positioning,calc}
+\begin{tikzpicture}[
+  >=Latex, line join=round,
+  box/.style={draw,rounded corners=3pt,inner sep=7pt,align=center,font=\small,text width=4.6cm},
+  ann/.style={align=center,font=\scriptsize},
+]
+\node[box,fill=blue!5] (R) at (0,0)
+  {\textbf{Rosen + death}\\closure, but \emph{metric-free}\\
+   $\Rightarrow$ cannot express "weaker"\\\textbf{missing: a dissipative arrow}};
+\node[box,fill=green!6] (N) at (7.2,0)
+  {\textbf{NS $-$ forcing}\\dissipative arrow for free\\(Stokes semigroup)\\
+   \textbf{missing: a sustaining metabolism}};
+\draw[<->,gray!70,line width=1.1pt] (R) -- node[ann,above]{same missing\\structure,\\opposite sides} (N);
+
+% the decay statement under NS
+\node[ann,anchor=north,text width=6.2cm] at (7.2,-1.7)
+  {$\partial_t u=-P B(u,u)-\nu A u$ \;(forcing off)\\
+   $\tfrac{d}{dt}\tfrac12\|u\|^2=-\nu\|\nabla u\|^2\le 0$\\
+   $\Rightarrow u\to 0$,\quad $T:(\mathbf{R}_{\ge0},+)\to\mathrm{End}(H)$\\
+   relaxes to the \textbf{constant functor on the zero object}};
+
+% life as the held regime
+\node[draw,rounded corners=3pt,fill=orange!8,inner sep=6pt,ann,text width=9.5cm,anchor=north] at (3.6,-4.0)
+  {\textbf{life} $=$ a forcing/metabolic input holding the loop gain $\lambda\ge1$ \emph{against} the
+   dissipative arrow.\quad \textbf{death} $=$ the dissipative arrow wins; $T$ relaxes onto the trivial fixed
+   point ("heat death").};
+\end{tikzpicture}
+</script>
+</div>
+<p class="cap red"><b>Diagnostic, not generative.</b> This names what minimal layer each framework lacks; it
+makes <b>no</b> new prediction about either system, and in particular says <b>nothing</b> about whether
+<code>T</code> is <i>total under forcing</i> &mdash; which is the actual open NS problem. It touches the
+Clay prize <b>not at all</b>. <code>:proved=0</code>; no NS-ID.</p>
+
+<p class="note">Rendered client-side by TikZJax (compiles TikZ to SVG in the browser &mdash; needs an
+internet connection on first load to fetch the WebAssembly TeX). If a figure area stays blank you are
+offline or the CDN is blocked; tell me and I'll switch to a self-contained SVG fallback. Companion prose:
+<code>docs/ns_efficient_closure_death_dual.md</code>; forward (life) diagram:
+<code>docs/ns_efficient_closure_diagram.html</code>; witness log:
+<code>docs/ns_efficient_closure_witness_verdict.md</code>.</p>
+
+</body>
+</html>
