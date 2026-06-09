@@ -63,9 +63,15 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
 2026; Fefferman's NS Millennium statement). Remaining gaps are discrete library additions. **First bite:**
 - **`WeakLp.lean`** — the **weak-Lᵖ (Lorentz `L^{p,∞}`) quasinorm** `wnorm`, the membership predicate
   `MemWLp`, and theorems: the foundational **`Lᵖ ⊆ L^{p,∞}` embedding** `wnorm_le_eLpNorm` (from Mathlib's
-  Chebyshev–Markov `mul_meas_ge_le_pow_eLpNorm'`); **monotonicity** `wnorm_mono`; and the
+  Chebyshev–Markov `mul_meas_ge_le_pow_eLpNorm'`); **monotonicity** `wnorm_mono`; the
   **quasi-triangle inequality** `wnorm_add_le` (`‖f+g‖_{p,∞} ≤ 2(‖f‖_{p,∞}+‖g‖_{p,∞})` for `1≤p<∞` —
-  weak-Lᵖ is a *quasi*-normed space; proved via the `t/2`-split + measure subadditivity +
-  `ENNReal.rpow_add_le_add_rpow`). A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing
-  (weak-`L³` = where Ożański–Palasek's double-log rate lives) and reusable (Marcinkiewicz interpolation).
-  Upstreamable. Next: Marcinkiewicz interpolation → Besov/Littlewood–Paley → Carleman.
+  weak-Lᵖ is a *quasi*-normed space; via the `t/2`-split + `ENNReal.rpow_add_le_add_rpow`); the
+  **distribution-function bound** `meas_le_wnorm_div_rpow` (`μ{s ≤ ‖f‖ₑ} ≤ (‖f‖_{p,∞}/s)^p`); and the
+  **Marcinkiewicz core** — **`eLpNorm_lt_top_of_wnorm` / `MemWLp.memLp`**: `f` in weak-Lᵖ ∩ weak-L^q with
+  `0<p<r<q<∞` lies in `Lʳ`. Proof: the `‖·‖ₑ`→real bridge (`enorm` is never `∞`) + Mathlib's layer-cake
+  `lintegral_rpow_eq_lintegral_meas_lt_mul` + the **two-tail split at `t=1`** (the `p`-tail integrable at
+  `0` since `r>p`, the `q`-tail integrable at `∞` since `r<q`, via `intervalIntegrable_rpow'` /
+  `integrableOn_Ioi_rpow_of_lt`). **Soundness sanity:** a false exponent variant (`r−e+1` for `r−e−1`)
+  is correctly rejected. A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing (weak-`L³`
+  = where Ożański–Palasek's double-log rate lives). Upstreamable. Next: the operator form of
+  Marcinkiewicz (sublinear `T`, weak-(p,p)+(q,q) ⇒ strong-(r,r)) → Besov/Littlewood–Paley → Carleman.

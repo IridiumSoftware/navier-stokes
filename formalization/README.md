@@ -91,7 +91,12 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   `wnorm_add_le` (`‖f+g‖_{p,∞} ≤ 2(‖f‖+‖g‖)`, `1≤p<∞` — weak-Lᵖ is a *quasi*-normed space). Load-bearing:
   weak-`L³` is where the Ożański–Palasek double-log rate lives; reusable across harmonic analysis. Verified
   against Mathlib. (Upstreamable — no existing `wnorm`/`weakLp`/`MemWLp`.)
-- *Next bites (priority order):* Marcinkiewicz interpolation → Besov/Littlewood–Paley → Carleman.
+- **Second bite ✅ (Marcinkiewicz core, function form)** — `meas_le_wnorm_div_rpow` (the distribution
+  bound) + **`eLpNorm_lt_top_of_wnorm` / `MemWLp.memLp`**: weak-Lᵖ ∩ weak-L^q ⊆ Lʳ for `0<p<r<q<∞`,
+  proved via the enorm→real bridge, Mathlib's layer-cake (`lintegral_rpow_eq_lintegral_meas_lt_mul`),
+  and the two-tail split at `t=1`. Soundness: a false exponent variant is rejected. This is the
+  computation inside Marcinkiewicz interpolation; the operator form (sublinear `T`) is a wrapper on it.
+- *Next bites (priority order):* Marcinkiewicz operator form → Besov/Littlewood–Paley → Carleman.
   `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run

@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.6.0 — 2026-06-09 — Formalization ladder resumed: the MARCINKIEWICZ CORE machine-verified (weak-Lᵖ ∩ weak-L^q ⊆ Lʳ, layer-cake + two-tail split)
+
+Resumed the Rung-2 bites (formalization as its own goal). Extended
+`formalization/lean-mathlib/WeakLp.lean` with the function-level Marcinkiewicz interpolation core.
+**Library infrastructure; `:proved`=0 for the PDE; distance UNTOUCHED.**
+- **`meas_le_wnorm_div_rpow`** — the distribution-function bound `μ{s ≤ ‖f‖ₑ} ≤ (‖f‖_{p,∞}/s)^p` (the
+  Chebyshev-type inequality that defines weak-Lᵖ; from the `iSup` via `ENNReal.le_div_iff_mul_le`).
+- **`eLpNorm_lt_top_of_wnorm` + `MemWLp.memLp`** — **weak-Lᵖ ∩ weak-L^q ⊆ Lʳ for `0<p<r<q<∞`** (the
+  computation inside Marcinkiewicz; the sublinear-operator form is a wrapper on it). Proof: (i) the
+  `‖·‖ₑ`→real bridge (`enorm` of a normed-group value is never `∞`); (ii) Mathlib's layer-cake
+  `lintegral_rpow_eq_lintegral_meas_lt_mul`; (iii) the **two-tail split at `t=1`** — on `(0,1]` the
+  `p`-tail bound gives integrand `≲ t^{r−p−1}` (integrable at 0 since `r>p`, `intervalIntegrable_rpow'`),
+  on `(1,∞)` the `q`-tail gives `≲ t^{r−q−1}` (integrable at ∞ since `r<q`, `integrableOn_Ioi_rpow_of_lt`).
+- **Soundness sanity:** a false exponent variant (`r−e+1` for `r−e−1`) is correctly REJECTED (LEAN_EXIT=1);
+  no `sorry` anywhere; verified vs the TCE `lean4-cv` Mathlib (LEAN_EXIT=0).
+- Weak-Lᵖ now has: quasinorm, membership, `Lᵖ⊆L^{p,∞}`, monotonicity, quasi-triangle, distribution bound,
+  and interpolation — a genuinely upstreamable `MeasureTheory.WeakLp` nucleus. *Next:* the Marcinkiewicz
+  operator form → Besov/Littlewood–Paley → Carleman. `:proved`=0; distance UNTOUCHED.
+
 ## v0.5.2 — 2026-06-09 — Systematic record-audit: ALL 7 remaining transcribed closed-form identities VERIFIED — the NRŠ error was the only false transcription in the record
 
 Swept every transcribed closed-form identity in the docs/SPEC that wasn't already machine-verified

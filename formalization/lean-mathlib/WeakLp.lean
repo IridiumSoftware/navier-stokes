@@ -102,6 +102,122 @@ theorem wnorm_add_le (hp1 : 1 ≤ p) (hp_top : p ≠ ∞) (f g : α → E) :
     _ = 2 * ((⨆ s : ℝ≥0∞, s * μ {x | s ≤ ‖f x‖ₑ} ^ (p.toReal)⁻¹)
           + ⨆ s : ℝ≥0∞, s * μ {x | s ≤ ‖g x‖ₑ} ^ (p.toReal)⁻¹) := by rw [mul_add]
 
+/-- **Distribution-function bound from the weak-Lᵖ quasinorm:** the superlevel-set measure obeys
+    `μ {x | s ≤ ‖f x‖ₑ} ≤ (‖f‖_{p,∞} / s)^p` — the Chebyshev-type inequality that defines weak-Lᵖ. -/
+theorem meas_le_wnorm_div_rpow (hp0 : p ≠ 0) (hp_top : p ≠ ∞)
+    (f : α → E) {s : ℝ≥0∞} (hs0 : s ≠ 0) (hs_top : s ≠ ∞) :
+    μ {x | s ≤ ‖f x‖ₑ} ≤ (wnorm f p μ / s) ^ p.toReal := by
+  have hpr : 0 < p.toReal := ENNReal.toReal_pos hp0 hp_top
+  have h1 : s * μ {x | s ≤ ‖f x‖ₑ} ^ (p.toReal)⁻¹ ≤ wnorm f p μ :=
+    le_iSup (fun t : ℝ≥0∞ => t * μ {x | t ≤ ‖f x‖ₑ} ^ (p.toReal)⁻¹) s
+  have h2 : μ {x | s ≤ ‖f x‖ₑ} ^ (p.toReal)⁻¹ ≤ wnorm f p μ / s :=
+    (ENNReal.le_div_iff_mul_le (Or.inl hs0) (Or.inl hs_top)).mpr (by rwa [mul_comm])
+  calc μ {x | s ≤ ‖f x‖ₑ}
+      = (μ {x | s ≤ ‖f x‖ₑ} ^ (p.toReal)⁻¹) ^ p.toReal := by
+        rw [← ENNReal.rpow_mul, inv_mul_cancel₀ hpr.ne', ENNReal.rpow_one]
+    _ ≤ (wnorm f p μ / s) ^ p.toReal := by gcongr
+
+/-- **Weak-Lᵖ interpolation (the Marcinkiewicz core), function form:** if `f` lies in weak-Lᵖ and
+    weak-L^q with `0 < p < r < q < ∞`, then `f ∈ Lʳ`. Proof: layer-cake + the two-tail split — the
+    `p`-tail controls small `t` (since `r > p`), the `q`-tail controls large `t` (since `r < q`). -/
+theorem eLpNorm_lt_top_of_wnorm {q r : ℝ≥0∞} (hp0 : p ≠ 0) (hpr : p < r) (hrq : r < q)
+    (hq_top : q ≠ ∞) {f : α → E} (hf : AEStronglyMeasurable f μ)
+    (hfp : wnorm f p μ < ∞) (hfq : wnorm f q μ < ∞) :
+    eLpNorm f r μ < ∞ := by
+  -- exponent bookkeeping
+  have hq_lt : q < ∞ := hq_top.lt_top
+  have hr_top : r ≠ ∞ := (hrq.trans hq_lt).ne
+  have hp_top : p ≠ ∞ := ((hpr.trans hrq).trans hq_lt).ne
+  have hr0 : r ≠ 0 := fun h => absurd hpr (by simp [h])
+  have hq0 : q ≠ 0 := fun h => absurd hrq (by simp [h])
+  have hpr_pos : 0 < p.toReal := ENNReal.toReal_pos hp0 hp_top
+  have hrr_pos : 0 < r.toReal := ENNReal.toReal_pos hr0 hr_top
+  have hqr_pos : 0 < q.toReal := ENNReal.toReal_pos hq0 hq_top
+  have h_pr_rr : p.toReal < r.toReal := ENNReal.toReal_strict_mono hr_top hpr
+  have h_rr_qr : r.toReal < q.toReal := ENNReal.toReal_strict_mono hq_top hrq
+  -- reduce to the lintegral
+  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal hr0 hr_top]
+  refine ENNReal.rpow_lt_top_of_nonneg (by positivity) ?_
+  -- layer-cake on the real-valued ‖f ·‖ (the enorm is never ∞, so the bridge is exact)
+  have key := lintegral_rpow_eq_lintegral_meas_lt_mul μ
+    (f := fun x => ‖f x‖) (.of_forall fun x => norm_nonneg _) hf.norm.aemeasurable hrr_pos
+  have lhs_eq : ∫⁻ x, ‖f x‖ₑ ^ r.toReal ∂μ = ∫⁻ x, ENNReal.ofReal (‖f x‖ ^ r.toReal) ∂μ :=
+    lintegral_congr fun x => by
+      rw [← ENNReal.ofReal_rpow_of_nonneg (norm_nonneg _) hrr_pos.le, ofReal_norm_eq_enorm]
+  rw [lhs_eq, key]
+  -- split the t-integral:  Ioi 0 = Ioc 0 1 ∪ Ioi 1
+  rw [← Set.Ioc_union_Ioi_eq_Ioi (zero_le_one (α := ℝ)),
+      lintegral_union measurableSet_Ioi
+        (Set.disjoint_left.mpr fun t ht ht' => absurd ht.2 (not_le.mpr ht'))]
+  -- pointwise tail bound (t > 0):  μ{t<‖f‖}·t^{r-1} ≤ ‖f‖_{e,∞}^e · t^{r-e-1}
+  have ptwise : ∀ e : ℝ≥0∞, e ≠ 0 → e ≠ ∞ → ∀ t : ℝ, 0 < t →
+      μ {a | t < ‖f a‖} * ENNReal.ofReal (t ^ (r.toReal - 1))
+        ≤ wnorm f e μ ^ e.toReal * ENNReal.ofReal (t ^ (r.toReal - e.toReal - 1)) := by
+    intro e he0 he_top t ht0
+    have her_pos : 0 < e.toReal := ENNReal.toReal_pos he0 he_top
+    have hofR0 : ENNReal.ofReal t ≠ 0 := by
+      simpa [ENNReal.ofReal_eq_zero, not_le] using ht0
+    have hmeas : μ {a | t < ‖f a‖} ≤ (wnorm f e μ / ENNReal.ofReal t) ^ e.toReal := by
+      refine le_trans (measure_mono fun x hx => ?_)
+        (meas_le_wnorm_div_rpow he0 he_top f hofR0 ENNReal.ofReal_ne_top)
+      rw [Set.mem_setOf_eq, ← ofReal_norm_eq_enorm]
+      exact ENNReal.ofReal_le_ofReal hx.le
+    calc μ {a | t < ‖f a‖} * ENNReal.ofReal (t ^ (r.toReal - 1))
+        ≤ (wnorm f e μ / ENNReal.ofReal t) ^ e.toReal * ENNReal.ofReal (t ^ (r.toReal - 1)) := by
+          gcongr
+      _ = wnorm f e μ ^ e.toReal * ENNReal.ofReal (t ^ (r.toReal - e.toReal - 1)) := by
+          rw [ENNReal.div_rpow_of_nonneg _ _ her_pos.le, div_eq_mul_inv,
+              ← ENNReal.rpow_neg, ENNReal.ofReal_rpow_of_pos ht0, mul_assoc,
+              ← ENNReal.ofReal_mul (Real.rpow_nonneg ht0.le _), ← Real.rpow_add ht0]
+          congr 2
+          ring
+  -- the two tail constants are finite
+  have hAp_top : wnorm f p μ ^ p.toReal ≠ ∞ :=
+    (ENNReal.rpow_lt_top_of_nonneg hpr_pos.le hfp.ne).ne
+  have hBq_top : wnorm f q μ ^ q.toReal ≠ ∞ :=
+    (ENNReal.rpow_lt_top_of_nonneg hqr_pos.le hfq.ne).ne
+  -- piece 1: the p-tail on (0,1]
+  have bound1 : ∫⁻ t in Set.Ioc (0:ℝ) 1, μ {a | t < ‖f a‖} * ENNReal.ofReal (t ^ (r.toReal - 1))
+      ≤ wnorm f p μ ^ p.toReal
+          * ∫⁻ t in Set.Ioc (0:ℝ) 1, ENNReal.ofReal (t ^ (r.toReal - p.toReal - 1)) := by
+    rw [← lintegral_const_mul' _ _ hAp_top]
+    exact lintegral_mono_ae ((ae_restrict_iff' measurableSet_Ioc).mpr
+      (ae_of_all _ fun t ht => ptwise p hp0 hp_top t ht.1))
+  -- piece 2: the q-tail on (1,∞)
+  have bound2 : ∫⁻ t in Set.Ioi (1:ℝ), μ {a | t < ‖f a‖} * ENNReal.ofReal (t ^ (r.toReal - 1))
+      ≤ wnorm f q μ ^ q.toReal
+          * ∫⁻ t in Set.Ioi (1:ℝ), ENNReal.ofReal (t ^ (r.toReal - q.toReal - 1)) := by
+    rw [← lintegral_const_mul' _ _ hBq_top]
+    exact lintegral_mono_ae ((ae_restrict_iff' measurableSet_Ioi).mpr
+      (ae_of_all _ fun t ht => ptwise q hq0 hq_top t (lt_trans one_pos ht)))
+  -- the two model integrals are finite:  r−p−1 > −1 at 0;  r−q−1 < −1 at ∞
+  have int1 : ∫⁻ t in Set.Ioc (0:ℝ) 1, ENNReal.ofReal (t ^ (r.toReal - p.toReal - 1)) ≠ ∞ := by
+    have hint : MeasureTheory.IntegrableOn (fun t : ℝ => t ^ (r.toReal - p.toReal - 1))
+        (Set.Ioc 0 1) := by
+      have h := intervalIntegral.intervalIntegrable_rpow' (a := (0:ℝ)) (b := 1)
+        (r := r.toReal - p.toReal - 1) (by linarith)
+      rwa [intervalIntegrable_iff, Set.uIoc_of_le zero_le_one] at h
+    rw [← MeasureTheory.ofReal_integral_eq_lintegral_ofReal hint
+      ((ae_restrict_iff' measurableSet_Ioc).mpr
+        (ae_of_all _ fun t ht => Real.rpow_nonneg ht.1.le _))]
+    exact ENNReal.ofReal_ne_top
+  have int2 : ∫⁻ t in Set.Ioi (1:ℝ), ENNReal.ofReal (t ^ (r.toReal - q.toReal - 1)) ≠ ∞ := by
+    have hint : MeasureTheory.IntegrableOn (fun t : ℝ => t ^ (r.toReal - q.toReal - 1))
+        (Set.Ioi 1) := integrableOn_Ioi_rpow_of_lt (by linarith) one_pos
+    rw [← MeasureTheory.ofReal_integral_eq_lintegral_ofReal hint
+      ((ae_restrict_iff' measurableSet_Ioi).mpr
+        (ae_of_all _ fun t ht => Real.rpow_nonneg (lt_trans one_pos ht).le _))]
+    exact ENNReal.ofReal_ne_top
+  -- assemble
+  exact ENNReal.mul_ne_top ENNReal.ofReal_ne_top (ENNReal.add_ne_top.mpr
+    ⟨ne_top_of_le_ne_top (ENNReal.mul_ne_top hAp_top int1) bound1,
+     ne_top_of_le_ne_top (ENNReal.mul_ne_top hBq_top int2) bound2⟩)
+
+/-- **Marcinkiewicz core, membership form:** `f` in weak-Lᵖ ∩ weak-L^q (`0<p<r<q<∞`) lies in `Lʳ`. -/
+theorem MemWLp.memLp {q r : ℝ≥0∞} (hp0 : p ≠ 0) (hpr : p < r) (hrq : r < q) (hq_top : q ≠ ∞)
+    {f : α → E} (hfp : MemWLp f p μ) (hfq : MemWLp f q μ) : MemLp f r μ :=
+  ⟨hfp.1, eLpNorm_lt_top_of_wnorm hp0 hpr hrq hq_top hfp.1 hfp.2 hfq.2⟩
+
 #eval "Rung 2 (first bite): weak-Lᵖ quasinorm + Lᵖ ⊆ L^{p,∞} embedding + props — machine-verified."
 
 end NSWeakLp
