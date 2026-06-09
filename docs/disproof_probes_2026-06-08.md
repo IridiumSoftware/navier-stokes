@@ -36,12 +36,19 @@ operator — without which the identity is literally false; (ii) the recorded RH
 a constant `+3νa²`** from the clean true RHS `−ν|∇U|²+…` (since `|∇U+aI|²=|∇U|²+3a²` for div-free `U`).
 
 **Impact: the NRŠ *theorem* is unaffected.** Both RHS forms are `≤0`, so the max-principle chain
-(`LH ≤ 0` + decay ⇒ `H ≤ 0` ⇒ `U≡0`) stands. The defect is entirely in **our transcription** — almost
-certainly a compression in the line-read (the doc paraphrased "matches the Π-functional mechanism" rather
-than transcribing Lemma 3.3 verbatim). *(The exact `3νa²` constant is normalization-dependent; the
-structural finding — drift required, RHS = antisymmetric-gradient square — is normalization-independent.)*
-**Action:** corrected in `docs/nrs_ess_verification_2026-06-07.md`; flagged to re-check NRŠ Lemma 3.3
-verbatim for full certainty on the original.
+(`LΠ ≤ 0` + decay ⇒ `Π ≤ 0` ⇒ `U≡0`) stands. The defect is entirely in **our transcription**.
+
+**[VERBATIM CONFIRMATION 2026-06-08]** Re-fetched NRŠ Lemma 3.3 (Acta p. 290; scanned PDF via the Tsinghua
+archive mirror, read visually). The original states: `Π(y) = ½|U(y)|² + P(y) + ay·U(y)` satisfies the
+maximum principle; proof sets `Ũ := U + ay`, `P̃ := P − ½a²|y|²` (so the system becomes
+`−νΔŨ+(Ũ·∇)Ũ+∇P̃ = 0`, `div Ũ = 3a`), and derives
+`−νΔ(½|Ũ|²+P̃) + (Ũ·∇)(½|Ũ|²+P̃) = −ν|∇Ũ|² − νΔP̃ = −ν|∇U+aI|² − νΔP + 3νa² = −ν|∇U|² + ν(∂ᵢUⱼ)(∂ⱼUᵢ) ≤ 0`,
+with `½|Ũ|²+P̃ = Π`. This **matches the symbolic finding term-for-term**: (a) the advection is the **full
+self-similar velocity `Ũ = U + ay`** — the `a(y·∇)Π` drift IS present in the original; our doc's `(U·∇)H`
+dropped the `ay`. (b) NRŠ's **final** RHS is exactly `−ν|∇U|² + ν(∂ᵢUⱼ)(∂ⱼUᵢ)`; the `−ν|∇U+aI|²` we
+recorded was their **intermediate** line, recorded as if final → the `+3νa²` gap (the `3` is the spatial
+dimension, from `Δ(½a²|y|²) = 3a²` — not a normalization artifact). **Verdict: the NRŠ original is
+correct; both errors were entirely ours.** Corrected in `docs/nrs_ess_verification_2026-06-07.md`.
 
 **Why it matters:** a *human line-read graded C3* recorded a false identity; a **2-minute symbolic check
 caught it.** This is the concrete payoff of the computer-algebra disproof rung — it finds what reading

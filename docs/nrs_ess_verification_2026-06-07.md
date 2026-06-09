@@ -37,8 +37,11 @@ originally recorded the Lemma-3.3 identity as `−νΔH+(U·∇)H = −ν|∇U+a
 — it (i) **drops the `a(y·∇)H` self-similar drift** and (ii) has an RHS **off by `+3νa²`**. The
 **verified-correct identity** is
 `−νΔH + (U·∇)H + a(y·∇)H = −ν Σ_{i<j}(∂_iU_j−∂_jU_i)² = −ν|∇U|²+ν(∂_iU_j)(∂_jU_i) ≤ 0`. The error was in
-**this transcription only**; both RHS forms are `≤0`, so NRŠ Thm 1 and its `LH≤0` max-principle chain are
-**unaffected**. (Re-check NRŠ Lemma 3.3 verbatim for full certainty on the original wording.)
+**this transcription only**; both RHS forms are `≤0`, so NRŠ Thm 1 and its `LΠ≤0` max-principle chain are
+**unaffected**. **CONFIRMED VERBATIM 2026-06-08** against the Acta original (Lemma 3.3, p. 290, read
+visually from the scanned PDF): NRŠ advect by the full self-similar velocity `Ũ=U+ay` (the drift IS in the
+original) and their final RHS is exactly `−ν|∇U|²+ν(∂_iU_j)(∂_jU_i)`; the `−ν|∇U+aI|²` form we'd recorded
+was their intermediate line. **The NRŠ original is correct; both errors were ours.**
 
 **Tier: C3 (proof line-read, primary Acta PDF; H-identity transcription corrected 2026-06-08).**
 

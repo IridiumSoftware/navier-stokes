@@ -1,5 +1,18 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.5.1 — 2026-06-09 — NRŠ loop CLOSED: Lemma 3.3 verbatim-confirmed (Acta p. 290) — the symbolic finding matches the original term-for-term; both errors were ours
+
+Re-fetched the NRŠ Acta original (scanned PDF, Tsinghua archive mirror; read visually) and confirmed Lemma
+3.3 verbatim. **The original:** `Π=½|U|²+P+ay·U`; proof sets `Ũ=U+ay`, `P̃=P−½a²|y|²` (system becomes
+`−νΔŨ+(Ũ·∇)Ũ+∇P̃=0`, `div Ũ=3a`) and derives `−νΔΠ+(Ũ·∇)Π = −ν|∇U+aI|²−νΔP+3νa² = −ν|∇U|²+ν(∂ᵢUⱼ)(∂ⱼUᵢ) ≤ 0`.
+**Matches the sympy probe term-for-term:** (a) the advection is the full self-similar `Ũ=U+ay` — the
+`a(y·∇)Π` drift IS in the original (our record dropped the `ay`); (b) NRŠ's final RHS is exactly
+`−ν|∇U|²+ν cross` — our `−ν|∇U+aI|²` was their INTERMEDIATE line recorded as final (the `+3νa²` gap; the 3
+= spatial dimension from `Δ(½a²|y|²)=3a²`). **Verdict: NRŠ correct; both errors ours.** Updated
+`docs/disproof_probes_2026-06-08.md` (verbatim-confirmation block) + `docs/nrs_ess_verification_2026-06-07.md`
+(correction note finalized). NS-007 stays C3 (now with the identity verified symbolically AND against the
+verbatim source). `:proved`=0; distance UNTOUCHED. Next: systematic record-audit of all closed-form claims.
+
 ## v0.5.0 — 2026-06-08 — Disproof probes: NRŠ H-identity RECORD ERROR caught (symbolic) + Wang anisotropic Hardy–Sobolev HARDENED (numerical)
 
 Re-pointed the formalization effort at its actual goal — **disproving / hard-verifying the citations** —
