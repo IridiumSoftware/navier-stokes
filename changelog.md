@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.5.2 — 2026-06-09 — Systematic record-audit: ALL 7 remaining transcribed closed-form identities VERIFIED — the NRŠ error was the only false transcription in the record
+
+Swept every transcribed closed-form identity in the docs/SPEC that wasn't already machine-verified
+(Rungs 0–1, NRŠ probe) through sympy. `disproof/record_audit.py` + `docs/record_audit_2026-06-09.md`.
+**Record verification; `:proved`=0; distance UNTOUCHED.** All PASS:
+- **B1** the `G=∂_zΓ` equation (sign-condition doc C-ii) — the recorded bracket
+  `−[(∂_zu^r)∂_rΓ+(∂_zu^z)G]` is exactly `∂_z` of the Γ-equation, signs and all;
+- **B2** `L_Γ(r²u₁)=r²(∂_r²+(3/r)∂_r+∂_z²)u₁` (the 4-D radial-heat substitution, §4);
+- **B3** `Δ_axi−(2/r)∂_r=L_Γ` — the frontier doc's Γ-equation form and the sign-condition doc's `νL_Γ`
+  form are consistent;
+- **B4** pressure-Poisson `div(momentum)=Δp+∂_iu_j∂_ju_i` (ns046_target);
+- **B5** the 3D vorticity equation `curl(momentum)=∂_tω+(u·∇)ω−(ω·∇)u−νΔω` (machinery:286; doc's `ν=1`
+  is normalization);
+- **B6** the production algebra `ωᵀ(∇u)ω=ωᵀSω` (SPEC NS-036 / ns046 production);
+- **B7** the **M1 rescaling-covariance cornerstone** `NSop(u_λ,p_λ)(x,t)=λ³·NSop(u,p)(x₀+λx,T+λ²t)`
+  (machinery:43) — exact in `λ`.
+Method: generic functions (B1–B3) / generic polynomial instances with `u=curl A` div-free by construction
+(B4/B5/B7), same standard as the Rung-1 checks. **Net: every closed-form identity in the program's record
+is now machine-checked; one error total (NRŠ, corrected + verbatim-confirmed).** Standing rule instituted:
+new transcribed identities get a symbolic check at transcription time (append to `record_audit.py`).
+Inequalities/asymptotics (Carleman, CKN, GN, rate bounds) are out of this instrument's scope and keep
+their C-tiers. `:proved`=0; distance UNTOUCHED.
+
 ## v0.5.1 — 2026-06-09 — NRŠ loop CLOSED: Lemma 3.3 verbatim-confirmed (Acta p. 290) — the symbolic finding matches the original term-for-term; both errors were ours
 
 Re-fetched the NRŠ Acta original (scanned PDF, Tsinghua archive mirror; read visually) and confirmed Lemma
