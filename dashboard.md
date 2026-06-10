@@ -279,8 +279,9 @@ Distance to prize: UNTOUCHED.**
    - **W3 — `substrate_source` for NS-022/023/024/037** (closure-v5/Q_102 data): add the A7 provenance
      field; the closure-v5 path is now machine-local/public-unresolvable after the public flip.
      Scope≠PDE hygiene, not integrity.
-   - **W5 — DESIGN.md sync** (last touched 2026-06-04): fold in NS-045..050, the MDAGC synthesis, the
-     Lean ladder, the disproof arc.
+   - **W5 — DESIGN.md sync — DONE ✓ (2026-06-10):** §3 reframed (complex plane was the *first* handle →
+     the live attack is now the two frontiers + the MDAGC strategy); §7 extended through NS-045..050,
+     the Lean ladder, and the disproof arc.
    - **N2 — `formalization/` Lean ladder ledger entry:** a fenced INFRASTRUCTURE entry (Scope:
      formalization, explicitly NOT a PDE/`:proved` claim) so the machine-verified library work is
      traceable — **coordinate with the concurrent Lean session (live on `LittlewoodPaley.lean`).**

@@ -21,12 +21,18 @@ requires unbounded vortex stretching (NS-004). The cleanest backward constructio
 (exact self-similarity) is dead (NS-007); and energy-only methods are provably
 insufficient (Tao's averaged blowup, NS-008). What survives: partial-regularity
 control (singular set ≤ 1D, NS-006), the inviscid-limit/Onsager picture (1/3,
-NS-009), and — the live analytic handle — the **complex plane**.
+NS-009). The analytic handles, tried in turn: first the **complex plane** (§3, validated but no PDE
+result), now the **σ=0 vortex-stretching production** at the two frontiers the obstruction map funnels
+everything to (§3, §7).
 
-## 3. The live attack: the complex plane
+## 3. The attack: from the complex plane to the two frontiers
 
-This is the program's primary forward direction, and the rigorous form of the
-"assume it blows up and work backward" instinct.
+**The program's strategy is generator-class reduction (the MDAGC, `docs/ns_blowup_generator_class.md`):**
+assemble every no-go into one positive object — *what any finite-time singularity must be* — and let the
+intersection localize where a live attack must go. The intersection is non-empty and pinned to **two
+frontiers** (NS-046 static / NS-048 dynamic, below), which are now the live attack. The **complex plane**
+(this section) was the *first* analytic handle tried — the rigorous form of the "assume it blows up and
+work backward" instinct; it is validated and produced no PDE result.
 
 - **Analyticity strip (NS-010).** A smooth solution extends analytically to a
   complex strip of width `δ(t)`, equal to the Fourier-spectrum decay rate.
@@ -62,6 +68,21 @@ but the full-band fit is not N-converged and does not co-move with BKM, so the g
 refuses a resolution-artifact δ→0. Step 3 (obstruction co-movement, T-06) is the gate itself.
 The complex-plane diagnostic is now *validated and applied*; it has produced no PDE result, and
 the program has since broadened well beyond this one plan — see §7.
+
+**The current live attack — the two frontiers (the MDAGC's two non-empty holes).** Regularity ⟺ control a
+σ=0 critical norm ⟸ bound enstrophy ⟸ control the vortex-stretching production `P=∫ω·Sω`. The map funnels
+everything there, and `P` sits in `ker(E)` — invisible to the only coercive control (energy). The live
+attack must engage it through one of two structures, two faces of one wall:
+- **Static (NS-046).** A *critical coercive deformation inequality* — does the nonlocal pressure-Hessian
+  counter-transport (plus viscosity) dominate the strain self-amplification at σ=0, in critical Besov on
+  CKN sets? The difficulty is non-uniformity (depletion is core-concentrated, bulk-enhancing). Needs a
+  genuine analytic idea the program does not have.
+- **Dynamic (NS-048).** *Exclude the rescaled ancient solution* — assume a singularity, rescale, prove a
+  Liouville theorem (Type-I-conditioned ⟺ Albritton–Barker; the unconditioned KNSS-with-swirl case is
+  open) and handle the Type-II branch (no compact limit; modulation theory). Every session-scale attack
+  reduces to two un-mechanized open cores.
+Recent work (§7) engages these directly: NS-049 (a line-read of Lockwood's conditional anisotropy criterion)
+and NS-050 (modulation/Type-II + a within-truncation instrument and reusable ℝ-variable tooling).
 
 ## 4. What the prior arc contributed (honest accounting)
 
@@ -104,7 +125,7 @@ witnessed result earns it.**
 - **Failure mode to avoid:** a `:tested` model result quietly migrating into prose
   as "evidence about Navier–Stokes." The Scope line exists to prevent exactly this.
 
-## 7. What the computation has produced beyond the complex-plane plan (NS-030..040)
+## 7. What the computation has produced beyond the complex-plane plan (NS-030..050)
 
 The §3 plan was the *seed*; the program grew a substantial body of scoped computation around it.
 None of it touches the prize (`:proved`=0, distance UNTOUCHED) — each is a model/truncation result
@@ -136,6 +157,39 @@ the records):
   strong helicity **depletes (delays + concentrates) vortex stretching** — a matched-spectrum
   controlled pair (ρ_H 0.97 vs 0.05, identical E0/Z0) shows 2–4× slower enstrophy growth,
   resolution-robust. The GPU track also re-opened the gated Step-2 hunt at real resolution (§3).
+
+- **Beltramization mechanism (NS-045, `:tested`).** A matched ± helical pair isolates the helicity-depletion
+  mechanism as (b) **Beltramization** (u∥ω crushes the Lamb vector u×ω ~26×, switching off the nonlinear
+  driver), not (a) ω–S alignment. Sharpens NS-040. Within-truncation; N-converged.
+
+- **The MDAGC generator-class synthesis (the strategic centerpiece, `docs/ns_blowup_generator_class.md`).**
+  The standalone no-gos assembled into one positive necessary-conditions object — *what any singularity must
+  be*: `G1–G5` hard (others' theorems) ∧ `S1,S2` soft framings ∧ `W1,W2` within-truncation witnesses. This
+  is the program's organizing move (§3): it declares what is **dead** (energy-/spectrum-only methods, exact
+  self-similar, region-filling) and localizes the live attack to the two non-empty holes (NS-046/048). The
+  phase-coherence/detector arc is folded in as a *sharpening of S1* — a counterexample family showing the
+  production is not a function of the coercive invariants — **not** a new hard exclusion (over-reach
+  declined). Reorganization, not progress; `:proved`=0.
+
+- **The two frontiers, engaged (NS-049, NS-050, both `:open`).** **NS-049 (C0/C1):** an honest line-read of
+  J. Lockwood's anisotropy-depletion CKN-deformation program — a *conditional* regularity criterion (every
+  theorem assumes the anisotropy defect `δ_Λ→0`, never derived; a resolved-DNS probe drives `δ_Λ` the wrong
+  way at reconnection), **not** the unconditional proof its framing implies. **NS-050:** modulation /
+  dynamic-rescaling as the Type-II handle — the finding that the construction route's prerequisite
+  self-similar profile is *exactly what G3 deletes* in the smooth/no-boundary category, plus a
+  within-truncation **instrument** (a dynamic-rescaling fit calibrated on CLM β=1 **and** the faithful
+  Hou–Luo model β=2.47 ∈ the proven Chen–Hou–Huang band (2,4.53), a 3D Taylor–Green negative control, a
+  validated 2D-Boussinesq wall solver), and **reusable ℝ-variable numerical tooling** (cot-map dilation +
+  line-Hilbert operators validated to machine precision — usable for any self-similar/DSS/ancient-profile
+  analysis, incl. NS-048). The tuned-profile reconstruction is OPEN (four honest negatives, recorded). All
+  within-truncation; `:proved`=0.
+
+- **Adjacent infrastructure: a Lean formalization ladder + a citation-disproof arc.** A concurrent track
+  machine-verifies real-analysis library lemmas (Marcinkiewicz interpolation, Littlewood–Paley, Bernstein,
+  Young) — **library infrastructure, `:proved`=0 for the PDE**, fenced as such, not a regularity result.
+  And the cited closed forms / transcribed identities were stress-tested by attempted disproof (sympy/numpy),
+  catching real transcription errors (an NRŠ H-identity record error; a hardened Wang endpoint) — the
+  verification that makes the obstruction atlas trustworthy and is the genuine, transferable value (§1, §5).
 
 The firewall held throughout: every entry is scoped to a model/truncation, the Required Witness
 Checks did their job (e.g. RWC-038 caught a numerical artifact at N=256), and the prize stays
