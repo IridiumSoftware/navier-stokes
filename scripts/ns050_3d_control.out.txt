@@ -1,0 +1,37 @@
+════════════════════════════════════════════════════════════════════════════════════
+  ns050_3d_control.jl — NS-050 (c3): dynamic-rescaling NEGATIVE CONTROL (Scope: 3D DNS trunc.)
+  Regular viscous Taylor–Green (Re=1600, N=64). Instrument must report NULL (no blow-up). :proved=0.
+════════════════════════════════════════════════════════════════════════════════════
+
+  IC: Taylor–Green  N=64  Re=1600  E0=0.12500  Z0=0.37500  div_max=1.7e-25
+
+────────────────────────────────────────────────────────────────────────────────────
+  t      Z/Z0       ‖ω‖∞       ℓ(width)     prof drift   note
+────────────────────────────────────────────────────────────────────────────────────
+  0.00   1.0000     2.000      1.0799       —            rising
+  1.00   1.1068     1.576      1.2763       7.510e-01    rising
+  2.00   1.5094     1.858      1.5708       1.033e+00    rising
+  3.00   2.3961     3.823      1.0799       8.643e-01    rising
+  4.00   4.2728     11.808     0.1963       1.244e+00    rising
+  5.00   8.3810     18.098     0.5890       6.544e-01    rising
+  6.00   12.2698    18.913     0.1963       6.669e-01    rising
+  7.00   19.3328    19.459     0.0982       6.515e-01    rising
+  8.00   25.3396    21.450     0.0982       6.890e-01    rising
+  9.00   28.3677    18.133     0.0982       7.475e-01    DECAYING (‖ω‖∞↓)
+  10.00  27.0991    16.171     0.0982       5.582e-01    DECAYING (‖ω‖∞↓)
+  11.00  25.2621    14.389     0.1963       5.738e-01    DECAYING (‖ω‖∞↓)
+  12.00  20.7745    12.885     0.0982       9.091e-01    DECAYING (‖ω‖∞↓)
+
+════════════════════════════════════════════════════════════════════════════════════
+  READING (NS-050 c3 — NEGATIVE CONTROL)
+════════════════════════════════════════════════════════════════════════════════════
+  • ‖ω‖∞ PEAKS at 21.45 (t=8.0) then DECAYS — BOUNDED, no finite-time divergence. The
+    instrument's first gate (‖ω‖∞→∞?) correctly FAILS ⇒ NO self-similar blow-up to rescale.
+  • The rescaled line-profile drift does NOT settle to 0 (no steady attractor; range 5.6e-01–1.2e+00)
+    — contrast the CLM calibration (ns050_modulation_witness.jl) where drift → 0 at a true
+    self-similar blow-up. So the instrument returns the correct NULL on a regular flow: it does
+    NOT false-positive. (Enstrophy peak Z/Z0 reproduces the Brachet-1983 TG Re=1600 benchmark.)
+  • FIREWALL: regular resolved DNS (N=64), within-truncation; this is a CONTROL, not a near-
+    singular test — the program has no clean near-singular 3D fixture (TG/Kerr are regular).
+    Does NOT touch 3D-NS regularity. :proved=0; distance UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════

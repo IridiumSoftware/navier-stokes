@@ -1,0 +1,39 @@
+══════════════════════════════════════════════════════════════════════════════════════
+  ns050_twoscale_fit.jl — NS-050 (c1) (Scope: 1D-model + spectral truncation)
+  Two-scale dynamic-rescaling: independent spatial scale ℓ=A/‖ω_x‖∞; β=dlnℓ/dlnλ. :proved=0.
+  Resolves the a>0 UNDETERMINED of ns050_dss_spectral_gap.jl. Does NOT touch 3D-NS.
+══════════════════════════════════════════════════════════════════════════════════════
+
+  FFT self-check: max|fft−DFT|=5.0e-13 ✓
+
+──────────────────────────────────────────────────────────────────────────────────────
+  (A) CALIBRATION a=0 (CLM): two-scale fit should give β≈1 (ℓ≈λ) and U convergent.
+──────────────────────────────────────────────────────────────────────────────────────
+    A: 2.0, 4.0, 8.0, 16.0, 32.1
+    ℓ (spatial): 0.1715, 0.0718, 0.0333, 0.0161, 0.0079   λ=1/A: 0.4999, 0.2500, 0.1249, 0.0625, 0.0312
+    two-scale drift ‖ΔU‖: 1.78e-02 → 2.96e-03 → 9.39e-04 → 2.95e-03  (ratio 0.166)
+    β = d lnℓ/d lnλ = 1.102  (CLM expect 1.0);  U CONVERGES (self-similar) ✓
+
+──────────────────────────────────────────────────────────────────────────────────────
+  (B) a>0 (toward De Gregorio): does the two-scale fit RESOLVE the single-scale failure?
+──────────────────────────────────────────────────────────────────────────────────────
+    a     blew?    β         2scale ratio (vs 1scale)  verdict
+    0.00  yes      1.102     0.166        FIXED        CLM β≈1, self-similar ✓
+    0.30  yes      0.704     0.013        FIXED        two-scale CONVERGES ⇒ self-similar, β=0.70≠1 (1-scale missed the spatial exponent)
+    0.50  yes      0.424     0.017        FIXED        two-scale CONVERGES ⇒ self-similar, β=0.42≠1 (1-scale missed the spatial exponent)
+    1.00  NO       —         —            —            no blow-up within tmax
+
+══════════════════════════════════════════════════════════════════════════════════════
+  READING (NS-050 c1)
+══════════════════════════════════════════════════════════════════════════════════════
+  • The two-scale fit adds an independent spatial length ℓ=A/‖ω_x‖∞, decoupling the spatial scale
+    from the amplitude scale λ=1/A. CALIBRATION a=0: β≈1 (ℓ≈λ) and U converges — recovers CLM, as
+    it must (the single-scale fit was correct THERE because β=1).
+  • a>0: see the table — if the two-scale U now CONVERGES with β≠1, the a>0 blow-up is self-similar
+    with an anomalous spatial exponent the single-scale fit structurally could not see (resolving
+    the earlier UNDETERMINED toward 'self-similar, not DSS'). If it STILL fails to converge, that
+    is evidence FOR genuine non-self-similarity / a DSS candidate — but even then, a clean DSS
+    claim needs the full (λ,x₀,period) modulation + a τ-periodicity test, NOT asserted here.
+  • FIREWALL: 1D OSW model, finite truncation. Two scales (amplitude+width), still no x₀-drift
+    (symmetry-pinned) or rotation. Surrogate for direction-1 M1/M3; does NOT touch 3D-NS. :proved=0.
+══════════════════════════════════════════════════════════════════════════════════════
