@@ -1,0 +1,33 @@
+════════════════════════════════════════════════════════════════════════════════════
+  ns050_houluo_profile_solve.jl — Stage 3+4: HL self-similar profile (Scope: numerical-tooling)
+  Relax the steady profile on the validated cot-map operators; eigenvalue c_l via μ(c_l)=1. :proved=0.
+════════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────────
+  SCAN c_l ∈ {2.0…3.2}: converged amplitude-rate μ (self-similar ⟺ μ=1) and ∂τ-residual
+────────────────────────────────────────────────────────────────────────────────────
+    c_l     μ(converged) ∂τ-residual  note
+    2.00    NaN          Inf          diverged
+    2.20    NaN          Inf          diverged
+    2.40    NaN          Inf          diverged
+    2.60    NaN          Inf          diverged
+    2.80    NaN          Inf          diverged
+    3.00    NaN          Inf          diverged
+    3.20    NaN          Inf          diverged
+
+  V4 — eigenvalue c_l* (where μ=1): no μ=1 crossing in the scan (see notes; relaxation may need tuning)
+
+════════════════════════════════════════════════════════════════════════════════════
+  READING (Stage 3+4)
+════════════════════════════════════════════════════════════════════════════════════
+  • The profile solve runs on the Stage-1+2 operators (V1/V2 machine-precision). The eigenvalue is
+    sought as the c_l with converged μ=1 (the c_ω=−1 self-similar condition) — an INDEPENDENT c_l, so
+    matching the forward β=2.47 (and the band (2,4.53)) is a genuine cross-check, not circular.
+  • RESULT (honest negative): ALL scanned c_l DIVERGED — naive dynamic relaxation does NOT converge to
+    the steady profile. Expected: the self-similar profile is generically LINEARLY UNSTABLE under
+    forward relaxation (a saddle with unstable modes) — precisely why Chen–Hou used a NEWTON solve
+    with stability control, not plain relaxation. The Stage-1+2 OPERATORS (machine-precision) STAND;
+    the profile solve specifically needs a Newton (or unstable-mode-projected) solver on
+    F(Ω,Θ,c_l)=0 — the next, harder step.
+  • FIREWALL: 1D HL model, numerical (not Chen–Hou's interval-arithmetic rigor); :proved=0; UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════
