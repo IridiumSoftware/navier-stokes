@@ -1,0 +1,36 @@
+══════════════════════════════════════════════════════════════════════════════════════
+  ns050_houluo_hl.jl — faithful 1D Hou–Luo model (Scope: 1D-model + spectral truncation)
+  HL: ω_t+uω_x=θ_x, θ_t+uθ_x=0, u_x=Hω; ω odd/θ even @ x=π. Proven self-similar c_l∈(2,4.53).
+  Two-scale β should land in (2,4.53). :proved=0; within-truncation; does NOT touch 3D-NS.
+══════════════════════════════════════════════════════════════════════════════════════
+
+  FFT self-check: max|fft−DFT|=5.0e-13 ✓
+
+  IC: θ even bump @ x=π (σ=0.7), ω=0.  ∫θ=1.2407  ‖θ‖∞=1.000
+
+──────────────────────────────────────────────────────────────────────────────────────
+  EVOLVE (HL, inviscid): does ‖ω‖∞ blow up at x=π?  two-scale β → c_l∈(2,4.53)?
+──────────────────────────────────────────────────────────────────────────────────────
+    t       ‖ω‖∞      x0(→π)    ℓ(spatial)  λ=1/A      tail       status
+    1.6562  2.00      1.3575    0.19582     0.49998    2.6e-19    focusing
+    2.2676  4.00      0.6479    0.02176     0.24995    3.0e-19    focusing
+    2.5028  8.00      0.3908    0.00333     0.12495    1.1e-05    focusing
+    2.6330  16.03     0.2683    0.00122     0.06239    8.7e-03    focusing
+    3.4434  32.00     3.1416    0.00039     0.03125    9.9e-01    UNDER-RESOLVED — excluded from β
+    ^ resolution gate: stop trusting past here (NOT used in β).
+
+    β = d lnℓ/d lnλ over the resolved window = 2.468
+    Chen–Hou–Huang admissible c_l ∈ (2, 4.53);  measured β IS IN the band ✓ (instrument validated on the HL anomalous exponent)
+
+══════════════════════════════════════════════════════════════════════════════════════
+  READING (faithful Hou–Luo model)
+══════════════════════════════════════════════════════════════════════════════════════
+  • The 1D HL model is the canonical Hou–Luo wall-stagnation reduction; Chen–Hou–Huang proved it
+    blows up self-similarly (smooth profiles) with ‖ω‖∞~(T−t)^{−1} and spatial exponent c_l∈(2,4.53).
+  • The (c1) two-scale instrument measures β=dlnℓ/dlnλ, which equals c_l for this scaling. If β lands
+    in (2,4.53), the instrument is validated on a KNOWN ANOMALOUS exponent (β≫1, unlike CLM's β=1) —
+    the strongest calibration in this arc. See the measured value above.
+  • FIREWALL: 1D HL MODEL (the Hou–Luo reduction), within-truncation, gated at the resolution wall.
+    NOT the literal 2D Boussinesq wall (heavier, IC-reconstruction-prone — the further step), and NOT
+    the Clay NS. :proved=0; distance UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════════
