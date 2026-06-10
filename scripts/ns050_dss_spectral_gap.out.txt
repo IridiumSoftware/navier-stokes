@@ -1,0 +1,50 @@
+════════════════════════════════════════════════════════════════════════════════════
+  ns050_dss_spectral_gap.jl — NS-050 dir.1 (Scope: 1D-model + spectral truncation)
+  Spectral gap of the self-similar fixed point + self-similar⟷DSS test, OSW family a∈[0,1].
+  :proved=0; within-truncation; does NOT touch 3D-NS. Extends the calibrated (c) instrument.
+════════════════════════════════════════════════════════════════════════════════════
+
+  FFT self-check: max|fft−DFT|=5.0e-13 ✓
+
+────────────────────────────────────────────────────────────────────────────────────
+  (A) CALIBRATION — a=0 (CLM): steady profile? spectral gap g (expect ≈1)?
+────────────────────────────────────────────────────────────────────────────────────
+    reached thresholds: A=2@t=1.414, A=4@t=1.732, A=8@t=1.871, A=16@t=1.936, A=32@t=1.969  (blew up: true)
+    center x₀: 1.5708, 1.5708, 1.5708, 1.5708, 1.5708  (Δx₀=2.07e-12 ⇒ FIXED, no translation)
+    drifts ‖ΔU‖ per amplitude-doubling: 1.336e-01 → 6.151e-02 → 3.128e-02 → 1.585e-02
+    SPECTRAL GAP g = 1.024  (leading stable eigenvalue ≈ −1.02; CLM expect ≈1)
+    drift ratio d_end/d_1 = 0.119 ⇒ STEADY self-similar fixed point ✓
+
+────────────────────────────────────────────────────────────────────────────────────
+  (B) SWEEP advection a (CLM→De Gregorio): does the self-similar attractor persist?
+────────────────────────────────────────────────────────────────────────────────────
+    a     blew?  t*       gap g    driftratio  Δx₀       verdict
+    0.00  yes    1.969    1.024    0.119       2.07e-12  steady self-similar (gap≈1) ✓
+    0.10  yes    2.106    -0.057   1.127       1.35e-10  single-scale fit fails (Δx₀≈0 ⇒ NOT translation) — UNDETERMINED
+    0.20  yes    2.272    -0.278   1.785       1.97e-10  single-scale fit fails (Δx₀≈0 ⇒ NOT translation) — UNDETERMINED
+    0.30  yes    2.477    -0.098   1.225       4.01e-10  single-scale fit fails (Δx₀≈0 ⇒ NOT translation) — UNDETERMINED
+    0.50  yes    3.087    0.060    0.882       5.44e-09  single-scale fit fails (Δx₀≈0 ⇒ NOT translation) — UNDETERMINED
+
+════════════════════════════════════════════════════════════════════════════════════
+  READING (NS-050 direction 1)
+════════════════════════════════════════════════════════════════════════════════════
+  • CALIBRATION (a=0): the rescaled profile goes STEADY (self-similar) with a positive SPECTRAL
+    GAP g≈1 — i.e. the leading eigenvalue of the linearized self-similar operator is ≈ −1; the
+    self-similar fixed point is a stable attractor (M2 made numerical; consistent with (c)'s
+    drift-halving per amplitude-doubling). This is the construction-side object of direction 1.
+  • SWEEP (HONEST — NO DSS CLAIMED; one hypothesis ALREADY REFUTED by the data): adding advection a
+    delays blow-up (t* 1.97→3.09) but the amplitude-only fit STOPS converging for a>0 (drift ratio
+    ~1). FIRST hypothesis = translation contamination (advection moves the structure) — REFUTED: the
+    center x₀ stays pinned at π/2 (Δx₀<1e-8, symmetry-locked). The ACTUAL cause is the single-scale
+    assumption: the fit uses λ=1/A as BOTH amplitude and spatial scale (valid for CLM, both ~(2−t));
+    for a>0 the self-similar SPATIAL exponent generally differs from the amplitude exponent, so λ is
+    the wrong spatial scale and U is progressively stretched ⇒ non-decay. INSTRUMENT-LIMITED and
+    UNDETERMINED between genuine non-self-similarity/DSS and a β≠1 self-similar profile the single-
+    scale fit cannot see; telling them apart needs an INDEPENDENT spatial-scale (two-scale) fit.
+    Honest deliverable = the a=0 calibration (gap≈1). (Witness note: the translation guess was mine;
+    the Δx₀ column refuted it — recorded as the catch it is.)
+  • FIREWALL: 1D OSW model, finite truncation, amplitude-scale modulation only — the tractable
+    SURROGATE for direction-1's M1/M2 (a backward DSS *Euler* profile + its Floquet gap), which
+    this does NOT compute. It exhibits the machinery (profile + spectral gap) where it is cheap.
+    Does NOT touch 3D-NS regularity. :proved=0; distance UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════
