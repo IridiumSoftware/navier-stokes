@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.10.0 — 2026-06-10 — BERNSTEIN INEQUALITY (L² case) machine-verified: a derivative of the frequency-2^j block costs 2π‖m‖·2^{j+1}
+
+Third bite of the Littlewood–Paley layer, in `formalization/lean-mathlib/LittlewoodPaley.lean`.
+**Library infrastructure; `:proved`=0 for the PDE.**
+- **`eLpNorm_lineDerivOp_lpProj_le`** — **Bernstein, L²:**
+  `‖∂_m P_j f‖_{L²} ≤ 2π‖m‖·2^{j+1}·‖P_j f‖_{L²}` for Schwartz `f`. Pure Plancherel: the symbol of
+  `∂_m P_j` is `2πi⟨ξ,m⟩ψ_j(ξ)` (Mathlib's `lineDeriv_eq_fourierMultiplierCLM` + the multiplier
+  composition law), Cauchy–Schwarz + the annulus bound `‖ξ‖ < 2^{j+1}` on `supp ψ_j` give the
+  pointwise symbol estimate, and the L² isometry transfers it. **The honest scope:** this is the
+  load-bearing case for NS (frequency-localized enstrophy estimates are L²); `Lᵖ` Bernstein needs the
+  multiplier-as-convolution bridge + Young — a later bite.
+- **Supporting lemmas:** `eLpNorm_fourierInv_two` (Plancherel on Schwartz, `eLpNorm` form, from the
+  `Lp.fourierTransformₗᵢ` isometry + `toLp` compatibility); `lpProj_eq_realMultiplier` (the ℂ/ℝ-scalar
+  multiplier bridge — the restricted-scalar smul is definitionally `(r:ℂ)•w`, closed by `rfl`);
+  `hasTemperateGrowth_lpSymbolAt`.
+- **Instance subtlety found + solved:** `SMulCommClass ℂ ℝ W` is not globally synthesizable (only the
+  `ℝ ℂ` order is, via `SMulCommClass.complexToReal`); Mathlib's own lineDeriv theorem carries the
+  symmetric form as an elided Prop-instance. Provided as a `local instance := SMulCommClass.symm ℝ ℂ W`.
+- **Soundness:** no `sorry`; the false-constant variant (`2^{j−1}` for `2^{j+1}` — wrong, the annulus
+  reaches `2^{j+1}`) is rejected at its load-bearing arithmetic; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+`:proved`=0; distance UNTOUCHED. *Next:* Lᵖ Bernstein (convolution+Young) → Besov space → Carleman.
+
 ## v0.9.0 — 2026-06-10 — P_j FREQUENCY PROJECTIONS + BESOV SEMINORM machine-verified (on Mathlib's Fourier-multiplier framework)
 
 Second bite of the Littlewood–Paley layer, in `formalization/lean-mathlib/LittlewoodPaley.lean`.

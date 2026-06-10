@@ -103,4 +103,8 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   `lpProj_comp_eq_zero` (`P_j ∘L P_k = 0` for `j+2 ≤ k`, via the multiplier composition law + symbol
   disjointness); **`besovSeminorm s p q μ`** — the homogeneous `Ḃ^s_{p,q}` seminorm on Schwartz functions
   (`ℓ^q(ℤ)` of `2^{js}‖P_j f‖_{L^p}`), the space NS-046's target is stated in; `besovSeminorm_zero`.
-  Next: Bernstein → Besov embeddings/space (tempered distributions mod polynomials) → Carleman.
+- **Bernstein (L²)** — `eLpNorm_lineDerivOp_lpProj_le`: `‖∂_m P_j f‖_{L²} ≤ 2π‖m‖·2^{j+1}·‖P_j f‖_{L²}`
+  via the lineDeriv-multiplier identity + composition law + the annulus bound + the L² Fourier isometry
+  (`eLpNorm_fourierInv_two`). ℂ/ℝ-scalar bridge `lpProj_eq_realMultiplier` (restricted smul is `rfl`);
+  `SMulCommClass ℂ ℝ W` provided as a local instance (only the `ℝ ℂ` order is global).
+  Next: Lᵖ Bernstein (convolution + Young) → Besov space (tempered distributions mod polynomials) → Carleman.

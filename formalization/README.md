@@ -114,7 +114,11 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   via Mathlib's `fourierMultiplierCLM` (temperate growth from compact support); `lpProj_comp_eq_zero`
   (`P_jP_k = 0`, gap ≥ 2); **`besovSeminorm` `‖f‖_{Ḃ^s_{p,q}(μ)}`** — NS-046's `Ḃ⁰_{∞,1}` is now formally
   definable. Gap-1 false variant rejected; no `sorry`.
-- *Next bites (priority order):* Bernstein inequalities → Besov embeddings/space → Carleman.
+- **Seventh bite ✅ (Bernstein, L²)** — `eLpNorm_lineDerivOp_lpProj_le`:
+  `‖∂_m P_j f‖_{L²} ≤ 2π‖m‖·2^{j+1}·‖P_j f‖_{L²}` (pure Plancherel; the frequency-localized
+  derivative bound — the L² case used by NS enstrophy estimates). + Schwartz-level Plancherel
+  `eLpNorm_fourierInv_two`, the ℂ/ℝ multiplier bridge. False-constant variant rejected; no `sorry`.
+- *Next bites (priority order):* Lᵖ Bernstein (convolution + Young) → Besov space → Carleman.
   `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run

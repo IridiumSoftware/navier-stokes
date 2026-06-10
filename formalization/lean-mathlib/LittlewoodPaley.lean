@@ -291,6 +291,146 @@ theorem besovSeminorm_zero {s : ℝ} {p q : ℝ≥0∞} (hq : q ≠ 0) (μ : Mea
 
 end Projection
 
+
+
+
+
+/-! ### Bernstein inequality (L² case)
+
+Frequency localization makes a derivative cost only `2^j`:
+`‖∂_m P_j f‖_{L²} ≤ 2π‖m‖·2^{j+1}·‖P_j f‖_{L²}`. Pure Plancherel — the symbol of `∂_m P_j` is
+`2πi⟨ξ,m⟩ψ_j(ξ)`, and on `supp ψ_j` one has `‖ξ‖ < 2^{j+1}`. This is the load-bearing case for
+NS (frequency-localized enstrophy estimates are L²); `Lᵖ` Bernstein needs the
+multiplier-as-convolution bridge + Young and is a later bite. -/
+
+section Bernstein
+
+open MeasureTheory FourierTransform SchwartzMap Real
+open scoped SchwartzMap ENNReal
+
+variable {V W : Type*}
+  [NormedAddCommGroup V] [MeasurableSpace V] [BorelSpace V]
+  [InnerProductSpace ℝ V] [FiniteDimensional ℝ V]
+  [NormedAddCommGroup W] [InnerProductSpace ℂ W] [CompleteSpace W]
+
+/-- The `ℂ`- and `ℝ`-actions on a complex normed space commute (local instance: the
+    symmetric form is not a global instance to avoid loops). -/
+local instance : SMulCommClass ℂ ℝ W := SMulCommClass.symm ℝ ℂ W
+
+theorem hasTemperateGrowth_lpSymbolAt (j : ℤ) :
+    Function.HasTemperateGrowth (lpSymbolAt V j) :=
+  (hasCompactSupport_lpSymbolAt j).hasTemperateGrowth (contDiff_lpSymbolAt j)
+
+/-- Over a `ℂ`-module the `ℂ`- and `ℝ`-symbol Littlewood–Paley multipliers agree. -/
+theorem lpProj_eq_realMultiplier (j : ℤ) (f : 𝓢(V, W)) :
+    lpProj V W j f = fourierMultiplierCLM (𝕜 := ℝ) W (lpSymbolAt V j) f := by
+  rw [lpProj, fourierMultiplierCLM_apply, fourierMultiplierCLM_apply]
+  have hs : smulLeftCLM W (lpSymbolAtC V j) (𝓕 f)
+      = smulLeftCLM (𝕜 := ℝ) W (lpSymbolAt V j) (𝓕 f) := by
+    ext ξ
+    rw [smulLeftCLM_apply_apply (hasTemperateGrowth_lpSymbolAtC j),
+        smulLeftCLM_apply_apply (hasTemperateGrowth_lpSymbolAt j)]
+    show ((lpSymbolAt V j ξ : ℝ) : ℂ) • (𝓕 f) ξ = lpSymbolAt V j ξ • (𝓕 f) ξ
+    rfl
+  rw [hs]
+
+/-- Plancherel for the inverse transform, `eLpNorm` form, on Schwartz functions. -/
+theorem eLpNorm_fourierInv_two (u : 𝓢(V, W)) :
+    eLpNorm (⇑(𝓕⁻ u : 𝓢(V, W))) 2 volume = eLpNorm (⇑u) 2 volume := by
+  have h1 : ‖((𝓕⁻ u : 𝓢(V, W)).toLp 2 (volume : Measure V))‖
+      = ‖(u.toLp 2 (volume : Measure V))‖ := by
+    rw [← SchwartzMap.toLp_fourierInv_eq]
+    calc ‖𝓕⁻ (u.toLp 2 (volume : Measure V))‖
+        = ‖𝓕 (𝓕⁻ (u.toLp 2 (volume : Measure V)))‖ :=
+          (MeasureTheory.Lp.norm_fourier_eq _).symm
+      _ = ‖(u.toLp 2 (volume : Measure V))‖ := by
+          rw [FourierTransform.fourier_fourierInv_eq]
+  rw [SchwartzMap.norm_toLp, SchwartzMap.norm_toLp] at h1
+  exact (ENNReal.toReal_eq_toReal_iff' ((𝓕⁻ u : 𝓢(V, W)).memLp 2 volume).2.ne
+    (u.memLp 2 volume).2.ne).mp h1
+
+/-- **Bernstein inequality, L² case:** a directional derivative of the frequency-`2^j`
+    block costs at most `2π‖m‖·2^{j+1}`. -/
+theorem eLpNorm_lineDerivOp_lpProj_le (j : ℤ) (m : V) (f : 𝓢(V, W)) :
+    eLpNorm (⇑(LineDeriv.lineDerivOp m (lpProj V W j f))) 2 volume
+      ≤ ENNReal.ofReal (2 * π * ‖m‖ * 2 ^ (j+1))
+          * eLpNorm (⇑(lpProj V W j f)) 2 volume := by
+  have hσ : Function.HasTemperateGrowth (inner ℝ · m) := hasTemperateGrowth_inner_left m
+  have hσψ : Function.HasTemperateGrowth ((inner ℝ · m) * lpSymbolAt V j) :=
+    hσ.mul (hasTemperateGrowth_lpSymbolAt j)
+  -- symbol composition: ∂_m P_j is the multiplier with symbol 2πi·⟨ξ,m⟩ψ_j(ξ), over ℝ
+  rw [lineDeriv_eq_fourierMultiplierCLM m (lpProj V W j f), lpProj_eq_realMultiplier,
+      fourierMultiplierCLM_fourierMultiplierCLM_apply hσ (hasTemperateGrowth_lpSymbolAt j)]
+  -- Plancherel both sides
+  have hP1 : eLpNorm (⇑(fourierMultiplierCLM (𝕜 := ℝ) W
+        ((inner ℝ · m) * lpSymbolAt V j) f)) 2 volume
+      = eLpNorm (⇑(smulLeftCLM (𝕜 := ℝ) W
+          ((inner ℝ · m) * lpSymbolAt V j) (𝓕 f))) 2 volume := by
+    rw [fourierMultiplierCLM_apply, eLpNorm_fourierInv_two]
+  have hP2 : eLpNorm (⇑(fourierMultiplierCLM (𝕜 := ℝ) W (lpSymbolAt V j) f)) 2 volume
+      = eLpNorm (⇑(smulLeftCLM (𝕜 := ℝ) W (lpSymbolAt V j) (𝓕 f))) 2 volume := by
+    rw [fourierMultiplierCLM_apply, eLpNorm_fourierInv_two]
+  -- the pointwise symbol bound on the Fourier side
+  have hC : (0:ℝ) ≤ ‖m‖ * 2 ^ (j+1) := by positivity
+  have hpt : ∀ ξ : V, ‖smulLeftCLM (𝕜 := ℝ) W
+        ((inner ℝ · m) * lpSymbolAt V j) (𝓕 f) ξ‖
+      ≤ ‖(‖m‖ * 2 ^ (j+1)) * ‖smulLeftCLM (𝕜 := ℝ) W (lpSymbolAt V j) (𝓕 f) ξ‖‖ := by
+    intro ξ
+    rw [smulLeftCLM_apply_apply hσψ, smulLeftCLM_apply_apply (hasTemperateGrowth_lpSymbolAt j),
+        Real.norm_eq_abs ((‖m‖ * 2 ^ (j+1)) * _), abs_of_nonneg (by positivity),
+        norm_smul, norm_smul, Pi.mul_apply]
+    rcases eq_or_ne (lpSymbolAt V j ξ) 0 with h0 | h0
+    · simp [h0]
+    · have hb := (norm_mem_of_lpSymbolAt_ne_zero h0).2
+      have hψ0 : 0 ≤ lpSymbolAt V j ξ := lpSymbolAt_nonneg j ξ
+      have hin : |inner ℝ ξ m| ≤ (2:ℝ) ^ (j+1) * ‖m‖ := by
+        calc |inner ℝ ξ m| ≤ ‖ξ‖ * ‖m‖ := abs_real_inner_le_norm ξ m
+          _ ≤ (2:ℝ) ^ (j+1) * ‖m‖ := by
+              have hm0 : (0:ℝ) ≤ ‖m‖ := norm_nonneg m
+              nlinarith
+      have hF0 : (0:ℝ) ≤ ‖(𝓕 f) ξ‖ := norm_nonneg _
+      rw [Real.norm_eq_abs (inner ℝ ξ m * lpSymbolAt V j ξ), abs_mul,
+          Real.norm_eq_abs (lpSymbolAt V j ξ), abs_of_nonneg hψ0]
+      nlinarith [mul_le_mul_of_nonneg_right hin (mul_nonneg hψ0 hF0),
+        abs_nonneg (inner ℝ ξ m)]
+  -- assemble
+  have hmono : eLpNorm (⇑(smulLeftCLM (𝕜 := ℝ) W
+        ((inner ℝ · m) * lpSymbolAt V j) (𝓕 f))) 2 volume
+      ≤ ENNReal.ofReal (‖m‖ * 2 ^ (j+1))
+          * eLpNorm (⇑(smulLeftCLM (𝕜 := ℝ) W (lpSymbolAt V j) (𝓕 f))) 2 volume := by
+    refine le_trans (eLpNorm_mono_ae (ae_of_all _ hpt)) ?_
+    have heq : (fun ξ : V => (‖m‖ * 2 ^ (j+1))
+          * ‖smulLeftCLM (𝕜 := ℝ) W (lpSymbolAt V j) (𝓕 f) ξ‖)
+        = (‖m‖ * 2 ^ (j+1))
+          • (fun ξ : V => ‖smulLeftCLM (𝕜 := ℝ) W (lpSymbolAt V j) (𝓕 f) ξ‖) := by
+      funext ξ
+      simp [smul_eq_mul]
+    rw [heq, eLpNorm_const_smul, eLpNorm_norm, Real.enorm_eq_ofReal hC]
+  have hsmul : eLpNorm (⇑((2 * ↑π * Complex.I : ℂ) • fourierMultiplierCLM (𝕜 := ℝ) W
+        ((inner ℝ · m) * lpSymbolAt V j) f)) 2 volume
+      = ‖(2 * ↑π * Complex.I : ℂ)‖ₑ * eLpNorm (⇑(fourierMultiplierCLM (𝕜 := ℝ) W
+          ((inner ℝ · m) * lpSymbolAt V j) f)) 2 volume := by
+    rw [show ⇑((2 * ↑π * Complex.I : ℂ) • fourierMultiplierCLM (𝕜 := ℝ) W
+          ((inner ℝ · m) * lpSymbolAt V j) f)
+        = (2 * ↑π * Complex.I : ℂ) • ⇑(fourierMultiplierCLM (𝕜 := ℝ) W
+          ((inner ℝ · m) * lpSymbolAt V j) f) from rfl,
+      eLpNorm_const_smul]
+  rw [hsmul, hP1, hP2]
+  refine le_trans (mul_le_mul_left' hmono _) ?_
+  rw [← mul_assoc]
+  refine mul_le_mul_right' (le_of_eq ?_) _
+  have h2pi : ‖(2 * ↑π * Complex.I : ℂ)‖ₑ = ENNReal.ofReal (2 * π) := by
+    rw [← ofReal_norm_eq_enorm]
+    congr 1
+    simp only [norm_mul, Complex.norm_I, mul_one, Complex.norm_ofNat, Complex.norm_real,
+      Real.norm_eq_abs]
+    rw [abs_of_pos pi_pos]
+  rw [h2pi, ← ENNReal.ofReal_mul (by positivity)]
+  congr 1
+  ring
+
+end Bernstein
+
 #eval "Littlewood–Paley dyadic partition of unity — machine-verified."
 
 end NSLittlewoodPaley
