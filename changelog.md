@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.8.1 — 2026-06-10 — SPEC header: Reading & audit guide + consolidated promotion rubric + independence note
+
+Added a header audit-layer block to `SPEC.md` (prompted by an external naive adversarial read that
+re-raised already-covered concerns). **No NS-ID, no status/count change; pure documentation; `:proved`=0.**
+Three parts: (1) **Reading & audit guide** signposting where each discipline already lives — Class field =
+claim taxonomy, `Scope:` tag = scope matrix, conjunctive-claim rule (sub-claim ≠ entry), witness≠evidence
+(generator-class hard/soft/witness split), `:falsified`/kill-criteria/over-reach-ledger for negatives,
+`tier×independence×scope-match` for citation force. (2) **Consolidated status-promotion rubric** — the
+single state machine (→`:open`/`:argued`/`:cited`/`:tested`/`:falsified`/`:proved` with explicit gates;
+`:proved` reserved+empty; a `:tested` model result never becomes a PDE statement without a separate
+`:proved` limit argument; `:verified`/`:benchmarked` flagged as TCE-engine-only, not used here).
+(3) **Independence note** — entry clusters that rephrase ONE obstruction count once, not as independent
+confirmations (NS-002≡034≡036≡013-sharpening; NS-005↔036↔046; NS-046↔048 + 049/050; NS-010≡011;
+NS-038/039/040/045), with the `G1–G5` of `docs/ns_blowup_generator_class.md` as the independent hard
+constraints. Most of the external review's flags were already covered by mechanisms not visible in its
+excerpts; this block exists to stop the next naive re-raise.
+
 ## v0.8.0 — 2026-06-09 — LITTLEWOOD–PALEY layer opened: the dyadic partition of unity machine-verified
 
 First bite of the Besov/Littlewood–Paley layer — the foundational object everything downstream is

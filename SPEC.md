@@ -40,6 +40,52 @@ singularity must be," `G1∧…∧G5` hard / `S1,S2` soft / `W1,W2` witness, eac
 `docs/ns_blowup_generator_class.md` (2026-06-07; reorganization, not progress; `:proved`=0). It also fixes
 the home of the NS-013/046 phase-coherence arc as a *sharpening of S1* (NS-002), not a new no-go.
 
+**Reading & audit guide** — added 2026-06-10 (after an external naive-read re-raised already-covered
+concerns; the standing audit layer is the **A0–A7 cross-audit**, latest `audit_2026-06-09.md`). Before
+re-raising "scope creep / undefined promotion / untaxonomized claims," note where each discipline lives:
+- **Claim taxonomy** = the **Class** field on every entry (PROBLEM / OBSTRUCTION / DIAGNOSTIC / RESULT /
+  CONJECTURE / ANALYSIS / GEOMETRY / RESOLVED-DNS / FORWARD-TARGET / RELATED / PROGRAM / FALSIFIED).
+- **Scope matrix** = the **`Scope:`** tag on every entry (PDE / 1D-model / ODE-/3D-truncation / model-DNS /
+  phenomenology / methodology). **Only `Scope: PDE` + `:proved` is prize-relevant.**
+- **Sub-claim ≠ entry** (conjunctive-claim rule): a verified *part* of a bundled row does **not** upgrade
+  the row; the entry holds at the weakest necessary tier with the partial coverage noted (e.g. NS-036).
+- **Witness ≠ evidence**: a within-truncation / toy-model computation is a `W#` **witness** (heuristic
+  structure), never a `G#` hard constraint — `docs/ns_blowup_generator_class.md` enforces the
+  hard/soft/witness split, and every computed entry carries a vacuity cap.
+- **Negative results**: `:falsified` requires explicit ruling-out evidence (NS-020); a dead road is logged
+  with kill criteria (NS-046 §4) and in the **over-reach ledger** (`changelog.md`), which records every
+  declined "sharpens"/"proves" claim.
+- **Citation force** = `tier (C0–C5) × independence × scope-match`; *echo ≠ convergence* (many sources can
+  share one blind spot).
+
+**Status promotion rubric** (the single state machine; this ledger uses six statuses; `:proved`=0 by
+construction). `:verified`/`:benchmarked` are TCE-engine statuses, **not used here**.
+
+| from | to | gate |
+|---|---|---|
+| — | `:open` | claim stated, no evidence yet |
+| any | `:argued` | a written manual argument; **terminal** without machine evidence (never → `:proved`) |
+| any | `:cited` | an established **external** theorem; fixed by the literature (we do not upgrade others' theorems); carries a C0–C5 tier |
+| any | `:tested` | an **in-repo** computation that **passes its `TEST_SPEC` row** (closed-form / exact-invariant / cross-method / published-number / qualitative-signature) — rises **only within its Scope**; a `:tested` model/truncation result **never** becomes a PDE statement |
+| any | `:falsified` | the approach is ruled out, with evidence |
+| any | `:proved` | **machine** evidence (lean-proved / type-checked / algebraic-exact) **and** `Scope: PDE`. **Reserved; empty.** A `:tested`/`:argued` result reaches `:proved` only via a *separate* limit/convergence argument that is itself a new `:proved` entry |
+
+**Independence note** — for the MDAGC count, related entries that **rephrase one obstruction in different
+language count once**, not as independent confirmations (the C0–C5 force-rule weights `independence`
+explicitly). Known clusters:
+- **One supercriticality/criticality wall:** NS-002 (scaling) ≡ NS-034 (σ-calculus) ≡ NS-036
+  (criticality–Casimir hinge; itself notes NS-034≡NS-033-Slice6) ≡ the NS-013 phase-coherence *sharpening*
+  — facets, not four no-gos.
+- **One critical-norm/deformation target:** NS-005 (criterion) ↔ NS-036 (enstrophy rung) ↔ NS-046 (the
+  deformation inequality that would control it).
+- **One wall, two structures:** NS-046 (static inequality) ↔ NS-048 (dynamic exclusion), with NS-049
+  (Lockwood conditional) and NS-050 (modulation/Type-II) attacking the same frontier — `docs/ns_blowup_generator_class.md` §6.
+- **One diagnostic:** NS-010 ≡ NS-011 (the δ analyticity-strip).
+- **One resolved-DNS family:** NS-038/039/040/045 share the TG/helical/tubes machinery — refinements of one
+  computation, not independent confirmations.
+The **independent hard constraints** are the `G1–G5` of `docs/ns_blowup_generator_class.md`; that doc is the
+source of truth for what is genuinely independent.
+
 ---
 
 ## PROBLEM
