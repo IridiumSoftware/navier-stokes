@@ -68,7 +68,8 @@ it says, and discovering for yourself which approaches dead-end.** That work is 
 
 ## How to navigate
 
-Ground-truth hierarchy (see `CLAUDE.md` for the full discipline):
+Ground-truth hierarchy (the evidence / scope / status discipline is summarized in the `SPEC.md` header —
+Reading & audit guide + status-promotion rubric + independence note):
 
 | file | what it is |
 |---|---|

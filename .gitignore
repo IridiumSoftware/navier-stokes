@@ -27,3 +27,6 @@ metal/active_turbulence_gpu
 
 metal/*.bin
 snap_*.bin
+
+# AI-agent operating instructions — kept local, not part of the public research artifact
+CLAUDE.md
