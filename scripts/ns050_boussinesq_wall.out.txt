@@ -1,0 +1,42 @@
+════════════════════════════════════════════════════════════════════════════════════════
+  ns050_boussinesq_wall.jl — literal 2D Boussinesq Hou–Luo WALL (Scope: 2D DNS truncation)
+  Symmetry-plane no-penetration wall (faithful inviscid BC). ω odd-odd, ρ even-x₁/odd-x₂. :proved=0.
+════════════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────────────
+  (V) VALIDATION: div-free? u₂=0 at wall x₂=0? ∫ρ² conserved (inviscid)? parity held?
+────────────────────────────────────────────────────────────────────────────────────────
+    div(u) max=1.11e-14 ✓ ;  max|u₂| on wall x₂=0 = 3.33e-17 ✓ no-penetration
+    ∫ρ² drift=3.52e-11 (inviscid, T=4) ✓ ;  ω odd-in-x₁ residual=8.41e-13 ✓ parity held
+
+────────────────────────────────────────────────────────────────────────────────────────
+  (S) EVOLVE (ν=κ=2e-4): does ‖ω‖∞ focus at the wall corner (0,0)? two-scale β?
+────────────────────────────────────────────────────────────────────────────────────────
+    t      ‖ω‖∞      peak(x₁,x₂)  ℓ(width)   λ=1/A      tail      status
+    0.00   0.500     (1.57,1.57)   1.0799     2.00000    6.8e-31   peak off-corner
+    1.00   0.499     (1.57,1.57)   1.0799     2.00498    3.5e-31   peak off-corner
+    2.00   1.466     (1.57,4.71)   1.0799     0.68197    1.6e-31   peak off-corner
+    3.00   2.052     (1.57,4.71)   1.1781     0.48737    3.7e-12   peak off-corner
+    4.00   2.218     (0.64,1.42)   0.4418     0.45079    6.9e-05   peak off-corner
+    5.00   3.668     (2.95,4.57)   0.1473     0.27264    7.4e-03   peak off-corner
+    6.00   7.766     (6.19,2.41)   0.0982     0.12876    7.7e-03   peak off-corner
+    7.00   14.944    (6.19,3.24)   0.0982     0.06692    4.1e-03   peak off-corner
+    8.00   17.231    (6.23,1.67)   0.0491     0.05804    8.4e-03   peak off-corner
+    9.00   19.064    (6.23,1.23)   0.0491     0.05245    4.5e-02   UNDER-RESOLVED (gate)
+    ^ resolution gate: stop trusting past here (excluded from β).
+
+    0 corner-focusing resolved samples — too few for β (smooth IC did not reach the self-similar corner regime before the gate / tmax; honest NULL).
+
+════════════════════════════════════════════════════════════════════════════════════════
+  READING (literal 2D Boussinesq Hou–Luo wall)
+════════════════════════════════════════════════════════════════════════════════════════
+  • VALIDATION: div-free, no-penetration u₂=0 on the wall x₂=0 (by parity), ∫ρ² conserved, ω parity
+    preserved — the faithful symmetry-plane wall BC is correctly enforced (the inviscid Hou–Luo BC).
+  • The run is reported as it is: whether ‖ω‖∞ focuses at the corner (0,0) and a within-truncation β
+    emerges, or whether the smooth IC fails to reach the self-similar corner regime before the
+    resolution gate — both are honest outcomes; see the table. NO blow-up is claimed either way.
+  • FIREWALL: faithful symmetries + faithful inviscid wall BC, BUT within-truncation and
+    resolution-gated — CANNOT reach the singular limit (Chen–Hou needed rigorous numerics). NOT the
+    Clay NS. The 1D HL model (ns050_houluo_hl.jl) remains the calibrated, β-validated reference.
+    :proved=0; distance UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════════
