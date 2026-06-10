@@ -1,0 +1,51 @@
+════════════════════════════════════════════════════════════════════════════════════════
+  ns050_houluo_profile.jl — reconstruct the Chen–Hou HL self-similar profile (Scope: 1D-model)
+  STEP A: rescaling-collapse of the forward blow-up. STEP B: self-consistency re-injection. :proved=0.
+════════════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────────────
+  STEP A — rescaling-collapse: do the normalized profiles Ω(η) at A=4,8,16 OVERLAP?
+────────────────────────────────────────────────────────────────────────────────────────
+    collapse ‖Ω₈−Ω₄‖₂=1.646e-01 → ‖Ω₁₆−Ω₈‖₂=4.136e-01  (decreasing ⇒ self-similar) (check)
+    θ-profile collapse ‖Θ₁₆−Θ₈‖₂=2.764e+00
+    reconstructed Ω₁₆: ‖Ω‖∞=0.997, peak η*≈0.75, smooth=true; tail(A=16)=8.7e-03
+    Ω,Θ profile (η : Ω : Θ), every 20th η:
+      -5.00  -0.0055   0.0885
+      -4.00  -0.0189   0.0718
+      -3.00  -0.0040   0.1310
+      -2.00  -0.0544   0.1557
+      -1.00  -0.0211   0.2325
+       0.00  -0.5304   1.0000
+       1.00  -0.8975   3.6972
+       2.00  -0.5324   4.8443
+       3.00  -0.5491   5.5880
+       4.00  -0.4375   6.0326
+       5.00  -0.4474   6.5021
+
+────────────────────────────────────────────────────────────────────────────────────────
+  STEP B — self-consistency: re-inject the reconstructed (Ω,Θ) as IC. Immediate self-similar?
+────────────────────────────────────────────────────────────────────────────────────────
+    t       ‖ω‖∞      ℓ           ‖U−Ω₁₆‖₂   note
+    0.0000  1.994     0.00246     1.813e+00  IC = reconstructed profile
+    0.0006  4.040     0.00037     1.451e+00  self-similar (U≈Ω)
+    0.0012  8.547     0.00036     9.783e-01  gated
+
+════════════════════════════════════════════════════════════════════════════════════════
+  READING (Chen–Hou HL profile reconstruction — HONEST NEGATIVE)
+════════════════════════════════════════════════════════════════════════════════════════
+  • STEP A FAILED: profiles do NOT collapse — ‖Ω₁₆−Ω₈‖=0.41 > ‖Ω₈−Ω₄‖=0.16 (INCREASING); θ-profile
+    ‖Θ₁₆−Θ₈‖=2.8. The forward blow-up does NOT reach a clean self-similar regime in the resolved
+    window (A=4→16: short, pre-asymptotic, A=16 already near the gate, drifting center). Forward-
+    collapse does NOT reconstruct the profile here.
+  • STEP B INCONCLUSIVE: the re-injected IC is scale-inconsistent — built at ℓ₀=0.30 but the noisy
+    A=16 profile re-extracts at ℓ≈0.002 (~100× too steep), ‖U−Ω₁₆‖=1.8 at t=0, gates immediately.
+  • CONCLUSION (honest boundary): forward-collapse is RESOLUTION-GATE-LIMITED — cannot reach the
+    asymptotic self-similar regime before the wall. The genuine Chen–Hou reconstruction is dynamic-
+    rescaling to the STEADY profile with the c_l eigenvalue, which requires discretizing the SELF-
+    SIMILAR VARIABLE ξ=x/(T−t)^{c_l} over ℝ (mapped/stretched grid + the NON-periodic dilation
+    operator c_l ξ∂_ξ) — NOT representable on a periodic-Fourier box. That is rigorous-numerics
+    machinery beyond this toolkit. The forward-blow-up EXPONENT β=2.47 (ns050_houluo_hl) STANDS; the
+    full PROFILE reconstruction is OPEN. (Witness note: this script's first auto-reading falsely
+    claimed COLLAPSE✓/SELF-CONSISTENT — contradicted by its own numbers; caught and corrected.)
+  • FIREWALL: 1D HL model, within-truncation, :proved=0; distance to the prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════════
