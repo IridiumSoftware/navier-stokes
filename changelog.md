@@ -18,6 +18,30 @@ CLAUDE.md (the meta-fix the last audit recommended but never landed). **Priority
 closure-v5 `substrate_source` (path now public-unresolvable), W5 DESIGN.md sync, N2 a fenced `formalization/`
 Lean-ladder ledger entry (coordinate with the concurrent Lean session). `:proved`=0; distance UNTOUCHED.
 
+## v0.12.0 — 2026-06-10 — SHARP Lᵖ BERNSTEIN machine-verified: ‖∂_m P_j f‖_p ≤ 2π·2^j·C(m)·‖P_j f‖_p, all 1 ≤ p < ∞
+
+The Littlewood–Paley layer's capstone, in `formalization/lean-mathlib/LittlewoodPaley.lean`
+(~930 lines total). **Library infrastructure; `:proved`=0 for the PDE.**
+- **`eLpNorm_lineDerivOp_lpProj_le_lp_sharp`** — the sharp `Lᵖ` Bernstein inequality:
+  `‖∂_m P_j f‖_{Lᵖ} ≤ 2π·2^j·C(m)·‖P_j f‖_{Lᵖ}` for every `1 ≤ p < ∞`, with
+  `C(m) = ‖𝓕⁻σ₀‖_{L¹}` **j-independent** (finite: the kernel is Schwartz).
+- **The assembly, machine-checked end-to-end:** (i) the fattened symbol `lpFat` (`≡1` on the annulus
+  `1/2 ≤ ‖η‖ ≤ 2 ⊇ supp ψ`, supported in `1/4 < ‖η‖ < 4`); (ii) the Schwartz kernel-symbol family
+  `bernSymbol j m = ⟨ξ,m⟩·χ̃(2^{−j}ξ)` (via `HasCompactSupport.toSchwartzMap`); (iii) the symbol
+  identity `⟨ξ,m⟩ψ_j = σ_jψ_j` on `supp ψ_j` ⇒ `∂_m P_j = 2πi·σ_j(D)∘P_j` (the general ℝ/ℂ multiplier
+  bridge `fourierMultiplierCLM_real_coe`); (iv) Stage A: the `Lᵖ` multiplier theorem gives the bound
+  with `‖𝓕⁻σ_j‖_{L¹}` (`eLpNorm_lineDerivOp_lpProj_le_lp`); (v) Stage B, **the dilation**: the symbol
+  identity `σ_j = 2^j·σ₀(2^{−j}·)` (`bernSymbolFun_eq_smul`), the kernel identity
+  `(𝓕⁻σ_j)(x) = 2^{j(d+1)}(𝓕⁻σ₀)(2^jx)` (`fourierInv_bernSymbol_eq`, computed through
+  `Real.fourierInv_eq` + the Haar change-of-variables `Measure.integral_comp_smul`), and the `L¹`
+  scaling `‖𝓕⁻σ_j‖₁ = 2^j‖𝓕⁻σ₀‖₁` (`eLpNorm_fourierInv_bernSymbol` — the `2^{j(d+1)}·2^{−jd} = 2^j`
+  collapse).
+- **Soundness:** no `sorry`; the false dilation-exponent variant (`2^{2j}` for `2^j`) is rejected;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**The Littlewood–Paley layer is now complete through sharp Bernstein:** partition of unity → `P_j` →
+almost-orthogonality → Besov seminorm → Bernstein L² → Young + multiplier-convolution bridge →
+**sharp Lᵖ Bernstein**. `:proved`=0; distance UNTOUCHED. *Next:* Besov space proper → Carleman.
+
 ## v0.11.0 — 2026-06-10 — YOUNG'S INEQUALITY + the multiplier–convolution bridge machine-verified: Schwartz-symbol multipliers are Lᵖ-bounded (the structural Lᵖ Bernstein)
 
 Fourth bite of the Littlewood–Paley layer, in `formalization/lean-mathlib/LittlewoodPaley.lean`.

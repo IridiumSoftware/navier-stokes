@@ -123,8 +123,13 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   `fourierMultiplierCLM_schwartz_eq_convolution` (Schwartz-symbol multiplier = convolution with `𝓕⁻σ`);
   `eLpNorm_fourierMultiplierCLM_le` (**structural Lᵖ Bernstein**: `‖σ(D)g‖_p ≤ ‖𝓕⁻σ‖₁‖g‖_p`).
   False-exponent variant rejected; no `sorry`.
-- *Next bites (priority order):* sharp Lᵖ Bernstein (`‖𝓕⁻σ_j‖₁ = C·2^j` kernel scaling) → Besov space
-  → Carleman. `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
+- **Ninth bite ✅ (SHARP Lᵖ Bernstein)** — `eLpNorm_lineDerivOp_lpProj_le_lp_sharp`:
+  `‖∂_m P_j f‖_p ≤ 2π·2^j·C(m)·‖P_j f‖_p`, all `1 ≤ p < ∞`, `C(m) = ‖𝓕⁻σ₀‖₁` j-independent.
+  Fattened symbol + Schwartz kernel family + the dilation computation (`σ_j = 2^j σ₀(2^{−j}·)`,
+  kernel `2^{j(d+1)}`-scaling via `Real.fourierInv_eq` + Haar `integral_comp_smul`, `L¹` collapse to
+  `2^j`). False-exponent variant rejected; no `sorry`. **The LP layer is complete through Bernstein.**
+- *Next bites (priority order):* Besov space proper → Carleman.
+  `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run
 ```

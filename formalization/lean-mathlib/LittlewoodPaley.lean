@@ -629,6 +629,313 @@ theorem eLpNorm_fourierMultiplierCLM_le (σ : 𝓢(V, ℂ)) (g : 𝓢(V, W)) {p 
 
 end Young
 
+/-! ### Sharp Lᵖ Bernstein: the kernel symbol family and the multiplier chain
+
+The derivative symbol `⟨ξ,m⟩` agrees with `⟨ξ,m⟩·χ̃(2^{−j}ξ)` on `supp ψ_j`, where `χ̃` (`lpFat`)
+is a fattened bump `≡ 1` on the annulus `1/2 ≤ ‖η‖ ≤ 2`. The latter is a **Schwartz** symbol, so
+`∂_m P_j = 2πi·σ_j(D) ∘ P_j` and the `Lᵖ` multiplier theorem applies with constant `‖𝓕⁻σ_j‖_{L¹}`;
+the dilation identity `σ_j = 2^j·σ₀(2^{−j}·)` then evaluates that constant as `2^j·‖𝓕⁻σ₀‖_{L¹}`. -/
+
+section SharpBernstein
+
+open MeasureTheory FourierTransform SchwartzMap Real Module
+open scoped SchwartzMap ENNReal
+
+variable {V W : Type*}
+  [NormedAddCommGroup V] [MeasurableSpace V] [BorelSpace V]
+  [InnerProductSpace ℝ V] [FiniteDimensional ℝ V]
+  [NormedAddCommGroup W] [InnerProductSpace ℂ W] [CompleteSpace W]
+
+local instance : SMulCommClass ℂ ℝ W := SMulCommClass.symm ℝ ℂ W
+
+variable (V) in
+/-- The fattened symbol `χ̃(η) = χ(η/2) − χ(4η)`: `= 1` on `1/2 ≤ ‖η‖ ≤ 2` (⊇ `supp ψ`),
+    supported in `1/4 < ‖η‖ < 4`. -/
+noncomputable def lpFat (η : V) : ℝ := lpChi V ((2:ℝ)⁻¹ • η) - lpChi V ((4:ℝ) • η)
+
+theorem contDiff_lpFat {n : ℕ∞} : ContDiff ℝ n (lpFat V) :=
+  ((lpChi V).contDiff.comp (contDiff_const_smul _)).sub
+    ((lpChi V).contDiff.comp (contDiff_const_smul _))
+
+theorem lpFat_eq_one {η : V} (h1 : 1/2 ≤ ‖η‖) (h2 : ‖η‖ ≤ 2) : lpFat V η = 1 := by
+  rw [lpFat, (lpChi V).one_of_mem_closedBall (by
+        rw [mem_closedBall_zero_iff, norm_smul, lpChi_rIn]
+        simp only [norm_inv, Real.norm_ofNat]
+        rw [inv_mul_le_iff₀ (by norm_num)]
+        linarith),
+      (lpChi V).zero_of_le_dist (by
+        rw [dist_zero_right, norm_smul, lpChi_rOut, Real.norm_ofNat]
+        linarith),
+      sub_zero]
+
+theorem lpFat_eq_zero_of_four_le {η : V} (h : 4 ≤ ‖η‖) : lpFat V η = 0 := by
+  rw [lpFat, (lpChi V).zero_of_le_dist (by
+        rw [dist_zero_right, norm_smul, lpChi_rOut]
+        simp only [norm_inv, Real.norm_ofNat]
+        rw [le_inv_mul_iff₀ (by norm_num)]
+        linarith),
+      (lpChi V).zero_of_le_dist (by
+        rw [dist_zero_right, norm_smul, lpChi_rOut, Real.norm_ofNat]
+        linarith),
+      sub_zero]
+
+theorem hasCompactSupport_lpFat : HasCompactSupport (lpFat V) := by
+  refine HasCompactSupport.intro (isCompact_closedBall (0:V) 4) fun η hη => ?_
+  rw [Metric.mem_closedBall, dist_zero_right, not_le] at hη
+  exact lpFat_eq_zero_of_four_le hη.le
+
+variable (V) in
+/-- The Bernstein kernel symbol at scale `j`: `σ_j(ξ) = ⟨ξ,m⟩·χ̃(2^{−j}ξ)`, ℂ-valued. -/
+noncomputable def bernSymbolFun (j : ℤ) (m : V) (ξ : V) : ℂ :=
+  ((inner ℝ ξ m * lpFat V ((2:ℝ) ^ (-j) • ξ) : ℝ) : ℂ)
+
+theorem contDiff_bernSymbolFun {n : ℕ∞} (j : ℤ) (m : V) :
+    ContDiff ℝ n (bernSymbolFun V j m) := by
+  refine Complex.ofRealCLM.contDiff.comp (ContDiff.mul ?_ ?_)
+  · exact (innerSL ℝ (E := V)).flip m |>.contDiff
+  · exact contDiff_lpFat.comp (contDiff_const_smul _)
+
+theorem hasCompactSupport_bernSymbolFun (j : ℤ) (m : V) :
+    HasCompactSupport (bernSymbolFun V j m) := by
+  refine HasCompactSupport.intro (isCompact_closedBall (0:V) ((2:ℝ)^(j+2))) fun ξ hξ => ?_
+  rw [Metric.mem_closedBall, dist_zero_right, not_le] at hξ
+  have h4 : (4:ℝ) ≤ ‖(2:ℝ) ^ (-j) • ξ‖ := by
+    rw [norm_zpow_smul]
+    calc (4:ℝ) = (2:ℝ)^(-j) * (2:ℝ)^(j+2) := by
+          rw [← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+          norm_num
+      _ ≤ (2:ℝ)^(-j) * ‖ξ‖ :=
+          mul_le_mul_of_nonneg_left hξ.le (zpow_pos (by norm_num) _).le
+  rw [bernSymbolFun, lpFat_eq_zero_of_four_le h4, mul_zero, Complex.ofReal_zero]
+
+variable (V) in
+/-- The Bernstein kernel symbol as a Schwartz map. -/
+noncomputable def bernSymbol (j : ℤ) (m : V) : 𝓢(V, ℂ) :=
+  (hasCompactSupport_bernSymbolFun j m).toSchwartzMap (contDiff_bernSymbolFun j m)
+
+theorem bernSymbol_coe (j : ℤ) (m : V) : ⇑(bernSymbol V j m) = bernSymbolFun V j m := rfl
+
+theorem bernSymbolFunR_hasCompactSupport (j : ℤ) (m : V) :
+    HasCompactSupport (fun ξ : V => inner ℝ ξ m * lpFat V ((2:ℝ) ^ (-j) • ξ)) := by
+  refine HasCompactSupport.intro (isCompact_closedBall (0:V) ((2:ℝ)^(j+2))) fun ξ hξ => ?_
+  rw [Metric.mem_closedBall, dist_zero_right, not_le] at hξ
+  have h4 : (4:ℝ) ≤ ‖(2:ℝ) ^ (-j) • ξ‖ := by
+    rw [norm_zpow_smul]
+    calc (4:ℝ) = (2:ℝ)^(-j) * (2:ℝ)^(j+2) := by
+          rw [← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+          norm_num
+      _ ≤ (2:ℝ)^(-j) * ‖ξ‖ :=
+          mul_le_mul_of_nonneg_left hξ.le (zpow_pos (by norm_num) _).le
+  show inner ℝ ξ m * lpFat V ((2:ℝ) ^ (-j) • ξ) = 0
+  rw [lpFat_eq_zero_of_four_le h4, mul_zero]
+
+theorem bernSymbolFunR_contDiff {n : ℕ∞} (j : ℤ) (m : V) :
+    ContDiff ℝ n (fun ξ : V => inner ℝ ξ m * lpFat V ((2:ℝ) ^ (-j) • ξ)) := by
+  refine ContDiff.mul ?_ (contDiff_lpFat.comp (contDiff_const_smul _))
+  exact ((innerSL ℝ (E := V)).flip m).contDiff
+
+/-- The general ℝ/ℂ multiplier bridge for real symbols on a complex module. -/
+theorem fourierMultiplierCLM_real_coe {σ : V → ℝ} (hσ : σ.HasTemperateGrowth)
+    (hσC : Function.HasTemperateGrowth (fun ξ : V => ((σ ξ : ℝ) : ℂ))) (g : 𝓢(V, W)) :
+    fourierMultiplierCLM (𝕜 := ℝ) W σ g
+      = fourierMultiplierCLM W (fun ξ : V => ((σ ξ : ℝ) : ℂ)) g := by
+  rw [fourierMultiplierCLM_apply, fourierMultiplierCLM_apply]
+  have hs : smulLeftCLM W (fun ξ : V => ((σ ξ : ℝ) : ℂ)) (𝓕 g)
+      = smulLeftCLM (𝕜 := ℝ) W σ (𝓕 g) := by
+    ext ξ
+    rw [smulLeftCLM_apply_apply hσC, smulLeftCLM_apply_apply hσ]
+    show ((σ ξ : ℝ) : ℂ) • (𝓕 g) ξ = σ ξ • (𝓕 g) ξ
+    rfl
+  rw [hs]
+
+/-- **Lᵖ Bernstein, kernel-constant form:** the derivative of the frequency-`2^j` block is
+    `Lᵖ`-bounded with constant `2π·‖𝓕⁻σ_j‖_{L¹}` (evaluated as `2π·2^j·C(m)` by the dilation
+    identity below). -/
+theorem eLpNorm_lineDerivOp_lpProj_le_lp (j : ℤ) (m : V) (f : 𝓢(V, W)) {p : ℝ≥0∞}
+    (h1p : 1 ≤ p) (hp_top : p ≠ ∞) :
+    eLpNorm (⇑(LineDeriv.lineDerivOp m (lpProj V W j f))) p volume
+      ≤ ENNReal.ofReal (2 * π)
+          * eLpNorm (⇑(𝓕⁻ (bernSymbol V j m) : 𝓢(V, ℂ))) 1 volume
+          * eLpNorm (⇑(lpProj V W j f)) p volume := by
+  have hσR : Function.HasTemperateGrowth
+      (fun ξ : V => inner ℝ ξ m * lpFat V ((2:ℝ) ^ (-j) • ξ)) :=
+    (bernSymbolFunR_hasCompactSupport j m).hasTemperateGrowth (bernSymbolFunR_contDiff j m)
+  have hσC : Function.HasTemperateGrowth (bernSymbolFun V j m) :=
+    (hasCompactSupport_bernSymbolFun j m).hasTemperateGrowth (contDiff_bernSymbolFun j m)
+  have hchain : LineDeriv.lineDerivOp m (lpProj V W j f)
+      = (2 * ↑π * Complex.I : ℂ)
+          • fourierMultiplierCLM W (⇑(bernSymbol V j m)) (lpProj V W j f) := by
+    rw [lineDeriv_eq_fourierMultiplierCLM m (lpProj V W j f), lpProj_eq_realMultiplier,
+        fourierMultiplierCLM_fourierMultiplierCLM_apply (hasTemperateGrowth_inner_left m)
+          (hasTemperateGrowth_lpSymbolAt j)]
+    congr 1
+    have hF1 : (fun ξ : V => inner ℝ ξ m) * lpSymbolAt V j
+        = (fun ξ : V => inner ℝ ξ m * lpFat V ((2:ℝ) ^ (-j) • ξ)) * lpSymbolAt V j := by
+      funext ξ
+      simp only [Pi.mul_apply]
+      rcases eq_or_ne (lpSymbolAt V j ξ) 0 with h0 | h0
+      · rw [h0, mul_zero, mul_zero]
+      · have hb := norm_mem_of_lpSymbolAt_ne_zero h0
+        have hzp : (0:ℝ) < (2:ℝ) ^ (-j) := zpow_pos (by norm_num) _
+        have h1 : 1/2 ≤ ‖(2:ℝ) ^ (-j) • ξ‖ := by
+          rw [norm_zpow_smul]
+          calc (1:ℝ)/2 = (2:ℝ)^(-1:ℤ) := by norm_num
+            _ = (2:ℝ)^(-j) * (2:ℝ)^(j-1) := by
+                rw [← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+                congr 1
+                ring
+            _ ≤ (2:ℝ)^(-j) * ‖ξ‖ := mul_le_mul_of_nonneg_left hb.1.le hzp.le
+        have h2 : ‖(2:ℝ) ^ (-j) • ξ‖ ≤ 2 := by
+          rw [norm_zpow_smul]
+          calc (2:ℝ)^(-j) * ‖ξ‖ ≤ (2:ℝ)^(-j) * (2:ℝ)^(j+1) :=
+                mul_le_mul_of_nonneg_left hb.2.le hzp.le
+            _ = 2 := by
+                rw [← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+                norm_num
+        rw [lpFat_eq_one h1 h2, mul_one]
+    rw [hF1, ← fourierMultiplierCLM_fourierMultiplierCLM_apply hσR
+          (hasTemperateGrowth_lpSymbolAt j),
+        ← lpProj_eq_realMultiplier,
+        fourierMultiplierCLM_real_coe hσR hσC]
+    rfl
+  rw [hchain,
+      show ⇑((2 * ↑π * Complex.I : ℂ)
+          • fourierMultiplierCLM W (⇑(bernSymbol V j m)) (lpProj V W j f))
+        = (2 * ↑π * Complex.I : ℂ)
+          • ⇑(fourierMultiplierCLM W (⇑(bernSymbol V j m)) (lpProj V W j f)) from rfl,
+      eLpNorm_const_smul]
+  have h2pi : ‖(2 * ↑π * Complex.I : ℂ)‖ₑ = ENNReal.ofReal (2 * π) := by
+    rw [← ofReal_norm_eq_enorm]
+    congr 1
+    simp only [norm_mul, Complex.norm_I, mul_one, Complex.norm_ofNat, Complex.norm_real,
+      Real.norm_eq_abs]
+    rw [abs_of_pos pi_pos]
+  rw [h2pi, mul_assoc]
+  exact mul_le_mul_left'
+    (eLpNorm_fourierMultiplierCLM_le (bernSymbol V j m) (lpProj V W j f) h1p hp_top) _
+
+/-! #### The dilation: `‖𝓕⁻σ_j‖_{L¹} = 2^j·‖𝓕⁻σ₀‖_{L¹}` -/
+
+/-- The symbol dilation identity: `σ_j(ξ) = 2^j·σ₀(2^{−j}ξ)`. -/
+theorem bernSymbolFun_eq_smul (j : ℤ) (m : V) (ξ : V) :
+    bernSymbolFun V j m ξ
+      = (((2:ℝ) ^ j : ℝ) : ℂ) * bernSymbolFun V 0 m ((2:ℝ) ^ (-j) • ξ) := by
+  rw [bernSymbolFun, bernSymbolFun]
+  rw [show (2:ℝ) ^ (-(0:ℤ)) • ((2:ℝ) ^ (-j) • ξ) = (2:ℝ) ^ (-j) • ξ by
+    rw [neg_zero, zpow_zero, one_smul]]
+  rw [real_inner_smul_left, ← Complex.ofReal_mul]
+  congr 1
+  rw [← mul_assoc, ← mul_assoc, ← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+  rw [show j + -j = (0:ℤ) by ring, zpow_zero, one_mul]
+
+/-- The kernel dilation: `(𝓕⁻σ_j)(x) = 2^{j(d+1)}·(𝓕⁻σ₀)(2^j x)`, `d = dim V`. -/
+theorem fourierInv_bernSymbol_eq (j : ℤ) (m : V) (x : V) :
+    (𝓕⁻ (bernSymbol V j m) : 𝓢(V, ℂ)) x
+      = (((2:ℝ) ^ (j * ((finrank ℝ V : ℤ) + 1)) : ℝ) : ℂ)
+          * (𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) ((2:ℝ) ^ j • x) := by
+  rw [show ⇑(𝓕⁻ (bernSymbol V j m) : 𝓢(V, ℂ)) = 𝓕⁻ ⇑(bernSymbol V j m) from
+        fourierInv_coe _,
+      show ⇑(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) = 𝓕⁻ ⇑(bernSymbol V 0 m) from
+        fourierInv_coe _,
+      Real.fourierInv_eq, Real.fourierInv_eq]
+  have hsub : ∀ v : V, 𝐞 (inner ℝ v x) • (bernSymbol V j m) v
+      = (fun η : V => 𝐞 (inner ℝ η ((2:ℝ) ^ j • x))
+          • ((((2:ℝ) ^ j : ℝ) : ℂ) * (bernSymbol V 0 m) η)) ((2:ℝ) ^ (-j) • v) := by
+    intro v
+    simp only
+    rw [bernSymbol_coe, bernSymbol_coe, bernSymbolFun_eq_smul j m v]
+    congr 1
+    rw [real_inner_smul_left, real_inner_smul_right, ← mul_assoc,
+        ← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0),
+        show -j + j = (0:ℤ) by ring, zpow_zero, one_mul]
+  calc (∫ v, 𝐞 (inner ℝ v x) • (bernSymbol V j m) v)
+      = ∫ v, (fun η : V => 𝐞 (inner ℝ η ((2:ℝ) ^ j • x))
+          • ((((2:ℝ) ^ j : ℝ) : ℂ) * (bernSymbol V 0 m) η)) ((2:ℝ) ^ (-j) • v) :=
+        integral_congr_ae (Filter.Eventually.of_forall hsub)
+    _ = |(((2:ℝ) ^ (-j)) ^ finrank ℝ V)⁻¹| • ∫ η, 𝐞 (inner ℝ η ((2:ℝ) ^ j • x))
+          • ((((2:ℝ) ^ j : ℝ) : ℂ) * (bernSymbol V 0 m) η) :=
+        Measure.integral_comp_smul volume
+          (fun η : V => 𝐞 (inner ℝ η ((2:ℝ) ^ j • x))
+            • ((((2:ℝ) ^ j : ℝ) : ℂ) * (bernSymbol V 0 m) η)) ((2:ℝ) ^ (-j))
+    _ = ((2:ℝ) ^ (j * (finrank ℝ V : ℤ))) • ∫ η, 𝐞 (inner ℝ η ((2:ℝ) ^ j • x))
+          • ((((2:ℝ) ^ j : ℝ) : ℂ) * (bernSymbol V 0 m) η) := by
+        congr 1
+        rw [← zpow_natCast ((2:ℝ) ^ (-j)), ← zpow_mul, ← zpow_neg,
+            abs_of_pos (zpow_pos (by norm_num) _)]
+        congr 1
+        ring
+    _ = ((2:ℝ) ^ (j * (finrank ℝ V : ℤ))) • ((((2:ℝ) ^ j : ℝ) : ℂ)
+          * ∫ η, 𝐞 (inner ℝ η ((2:ℝ) ^ j • x)) • (bernSymbol V 0 m) η) := by
+        congr 1
+        rw [← smul_eq_mul, ← integral_smul]
+        refine integral_congr_ae (Filter.Eventually.of_forall fun η => ?_)
+        show 𝐞 (inner ℝ η ((2:ℝ) ^ j • x)) • ((((2:ℝ) ^ j : ℝ) : ℂ) * (bernSymbol V 0 m) η)
+          = (((2:ℝ) ^ j : ℝ) : ℂ) • (𝐞 (inner ℝ η ((2:ℝ) ^ j • x)) • (bernSymbol V 0 m) η)
+        rw [smul_eq_mul]
+        exact (mul_smul_comm _ _ _).symm
+    _ = (((2:ℝ) ^ (j * ((finrank ℝ V : ℤ) + 1)) : ℝ) : ℂ)
+          * ∫ η, 𝐞 (inner ℝ η ((2:ℝ) ^ j • x)) • (bernSymbol V 0 m) η := by
+        rw [Complex.real_smul, ← mul_assoc, ← Complex.ofReal_mul,
+            ← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+        congr 3
+        ring
+
+/-- The `L¹` kernel-norm scaling: `‖𝓕⁻σ_j‖_{L¹} = 2^j·‖𝓕⁻σ₀‖_{L¹}`. -/
+theorem eLpNorm_fourierInv_bernSymbol (j : ℤ) (m : V) :
+    eLpNorm (⇑(𝓕⁻ (bernSymbol V j m) : 𝓢(V, ℂ))) 1 volume
+      = ENNReal.ofReal ((2:ℝ) ^ j)
+          * eLpNorm (⇑(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ))) 1 volume := by
+  have hbridge : ∀ u : 𝓢(V, ℂ),
+      eLpNorm (⇑u) 1 volume = ENNReal.ofReal (∫ x, ‖u x‖) := by
+    intro u
+    rw [eLpNorm_one_eq_lintegral_enorm,
+        show (∫⁻ x, ‖u x‖ₑ ∂(volume : Measure V)) = ∫⁻ x, ENNReal.ofReal ‖u x‖ ∂volume from
+          lintegral_congr fun x => (ofReal_norm_eq_enorm (u x)).symm,
+        ← MeasureTheory.ofReal_integral_eq_lintegral_ofReal u.integrable.norm
+          (ae_of_all _ fun x => norm_nonneg _)]
+  rw [hbridge, hbridge]
+  have hreal : (∫ x, ‖(𝓕⁻ (bernSymbol V j m) : 𝓢(V, ℂ)) x‖)
+      = (2:ℝ) ^ j * ∫ x, ‖(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) x‖ := by
+    calc (∫ x, ‖(𝓕⁻ (bernSymbol V j m) : 𝓢(V, ℂ)) x‖)
+        = ∫ x, (2:ℝ) ^ (j * ((finrank ℝ V : ℤ) + 1))
+            * ‖(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) ((2:ℝ) ^ j • x)‖ := by
+          refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+          show ‖(𝓕⁻ (bernSymbol V j m) : 𝓢(V, ℂ)) x‖
+            = (2:ℝ) ^ (j * ((finrank ℝ V : ℤ) + 1))
+                * ‖(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) ((2:ℝ) ^ j • x)‖
+          rw [fourierInv_bernSymbol_eq, norm_mul, Complex.norm_real, Real.norm_eq_abs,
+              abs_of_pos (zpow_pos (by norm_num) _)]
+      _ = (2:ℝ) ^ (j * ((finrank ℝ V : ℤ) + 1))
+            * ∫ x, ‖(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) ((2:ℝ) ^ j • x)‖ :=
+          integral_const_mul _ _
+      _ = (2:ℝ) ^ (j * ((finrank ℝ V : ℤ) + 1)) * (|(((2:ℝ) ^ j) ^ finrank ℝ V)⁻¹|
+            • ∫ x, ‖(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) x‖) := by
+          congr 1
+          exact Measure.integral_comp_smul volume
+            (fun y : V => ‖(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) y‖) ((2:ℝ) ^ j)
+      _ = (2:ℝ) ^ j * ∫ x, ‖(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ)) x‖ := by
+          rw [smul_eq_mul, ← mul_assoc]
+          congr 1
+          rw [← zpow_natCast ((2:ℝ) ^ j), ← zpow_mul, ← zpow_neg,
+              abs_of_pos (zpow_pos (by norm_num) _),
+              ← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+          congr 1
+          ring
+  rw [hreal, ENNReal.ofReal_mul (zpow_pos (by norm_num : (0:ℝ) < 2) _).le]
+
+/-- **Sharp `Lᵖ` Bernstein:** the derivative of the frequency-`2^j` block costs
+    `2π·2^j·C(m)` on every `Lᵖ`, `1 ≤ p < ∞`, with `C(m) = ‖𝓕⁻σ₀‖_{L¹}` j-independent. -/
+theorem eLpNorm_lineDerivOp_lpProj_le_lp_sharp (j : ℤ) (m : V) (f : 𝓢(V, W)) {p : ℝ≥0∞}
+    (h1p : 1 ≤ p) (hp_top : p ≠ ∞) :
+    eLpNorm (⇑(LineDeriv.lineDerivOp m (lpProj V W j f))) p volume
+      ≤ ENNReal.ofReal (2 * π) * (ENNReal.ofReal ((2:ℝ) ^ j)
+          * eLpNorm (⇑(𝓕⁻ (bernSymbol V 0 m) : 𝓢(V, ℂ))) 1 volume)
+          * eLpNorm (⇑(lpProj V W j f)) p volume := by
+  have h := eLpNorm_lineDerivOp_lpProj_le_lp j m f h1p hp_top
+  rwa [eLpNorm_fourierInv_bernSymbol] at h
+
+end SharpBernstein
+
 #eval "Littlewood–Paley dyadic partition of unity — machine-verified."
 
 end NSLittlewoodPaley

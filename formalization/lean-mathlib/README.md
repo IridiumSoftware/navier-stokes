@@ -110,4 +110,9 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
 - **Young + the multiplier–convolution bridge** — `eLpNorm_convolution_le` (Young `L¹⋆Lᵖ→Lᵖ`, new to
   Mathlib's ecosystem; Hölder + Tonelli + translation invariance); `fourierMultiplierCLM_schwartz_eq_convolution`;
   `eLpNorm_fourierMultiplierCLM_le` (Schwartz-symbol multipliers bounded on every `Lᵖ` with constant
-  `‖𝓕⁻σ‖_{L¹}` — the structural `Lᵖ` Bernstein). Next: the `2^j` kernel-scaling → Besov space → Carleman.
+  `‖𝓕⁻σ‖_{L¹}` — the structural `Lᵖ` Bernstein).
+- **Sharp `Lᵖ` Bernstein** — `eLpNorm_lineDerivOp_lpProj_le_lp_sharp`:
+  `‖∂_m P_j f‖_p ≤ 2π·2^j·‖𝓕⁻σ₀(m)‖_{L¹}·‖P_j f‖_p` (`1 ≤ p < ∞`, constant j-independent). Via the
+  fattened symbol `lpFat`, the Schwartz kernel family `bernSymbol`, the ℝ/ℂ multiplier bridge, and the
+  dilation chain (`bernSymbolFun_eq_smul` → `fourierInv_bernSymbol_eq` → `eLpNorm_fourierInv_bernSymbol`,
+  via `Real.fourierInv_eq` + `Measure.integral_comp_smul`). Next: Besov space proper → Carleman.
