@@ -936,6 +936,247 @@ theorem eLpNorm_lineDerivOp_lpProj_le_lp_sharp (j : ℤ) (m : V) (f : 𝓢(V, W)
 
 end SharpBernstein
 
+/-! ### Toward the Besov space: the inhomogeneous structure
+
+The inhomogeneous partition `χ(ξ) + Σ_{j≥1}ψ_j(ξ) = 1` holds for **every** `ξ` (including `0`),
+so the inhomogeneous Besov norm needs no quotient by polynomials. We define it on Schwartz
+functions and prove the structural theorem: **it is a genuine norm** (nondegeneracy, via Fourier
+injectivity + the partition). The frequency projections are also defined at the
+tempered-distribution level (`lpProjD`), opening the door to the full distribution space. -/
+
+section BesovSpace
+
+open MeasureTheory FourierTransform SchwartzMap Real
+open scoped SchwartzMap ENNReal
+
+variable {V W : Type*}
+  [NormedAddCommGroup V] [MeasurableSpace V] [BorelSpace V]
+  [InnerProductSpace ℝ V] [FiniteDimensional ℝ V]
+  [NormedAddCommGroup W] [InnerProductSpace ℂ W] [CompleteSpace W]
+
+/-- **The inhomogeneous partition of unity:** `Σ_{j≥1} ψ_j(ξ) = 1 − χ(ξ)` for EVERY `ξ`,
+    including `ξ = 0` — the low-pass `χ` absorbs the origin, so no quotient is needed. -/
+theorem hasSum_lpSymbolAt_nat (ξ : V) :
+    HasSum (fun j : ℕ => lpSymbolAt V ((j : ℤ) + 1) ξ) (1 - lpChi V ξ) := by
+  rcases eq_or_ne ξ 0 with rfl | hξ
+  · have hzero : ∀ j : ℕ, lpSymbolAt V ((j : ℤ) + 1) (0 : V) = 0 := by
+      intro j
+      rw [lpSymbolAt, smul_zero, lpSymbol, smul_zero, sub_self]
+    have hχ : lpChi V (0 : V) = 1 :=
+      (lpChi V).one_of_mem_closedBall (by simp [mem_closedBall_zero_iff])
+    rw [hχ, sub_self]
+    simpa only [hzero] using hasSum_zero
+  · have hpos : (0:ℝ) < ‖ξ‖ := norm_pos_iff.mpr hξ
+    set L : ℤ := Int.log 2 ‖ξ‖ with hL
+    have hhigh : ‖ξ‖ < (2:ℝ) ^ (L+1) := by
+      exact_mod_cast Int.lt_zpow_succ_log_self (b := 2) one_lt_two ‖ξ‖
+    set M : ℕ := (max L 0).toNat + 1 with hM
+    have hML : L + 1 ≤ (M : ℤ) := by
+      have h1 : (max L 0) ≤ ((max L 0).toNat : ℤ) := Int.self_le_toNat _
+      have h2 : L ≤ max L 0 := le_max_left _ _
+      push_cast [hM]
+      omega
+    have hvanish : ∀ j : ℕ, j ∉ Finset.range M → lpSymbolAt V ((j : ℤ) + 1) ξ = 0 := by
+      intro j hj
+      rw [Finset.mem_range, not_lt] at hj
+      have hjL : L + 1 ≤ (j : ℤ) := le_trans hML (by exact_mod_cast hj)
+      refine lpSymbol_eq_zero_of_le_half ?_
+      rw [norm_zpow_smul]
+      calc (2:ℝ) ^ (-((j:ℤ)+1)) * ‖ξ‖
+          ≤ (2:ℝ) ^ (-((j:ℤ)+1)) * (2:ℝ) ^ (L+1) :=
+            mul_le_mul_of_nonneg_left hhigh.le (zpow_pos (by norm_num) _).le
+        _ = (2:ℝ) ^ (L + 1 - ((j:ℤ)+1)) := by
+            rw [← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+            congr 1
+            ring
+        _ ≤ (2:ℝ) ^ (-1 : ℤ) := zpow_le_zpow_right₀ (by norm_num) (by omega)
+        _ = 1/2 := by norm_num
+    have htele : ∑ j ∈ Finset.range M, lpSymbolAt V ((j : ℤ) + 1) ξ = 1 - lpChi V ξ := by
+      have hterm : ∀ j : ℕ, lpSymbolAt V ((j : ℤ) + 1) ξ
+          = lpChi V ((2:ℝ) ^ (-(((j+1:ℕ)):ℤ)) • ξ) - lpChi V ((2:ℝ) ^ (-((j:ℕ):ℤ)) • ξ) := by
+        intro j
+        rw [lpSymbolAt_eq_sub,
+            show -((j:ℤ) + 1) = -(((j+1:ℕ)):ℤ) by push_cast; ring,
+            show -(((j:ℤ) + 1) - 1) = -(((j:ℕ)):ℤ) by push_cast; ring]
+      have hAM : lpChi V ((2:ℝ) ^ (-((M:ℕ):ℤ)) • ξ) = 1 := by
+        refine (lpChi V).one_of_mem_closedBall ?_
+        rw [mem_closedBall_zero_iff, norm_zpow_smul, lpChi_rIn]
+        calc (2:ℝ) ^ (-((M:ℕ):ℤ)) * ‖ξ‖
+            ≤ (2:ℝ) ^ (-((M:ℕ):ℤ)) * (2:ℝ) ^ (L+1) :=
+              mul_le_mul_of_nonneg_left hhigh.le (zpow_pos (by norm_num) _).le
+          _ = (2:ℝ) ^ (L + 1 - (M:ℤ)) := by
+              rw [← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+              congr 1
+              ring
+          _ ≤ (2:ℝ) ^ (0:ℤ) := zpow_le_zpow_right₀ (by norm_num) (by omega)
+          _ = 1 := by norm_num
+      calc ∑ j ∈ Finset.range M, lpSymbolAt V ((j : ℤ) + 1) ξ
+          = ∑ j ∈ Finset.range M,
+              ((fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) (j+1)
+                - (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) j) :=
+            Finset.sum_congr rfl fun j _ => hterm j
+        _ = (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) M
+              - (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) 0 :=
+            Finset.sum_range_sub (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) M
+        _ = 1 - lpChi V ξ := by
+            show lpChi V ((2:ℝ) ^ (-((M:ℕ):ℤ)) • ξ)
+                - lpChi V ((2:ℝ) ^ (-((0:ℕ):ℤ)) • ξ) = 1 - lpChi V ξ
+            rw [hAM]
+            norm_num
+    have hfin : HasSum (fun j : ℕ => lpSymbolAt V ((j : ℤ) + 1) ξ)
+        (∑ j ∈ Finset.range M, lpSymbolAt V ((j : ℤ) + 1) ξ) :=
+      hasSum_sum_of_ne_finset_zero hvanish
+    rwa [htele] at hfin
+
+variable (V W) in
+/-- The low-pass projection `S₀ = χ(D)`. -/
+noncomputable def lpLowProj : 𝓢(V, W) →L[ℂ] 𝓢(V, W) :=
+  fourierMultiplierCLM W (fun ξ : V => ((lpChi V ξ : ℝ) : ℂ))
+
+theorem hasTemperateGrowth_lpChiC :
+    Function.HasTemperateGrowth (fun ξ : V => ((lpChi V ξ : ℝ) : ℂ)) := by
+  refine HasCompactSupport.hasTemperateGrowth ?_ ?_
+  · exact ((lpChi V).hasCompactSupport).comp_left Complex.ofReal_zero
+  · exact Complex.ofRealCLM.contDiff.comp (lpChi V).contDiff
+
+variable (W) in
+/-- **The inhomogeneous Besov norm** `‖f‖_{B^s_{p,q}}` on Schwartz functions: the low block plus
+    the `ℓ^q(ℕ)` norm of the weighted high blocks. -/
+noncomputable def besovNormI (s : ℝ) (p q : ℝ≥0∞) (f : 𝓢(V, W)) : ℝ≥0∞ :=
+  eLpNorm (⇑(lpLowProj V W f)) p volume +
+    (if q = ∞ then
+      ⨆ j : ℕ, (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s) * eLpNorm (⇑(lpProj V W ((j:ℤ)+1) f)) p volume
+    else (∑' j : ℕ, ((2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+        * eLpNorm (⇑(lpProj V W ((j:ℤ)+1) f)) p volume) ^ q.toReal) ^ (1/q.toReal))
+
+/-- A Schwartz function with vanishing `Lᵖ` norm is zero (volume is open-positive). -/
+theorem schwartz_eq_zero_of_eLpNorm_eq_zero {p : ℝ≥0∞} (hp0 : p ≠ 0) {u : 𝓢(V, W)}
+    (h : eLpNorm (⇑u) p volume = 0) : u = 0 := by
+  have hae := (eLpNorm_eq_zero_iff u.continuous.aestronglyMeasurable hp0).mp h
+  have heq : ⇑u = (fun _ => 0 : V → W) :=
+    (Continuous.ae_eq_iff_eq volume u.continuous continuous_const).mp hae
+  ext x
+  exact congrFun heq x
+
+/-- A vanishing Fourier multiplier kills the symbol-weighted Fourier transform pointwise. -/
+theorem smul_fourier_eq_zero_of_multiplier_eq_zero {σ : V → ℂ}
+    (hσ : Function.HasTemperateGrowth σ) {f : 𝓢(V, W)}
+    (h : fourierMultiplierCLM W σ f = 0) (ξ : V) : σ ξ • (𝓕 f) ξ = 0 := by
+  have h2 : (𝓕⁻ (smulLeftCLM W σ (𝓕 f)) : 𝓢(V, W)) = 0 := by
+    rw [← fourierMultiplierCLM_apply]
+    exact h
+  have h1 : smulLeftCLM W σ (𝓕 f) = 0 := by
+    calc smulLeftCLM W σ (𝓕 f)
+        = 𝓕 (𝓕⁻ (smulLeftCLM W σ (𝓕 f)) : 𝓢(V, W)) :=
+          (FourierTransform.fourier_fourierInv_eq _).symm
+      _ = 𝓕 (0 : 𝓢(V, W)) := by rw [h2]
+      _ = 0 := map_zero _
+  have h3 : smulLeftCLM W σ (𝓕 f) ξ = 0 := by
+    rw [h1]
+    rfl
+  rwa [smulLeftCLM_apply_apply hσ] at h3
+
+/-- **Nondegeneracy: the inhomogeneous Besov expression is a NORM on Schwartz functions.**
+    `‖f‖_{B^s_{p,q}} = 0 ↔ f = 0` — the structural theorem making `B^s_{p,q}` a normed space. -/
+theorem besovNormI_eq_zero_iff (s : ℝ) {p q : ℝ≥0∞} (hp0 : p ≠ 0) (hq0 : q ≠ 0)
+    (f : 𝓢(V, W)) : besovNormI W s p q f = 0 ↔ f = 0 := by
+  have h2pos : ∀ x : ℝ, (0:ℝ≥0∞) < (2:ℝ≥0∞) ^ x :=
+    fun x => ENNReal.rpow_pos (by norm_num) (by norm_num)
+  constructor
+  · intro h
+    rw [besovNormI, add_eq_zero] at h
+    obtain ⟨hlow, hhigh⟩ := h
+    have hlow0 : lpLowProj V W f = 0 := schwartz_eq_zero_of_eLpNorm_eq_zero hp0 hlow
+    have hblock : ∀ j : ℕ, lpProj V W ((j:ℤ)+1) f = 0 := by
+      intro j
+      refine schwartz_eq_zero_of_eLpNorm_eq_zero hp0 ?_
+      have hterm : (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+          * eLpNorm (⇑(lpProj V W ((j:ℤ)+1) f)) p volume = 0 := by
+        by_cases hq_top : q = ∞
+        · rw [if_pos hq_top] at hhigh
+          exact le_antisymm ((le_iSup (fun j : ℕ => (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+            * eLpNorm (⇑(lpProj V W ((j:ℤ)+1) f)) p volume) j).trans hhigh.le) zero_le
+        · rw [if_neg hq_top] at hhigh
+          have hqr : 0 < q.toReal := ENNReal.toReal_pos hq0 hq_top
+          have hsum0 : (∑' j : ℕ, ((2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+              * eLpNorm (⇑(lpProj V W ((j:ℤ)+1) f)) p volume) ^ q.toReal) = 0 := by
+            by_contra hne
+            have := ENNReal.rpow_eq_zero_iff.mp hhigh
+            rcases this with ⟨h0, -⟩ | ⟨-, hneg⟩
+            · exact hne h0
+            · exact absurd hneg (not_lt.mpr (by positivity))
+          have := ENNReal.tsum_eq_zero.mp hsum0 j
+          rcases ENNReal.rpow_eq_zero_iff.mp this with ⟨h0, -⟩ | ⟨-, hneg⟩
+          · exact h0
+          · exact absurd hneg (not_lt.mpr hqr.le)
+      rcases mul_eq_zero.mp hterm with h0 | h0
+      · exact absurd h0 (h2pos _).ne'
+      · exact h0
+    -- the Fourier transform vanishes pointwise via the partition
+    have hFf : ∀ ξ : V, (𝓕 f) ξ = 0 := by
+      intro ξ
+      have hχ : lpChi V ξ • (𝓕 f) ξ = 0 :=
+        smul_fourier_eq_zero_of_multiplier_eq_zero hasTemperateGrowth_lpChiC hlow0 ξ
+      have hψ : ∀ j : ℕ, lpSymbolAt V ((j:ℤ)+1) ξ • (𝓕 f) ξ = 0 := fun j =>
+        smul_fourier_eq_zero_of_multiplier_eq_zero
+          (hasTemperateGrowth_lpSymbolAtC ((j:ℤ)+1)) (hblock j) ξ
+      have h1 : HasSum (fun j : ℕ => lpSymbolAt V ((j:ℤ)+1) ξ • (𝓕 f) ξ)
+          ((1 - lpChi V ξ) • (𝓕 f) ξ) := (hasSum_lpSymbolAt_nat ξ).smul_const _
+      simp only [hψ] at h1
+      have h2 : (1 - lpChi V ξ) • (𝓕 f) ξ = 0 := h1.unique hasSum_zero
+      have h3 : (𝓕 f) ξ = ((1 - lpChi V ξ) + lpChi V ξ) • (𝓕 f) ξ := by
+        rw [show (1 - lpChi V ξ) + lpChi V ξ = (1:ℝ) by ring, one_smul]
+      rw [h3, add_smul, h2, hχ, add_zero]
+    have hFf0 : (𝓕 f : 𝓢(V, W)) = 0 := by
+      ext ξ
+      rw [hFf ξ]
+      rfl
+    calc f = 𝓕⁻ (𝓕 f : 𝓢(V, W)) := (FourierTransform.fourierInv_fourier_eq f).symm
+      _ = 𝓕⁻ (0 : 𝓢(V, W)) := by rw [hFf0]
+      _ = 0 := map_zero _
+  · intro h
+    subst h
+    rw [besovNormI]
+    have hblock0 : ∀ j : ℕ, (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+        * eLpNorm (⇑(lpProj V W ((j:ℤ)+1) (0 : 𝓢(V, W)))) p volume = 0 := by
+      intro j
+      rw [map_zero]
+      simp
+    have hlow0 : eLpNorm (⇑(lpLowProj V W (0 : 𝓢(V, W)))) p volume = 0 := by
+      rw [map_zero]
+      simp
+    rw [hlow0, zero_add]
+    by_cases hq_top : q = ∞
+    · rw [if_pos hq_top]
+      simp only [hblock0, iSup_const]
+    · rw [if_neg hq_top]
+      have hqr : 0 < q.toReal := ENNReal.toReal_pos hq0 hq_top
+      have h2 : ∀ j : ℕ, ((2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+          * eLpNorm (⇑(lpProj V W ((j:ℤ)+1) (0 : 𝓢(V, W)))) p volume) ^ q.toReal = 0 :=
+        fun j => by rw [hblock0 j, ENNReal.zero_rpow_of_pos hqr]
+      rw [tsum_congr h2, tsum_zero, ENNReal.zero_rpow_of_pos (one_div_pos.mpr hqr)]
+
+/-! #### The projections at tempered-distribution level -/
+
+variable (V W) in
+/-- The Littlewood–Paley projection on **tempered distributions** (via Mathlib's
+    `TemperedDistribution.fourierMultiplierCLM`) — the door to the full Besov space `B^s_{p,q}(𝓢')`. -/
+noncomputable def lpProjD (j : ℤ) : 𝓢'(V, W) →L[ℂ] 𝓢'(V, W) :=
+  TemperedDistribution.fourierMultiplierCLM W (lpSymbolAtC V j)
+
+/-- Frequency-gap disjointness at the distribution level: `P_j ∘ P_k = 0` for `j + 2 ≤ k`. -/
+theorem lpProjD_comp_eq_zero {j k : ℤ} (h : j + 2 ≤ k) :
+    lpProjD V W j ∘L lpProjD V W k = 0 := by
+  rw [lpProjD, lpProjD, TemperedDistribution.fourierMultiplierCLM_compL_fourierMultiplierCLM
+        (hasTemperateGrowth_lpSymbolAtC k) (hasTemperateGrowth_lpSymbolAtC j)]
+  have hzero : lpSymbolAtC V k * lpSymbolAtC V j = fun _ : V => (0:ℂ) := by
+    funext ξ
+    rw [Pi.mul_apply, lpSymbolAtC, lpSymbolAtC, ← Complex.ofReal_mul, mul_comm,
+        lpSymbolAt_mul_eq_zero h ξ, Complex.ofReal_zero]
+  rw [hzero, TemperedDistribution.fourierMultiplierCLM_const, zero_smul]
+
+end BesovSpace
+
 #eval "Littlewood–Paley dyadic partition of unity — machine-verified."
 
 end NSLittlewoodPaley

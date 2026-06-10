@@ -115,4 +115,9 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   `‖∂_m P_j f‖_p ≤ 2π·2^j·‖𝓕⁻σ₀(m)‖_{L¹}·‖P_j f‖_p` (`1 ≤ p < ∞`, constant j-independent). Via the
   fattened symbol `lpFat`, the Schwartz kernel family `bernSymbol`, the ℝ/ℂ multiplier bridge, and the
   dilation chain (`bernSymbolFun_eq_smul` → `fourierInv_bernSymbol_eq` → `eLpNorm_fourierInv_bernSymbol`,
-  via `Real.fourierInv_eq` + `Measure.integral_comp_smul`). Next: Besov space proper → Carleman.
+  via `Real.fourierInv_eq` + `Measure.integral_comp_smul`).
+- **Besov space (opened)** — `hasSum_lpSymbolAt_nat` (inhomogeneous partition, all `ξ`); `lpLowProj`;
+  **`besovNormI`** + **`besovNormI_eq_zero_iff`** (the inhomogeneous Besov expression is a genuine
+  NORM on 𝓢 — nondegeneracy via multiplier-vanishing + the partition + Fourier injectivity);
+  `lpProjD`/`lpProjD_comp_eq_zero` on 𝓢' (NB: the 𝓢'-composition lemma in Mathlib is reversed).
+  Next: the distributional Besov space → Carleman.

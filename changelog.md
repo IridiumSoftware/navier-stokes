@@ -1,5 +1,33 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.13.0 — 2026-06-10 — BESOV SPACE OPENED: the inhomogeneous partition + besovNormI is a genuine NORM + distributional P_j
+
+The Besov-space layer, in `formalization/lean-mathlib/LittlewoodPaley.lean` (~1190 lines total).
+**Library infrastructure; `:proved`=0 for the PDE.**
+- **`hasSum_lpSymbolAt_nat`** — the **inhomogeneous partition of unity**: for EVERY `ξ` (including
+  `ξ = 0`), `Σ_{j≥1} ψ_j(ξ) = 1 − χ(ξ)`. The low-pass `χ` absorbs the origin, so the inhomogeneous
+  theory needs **no quotient by polynomials**. (At `0` all annulus symbols vanish and `χ(0)=1`;
+  for `ξ≠0` a finite window + telescoping via `Finset.sum_range_sub`.)
+- **`lpLowProj` (= `χ(D)`) and `besovNormI W s p q f`** — the inhomogeneous Besov norm on Schwartz
+  functions: low block + `ℓ^q(ℕ)` of the weighted high blocks `2^{(j+1)s}‖P_{j+1}f‖_{Lᵖ}`.
+- **`besovNormI_eq_zero_iff` — THE structural theorem: it is a genuine NORM** (`‖f‖_{B^s_{p,q}} = 0
+  ↔ f = 0`, any `s`, `p ≠ 0`, `q ≠ 0`). Forward: norm-zero ⇒ every block vanishes (ENNReal
+  `add/tsum/iSup/rpow`-zero extraction) ⇒ each block is the zero Schwartz function
+  (`eLpNorm_eq_zero_iff` + `Continuous.ae_eq_iff_eq`, volume open-positive) ⇒ the multiplier
+  identities kill `σ(ξ)•𝓕f(ξ)` pointwise (`smul_fourier_eq_zero_of_multiplier_eq_zero`, via
+  `𝓕∘𝓕⁻ = id`) ⇒ the partition reassembles `𝓕f(ξ) = (χ + Σψ_j)(ξ)•𝓕f(ξ) = 0` (`HasSum.smul_const`
+  + uniqueness) ⇒ `f = 𝓕⁻(𝓕f) = 0`. **This makes `B^s_{p,q}` a normed space on 𝓢.**
+- **`lpProjD` + `lpProjD_comp_eq_zero`** — the Littlewood–Paley projections on **tempered
+  distributions** (Mathlib's `TemperedDistribution.fourierMultiplierCLM`) with gap-2 disjointness —
+  the door to the full distribution-level Besov space. (Quirk found: Mathlib's `𝓢'`-composition
+  lemma is REVERSED relative to the Schwartz one — `mult g₂ ∘L mult g₁ = mult (g₁·g₂)`.)
+- **Soundness:** no `sorry`; the false window-arithmetic variant (`M ≥ L` for `M ≥ L+1`) is rejected;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Honest scope:** norm + projections at Schwartz/distribution level; the full Besov *space* of
+distributions (membership via `lpProjD`-blocks in `Lᵖ`, completeness, embeddings) is the remaining
+structural work. `:proved`=0; distance UNTOUCHED. *Next:* Besov embeddings / distributional space →
+Carleman.
+
 ## v0.12.0 — 2026-06-10 — SHARP Lᵖ BERNSTEIN machine-verified: ‖∂_m P_j f‖_p ≤ 2π·2^j·C(m)·‖P_j f‖_p, all 1 ≤ p < ∞
 
 The Littlewood–Paley layer's capstone, in `formalization/lean-mathlib/LittlewoodPaley.lean`

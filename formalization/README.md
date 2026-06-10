@@ -128,8 +128,13 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   Fattened symbol + Schwartz kernel family + the dilation computation (`σ_j = 2^j σ₀(2^{−j}·)`,
   kernel `2^{j(d+1)}`-scaling via `Real.fourierInv_eq` + Haar `integral_comp_smul`, `L¹` collapse to
   `2^j`). False-exponent variant rejected; no `sorry`. **The LP layer is complete through Bernstein.**
-- *Next bites (priority order):* Besov space proper → Carleman.
-  `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
+- **Tenth bite ✅ (Besov space opened)** — `hasSum_lpSymbolAt_nat` (the **inhomogeneous partition**,
+  every `ξ` incl. 0 — no polynomial quotient); `lpLowProj` + **`besovNormI`** (the inhomogeneous
+  `B^s_{p,q}` norm on 𝓢); **`besovNormI_eq_zero_iff`** (it is a genuine NORM — nondegeneracy via
+  Fourier injectivity + the partition); `lpProjD` (+gap-2 disjointness) on tempered distributions.
+  False-window variant rejected; no `sorry`.
+- *Next bites (priority order):* distributional Besov space (membership/completeness/embeddings)
+  → Carleman. `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run
 ```
