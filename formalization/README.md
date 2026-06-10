@@ -118,8 +118,13 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   `‖∂_m P_j f‖_{L²} ≤ 2π‖m‖·2^{j+1}·‖P_j f‖_{L²}` (pure Plancherel; the frequency-localized
   derivative bound — the L² case used by NS enstrophy estimates). + Schwartz-level Plancherel
   `eLpNorm_fourierInv_two`, the ℂ/ℝ multiplier bridge. False-constant variant rejected; no `sorry`.
-- *Next bites (priority order):* Lᵖ Bernstein (convolution + Young) → Besov space → Carleman.
-  `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
+- **Eighth bite ✅ (Young + the multiplier–convolution bridge)** — `eLpNorm_convolution_le`
+  (**Young `L¹⋆Lᵖ→Lᵖ`**, absent from Mathlib; Hölder+Tonelli+translation route);
+  `fourierMultiplierCLM_schwartz_eq_convolution` (Schwartz-symbol multiplier = convolution with `𝓕⁻σ`);
+  `eLpNorm_fourierMultiplierCLM_le` (**structural Lᵖ Bernstein**: `‖σ(D)g‖_p ≤ ‖𝓕⁻σ‖₁‖g‖_p`).
+  False-exponent variant rejected; no `sorry`.
+- *Next bites (priority order):* sharp Lᵖ Bernstein (`‖𝓕⁻σ_j‖₁ = C·2^j` kernel scaling) → Besov space
+  → Carleman. `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run
 ```

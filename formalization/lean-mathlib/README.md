@@ -107,4 +107,7 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   via the lineDeriv-multiplier identity + composition law + the annulus bound + the L² Fourier isometry
   (`eLpNorm_fourierInv_two`). ℂ/ℝ-scalar bridge `lpProj_eq_realMultiplier` (restricted smul is `rfl`);
   `SMulCommClass ℂ ℝ W` provided as a local instance (only the `ℝ ℂ` order is global).
-  Next: Lᵖ Bernstein (convolution + Young) → Besov space (tempered distributions mod polynomials) → Carleman.
+- **Young + the multiplier–convolution bridge** — `eLpNorm_convolution_le` (Young `L¹⋆Lᵖ→Lᵖ`, new to
+  Mathlib's ecosystem; Hölder + Tonelli + translation invariance); `fourierMultiplierCLM_schwartz_eq_convolution`;
+  `eLpNorm_fourierMultiplierCLM_le` (Schwartz-symbol multipliers bounded on every `Lᵖ` with constant
+  `‖𝓕⁻σ‖_{L¹}` — the structural `Lᵖ` Bernstein). Next: the `2^j` kernel-scaling → Besov space → Carleman.

@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.11.0 — 2026-06-10 — YOUNG'S INEQUALITY + the multiplier–convolution bridge machine-verified: Schwartz-symbol multipliers are Lᵖ-bounded (the structural Lᵖ Bernstein)
+
+Fourth bite of the Littlewood–Paley layer, in `formalization/lean-mathlib/LittlewoodPaley.lean`.
+**Library infrastructure; `:proved`=0 for the PDE.** Young's inequality did NOT exist anywhere in
+Mathlib (searched); the Schwartz convolution theorem did (`SchwartzMap.convolution` +
+`fourier_convolution`, defined via 𝓕 — the same shape as `fourierMultiplierCLM`).
+- **`eLpNorm_convolution_le` — Young `L¹⋆Lᵖ→Lᵖ`:** `‖k ⋆ g‖_{Lᵖ} ≤ ‖k‖_{L¹}·‖g‖_{Lᵖ}` for Schwartz
+  `k` (scalar), `g` (vector-valued), `1 ≤ p < ∞`. The full classical proof, machine-checked: pointwise
+  enorm domination → **Hölder** against the split `φ·ψ = φ^{1/q}·(φ^{1/p}ψ)`
+  (`ENNReal.lintegral_mul_le_Lp_mul_Lq`, conjugate pair) → **Tonelli** swap → **translation
+  invariance** of volume (`lintegral_add_right_eq_self`) → exponent bookkeeping
+  (`p/q = p−1`, `A^{p−1}·A = A^p` with the `0`-base edge cases). `p=1` by direct Tonelli.
+- **`fourierMultiplierCLM_schwartz_eq_convolution`** — a multiplier with **Schwartz symbol** `σ` IS
+  convolution against the kernel `𝓕⁻σ` (both sides are `𝓕⁻ ∘ (σ·) ∘ 𝓕`; `smulLeftCLM σ = pairing
+  lsmul σ` pointwise).
+- **`eLpNorm_fourierMultiplierCLM_le`** — **the structural `Lᵖ` Bernstein:**
+  `‖σ(D)g‖_{Lᵖ} ≤ ‖𝓕⁻σ‖_{L¹}·‖g‖_{Lᵖ}` for every `1 ≤ p < ∞` — Schwartz-symbol Fourier multipliers
+  (incl. the LP blocks, whose symbols are smooth + compactly supported) are bounded on every `Lᵖ`,
+  with the kernel `L¹`-norm as the constant. **The remaining step to sharp `Lᵖ` Bernstein** is the
+  kernel-scaling computation `‖𝓕⁻σ_j‖_{L¹} = C·2^j` (fattened symbol + dilation covariance) — next.
+- **Soundness:** no `sorry`; the false conjugate-exponent variant (`p/q = p+1` for `p−1`) is rejected;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib. `:proved`=0; distance UNTOUCHED.
+
 ## v0.10.0 — 2026-06-10 — BERNSTEIN INEQUALITY (L² case) machine-verified: a derivative of the frequency-2^j block costs 2π‖m‖·2^{j+1}
 
 Third bite of the Littlewood–Paley layer, in `formalization/lean-mathlib/LittlewoodPaley.lean`.

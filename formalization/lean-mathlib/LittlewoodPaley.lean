@@ -431,6 +431,204 @@ theorem eLpNorm_lineDerivOp_lpProj_le (j : ℤ) (m : V) (f : 𝓢(V, W)) :
 
 end Bernstein
 
+/-! ### Young's inequality and the multiplier–convolution bridge (toward Lᵖ Bernstein)
+
+`‖k ⋆ g‖_{Lᵖ} ≤ ‖k‖_{L¹}·‖g‖_{Lᵖ}` (Young, here for Schwartz inputs), and: a Fourier multiplier
+with **Schwartz symbol** `σ` *is* convolution against the kernel `𝓕⁻σ` — hence bounded on every
+`Lᵖ` with constant `‖𝓕⁻σ‖_{L¹}`. This is the structural content of `Lᵖ` Bernstein; the sharp
+`2^j` for the Littlewood–Paley blocks is a kernel-scaling computation on top (next bite). -/
+
+section Young
+
+open MeasureTheory FourierTransform SchwartzMap Real
+open scoped SchwartzMap ENNReal
+
+variable {V W : Type*}
+  [NormedAddCommGroup V] [MeasurableSpace V] [BorelSpace V]
+  [InnerProductSpace ℝ V] [FiniteDimensional ℝ V]
+  [NormedAddCommGroup W] [InnerProductSpace ℂ W] [CompleteSpace W]
+
+/-- **Young's inequality** `‖k ⋆ g‖_{Lᵖ} ≤ ‖k‖_{L¹}·‖g‖_{Lᵖ}`, for Schwartz `k` (scalar) and
+    `g`, `1 ≤ p < ∞`: Hölder against the measure `‖k‖dμ`, Tonelli, translation invariance. -/
+theorem eLpNorm_convolution_le (k : 𝓢(V, ℂ)) (g : 𝓢(V, W)) {p : ℝ≥0∞}
+    (h1p : 1 ≤ p) (hp_top : p ≠ ∞) :
+    eLpNorm (MeasureTheory.convolution ⇑k ⇑g (ContinuousLinearMap.lsmul ℂ ℂ) volume) p volume
+      ≤ eLpNorm (⇑k) 1 volume * eLpNorm (⇑g) p volume := by
+  have hp0 : p ≠ 0 := (lt_of_lt_of_le one_pos h1p).ne'
+  have hpr1 : (1:ℝ) ≤ p.toReal := by
+    rw [show (1:ℝ) = (1:ℝ≥0∞).toReal by simp]
+    exact ENNReal.toReal_mono hp_top h1p
+  have hpr0 : 0 < p.toReal := lt_of_lt_of_le one_pos hpr1
+  set φ : V → ℝ≥0∞ := fun t => ‖k t‖ₑ with hφdef
+  set ψ : V → ℝ≥0∞ := fun t => ‖g t‖ₑ with hψdef
+  have hφm : Measurable φ := k.continuous.enorm.measurable
+  have hψm : Measurable ψ := g.continuous.enorm.measurable
+  set A := ∫⁻ t, φ t with hAdef
+  set B := ∫⁻ t, ψ t ^ p.toReal with hBdef
+  have hA_top : A ≠ ∞ := (k.integrable (μ := volume)).2.ne
+  -- pointwise domination by the positive convolution
+  have hpt : ∀ x : V,
+      ‖MeasureTheory.convolution ⇑k ⇑g (ContinuousLinearMap.lsmul ℂ ℂ) volume x‖ₑ
+        ≤ ∫⁻ t, φ t * ψ (x - t) := by
+    intro x
+    refine le_trans (enorm_integral_le_lintegral_enorm _) (le_of_eq ?_)
+    refine lintegral_congr fun t => ?_
+    show ‖k t • g (x - t)‖ₑ = φ t * ψ (x - t)
+    rw [enorm_smul]
+  -- the per-x Hölder step
+  have hkey : ∀ x : V, (∫⁻ t, φ t * ψ (x - t)) ^ p.toReal
+      ≤ A ^ (p.toReal - 1) * ∫⁻ t, φ t * ψ (x - t) ^ p.toReal := by
+    intro x
+    rcases eq_or_lt_of_le hpr1 with h1 | h1
+    · rw [← h1]
+      simp
+    · -- 1 < pr: Hölder with the conjugate pair (q, pr)
+      set q := p.toReal.conjExponent with hqdef
+      have hconj : p.toReal.HolderConjugate q := Real.HolderConjugate.conjExponent h1
+      have hinv : p.toReal⁻¹ + q⁻¹ = 1 := hconj.inv_add_inv_eq_one
+      have hpinv_lt : p.toReal⁻¹ < 1 := by
+        rw [inv_lt_one₀ hpr0]
+        exact h1
+      have hq0 : 0 < q := inv_pos.mp (by linarith)
+      have hsum : 1/q + 1/p.toReal = 1 := by
+        rw [one_div, one_div]
+        linarith
+      have hquot : p.toReal / q = p.toReal - 1 := by
+        have hq' : q⁻¹ = 1 - p.toReal⁻¹ := by linarith
+        rw [div_eq_mul_inv, hq', mul_sub, mul_one, mul_inv_cancel₀ hpr0.ne']
+      have hH := ENNReal.lintegral_mul_le_Lp_mul_Lq volume hconj.symm
+        (f := fun t => φ t ^ (1/q)) (g := fun t => φ t ^ (1/p.toReal) * ψ (x - t))
+        (by fun_prop) (by fun_prop)
+      have hFG : ∀ t : V, ((fun t => φ t ^ (1/q)) * fun t => φ t ^ (1/p.toReal) * ψ (x - t)) t
+          = φ t * ψ (x - t) := by
+        intro t
+        simp only [Pi.mul_apply]
+        rw [← mul_assoc]
+        congr 1
+        rcases eq_or_ne (φ t) 0 with h0 | h0
+        · rw [h0, ENNReal.zero_rpow_of_pos (by positivity),
+              ENNReal.zero_rpow_of_pos (by positivity), mul_zero]
+        · rw [← ENNReal.rpow_add _ _ h0 enorm_ne_top, hsum, ENNReal.rpow_one]
+      have hF : (∫⁻ t, ((fun t => φ t ^ (1/q)) t) ^ q) = A := by
+        refine lintegral_congr fun t => ?_
+        rw [← ENNReal.rpow_mul, one_div, inv_mul_cancel₀ hq0.ne', ENNReal.rpow_one]
+      have hG : (∫⁻ t, ((fun t => φ t ^ (1/p.toReal) * ψ (x - t)) t) ^ p.toReal)
+          = ∫⁻ t, φ t * ψ (x - t) ^ p.toReal := by
+        refine lintegral_congr fun t => ?_
+        rw [ENNReal.mul_rpow_of_nonneg _ _ hpr0.le, ← ENNReal.rpow_mul, one_div,
+            inv_mul_cancel₀ hpr0.ne', ENNReal.rpow_one]
+      rw [lintegral_congr hFG, hF, hG] at hH
+      calc (∫⁻ t, φ t * ψ (x - t)) ^ p.toReal
+          ≤ (A ^ (1/q) * (∫⁻ t, φ t * ψ (x - t) ^ p.toReal) ^ (1/p.toReal)) ^ p.toReal := by
+            gcongr
+        _ = A ^ (p.toReal - 1) * ∫⁻ t, φ t * ψ (x - t) ^ p.toReal := by
+            rw [ENNReal.mul_rpow_of_nonneg _ _ hpr0.le, ← ENNReal.rpow_mul,
+                ← ENNReal.rpow_mul, one_div, one_div, inv_mul_cancel₀ hpr0.ne',
+                ENNReal.rpow_one]
+            congr 2
+            rw [mul_comm, show p.toReal * q⁻¹ = p.toReal / q from (div_eq_mul_inv _ _).symm]
+            exact hquot
+  -- integrate, swap, translate
+  have hAB : ∀ a : ℝ≥0∞, a ≠ ∞ → a ^ (p.toReal - 1) * a = a ^ p.toReal := by
+    intro a ha
+    rcases eq_or_ne a 0 with h0 | h0
+    · rcases eq_or_lt_of_le hpr1 with h1 | h1
+      · rw [h0, ← h1]
+        simp
+      · rw [h0, ENNReal.zero_rpow_of_pos (by linarith), zero_mul,
+            ENNReal.zero_rpow_of_pos hpr0]
+    · nth_rewrite 2 [show a = a ^ (1:ℝ) by rw [ENNReal.rpow_one]]
+      rw [← ENNReal.rpow_add _ _ h0 ha]
+      congr 1
+      ring
+  have htotal : (∫⁻ x, (∫⁻ t, φ t * ψ (x - t)) ^ p.toReal) ≤ A ^ p.toReal * B := by
+    have hswap : (∫⁻ x, ∫⁻ t, φ t * ψ (x - t) ^ p.toReal)
+        = ∫⁻ t, ∫⁻ x, φ t * ψ (x - t) ^ p.toReal := by
+      rw [lintegral_lintegral_swap]
+      fun_prop
+    calc (∫⁻ x, (∫⁻ t, φ t * ψ (x - t)) ^ p.toReal)
+        ≤ ∫⁻ x, A ^ (p.toReal - 1) * ∫⁻ t, φ t * ψ (x - t) ^ p.toReal :=
+          lintegral_mono fun x => hkey x
+      _ = A ^ (p.toReal - 1) * ∫⁻ x, ∫⁻ t, φ t * ψ (x - t) ^ p.toReal :=
+          lintegral_const_mul' _ _
+            (ENNReal.rpow_ne_top_of_nonneg (by linarith) hA_top)
+      _ = A ^ (p.toReal - 1) * ∫⁻ t, ∫⁻ x, φ t * ψ (x - t) ^ p.toReal := by rw [hswap]
+      _ = A ^ (p.toReal - 1) * ∫⁻ t, φ t * ∫⁻ x, ψ (x - t) ^ p.toReal := by
+          congr 1
+          refine lintegral_congr fun t => ?_
+          rw [lintegral_const_mul' _ _ enorm_ne_top]
+      _ = A ^ (p.toReal - 1) * ∫⁻ t, φ t * B := by
+          congr 1
+          refine lintegral_congr fun t => ?_
+          congr 1
+          calc (∫⁻ x, ψ (x - t) ^ p.toReal)
+              = ∫⁻ x, ψ (x + (-t)) ^ p.toReal := by
+                refine lintegral_congr fun x => ?_
+                rw [sub_eq_add_neg]
+            _ = ∫⁻ y, ψ y ^ p.toReal :=
+                lintegral_add_right_eq_self (fun y => ψ y ^ p.toReal) (-t)
+            _ = B := hBdef.symm
+      _ = A ^ (p.toReal - 1) * (A * B) := by
+          have hB_top : B ≠ ∞ := by
+            have hg := (g.memLp p volume).2
+            rw [eLpNorm_eq_lintegral_rpow_enorm_toReal hp0 hp_top] at hg
+            exact ((ENNReal.rpow_lt_top_iff_of_pos (by positivity)).mp hg).ne
+          rw [lintegral_mul_const' _ _ hB_top]
+      _ = A ^ p.toReal * B := by rw [← mul_assoc, hAB A hA_top]
+  -- final assembly
+  rw [eLpNorm_eq_lintegral_rpow_enorm_toReal hp0 hp_top, eLpNorm_one_eq_lintegral_enorm,
+      eLpNorm_eq_lintegral_rpow_enorm_toReal hp0 hp_top]
+  have hmono1 : (∫⁻ x, ‖MeasureTheory.convolution ⇑k ⇑g (ContinuousLinearMap.lsmul ℂ ℂ)
+        volume x‖ₑ ^ p.toReal)
+      ≤ ∫⁻ x, (∫⁻ t, φ t * ψ (x - t)) ^ p.toReal :=
+    lintegral_mono fun x => ENNReal.rpow_le_rpow (hpt x) hpr0.le
+  calc (∫⁻ x, ‖MeasureTheory.convolution ⇑k ⇑g (ContinuousLinearMap.lsmul ℂ ℂ)
+        volume x‖ₑ ^ p.toReal) ^ (1/p.toReal)
+      ≤ (A ^ p.toReal * B) ^ (1/p.toReal) :=
+        ENNReal.rpow_le_rpow (hmono1.trans htotal) (by positivity)
+    _ = A * B ^ (1/p.toReal) := by
+        rw [ENNReal.mul_rpow_of_nonneg _ _ (by positivity), ← ENNReal.rpow_mul,
+            mul_one_div, div_self hpr0.ne', ENNReal.rpow_one]
+
+/-- A Fourier multiplier with **Schwartz symbol** `σ` is convolution against the Schwartz
+    kernel `𝓕⁻σ`. -/
+theorem fourierMultiplierCLM_schwartz_eq_convolution (σ : 𝓢(V, ℂ)) (g : 𝓢(V, W)) :
+    fourierMultiplierCLM W (⇑σ) g
+      = SchwartzMap.convolution (ContinuousLinearMap.lsmul ℂ ℂ) (𝓕⁻ σ) g := by
+  have h2 : smulLeftCLM W (⇑σ) (𝓕 g)
+      = pairing (ContinuousLinearMap.lsmul ℂ ℂ) σ (𝓕 g) := by
+    ext x
+    rw [smulLeftCLM_apply_apply σ.hasTemperateGrowth]
+    show σ x • (𝓕 g) x = pairing (ContinuousLinearMap.lsmul ℂ ℂ) σ (𝓕 g) x
+    rw [show pairing (ContinuousLinearMap.lsmul ℂ ℂ) σ (𝓕 g) x
+        = ContinuousLinearMap.lsmul ℂ ℂ (σ x) ((𝓕 g) x) from congrFun (pairing_apply _ _ _) x]
+    rfl
+  have h3 : SchwartzMap.convolution (ContinuousLinearMap.lsmul ℂ ℂ) (𝓕⁻ σ) g
+      = 𝓕⁻ (pairing (ContinuousLinearMap.lsmul ℂ ℂ) (𝓕 (𝓕⁻ σ)) (𝓕 g)) := by
+    have h4 : (𝓕⁻ (𝓕 (SchwartzMap.convolution (ContinuousLinearMap.lsmul ℂ ℂ) (𝓕⁻ σ) g)
+          : 𝓢(V, W)) : 𝓢(V, W))
+        = SchwartzMap.convolution (ContinuousLinearMap.lsmul ℂ ℂ) (𝓕⁻ σ) g :=
+      FourierTransform.fourierInv_fourier_eq _
+    conv_lhs => rw [← h4]
+    rw [SchwartzMap.fourier_convolution]
+  rw [fourierMultiplierCLM_apply, h3, FourierTransform.fourier_fourierInv_eq, h2]
+
+/-- **Lᵖ-boundedness of Schwartz-symbol Fourier multipliers** (the structural `Lᵖ` Bernstein):
+    `‖σ(D) g‖_{Lᵖ} ≤ ‖𝓕⁻σ‖_{L¹}·‖g‖_{Lᵖ}` for `1 ≤ p < ∞`. -/
+theorem eLpNorm_fourierMultiplierCLM_le (σ : 𝓢(V, ℂ)) (g : 𝓢(V, W)) {p : ℝ≥0∞}
+    (h1p : 1 ≤ p) (hp_top : p ≠ ∞) :
+    eLpNorm (⇑(fourierMultiplierCLM W (⇑σ) g)) p volume
+      ≤ eLpNorm (⇑(𝓕⁻ σ : 𝓢(V, ℂ))) 1 volume * eLpNorm (⇑g) p volume := by
+  rw [fourierMultiplierCLM_schwartz_eq_convolution]
+  have hcoe : ⇑(SchwartzMap.convolution (ContinuousLinearMap.lsmul ℂ ℂ) (𝓕⁻ σ) g)
+      = MeasureTheory.convolution ⇑(𝓕⁻ σ : 𝓢(V, ℂ)) ⇑g (ContinuousLinearMap.lsmul ℂ ℂ)
+          volume :=
+    funext (SchwartzMap.convolution_apply _ _ _)
+  rw [hcoe]
+  exact eLpNorm_convolution_le _ _ h1p hp_top
+
+end Young
+
 #eval "Littlewood–Paley dyadic partition of unity — machine-verified."
 
 end NSLittlewoodPaley
