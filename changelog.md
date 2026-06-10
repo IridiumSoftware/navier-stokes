@@ -1,5 +1,45 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.7.0 — 2026-06-09 — STRONG-TYPE MARCINKIEWICZ machine-verified (diagonal case, explicit constant): sublinear T of weak types (p,p),(q,q) maps Lʳ→Lʳ
+
+The full interpolation theorem, in `formalization/lean-mathlib/WeakLp.lean` (~350 new lines).
+**Library infrastructure; `:proved`=0 for the PDE; distance UNTOUCHED.**
+- **`lintegral_rpow_le_of_hasWeakType`** — for sublinear `T` (`‖T(g+h)‖ₑ ≤ ‖Tg‖ₑ+‖Th‖ₑ` a.e., on
+  `Lᵖ×L^q` pairs) of weak types `(p,p)`,`(q,q)` with finite constants, `0<p<r<q<∞`, `f∈Lʳ`:
+  **`∫‖Tf‖ₑ^r ≤ K·∫‖f‖ₑ^r` with the explicit `K = r·(Cp^p·2^p/(r−p) + Cq^q·2^q/(q−r))`.**
+- **`memLp_of_hasWeakType`** — membership form: `T : Lʳ → Lʳ` for all `p<r<q`.
+- **Proof, machine-checked end to end:** layer-cake on `Tf` → **exact level-`t` truncation**
+  (`truncGT/truncLE`, split exact-by-`if`, not a.e.) → sublinearity + the two weak-type bounds at
+  threshold `t/2` (the `2^e` absorbed via a real-arithmetic identity) → **Tonelli swap** (product
+  measurability via the strongly-measurable mate `g` — `T` is eliminated from the chain *before* the
+  swap, so the mate trick is sound) → inner `t`-integral evaluation (`swap_eval_low/high`) →
+  recombination to `∫‖f‖ₑ^r`. Supporting API landed: truncation measurability + `MemLp` (large ∈ `Lᵖ`
+  for `p<r`, small ∈ `L^q` for `r<q`), model rpow integrals on `(0,c)` and `(c,∞)`, antitone-measurable
+  tail functions.
+- **Honest hypotheses:** `T f`-measurability assumed (does not follow from sublinearity); `[SFinite μ]`
+  (Tonelli); `q<∞` (weak-L^∞ not covered by `wnorm`). **Soundness:** no `sorry`; a false exponent
+  variant of the threshold-absorption identity is correctly REJECTED; verified vs the lean4-cv Mathlib.
+- WeakLp.lean is now a **complete Lorentz/Marcinkiewicz nucleus** (quasinorm → … → full strong-type
+  interpolation), a confirmed Mathlib gap, genuinely upstreamable. *Next:* Besov/Littlewood–Paley →
+  Carleman. `:proved`=0; distance UNTOUCHED.
+
+## v0.6.2 — 2026-06-09 — Cross-audit (A0–A7) + bookkeeping reconciliation
+
+Full cross-audit after a 5-day / ~50-version gap (`audit_2026-06-09.md`, 3 parallel read-only agents).
+**Science intact: `:proved`=0 is genuine** (per-entry tally 0 proved / 0 verified; the raw `grep ':proved'`
+count of 39 is prose disclaimers, not statuses); **no regularity-bearing entry sits above `:argued`**; A0
+confirms the firewall / Scope / evidence→status / witnessing disciplines are followed. Every finding was
+bookkeeping drift. **Fixed:** (B1) added the missing **NS-049 registry row**; (B2) wrote the **NS-050 entry +
+registry row + TEST_SPEC T-24** (the modulation/Type-II arc committed at 5966eeb had no ledger home); (B3)
+entry count 30/32/33 → **35** across SPEC/dashboard/CLAUDE; (B4) refreshed stale status stamps (CLAUDE
+v0.1.42→v0.6.2, dashboard v0.1.39, SPEC v0.1.0→v0.6.1); (W1) narrowed NS-040's over-specified `metal/B_*`
+glob (`abcpert_512` never existed); (W2) added the **NS-045 TEST_SPEC row (T-23)**; (W4) corrected the stale
+"no `Project.toml`/lockfile" line (both present). **Priority stack (deferred):** DESIGN.md sync with the
+NS-045..050 + Lean-ladder + disproof arc (W5); closure-v5/Q_102 `substrate_source` fields for
+NS-022/023/024/037 (W3 — provenance hygiene, Scope≠PDE, prize untouched). **Recurrence note:** B3/B4/W5 are
+F1/F2/F3 from 2026-06-04 re-opened — point-fixes don't stick; standing recommendation (audit doc §end) =
+fold count/stamp/registry/TEST_SPEC updates into the large-session close-out so they're enforced.
+
 ## v0.6.1 — 2026-06-09 — Marcinkiewicz OPERATOR form (qualitative) machine-verified: HasWeakType + weak-(p,p)+(q,q) ⇒ Lᵖ∩L^q → Lʳ
 
 `formalization/lean-mathlib/WeakLp.lean` extended with the operator layer. **Library infrastructure;

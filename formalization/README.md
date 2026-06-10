@@ -98,9 +98,14 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   computation inside Marcinkiewicz interpolation; the operator form (sublinear `T`) is a wrapper on it.
 - **Third bite ✅ (Marcinkiewicz operator form, qualitative)** — `HasWeakType T p μ ν C` +
   `HasWeakType.memLp_interpolate`: `T` weak-(p,p)+(q,q) ⇒ `T : Lᵖ∩L^q → Lʳ` (`p<r<q`), a direct wrapper
-  over the core (no sublinearity needed). The *strong*-(r,r) bound is the honest next level
-  (sublinearity + level-dependent truncation).
-- *Next bites (priority order):* strong-type Marcinkiewicz → Besov/Littlewood–Paley → Carleman.
+  over the core (no sublinearity needed).
+- **Fourth bite ✅ (STRONG-TYPE Marcinkiewicz, diagonal case)** — `lintegral_rpow_le_of_hasWeakType` +
+  `memLp_of_hasWeakType`: a **sublinear** `T` of weak types `(p,p)`,`(q,q)` maps `Lʳ → Lʳ` for `p<r<q`,
+  with the **explicit constant `K = r·(Cp^p·2^p/(r−p) + Cq^q·2^q/(q−r))`**. The genuine theorem: exact
+  level-`t` truncation split, sublinearity + weak bounds at threshold `t/2`, **Tonelli swap**, inner
+  `t`-integral evaluation. Supporting API: `truncGT/truncLE` (+ measurability + `MemLp`), the model
+  rpow `t`-integrals, `swap_eval_low/high`. False-variant soundness check passed; no `sorry`.
+- *Next bites (priority order):* Besov/Littlewood–Paley → Carleman.
   `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run

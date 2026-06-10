@@ -74,8 +74,20 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   `integrableOn_Ioi_rpow_of_lt`). **Soundness sanity:** a false exponent variant (`r−e+1` for `r−e−1`)
   is correctly rejected. Plus the **operator form**: `HasWeakType T p μ ν C` (weak-type `(p,p)` with
   constant) and **`HasWeakType.memLp_interpolate`** — `T` weak-(p,p) + weak-(q,q) (finite constants) maps
-  `Lᵖ ∩ L^q → Lʳ` for `p<r<q`, *qualitative* (no sublinearity needed; honest scope note in-file: the
-  strong-(r,r) bound from `f ∈ Lʳ` alone needs sublinearity + level-dependent truncation — a further
-  step). A confirmed Mathlib gap (no `wnorm`/`weakLp`/`MemWLp`); load-bearing (weak-`L³` = where
-  Ożański–Palasek's double-log rate lives). Upstreamable. Next: strong-type Marcinkiewicz →
-  Besov/Littlewood–Paley → Carleman.
+  `Lᵖ ∩ L^q → Lʳ` for `p<r<q`, *qualitative* (no sublinearity needed).
+
+  **And the full STRONG-TYPE Marcinkiewicz (diagonal case):** supporting lemmas — level truncations
+  `truncGT`/`truncLE` with the **exact** pointwise split `truncGT f t + truncLE f t = f`, their
+  AE-strong-measurability and `MemLp` (large part ∈ `Lᵖ` for `p<r`, small part ∈ `L^q` for `r<q`), the
+  model `t`-integrals (`lintegral_Ioo_rpow_ofReal`, `lintegral_Ioi_rpow_ofReal`), and the Tonelli
+  swap-and-evaluate lemmas (`swap_eval_low`, `swap_eval_high`). Main theorems:
+  - **`lintegral_rpow_le_of_hasWeakType`** — for sublinear `T` of weak types `(p,p)`,`(q,q)` (finite
+    constants), `0<p<r<q<∞`, `f ∈ Lʳ`: `∫‖Tf‖ₑ^r ≤ K·∫‖f‖ₑ^r` with the **explicit constant
+    `K = r·(Cp^p·2^p/(r−p) + Cq^q·2^q/(q−r))`**. Proof: layer-cake on `Tf` → exact level-`t` split of
+    `f` → sublinearity + the two weak-type bounds at threshold `t/2` → Tonelli swap → inner-integral
+    evaluation. (`T f`-measurability is a hypothesis — it does not follow from sublinearity. `[SFinite μ]`
+    for Tonelli.)
+  - **`memLp_of_hasWeakType`** — the membership form: sublinear `T` of weak types `(p,p)`,`(q,q)` maps
+    `Lʳ → Lʳ` for all `p<r<q`. **The full Marcinkiewicz interpolation theorem (diagonal case).**
+  **Soundness sanity:** a false exponent variant of the threshold-absorption identity is correctly
+  rejected; no `sorry`. A confirmed Mathlib gap; upstreamable. Next: Besov/Littlewood–Paley → Carleman.
