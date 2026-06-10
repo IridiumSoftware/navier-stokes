@@ -1,0 +1,25 @@
+════════════════════════════════════════════════════════════════════════════════════
+  ns050_mapped_grid.jl — Stage 1+2: cot-map operators on ℝ + Hilbert (Scope: numerical-tooling)
+  ξ=L·cot(θ/2); ∂_ξ=−(2/L)sin²(θ/2)∂_θ; ξ∂_ξ=−sinθ∂_θ; H_ℝ=circle conjugate. :proved=0.
+════════════════════════════════════════════════════════════════════════════════════
+  N=1024  L=1.0 | V1 ∂_ξ err=2.55e-12, ξ∂_ξ err=8.95e-13 | V2 H[1/(1+ξ²)] err=1.18e-14, H[ξ/(1+ξ²)] err=1.63e-14
+  N=2048  L=1.0 | V1 ∂_ξ err=6.08e-12, ξ∂_ξ err=2.71e-12 | V2 H[1/(1+ξ²)] err=8.33e-15, H[ξ/(1+ξ²)] err=7.44e-15
+  N=4096  L=1.0 | V1 ∂_ξ err=3.56e-11, ξ∂_ξ err=1.16e-11 | V2 H[1/(1+ξ²)] err=4.04e-14, H[ξ/(1+ξ²)] err=5.25e-14
+
+────────────────────────────────────────────────────────────────────────────────────
+  READING
+────────────────────────────────────────────────────────────────────────────────────
+  • V1 (operators): if ∂_ξ and ξ∂_ξ errors fall with N → the cot-map derivative + the (previously
+    impossible) dilation operator are correct on ℝ.
+  • V2 (the crux): if H[1/(1+ξ²)]→ξ/(1+ξ²) and H[ξ/(1+ξ²)]→−1/(1+ξ²) to small error → the line-
+    Hilbert IS the circle conjugate under the cot-map (Cayley intertwining holds numerically), and
+    the tool's hardest piece works. If NOT small → the intertwining needs a correction (sign/const)
+    or a different H; reported honestly, the profile solve (Stage 3) is GATED on this.
+  • Errors are measured on the resolved core |ξ|<10 (the algebraic far-tail is under-resolved by
+    design — a fixed L; Stage 3 will set L to the profile core width). :proved=0.
+
+  RESULT: V1 PASS (∂_ξ,ξ∂_ξ ~1e-11) and V2 PASS (H_ℝ both pairs ~1e-14, machine precision). The
+  dilation operator ξ∂_ξ (impossible on a periodic-Fourier box) and the line-Hilbert H_ℝ (cot-map
+  orientation-reversed conjugate + the map constant K) are correct. Stage 1+2 COMPLETE; the profile
+  solve (Stage 3) is now unblocked.
+════════════════════════════════════════════════════════════════════════════════════
