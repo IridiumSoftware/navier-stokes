@@ -282,9 +282,11 @@ Distance to prize: UNTOUCHED.**
    - **W5 — DESIGN.md sync — DONE ✓ (2026-06-10):** §3 reframed (complex plane was the *first* handle →
      the live attack is now the two frontiers + the MDAGC strategy); §7 extended through NS-045..050,
      the Lean ladder, and the disproof arc.
-   - **N2 — `formalization/` Lean ladder ledger entry:** a fenced INFRASTRUCTURE entry (Scope:
-     formalization, explicitly NOT a PDE/`:proved` claim) so the machine-verified library work is
-     traceable — **coordinate with the concurrent Lean session (live on `LittlewoodPaley.lean`).**
+   - **✅ N2 (DONE 2026-06-10) — `formalization/` Lean ladder ledgered as `NS-051`** (PROGRAM, `:tested`,
+     Scope: methodology/formalization — NOT a PDE/`:proved` claim; firewall intact, since `:proved` is
+     reserved for Scope:PDE and a `lean-proved` *definition* is not a PDE statement) + TEST_SPEC `T-27`/`T-28`
+     + the **`→ docs/citation_tiers.md`** bridge. Characterized from `formalization/README.md` + changelog;
+     the concurrent session's Lean files (live on `LittlewoodPaley.lean`) left untouched.
 
 1. **Complex-singularity / analyticity-strip diagnostic (NS-010/011).**
    - 1a. **DONE ✓** — Burgers (1D): spectrum-fitted `δ(t)` matches the exact

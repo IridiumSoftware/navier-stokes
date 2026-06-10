@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.13.2 — 2026-06-10 — Lean formalization ladder ledgered (NS-051) + Lean→citation bridge
+
+Closed audit item **N2**: the `formalization/` Python→Julia→Haskell→Lean ladder — the repo's
+strongest-evidence-class work (machine-verified) — was ledger-invisible (0 rows in SPEC/registry/TEST_SPEC).
+Now captured as **NS-051** (PROGRAM, `:tested`, **Scope: methodology/formalization ≠ PDE**), with **T-27**
+(Rung 0 scaling-criticality: `lean/Scaling.lean` hermetic + `lean-mathlib/ScalingUniversal.lean`
+universal-∀-Mathlib, no-`sorry`, false-variant rejected; Julia exact + Haskell typed) and **T-28** (analysis
+substrate `WeakLp`/`LittlewoodPaley`/Besov → Carleman, in progress). **Firewall preserved:** a `lean-proved`
+*definition* is not a `Scope: PDE` statement, and this ledger reserves `:proved` for Scope:PDE — so NS-051
+sits at `:tested`; `:proved`=0 / distance UNTOUCHED is unbroken. Per the sub-claim≠entry rule it hardens
+NS-002/NS-034's *definitions* without upgrading their PDE status. **Lean→citation bridge** added (the upstream
+half of `docs/citation_tiers.md`): when a Lean rung formalizes a *cited* theorem's core (the NRŠ H-identity
+now; Carleman→ESS/NS-005 later) that citation's tier rises and the index updates (close-out item (vi)) —
+currently wired, not yet fired. The concurrent Lean session's `formalization/lean-mathlib/*.lean` files were
+left untouched; NS-051 is characterized from `formalization/README.md` + the changelog and held conservative
+pending their confirmation. SPEC count 35→36 (3 PROGRAM), stamp v0.11.1→v0.12.0.
+
 ## v0.13.1 — 2026-06-10 — Consolidated citation-tier index (`docs/citation_tiers.md`)
 
 Surfaced the C0–C5 citation discipline that was *practiced but scattered* — the per-citation tier

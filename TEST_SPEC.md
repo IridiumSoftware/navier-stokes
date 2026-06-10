@@ -79,6 +79,17 @@ licensing checks, previously recorded only in their SPEC entries + companions, a
 | **T-21** AT-6 (GPU faithful fluid — GPU≡CPU cross-validation) | cross-method (GPU float32 vs CPU float64): the MPSGraph GPU port reproduces the CPU faithful solver — AT-01 invariants conserved to **3.8e-6**, AT-02 viscous decay vs `exp(−ν\|k\|²t)` to **2.95e-6** (both ≈float32 eps, CPU was 1e-14..1e-16), and the forced forward enstrophy cascade slope **−3.48 R²=0.99** (CPU −3.36, same universal −3). ~100× faster (3100 steps N=128 in 3.1 s, M5 Max). | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
 | **T-22** AT-7 (multistability — hysteresis loop) | qualitative-signature + control: an IC-ensemble (16 random ICs, fixed strong cohesion) gives one foam phase (CV≈2.2 — no basin multiplicity), while a cohesion up/down ramp (no reset, density-CV order parameter) traces a **hysteresis loop** — clumps form at coh≈25–35 but persist to coh≈5–15 (loop area 15.4, max gap 0.59 at coh 30) ⇒ a bistable transition zone. Rigorous form of the live path-dependence. | PASS, **Scope: phenomenology / 2D truncation (not PDE)** |
 
+## Checks for the formalization ladder (NS-051, `formalization/`)
+
+*(Scope: methodology / formalization — machine-verification of DEFINITIONS + algebraic identities, NOT the
+PDE. The licensing check is a no-`sorry` Lean compile + false-variant rejection; it promotes NS-051 to
+`:tested` within its formalization Scope and **never** to a PDE or citation claim.)*
+
+| ID | Check (tier) | Status of check |
+|---|---|---|
+| **T-27** NS-051 (Rung 0 — scaling-criticality) | machine-verified (lean-proved): `lean/Scaling.lean` (hermetic `native_decide`) + `lean-mathlib/ScalingUniversal.lean` (UNIVERSAL — `lebExp_critical_iff`/`sobExp_critical_iff`/`energy_supercritical` ∀`α,p,q:ℚ` via `linarith`/`norm_num`) compile **no `sorry`**, exit 0, against the built TCE `lean4-cv` Mathlib; a deliberately-FALSE criticality variant correctly **REJECTED**; the Julia rung closes exactly (rational) + the Haskell rung type-checks. | PASS, **Scope: methodology / formalization (NOT PDE)** |
+| **T-28** NS-051 (analysis substrate — IN PROGRESS) | no-`sorry` compile gate on the mathlib-infrastructure Lean files built toward the inequality cores: `WeakLp.lean` (Lorentz + strong-type Marcinkiewicz), `LittlewoodPaley.lean` (partition of unity → sharp Lᵖ Bernstein), Besov (opened). Each lands no-`sorry`; the target — **Carleman** (behind ESS / NS-005) — is multi-year and **NOT yet reached**. Tracks an in-progress build; licenses **no** citation/PDE promotion. | IN PROGRESS (no-`sorry` to date), **Scope: methodology / formalization (NOT PDE)** |
+
 **Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` / `3D-truncation` — **never** to a PDE
 statement. A PDE claim would require a separate convergence/limit argument, which

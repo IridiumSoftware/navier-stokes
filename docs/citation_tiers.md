@@ -92,6 +92,13 @@ else's theorem, never that *we* proved anything. A no-go's force in the obstruct
 - **C3 entries have a named verification doc** (`*_verification_2026-06-07.md`) recording the line-read.
 - **No C4/C5 yet** — no external theorem has been independently re-derived (C4) or adversarially stress-tested
   to C5 in-repo (the over-reach discipline would require that bar before claiming it).
+- **Machine-verification (Lean) sits *above* the social C5 floor — wired in, not yet fired.** A Lean proof of a
+  cited theorem's identity or inequality core is stronger than a human adversarial check. The formalization
+  ladder (`SPEC.md` **NS-051**, `formalization/`) is the upstream: it currently machine-verifies *general*
+  library lemmas (scaling-criticality — done; Lorentz / Littlewood–Paley / Besov toward **Carleman** — in
+  progress), **not yet any cited theorem here**, so no tier has changed. When it reaches a citation's core —
+  the **NRŠ H-identity** (algebra rung, available now) or **Carleman** behind **ESS / NS-005** (analysis
+  substrate, multi-year) — that citation's row is updated and its tier rises past C3.
 - Tiers can rise; when a citation is pushed to C3+, log the verification doc here and update the inline tag.
 
 **Source/maintenance:** assignments collected from `docs/ns_blowup_generator_class.md` (G1–G5/S1–S2), the
