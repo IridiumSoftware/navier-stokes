@@ -1,0 +1,38 @@
+════════════════════════════════════════════════════════════════════════════════════════
+  ns050_boussinesq_2d.jl — NS-050 (c2): 2D Boussinesq front-sharpening (Scope: 2D DNS trunc.)
+  PERIODIC box, rising-thermal IC. NOT a Hou–Luo wall blow-up. Within-truncation witness. :proved=0.
+════════════════════════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────────────────────────
+  (V) VALIDATION (ν=κ=0): ∫θ, ∫θ² conserved? velocity divergence-free?
+────────────────────────────────────────────────────────────────────────────────────────
+    div(u) max on a test field = 2.07e-14 ✓ div-free
+    ∫θ drift=3.47e-18, ∫θ² drift=5.41e-07 over T=4 (ν=κ=0) ✓ transport conserved
+
+────────────────────────────────────────────────────────────────────────────────────────
+  (S) SHARPENING: rising thermal, ν=κ=2e-4. Track ‖ω‖∞,‖∇θ‖∞, tail(resolution), β.
+────────────────────────────────────────────────────────────────────────────────────────
+    t      ‖ω‖∞      ‖∇θ‖∞      ℓ(front)   tail      prof drift status
+    0.00   0.000     1.716      0.4418     6.5e-31   —          rising
+    1.00   1.697     2.236      0.5400     2.7e-12   6.744e-01  rising
+    2.00   3.363     5.123      0.2945     1.4e-05   4.969e-01  rising
+    3.00   6.418     11.177     0.0982     4.3e-03   6.797e-01  rising
+    4.00   10.959    13.230     0.0982     2.5e-02   2.418e-01  UNDER-RESOLVED (gate) — stop trusting
+    ^ resolution gate tripped: results past here are truncation artifacts, not physics.
+    β=dlnℓ/dlnλ over the resolved window = 0.854 (front spatial-vs-amplitude scaling)
+
+════════════════════════════════════════════════════════════════════════════════════════
+  READING (NS-050 c2)
+════════════════════════════════════════════════════════════════════════════════════════
+  • VALIDATION: inviscid 2D Boussinesq conserves ∫θ and ∫θ² (scalar transport) and the Biot–Savart
+    velocity is divergence-free — the solver is sound.
+  • The rising thermal develops a SHARPENING front: ‖∇θ‖∞ grows and the front width ℓ shrinks,
+    until the RESOLUTION GATE (spectral tail >1%) trips — past which the run is a truncation
+    artifact and is STOPPED (NS-032 discipline: no pushing past the resolution wall).
+  • The two-scale instrument (c1) is applied to the front while resolved; β reports its spatial-vs-
+    amplitude scaling. This is a WITHIN-TRUNCATION front witness, NOT a blow-up: smooth dissipative
+    2D Boussinesq is globally regular (Chae 2006), and the faithful Hou–Luo finite-time singularity
+    needs a SOLID WALL this periodic box does not impose. So NO singularity is claimed.
+  • FIREWALL: 2D Boussinesq, periodic, finite truncation. Closest incompressible-family sharpening
+    flow beyond the 1D models, but NOT the Clay NS and NOT the Hou–Luo wall scenario. :proved=0.
+════════════════════════════════════════════════════════════════════════════════════════
