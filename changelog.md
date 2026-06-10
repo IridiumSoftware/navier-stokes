@@ -1,5 +1,37 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.14.0 — 2026-06-10 — DISTRIBUTIONAL BESOV SPACE: B^s_{p,q} ⊂ 𝓢′ — membership, norm-extension, exact finite LP decomposition of 𝓢′
+
+The distributional Besov layer, in `formalization/lean-mathlib/LittlewoodPaley.lean` (~1465 lines).
+**Library infrastructure; `:proved`=0 for the PDE.**
+- **`sum_range_lpSymbolAt`** — finite telescoping `Σ_{j<M} ψ_{j+1}(ξ) = χ(2^{−M}ξ) − χ(ξ)`, every `ξ`,
+  every window `M` (the exact, no-limit form of the partition).
+- **`lpLowProjD` / `lpLowProjDAt` / `lpProjD_eq_sub`** — the low-pass `χ(D)` and the dilated partial-sum
+  low-passes `S_M = χ(2^{−M}·)(D)` on tempered distributions; each block is `P_{j+1} = S_{j+1} − S_j`.
+- **`lpLowProjDAt_eq_add_sum` — the EXACT finite Littlewood–Paley decomposition of `𝓢′`:** as operators,
+  `S_M = S₀ + Σ_{j<M} P_{j+1}` — every finite frequency window reassembles exactly; nothing is lost at
+  any finite stage. (Via a new symbol-subtractivity lemma for Mathlib's
+  `TemperedDistribution.fourierMultiplierCLM` + operator-level `Finset.sum_range_sub`.)
+- **`lpProjD_coe` / `lpLowProjD_coe`** — the distributional projections **EXTEND the Schwartz ones**
+  through the canonical embedding `ι : 𝓢 ↪ 𝓢′` (`P_j ∘ ι = ι ∘ P_j`).
+- **`HasLpRep` + `lp_toTemperedDistribution_injective` + `lpNormD`** — "this distribution IS an `Lᵖ`
+  function": the `Lᵖ→𝓢′` embedding is injective (Mathlib's `ker_toTemperedDistributionCLM_eq_bot`), so
+  the `Lᵖ` representative is UNIQUE and `lpNormD` (its `eLpNorm`, `∞` if none) is well-defined
+  (`lpNormD_eq_of_rep`); on embedded Schwartz functions it is the plain `Lᵖ` norm (`lpNormD_coe`).
+- **`besovNormD` + `MemBesovD` — the distributional Besov space:** `u ∈ B^s_{p,q}(V;W) ⊂ 𝓢′` iff its
+  blocks have `Lᵖ` representatives with finite weighted `ℓ^q` size. **Membership forces every block to
+  BE an `Lᵖ` function** (`MemBesovD.hasLpRep_low` / `.hasLpRep_block`).
+- **`besovNormD_coe` — the extension theorem:** `‖ι f‖_{B^s_{p,q}(𝓢′)} = besovNormI f` — the
+  distributional norm restricted to Schwartz functions IS the v0.13.0 Schwartz Besov norm; with it,
+  nondegeneracy transfers (`besovNormD_coe_eq_zero_iff`), membership reduces (`memBesovD_coe_iff`),
+  and `0 ∈ B^s_{p,q}` with norm `0`.
+- **Soundness:** no `sorry`; the false telescoping variant (low-pass term dropped — `Σψ = χ(2^{−M}ξ)`)
+  is correctly REJECTED; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Honest scope:** the space, its norm, membership, and the exact finite decomposition — at the level of
+`𝓢′` with `Lᵖ`-representative blocks. The remaining structural work: `S_M u → u` in `𝓢′` (the
+approximation-of-identity limit, needs Schwartz-seminorm convergence estimates), completeness, and
+embeddings. `:proved`=0; distance UNTOUCHED. *Next:* `S_M → id` convergence or Carleman.
+
 ## v0.13.2 — 2026-06-10 — Lean formalization ladder ledgered (NS-051) + Lean→citation bridge
 
 Closed audit item **N2**: the `formalization/` Python→Julia→Haskell→Lean ladder — the repo's

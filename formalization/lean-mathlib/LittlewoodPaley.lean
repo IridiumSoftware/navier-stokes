@@ -1175,6 +1175,289 @@ theorem lpProjD_comp_eq_zero {j k : ℤ} (h : j + 2 ≤ k) :
         lpSymbolAt_mul_eq_zero h ξ, Complex.ofReal_zero]
   rw [hzero, TemperedDistribution.fourierMultiplierCLM_const, zero_smul]
 
+/-! #### The distributional Besov space `B^s_{p,q}(𝓢')` -/
+
+/-- Finite telescoping of the dyadic symbols: `Σ_{j<M} ψ_{j+1}(ξ) = χ(2^{−M}ξ) − χ(ξ)`,
+    exactly, for every `ξ` and every window `M`. -/
+theorem sum_range_lpSymbolAt (M : ℕ) (ξ : V) :
+    ∑ j ∈ Finset.range M, lpSymbolAt V ((j : ℤ) + 1) ξ
+      = lpChi V ((2:ℝ) ^ (-(M:ℤ)) • ξ) - lpChi V ξ := by
+  have hterm : ∀ j : ℕ, lpSymbolAt V ((j : ℤ) + 1) ξ
+      = lpChi V ((2:ℝ) ^ (-(((j+1:ℕ)):ℤ)) • ξ) - lpChi V ((2:ℝ) ^ (-((j:ℕ):ℤ)) • ξ) := by
+    intro j
+    rw [lpSymbolAt_eq_sub,
+        show -((j:ℤ) + 1) = -(((j+1:ℕ)):ℤ) by push_cast; ring,
+        show -(((j:ℤ) + 1) - 1) = -(((j:ℕ)):ℤ) by push_cast; ring]
+  calc ∑ j ∈ Finset.range M, lpSymbolAt V ((j : ℤ) + 1) ξ
+      = ∑ j ∈ Finset.range M,
+          ((fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) (j+1)
+            - (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) j) :=
+        Finset.sum_congr rfl fun j _ => hterm j
+    _ = (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) M
+          - (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) 0 :=
+        Finset.sum_range_sub (fun n : ℕ => lpChi V ((2:ℝ) ^ (-(n:ℤ)) • ξ)) M
+    _ = lpChi V ((2:ℝ) ^ (-(M:ℤ)) • ξ) - lpChi V ξ := by
+        show lpChi V ((2:ℝ) ^ (-((M:ℕ):ℤ)) • ξ) - lpChi V ((2:ℝ) ^ (-((0:ℕ):ℤ)) • ξ)
+            = lpChi V ((2:ℝ) ^ (-(M:ℤ)) • ξ) - lpChi V ξ
+        simp
+
+variable (V W) in
+/-- The low-pass projection `S₀ = χ(D)` on tempered distributions. -/
+noncomputable def lpLowProjD : 𝓢'(V, W) →L[ℂ] 𝓢'(V, W) :=
+  TemperedDistribution.fourierMultiplierCLM W (fun ξ : V => ((lpChi V ξ : ℝ) : ℂ))
+
+variable (V) in
+/-- The dilated bump `χ_M(ξ) = χ(2^{−M}ξ)` — the symbol of the partial-sum low-pass. -/
+noncomputable def lpChiAt (M : ℕ) : V → ℝ := fun ξ => lpChi V ((2:ℝ) ^ (-(M:ℤ)) • ξ)
+
+variable (V) in
+/-- The complexified dilated bump. -/
+noncomputable def lpChiAtC (M : ℕ) : V → ℂ := fun ξ => (lpChiAt V M ξ : ℂ)
+
+variable (V W) in
+/-- The dilated low-pass `S_M = χ(2^{−M}·)(D)` on tempered distributions: the partial sum
+    of the Littlewood–Paley decomposition through frequency `2^M`. -/
+noncomputable def lpLowProjDAt (M : ℕ) : 𝓢'(V, W) →L[ℂ] 𝓢'(V, W) :=
+  TemperedDistribution.fourierMultiplierCLM W (lpChiAtC V M)
+
+theorem contDiff_lpChiAt {n : ℕ∞} (M : ℕ) : ContDiff ℝ n (lpChiAt V M) :=
+  (lpChi V).contDiff.comp (contDiff_const_smul _)
+
+theorem hasCompactSupport_lpChiAt (M : ℕ) : HasCompactSupport (lpChiAt V M) := by
+  refine HasCompactSupport.intro (isCompact_closedBall (0:V) ((2:ℝ) ^ ((M:ℤ)+1)))
+    fun ξ hξ => ?_
+  rw [Metric.mem_closedBall, dist_zero_right, not_le] at hξ
+  rw [lpChiAt]
+  refine (lpChi V).zero_of_le_dist ?_
+  rw [dist_zero_right, norm_zpow_smul, lpChi_rOut]
+  calc (2:ℝ) = (2:ℝ) ^ (1:ℤ) := by norm_num
+    _ = (2:ℝ) ^ (-(M:ℤ) + ((M:ℤ)+1)) := by rw [show -(M:ℤ) + ((M:ℤ)+1) = 1 by ring]
+    _ = (2:ℝ) ^ (-(M:ℤ)) * (2:ℝ) ^ ((M:ℤ)+1) := zpow_add₀ (by norm_num : (2:ℝ) ≠ 0) _ _
+    _ ≤ (2:ℝ) ^ (-(M:ℤ)) * ‖ξ‖ :=
+        mul_le_mul_of_nonneg_left hξ.le (zpow_pos (by norm_num) _).le
+
+theorem hasTemperateGrowth_lpChiAtC (M : ℕ) :
+    Function.HasTemperateGrowth (lpChiAtC V M) := by
+  refine HasCompactSupport.hasTemperateGrowth ?_ ?_
+  · exact (hasCompactSupport_lpChiAt M).comp_left Complex.ofReal_zero
+  · exact Complex.ofRealCLM.contDiff.comp (contDiff_lpChiAt M)
+
+/-- **The distributional projection EXTENDS the Schwartz-level one**: `P_j(ι f) = ι(P_j f)`
+    through the canonical embedding `ι : 𝓢 ↪ 𝓢'`. -/
+theorem lpProjD_coe (j : ℤ) (f : 𝓢(V, W)) :
+    lpProjD V W j (f : 𝓢'(V, W)) = (lpProj V W j f : 𝓢'(V, W)) :=
+  TemperedDistribution.fourierMultiplierCLM_toTemperedDistributionCLM_eq
+    (hasTemperateGrowth_lpSymbolAtC j) f
+
+/-- The distributional low-pass EXTENDS the Schwartz-level one. -/
+theorem lpLowProjD_coe (f : 𝓢(V, W)) :
+    lpLowProjD V W (f : 𝓢'(V, W)) = (lpLowProj V W f : 𝓢'(V, W)) :=
+  TemperedDistribution.fourierMultiplierCLM_toTemperedDistributionCLM_eq
+    hasTemperateGrowth_lpChiC f
+
+/-- The distributional Fourier multiplier is subtractive in the symbol. -/
+theorem fourierMultiplierCLM_sub {g₁ g₂ : V → ℂ}
+    (hg₁ : Function.HasTemperateGrowth g₁) (hg₂ : Function.HasTemperateGrowth g₂) :
+    TemperedDistribution.fourierMultiplierCLM W (g₁ - g₂)
+      = TemperedDistribution.fourierMultiplierCLM W g₁
+        - TemperedDistribution.fourierMultiplierCLM W g₂ := by
+  simp only [TemperedDistribution.fourierMultiplierCLM]
+  rw [TemperedDistribution.smulLeftCLM_sub hg₁ hg₂, ContinuousLinearMap.sub_comp,
+      ContinuousLinearMap.comp_sub]
+
+/-- `P_{j+1} = S_{j+1} − S_j`: each Littlewood–Paley block is a difference of adjacent
+    partial low-passes, at the distribution level. -/
+theorem lpProjD_eq_sub (j : ℕ) :
+    lpProjD V W ((j:ℤ)+1) = lpLowProjDAt V W (j+1) - lpLowProjDAt V W j := by
+  rw [lpProjD, lpLowProjDAt, lpLowProjDAt,
+      ← fourierMultiplierCLM_sub (hasTemperateGrowth_lpChiAtC (j+1))
+        (hasTemperateGrowth_lpChiAtC j)]
+  congr 1
+  funext ξ
+  simp only [Pi.sub_apply]
+  have hterm : lpSymbolAt V ((j:ℤ) + 1) ξ
+      = lpChi V ((2:ℝ) ^ (-(((j+1:ℕ)):ℤ)) • ξ) - lpChi V ((2:ℝ) ^ (-((j:ℕ):ℤ)) • ξ) := by
+    rw [lpSymbolAt_eq_sub,
+        show -((j:ℤ) + 1) = -(((j+1:ℕ)):ℤ) by push_cast; ring,
+        show -(((j:ℤ) + 1) - 1) = -(((j:ℕ)):ℤ) by push_cast; ring]
+  rw [lpSymbolAtC, lpChiAtC, lpChiAtC, lpChiAt, lpChiAt, hterm, Complex.ofReal_sub]
+
+theorem lpLowProjDAt_zero : lpLowProjDAt V W 0 = lpLowProjD V W := by
+  rw [lpLowProjDAt, lpLowProjD]
+  congr 1
+  funext ξ
+  simp [lpChiAtC, lpChiAt]
+
+/-- **The exact finite Littlewood–Paley decomposition of `𝓢'`:** as operators on tempered
+    distributions, `S_M = S₀ + Σ_{j<M} P_{j+1}` — every finite frequency window reassembles
+    EXACTLY into the dilated low-pass; nothing is lost at any finite stage. -/
+theorem lpLowProjDAt_eq_add_sum (M : ℕ) :
+    lpLowProjDAt V W M
+      = lpLowProjD V W + ∑ j ∈ Finset.range M, lpProjD V W ((j:ℤ)+1) := by
+  have h : ∑ j ∈ Finset.range M, lpProjD V W ((j:ℤ)+1)
+      = lpLowProjDAt V W M - lpLowProjDAt V W 0 := by
+    calc ∑ j ∈ Finset.range M, lpProjD V W ((j:ℤ)+1)
+        = ∑ j ∈ Finset.range M, (lpLowProjDAt V W (j+1) - lpLowProjDAt V W j) :=
+          Finset.sum_congr rfl fun j _ => lpProjD_eq_sub j
+      _ = lpLowProjDAt V W M - lpLowProjDAt V W 0 :=
+          Finset.sum_range_sub (lpLowProjDAt V W) M
+  rw [h, lpLowProjDAt_zero]
+  abel
+
+/-! #### `Lᵖ` representatives and the distributional Besov norm -/
+
+variable (W) in
+/-- A tempered distribution **is an `Lᵖ` function**: it lies in the range of the canonical
+    embedding `Lp W p ↪ 𝓢'(V, W)`. -/
+def HasLpRep (p : ℝ≥0∞) [Fact (1 ≤ p)] (u : 𝓢'(V, W)) : Prop :=
+  ∃ g : Lp W p (volume : Measure V), u = MeasureTheory.Lp.toTemperedDistribution g
+
+/-- The embedding `Lp W p → 𝓢'` is INJECTIVE (Mathlib's
+    `ker_toTemperedDistributionCLM_eq_bot`): an `Lᵖ` representative is unique. -/
+theorem lp_toTemperedDistribution_injective (p : ℝ≥0∞) [Fact (1 ≤ p)] :
+    Function.Injective
+      (fun g : Lp W p (volume : Measure V) => MeasureTheory.Lp.toTemperedDistribution g) := by
+  intro g₁ g₂ hg
+  have hker := MeasureTheory.Lp.ker_toTemperedDistributionCLM_eq_bot
+    (F := W) (μ := (volume : Measure V)) (p := p)
+  rw [LinearMap.ker_eq_bot', ContinuousLinearMap.coe_coe] at hker
+  have hsub : MeasureTheory.Lp.toTemperedDistributionCLM W (volume : Measure V) p (g₁ - g₂)
+      = 0 := by
+    rw [map_sub]
+    have h1 : MeasureTheory.Lp.toTemperedDistributionCLM W (volume : Measure V) p g₁
+        = MeasureTheory.Lp.toTemperedDistribution g₁ := rfl
+    have h2 : MeasureTheory.Lp.toTemperedDistributionCLM W (volume : Measure V) p g₂
+        = MeasureTheory.Lp.toTemperedDistribution g₂ := rfl
+    simp only at hg
+    rw [h1, h2, hg, sub_self]
+  exact sub_eq_zero.mp (hker _ hsub)
+
+variable (W) in
+/-- The `Lᵖ` size of a tempered distribution: the `eLpNorm` of its (unique) `Lᵖ`
+    representative, or `∞` when no representative exists. -/
+noncomputable def lpNormD (p : ℝ≥0∞) [Fact (1 ≤ p)] (u : 𝓢'(V, W)) : ℝ≥0∞ :=
+  open scoped Classical in
+  if h : HasLpRep W p u then eLpNorm (⇑h.choose) p (volume : Measure V) else ∞
+
+/-- **Well-definedness:** `lpNormD` computes the norm of ANY representative — the
+    representative is unique by injectivity of the embedding. -/
+theorem lpNormD_eq_of_rep {p : ℝ≥0∞} [Fact (1 ≤ p)] {u : 𝓢'(V, W)}
+    {g : Lp W p (volume : Measure V)}
+    (hu : u = MeasureTheory.Lp.toTemperedDistribution g) :
+    lpNormD W p u = eLpNorm (⇑g) p volume := by
+  have hex : HasLpRep W p u := ⟨g, hu⟩
+  rw [lpNormD, dif_pos hex]
+  have hgg : hex.choose = g :=
+    lp_toTemperedDistribution_injective p (hex.choose_spec.symm.trans hu)
+  rw [hgg]
+
+/-- On an embedded Schwartz function, `lpNormD` IS the `Lᵖ` norm of the function. -/
+theorem lpNormD_coe (p : ℝ≥0∞) [Fact (1 ≤ p)] (f : 𝓢(V, W)) :
+    lpNormD W p (f : 𝓢'(V, W)) = eLpNorm (⇑f) p volume := by
+  have hrep : (f : 𝓢'(V, W))
+      = MeasureTheory.Lp.toTemperedDistribution (f.toLp p volume) :=
+    (MeasureTheory.Lp.toTemperedDistribution_toLp_eq f).symm
+  rw [lpNormD_eq_of_rep hrep]
+  exact eLpNorm_congr_ae (f.coeFn_toLp p volume)
+
+variable (W) in
+/-- **The inhomogeneous Besov norm on tempered distributions** `‖u‖_{B^s_{p,q}}`: the `Lᵖ`
+    size of the low block plus the weighted `ℓ^q(ℕ)` size of the dyadic blocks, each block
+    measured through its (unique) `Lᵖ` representative. -/
+noncomputable def besovNormD (s : ℝ) (p q : ℝ≥0∞) [Fact (1 ≤ p)] (u : 𝓢'(V, W)) : ℝ≥0∞ :=
+  lpNormD W p (lpLowProjD V W u) +
+    (if q = ∞ then
+      ⨆ j : ℕ, (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s) * lpNormD W p (lpProjD V W ((j:ℤ)+1) u)
+    else (∑' j : ℕ, ((2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+        * lpNormD W p (lpProjD V W ((j:ℤ)+1) u)) ^ q.toReal) ^ (1/q.toReal))
+
+variable (W) in
+/-- **Membership in the distributional Besov space** `B^s_{p,q}(V; W) ⊂ 𝓢'(V, W)`. -/
+def MemBesovD (s : ℝ) (p q : ℝ≥0∞) [Fact (1 ≤ p)] (u : 𝓢'(V, W)) : Prop :=
+  besovNormD W s p q u < ∞
+
+/-- Membership forces the low block to BE an `Lᵖ` function. -/
+theorem MemBesovD.hasLpRep_low {s : ℝ} {p q : ℝ≥0∞} [Fact (1 ≤ p)] {u : 𝓢'(V, W)}
+    (h : MemBesovD W s p q u) : HasLpRep W p (lpLowProjD V W u) := by
+  by_contra hno
+  rw [MemBesovD, besovNormD, lpNormD, dif_neg hno, top_add] at h
+  exact absurd h (lt_irrefl _)
+
+/-- Membership forces every dyadic block to BE an `Lᵖ` function. -/
+theorem MemBesovD.hasLpRep_block {s : ℝ} {p q : ℝ≥0∞} [Fact (1 ≤ p)] (hq0 : q ≠ 0)
+    {u : 𝓢'(V, W)} (h : MemBesovD W s p q u) (j : ℕ) :
+    HasLpRep W p (lpProjD V W ((j:ℤ)+1) u) := by
+  by_contra hno
+  rw [MemBesovD, besovNormD] at h
+  have hterm : (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+      * lpNormD W p (lpProjD V W ((j:ℤ)+1) u) = ∞ := by
+    rw [lpNormD, dif_neg hno]
+    exact ENNReal.mul_top (ENNReal.rpow_pos (by norm_num) (by norm_num)).ne'
+  by_cases hq : q = ∞
+  · rw [if_pos hq] at h
+    have hle : (∞:ℝ≥0∞) ≤ ⨆ j : ℕ, (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+        * lpNormD W p (lpProjD V W ((j:ℤ)+1) u) := by
+      rw [← hterm]
+      exact le_iSup (fun j : ℕ => (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+        * lpNormD W p (lpProjD V W ((j:ℤ)+1) u)) j
+    rw [top_le_iff.mp hle, add_top] at h
+    exact absurd h (lt_irrefl _)
+  · rw [if_neg hq] at h
+    have hqr : 0 < q.toReal := ENNReal.toReal_pos hq0 hq
+    have hsum : (∑' j : ℕ, ((2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+        * lpNormD W p (lpProjD V W ((j:ℤ)+1) u)) ^ q.toReal) = ∞ := by
+      refine top_le_iff.mp (le_trans ?_ (ENNReal.le_tsum j))
+      rw [hterm, ENNReal.top_rpow_of_pos hqr]
+    rw [hsum, ENNReal.top_rpow_of_pos (one_div_pos.mpr hqr), add_top] at h
+    exact absurd h (lt_irrefl _)
+
+/-- **The distributional Besov norm EXTENDS the Schwartz one** through the canonical
+    embedding `𝓢 ↪ 𝓢'` — `B^s_{p,q}(𝓢')` restricted to Schwartz functions is `besovNormI`. -/
+theorem besovNormD_coe (s : ℝ) (p q : ℝ≥0∞) [Fact (1 ≤ p)] (f : 𝓢(V, W)) :
+    besovNormD W s p q (f : 𝓢'(V, W)) = besovNormI W s p q f := by
+  have hlow : lpNormD W p (lpLowProjD V W (f : 𝓢'(V, W)))
+      = eLpNorm (⇑(lpLowProj V W f)) p volume := by
+    rw [lpLowProjD_coe, lpNormD_coe]
+  have hblock : ∀ j : ℕ, lpNormD W p (lpProjD V W ((j:ℤ)+1) (f : 𝓢'(V, W)))
+      = eLpNorm (⇑(lpProj V W ((j:ℤ)+1) f)) p volume := by
+    intro j
+    rw [lpProjD_coe, lpNormD_coe]
+  rw [besovNormD, besovNormI, hlow]
+  congr 1
+  by_cases hq : q = ∞
+  · rw [if_pos hq, if_pos hq]
+    exact iSup_congr fun j => by rw [hblock j]
+  · rw [if_neg hq, if_neg hq]
+    congr 1
+    exact tsum_congr fun j => by rw [hblock j]
+
+/-- Membership of an embedded Schwartz function reduces to finiteness of its
+    Schwartz-level Besov norm. -/
+theorem memBesovD_coe_iff (s : ℝ) (p q : ℝ≥0∞) [Fact (1 ≤ p)] (f : 𝓢(V, W)) :
+    MemBesovD W s p q (f : 𝓢'(V, W)) ↔ besovNormI W s p q f < ∞ := by
+  rw [MemBesovD, besovNormD_coe]
+
+/-- Nondegeneracy transfers to the distributional norm on embedded Schwartz functions. -/
+theorem besovNormD_coe_eq_zero_iff (s : ℝ) {p q : ℝ≥0∞} [Fact (1 ≤ p)] (hq0 : q ≠ 0)
+    (f : 𝓢(V, W)) : besovNormD W s p q (f : 𝓢'(V, W)) = 0 ↔ f = 0 := by
+  have hp0 : p ≠ 0 := (lt_of_lt_of_le zero_lt_one (Fact.out : 1 ≤ p)).ne'
+  rw [besovNormD_coe]
+  exact besovNormI_eq_zero_iff s hp0 hq0 f
+
+/-- The zero distribution has Besov norm `0`. -/
+theorem besovNormD_zero (s : ℝ) {p q : ℝ≥0∞} [Fact (1 ≤ p)] (hq0 : q ≠ 0) :
+    besovNormD W s p q (0 : 𝓢'(V, W)) = 0 := by
+  have hp0 : p ≠ 0 := (lt_of_lt_of_le zero_lt_one (Fact.out : 1 ≤ p)).ne'
+  have h0 : ((0 : 𝓢(V, W)) : 𝓢'(V, W)) = 0 := map_zero _
+  rw [← h0, besovNormD_coe]
+  exact (besovNormI_eq_zero_iff s hp0 hq0 (0 : 𝓢(V, W))).mpr rfl
+
+/-- The zero distribution is a member of every `B^s_{p,q}` (`q ≠ 0`). -/
+theorem memBesovD_zero (s : ℝ) {p q : ℝ≥0∞} [Fact (1 ≤ p)] (hq0 : q ≠ 0) :
+    MemBesovD W s p q (0 : 𝓢'(V, W)) := by
+  rw [MemBesovD, besovNormD_zero s hq0]
+  exact ENNReal.zero_lt_top
+
 end BesovSpace
 
 #eval "Littlewood–Paley dyadic partition of unity — machine-verified."

@@ -133,8 +133,13 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   `B^s_{p,q}` norm on 𝓢); **`besovNormI_eq_zero_iff`** (it is a genuine NORM — nondegeneracy via
   Fourier injectivity + the partition); `lpProjD` (+gap-2 disjointness) on tempered distributions.
   False-window variant rejected; no `sorry`.
-- *Next bites (priority order):* distributional Besov space (membership/completeness/embeddings)
-  → Carleman. `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
+- **Eleventh bite ✅ (distributional Besov space)** — `B^s_{p,q} ⊂ 𝓢′`: `HasLpRep`/`lpNormD` (unique-`Lᵖ`-
+  representative norm, via Mathlib's injectivity of `Lᵖ→𝓢′`); `besovNormD`+`MemBesovD` (membership forces
+  every block to BE an `Lᵖ` function); **`besovNormD_coe`** (the distributional norm EXTENDS `besovNormI`
+  through `𝓢 ↪ 𝓢′`); **`lpLowProjDAt_eq_add_sum`** (the EXACT finite LP decomposition of `𝓢′`:
+  `S_M = S₀ + Σ_{j<M} P_{j+1}` as operators). False telescoping variant rejected; no `sorry`.
+- *Next bites (priority order):* `S_M → id` convergence in `𝓢′` (approximation of identity; gateway to
+  completeness) → Carleman. `:proved`=0 for the PDE throughout — library additions, not NS theorems.
 
 ## Run
 ```

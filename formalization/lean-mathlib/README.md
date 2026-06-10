@@ -120,4 +120,11 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   **`besovNormI`** + **`besovNormI_eq_zero_iff`** (the inhomogeneous Besov expression is a genuine
   NORM on 𝓢 — nondegeneracy via multiplier-vanishing + the partition + Fourier injectivity);
   `lpProjD`/`lpProjD_comp_eq_zero` on 𝓢' (NB: the 𝓢'-composition lemma in Mathlib is reversed).
-  Next: the distributional Besov space → Carleman.
+- **Distributional Besov space** — `sum_range_lpSymbolAt` (finite telescoping, every `ξ`/`M`);
+  `lpLowProjD`/`lpLowProjDAt`/`lpProjD_eq_sub` + **`lpLowProjDAt_eq_add_sum`** (the EXACT finite LP
+  decomposition of `𝓢′`: `S_M = S₀ + Σ_{j<M} P_{j+1}` as operators); `lpProjD_coe`/`lpLowProjD_coe`
+  (the distributional projections extend the Schwartz ones); `HasLpRep` + injectivity of `Lᵖ→𝓢′` +
+  `lpNormD` (well-defined unique-representative `Lᵖ` size); **`besovNormD`/`MemBesovD`** (membership
+  forces every block into `Lᵖ`: `hasLpRep_low`/`hasLpRep_block`) + **`besovNormD_coe`** (extension
+  theorem: restricted to `𝓢` it IS `besovNormI`, so nondegeneracy transfers).
+  Next: `S_M → id` convergence in `𝓢′` → completeness → Carleman.
