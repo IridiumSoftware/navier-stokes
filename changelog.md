@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.11.1 — 2026-06-10 — Cross-audit #2 (A0–A7) + ledger the NS-050 instrument arc (public-repo integrity pass)
+
+Second full cross-audit in two days (`audit_2026-06-10.md`), the day the repo went public. **Science intact:
+`:proved`=0 genuine; no regularity-bearing entry above `:argued`; 35 entries / 35 registry rows.** But the
+prior audit's recurrence prediction came true — the close-out checklist it recommended was never installed,
+and a full new arc (NS-050 instrument: ~13 scripts + 7 docs) shipped to the **public** repo unledgered while
+`README.md` points visitors at it. **Fixed:** (B1) **ledgered the NS-050 instrument+tooling arc** — SPEC
+NS-050 entry + Source + registry row extended (b/c1/c2/c3 instrument, HL β=2.47, the validated 2D-wall
+solver, the mapped-grid ℝ-operators, the 4-failure-mode profile-reconstruction wall), + **TEST_SPEC T-25**
+(mapped-grid ξ∂_ξ + H_ℝ machine-precision) + **T-26** (HL β=2.47∈(2,4.53)); (W-D) SPEC stamp
+v0.6.1→v0.11.1; (W-E) narrowed the NS-040 `metal/B_*abcpert*` glob (recurrence — registry was fixed last
+audit, SPEC wasn't); (W-A/B/C) dashboard refreshed — NS-050 + public-flip bullet, stamp v0.6.2→v0.11.1,
+breakdown corrected 30→35 (the 5 FORWARD-TARGETs were omitted from the itemization); CLAUDE.md stamp +
+narrative extended through NS-050; (W-G) **installed the enforced large-session close-out checklist** in
+CLAUDE.md (the meta-fix the last audit recommended but never landed). **Priority stack (now tracked):** W3
+closure-v5 `substrate_source` (path now public-unresolvable), W5 DESIGN.md sync, N2 a fenced `formalization/`
+Lean-ladder ledger entry (coordinate with the concurrent Lean session). `:proved`=0; distance UNTOUCHED.
+
 ## v0.11.0 — 2026-06-10 — YOUNG'S INEQUALITY + the multiplier–convolution bridge machine-verified: Schwartz-symbol multipliers are Lᵖ-bounded (the structural Lᵖ Bernstein)
 
 Fourth bite of the Littlewood–Paley layer, in `formalization/lean-mathlib/LittlewoodPaley.lean`.

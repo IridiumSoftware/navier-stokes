@@ -41,7 +41,7 @@ adds directions), and cores sit at δ≈0.32–0.54 across TG/tubes/helical (one
 the resolved flow forces `δ_Λ→0`*; it could hold only on the rescaled ancient/Type-I limit, linking NS-049
 to NS-048. Vacuity cap (resolved, not the singular limit).
 
-**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 35 entries as of 2026-06-09).**
+**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 35 entries as of 2026-06-10).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)
 Beltramization** — strong helicity (u∥ω) crushes the Lamb vector `u×ω` (the nonlinear driver) ~26×,
 switching off production until the field de-Beltramizes (the delay) — **not** (a) ω–S alignment (which
@@ -139,8 +139,17 @@ zone (state = f(path), not params); clumps self-stabilize via deposited density 
 memory (T-22). **ARC COMPLETE (AT-1..7 + the interactive app). Scope: phenomenology — NOT the PDE.
 Distance to prize: UNTOUCHED.**
 
-## Status summary (v0.6.2, 2026-06-09)
+## Status summary (v0.11.1, 2026-06-10)
 
+- **NS-050 instrument+tooling arc + REPO PUBLIC (2026-06-09/10):** the modulation/Type-II map
+  (NS-050) grew a full within-truncation instrument arc — a dynamic-rescaling fit calibrated on CLM
+  (β=1) **and** the faithful 1D Hou–Luo model (β=2.47 ∈ the proven Chen–Hou–Huang band (2,4.53)), a 3D
+  Taylor–Green negative control (correct NULL), a validated 2D-Boussinesq Hou–Luo **wall** solver, and
+  **mapped-grid ℝ-variable operators (ξ∂_ξ + line-Hilbert) validated to machine precision** — a reusable
+  self-similar-profile toolkit (also for NS-048 DSS/ancient profiles). The tuned-profile reconstruction
+  is **OPEN** (four honest negatives). All `:proved`=0; prize UNTOUCHED. **The repo went PUBLIC
+  2026-06-10** (`github.com/IridiumSoftware/navier-stokes`; `README.md` front-door for NS researchers).
+  Ledgered at SPEC NS-050 + T-25/T-26.
 - **NS-038 FORMALIZED — resolved N=256 DNS boundary program A→B→C (v0.1.31–39, `:tested`,
   new RESOLVED-DNS class):** first use of the real 6-hour budget. Resolved viscous DNS at
   N=256/Re=1600, FFTW-validated (≡ hand-rolled; Brachet enstrophy peak t=9). Verdicts: S_ω
@@ -252,7 +261,10 @@ Distance to prize: UNTOUCHED.**
   Casimir hinge, both `:argued`), 1 POSSIBILISTIC (NS-037 inverse-Born map, `:argued`),
   3 RESOLVED-DNS (NS-038 boundary queue A→B→C, N=256 FFTW-validated; NS-039 GPU N=512
   RWC-038 verdict — ≤1 touch is a resolution artifact; NS-040 helicity depletes vortex
-  stretching — clean matched-spectrum pair; all `:tested`).
+  stretching — clean matched-spectrum pair; all `:tested`),
+  5 FORWARD-TARGET (NS-045 `:tested` Beltramization audit; NS-046/048 `:open` static/dynamic
+  frontiers; NS-049 `:open` Lockwood conditional-criterion audit; NS-050 `:open` modulation/Type-II +
+  the instrument+tooling arc).
   `:proved` = 0.
 - **Computational record:** 15 scripts (turbulence/closure arc) carried as
   phenomenology/model results — **none PDE**. The homology approach is `:falsified`.
@@ -262,6 +274,16 @@ Distance to prize: UNTOUCHED.**
   (analyticity strip / complex-singularity, NS-010/011).
 
 ## Priority stack
+
+0. **Audit-deferred bookkeeping (from `audit_2026-06-10.md` — tracked here so it stops falling off):**
+   - **W3 — `substrate_source` for NS-022/023/024/037** (closure-v5/Q_102 data): add the A7 provenance
+     field; the closure-v5 path is now machine-local/public-unresolvable after the public flip.
+     Scope≠PDE hygiene, not integrity.
+   - **W5 — DESIGN.md sync** (last touched 2026-06-04): fold in NS-045..050, the MDAGC synthesis, the
+     Lean ladder, the disproof arc.
+   - **N2 — `formalization/` Lean ladder ledger entry:** a fenced INFRASTRUCTURE entry (Scope:
+     formalization, explicitly NOT a PDE/`:proved` claim) so the machine-verified library work is
+     traceable — **coordinate with the concurrent Lean session (live on `LittlewoodPaley.lean`).**
 
 1. **Complex-singularity / analyticity-strip diagnostic (NS-010/011).**
    - 1a. **DONE ✓** — Burgers (1D): spectrum-fitted `δ(t)` matches the exact

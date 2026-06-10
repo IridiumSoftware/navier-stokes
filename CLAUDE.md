@@ -16,7 +16,7 @@ of:
 6. our own **computational results**, each carried at its true evidence tier and
    with an explicit **SCOPE** declaration (model? truncation? the PDE?).
 
-**Status (2026-06-09, v0.6.2).** Honest baseline: **zero progress on the prize.**
+**Status (2026-06-10, v0.11.1).** Honest baseline: **zero progress on the prize.**
 The PDE regularity question is untouched (`:proved`=0); 35 ledger entries, all scoped.
 What exists is (a) a catalogue of the standard obstructions; (b) one falsified approach
 of our own (homology, NS-020); (c) a body of turbulence/closure *phenomenology* plus a
@@ -28,7 +28,19 @@ resolution-artifact δ→0); and (e) a **resolved-DNS** track at N=256 (boundary
 A→B→C, NS-038) extended to **N=512 on the Metal/GPU spectral solver** — the RWC-038
 reconnection verdict (NS-039: the ≤1 box-dimension touch is a resolution artifact) and the
 clean helicity-depletion result (NS-040). Every `:tested` is model/truncation-scoped; none
-is a PDE result. See `dashboard.md`.
+is a PDE result. (f) the forward-targets NS-045/046/048, the Lockwood conditional NS-049, and the
+**NS-050 modulation/Type-II instrument+tooling arc** (a dynamic-rescaling instrument calibrated on CLM +
+the Hou–Luo model β=2.47∈(2,4.53), and **mapped-grid ℝ-variable operators validated to machine precision**;
+profile reconstruction OPEN); a concurrent Lean **formalization ladder** (Marcinkiewicz / Littlewood–Paley /
+Bernstein / Young — *library infrastructure, `:proved`=0 for the PDE*); and a **citation-disproof** arc.
+**The repo is PUBLIC as of 2026-06-10.** See `dashboard.md`.
+
+**Large-session close-out (ENFORCED — installed 2026-06-10 after two consecutive audits found recurrent
+drift).** When an NS-ID is added or an arc lands, in the **same commit** update: (i) the SPEC entry +
+header count + version stamp; (ii) the `artifact_registry.md` row; (iii) a `TEST_SPEC.md` row if a
+licensing check exists; (iv) the `dashboard.md` status summary + stamp; (v) a `changelog.md` version entry.
+A future cross-audit that finds this drift *again* means the checklist isn't being followed → escalate to a
+pre-commit hook, not another point-fix.
 
 **Owner:** Aaron Green.
 
