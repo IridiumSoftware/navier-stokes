@@ -98,7 +98,7 @@ Reading & audit guide + status-promotion rubric + independence note):
 ## Provenance & honesty notes
 
 Maintained by **Aaron Green** (independent researcher), with collaborators — the **ORSI / CCATT**
-organizing framework and several extension directions are due to a collaborator (B.), and a
+organizing framework and several extension directions are due to collaborator **Brian Crabtree**, and a
 conditional-criterion thread engages J. Lockwood's work (assessed honestly and pointedly in
 `docs/ns049_lockwood_verification.md`). Developed with **substantial AI assistance (Claude)** under an
 explicit anti-over-reach discipline — which is *why* the C0–C5 citation tiers, the `:proved`=0 firewall,
