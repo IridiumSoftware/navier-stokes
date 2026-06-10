@@ -66,4 +66,4 @@
   Scope: empirical; :proved=0; the prize was not the target.
 ════════════════════════════════════════════════════════════════════════════════
 
-wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/turbulence_inverse_born.out.txt
+wrote: ~/Desktop/navier-stokes/scripts/turbulence_inverse_born.out.txt

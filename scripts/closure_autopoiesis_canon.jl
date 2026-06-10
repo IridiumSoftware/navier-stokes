@@ -17,7 +17,7 @@
 # complexes DO gate at the weak relation — is Q_102 heterogeneous enough to gate?
 
 using JSON, LinearAlgebra, Serialization, SparseArrays, Statistics, Random, Printf
-const CV5="/Users/aarongreen/Desktop/Research Papers/Relational_Emergence/Closure v5"
+const CV5="~/Desktop/Research Papers/Relational_Emergence/Closure v5"
 
 function load_level0()
     kdata=deserialize(joinpath(CV5,"gpg_bipartite_verified_a_kernel_basis.jls"))

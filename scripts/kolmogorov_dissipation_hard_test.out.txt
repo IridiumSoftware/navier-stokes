@@ -63,4 +63,4 @@
     :proved=0.
 ════════════════════════════════════════════════════════════════════════════════
 
-wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/kolmogorov_dissipation_hard_test.out.txt
+wrote: ~/Desktop/navier-stokes/scripts/kolmogorov_dissipation_hard_test.out.txt

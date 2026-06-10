@@ -41,4 +41,4 @@
     beats a tight bound that is smuggled. Scope: empirical; :proved=0.
 ════════════════════════════════════════════════════════════════════════════════
 
-wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/mu_hard_bound.out.txt
+wrote: ~/Desktop/navier-stokes/scripts/mu_hard_bound.out.txt

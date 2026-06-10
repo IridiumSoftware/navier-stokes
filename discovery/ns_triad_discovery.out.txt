@@ -5,7 +5,7 @@ invocation: SPEC_JSON=<corpus> FILTER_PROVED_ONLY=0 MIN_LAYER_SPREAD=0 MIN_KINDS
 (v3 adds NS-045 [Beltramization] + NS-046 [deformation-inequality target]; v2 was 30 nodes)
 
 ──────────────────────────────────────────────────────────────────
-  TCE SpecBridge run on: /Users/aarongreen/Desktop/navier-stokes/discovery/ns_obstruction_corpus.json
+  TCE SpecBridge run on: ~/Desktop/navier-stokes/discovery/ns_obstruction_corpus.json
   Mode:                   STRATIFIED (SHOW_BANDS=1)
   Top N per band:         20
   Band thresholds:        high ≥ 0.85; mid [0.7, 0.85); low [0.55, 0.7)

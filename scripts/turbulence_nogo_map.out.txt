@@ -104,4 +104,4 @@
   the PRIZE is untouched and was deliberately not the target here.
 ════════════════════════════════════════════════════════════════════════════════
 
-wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/turbulence_nogo_map.out.txt
+wrote: ~/Desktop/navier-stokes/scripts/turbulence_nogo_map.out.txt

@@ -51,4 +51,4 @@
     model on 𝕋³; NOT the PDE; :proved=0; distance to the prize UNTOUCHED.
 ══════════════════════════════════════════════════════════════════════════════
 
-wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/dec_repair_sandbox.out.txt
+wrote: ~/Desktop/navier-stokes/scripts/dec_repair_sandbox.out.txt

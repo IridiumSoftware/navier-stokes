@@ -67,4 +67,4 @@
   • This does NOT touch the PDE. Scope: 3D truncation. :proved=0; distance UNTOUCHED.
 ══════════════════════════════════════════════════════════════════════════════
 
-wrote: /Users/aarongreen/Desktop/navier-stokes/scripts/repair_cost_under_stretching.out.txt
+wrote: ~/Desktop/navier-stokes/scripts/repair_cost_under_stretching.out.txt

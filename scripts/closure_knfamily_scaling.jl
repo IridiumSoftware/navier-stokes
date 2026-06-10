@@ -8,7 +8,7 @@
 #   real K_n³ quotient structure (size M, spectral gap λ₂)? Companion to the Q_102
 #   gating negative. Relations = quotient hyperedges (triadic closures); support =
 #   hyperedges sharing a class; decay-default + autocatalytic repair.
-CV5="/Users/aarongreen/Desktop/Research Papers/Relational_Emergence/Closure v5"
+CV5="~/Desktop/Research Papers/Relational_Emergence/Closure v5"
 include(joinpath(CV5,"gpg_b4_phase_e_lib.jl")); include(joinpath(CV5,"gpg_b1_v2_embedding_test_lib.jl"))
 using Random, LinearAlgebra, Statistics, Printf
 kn3_triples(n)=(t=NTuple{3,Int}[];for i in 1:n,j in 1:n,k in 1:n;(i!=j&&j!=k&&i!=k)&&push!(t,(i,j,k));end;t)
