@@ -33,3 +33,7 @@ lean_lib «AxisymUniversal» where
 @[default_target]
 lean_lib «WeakLp» where
   srcDir := "."
+
+@[default_target]
+lean_lib «LittlewoodPaley» where
+  srcDir := "."

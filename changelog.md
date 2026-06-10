@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.8.0 — 2026-06-09 — LITTLEWOOD–PALEY layer opened: the dyadic partition of unity machine-verified
+
+First bite of the Besov/Littlewood–Paley layer — the foundational object everything downstream is
+built on. `formalization/lean-mathlib/LittlewoodPaley.lean` (+ lakefile target). **Library
+infrastructure; `:proved`=0 for the PDE; distance UNTOUCHED.**
+- **Construction:** `lpChi` = canonical bump (`=1` on `‖ξ‖≤1`, supp `= {‖ξ‖<2}`, via Mathlib's
+  `ContDiffBump`); **`lpSymbol ψ(ξ) = χ(ξ) − χ(2ξ)`**; dyadic family **`lpSymbolAt j ξ = ψ(2^{−j}ξ)`**.
+  Generic over any real normed space with `[HasContDiffBump E]` (covers `ℝⁿ`/`EuclideanSpace`).
+- **Machine-verified properties:** smoothness of every order (`contDiff_lpSymbol`); `0 ≤ ψ ≤ 1`
+  (the nonnegativity via the support nesting `χ(2·)` alive ⇒ `χ = 1`); annulus support
+  (`ψ = 0` for `‖ξ‖ ≤ 1/2` and for `2 ≤ ‖ξ‖`; `ψ_j` supported in `2^{j−1} < ‖ξ‖ < 2^{j+1}`);
+  **support disjointness beyond gap 2** (`ψ_j·ψ_k = 0` for `j+2 ≤ k`); the telescoping
+  representation `ψ_j = A_j − A_{j−1}`; and the **main theorem `hasSum_lpSymbolAt`**:
+  `∀ ξ ≠ 0, HasSum (fun j : ℤ => ψ(2^{−j}ξ)) 1` — the **dyadic partition of unity on frequency
+  space**, proved by locating the ≤3-term window `{L−1,L,L+1}`, `L = Int.log 2 ‖ξ‖`
+  (`Int.zpow_log_le_self` / `lt_zpow_succ_log_self`), vanishing outside, telescoping inside.
+- **Purely real-analytic** — no Fourier transform needed at this layer; the Fourier-side projections
+  `P_j f = (ψ_j f̂)ˇ` and Besov norms `Ḃ^s_{p,q}` (the space the NS-046 target lives in) are the next
+  bites, now definable on this object.
+- **Soundness:** no `sorry`; the false variant (vanishing already for `‖ξ‖≤1` — wrong, `ψ(ξ)=1` at
+  `‖ξ‖=1`) is rejected at its load-bearing arithmetic. Verified vs the lean4-cv Mathlib (LEAN_EXIT=0).
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.7.0 — 2026-06-09 — STRONG-TYPE MARCINKIEWICZ machine-verified (diagonal case, explicit constant): sublinear T of weak types (p,p),(q,q) maps Lʳ→Lʳ
 
 The full interpolation theorem, in `formalization/lean-mathlib/WeakLp.lean` (~350 new lines).

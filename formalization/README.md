@@ -105,7 +105,12 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   level-`t` truncation split, sublinearity + weak bounds at threshold `t/2`, **Tonelli swap**, inner
   `t`-integral evaluation. Supporting API: `truncGT/truncLE` (+ measurability + `MemLp`), the model
   rpow `t`-integrals, `swap_eval_low/high`. False-variant soundness check passed; no `sorry`.
-- *Next bites (priority order):* Besov/Littlewood–Paley → Carleman.
+- **Fifth bite ✅ (Littlewood–Paley layer opened)** — `lean-mathlib/LittlewoodPaley.lean`: the **dyadic
+  partition of unity** `hasSum_lpSymbolAt` (`∀ ξ≠0, Σ_{j∈ℤ} ψ(2^{−j}ξ) = 1`, ≤3-term window via
+  `Int.log`), with smoothness, `[0,1]` bounds, annulus support, gap-2 disjointness — the foundational
+  object for `P_j` projections and Besov norms (where NS-046's `Ḃ⁰_{∞,1}` lives). Purely real-analytic;
+  generic over `[HasContDiffBump E]`. False-variant soundness passed; no `sorry`.
+- *Next bites (priority order):* Fourier-side `P_j` projections + Besov norms → Bernstein → Carleman.
   `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run

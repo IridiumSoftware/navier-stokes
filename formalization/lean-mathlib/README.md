@@ -90,4 +90,12 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   - **`memLp_of_hasWeakType`** — the membership form: sublinear `T` of weak types `(p,p)`,`(q,q)` maps
     `Lʳ → Lʳ` for all `p<r<q`. **The full Marcinkiewicz interpolation theorem (diagonal case).**
   **Soundness sanity:** a false exponent variant of the threshold-absorption identity is correctly
-  rejected; no `sorry`. A confirmed Mathlib gap; upstreamable. Next: Besov/Littlewood–Paley → Carleman.
+  rejected; no `sorry`. A confirmed Mathlib gap; upstreamable.
+
+## Littlewood–Paley layer (`LittlewoodPaley.lean`)
+- **The dyadic partition of unity** — `lpChi` (canonical `ContDiffBump`), `lpSymbol ψ(ξ)=χ(ξ)−χ(2ξ)`,
+  `lpSymbolAt j ξ = ψ(2^{−j}ξ)`; machine-verified: every-order smoothness, `0≤ψ≤1`, annulus support
+  (`1/2 < ‖ξ‖ < 2`; dyadic `2^{j−1} < ‖ξ‖ < 2^{j+1}`), gap-2 support disjointness, and
+  **`hasSum_lpSymbolAt : ∀ ξ ≠ 0, HasSum (fun j : ℤ => ψ(2^{−j}ξ)) 1`** (≤3-term window at
+  `Int.log 2 ‖ξ‖`, telescoping). Generic over `[HasContDiffBump E]`; purely real-analytic (no Fourier
+  at this layer). Next: `P_j` projections (Fourier side) + Besov norms → Bernstein → Carleman.
