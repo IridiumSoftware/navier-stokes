@@ -1,0 +1,29 @@
+════════════════════════════════════════════════════════════════════════════════════
+  ns050_houluo_newton_seeded.jl — Newton SEEDED from the forward profile (Scope: numerical-tooling)
+  Forward HL profile → cot-grid → damped Newton on (P1,P2), c_l=2.47. :proved=0; UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════
+
+  forward seed @ A=8.0 (ℓ=0.0033): extracted Ω_fwd,Θ_fwd on η∈[-6,6] (241 pts)
+
+────────────────────────────────────────────────────────────────────────────────────
+  scale-scan s (ξ=s·η) + damped Newton; report best final ‖F‖:
+────────────────────────────────────────────────────────────────────────────────────
+    s      ‖F‖ seed      ‖F‖ final     ‖Ω‖∞ final  note
+    0.5    2.609e+02     4.066e+00     1.888e+00   reduced
+    1.0    2.525e+02     8.036e+00     2.157e+00   reduced
+    2.0    2.498e+02     5.050e+00     2.017e+00   reduced
+    4.0    2.488e+02     4.479e+00     2.067e+00   reduced
+
+  V3 — best NONTRIVIAL converged ‖F‖ = none (all converged solutions were trivial Ω≈0, or none converged) ⇒ NO nontrivial profile recovered — the genuine wall (see notes)
+
+════════════════════════════════════════════════════════════════════════════════════
+  READING
+════════════════════════════════════════════════════════════════════════════════════
+  • Newton STALLS even from the forward seed. Honest wall: the forward profile is gate-limited
+    (not the converged asymptotic shape), so it is not in the Newton basin either; and naive
+    relaxation diverges. Reconstructing the true profile needs a much higher-resolution forward
+    run to reach the asymptotic regime, OR a correctly-stabilized dynamic rescaling (the Hou
+    attracting forward dynamics in the rescaled frame) — genuine rigorous-numerics, not a
+    session script. The validated ℝ-variable OPERATORS remain the durable, reusable deliverable.
+  • HONEST: c_l=2.47 is INPUT (forward-selected). 1D HL model, numerical; :proved=0; UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════
