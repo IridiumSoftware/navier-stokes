@@ -1,6 +1,6 @@
 # SPEC.md — Navier–Stokes Obstruction Program ledger
 
-**v0.1.0 (2026-05-31).** Every entry: `NS-ID | Class | Statement | Evidence |
+**v0.6.1 (2026-06-09).** Every entry: `NS-ID | Class | Statement | Evidence |
 Status | Scope | Source`. `:cited` = established external theorem (not ours).
 `:falsified` = ruled-out approach. `:tested` = we computed it (read the Scope).
 `:argued` = manual argument. `:open` = unresolved. `:proved` = rigorous proof of a
@@ -10,8 +10,9 @@ ever count as prize progress; there is none.
 Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (external),
 1 CONJECTURE, 6 our RESULTS/FALSIFIED, 2 RELATED (external), 2 PROGRAM, 1 GEOMETRY,
 2 ANALYSIS (NS-034 scaling calculus + NS-036 criticality–Casimir), 1 POSSIBILISTIC (NS-037),
-3 RESOLVED-DNS (NS-038/039/040), 3 FORWARD-TARGET (NS-045 `:tested` mechanism audit + NS-046 `:open`
-analytic target + NS-048 `:open` exclusion/no-split frontier). `:proved` = 0. (33 entries.)
+3 RESOLVED-DNS (NS-038/039/040), 5 FORWARD-TARGET (NS-045 `:tested` mechanism audit + NS-046/048 `:open`
+static/dynamic frontiers + NS-049 `:open` Lockwood conditional-criterion audit + NS-050 `:open`
+modulation/Type-II map). `:proved` = 0. (35 entries.)
 
 Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..5), Scope ≠ PDE.
 
@@ -1183,3 +1184,9 @@ mechanism** that prevents different rescaled subsequences converging to differen
   the *rate* is the shared object; **viscosity is tool-and-obstacle**; axisymmetric is the sharpest arena
   both sides. Tractable entry (research-scale): the axisym double-log → Besov rate (Palasek conjecture).
   Both sides OPEN. `:proved`=0.
+
+---
+
+**NS-050 — Modulation theory for the Type-II frontier** | FORWARD-TARGET (frontier map + within-truncation witness) | Evidence: external-spec-reference (prior art, C1) + computed witness (1D-model) | **Status: :open** | **Scope: PDE-analysis** (≠ the PDE) | Source: `docs/ns050_modulation_type2_scope.md` (+ `ns050_dss_modulation.md`, `ns050_modulation_witness_companion.md`); witness `scripts/ns050_modulation_witness.jl` (+.out.txt). `:proved`=0; distance UNTOUCHED.
+
+Scopes NS-048's **Type-II** sub-branch (the part the ancient-Liouville machinery structurally cannot reach, the NS-048 Type-I ceiling) via **modulation / dynamic-rescaling**. **The finding:** modulation is the *construction* (disproof) engine, and its prerequisite — a self-similar profile to modulate around — is **exactly what G3 / NS-007 deletes** in the smooth / finite-energy / no-boundary (Clay) category. Verified prior art (C1): MRRS compressible implosion (their NS singularities ARE Type-II, via a quantized self-similar Euler profile + spectral gap), Elgindi `C^{1,α}` axisym Euler (no swirl, degraded regularity), Chen–Hou computer-assisted (2D Boussinesq + 3D axisym Euler **with boundary**; dynamic-rescaling = modulation made rigorous). The clean incompressible / smooth / no-boundary profile is absent, and incompressibility removes the implosion mechanism — so modulation cannot start for incompressible smooth NS; the Clay (exclusion) direction uses ancient-Euler-Liouville, **not** modulation (conditional literature arXiv:2304.04045 / 2507.08733 = the NS-048 Hole-B machinery). **M1–M5 prerequisite checklist, gated at M1 (no profile).** DSS route (`ns050_dss_modulation.md`): a discretely-self-similar (log-τ-periodic) profile evades G3's *exact*-self-similar exclusion; at the singular scale `λ²ν→0` so rescaled NS→Euler (M1 reduces to a DSS Euler profile); τ-periodicity ⇒ a **Floquet/monodromy** spectral-gap problem for a nonlocal non-self-adjoint operator (no NS precedent); still a construct-side setup. **Within-truncation witness (T-24):** a dynamic-rescaling fit, calibrated on CLM (closed-form), recovers the self-similar profile Φ(η)=−4η/(1+4η²) (‖U−Φ‖₂ halves each step), center x₀=π/2, and rate (T*,p)=(2.00,1.00), N-robust — validating the *instrument*; the Type-II discriminator is its negative (non-converging U / drifting p). Firewall: 1D model + finite truncation; instrument-validation only; does NOT touch 3D-NS regularity. Depends NS-007 (G3) / NS-048 / NS-002 / NS-036.

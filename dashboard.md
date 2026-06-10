@@ -41,7 +41,7 @@ adds directions), and cores sit at δ≈0.32–0.54 across TG/tubes/helical (one
 the resolved flow forces `δ_Λ→0`*; it could hold only on the rescaled ancient/Type-I limit, linking NS-049
 to NS-048. Vacuity cap (resolved, not the singular limit).
 
-**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 32 entries).**
+**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 35 entries as of 2026-06-09).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)
 Beltramization** — strong helicity (u∥ω) crushes the Lamb vector `u×ω` (the nonlinear driver) ~26×,
 switching off production until the field de-Beltramizes (the delay) — **not** (a) ω–S alignment (which
@@ -98,7 +98,7 @@ direction; needs the λ⁻³ domain factor**); (4) Arnold curvature (Koszul, ver
 κ≡¼; negative plane; Lyapunov λ>0 chaotic vs ≈0 integrable). The study **re-derives
 the firewall thesis geometrically.** Distance to prize: UNTOUCHED.
 
-**ACTIVE-TURBULENCE TRACK (fenced — entries AT-1..4 in `SIM_SPEC.md`, NOT the NS-### obstruction map).**
+**ACTIVE-TURBULENCE TRACK (fenced — entries AT-1..7 in `SIM_SPEC.md`, NOT the NS-### obstruction map).**
 Phase 0 (AT-1, v0.1.46). The *faithful* version of the fluoddity agent engine — a real 2D Navier–Stokes fluid driven by active
 agents (active turbulence), exploring self-organization. Phase 0 = the faithful fluid substrate
 (`active_turbulence_fluid.jl`): exact `ν∇²` viscosity via IF-RK4 + a curl-of-force active-coupling
@@ -139,7 +139,7 @@ zone (state = f(path), not params); clumps self-stabilize via deposited density 
 memory (T-22). **ARC COMPLETE (AT-1..7 + the interactive app). Scope: phenomenology — NOT the PDE.
 Distance to prize: UNTOUCHED.**
 
-## Status summary (v0.1.39, 2026-06-02)
+## Status summary (v0.6.2, 2026-06-09)
 
 - **NS-038 FORMALIZED — resolved N=256 DNS boundary program A→B→C (v0.1.31–39, `:tested`,
   new RESOLVED-DNS class):** first use of the real 6-hour budget. Resolved viscous DNS at
@@ -244,7 +244,7 @@ Distance to prize: UNTOUCHED.**
   inversion lineage. Key reading: the 2D/3D gap is an invariant-tier story
   (enstrophy Tier-1 in 2D, battleground in 3D).
 
-- **Ledger:** 30 entries — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
+- **Ledger:** 35 entries (SPEC.md is authoritative) — 1 PROBLEM (`:open`), 8 OBSTRUCTION (`:cited`/`:argued`),
   2 DIAGNOSTIC (`:tested`), 2 live (`:cited`/`:argued`), 6 our RESULTS/FALSIFIED
   (1 `:falsified`, 4 `:tested` non-PDE-Scope incl. NS-032 gated-null, 1 `:argued`),
   2 RELATED (`:cited`; NS-025 Gosme + NS-035 Ryan), 2 PROGRAM, 1 GEOMETRY (NS-033
@@ -367,9 +367,8 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
   velocity-integral critical norms are large-scale-dominated (another face of supercriticality). Practical:
   monitor `Ḃ⁰_{∞,1}`/`‖ω‖∞`, not `L³`. Within-truncation, regular-flow sensitivity ranking (not a blowup
   race), N=64. `:proved`=0. `docs/ns046_critical_norm_race_companion.md`.
-- No `Project.toml`/lockfile yet — add when spectral code (FFTW) lands (package
-  discipline, CLAUDE.md).
-- TEST_SPEC currently has the diagnostic-validation rows pending the NS-010 build.
+- `Project.toml` + `Manifest.toml` present (FFTW pinned) — package discipline satisfied.
+- TEST_SPEC has T-01..T-24 (+ AT-track T-15..T-22).
 
 ## Cross-project note
 

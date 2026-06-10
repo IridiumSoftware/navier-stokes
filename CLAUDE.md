@@ -16,8 +16,8 @@ of:
 6. our own **computational results**, each carried at its true evidence tier and
    with an explicit **SCOPE** declaration (model? truncation? the PDE?).
 
-**Status (2026-06-04, v0.1.42).** Honest baseline: **zero progress on the prize.**
-The PDE regularity question is untouched (`:proved`=0); 30 ledger entries, all scoped.
+**Status (2026-06-09, v0.6.2).** Honest baseline: **zero progress on the prize.**
+The PDE regularity question is untouched (`:proved`=0); 35 ledger entries, all scoped.
 What exists is (a) a catalogue of the standard obstructions; (b) one falsified approach
 of our own (homology, NS-020); (c) a body of turbulence/closure *phenomenology* plus a
 possibilistic / inverse-Born map of turbulence's constants (NS-037) — finite truncations +
