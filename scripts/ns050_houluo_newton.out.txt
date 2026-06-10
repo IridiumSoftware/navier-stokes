@@ -1,0 +1,27 @@
+════════════════════════════════════════════════════════════════════════════════════
+  ns050_houluo_newton.jl — Newton solve of the HL self-similar profile (Scope: numerical-tooling)
+  Fixed c_l=2.47 (forward-selected); damped Newton + numerical Jacobian on validated operators. :proved=0.
+════════════════════════════════════════════════════════════════════════════════════
+
+  N=256 L=1.0 c_l=2.47. Seed: Ω=ξ/(1+ξ²)² (odd), Θ=1/(1+ξ²) (even).
+
+────────────────────────────────────────────────────────────────────────────────────
+  DAMPED NEWTON (numerical Jacobian, 2N×2N):
+────────────────────────────────────────────────────────────────────────────────────
+    it    ‖F‖           step α   note
+    0     2.0364e+01    —        seed residual
+    1     2.0061e+01    0.125    
+    2     2.0061e+01    0.016    no decrease — stuck
+
+  V3 — final residual ‖F‖ = 2.006e+01  ⇒  did NOT converge (see notes)
+
+════════════════════════════════════════════════════════════════════════════════════
+  READING (Newton profile solve)
+════════════════════════════════════════════════════════════════════════════════════
+  • Newton (numerical Jacobian + line search) targets the steady profile DIRECTLY — handling the
+    unstable modes that made naive relaxation diverge. V3 (‖F‖→0) above is the test of success.
+  • HONEST: c_l=2.47 is INPUT (forward-selected); this reconstructs THAT family member's profile, it
+    does NOT independently re-derive c_l (the family is 1-parameter; selecting c_l needs the
+    stability analysis). Numerical, not Chen–Hou's interval-arithmetic rigor.
+  • FIREWALL: 1D HL model, numerical-tooling; :proved=0; distance to the prize UNTOUCHED.
+════════════════════════════════════════════════════════════════════════════════════
