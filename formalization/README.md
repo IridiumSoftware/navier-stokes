@@ -110,7 +110,11 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   `Int.log`), with smoothness, `[0,1]` bounds, annulus support, gap-2 disjointness — the foundational
   object for `P_j` projections and Besov norms (where NS-046's `Ḃ⁰_{∞,1}` lives). Purely real-analytic;
   generic over `[HasContDiffBump E]`. False-variant soundness passed; no `sorry`.
-- *Next bites (priority order):* Fourier-side `P_j` projections + Besov norms → Bernstein → Carleman.
+- **Sixth bite ✅ (P_j projections + Besov seminorm)** — `lpProj j = ψ_j(D)` as a CLM on Schwartz space
+  via Mathlib's `fourierMultiplierCLM` (temperate growth from compact support); `lpProj_comp_eq_zero`
+  (`P_jP_k = 0`, gap ≥ 2); **`besovSeminorm` `‖f‖_{Ḃ^s_{p,q}(μ)}`** — NS-046's `Ḃ⁰_{∞,1}` is now formally
+  definable. Gap-1 false variant rejected; no `sorry`.
+- *Next bites (priority order):* Bernstein inequalities → Besov embeddings/space → Carleman.
   `:proved`=0 for the PDE throughout — these are library additions, not NS theorems.
 
 ## Run

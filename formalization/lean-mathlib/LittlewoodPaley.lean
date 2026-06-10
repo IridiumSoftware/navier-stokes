@@ -207,6 +207,90 @@ theorem hasSum_lpSymbolAt {ξ : E} (hξ : ξ ≠ 0) :
     hasSum_sum_of_ne_finset_zero hvanish
   rwa [hsum] at hfin
 
+/-! ### Frequency projections `P_j` and the Besov seminorm
+
+Built on Mathlib's `SchwartzMap.fourierMultiplierCLM` (Doll, 2025): `P_j` is the Fourier
+multiplier with symbol `ψ_j`. The symbol is smooth with compact support, hence of temperate
+growth, so `P_j : 𝓢(V,F) →L[ℂ] 𝓢(V,F)` — and the tempered-distribution version is available
+from the same framework. The homogeneous Besov seminorm `‖f‖_{Ḃ^s_{p,q}}` is the `ℓ^q(ℤ)`
+norm of `j ↦ 2^{js}·‖P_j f‖_{L^p}`. -/
+
+section Projection
+
+open MeasureTheory SchwartzMap
+open scoped SchwartzMap ENNReal
+
+variable (V F : Type*)
+  [NormedAddCommGroup V] [InnerProductSpace ℝ V] [FiniteDimensional ℝ V]
+  [MeasurableSpace V] [BorelSpace V]
+  [NormedAddCommGroup F] [NormedSpace ℂ F] [CompleteSpace F]
+
+/-- The complexified Littlewood–Paley symbol. -/
+noncomputable def lpSymbolAtC (j : ℤ) : V → ℂ := fun ξ => (lpSymbolAt V j ξ : ℂ)
+
+variable {V F}
+
+theorem contDiff_lpSymbolAt {n : ℕ∞} (j : ℤ) : ContDiff ℝ n (lpSymbolAt V j) :=
+  contDiff_lpSymbol.comp (contDiff_const_smul _)
+
+theorem hasCompactSupport_lpSymbolAt (j : ℤ) : HasCompactSupport (lpSymbolAt V j) := by
+  refine HasCompactSupport.intro (isCompact_closedBall (0:V) ((2:ℝ)^(j+1))) fun ξ hξ => ?_
+  rw [Metric.mem_closedBall, dist_zero_right, not_le] at hξ
+  by_contra h
+  exact absurd (norm_mem_of_lpSymbolAt_ne_zero h).2 (not_lt.mpr hξ.le)
+
+theorem hasTemperateGrowth_lpSymbolAtC (j : ℤ) :
+    Function.HasTemperateGrowth (lpSymbolAtC V j) := by
+  refine HasCompactSupport.hasTemperateGrowth ?_ ?_
+  · exact (hasCompactSupport_lpSymbolAt j).comp_left Complex.ofReal_zero
+  · exact Complex.ofRealCLM.contDiff.comp (contDiff_lpSymbolAt j)
+
+variable (V F) in
+/-- The **Littlewood–Paley frequency projection** `P_j = ψ_j(D)`: the Fourier multiplier with
+    symbol `ψ_j`, as a continuous linear map on Schwartz space. -/
+noncomputable def lpProj (j : ℤ) : 𝓢(V, F) →L[ℂ] 𝓢(V, F) :=
+  fourierMultiplierCLM F (lpSymbolAtC V j)
+
+/-- Projections with frequency gap `≥ 2` annihilate each other: `P_j ∘ P_k = 0`. -/
+theorem lpProj_comp_eq_zero {j k : ℤ} (h : j + 2 ≤ k) :
+    lpProj V F j ∘L lpProj V F k = 0 := by
+  rw [lpProj, lpProj, fourierMultiplierCLM_compL_fourierMultiplierCLM
+        (hasTemperateGrowth_lpSymbolAtC j) (hasTemperateGrowth_lpSymbolAtC k)]
+  have hzero : lpSymbolAtC V j * lpSymbolAtC V k = fun _ : V => (0:ℂ) := by
+    funext ξ
+    rw [Pi.mul_apply, lpSymbolAtC, lpSymbolAtC, ← Complex.ofReal_mul,
+        lpSymbolAt_mul_eq_zero h ξ, Complex.ofReal_zero]
+  rw [hzero, fourierMultiplierCLM_const, zero_smul]
+
+variable (F) in
+/-- The **homogeneous Besov seminorm** `‖f‖_{Ḃ^s_{p,q}(μ)}`: the `ℓ^q(ℤ)` norm of the
+    weighted frequency-block sizes `j ↦ 2^{js}·‖P_j f‖_{L^p(μ)}`, on Schwartz functions.
+    (The full Besov *space* — tempered distributions modulo polynomials — is a later layer.) -/
+noncomputable def besovSeminorm (s : ℝ) (p q : ℝ≥0∞) (μ : Measure V) (f : 𝓢(V, F)) : ℝ≥0∞ :=
+  if q = ∞ then ⨆ j : ℤ, (2:ℝ≥0∞) ^ ((j:ℝ) * s) * eLpNorm (lpProj V F j f) p μ
+  else (∑' j : ℤ, ((2:ℝ≥0∞) ^ ((j:ℝ) * s) * eLpNorm (lpProj V F j f) p μ) ^ q.toReal)
+        ^ (1 / q.toReal)
+
+theorem besovSeminorm_zero {s : ℝ} {p q : ℝ≥0∞} (hq : q ≠ 0) (μ : Measure V) :
+    besovSeminorm F s p q μ (0 : 𝓢(V, F)) = 0 := by
+  have hterm : ∀ j : ℤ,
+      (2:ℝ≥0∞) ^ ((j:ℝ) * s) * eLpNorm ((lpProj V F j) (0 : 𝓢(V, F))) p μ = 0 := by
+    intro j
+    rw [map_zero]
+    simp
+  rw [besovSeminorm]
+  split
+  · simp only [hterm, iSup_const]
+  case isFalse hq_top =>
+    have hqr : 0 < q.toReal := ENNReal.toReal_pos hq hq_top
+    have h2 : ∀ j : ℤ,
+        ((2:ℝ≥0∞) ^ ((j:ℝ) * s)
+            * eLpNorm (⇑((lpProj V F j) (0 : 𝓢(V, F)))) p μ) ^ q.toReal = 0 :=
+      fun j => by rw [hterm j, ENNReal.zero_rpow_of_pos hqr]
+    rw [tsum_congr h2, tsum_zero, ENNReal.zero_rpow_of_pos (one_div_pos.mpr hqr)]
+
+end Projection
+
 #eval "Littlewood–Paley dyadic partition of unity — machine-verified."
 
 end NSLittlewoodPaley

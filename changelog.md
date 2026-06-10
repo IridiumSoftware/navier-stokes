@@ -1,5 +1,30 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.9.0 — 2026-06-10 — P_j FREQUENCY PROJECTIONS + BESOV SEMINORM machine-verified (on Mathlib's Fourier-multiplier framework)
+
+Second bite of the Littlewood–Paley layer, in `formalization/lean-mathlib/LittlewoodPaley.lean`.
+**Search-first paid off:** Mathlib at our pin already has `SchwartzMap.fourierMultiplierCLM` /
+`TemperedDistribution.fourierMultiplierCLM` (Moritz Doll, 2025 — `Analysis/Distribution/
+FourierMultiplier.lean`), so `P_j` is THEIR multiplier applied to OUR symbol — no hand-rolled Fourier
+machinery, and the tempered-distribution version comes from the same framework. (Also noted: the
+Carleson project (van Doorn et al., finished 7/2025) is upstreaming weak/strong-type operators + real
+interpolation — overlaps our WeakLp; flagged for the upstreaming conversation.)
+**Library infrastructure; `:proved`=0 for the PDE.**
+- **`lpProj j : 𝓢(V,F) →L[ℂ] 𝓢(V,F)`** — the Littlewood–Paley projection `P_j = ψ_j(D)`, the Fourier
+  multiplier with our dyadic symbol; well-defined because `ψ_j` is smooth + compactly supported ⇒
+  temperate growth (`hasTemperateGrowth_lpSymbolAtC`, via `HasCompactSupport.hasTemperateGrowth`;
+  supporting lemmas `contDiff_lpSymbolAt`, `hasCompactSupport_lpSymbolAt`).
+- **`lpProj_comp_eq_zero`** — `P_j ∘L P_k = 0` for `j+2 ≤ k`: the multiplier composition law
+  (`fourierMultiplierCLM_compL_fourierMultiplierCLM`) + our symbol disjointness
+  (`lpSymbolAt_mul_eq_zero`) + multiplier-of-const-0 = 0. The frequency-side almost-orthogonality.
+- **`besovSeminorm s p q μ f`** — the **homogeneous Besov seminorm** `‖f‖_{Ḃ^s_{p,q}(μ)}` on Schwartz
+  functions: `ℓ^q(ℤ)`-norm (tsum/iSup, eLpNorm-style `q=∞` split) of `j ↦ 2^{js}·‖P_j f‖_{L^p(μ)}` —
+  **the space NS-046's target (`Ḃ⁰_{∞,1}`) is stated in is now formally definable.** + `besovSeminorm_zero`.
+  (The full Besov *space* — tempered distributions mod polynomials, completeness — is a later layer.)
+- **Soundness:** no `sorry`; the gap-1 false variant (adjacent annuli overlap, `P_jP_{j+1} ≠ 0`) is
+  correctly rejected at its load-bearing arithmetic; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+`:proved`=0; distance UNTOUCHED. *Next:* Bernstein inequalities → Besov embeddings → Carleman.
+
 ## v0.8.1 — 2026-06-10 — SPEC header: Reading & audit guide + consolidated promotion rubric + independence note
 
 Added a header audit-layer block to `SPEC.md` (prompted by an external naive adversarial read that

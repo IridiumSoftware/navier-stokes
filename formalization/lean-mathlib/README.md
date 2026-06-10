@@ -97,5 +97,10 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   `lpSymbolAt j ξ = ψ(2^{−j}ξ)`; machine-verified: every-order smoothness, `0≤ψ≤1`, annulus support
   (`1/2 < ‖ξ‖ < 2`; dyadic `2^{j−1} < ‖ξ‖ < 2^{j+1}`), gap-2 support disjointness, and
   **`hasSum_lpSymbolAt : ∀ ξ ≠ 0, HasSum (fun j : ℤ => ψ(2^{−j}ξ)) 1`** (≤3-term window at
-  `Int.log 2 ‖ξ‖`, telescoping). Generic over `[HasContDiffBump E]`; purely real-analytic (no Fourier
-  at this layer). Next: `P_j` projections (Fourier side) + Besov norms → Bernstein → Carleman.
+  `Int.log 2 ‖ξ‖`, telescoping). Generic over `[HasContDiffBump E]`.
+- **Frequency projections + Besov seminorm** — `lpProj j : 𝓢(V,F) →L[ℂ] 𝓢(V,F)` (`P_j = ψ_j(D)`, built
+  on Mathlib's `SchwartzMap.fourierMultiplierCLM`; the symbol's temperate growth from compact support);
+  `lpProj_comp_eq_zero` (`P_j ∘L P_k = 0` for `j+2 ≤ k`, via the multiplier composition law + symbol
+  disjointness); **`besovSeminorm s p q μ`** — the homogeneous `Ḃ^s_{p,q}` seminorm on Schwartz functions
+  (`ℓ^q(ℤ)` of `2^{js}‖P_j f‖_{L^p}`), the space NS-046's target is stated in; `besovSeminorm_zero`.
+  Next: Bernstein → Besov embeddings/space (tempered distributions mod polynomials) → Carleman.
