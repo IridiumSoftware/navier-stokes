@@ -29,7 +29,8 @@ it says, and discovering for yourself which approaches dead-end.** That work is 
    in different language — see `SPEC.md` §Independence note), so you don't mistake one barrier for five.
 
 2. **Citations treated as objects to verify, not trust.** Every load-bearing citation carries a
-   **C0–C5 reliability tier** (C0 unverified mention → C5 adversarially checked), and the verification
+   **C0–C5 reliability tier** (C0 unverified mention → C5 adversarially checked; the full per-citation index is
+   `docs/citation_tiers.md`), and the verification
    was actually *done*: primary sources read, proofs line-checked where it matters, and **real errors
    caught** — e.g. a transcription error in a Nečas–Růžička–Šverák H-identity record (errors ours; the
    theorem stands), a hardened reading of a Wang fractional-Hardy endpoint (`α < 1/4`), and a
@@ -74,6 +75,7 @@ Reading & audit guide + status-promotion rubric + independence note):
 | file | what it is |
 |---|---|
 | `SPEC.md` | the ledger — every claim with an `NS-###` id, logic tier, evidence type, status, scope, source. **Start here.** (35 entries; the header has a Reading & audit guide + the status-promotion rubric + the independence note.) |
+| `docs/citation_tiers.md` | the consolidated **C0–C5 tier** of every load-bearing external citation — what was verified, and the errors the verification caught |
 | `artifact_registry.md` | spec → evidence map (every entry → its script / proof / citation) |
 | `docs/ns_blowup_generator_class.md` | the MDAGC synthesis: *what a blowup must be* (`G1–G5 ∧ S1,S2 ∧ W1,W2`) |
 | `docs/ns046_target.md`, `docs/ns048_exclusion_frontier.md` | the two open frontiers, stated precisely |

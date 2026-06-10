@@ -1,5 +1,18 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.13.1 — 2026-06-10 — Consolidated citation-tier index (`docs/citation_tiers.md`)
+
+Surfaced the C0–C5 citation discipline that was *practiced but scattered* — the per-citation tier
+assignments lived inline across ~5 files (45 mentions in `SPEC.md` alone) with **no consolidated table**, a
+gap once the public `README.md` claims "every load-bearing citation carries a C0–C5 tier." `docs/citation_tiers.md`
+now gathers every load-bearing external citation → its tier, what was verified, and the dependent NS-IDs,
+by category (hard obstructions G1–G5; soft framings S1/S2; the NS-048 ancient/Liouville frontier; NS-049
+Lockwood; NS-050 modulation prior art; non-PDE related). It foregrounds the genuine value — the **errors the
+verification caught** (the Albritton–Barker *misattribution* + the Type-I-conditioned scope correction; the
+NRŠ H-identity record error; the Wang endpoint hardening) — and is honest about limits (no C4/C5 yet;
+statement-level C2 flagged as not-separately-verified). Pointers added in the SPEC header (where C0–C5 is
+defined) and the README (nav table + the tier-claim line). `:proved`=0; distance UNTOUCHED.
+
 ## v0.13.0 — 2026-06-10 — BESOV SPACE OPENED: the inhomogeneous partition + besovNormI is a genuine NORM + distributional P_j
 
 The Besov-space layer, in `formalization/lean-mathlib/LittlewoodPaley.lean` (~1190 lines total).

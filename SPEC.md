@@ -25,7 +25,9 @@ adversarially checked. A no-go's confidence is gated by `tier × independence ×
 *citations are witnessable objects, not trusted primitives* — the citation analog of echo≠convergence
 (many papers agreeing can inherit one disciplinary blind spot ⇒ a map of assumptions, not of
 impossibilities). Tag external citations with their tier when load-bearing; flag every C0/C1. (Worked
-example on the NS-048 arc: meta-review doc §4.)
+example on the NS-048 arc: meta-review doc §4.) **The consolidated per-citation tier index is
+`docs/citation_tiers.md`** (every load-bearing external citation → its C0–C5 tier, what was verified, errors
+caught).
 
 **Mission framing** — added 2026-06-07. This ledger is a **generator-class reduction / search-space
 compression engine** (= ORSI's MDAGC, the Minimal Decontaminated Admissible Generator Class), **not** a
