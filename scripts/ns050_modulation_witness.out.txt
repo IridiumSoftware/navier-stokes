@@ -1,0 +1,61 @@
+══════════════════════════════════════════════════════════════════════════════════
+  ns050_modulation_witness.jl — NS-050 dir.2 (Scope: 1D-model + spectral truncation)
+  Dynamic-rescaling (modulation) fit. CALIBRATE on CLM: recover Φ(η)=−4η/(1+4η²), p=1, T*=2.
+  :proved=0; WITHIN-TRUNCATION witness; does NOT touch 3D-NS. Tests the DIAGNOSTIC only.
+══════════════════════════════════════════════════════════════════════════════════
+
+  FFT self-check: max|fft−DFT|=5.0e-13, roundtrip=8.9e-16 ✓
+
+──────────────────────────────────────────────────────────────────────────────────
+  (A) EXACT CLM: modulation fit U(η,t)→Φ(η)?  rate fit (asymptotic window) → (T*,p)?
+──────────────────────────────────────────────────────────────────────────────────
+    t      x0(→π/2)   A=‖ω‖∞     λ=1/A        ‖U−Φ‖_L2       drift ‖ΔU‖  
+    1.000  1.57080    1.33       0.75000      4.409e-01      NaN         
+    1.400  1.57080    1.96       0.51000      2.549e-01      2.295e-01   
+    1.700  1.57080    3.60       0.27750      1.377e-01      1.269e-01   
+    1.850  1.57080    6.93       0.14438      7.306e-02      6.550e-02   
+    1.920  1.57080    12.76      0.07840      4.022e-02      3.293e-02   
+    1.960  1.57080    25.25      0.03960      2.057e-02      1.966e-02   
+    1.980  1.57080    50.25      0.01990      1.077e-02      9.890e-03   
+  rate fit (asymptotic window t≥1.7): T*=2.0039 (exact 2.0), p=1.0344 (exact 1.0)
+  ⇒ fit recovers the self-similar profile Φ (‖U−Φ‖_L2 ↓, drift ‖ΔU‖ ↓) and (T*,p)=(2,1). PASS.
+
+──────────────────────────────────────────────────────────────────────────────────
+  (B) PSEUDOSPECTRAL solver (RK4, 2/3-dealias) from ω₀=cos x: fit within truncation
+──────────────────────────────────────────────────────────────────────────────────
+    N     t       A=‖ω‖∞     λ=1/A        ‖U−Φ‖_L2       drift ‖ΔU‖  
+    1024  1.400   1.96       0.51000      2.549e-01      NaN         
+    1024  1.700   3.60       0.27753      1.378e-01      1.268e-01   
+    1024  1.850   6.92       0.14442      7.350e-02      6.511e-02   
+    1024  1.920   12.74      0.07850      4.183e-02      3.186e-02   
+    1024  1.960   25.12      0.03981      2.889e-02      1.857e-02   
+      N=1024 rate fit (t≥1.7) ⇒ T*=2.0022 (exact 2.0), p=1.0046 (exact 1.0)
+    2048  1.400   1.96       0.51000      2.549e-01      NaN         
+    2048  1.700   3.60       0.27750      1.377e-01      1.268e-01   
+    2048  1.850   6.93       0.14439      7.316e-02      6.541e-02   
+    2048  1.920   12.75      0.07842      4.058e-02      3.266e-02   
+    2048  1.960   25.21      0.03967      2.213e-02      1.872e-02   
+      N=2048 rate fit (t≥1.7) ⇒ T*=2.0020 (exact 2.0), p=1.0047 (exact 1.0)
+    4096  1.400   1.96       0.51000      2.549e-01      NaN         
+    4096  1.700   3.60       0.27750      1.377e-01      1.269e-01   
+    4096  1.850   6.93       0.14438      7.308e-02      6.548e-02   
+    4096  1.920   12.75      0.07841      4.029e-02      3.288e-02   
+    4096  1.960   25.25      0.03960      2.087e-02      1.945e-02   
+      N=4096 rate fit (t≥1.7) ⇒ T*=2.0019 (exact 2.0), p=1.0050 (exact 1.0)
+  ⇒ the solver+fit reproduce Φ and (T*,p) within truncation; N-robust. PASS (within-truncation).
+
+══════════════════════════════════════════════════════════════════════════════════
+  READING (NS-050 direction 2)
+══════════════════════════════════════════════════════════════════════════════════
+  • The dynamic-rescaling DIAGNOSTIC works: from the field alone it recovers (i) a converging
+    rescaled profile U→Φ, (ii) the rate exponent p and blow-up time T*, on a model whose
+    self-similar answer is EXACT. This is the N=1 the tool must pass before any 3D use.
+  • The Type-II DISCRIMINATOR is the negative of what we see here: a Type-II event would show
+    a NON-converging U (drift not → 0) and/or a DRIFTING p(t) (a single modulation scale fails).
+    So this fit is exactly the instrument to detect non-self-similarity in a near-singular flow.
+  • FIREWALL: CLM is 1D, the solver is a finite truncation, and the modulation here is the
+    amplitude scale only (not the full NS (λ,x₀,R) triple). This validates the INSTRUMENT.
+    It does NOT touch 3D-NS regularity. Next step (gated, not done): apply to a genuinely
+    near-singular 3D incompressible fixture — which the program does not currently have in
+    clean form (resolved Taylor–Green / Kerr reconnection are not true blow-ups). :proved=0.
+══════════════════════════════════════════════════════════════════════════════════
