@@ -1,0 +1,25 @@
+==============================================================================
+  NS-013 CLAIM 2 — is the vorticity DIRECTION ξ smooth in the intense cores? (CFM mechanism)
+  |∇ξ|² conditioned on top-q |ω|, Kerr-tube peak. Scope: resolved DNS truncation; :proved=0.
+==============================================================================
+
+  N=64  (enstrophy peak Z=2.183)
+    top-q |ω|     ⟨|∇ξ|²⟩      enstrophy-wtd ⟨|∇ξ|²⟩ (CFM density)
+     100.0%        557.3519      369.2569
+      10.0%        288.3369      246.0632
+       1.0%        162.4953      165.0302
+       0.1%        209.8422      211.8502
+
+==============================================================================
+  WITNESS READING (vacuity-capped — NOT the inequality)
+==============================================================================
+  • Core vs bulk: ⟨|∇ξ|²⟩_w  top-0.1% = 211.9  vs  full = 369.3  (ratio 0.57)
+    ⇒ ξ-roughness does NOT concentrate in the cores — ξ is comparatively SMOOTH where |ω| peaks (CFM-regular-leaning;
+      consistent with NS-038's c²_int≈0.72 Hou–Li alignment — the cores are geometrically organized).
+  • N-TREND (the part that actually bites) — DEFERRED TO GPU. Whether the core ξ-geometry is N-STABLE
+    (benign-in-truncation) or LIFTS with resolution (the dangerous NS-039 D30 pattern) cannot be settled
+    on a uniform CPU grid; it needs N=256↔512 (metal/dns_gpu.swift). At N=64 alone this is a
+    single-resolution witness of WHERE ξ-roughness sits — vacuity-capped, not the limit.
+  • FIREWALL: the CFM criterion is CONDITIONAL/unproven for general data; this witnesses WHERE ξ-roughness
+    sits in a resolved flow, it does NOT establish (or refute) the criterion. NS-013 stays :open. :proved=0.
+==============================================================================

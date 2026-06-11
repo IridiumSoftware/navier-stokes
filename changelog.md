@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.15 — 2026-06-11 — NS-013 consolidated: surviving reduction witness-supported (CFM-conditioned probe); open core is analytic
+
+Worked NS-013 (the complex→real obstruction — original map triad-refuted + withdrawn; only a sharpened
+`:argued` reduction survives: reality's protection ⟶ emergent CFM/Hou–Li geometric depletion). Built
+`scripts/ns013_cfm_conditioned_probe.jl` to witness the reduction's **claim 2** (the CFM mechanism's local
+content): the vorticity-direction roughness `⟨|∇ξ|²⟩_w` conditioned on `|ω|`-intensity is **LOWER in the
+intense cores** (top-0.1% ≈212 vs bulk ≈369, ratio 0.57) — ξ is comparatively SMOOTH where `|ω|` peaks
+(CFM-regular-leaning, consistent with NS-038's `c²_int≈0.72` Hou–Li alignment). The **N-trend** (does the core
+ξ-geometry lift with N — the NS-039 D30 pattern) is **GPU-deferred** (N=256↔512). Consolidated the doc
+(§Consolidation): **claim 1** (production=phase-coherence) was already SUPPORTED (`ns013_phase_production_3d`:
+scramble kills 97–99% of `∫ω·Sω`); claim 2 now witnessed. **The open core is ANALYTIC** — the
+Constantin–Fefferman / Hou–Li conditional-regularity criterion's *sufficiency for general data* (unproven; the
+discipline forbids manufacturing it). NS-013 stays `:open`; the reduction is `:argued` + witness-supported but
+**not re-witnessed** (a triad is the natural next verification). (Also: a power-of-2 FFT gotcha caught — N=96
+broke the radix-2 hand-FFT; switched to N=64 + GPU-deferred trend.) Scope: resolved DNS witness, vacuity-capped;
+no new NS-ID; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.14 — 2026-06-11 — Carleman ladder-3b-ii (spatial half): the SPATIAL MASTER IDENTITY machine-verified (+ Δ(e^g) chain rule, gradient product rule — more Mathlib gaps filled)
 
 `Carleman.lean` grows a `WeightedGreenAux` section (~1016 lines total). **Library infrastructure;

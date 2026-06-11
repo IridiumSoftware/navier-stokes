@@ -158,3 +158,28 @@ the *model fact* that controlled models protect and CLM does not. No `:proved`/`
 `:proved`=0; distance UNTOUCHED. (Optional confirmation probe: a matched-spectrum Hermitian-vs-
 scrambled-phase production measurement would test claim 1 — that reality's phase does not generically
 deplete — but `c²_int` from NS-038 already evidences the geometric mechanism of claim 2.)
+
+## Consolidation (2026-06-11) — the surviving reduction is witness-supported; the open core is analytic
+
+Two within-truncation probes now characterize the surviving `:argued` reduction (reality's protection ⟶ the
+emergent CFM/Hou–Li geometric depletion). Both Scope: resolved DNS, vacuity-capped, `:proved`=0.
+
+- **Claim 1 — production = phase-coherence object: SUPPORTED.** `ns013_phase_production_3d` — a
+  matched-spectrum phase-scramble (preserving `E,Z,H` to ~1e-16) removes **97% (TG) / 99% (helical)** of
+  `∫ω·Sω` and drives the alignment `c²_int` 0.63→0.36. Reality's *Hermitian constraint per se* (generic
+  phases) supplies no production; the cascade lives in the *dynamical* coherence — exactly as the reduction states.
+- **Claim 2 — the CFM/Hou–Li geometric mechanism's LOCAL content: WITNESSED (N=64).**
+  `ns013_cfm_conditioned_probe` — the vorticity-direction roughness `⟨|∇ξ|²⟩_w` conditioned on `|ω|`-intensity
+  is **LOWER in the intense cores** (top-0.1% ≈ 212) than the bulk (≈ 369), ratio ≈ 0.6: ξ is *comparatively
+  smooth where `|ω|` peaks* — the CFM-regular-leaning, geometrically-organized scenario, consistent with
+  NS-038's `c²_int≈0.72`. **The N-trend (does the core ξ-geometry stay smooth under refinement, or lift — the
+  NS-039 D30 pattern) is GPU-DEFERRED** (N=256↔512, `metal/dns_gpu.swift`); at N=64 this is a single-resolution
+  witness only.
+
+**What's left — the open core is analytic.** NS-013's protective direction reduces to the **Constantin–Fefferman
+/ Hou–Li conditional regularity criterion** (ξ Lipschitz where `|ω|` large ⟹ no blowup); the DNS *witnesses*
+that geometry organizing in the cores. But the criterion is **conditional and unproven for general data** —
+*does the emergent dynamics produce enough ξ-regularity to control small scales in the singular limit?* That is
+a `Scope: PDE` analytic question the program will not manufacture. **NS-013 stays `:open`**; the witness side is
+now consolidated; the surviving reduction is `:argued` **+ witness-supported but not re-witnessed** (a triad
+pass on the consolidated reduction is the natural verification step). `:proved`=0; distance UNTOUCHED.
