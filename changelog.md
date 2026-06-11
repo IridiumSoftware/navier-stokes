@@ -18,6 +18,30 @@ divergence-free to 5.7e-4, `cos(kz)` diffusion = `exp(−νk²t)` to 3e-4, invis
   solver) — its own DNS session. (A reporting bug — a divide-by-~0 growth ratio — was caught by the witness
   pass and fixed before recording.) Referenced from NS-048; no new NS-ID. `:proved`=0; Scope resolved-DNS witness.
 
+## v0.15.4 — 2026-06-10 — Carleman ladder-1: the commutator-method core machine-verified (Tao Lemma 4.1's operator algebra)
+
+New file `formalization/lean-mathlib/Carleman.lean`. **Library infrastructure; `:proved`=0 for the PDE.**
+- **`bilinear_expansion`** (= record-audit B10, now lean-proved): `⟨Lu,Sv⟩+⟨Su,Lv⟩−2⟨Su,Sv⟩ =
+  ½⟨Lu,Lv⟩ − ½⟨(L−2S)u,(L−2S)v⟩` for ANY bilinear `B` — pure bilinearity, the algebraic pivot of
+  Tao's chain.
+- **`CommutatorMethod`** — the abstraction of Tao §4's setup: time-dependent symmetric
+  positive-semidefinite pairing `P t`, evolution operator `L` on curves (may consume `∂t`),
+  time-dependent `S` with (i) `P`-self-adjointness (= B9 integrated), (ii) stability of the
+  admissible curve class under `S`, (iii) the **master differential identity**
+  `∂t P(a,b) = P(La,b)+P(a,Lb)−2P(Sa,b)` (= B8/IBP integrated — Tao's first display).
+- **`hasDerivAt_pair_S` — Tao's commutator chain, machine-verified:**
+  `∂t⟨Su,u⟩ = ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩ − ½⟨(L−2S)u,(L−2S)u⟩`, with `[L,S]u` the curve-level
+  commutator `L(S∘u) − S∘(Lu)` (the paper's `u≡1` coefficient trick is not needed at this rung —
+  divergence point (i) of the ladder-0 audit).
+- **`deriv_pair_S_le`** — drop-the-square: `∂t⟨Su,u⟩ ≤ ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩`, Lemma 4.1's
+  driving differential inequality.
+- **Soundness:** no `sorry`; the false variant (coefficient `1` for `½` in B10) is REJECTED;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib. Registered in the lakefile.
+**Honest scope:** the algebra ONLY. The analytic instantiation (weighted-L² pairing on
+test-function curves; the master identity via IBP + differentiation under the integral; the
+concrete `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u)−½(LF)|u|²)e^g`) is ladder-2/3. `:proved`=0; distance
+UNTOUCHED. *Next:* ladder-2 — the weight calculus (B11/B12 as Lean lemmas) or the master identity.
+
 ## v0.15.3 — 2026-06-10 — Carleman ladder-0: Tao §4 full-text audit — "IBP-only" CONFIRMED, all §4 identities sympy-verified
 
 Closes ladder-0 of the Carleman plan (the deep-research recalibration's bite zero: the "summit"

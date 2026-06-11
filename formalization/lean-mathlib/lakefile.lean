@@ -37,3 +37,7 @@ lean_lib «WeakLp» where
 @[default_target]
 lean_lib «LittlewoodPaley» where
   srcDir := "."
+
+@[default_target]
+lean_lib «Carleman» where
+  srcDir := "."
