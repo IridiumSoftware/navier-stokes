@@ -283,7 +283,7 @@ Distance to prize: UNTOUCHED.**
 | # | Priority | Scope | Status |
 |---|---|---|---|
 | P1 | **NS-046** static frontier — critical coercive deformation inequality ("where the prize sits") | PDE | `:open` |
-| P2 | **NS-048** dynamic frontier — Type-I / ancient-solution exclusion (2 un-mechanized cores) | PDE | `:open` |
+| P2 | **NS-048** dynamic frontier — Type-I / ancient exclusion (2 cores); **conditional-criterion vacuity map v1 done** (`docs/ns048_conditional_vacuity_map.md` — 7 hypotheses tested on resolved near-singular DNS, none holds cleanly; 3 axisym-swirl cells deferred) | PDE | `:open` |
 | P3 | **NS-050** — tuned Chen–Hou **profile reconstruction** (instrument validated; profile OPEN, 4 honest negatives) | 1D-model → PDE-analysis | `:open` |
 | P4 | **NS-010/011** complex-singularity diagnostic — 3D inviscid hunt INCONCLUSIVE (resolution wall, gate refuses artifact) | PDE-method | `:tested` |
 | P5 | **NS-049** — external-review brief to J. Lockwood (send? + whether to fold the `δ_Λ→0` question) | — | **Aaron's call** |

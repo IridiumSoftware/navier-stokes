@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.2 — 2026-06-10 — Conditional-criterion vacuity map v1 (NS-048 witness): do the literature's exclusion hypotheses hold on real flow?
+
+Built the prioritized batch study from the frontier review: `docs/ns048_conditional_vacuity_map.md` — a
+witness-tier liveness matrix generalizing the NS-049 `δ_Λ` probe across **7 conditional blowup-exclusion
+hypotheses**, measured on the resolved near-singular DNS fixtures (TG, vortex-tube / Kerr) by harvesting the
+committed probe outputs + computing the W2 detector ratio (`Σⱼ‖Δⱼω‖∞/‖ω‖∞`) from the Besov shells.
+**Finding (suggestive prior, NOT a proof — every cell is a regular truncation that cannot reach the singular
+limit):** not one of the 7 holds cleanly — `δ_Λ` stays multi-directional at the cores (Lockwood's hypothesis
+vacuous), the CKN ≤1 box-dimension **lifts 0.986→1.426 under N=256→512** (resolution artifact),
+pressure-Hessian domination is bulk-negative / cores-only with the margin shrinking 10.9→1.5 as production
+grows, Beltramization is helicity-conditional and de-Beltramizes, the Besov diagnostics are vacuity-capped.
+Coherent read: the cheap *conditional* exclusion routes are plausibly vacuous for the actual mechanism — a
+**where-not-to-look** prior that serves the search-efficiency mission. 3 axisymmetric-swirl cells (`Γ`-sign,
+`|x₃|^α`, Type-I `I`) deferred — they need a new `(r,z)` fixture (a natural next DNS session). Referenced from
+NS-048; **no new NS-ID** (a synthesis of existing witnesses, not a new claim). `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.1 — 2026-06-10 — A7/W3 closed: substrate_source for NS-023/024/037 + Q₁₀₂ exact cross-build artifact
 
 Located the canonical upstream — "closure-v5" is the repo **`closure-forces-structure`** (local folder

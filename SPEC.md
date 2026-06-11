@@ -1136,6 +1136,15 @@ mechanism** that prevents different rescaled subsequences converging to differen
   attack notes (2026-06-06, recorded in changelog v0.1.70); geometry inputs NS-013/045/046. *(Not yet in
   the TCE self-map corpus — appropriate for a brand-new unengaged direction; add on the next re-run if
   pursued.)*
+- **Conditional-criterion vacuity map (v1, 2026-06-10): `docs/ns048_conditional_vacuity_map.md`** (witness;
+  Scope: resolved-DNS, vacuity-capped). A liveness matrix testing whether the literature's *conditional*
+  exclusion hypotheses hold on resolved near-singular DNS — generalizing the NS-049 `δ_Λ` probe across 7
+  criteria. **Finding (suggestive prior, NOT a proof):** not one holds cleanly — `δ_Λ` stays
+  multi-directional (vacuous), the CKN ≤1-dimension *lifts above 1 under refinement* (resolution artifact),
+  pressure-Hessian domination is bulk-negative / cores-only with a margin shrinking 10.9→1.5, Beltramization
+  is helicity-conditional + de-Beltramizing, the Besov diagnostics are vacuity-capped. The cheap conditional
+  routes are plausibly vacuous for the actual mechanism — a *where-not-to-look* prior. 3 axisym-swirl cells
+  deferred (need an `(r,z)` fixture). `:proved`=0; distance UNTOUCHED.
 - **Mapped (2026-06-06): `docs/ns048_exclusion_frontier.md`** — the machinery laid out (rescaling →
   ancient limit → Liouville + no-split + backward-uniqueness; Type-I vs Type-II; NS-007 = the
   self-similar sub-case done; general Liouville + no-split + Type-II = the gap), with the one-sentence
