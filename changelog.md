@@ -1,5 +1,18 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.14.1 — 2026-06-10 — A0–A7 cross-audit (post-NS-051) + count/stamp fix; gaps tabled in dashboard
+
+Ran the A0–A7 cross-audit after the NS-051 ledger addition. **A1/A2/A3/A4 PASS** — 36 entries ↔ 36 registry
+rows, 0 orphans; all 90 file refs + 9 NS-051 `formalization/` files exist; statuses consistent; `:proved`=0
+genuine (NS-051 deliberately held at `:tested` though its evidence is `lean-proved`, since `:proved` is
+reserved for Scope:PDE). **A6 PASS** (note: no automated CI; committed `.out.txt` + no-`sorry` compile are the
+discipline). **3 gaps:** **A5/A0** — `dashboard.md` + `CLAUDE.md` still said "35 entries"/`v0.11.1` (the NS-051
+close-out updated SPEC but missed these two) → **fixed to 36 / v0.12.0**; **A7 (W3)** — NS-022/023/024/037
+cite closure-v5 without a `substrate_source` field (path public-unresolvable) → carried; **meta** —
+count/stamp drift caught **again** (also 2026-06-09) → the close-out clause's escalation trigger (a pre-commit
+count/stamp guard) is now recommended. Priorities + audit gaps + open items are tabled at the top of
+`dashboard.md` (**Status board**). `:proved`=0; distance UNTOUCHED.
+
 ## v0.14.0 — 2026-06-10 — DISTRIBUTIONAL BESOV SPACE: B^s_{p,q} ⊂ 𝓢′ — membership, norm-extension, exact finite LP decomposition of 𝓢′
 
 The distributional Besov layer, in `formalization/lean-mathlib/LittlewoodPaley.lean` (~1465 lines).

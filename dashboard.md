@@ -41,7 +41,7 @@ adds directions), and cores sit at δ≈0.32–0.54 across TG/tubes/helical (one
 the resolved flow forces `δ_Λ→0`*; it could hold only on the rescaled ancient/Type-I limit, linking NS-049
 to NS-048. Vacuity cap (resolved, not the singular limit).
 
-**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 35 entries as of 2026-06-10).**
+**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 36 entries as of 2026-06-10).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)
 Beltramization** — strong helicity (u∥ω) crushes the Lamb vector `u×ω` (the nonlinear driver) ~26×,
 switching off production until the field de-Beltramizes (the delay) — **not** (a) ω–S alignment (which
@@ -272,6 +272,44 @@ Distance to prize: UNTOUCHED.**
   (NS-024) by Grok+Gemini+ChatGPT.
 - **First PDE-relevant direction identified, not yet computed:** the complex plane
   (analyticity strip / complex-singularity, NS-010/011).
+
+## Status board (tabular) — priorities · gaps · open items
+
+*Post-NS-051 **A0–A7 cross-audit**, 2026-06-10. Ledger: **36 entries / 36 registry rows**, `:proved`=0, SPEC
+**v0.12.0**. Result: **A1/A2/A3/A4 PASS · A6 PASS (note) · A5/A7/A0 = 3 gaps** (G-1 fixed this pass).*
+
+### Priorities
+
+| # | Priority | Scope | Status |
+|---|---|---|---|
+| P1 | **NS-046** static frontier — critical coercive deformation inequality ("where the prize sits") | PDE | `:open` |
+| P2 | **NS-048** dynamic frontier — Type-I / ancient-solution exclusion (2 un-mechanized cores) | PDE | `:open` |
+| P3 | **NS-050** — tuned Chen–Hou **profile reconstruction** (instrument validated; profile OPEN, 4 honest negatives) | 1D-model → PDE-analysis | `:open` |
+| P4 | **NS-010/011** complex-singularity diagnostic — 3D inviscid hunt INCONCLUSIVE (resolution wall, gate refuses artifact) | PDE-method | `:tested` |
+| P5 | **NS-049** — external-review brief to J. Lockwood (send? + whether to fold the `δ_Λ→0` question) | — | **Aaron's call** |
+| P6 | **NS-051** formalization ladder — analysis substrate → **Carleman** (T-28 in progress, multi-year) | methodology | `:tested` |
+
+### Audit gaps (A0–A7, 2026-06-10)
+
+| ID | Check | Gap | Severity | Action |
+|---|---|---|---|---|
+| G-1 | A5 / A0 | dashboard + CLAUDE.md said "35 entries" / `v0.11.1` (stale post-NS-051) | low | **FIXED → 36 / v0.12.0** |
+| G-2 | A7 (W3) | NS-022/023/024/037 cite closure-v5 without a `substrate_source` field; path public-unresolvable after the public flip | low (Scope≠PDE hygiene) | add the A7 field; mark the path private |
+| G-3 | meta | count/stamp drift caught **again** (≥2nd time — also flagged 2026-06-09) | meta | per the close-out clause: escalate to a **pre-commit count/stamp guard** |
+| G-4 | A2 / A0 | two SPEC entry-header formats (older prose-status vs NS-049/050/051 inline `**Status:**`) | cosmetic | optional: normalize headers |
+| G-5 | A6 | no automated CI runner (research repo) | standing | **accepted** — committed `.out.txt` + no-`sorry` Lean compile are the regression discipline |
+
+### Open items (carried)
+
+| ID | Item | Status |
+|---|---|---|
+| W3 | `substrate_source` for NS-022/023/024/037 (closure-v5 / Q_102 / inverse-Born) | **OPEN** |
+| — | NS-046 / NS-048 / NS-050 / NS-049 / NS-013 — the genuine science frontiers | **OPEN** |
+| — | Lockwood external-review brief — send? fold `δ_Λ→0`? | **Aaron's call** |
+| N2 | `formalization/` Lean ladder ledger entry | ✅ DONE 2026-06-10 (NS-051) |
+| W5 | DESIGN.md sync (complex-plane → frontiers + MDAGC) | ✅ DONE 2026-06-10 |
+
+---
 
 ## Priority stack
 
