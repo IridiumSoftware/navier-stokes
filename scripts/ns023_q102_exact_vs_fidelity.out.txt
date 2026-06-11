@@ -1,0 +1,45 @@
+══════════════════════════════════════════════════════════════════════════════
+  NS-023 A7 verification — Q₁₀₂ local == canonical (exact); is the no-gate verdict exact?
+  upstream: closure-forces-structure@9e2f73c  (local: "Closure v5")
+══════════════════════════════════════════════════════════════════════════════
+
+  [1] PROVENANCE — sha256 of the exact canonical bytes consumed:
+    q102_data.json    b06c2e9d784bd1f84e2d88387722c69132d8641d095e75ba9f15d2e5b483f921
+    kernel_basis.jls  bfea5bc677853a8c37b9f68e67f1c360e959a67089b7a6be999fc01594482d7a
+    pinned to closure-forces-structure@9e2f73c (these are the bytes
+    closure_q102_richgate.jl loads — same files, same hashes).
+
+  [2] IDENTITY — canonical Q₁₀₂ = Q₅₁ ∪ C(Q₅₁):
+    n_cl=102  n_orig=51  n_conj=51   (canonical: 102 / 51 / 51)
+
+  [3] EXACT COUPLING — C = L·DF + DF·L (BigInt, no Float64):
+    edges=2571   |C| min/med/max = 2 / 5 / 72   (local v1: 2571, 2/5/72)
+
+  [4] NO-GATE EXACTNESS — is the symmetry that defeats gating exact?
+    J-equivariance of the coupling: HOLDS (exact)
+    distinct |C| values among 2571 edges: 18  (high multiplicity ⇒ relations sit in
+    large exact-equivalence classes — no single relation algebraically distinguished)
+    orig-sector weighted-degree multiset == conj-sector: true
+
+══════════════════════════════════════════════════════════════════════════════
+  VERDICT — A7 cross-build agreement for NS-023
+══════════════════════════════════════════════════════════════════════════════
+    [PASS] n_cl == 102 (= 2×51 classes)
+    [PASS] n_orig == 51 and n_conj == 51
+    [PASS] orig ∩ conj == ∅ (bipartite doubling)
+    [PASS] J involutive  (J² = +1)
+    [PASS] J swaps orig ↔ conj
+    [PASS] γ = +1 on orig, −1 on conj
+    [PASS] edge count == 2571 (reproduces local v1)
+    [PASS] |C| extremes == 2 / 72 (reproduces local v1)
+    [PASS] J is an EXACT automorphism of C  (C[Ji,Jj] == C[i,j] ∀i,j)
+    [PASS] weighted-degree multiset J-symmetric (orig sector == conj sector)
+
+  ✓ IDENTITY: the local navier-stokes Q₁₀₂ IS the canonical closure-v5 object
+    (sha256 + commit 9e2f73c; 102=2×51, J²=+1, γ, 2571 edges, |C| extremes — exact-match).
+  ✓ NO-GATE IS EXACT: the symmetry defeating gate-localization is an exact algebraic
+    property — so the Float64 gating-null in closure_q102_richgate.jl reflects exact
+    structure, not numerical noise.
+
+  ⇒ A7 SUBSTRATE PROVENANCE CLOSED for NS-023.
+══════════════════════════════════════════════════════════════════════════════

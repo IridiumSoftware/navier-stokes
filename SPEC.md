@@ -491,6 +491,7 @@ quotient (Q₁₀₂) is too symmetric to localize a gate (robust negative).
   result about autopoietic closure; included here as the arc's record.
 - Source: `scripts/closure_autopoiesis_{small,structured,canon}.jl`,
   `closure_{knfamily_scaling,mr_gate,q102_richgate,triad_rotation,offgas}.jl`.
+- **substrate_source:** `closure-forces-structure@9e2f73c:gpg_bipartite_verified_a_q102_data.json (+_kernel_basis.jls) :: q102_exact_verification_v1.jl` — the canonical CFS quotient **Q₁₀₂** (= Q₅₁ ∪ C(Q₅₁), 102=2×51, ℤ[i]-exact). **A7 cross-build VERIFIED** by `scripts/ns023_q102_exact_vs_fidelity.jl` (T-29): local==canonical (sha256+commit pinned), and the "too symmetric to localize a gate" verdict is an *exact* symmetry (J an exact automorphism of the coupling). (`closure-forces-structure` = the repo informally called "closure-v5".)
 
 **NS-024 — Closure↔turbulence convergence: witness-trimmed to broad/generic.**
 A claimed convergence (the GPG-foundations confluence/Order result vs the seam
@@ -502,6 +503,7 @@ deep "is the seam's incompleteness one notion or two?" answered **two**.
 - Evidence: argued (externally witnessed). **Status: :argued.**
   **Scope: abstract structural analogy — NO analytic purchase on the PDE.**
 - Source: `docs/seam_order_convergence_witness_{brief,verdict}.md`.
+- **substrate_source:** `closure-forces-structure@fa39070` — the GPG-foundations confluence / Order result the convergence claim was tested against (A7 field; `:argued` + witness-trimmed-to-broad, so no cross-build artifact required). (= "closure-v5".)
 
 ---
 
@@ -833,6 +835,7 @@ BUSINESS/inverse_born_methodology.md`, A. Green, Apr 2026). Three results:
   `kolmogorov_dissipation_hard_test.jl` (+ `.out.txt` each); companions
   `docs/turbulence_nogo_map_companion.md`, `turbulence_inverse_born_companion.md`,
   `mu_hard_bound_companion.md`, `kolmogorov_dissipation_hard_test_companion.md`.
+- **substrate_source:** `closure-forces-structure@860a65a:BUSINESS/inverse_born_methodology.md :: A.Green-Apr2026` — the inverse-Born obstruction methodology (A7 field; `:argued` methodology reference, so no cross-build artifact required). (= "closure-v5".)
 - **Honesty notes (recorded):** (i) the data "saturating CKN" is a geometric *consistency*,
   not an identity (intense filaments vs hypothetical singular set); (ii) the random-ensemble
   μ-minimum 0.200 coincides with the observed μ but is a *sampling artifact*, not a bound

@@ -1,5 +1,19 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.1 — 2026-06-10 — A7/W3 closed: substrate_source for NS-023/024/037 + Q₁₀₂ exact cross-build artifact
+
+Located the canonical upstream — "closure-v5" is the repo **`closure-forces-structure`** (local folder
+"Closure v5") — and added **real** `substrate_source` fields (no fabricated SHAs): NS-023 `@9e2f73c` (Q₁₀₂
+data), NS-024 `@fa39070` (GPG/Order arc), NS-037 `@860a65a` (inverse-Born methodology). **W3 was mis-scoped:**
+NS-022 is Waleffe-1992 (a published paper, not closure-v5) → dropped. **NS-023 fully A7-closed** with a
+committed cross-build artifact `scripts/ns023_q102_exact_vs_fidelity.jl` (**T-29**): it sha256-pins the
+canonical bytes (commit `9e2f73c`), verifies local Q₁₀₂ == canonical EXACTLY (n_cl=102=2×51, J²=+1, γ, 2571
+edges, |C| extremes 2/72 reproducing the local v1 run), and proves the "too symmetric to localize a gate"
+verdict is an EXACT symmetry — J is an exact automorphism of the coupling C (18 distinct |C| values among
+2571 edges; sector degree-multisets J-identical) — so the original Float64 gating-null reflects exact
+structure, not noise. **10/10 checks PASS.** NS-024/037 are `:argued`, so the field suffices (no artifact
+required). Dashboard G-2 / W3 → DONE. `:proved`=0; Scope ≠ PDE throughout.
+
 ## v0.15.0 — 2026-06-10 — APPROXIMATION OF IDENTITY S_M → id: the Littlewood–Paley EXPANSION of 𝓢′ + full distributional nondegeneracy
 
 The convergence layer, in `formalization/lean-mathlib/LittlewoodPaley.lean` (~1747 lines).

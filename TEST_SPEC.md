@@ -90,6 +90,12 @@ PDE. The licensing check is a no-`sorry` Lean compile + false-variant rejection;
 | **T-27** NS-051 (Rung 0 — scaling-criticality) | machine-verified (lean-proved): `lean/Scaling.lean` (hermetic `native_decide`) + `lean-mathlib/ScalingUniversal.lean` (UNIVERSAL — `lebExp_critical_iff`/`sobExp_critical_iff`/`energy_supercritical` ∀`α,p,q:ℚ` via `linarith`/`norm_num`) compile **no `sorry`**, exit 0, against the built TCE `lean4-cv` Mathlib; a deliberately-FALSE criticality variant correctly **REJECTED**; the Julia rung closes exactly (rational) + the Haskell rung type-checks. | PASS, **Scope: methodology / formalization (NOT PDE)** |
 | **T-28** NS-051 (analysis substrate — IN PROGRESS) | no-`sorry` compile gate on the mathlib-infrastructure Lean files built toward the inequality cores: `WeakLp.lean` (Lorentz + strong-type Marcinkiewicz), `LittlewoodPaley.lean` (partition of unity → sharp Lᵖ Bernstein), Besov (opened). Each lands no-`sorry`; the target — **Carleman** (behind ESS / NS-005) — is multi-year and **NOT yet reached**. Tracks an in-progress build; licenses **no** citation/PDE promotion. | IN PROGRESS (no-`sorry` to date), **Scope: methodology / formalization (NOT PDE)** |
 
+## A7 substrate-provenance verification
+
+| ID | Check (tier) | Status of check |
+|---|---|---|
+| **T-29** NS-023 (Q₁₀₂ local==canonical, exact) | provenance + exact-structure: `scripts/ns023_q102_exact_vs_fidelity.jl` sha256-pins the canonical closure-v5 inputs (`closure-forces-structure@9e2f73c`) and verifies the loaded Q₁₀₂ matches the canonical definition EXACTLY — n_cl=102 (=2×51), J²=+1, γ chirality, 2571 edges, \|C\| extremes 2/72 (reproduces the local v1 run) — AND that the no-gate verdict is an **exact symmetry** (J an exact automorphism of the coupling C; 18 distinct \|C\| values among 2571 edges; sector weighted-degree multisets J-identical). **10/10 checks PASS.** | PASS, **Scope: abstract closure (A7 substrate provenance; NOT PDE)** |
+
 **Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
 `Scope: 1D-model` / `ODE-truncation` / `3D-truncation` — **never** to a PDE
 statement. A PDE claim would require a separate convergence/limit argument, which

@@ -2,8 +2,9 @@
 # closure_q102_richgate.jl
 #
 # EXPERIMENTAL. NOT a spec artifact. Conversational object, not TCE work.
-# substrate_source: closure-v5 : gpg_bipartite_verified_a_q102_data.json +
-#   _kernel_basis.jls — canonical CFS Q_102. A7: named upstream object, cited.
+# substrate_source: closure-forces-structure@9e2f73c : gpg_bipartite_verified_a_q102_data.json +
+#   _kernel_basis.jls — canonical CFS Q_102. A7 cross-build VERIFIED by
+#   scripts/ns023_q102_exact_vs_fidelity.jl (local==canonical, exact; T-29).
 # Firewall: "flush out Q_102" — the v1 canonical gating negative was only against
 # UNWEIGHTED degree/Fiedler. Here we test the RICHER, real CFS structure:
 #   • |C| closure-coupling weight per relation (and weighted degree),

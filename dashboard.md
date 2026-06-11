@@ -294,7 +294,7 @@ Distance to prize: UNTOUCHED.**
 | ID | Check | Gap | Severity | Action |
 |---|---|---|---|---|
 | G-1 | A5 / A0 | dashboard + CLAUDE.md said "35 entries" / `v0.11.1` (stale post-NS-051) | low | **FIXED → 36 / v0.12.0** |
-| G-2 | A7 (W3) | NS-022/023/024/037 cite closure-v5 without a `substrate_source` field; path public-unresolvable after the public flip | low (Scope≠PDE hygiene) | add the A7 field; mark the path private |
+| G-2 | A7 (W3) | NS-023/024/037 cite closure-v5 without `substrate_source` (NS-022 was mis-scoped — Waleffe-1992) | low (Scope≠PDE) | **✅ DONE** — fields added (`closure-forces-structure@{9e2f73c,fa39070,860a65a}`); NS-023 cross-build-verified (T-29) |
 | G-3 | meta | count/stamp drift caught **again** (≥2nd time — also flagged 2026-06-09) | meta | **✅ DONE — `.githooks/pre-commit` → `scripts/check_ledger_counts.sh`** (count+stamp+coverage guard; `core.hooksPath=.githooks`; blocks the commit on drift, `--no-verify` bypasses) |
 | G-4 | A2 / A0 | two SPEC entry-header formats (older prose-status vs NS-049/050/051 inline `**Status:**`) | cosmetic | optional: normalize headers |
 | G-5 | A6 | no automated CI runner (research repo) | standing | **accepted** — committed `.out.txt` + no-`sorry` Lean compile are the regression discipline |
@@ -303,7 +303,7 @@ Distance to prize: UNTOUCHED.**
 
 | ID | Item | Status |
 |---|---|---|
-| W3 | `substrate_source` for NS-022/023/024/037 (closure-v5 / Q_102 / inverse-Born) | **OPEN** |
+| W3 | `substrate_source` for NS-023/024/037 (closure-forces-structure / Q₁₀₂ / inverse-Born) | ✅ DONE 2026-06-10 (NS-023 cross-build-verified, T-29) |
 | — | NS-046 / NS-048 / NS-050 / NS-049 / NS-013 — the genuine science frontiers | **OPEN** |
 | — | Lockwood external-review brief — send? fold `δ_Λ→0`? | **Aaron's call** |
 | N2 | `formalization/` Lean ladder ledger entry | ✅ DONE 2026-06-10 (NS-051) |
@@ -314,9 +314,12 @@ Distance to prize: UNTOUCHED.**
 ## Priority stack
 
 0. **Audit-deferred bookkeeping (from `audit_2026-06-10.md` — tracked here so it stops falling off):**
-   - **W3 — `substrate_source` for NS-022/023/024/037** (closure-v5/Q_102 data): add the A7 provenance
-     field; the closure-v5 path is now machine-local/public-unresolvable after the public flip.
-     Scope≠PDE hygiene, not integrity.
+   - **✅ W3 (DONE 2026-06-10) — `substrate_source` for NS-023/024/037.** closure-v5 = the repo
+     **`closure-forces-structure`** (local "Closure v5"); real-commit-pinned fields added (NS-023
+     `@9e2f73c` Q₁₀₂, NS-024 `@fa39070` GPG/Order, NS-037 `@860a65a` inverse-Born). **NS-022 dropped** —
+     it's Waleffe-1992 (published paper, not closure-v5). **NS-023 fully A7-closed** via the cross-build
+     artifact `scripts/ns023_q102_exact_vs_fidelity.jl` (T-29): local Q₁₀₂ == canonical (sha256+commit),
+     and the no-gate verdict is an exact J-automorphism symmetry. NS-024/037 `:argued` → field suffices.
    - **W5 — DESIGN.md sync — DONE ✓ (2026-06-10):** §3 reframed (complex plane was the *first* handle →
      the live attack is now the two frontiers + the MDAGC strategy); §7 extended through NS-045..050,
      the Lean ladder, and the disproof arc.
