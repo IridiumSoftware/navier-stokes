@@ -41,3 +41,7 @@ lean_lib «LittlewoodPaley» where
 @[default_target]
 lean_lib «Carleman» where
   srcDir := "."
+
+@[default_target]
+lean_lib «NormCalculus» where
+  srcDir := "."
