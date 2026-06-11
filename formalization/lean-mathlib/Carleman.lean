@@ -1011,6 +1011,366 @@ end WeightedGreenAux
 
 
 
+
+/-! #### Ladder-3b-iii: the time layer — Tao's MASTER DIFFERENTIAL IDENTITY
+
+Differentiation under the integral for `t ↦ ∫ u(t)·v(t)·e^{g(t)}` plus the spatial
+identities yield the first display of Tao 1908.04958 §4 Lemma 4.1:
+
+    `∂t⟨u,v⟩_g = ⟨Lu,v⟩_g + ⟨u,Lv⟩_g − 2⟨Su,v⟩_g`
+
+with `L = ∂t + Δ`, `S = Δ + ∇g·∇ − F/2`, `F = ∂tg − Δg − ‖∇g‖²` — the `deriv_pair`
+field of the ladder-1 `CommutatorMethod`, realized for the weighted-L² pairing on
+test-function curves with uniform spatial support in a compact `K`. -/
+
+section TimeLayer
+
+open MeasureTheory Real Laplacian InnerProductSpace WeightedGreenAux
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+
+/-- Split form of the weighted Green identity:
+    `∫Δu·(v·e^g) = −∫⟪∇u,∇v⟫·e^g − ∫⟪∇g,∇u⟫·(v·e^g)`. -/
+theorem integral_green_split {u v g : E → ℝ} [CompleteSpace E]
+    (hu : ContDiff ℝ 2 u) (hcu : HasCompactSupport u)
+    (hv : ContDiff ℝ 1 v) (hg : ContDiff ℝ 1 g) :
+    ∫ x, Δ u x * (v x * exp (g x))
+      = - (∫ x, ⟪∇ u x, ∇ v x⟫ * exp (g x))
+        - ∫ x, ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)) := by
+  have hgexp : Continuous fun x : E => exp (g x) :=
+    Real.continuous_exp.comp hg.continuous
+  have hIntu : ∀ p : E → ℝ, Continuous p → Function.support p ⊆ tsupport u →
+      Integrable p (volume : Measure E) := fun p hc hs =>
+    hc.integrable_of_hasCompactSupport (hcu.mono' hs)
+  have hsplit : ∫ x, (Δ u x + ⟪∇ g x, ∇ u x⟫) * (v x * exp (g x))
+      = (∫ x, Δ u x * (v x * exp (g x)))
+        + ∫ x, ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)) := by
+    rw [← integral_add
+      (hIntu (fun x => Δ u x * (v x * exp (g x)))
+        ((continuous_laplacian hu).mul (hv.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (support_laplacian_subset u)))
+      (hIntu (fun x => ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)))
+        (((continuous_gradient hg).inner
+            (continuous_gradient (hu.of_le (by norm_num)))).mul
+          (hv.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (fun x hx => by
+          refine support_gradient_subset u ?_
+          intro h0
+          exact hx (by simp [h0]))))]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show (Δ u x + ⟪∇ g x, ∇ u x⟫) * (v x * exp (g x))
+        = Δ u x * (v x * exp (g x)) + ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x))
+    ring
+  have hG := integral_weighted_green hu hcu hv hg
+  linarith [hsplit, hG]
+
+/-- Split form of the weight-Laplacian identity on a product:
+    `∫(Δg+‖∇g‖²)·(u·v)·e^g = −∫⟪∇g,∇v⟫·(u·e^g) − ∫⟪∇g,∇u⟫·(v·e^g)`. -/
+theorem integral_weight_split {u v g : E → ℝ} [CompleteSpace E]
+    (hu : ContDiff ℝ 1 u) (hcu : HasCompactSupport u)
+    (hv : ContDiff ℝ 1 v) (hg : ContDiff ℝ 2 g) :
+    ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) * exp (g x)
+      = - (∫ x, ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)))
+        - ∫ x, ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)) := by
+  have hg1 : ContDiff ℝ 1 g := hg.of_le (by norm_num)
+  have hgexp : Continuous fun x : E => exp (g x) :=
+    Real.continuous_exp.comp hg1.continuous
+  have hIntu : ∀ p : E → ℝ, Continuous p → Function.support p ⊆ tsupport u →
+      Integrable p (volume : Measure E) := fun p hc hs =>
+    hc.integrable_of_hasCompactSupport (hcu.mono' hs)
+  have huv1 : ContDiff ℝ 1 fun y : E => u y * v y := hu.mul hv
+  have hcuv : HasCompactSupport fun y : E => u y * v y :=
+    hcu.mono' ((Function.support_mul_subset_left _ _).trans subset_closure)
+  have h := integral_weight_laplacian hg huv1 hcuv
+  have hL : ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * (fun y : E => u y * v y) x * exp (g x)
+      = ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) * exp (g x) :=
+    integral_congr_ae (Filter.Eventually.of_forall fun x => rfl)
+  rw [← hL, h]
+  have hsplit : ∫ x, ⟪∇ g x, ∇ (fun y : E => u y * v y) x⟫ * exp (g x)
+      = (∫ x, ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)))
+        + ∫ x, ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)) := by
+    rw [← integral_add
+      (hIntu (fun x => ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)))
+        (((continuous_gradient hg1).inner (continuous_gradient hv)).mul
+          (hu.continuous.mul hgexp))
+        ((Function.support_mul_subset_right _ _).trans
+          ((Function.support_mul_subset_left _ _).trans subset_closure)))
+      (hIntu (fun x => ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)))
+        (((continuous_gradient hg1).inner (continuous_gradient hu)).mul
+          (hv.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (fun x hx => by
+          refine support_gradient_subset u ?_
+          intro h0
+          exact hx (by simp [h0]))))]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show ⟪∇ g x, ∇ (fun y : E => u y * v y) x⟫ * exp (g x)
+        = ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)) + ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x))
+    rw [gradient_mul hu hv x, inner_add_right, real_inner_smul_right,
+        real_inner_smul_right]
+    ring
+  rw [hsplit]
+  ring
+
+/-- **Differentiation under the weighted pairing**: for curves with uniform spatial
+    support in a compact `K` and jointly continuous data,
+    `∂t ∫ u·v·e^g = ∫ (∂tu·v + u·∂tv + u·v·∂tg)·e^g`. -/
+theorem hasDerivAt_integral_weighted_pair
+    {u v g ut vt gt : ℝ → E → ℝ} {K : Set E} (hK : IsCompact K) (t₀ : ℝ)
+    (hsu : ∀ t x, x ∉ K → u t x = 0)
+    (hut : ∀ t x, HasDerivAt (fun τ => u τ x) (ut t x) t)
+    (hvt : ∀ t x, HasDerivAt (fun τ => v τ x) (vt t x) t)
+    (hgt : ∀ t x, HasDerivAt (fun τ => g τ x) (gt t x) t)
+    (hcu : Continuous ↿u) (hcv : Continuous ↿v) (hcg : Continuous ↿g)
+    (hcut : Continuous ↿ut) (hcvt : Continuous ↿vt) (hcgt : Continuous ↿gt) :
+    HasDerivAt (fun t => ∫ x, u t x * v t x * exp (g t x))
+      (∫ x, (ut t₀ x * v t₀ x + u t₀ x * vt t₀ x
+        + u t₀ x * v t₀ x * gt t₀ x) * exp (g t₀ x)) t₀ := by
+  classical
+  -- time derivative of `ut` vanishes off K (since `u(·,x) ≡ 0` there)
+  have hut0 : ∀ t x, x ∉ K → ut t x = 0 := by
+    intro t x hx
+    have h1 : (fun τ => u τ x) = fun _ => (0:ℝ) := funext fun τ => hsu τ x hx
+    have h2 := hut t x
+    rw [h1] at h2
+    exact h2.unique (hasDerivAt_const _ _)
+  -- fixed-time continuity slices
+  have hslice : ∀ (w : ℝ → E → ℝ), Continuous ↿w → ∀ t, Continuous (w t) := by
+    intro w hw t
+    exact hw.comp (Continuous.prodMk continuous_const continuous_id)
+  -- the pointwise derivative
+  set F' : ℝ → E → ℝ := fun t x => (ut t x * v t x + u t x * vt t x
+    + u t x * v t x * gt t x) * exp (g t x) with hF'
+  have hdiff : ∀ t x, HasDerivAt (fun τ => u τ x * v τ x * exp (g τ x)) (F' t x) t := by
+    intro t x
+    have h1 := (hut t x).mul (hvt t x)
+    have h2 := (hgt t x).exp
+    have h := h1.mul h2
+    convert h using 1
+    rw [hF']
+    simp only [Pi.mul_apply]
+    ring
+  -- the uniform bound on the slab
+  have hF'c : Continuous ↿F' := by
+    rw [hF']
+    apply Continuous.mul
+    · exact ((hcut.mul hcv).add (hcu.mul hcvt)).add ((hcu.mul hcv).mul hcgt)
+    · exact Real.continuous_exp.comp hcg
+  obtain ⟨M, hM⟩ := (isCompact_Icc.prod hK).exists_bound_of_continuousOn
+    (hF'c.continuousOn (s := Set.Icc (t₀ - 1) (t₀ + 1) ×ˢ K))
+  set bound : E → ℝ := K.indicator fun _ => M with hbound
+  have h := hasDerivAt_integral_of_dominated_loc_of_deriv_le
+    (μ := (volume : Measure E)) (x₀ := t₀)
+    (F := fun t x => u t x * v t x * exp (g t x)) (F' := F') (bound := bound)
+    (s := Set.Icc (t₀ - 1) (t₀ + 1))
+    (Icc_mem_nhds (by linarith) (by linarith))
+    (Filter.Eventually.of_forall fun t =>
+      (((hslice u hcu t).mul (hslice v hcv t)).mul
+        (Real.continuous_exp.comp (hslice g hcg t))).aestronglyMeasurable)
+    ?hint ?hmeas ?hb ?hbi ?hd
+  · exact h.2
+  case hint =>
+    refine Continuous.integrable_of_hasCompactSupport
+      (((hslice u hcu t₀).mul (hslice v hcv t₀)).mul
+        (Real.continuous_exp.comp (hslice g hcg t₀))) ?_
+    refine HasCompactSupport.intro hK fun x hx => ?_
+    show u t₀ x * v t₀ x * exp (g t₀ x) = 0
+    rw [hsu t₀ x hx]
+    ring
+  case hmeas =>
+    exact (hslice F' hF'c t₀).aestronglyMeasurable
+  case hb =>
+    refine Filter.Eventually.of_forall fun x => fun t ht => ?_
+    by_cases hx : x ∈ K
+    · have hp : (t, x) ∈ Set.Icc (t₀ - 1) (t₀ + 1) ×ˢ K := ⟨ht, hx⟩
+      have h2 := hM (t, x) hp
+      rw [hbound, Set.indicator_of_mem hx]
+      exact h2
+    · rw [hbound, Set.indicator_of_notMem hx]
+      show ‖(ut t x * v t x + u t x * vt t x + u t x * v t x * gt t x)
+          * exp (g t x)‖ ≤ 0
+      have h0 : ut t x = 0 := hut0 t x hx
+      have h1 : u t x = 0 := hsu t x hx
+      rw [h0, h1]
+      simp
+  case hbi =>
+    rw [hbound, integrable_indicator_iff hK.measurableSet]
+    exact integrableOn_const hK.measure_lt_top.ne
+  case hd =>
+    exact Filter.Eventually.of_forall fun x => fun t _ => hdiff t x
+
+/-- **Tao's master differential identity** (1908.04958 §4 Lemma 4.1, first display —
+    the `deriv_pair` field of the ladder-1 `CommutatorMethod`, realized):
+
+    `∂t⟨u,v⟩_g = ⟨Lu,v⟩_g + ⟨u,Lv⟩_g − 2⟨Su,v⟩_g`
+
+    with `L = ∂t + Δ`, `S = Δ + ∇g·∇ − F/2`, `F = ∂tg − Δg − ‖∇g‖²`, for test-function
+    curves with uniform spatial support in a compact `K` and C² weight. -/
+theorem hasDerivAt_weighted_pairing_master
+    {u v g ut vt gt : ℝ → E → ℝ} {K : Set E} [CompleteSpace E]
+    (hK : IsCompact K) (t₀ : ℝ)
+    (hu2 : ∀ t, ContDiff ℝ 2 (u t)) (hv2 : ∀ t, ContDiff ℝ 2 (v t))
+    (hg2 : ∀ t, ContDiff ℝ 2 (g t))
+    (hsu : ∀ t x, x ∉ K → u t x = 0) (hsv : ∀ t x, x ∉ K → v t x = 0)
+    (hut : ∀ t x, HasDerivAt (fun τ => u τ x) (ut t x) t)
+    (hvt : ∀ t x, HasDerivAt (fun τ => v τ x) (vt t x) t)
+    (hgt : ∀ t x, HasDerivAt (fun τ => g τ x) (gt t x) t)
+    (hcu : Continuous ↿u) (hcv : Continuous ↿v) (hcg : Continuous ↿g)
+    (hcut : Continuous ↿ut) (hcvt : Continuous ↿vt) (hcgt : Continuous ↿gt) :
+    HasDerivAt (fun t => ∫ x, u t x * v t x * exp (g t x))
+      (∫ x, ((ut t₀ x + Δ (u t₀) x) * v t₀ x
+        + u t₀ x * (vt t₀ x + Δ (v t₀) x)
+        - 2 * ((Δ (u t₀) x + ⟪∇ (g t₀) x, ∇ (u t₀) x⟫
+            - (gt t₀ x - Δ (g t₀) x - ⟪∇ (g t₀) x, ∇ (g t₀) x⟫) / 2 * u t₀ x)
+          * v t₀ x)) * exp (g t₀ x)) t₀ := by
+  classical
+  have hD := hasDerivAt_integral_weighted_pair hK t₀ hsu hut hvt hgt
+    hcu hcv hcg hcut hcvt hcgt
+  convert hD using 1
+  -- equality of the two integrals via the spatial identities
+  have hcuK : HasCompactSupport (u t₀) := HasCompactSupport.intro hK (hsu t₀)
+  have hcvK : HasCompactSupport (v t₀) := HasCompactSupport.intro hK (hsv t₀)
+  have hu1 : ContDiff ℝ 1 (u t₀) := (hu2 t₀).of_le (by norm_num)
+  have hv1 : ContDiff ℝ 1 (v t₀) := (hv2 t₀).of_le (by norm_num)
+  have hg1 : ContDiff ℝ 1 (g t₀) := (hg2 t₀).of_le (by norm_num)
+  have hgexp : Continuous fun x : E => exp (g t₀ x) :=
+    Real.continuous_exp.comp hg1.continuous
+  have hslice : ∀ (w : ℝ → E → ℝ), Continuous ↿w → Continuous (w t₀) := by
+    intro w hw
+    exact hw.comp (Continuous.prodMk continuous_const continuous_id)
+  have hIntu : ∀ p : E → ℝ, Continuous p → Function.support p ⊆ tsupport (u t₀) →
+      Integrable p (volume : Measure E) := fun p hc hs =>
+    hc.integrable_of_hasCompactSupport (hcuK.mono' hs)
+  -- the three spatial relations
+  have hR1 := integral_green_split (hu2 t₀) hcuK hv1 hg1
+  have hR2 := integral_green_split (hv2 t₀) hcvK hu1 hg1
+  have hR3 := integral_weight_split hu1 hcuK hv1 (hg2 t₀)
+  have hflip : ∫ x, ⟪∇ (v t₀) x, ∇ (u t₀) x⟫ * exp (g t₀ x)
+      = ∫ x, ⟪∇ (u t₀) x, ∇ (v t₀) x⟫ * exp (g t₀ x) := by
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show ⟪∇ (v t₀) x, ∇ (u t₀) x⟫ * exp (g t₀ x)
+        = ⟪∇ (u t₀) x, ∇ (v t₀) x⟫ * exp (g t₀ x)
+    rw [real_inner_comm]
+  -- the time-derivative of `ut` vanishes off K
+  have hut0 : ∀ x, x ∉ K → ut t₀ x = 0 := by
+    intro x hx
+    have h1 : (fun τ => u τ x) = fun _ => (0:ℝ) := funext fun τ => hsu τ x hx
+    have h2 := hut t₀ x
+    rw [h1] at h2
+    exact h2.unique (hasDerivAt_const _ _)
+  -- integrability of the atom families (everything supported in K)
+  have hsuppK : ∀ p : E → ℝ, (∀ x, x ∉ K → p x = 0) → Continuous p →
+      Integrable p (volume : Measure E) := fun p hp hc =>
+    hc.integrable_of_hasCompactSupport (HasCompactSupport.intro hK hp)
+  have hI1 : Integrable (fun x => (ut t₀ x * v t₀ x + u t₀ x * vt t₀ x
+      + u t₀ x * v t₀ x * gt t₀ x) * exp (g t₀ x)) (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      (((((hslice ut hcut).mul hv1.continuous).add
+        (hu1.continuous.mul (hslice vt hcvt))).add
+        ((hu1.continuous.mul hv1.continuous).mul (hslice gt hcgt))).mul hgexp)
+    rw [hsu t₀ x hx, hut0 x hx]
+    ring
+  have hI2 : Integrable (fun x => Δ (v t₀) x * (u t₀ x * exp (g t₀ x)))
+      (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      ((continuous_laplacian (hv2 t₀)).mul (hu1.continuous.mul hgexp))
+    rw [hsu t₀ x hx]
+    ring
+  have hI3 : Integrable (fun x => Δ (u t₀) x * (v t₀ x * exp (g t₀ x)))
+      (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      ((continuous_laplacian (hu2 t₀)).mul (hv1.continuous.mul hgexp))
+    rw [hsv t₀ x hx]
+    ring
+  have hI4 : Integrable (fun x => ⟪∇ (g t₀) x, ∇ (u t₀) x⟫
+      * (v t₀ x * exp (g t₀ x))) (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      (((continuous_gradient hg1).inner (continuous_gradient hu1)).mul
+        (hv1.continuous.mul hgexp))
+    rw [hsv t₀ x hx]
+    ring
+  have hI5 : Integrable (fun x => (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫)
+      * (u t₀ x * v t₀ x) * exp (g t₀ x)) (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      ((((continuous_laplacian (hg2 t₀)).add
+        ((continuous_gradient hg1).inner (continuous_gradient hg1))).mul
+        (hu1.continuous.mul hv1.continuous)).mul hgexp)
+    rw [hsu t₀ x hx]
+    ring
+  have hI4' : Integrable (fun x => 2 * (⟪∇ (g t₀) x, ∇ (u t₀) x⟫
+      * (v t₀ x * exp (g t₀ x)))) (volume : Measure E) := hI4.const_mul 2
+  have hIRa : Integrable (fun x => Δ (v t₀) x * (u t₀ x * exp (g t₀ x))
+      - Δ (u t₀) x * (v t₀ x * exp (g t₀ x))) (volume : Measure E) := hI2.sub hI3
+  have hIRb : Integrable (fun x => Δ (v t₀) x * (u t₀ x * exp (g t₀ x))
+      - Δ (u t₀) x * (v t₀ x * exp (g t₀ x))
+      - 2 * (⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x))))
+      (volume : Measure E) := hIRa.sub hI4'
+  have hIR : Integrable (fun x => Δ (v t₀) x * (u t₀ x * exp (g t₀ x))
+      - Δ (u t₀) x * (v t₀ x * exp (g t₀ x))
+      - 2 * (⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x)))
+      - (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫) * (u t₀ x * v t₀ x) * exp (g t₀ x))
+      (volume : Measure E) := hIRb.sub hI5
+  -- the assembly
+  calc ∫ x, ((ut t₀ x + Δ (u t₀) x) * v t₀ x
+        + u t₀ x * (vt t₀ x + Δ (v t₀) x)
+        - 2 * ((Δ (u t₀) x + ⟪∇ (g t₀) x, ∇ (u t₀) x⟫
+            - (gt t₀ x - Δ (g t₀) x - ⟪∇ (g t₀) x, ∇ (g t₀) x⟫) / 2 * u t₀ x)
+          * v t₀ x)) * exp (g t₀ x)
+      = ∫ x, ((ut t₀ x * v t₀ x + u t₀ x * vt t₀ x
+            + u t₀ x * v t₀ x * gt t₀ x) * exp (g t₀ x)
+          + (Δ (v t₀) x * (u t₀ x * exp (g t₀ x))
+            - Δ (u t₀) x * (v t₀ x * exp (g t₀ x))
+            - 2 * (⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x)))
+            - (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫)
+                * (u t₀ x * v t₀ x) * exp (g t₀ x))) := by
+        refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+        show ((ut t₀ x + Δ (u t₀) x) * v t₀ x
+            + u t₀ x * (vt t₀ x + Δ (v t₀) x)
+            - 2 * ((Δ (u t₀) x + ⟪∇ (g t₀) x, ∇ (u t₀) x⟫
+                - (gt t₀ x - Δ (g t₀) x - ⟪∇ (g t₀) x, ∇ (g t₀) x⟫) / 2 * u t₀ x)
+              * v t₀ x)) * exp (g t₀ x)
+          = (ut t₀ x * v t₀ x + u t₀ x * vt t₀ x
+              + u t₀ x * v t₀ x * gt t₀ x) * exp (g t₀ x)
+            + (Δ (v t₀) x * (u t₀ x * exp (g t₀ x))
+              - Δ (u t₀) x * (v t₀ x * exp (g t₀ x))
+              - 2 * (⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x)))
+              - (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫)
+                  * (u t₀ x * v t₀ x) * exp (g t₀ x))
+        ring
+    _ = (∫ x, (ut t₀ x * v t₀ x + u t₀ x * vt t₀ x
+          + u t₀ x * v t₀ x * gt t₀ x) * exp (g t₀ x))
+        + ∫ x, (Δ (v t₀) x * (u t₀ x * exp (g t₀ x))
+          - Δ (u t₀) x * (v t₀ x * exp (g t₀ x))
+          - 2 * (⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x)))
+          - (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫)
+              * (u t₀ x * v t₀ x) * exp (g t₀ x)) := integral_add hI1 hIR
+    _ = ∫ x, (ut t₀ x * v t₀ x + u t₀ x * vt t₀ x
+          + u t₀ x * v t₀ x * gt t₀ x) * exp (g t₀ x) := by
+        have hRsplit : ∫ x, (Δ (v t₀) x * (u t₀ x * exp (g t₀ x))
+            - Δ (u t₀) x * (v t₀ x * exp (g t₀ x))
+            - 2 * (⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x)))
+            - (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫)
+                * (u t₀ x * v t₀ x) * exp (g t₀ x))
+            = (∫ x, Δ (v t₀) x * (u t₀ x * exp (g t₀ x)))
+              - (∫ x, Δ (u t₀) x * (v t₀ x * exp (g t₀ x)))
+              - 2 * (∫ x, ⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x)))
+              - ∫ x, (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫)
+                  * (u t₀ x * v t₀ x) * exp (g t₀ x) := by
+          rw [integral_sub hIRb hI5, integral_sub hIRa hI4',
+              integral_sub hI2 hI3, integral_const_mul]
+        rw [hRsplit]
+        have hzero : (∫ x, Δ (v t₀) x * (u t₀ x * exp (g t₀ x)))
+            - (∫ x, Δ (u t₀) x * (v t₀ x * exp (g t₀ x)))
+            - 2 * (∫ x, ⟪∇ (g t₀) x, ∇ (u t₀) x⟫ * (v t₀ x * exp (g t₀ x)))
+            - (∫ x, (Δ (g t₀) x + ⟪∇ (g t₀) x, ∇ (g t₀) x⟫)
+                * (u t₀ x * v t₀ x) * exp (g t₀ x)) = 0 := by
+          linarith [hR1, hR2, hR3, hflip]
+        linarith [hzero]
+
+end TimeLayer
+
+
 end NSCarleman
 
 #eval "Carleman commutator-method core — machine-verified."

@@ -1,5 +1,35 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.16 — 2026-06-11 — Carleman ladder-3b-iii: TAO'S MASTER DIFFERENTIAL IDENTITY machine-verified (∂t⟨u,v⟩ = ⟨Lu,v⟩+⟨u,Lv⟩−2⟨Su,v⟩)
+
+`Carleman.lean` grows a `TimeLayer` section (~1376 lines total). **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`integral_green_split` / `integral_weight_split`** — the spatial relations in atom form
+  (`∫Δu·(v·e^g) = −∫⟪∇u,∇v⟫e^g − ∫⟪∇g,∇u⟫(v·e^g)`; the weight identity on a product expanded
+  by the gradient product rule).
+- **`hasDerivAt_integral_weighted_pair`** — differentiation under the weighted pairing:
+  `∂t ∫u·v·e^g = ∫(∂tu·v + u·∂tv + uv·∂tg)e^g` for curves with uniform spatial support in a
+  compact `K` and jointly continuous data — via Mathlib's
+  `hasDerivAt_integral_of_dominated_loc_of_deriv_le` with the bound `K.indicator(sup-on-slab)`
+  (the slab `Icc(t₀±1) ×ˢ K` is compact; off `K` the derivative vanishes since `∂t` of the
+  identically-zero time-slice is zero by `HasDerivAt.unique`).
+- **`hasDerivAt_weighted_pairing_master` — TAO'S MASTER DIFFERENTIAL IDENTITY**
+  (1908.04958 §4 Lemma 4.1, first display; the `deriv_pair` field of the ladder-1
+  `CommutatorMethod`, realized):
+  `∂t⟨u,v⟩_g = ⟨Lu,v⟩_g + ⟨u,Lv⟩_g − 2⟨Su,v⟩_g` with `L = ∂t + Δ`, `S = Δ + ∇g·∇ − F/2`,
+  `F = ∂tg − Δg − ‖∇g‖²`, for test-function curves and C² weights. Assembly: the ∂t-value
+  plus a spatial residue that the three Green/weight relations cancel exactly
+  (`B1 − A1 − 2A2 − C1 = 0` by linarith).
+- **Soundness:** no `sorry`; the false variant (the `F`-convention with `+‖∇g‖²` in place of
+  `−‖∇g‖²`, same proof script) is REJECTED; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**The entire §4 Lemma 4.1 substrate is now machine-verified end-to-end:** the abstract
+commutator chain (ladder-1) + the master identity realizing its `deriv_pair` hypothesis
+(ladder-3) + the weight calculus for Tao's two concrete weights (ladder-2 + 3a). Remaining for
+Lemma 4.1 itself: bundling into a `CommutatorMethod` instance (the admissible-class design) and
+the concrete commutator identification `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)|u|²)e^g`; then
+Props 4.2/4.3. `:proved`=0; distance UNTOUCHED. (Concurrent session's uncommitted v0.15.15
+entry rides along unmodified.)
+
 ## v0.15.15 — 2026-06-11 — NS-013 consolidated: surviving reduction witness-supported (CFM-conditioned probe); open core is analytic
 
 Worked NS-013 (the complex→real obstruction — original map triad-refuted + withdrawn; only a sharpened
