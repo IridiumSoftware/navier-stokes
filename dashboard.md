@@ -286,7 +286,7 @@ Distance to prize: UNTOUCHED.**
 | P2 | **NS-048** dynamic frontier — Type-I / ancient exclusion (2 cores); **vacuity map** (`docs/ns048_conditional_vacuity_map.md` — 8 hypotheses, none both-true-and-useful) + **axisym swirl DNS** `scripts/ns048_axisym_swirl_dns.jl` (validated 4/4; swirl-sign cell closed: Γ≥0 uninformative about S; **Hou–Luo wall fixture** confirms intensification but goes unresolved ⇒ `|x₃|^α`+Type-I **resolution-limited**, Chen–Hou regime); adaptive-solver decision **triad-reviewed + banked** ((C0) gate: NS-050 β transfers to a clean wall collapse but data-starved on the real DNS ⇒ bank) | PDE | `:open` |
 | P3 | **NS-050** — tuned Chen–Hou **profile reconstruction** (instrument validated; profile OPEN, 4 honest negatives) | 1D-model → PDE-analysis | `:open` |
 | P4 | **NS-010/011** complex-singularity diagnostic — 3D inviscid hunt INCONCLUSIVE (resolution wall, gate refuses artifact) | PDE-method | `:tested` |
-| P5 | **NS-049** — external-review brief to J. Lockwood (send? + whether to fold the `δ_Λ→0` question) | — | **Aaron's call** |
+| P5 | **NS-049** — external-review brief to J. Lockwood: **DECIDED 2026-06-11 — NOT sending** (Lockwood is already aware of the problem). Closed; the `docs/ns_external_review_brief.md` + `docs/ns049_lockwood_verification.md` stand as the internal record. | — | ✅ **DONE** |
 | P6 | **NS-051** formalization ladder — analysis substrate → **Carleman** (T-28 in progress, multi-year) | methodology | `:tested` |
 
 ### Audit gaps (A0–A7, 2026-06-10)
@@ -305,7 +305,7 @@ Distance to prize: UNTOUCHED.**
 |---|---|---|
 | W3 | `substrate_source` for NS-023/024/037 (closure-forces-structure / Q₁₀₂ / inverse-Born) | ✅ DONE 2026-06-10 (NS-023 cross-build-verified, T-29) |
 | — | NS-046 / NS-048 / NS-050 / NS-049 / NS-013 — the genuine science frontiers | **OPEN** |
-| — | Lockwood external-review brief — send? fold `δ_Λ→0`? | **Aaron's call** |
+| — | Lockwood external-review brief | ✅ DONE 2026-06-11 — **NOT sending** (Lockwood already aware); decision closed |
 | N2 | `formalization/` Lean ladder ledger entry | ✅ DONE 2026-06-10 (NS-051) |
 | W5 | DESIGN.md sync (complex-plane → frontiers + MDAGC) | ✅ DONE 2026-06-10 |
 
