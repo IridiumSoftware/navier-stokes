@@ -1,5 +1,19 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.8 — 2026-06-11 — Triad brief OPENED: should we build the adaptive/moving-mesh swirl solver?
+
+Before sinking a Chen–Hou-class effort into an adaptive solver to complete the vacuity map's resolution-limited
+cells, subjected the *decision* to an adversarial triad pass: `docs/ns048_adaptive_solver_triad_brief.md`.
+Frames three options — **(A)** full adaptive/moving-mesh solver (skeptic: reproduces Chen–Hou, multi-month,
+stays vacuity-capped), **(B)** build nothing (bank the resolution-limited finding), **(C)** reuse the
+*already-validated* NS-050 dynamic-rescaling instrument (CLM β=1, HL β=2.47) to read the `|x₃|^α` self-similar
+exponent in a rescaled frame without a moving mesh. The crux claim for the seats (C2): does dynamic rescaling
+around a **wall corner** preserve a well-defined self-similar exponent, or does the fixed wall length-scale
+void the interior ansatz the instrument was validated on? Internal pre-screen leans **(C)-if-valid-else-(B);
+(A) over-investment** — but flags two self-biases (sunk-cost-stop; tool-attachment to the author's own NS-050
+instrument) for the external seats to break. **Awaiting Grok edge-witness Φ + Gemini synthesis.** No build
+started; no new NS-ID; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.7 — 2026-06-11 — Hou–Luo wall fixture: swirl INTENSIFIES (mechanism confirmed) but goes unresolved (Chen–Hou regime)
 
 Added a `wall` mode to `scripts/ns048_axisym_swirl_dns.jl` — the validated `(r,z)` swirl solver with a z-odd
