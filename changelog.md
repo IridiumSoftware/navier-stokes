@@ -1,5 +1,20 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.19 — 2026-06-11 — Lean→citation bridge FIRED (channel a): the NRŠ H-identity Julia exact rung CLOSED
+
+Move #4 of the open-questions plan — the bridge's first firing. New `formalization/nrs/` (collision-free; the
+concurrent Lean session's files untouched): `h_identity_exact.jl` verifies the **corrected NRŠ H-identity**
+`−νΔH + (U·∇)H + a(y·∇)H = −ν|ω|² ≤ 0` (H = ½|U|²+P+a(y·U), mod the profile equation + div-free) in exact
+`Rational{BigInt}` — **200/200 random ℚ-points exactly zero** (Schwartz–Zippel over the 24-symbol polynomial
+identity; the sympy symbolic zero `disproof/nrs_h_identity.py` already on record), **plus the false-variant
+gate: the ORIGINAL transcription-error record comes out off by EXACTLY `3a²ν`, 200/200** — the rung verifies
+both the truth and the catch (the ladder discipline's rejected-false-variant pattern). The reduction also
+makes the identity's content transparent: the RHS is `−ν|curl U|²`, manifestly ≤0 — the maximum principle NRŠ
+run through `H`, with the drift term `a(y·∇)H` load-bearing (its omission was the caught record error).
+**Lean rung HANDED to the formalization track**; `docs/citation_tiers.md` NRŠ row annotated (tier rises past
+hand-line-read C3 when Lean lands — close-out vi+vii). Evidence: algebraic; an identity of the profile
+*system*, NOT regularity. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.18 — 2026-06-11 — Triad brief OPENED (two parts): NS-046 integral finding + NS-013 consolidated reduction
 
 Move #2 of the open-questions plan: `docs/ns046_ns013_triad_brief.md` — a combined two-part adversarial brief

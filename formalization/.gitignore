@@ -4,3 +4,5 @@ build/
 *.olean
 *.ilean
 *.out.txt
+# nrs/ rung outputs are COMMITTED evidence artifacts (A3 discipline), not build transients
+!nrs/*.out.txt

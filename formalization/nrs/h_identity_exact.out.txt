@@ -1,0 +1,14 @@
+==========================================================================
+  NRŠ H-identity — Julia exact-algebraic rung (Rational{BigInt}; no Float)
+  claim: −νΔH + (U·∇)H + a(y·∇)H = −ν|ω|²   (mod profile eq, div U=0)
+==========================================================================
+  [PASS] corrected identity: residual == 0 exactly, 200/200 random ℚ-points
+  [PASS] FALSE-VARIANT gate: original record ≠ 0, off by EXACTLY 3a²ν, 200/200 points
+--------------------------------------------------------------------------
+  ⇒ rung CLOSED: the corrected H-identity holds exactly; the original record's
+    error (missing drift + the −3a²ν constant) is reproduced exactly — the rung
+    verifies both the truth and the catch. NEXT RUNG: Lean (handed to the
+    formalization track); on its completion the NRŠ row in docs/citation_tiers.md
+    gains a machine-verified core (close-out items vi+vii).
+  Evidence: algebraic. Scope: profile-system identity (NOT regularity). :proved=0.
+==========================================================================
