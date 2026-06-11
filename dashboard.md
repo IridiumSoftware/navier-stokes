@@ -295,7 +295,7 @@ Distance to prize: UNTOUCHED.**
 |---|---|---|---|---|
 | G-1 | A5 / A0 | dashboard + CLAUDE.md said "35 entries" / `v0.11.1` (stale post-NS-051) | low | **FIXED → 36 / v0.12.0** |
 | G-2 | A7 (W3) | NS-022/023/024/037 cite closure-v5 without a `substrate_source` field; path public-unresolvable after the public flip | low (Scope≠PDE hygiene) | add the A7 field; mark the path private |
-| G-3 | meta | count/stamp drift caught **again** (≥2nd time — also flagged 2026-06-09) | meta | per the close-out clause: escalate to a **pre-commit count/stamp guard** |
+| G-3 | meta | count/stamp drift caught **again** (≥2nd time — also flagged 2026-06-09) | meta | **✅ DONE — `.githooks/pre-commit` → `scripts/check_ledger_counts.sh`** (count+stamp+coverage guard; `core.hooksPath=.githooks`; blocks the commit on drift, `--no-verify` bypasses) |
 | G-4 | A2 / A0 | two SPEC entry-header formats (older prose-status vs NS-049/050/051 inline `**Status:**`) | cosmetic | optional: normalize headers |
 | G-5 | A6 | no automated CI runner (research repo) | standing | **accepted** — committed `.out.txt` + no-`sorry` Lean compile are the regression discipline |
 

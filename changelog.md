@@ -1,5 +1,17 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.14.2 — 2026-06-10 — Pre-commit ledger guard (G-3): blocks count/stamp drift at commit time
+
+Built the escalation the close-out clause called for after count drift was audit-caught twice:
+`scripts/check_ledger_counts.sh` (POSIX, no deps, also runnable standalone for an audit) +
+`.githooks/pre-commit` (activated by `core.hooksPath=.githooks`, version-controlled). It blocks a commit when
+(1) SPEC entry-headers ≠ registry rows, (2) the "(N entries)" / "SPEC N entries" / "N ledger entries" claims
+in SPEC / `dashboard.md` / `CLAUDE.md` disagree with the actual count, or (3) the SPEC header stamp ≠ the
+`CLAUDE.md` Status stamp; a missing claim is a loud WARN (re-anchor the grep), not a block; bypass with
+`git commit --no-verify`. Verified: PASS on the consistent tree (36 entries), FAIL + exit-1 on injected count
+and stamp mismatches. `CLAUDE.md` is gitignored/local so its checks skip cleanly when absent. Dashboard
+**G-3 → DONE**. `:proved`=0; distance UNTOUCHED.
+
 ## v0.14.1 — 2026-06-10 — A0–A7 cross-audit (post-NS-051) + count/stamp fix; gaps tabled in dashboard
 
 Ran the A0–A7 cross-audit after the NS-051 ledger addition. **A1/A2/A3/A4 PASS** — 36 entries ↔ 36 registry

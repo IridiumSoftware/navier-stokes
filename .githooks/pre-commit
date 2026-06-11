@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Ledger count/stamp parity guard (G-3). Installed 2026-06-10 after an A0–A7 cross-audit
+# caught SPEC vs dashboard.md vs CLAUDE.md count/stamp drift TWICE (2026-06-09, -06-10).
+# Blocks a commit whose ledger counts/stamp disagree. Bypass with: git commit --no-verify
+#
+# Activated via:  git config core.hooksPath .githooks   (version-controlled hook dir).
+exec "$(git rev-parse --show-toplevel)/scripts/check_ledger_counts.sh"
