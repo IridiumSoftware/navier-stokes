@@ -1458,6 +1458,288 @@ theorem memBesovD_zero (s : ℝ) {p q : ℝ≥0∞} [Fact (1 ≤ p)] (hq0 : q �
   rw [MemBesovD, besovNormD_zero s hq0]
   exact ENNReal.zero_lt_top
 
+/-! #### The approximation of identity `S_M → id` and the Littlewood–Paley expansion of `𝓢′` -/
+
+open Filter Topology
+
+/-- The dilated bump is `1` on the ball of radius `2^M`. -/
+theorem lpChiAt_eq_one_of_le {M : ℕ} {ξ : V} (h : ‖ξ‖ ≤ (2:ℝ) ^ M) :
+    lpChiAt V M ξ = 1 := by
+  rw [lpChiAt]
+  refine (lpChi V).one_of_mem_closedBall ?_
+  rw [mem_closedBall_zero_iff, norm_zpow_smul, lpChi_rIn]
+  calc (2:ℝ) ^ (-(M:ℤ)) * ‖ξ‖
+      ≤ (2:ℝ) ^ (-(M:ℤ)) * (2:ℝ) ^ M :=
+        mul_le_mul_of_nonneg_left h (zpow_pos (by norm_num) _).le
+    _ = 1 := by
+        rw [← zpow_natCast (2:ℝ) M, ← zpow_add₀ (by norm_num : (2:ℝ) ≠ 0)]
+        norm_num
+
+/-- Each iterated derivative of the bump `χ` is globally bounded (continuous + compact
+    support). -/
+theorem exists_bound_iteratedFDeriv_lpChi (i : ℕ) :
+    ∃ B : ℝ, 0 ≤ B ∧ ∀ y : V, ‖iteratedFDeriv ℝ i (lpChi V : V → ℝ) y‖ ≤ B := by
+  obtain ⟨B, hB⟩ := Continuous.bounded_above_of_compact_support
+    (ContDiff.continuous_iteratedFDeriv (mod_cast le_top) ((lpChi V).contDiff (n := (⊤ : ℕ∞))))
+    (((lpChi V).hasCompactSupport).mono' (support_iteratedFDeriv_subset i))
+  exact ⟨max B 0, le_max_right _ _, fun y => (hB y).trans (le_max_left _ _)⟩
+
+/-- The iterated derivatives of the complexified dilated bumps `χ_M` are bounded
+    **uniformly in `M`** — the dilation only shrinks them (`‖L_M‖ ≤ 1`). -/
+theorem exists_uniform_bound_iteratedFDeriv_lpChiAtC (i : ℕ) :
+    ∃ D : ℝ, 0 ≤ D ∧ ∀ (M : ℕ) (x : V), ‖iteratedFDeriv ℝ i (lpChiAtC V M) x‖ ≤ D := by
+  obtain ⟨B, hB0, hB⟩ := exists_bound_iteratedFDeriv_lpChi (V := V) i
+  refine ⟨B, hB0, fun M x => ?_⟩
+  have hcoe : lpChiAtC V M = (Complex.ofRealLI : ℝ →ₗᵢ[ℝ] ℂ) ∘ lpChiAt V M := rfl
+  rw [hcoe, Complex.ofRealLI.norm_iteratedFDeriv_comp_left
+        ((contDiff_lpChiAt (n := (i:ℕ∞)) M).contDiffAt) (by exact_mod_cast le_rfl)]
+  set L : V →L[ℝ] V := (2:ℝ) ^ (-(M:ℤ)) • ContinuousLinearMap.id ℝ V with hL
+  have hLnorm : ‖L‖ ≤ 1 := by
+    rw [hL]
+    calc ‖(2:ℝ) ^ (-(M:ℤ)) • ContinuousLinearMap.id ℝ V‖
+        = ‖(2:ℝ) ^ (-(M:ℤ))‖ * ‖ContinuousLinearMap.id ℝ V‖ := norm_smul _ _
+      _ ≤ 1 * 1 := by
+          refine mul_le_mul ?_ ContinuousLinearMap.norm_id_le (norm_nonneg _) zero_le_one
+          rw [Real.norm_of_nonneg (zpow_pos (by norm_num) _).le]
+          exact zpow_le_one_of_nonpos₀ (by norm_num) (by omega)
+      _ = 1 := mul_one 1
+  have hcomp : (lpChiAt V M : V → ℝ) = (lpChi V : V → ℝ) ∘ L := by
+    funext ξ
+    simp [lpChiAt, hL]
+  rw [hcomp, L.iteratedFDeriv_comp_right ((lpChi V).contDiff (n := (i:ℕ∞))) x
+        (by exact_mod_cast le_rfl)]
+  calc ‖(iteratedFDeriv ℝ i (lpChi V : V → ℝ) (L x)).compContinuousLinearMap fun _ => L‖
+      ≤ ‖iteratedFDeriv ℝ i (lpChi V : V → ℝ) (L x)‖ * ∏ _j : Fin i, ‖L‖ :=
+        ContinuousMultilinearMap.norm_compContinuousLinearMap_le _ _
+    _ ≤ B * 1 := by
+        refine mul_le_mul (hB _) ?_ (Finset.prod_nonneg fun _ _ => norm_nonneg _) hB0
+        exact Finset.prod_le_one (fun _ _ => norm_nonneg _) (fun _ _ => hLnorm)
+    _ = B := mul_one B
+
+/-- **The decay estimate (the analytic heart):** every Schwartz seminorm of
+    `χ_M·ψ − ψ` is `≤ K·2^{−M}` — outside `‖ξ‖ ≤ 2^M` the cutoff difference is killed by
+    one extra power of the Schwartz decay of `ψ`; inside, it vanishes identically. -/
+theorem exists_seminorm_smulLeft_lpChiAtC_sub_le (k n : ℕ) (ψ : 𝓢(V, ℂ)) :
+    ∃ K : ℝ, 0 ≤ K ∧ ∀ M : ℕ,
+      SchwartzMap.seminorm ℂ k n (SchwartzMap.smulLeftCLM ℂ (lpChiAtC V M) ψ - ψ)
+        ≤ K * ((1:ℝ)/2) ^ M := by
+  choose D hD0 hD using fun i => exists_uniform_bound_iteratedFDeriv_lpChiAtC (V := V) i
+  set Dm : ℕ → ℝ := fun i => max (D i) 2 with hDm
+  have hDm0 : ∀ i, 0 ≤ Dm i := fun i => le_trans (by norm_num) (le_max_right _ _)
+  set K : ℝ := ∑ i ∈ Finset.range (n+1),
+      (n.choose i : ℝ) * Dm i * SchwartzMap.seminorm ℂ (k+1) (n-i) ψ with hK
+  have hK0 : 0 ≤ K :=
+    Finset.sum_nonneg fun i _ => by
+      have := hDm0 i
+      positivity
+  refine ⟨K, hK0, fun M => ?_⟩
+  refine SchwartzMap.seminorm_le_bound ℂ k n _ (by positivity) fun x => ?_
+  have hfun : ⇑(SchwartzMap.smulLeftCLM ℂ (lpChiAtC V M) ψ - ψ)
+      = fun ξ => (lpChiAtC V M ξ - 1) * ψ ξ := by
+    funext ξ
+    simp only [SchwartzMap.sub_apply,
+      SchwartzMap.smulLeftCLM_apply (hasTemperateGrowth_lpChiAtC M)]
+    rw [smul_eq_mul, sub_mul, one_mul]
+  rw [hfun]
+  by_cases hx : ‖x‖ < (2:ℝ) ^ M
+  · -- inside the ball of radius `2^M` the cutoff difference vanishes identically
+    have hsupp : Function.support (fun ξ : V => (lpChiAtC V M ξ - 1) * ψ ξ)
+        ⊆ {ξ : V | (2:ℝ) ^ M ≤ ‖ξ‖} := by
+      intro ξ hξ
+      by_contra hc
+      rw [Set.mem_setOf_eq, not_le] at hc
+      apply hξ
+      show (lpChiAtC V M ξ - 1) * ψ ξ = 0
+      have h1 : lpChiAtC V M ξ = 1 := by
+        rw [lpChiAtC, lpChiAt_eq_one_of_le hc.le, Complex.ofReal_one]
+      rw [h1, sub_self, zero_mul]
+    have hts : tsupport (fun ξ : V => (lpChiAtC V M ξ - 1) * ψ ξ)
+        ⊆ {ξ : V | (2:ℝ) ^ M ≤ ‖ξ‖} :=
+      closure_minimal hsupp (isClosed_le continuous_const continuous_norm)
+    have hzero : iteratedFDeriv ℝ n (fun ξ : V => (lpChiAtC V M ξ - 1) * ψ ξ) x = 0 := by
+      by_contra hne
+      have hmem := support_iteratedFDeriv_subset (𝕜 := ℝ) n (Function.mem_support.mpr hne)
+      exact absurd (hts hmem) (not_le.mpr hx)
+    rw [hzero, norm_zero, mul_zero]
+    positivity
+  · -- outside: Leibniz + one extra power of Schwartz decay
+    push_neg at hx
+    have hx1 : (1:ℝ) ≤ ‖x‖ := le_trans (one_le_pow₀ (by norm_num)) hx
+    have hxpos : (0:ℝ) < ‖x‖ := lt_of_lt_of_le one_pos hx1
+    have hχC : ContDiff ℝ (n:ℕ∞) (lpChiAtC V M) :=
+      Complex.ofRealCLM.contDiff.comp (contDiff_lpChiAt M)
+    have hcd1 : ContDiff ℝ (n:ℕ∞) (fun ξ : V => lpChiAtC V M ξ - 1) :=
+      hχC.sub contDiff_const
+    have hcd2 : ContDiff ℝ (n:ℕ∞) (⇑ψ) := ψ.smooth n
+    have hleib := norm_iteratedFDeriv_mul_le (𝕜 := ℝ) hcd1 hcd2 x
+      (by exact_mod_cast le_rfl)
+    have hterm : ∀ i ∈ Finset.range (n+1),
+        ‖iteratedFDeriv ℝ i (fun ξ : V => lpChiAtC V M ξ - 1) x‖ ≤ Dm i := by
+      intro i hir
+      have hin : (i:ℕ∞) ≤ (n:ℕ∞) := by
+        exact_mod_cast Nat.lt_succ_iff.mp (Finset.mem_range.mp hir)
+      rcases Nat.eq_zero_or_pos i with rfl | hi
+      · rw [norm_iteratedFDeriv_zero]
+        refine le_trans (norm_sub_le _ _) (le_trans ?_ (le_max_right (D 0) 2))
+        have h1 : ‖lpChiAtC V M x‖ ≤ 1 := by
+          rw [lpChiAtC, lpChiAt, Complex.norm_real,
+              Real.norm_of_nonneg ((lpChi V).nonneg)]
+          exact (lpChi V).le_one
+        rw [norm_one]
+        linarith
+      · have hsub : (fun ξ : V => lpChiAtC V M ξ - 1)
+            = (lpChiAtC V M - fun _ : V => (1:ℂ)) := rfl
+        rw [hsub, iteratedFDeriv_sub (hχC.of_le (by exact_mod_cast hin))
+              (contDiff_const.of_le le_top), Pi.sub_apply,
+            iteratedFDeriv_const_of_ne hi.ne', Pi.zero_apply, sub_zero]
+        exact le_trans (hD i M x) (le_max_left _ _)
+    calc ‖x‖ ^ k * ‖iteratedFDeriv ℝ n (fun ξ : V => (lpChiAtC V M ξ - 1) * ψ ξ) x‖
+        ≤ ‖x‖ ^ k * ∑ i ∈ Finset.range (n+1), (n.choose i : ℝ)
+            * ‖iteratedFDeriv ℝ i (fun ξ : V => lpChiAtC V M ξ - 1) x‖
+            * ‖iteratedFDeriv ℝ (n-i) (⇑ψ) x‖ :=
+          mul_le_mul_of_nonneg_left hleib (by positivity)
+      _ = ∑ i ∈ Finset.range (n+1), (n.choose i : ℝ)
+            * ‖iteratedFDeriv ℝ i (fun ξ : V => lpChiAtC V M ξ - 1) x‖
+            * (‖x‖ ^ k * ‖iteratedFDeriv ℝ (n-i) (⇑ψ) x‖) := by
+          rw [Finset.mul_sum]
+          exact Finset.sum_congr rfl fun i _ => by ring
+      _ ≤ ∑ i ∈ Finset.range (n+1), (n.choose i : ℝ) * Dm i
+            * (SchwartzMap.seminorm ℂ (k+1) (n-i) ψ * ((1:ℝ)/2) ^ M) := by
+          refine Finset.sum_le_sum fun i hi => ?_
+          have hdecay : ‖x‖ ^ k * ‖iteratedFDeriv ℝ (n-i) (⇑ψ) x‖ * (2:ℝ) ^ M
+              ≤ SchwartzMap.seminorm ℂ (k+1) (n-i) ψ := by
+            calc ‖x‖ ^ k * ‖iteratedFDeriv ℝ (n-i) (⇑ψ) x‖ * (2:ℝ) ^ M
+                ≤ ‖x‖ ^ k * ‖iteratedFDeriv ℝ (n-i) (⇑ψ) x‖ * ‖x‖ :=
+                  mul_le_mul_of_nonneg_left hx (by positivity)
+              _ = ‖x‖ ^ (k+1) * ‖iteratedFDeriv ℝ (n-i) (⇑ψ) x‖ := by ring
+              _ ≤ SchwartzMap.seminorm ℂ (k+1) (n-i) ψ :=
+                  SchwartzMap.le_seminorm ℂ (k+1) (n-i) ψ x
+          have hdiv : ‖x‖ ^ k * ‖iteratedFDeriv ℝ (n-i) (⇑ψ) x‖
+              ≤ SchwartzMap.seminorm ℂ (k+1) (n-i) ψ * ((1:ℝ)/2) ^ M := by
+            rw [div_pow, one_pow, mul_one_div]
+            exact (le_div_iff₀ (by positivity)).mpr hdecay
+          refine mul_le_mul (mul_le_mul_of_nonneg_left (hterm i hi) (by positivity))
+            hdiv (by positivity) (by positivity)
+      _ = K * ((1:ℝ)/2) ^ M := by
+          rw [hK, Finset.sum_mul]
+          exact Finset.sum_congr rfl fun i _ => by ring
+
+/-- **The approximation of identity on Schwartz space:** `χ_M·ψ → ψ` in the Schwartz
+    topology. -/
+theorem tendsto_smulLeftCLM_lpChiAtC (ψ : 𝓢(V, ℂ)) :
+    Filter.Tendsto (fun M : ℕ => SchwartzMap.smulLeftCLM ℂ (lpChiAtC V M) ψ)
+      Filter.atTop (𝓝 ψ) := by
+  rw [(schwartz_withSeminorms ℂ V ℂ).tendsto_nhds _ ψ]
+  rintro ⟨k, n⟩ ε hε
+  obtain ⟨K, hK0, hK⟩ := exists_seminorm_smulLeft_lpChiAtC_sub_le k n ψ
+  have hlim : Filter.Tendsto (fun M : ℕ => K * ((1:ℝ)/2) ^ M) Filter.atTop (𝓝 0) := by
+    rw [show (0:ℝ) = K * 0 by ring]
+    exact (tendsto_pow_atTop_nhds_zero_of_lt_one (by norm_num) (by norm_num)).const_mul K
+  filter_upwards [hlim.eventually_lt_const hε] with M hM
+  exact lt_of_le_of_lt (hK M) hM
+
+/-- **The approximation of identity on tempered distributions:** `S_M u → u` in `𝓢′`
+    (the topology of pointwise convergence — weak-*). -/
+theorem tendsto_lpLowProjDAt (u : 𝓢'(V, W)) :
+    Filter.Tendsto (fun M : ℕ => lpLowProjDAt V W M u) Filter.atTop (𝓝 u) := by
+  rw [PointwiseConvergenceCLM.tendsto_iff_forall_tendsto]
+  intro φ
+  have h1 : Filter.Tendsto
+      (fun M : ℕ => SchwartzMap.smulLeftCLM ℂ (lpChiAtC V M) (𝓕⁻ φ))
+      Filter.atTop (𝓝 (𝓕⁻ φ)) := tendsto_smulLeftCLM_lpChiAtC (𝓕⁻ φ)
+  have h2 : Filter.Tendsto
+      (fun M : ℕ => (𝓕 (SchwartzMap.smulLeftCLM ℂ (lpChiAtC V M) (𝓕⁻ φ)) : 𝓢(V, ℂ)))
+      Filter.atTop (𝓝 (𝓕 (𝓕⁻ φ) : 𝓢(V, ℂ))) :=
+    ((fourierCLM ℂ 𝓢(V, ℂ)).continuous.tendsto _).comp h1
+  rw [FourierTransform.fourier_fourierInv_eq] at h2
+  exact (u.continuous.tendsto φ).comp h2
+
+/-- **The Littlewood–Paley expansion of a tempered distribution:** the partial sums
+    `S₀u + Σ_{j<M} P_{j+1}u` converge to `u` in `𝓢′` (weak-*). Every tempered
+    distribution is the sum of its Littlewood–Paley series. -/
+theorem tendsto_lowProjD_add_sum (u : 𝓢'(V, W)) :
+    Filter.Tendsto
+      (fun M : ℕ => lpLowProjD V W u + ∑ j ∈ Finset.range M, lpProjD V W ((j:ℤ)+1) u)
+      Filter.atTop (𝓝 u) := by
+  have h := tendsto_lpLowProjDAt u
+  have heq : ∀ M : ℕ, lpLowProjDAt V W M u
+      = lpLowProjD V W u + ∑ j ∈ Finset.range M, lpProjD V W ((j:ℤ)+1) u := by
+    intro M
+    rw [lpLowProjDAt_eq_add_sum]
+    simp [ContinuousLinearMap.add_apply, ContinuousLinearMap.sum_apply]
+  simpa only [heq] using h
+
+/-- A tempered distribution with NO Littlewood–Paley content is zero. -/
+theorem eq_zero_of_lp_blocks_eq_zero {u : 𝓢'(V, W)} (hlow : lpLowProjD V W u = 0)
+    (hblocks : ∀ j : ℕ, lpProjD V W ((j:ℤ)+1) u = 0) : u = 0 := by
+  have h := tendsto_lowProjD_add_sum u
+  simp only [hlow, hblocks, Finset.sum_const_zero, add_zero] at h
+  exact tendsto_nhds_unique h tendsto_const_nhds
+
+/-- The zero `Lᵖ` element embeds to the zero distribution. -/
+theorem lp_toTemperedDistribution_zero (p : ℝ≥0∞) [Fact (1 ≤ p)] :
+    MeasureTheory.Lp.toTemperedDistribution (0 : Lp W p (volume : Measure V)) = 0 := by
+  have h := map_zero (MeasureTheory.Lp.toTemperedDistributionCLM W (volume : Measure V) p)
+  rwa [MeasureTheory.Lp.toTemperedDistributionCLM_apply] at h
+
+/-- **Nondegeneracy on ALL of `𝓢′`: the distributional Besov norm vanishes only at
+    zero.** With the extension theorem `besovNormD_coe`, `B^s_{p,q}(𝓢′)` is a genuine
+    normed space of tempered distributions. -/
+theorem besovNormD_eq_zero_iff (s : ℝ) {p q : ℝ≥0∞} [Fact (1 ≤ p)] (hq0 : q ≠ 0)
+    {u : 𝓢'(V, W)} : besovNormD W s p q u = 0 ↔ u = 0 := by
+  have hp0 : p ≠ 0 := (lt_of_lt_of_le zero_lt_one (Fact.out : 1 ≤ p)).ne'
+  constructor
+  · intro h
+    have hmem : MemBesovD W s p q u := by
+      rw [MemBesovD, h]
+      exact ENNReal.zero_lt_top
+    rw [besovNormD, add_eq_zero] at h
+    obtain ⟨hlow, hhigh⟩ := h
+    obtain ⟨g0, hg0⟩ := hmem.hasLpRep_low
+    have hg0n : eLpNorm (⇑g0) p volume = 0 := by
+      rw [← lpNormD_eq_of_rep hg0]
+      exact hlow
+    have hg00 : g0 = 0 := MeasureTheory.Lp.eq_zero_iff_ae_eq_zero.mpr
+      ((eLpNorm_eq_zero_iff (MeasureTheory.Lp.aestronglyMeasurable g0) hp0).mp hg0n)
+    have hlow0 : lpLowProjD V W u = 0 := by
+      rw [hg0, hg00]
+      exact lp_toTemperedDistribution_zero p
+    have hblocks0 : ∀ j : ℕ, lpProjD V W ((j:ℤ)+1) u = 0 := by
+      intro j
+      obtain ⟨g, hg⟩ := hmem.hasLpRep_block hq0 j
+      have hterm0 : lpNormD W p (lpProjD V W ((j:ℤ)+1) u) = 0 := by
+        have hterm : (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+            * lpNormD W p (lpProjD V W ((j:ℤ)+1) u) = 0 := by
+          by_cases hqt : q = ∞
+          · rw [if_pos hqt] at hhigh
+            exact le_antisymm ((le_iSup (fun j : ℕ => (2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+              * lpNormD W p (lpProjD V W ((j:ℤ)+1) u)) j).trans hhigh.le) zero_le
+          · rw [if_neg hqt] at hhigh
+            have hqr : 0 < q.toReal := ENNReal.toReal_pos hq0 hqt
+            have hsum0 : (∑' j : ℕ, ((2:ℝ≥0∞) ^ (((j:ℝ) + 1) * s)
+                * lpNormD W p (lpProjD V W ((j:ℤ)+1) u)) ^ q.toReal) = 0 := by
+              by_contra hne
+              rcases ENNReal.rpow_eq_zero_iff.mp hhigh with ⟨h0, -⟩ | ⟨-, hneg⟩
+              · exact hne h0
+              · exact absurd hneg (not_lt.mpr (by positivity))
+            have := ENNReal.tsum_eq_zero.mp hsum0 j
+            rcases ENNReal.rpow_eq_zero_iff.mp this with ⟨h0, -⟩ | ⟨-, hneg⟩
+            · exact h0
+            · exact absurd hneg (not_lt.mpr hqr.le)
+        rcases mul_eq_zero.mp hterm with h0 | h0
+        · exact absurd h0 (ENNReal.rpow_pos (by norm_num) (by norm_num)).ne'
+        · exact h0
+      have hgn : eLpNorm (⇑g) p volume = 0 := by
+        rw [← lpNormD_eq_of_rep hg]
+        exact hterm0
+      have hgz : g = 0 := MeasureTheory.Lp.eq_zero_iff_ae_eq_zero.mpr
+        ((eLpNorm_eq_zero_iff (MeasureTheory.Lp.aestronglyMeasurable g) hp0).mp hgn)
+      rw [hg, hgz]
+      exact lp_toTemperedDistribution_zero p
+    exact eq_zero_of_lp_blocks_eq_zero hlow0 hblocks0
+  · rintro rfl
+    exact besovNormD_zero s hq0
+
 end BesovSpace
 
 #eval "Littlewood–Paley dyadic partition of unity — machine-verified."

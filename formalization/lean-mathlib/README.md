@@ -127,4 +127,10 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   `lpNormD` (well-defined unique-representative `Lᵖ` size); **`besovNormD`/`MemBesovD`** (membership
   forces every block into `Lᵖ`: `hasLpRep_low`/`hasLpRep_block`) + **`besovNormD_coe`** (extension
   theorem: restricted to `𝓢` it IS `besovNormI`, so nondegeneracy transfers).
-  Next: `S_M → id` convergence in `𝓢′` → completeness → Carleman.
+- **Approximation of identity + the LP expansion of `𝓢′`** — `exists_seminorm_smulLeft_lpChiAtC_sub_le`
+  (every Schwartz seminorm of `χ_M·ψ−ψ` is `≤ K·2^{−M}`: support localization + Leibniz + uniform
+  dilated-bump bounds + one extra Schwartz-decay power); `tendsto_smulLeftCLM_lpChiAtC` (`→` in `𝓢`);
+  `tendsto_lpLowProjDAt` (`S_M u → u` weak-* in `𝓢′`); **`tendsto_lowProjD_add_sum`** (every tempered
+  distribution = the weak-* sum of its LP series); `eq_zero_of_lp_blocks_eq_zero` +
+  **`besovNormD_eq_zero_iff`** (full nondegeneracy on ALL of `𝓢′` ⇒ `B^s_{p,q}(𝓢′)` is a genuine
+  normed space). Next: Carleman (the summit) → completeness/embeddings.

@@ -1,5 +1,35 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.0 — 2026-06-10 — APPROXIMATION OF IDENTITY S_M → id: the Littlewood–Paley EXPANSION of 𝓢′ + full distributional nondegeneracy
+
+The convergence layer, in `formalization/lean-mathlib/LittlewoodPaley.lean` (~1747 lines).
+**Library infrastructure; `:proved`=0 for the PDE.**
+- **`exists_seminorm_smulLeft_lpChiAtC_sub_le` — the analytic heart:** every Schwartz seminorm of
+  `χ_M·ψ − ψ` is `≤ K(k,n,ψ)·2^{−M}`. Inside `‖ξ‖ ≤ 2^M` the cutoff difference vanishes identically
+  (support argument through `tsupport` + `support_iteratedFDeriv_subset`); outside, the Leibniz rule
+  (`norm_iteratedFDeriv_mul_le`) + **uniform-in-`M` bounds on the dilated-bump derivatives**
+  (`‖iFD^i χ_M‖ ≤ B_i` since `‖L_M‖ ≤ 1` — dilation only shrinks) + ONE extra power of the Schwartz
+  decay of `ψ` produce the `2^{−M}` gain.
+- **`tendsto_smulLeftCLM_lpChiAtC`** — `χ_M·ψ → ψ` in the **Schwartz topology** (via
+  `schwartz_withSeminorms.tendsto_nhds` + the decay estimate).
+- **`tendsto_lpLowProjDAt`** — **`S_M u → u` in `𝓢′`** (genuine weak-* convergence in the
+  pointwise-convergence topology, via `PointwiseConvergenceCLM.tendsto_iff_forall_tendsto` +
+  continuity of `u` + continuity of `𝓕` on `𝓢`).
+- **`tendsto_lowProjD_add_sum` — THE LITTLEWOOD–PALEY EXPANSION OF A TEMPERED DISTRIBUTION:**
+  `S₀u + Σ_{j<M} P_{j+1}u → u` in `𝓢′` — every tempered distribution is the (weak-*) sum of its
+  Littlewood–Paley series. (Combines the v0.14.0 exact finite decomposition with `S_M → id`.)
+- **`eq_zero_of_lp_blocks_eq_zero`** — a tempered distribution with no LP content is zero
+  (limit uniqueness; `𝓢′` is T2).
+- **`besovNormD_eq_zero_iff` — FULL NONDEGENERACY ON ALL OF `𝓢′`:** `‖u‖_{B^s_{p,q}} = 0 ↔ u = 0`
+  for EVERY tempered distribution (not just embedded Schwartz functions) — norm-zero kills every
+  `Lᵖ`-representative block, and the LP expansion reassembles `u = 0`. With `besovNormD_coe`,
+  **`B^s_{p,q}(𝓢′)` is a genuine normed space of tempered distributions.**
+- **Soundness:** no `sorry`; the false window variant (`χ_M = 1` out to radius `2^{M+1}`) is
+  correctly REJECTED (the `−M+(M+1)=1≠0` arithmetic fails); LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Honest scope:** weak-* (pointwise) convergence — the conventional 𝓢′ topology (Mathlib's choice;
+not the strong dual). Completeness of `B^s_{p,q}` and the embedding theorems remain open.
+`:proved`=0; distance UNTOUCHED. *Next: CARLEMAN (the summit) — session pauses here.*
+
 ## v0.14.2 — 2026-06-10 — Pre-commit ledger guard (G-3): blocks count/stamp drift at commit time
 
 Built the escalation the close-out clause called for after count drift was audit-caught twice:

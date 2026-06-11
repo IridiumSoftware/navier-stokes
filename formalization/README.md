@@ -138,8 +138,14 @@ Lorentz/weak-Lᵖ; Littlewood–Paley/Besov; Carleman estimates; full Leray–Ho
   every block to BE an `Lᵖ` function); **`besovNormD_coe`** (the distributional norm EXTENDS `besovNormI`
   through `𝓢 ↪ 𝓢′`); **`lpLowProjDAt_eq_add_sum`** (the EXACT finite LP decomposition of `𝓢′`:
   `S_M = S₀ + Σ_{j<M} P_{j+1}` as operators). False telescoping variant rejected; no `sorry`.
-- *Next bites (priority order):* `S_M → id` convergence in `𝓢′` (approximation of identity; gateway to
-  completeness) → Carleman. `:proved`=0 for the PDE throughout — library additions, not NS theorems.
+- **Twelfth bite ✅ (approximation of identity + the LP expansion of `𝓢′`)** — the decay estimate
+  (every Schwartz seminorm of `χ_M·ψ−ψ` is `≤ K·2^{−M}`; uniform-in-`M` dilated-bump derivative
+  bounds + Leibniz + one extra power of Schwartz decay); `χ_M·ψ → ψ` in `𝓢`; **`S_M u → u` in `𝓢′`**;
+  **`tendsto_lowProjD_add_sum`** (every tempered distribution is the weak-* sum of its
+  Littlewood–Paley series); **`besovNormD_eq_zero_iff`** (FULL nondegeneracy on all of `𝓢′` —
+  `B^s_{p,q}(𝓢′)` is a genuine normed space). False window variant rejected; no `sorry`.
+- *Next bites (priority order):* **Carleman estimates** (the summit) → completeness/embeddings of
+  `B^s_{p,q}`. `:proved`=0 for the PDE throughout — library additions, not NS theorems.
 
 ## Run
 ```
