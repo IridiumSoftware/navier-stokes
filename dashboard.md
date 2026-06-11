@@ -282,7 +282,7 @@ Distance to prize: UNTOUCHED.**
 
 | # | Priority | Scope | Status |
 |---|---|---|---|
-| P1 | **NS-046** static frontier — critical coercive deformation inequality ("where the prize sits") | PDE | `:open` |
+| P1 | **NS-046** static frontier — critical coercive deformation inequality ("where the prize sits"); **integral-cancellation probe** (witness): production-weighted integral favorable (R_int≈2.4, strengthens to ≈3.8 on cores — apparent pointwise non-uniformity partly a weighting artifact; margin shrinks at small scale) — but vacuity-capped + a sign Required-Check, **NS-046 unchanged `:open`** | PDE | `:open` |
 | P2 | **NS-048** dynamic frontier — Type-I / ancient exclusion (2 cores); **vacuity map** (`docs/ns048_conditional_vacuity_map.md` — 8 hypotheses, none both-true-and-useful) + **axisym swirl DNS** `scripts/ns048_axisym_swirl_dns.jl` (validated 4/4; swirl-sign cell closed: Γ≥0 uninformative about S; **Hou–Luo wall fixture** confirms intensification but goes unresolved ⇒ `|x₃|^α`+Type-I **resolution-limited**, Chen–Hou regime); adaptive-solver decision **triad-reviewed + banked** ((C0) gate: NS-050 β transfers to a clean wall collapse but data-starved on the real DNS ⇒ bank) | PDE | `:open` |
 | P3 | **NS-050** — tuned Chen–Hou **profile reconstruction** (instrument validated; profile OPEN, 4 honest negatives) | 1D-model → PDE-analysis | `:open` |
 | P4 | **NS-010/011** complex-singularity diagnostic — 3D inviscid hunt INCONCLUSIVE (resolution wall, gate refuses artifact) | PDE-method | `:tested` |

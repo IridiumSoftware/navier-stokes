@@ -1,0 +1,42 @@
+==============================================================================
+  NS-046 INTEGRAL / CANCELLATION probe — Kerr-tube worst case (pointwise was NON-UNIFORM)
+  R_int = Σ_w(e₃ᵀ∇²p e₃ + ν|∇ω|²) / Σ_w(λ₃²),  w=|ω|²  (≥1 ⇒ depletion+viscous beat self-amp; convention per uniform_domination)
+  Scope: resolved DNS truncation; vacuity-capped; :proved=0; CANNOT close NS-046.
+==============================================================================
+  enstrophy peak Z=2.183 at t=6.00 (N=64, ν=6.25e-04) — analyzing this snapshot
+
+  ── INTEGRAL balance (production-weighted), full domain ──
+    R_int (full)                  = 2.419   ≥1: integral DOMINATION holds in this truncation
+      pressure-Hessian part        = 1.515 ;  viscous part = 0.903  (sum 2.419)
+
+  ── INTEGRAL over the bad set (top-q by |ω|²) — the CKN-set proxy ──
+    top-10.0% : R_int = 2.470
+    top-1.0% : R_int = 3.046
+    top-0.1% : R_int = 3.808
+
+  ── SCALE-resolved (the derivative-loss / marginal-cancellation test) ──
+    bin local k_loc=|∇ω|/|ω| ; does R_int DEGRADE toward 1 at small scale (high k)?
+    k_loc range        R_int     (production-weighted, per scale band)
+    [  5.63,  9.77)     2.486
+    [  9.77, 16.93)     1.652
+    [ 16.93, 29.36)     1.388
+    [ 29.36, 50.90)     1.488
+    [ 50.90, 88.26)     1.444
+    [ 88.26,153.02)     1.731
+
+==============================================================================
+  WITNESS READING (vacuity-capped — NOT the inequality)
+==============================================================================
+  • PRODUCTION-WEIGHTED INTEGRAL vs unweighted-pointwise: R_int(full)=2.42  (≥1 ⇒ depletion+viscous
+    beat self-amp on the w-weighted integral). w=|ω|² concentrates on the cores, so this INTEGRAL form —
+    the form the inequality actually takes — can differ from the uniform-domination probe's UNWEIGHTED
+    conditional means (which were non-uniform, negative on the bulk). This is the object those probes missed.
+  • Scale dependence (derivative-loss test): R_int by scale 2.49 (large) → 1.73 (small/high-k);
+    where it is WEAKEST is where the analytic difficulty (marginal cancellation) would sit.
+  • SIGN CAVEAT — REQUIRED CHECK, *not resolved here*: the convention 'e₃ᵀ∇²p e₃>0 ⇒ depletes' is ADOPTED
+    from ns046_uniform_domination_probe / target §2; its physical correctness rests on the strain-eigenvalue
+    evolution sign (Dλ₃ ⊃ −e₃ᵀ∇²p e₃), which is NOT rigorously derived in-repo. PIN it before trusting any
+    'depletes/enhances at cores' reading (a candidate over-reach if left unpinned). Discipline forbids winging it.
+  • FIREWALL: resolved truncation, no singular set; :proved=0; distance UNTOUCHED. This sharpens WHERE the
+    difficulty sits + surfaces the sign Required-Check; it is NOT the inequality or progress.
+==============================================================================

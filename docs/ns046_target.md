@@ -58,6 +58,24 @@ the discipline forbids manufacturing one. *(Honesty ledger: six over-reaches cau
 the adversarial witnesses [LOW#1, MID, §5-"≡", NS-047-C1], one by the probe-first call [Idea-3 "pressure
 dominates"], one by the witnesses again here [the NS-046-arc interpretations].)*
 
+**Integral / cancellation probe (2026-06-11, `scripts/ns046_integral_cancellation_probe.jl`) — within-truncation
+witness, vacuity-capped, `:proved`=0.** Measures the object §3 names as untested: the PRODUCTION-WEIGHTED
+integral `R_int = Σ_w(e₃ᵀ∇²p e₃ + ν|∇ω|²)/Σ_w(λ₃²)`, `w=|ω|²`, on the Kerr worst case (where the
+bulk-negative / core-positive contributions are allowed to CANCEL). It reproduces Idea-3's enstrophy-weighted
+pressure ratio (≈1.5 at the enstrophy peak — a consistency check) and ADDS: (i) the integral domination
+**STRENGTHENS on the high-production cores** (top-0.1% `R_int≈3.8`) — so the *production-weighted integral*
+(the form the inequality takes) is favorable, *unlike* the uniform-domination probe's UNWEIGHTED conditional
+means (non-uniform / negative on the bulk); much of the apparent non-uniformity is a **weighting artifact**,
+the weight concentrating on cores where the pressure term is favorable; (ii) the **scale-resolved margin
+shrinks toward 1 at small scales** (≈2.5→1.4, staying >1 in this truncation), consistent with the doc's
+"marginal cancellation at the critical scaling" hypothesis — the difficulty sits at the small/singular scales.
+**TWO GUARDS (do NOT over-read — this is the over-reach-prone entry):** (a) the depletion **SIGN convention**
+(`e₃ᵀ∇²p e₃>0 ⇒ depletes`) is *adopted* from the uniform-domination probe / §2, **not** independently
+re-derived; its physical correctness rests on the strain-eigenvalue evolution sign `Dλ₃ ⊃ −e₃ᵀ∇²p e₃` — a
+**Required Check** to pin before any "depletes/enhances at cores" reading is trusted; (b) a regular truncation
+has **no singular set** — `R_int>1` is a *suggestive prior*, NOT the inequality and NOT progress. **NS-046
+stays `:open`; this sharpens only WHERE the difficulty sits (small scales) and surfaces the sign Required-Check.**
+
 ## 4. Kill criteria (§11 of the write-up — what would retire this framing)
 
 - a critical-norm control **independent of the production/enstrophy** (self-contained critical-Besov or

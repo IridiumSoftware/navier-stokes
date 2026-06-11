@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.11 — 2026-06-11 — NS-046 integral/cancellation probe: production-weighted integral form is favorable (witness, sign-caveated)
+
+Ran the one legitimate within-truncation move on NS-046 (the static hole — 6 over-reaches caught; closing it
+needs an analytic idea the discipline forbids manufacturing): the **integral/cancellation** object the target
+doc names as untested, `scripts/ns046_integral_cancellation_probe.jl`. The PRODUCTION-WEIGHTED integral
+`R_int = Σ_w(e₃ᵀ∇²p e₃ + ν|∇ω|²)/Σ_w(λ₃²)`, `w=|ω|²`, on the Kerr worst case: reproduces Idea-3's
+enstrophy-weighted pressure ratio (≈1.5 at the peak — a consistency check) and adds (i) the integral
+domination **STRENGTHENS on the high-production cores** (top-0.1% `R_int≈3.8`) — so the *production-weighted
+integral* (the form the inequality takes) is favorable, *unlike* the uniform-domination probe's UNWEIGHTED
+conditional means (non-uniform, negative on bulk); much of the apparent non-uniformity is a **weighting
+artifact**; (ii) the scale-resolved margin **shrinks toward 1 at small scales** (≈2.5→1.4, staying >1),
+consistent with the doc's "marginal cancellation at the critical scaling" hypothesis. **Witness discipline
+caught my own sign sloppiness** (I'd negated `e₃ᵀ∇²p e₃` and double-confused the ratio → spurious R_int=−0.6;
+fixed to the uniform-domination convention → R_int=+2.4). **Two guards held:** (a) the depletion SIGN
+convention is *adopted* not re-derived — flagged a **Required Check** (pin `Dλ₃ ⊃ −e₃ᵀ∇²p e₃` before trusting
+"depletes at cores"); (b) vacuity cap — regular truncation, no singular set, `R_int>1` is a suggestive prior,
+NOT the inequality. **NS-046 stays `:open`**; sharpens only WHERE the difficulty sits (small scales). No new
+NS-ID; no status change; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.10 — 2026-06-11 — Carleman ladder-3a: the norm-calculus substrate machine-verified (∇‖x‖, Hess‖x‖, the radial Laplacian — a Mathlib gap filled)
 
 New file `formalization/lean-mathlib/NormCalculus.lean` (~180 lines). **Library infrastructure;
