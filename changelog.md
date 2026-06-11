@@ -1,5 +1,49 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.22 — 2026-06-11 — Triad VERDICT applied (NS-046 + NS-013): every strong reading trimmed; the seats' demands RUN and empirically vindicated
+
+Both seats returned on `docs/ns046_ns013_triad_brief.md` (Grok Φ + synthesis; verdict
+`docs/ns046_ns013_triad_verdict.md`; harsher seat governs). **NS-046:** P1-C1 "weighting artifact" REFUTED →
+*weight-sensitive integral reconciliation*; P1-C2 "difficulty locus" WITHDRAWN (non-monotone, proxy, vacuity
+confound); P1-C3 single-point status CORRECT; P1-C4 algebra stands but the R/λ₃² save NOT ESTABLISHED.
+**NS-013:** P2-C1 scramble survives only as "quadratic invariants insufficient"; P2-C2 REFUTED (uptick
+load-bearing + **kinematic confound** — tube cores organized by construction); P2-C3 the "reduction to CFM"
+REFUTED as **relabeling** (CFM is necessary for any flow; the complex angle adds ~nothing); P2-C4 downgraded
+to *:argued + two adjacent non-diagnostic witnesses*. **Then the seats' demands were RUN: (1)** the GPU ξ
+N-trend **empirically confirmed P2-C2** — core/bulk ⟨|∇ξ|²⟩_w **0.57 (N=64) → 2.62 (N=256)**, the reading
+REVERSES under refinement (NS-039 pattern; δ_Λ ride-along 0.49 — NS-049 verdict N-stable; N=512 in flight);
+**(2)** the weight/feed recomputation (probe extended) **confirmed P1-C1/C4** — R_int = 2.42 (|ω|²) / 1.53
+(|ω·Sω|) / **0.21 (|S|², BELOW 1)**, and against the machine-verified FEED `¼(|ω|²−(ω·e₃)²)` the margin is
+**R_feed = 0.98–1.03 (MARGINAL)** — the 2.4 comfort was a denominator artifact. Stable landing adopted:
+*reality's phase/Hermitian structure alone not protective; geometric organization the leading surviving
+candidate; reduction to CFM argued, not witnessed.* Ledger trimmed everywhere (target doc, NS-013 doc,
+registry ×2, dashboard ×2, probe report regenerated). What survives: the sign check (algebraic), the
+calibrations, and the sharpened rule that future domination probes must measure against the FEED. The
+NS-024 pattern, executed. `:proved`=0; distance UNTOUCHED.
+
+## v0.15.22 — 2026-06-11 — Carleman ladder-5a: the Clairaut keystone machine-verified (∂t commutes with the slice derivative)
+
+`Carleman.lean` grows a `SliceCalculus` section (~1945 lines total). **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`hasFDerivAt_slice` / `fderiv_slice_apply`** — the slice↔joint conversion: for jointly
+  differentiable `U : ℝ × E → ℝ`, the spatial slice's derivative is the joint derivative in
+  the vertical direction, `∂ₓ(U(t,·))(x)·v = DU(t,x)(0,v)`.
+- **`hasDerivAt_curve`** — the time-curve derivative is the joint derivative in the horizontal
+  direction, `∂t(U(·,x))(t₀) = DU(t₀,x)(1,0)`.
+- **`hasDerivAt_fderiv_slice` — FIRST-ORDER CLAIRAUT FOR SLICES (the `mem_S` keystone):**
+  for jointly C² `U`, `∂t(∂ₓU·v) = ∂ₓ(∂tU)·v` — proved by converting both sides to joint
+  second derivatives (`D²U(1,0)(0,v)` vs `D²U(0,v)(1,0)`) and swapping via Mathlib's
+  Schwarz theorem (`ContDiffAt.isSymmSndFDerivAt`).
+- **Soundness:** no `sorry`; the false variant (the slice conversion with a horizontal
+  component, `DU(1,v)` for `DU(0,v)`) is REJECTED at `rfl`; LEAN_EXIT=0 vs the lean4-cv
+  Mathlib.
+**The design insight banked:** discharging the ladder-4 `mem_S` hypothesis needs ONLY pairwise
+second-derivative swaps — `∂t∂ᵢ∂ᵢU = ∂ᵢ∂t∂ᵢU = ∂ᵢ∂ᵢ∂tU`, each step a Schwarz swap on a
+once-differentiated jointly-smooth function — no third-order symmetry theory. Ladder-5b
+iterates this keystone: the slice-Laplacian swap (`∂tΔₓ = Δₓ∂t`), then the `mem_S` discharge
+for jointly-smooth curves, then the concrete commutator identification. `:proved`=0; distance
+UNTOUCHED.
+
 ## v0.15.21 — 2026-06-11 — NS-050/Type-II prior-art verification round: C1→C2 lifts + a MISATTRIBUTION caught + the DSS branch mapped
 
 Move #5 of the open-questions plan (`docs/ns050_priorart_verification.md`). Read the primary statements of the

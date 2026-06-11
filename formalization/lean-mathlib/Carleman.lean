@@ -1845,6 +1845,101 @@ end CommutatorInstance
 
 
 
+
+/-! #### Ladder-5a: slice calculus — the Clairaut keystone for `mem_S`
+
+For jointly C² functions `U : ℝ × E → ℝ`, the time derivative commutes with the
+spatial (slice) Fréchet derivative: `∂t ∂ₓ U = ∂ₓ ∂t U`. This is the pairwise-swap
+engine: the slice-Laplacian version (`∂t Δₓ = Δₓ ∂t`, two pairwise swaps) and the
+discharge of the ladder-4 `mem_S` hypothesis iterate exactly this pattern — next
+rung. Rests on `ContDiffAt.isSymmSndFDerivAt` (Schwarz/Clairaut). -/
+
+section SliceCalculus
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+
+/-- The spatial slice of a jointly differentiable function is differentiable, with
+    derivative the joint derivative composed with the vertical injection. -/
+theorem hasFDerivAt_slice {U : ℝ × E → ℝ} {p : ℝ × E}
+    (hU : DifferentiableAt ℝ U p) :
+    HasFDerivAt (fun y => U (p.1, y))
+      ((fderiv ℝ U p).comp
+        ((0 : E →L[ℝ] ℝ).prod (ContinuousLinearMap.id ℝ E))) p.2 := by
+  have hemb : HasFDerivAt (fun y : E => ((p.1, y) : ℝ × E))
+      ((0 : E →L[ℝ] ℝ).prod (ContinuousLinearMap.id ℝ E)) p.2 :=
+    (hasFDerivAt_const p.1 p.2).prodMk (hasFDerivAt_id p.2)
+  exact hU.hasFDerivAt.comp p.2 hemb
+
+/-- Slice directional derivatives are joint directional derivatives in vertical
+    directions. -/
+theorem fderiv_slice_apply {U : ℝ × E → ℝ} {p : ℝ × E}
+    (hU : DifferentiableAt ℝ U p) (v : E) :
+    fderiv ℝ (fun y => U (p.1, y)) p.2 v = fderiv ℝ U p (0, v) := by
+  rw [(hasFDerivAt_slice hU).fderiv]
+  rfl
+
+/-- The time-curve derivative of a jointly differentiable function is the joint
+    derivative in the horizontal direction. -/
+theorem hasDerivAt_curve {U : ℝ × E → ℝ} {t₀ : ℝ} {x : E}
+    (hU : DifferentiableAt ℝ U (t₀, x)) :
+    HasDerivAt (fun t => U (t, x)) (fderiv ℝ U (t₀, x) (1, 0)) t₀ := by
+  have hc : HasDerivAt (fun t : ℝ => ((t, x) : ℝ × E)) ((1 : ℝ), (0 : E)) t₀ :=
+    (hasDerivAt_id t₀).prodMk (hasDerivAt_const t₀ x)
+  exact hU.hasFDerivAt.comp_hasDerivAt t₀ hc
+
+/-- **First-order Clairaut for slices** (the `mem_S` keystone): for jointly C² `U`,
+    `∂t (∂ₓU·v) = ∂ₓ(∂tU)·v` — the time derivative of the spatial directional
+    derivative is the spatial directional derivative of the time derivative. -/
+theorem hasDerivAt_fderiv_slice {U : ℝ × E → ℝ} (hU : ContDiff ℝ 2 U)
+    (t₀ : ℝ) (x : E) (v : E) :
+    HasDerivAt (fun t => fderiv ℝ (fun y => U (t, y)) x v)
+      (fderiv ℝ (fun y => fderiv ℝ U (t₀, y) (1, 0)) x v) t₀ := by
+  have hUd : ∀ p : ℝ × E, DifferentiableAt ℝ U p := fun p =>
+    hU.differentiable (by norm_num) p
+  have hfd : ContDiff ℝ 1 (fderiv ℝ U) := hU.fderiv_right (by norm_num)
+  have hfdd : DifferentiableAt ℝ (fderiv ℝ U) (t₀, x) :=
+    hfd.differentiable one_ne_zero (t₀, x)
+  -- the LHS function through the slice conversion
+  have hfun : (fun t => fderiv ℝ (fun y => U (t, y)) x v)
+      = fun t => fderiv ℝ U (t, x) ((0 : ℝ), v) := by
+    funext t
+    exact fderiv_slice_apply (p := (t, x)) (hUd (t, x)) v
+  rw [hfun]
+  -- t-derivative of `t ↦ DU(t,x)(0,v)` via the chain rule
+  have hF : HasFDerivAt (fun p : ℝ × E => fderiv ℝ U p ((0 : ℝ), v))
+      ((ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), v)).comp
+        (fderiv ℝ (fderiv ℝ U) (t₀, x))) (t₀, x) :=
+    (ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), v)).hasFDerivAt.comp _ hfdd.hasFDerivAt
+  have hcomp : HasDerivAt (fun t => fderiv ℝ U (t, x) ((0 : ℝ), v))
+      (fderiv ℝ (fderiv ℝ U) (t₀, x) ((1 : ℝ), (0 : E)) ((0 : ℝ), v)) t₀ := by
+    have hc : HasDerivAt (fun t : ℝ => ((t, x) : ℝ × E)) ((1 : ℝ), (0 : E)) t₀ :=
+      (hasDerivAt_id t₀).prodMk (hasDerivAt_const t₀ x)
+    have h := hF.comp_hasDerivAt t₀ hc
+    simpa using h
+  -- the Schwarz/Clairaut swap
+  have hsymm : IsSymmSndFDerivAt ℝ U (t₀, x) :=
+    hU.contDiffAt.isSymmSndFDerivAt (by simp)
+  -- the RHS through the slice conversion for `∂tU`
+  have hUt : DifferentiableAt ℝ (fun p : ℝ × E => fderiv ℝ U p ((1 : ℝ), (0 : E)))
+      (t₀, x) :=
+    ((ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).differentiable.comp
+      (hfd.differentiable one_ne_zero)) (t₀, x)
+  have hF2 : HasFDerivAt (fun p : ℝ × E => fderiv ℝ U p ((1 : ℝ), (0 : E)))
+      ((ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).comp
+        (fderiv ℝ (fderiv ℝ U) (t₀, x))) (t₀, x) :=
+    (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).hasFDerivAt.comp _ hfdd.hasFDerivAt
+  have hRHS : fderiv ℝ (fun y => fderiv ℝ U (t₀, y) ((1 : ℝ), (0 : E))) x v
+      = fderiv ℝ (fderiv ℝ U) (t₀, x) ((0 : ℝ), v) ((1 : ℝ), (0 : E)) := by
+    have h1 := fderiv_slice_apply
+      (U := fun p : ℝ × E => fderiv ℝ U p ((1 : ℝ), (0 : E))) (p := (t₀, x)) hUt v
+    rw [h1, hF2.fderiv]
+    rfl
+  rw [hRHS, ← hsymm ((1 : ℝ), (0 : E)) ((0 : ℝ), v)]
+  exact hcomp
+
+end SliceCalculus
+
+
 end NSCarleman
 
 #eval "Carleman commutator-method core — machine-verified."
