@@ -1,5 +1,33 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.6 — 2026-06-11 — Carleman ladder-2: the radial weight calculus machine-verified (Tao's F/LF/Hessian displays, B11/B12 lean-proved)
+
+`formalization/lean-mathlib/Carleman.lean` grows a `WeightCalculus` section (~375 lines total).
+**Library infrastructure; `:proved`=0 for the PDE.**
+- Tao's two Carleman weights are radial; for `g = φ(t,‖x‖)` in `d = 3` the Lemma-4.1 quantities
+  reduce to `F = ∂tφ − (∂rrφ + (2/r)∂rφ) − (∂rφ)²`, `LF = ∂tF + ∂rrF + (2/r)∂rF`, and the
+  Hessian eigenvalues `∂rrφ` (radial) / `(∂rφ)/r` (tangential, double). This rung machine-verifies
+  the paper's pp. 30/33 displays AT THE RADIAL LEVEL — every partial pinned by an explicit
+  `HasDerivAt` witness, every display an exact field identity.
+- **First weight** `φ = α(T₀−t)r + r²/(C₀T)` (Prop 4.2): witnesses for `∂t g`, `∂r g`, `∂rr g`,
+  `∂t F`, `∂r F`, `∂rr F`; **`F42_eq` (= B11a)** and **`LF42_eq` (= B11b)** — the two p. 30
+  displays; **`g42_radial_hess_lower` (= B11c radial)** — radial eigenvalue exactly `2/(C₀T)`,
+  tangential `≥ 2/(C₀T)` when `α(T₀−t) ≥ 0 < r`: Tao's convexity input `D²g ≥ (2/C₀T)·I`.
+- **Second weight** `φ = −r²/4(t+t₁) − (3/2)log(t+t₁) − α·log((t+t₁)/(T₀+t₁)) + α(t+t₁)/(T₀+t₁)`
+  (Prop 4.3, the modified heat-kernel log): witnesses incl. the `Real.log` chain rules;
+  **`F43_eq` (= B12a)** — the Gaussian and `3/(2τ)` contributions cancel exactly, `F` is
+  `r`-INDEPENDENT; **`LF43_eq` (= B12b)** `LF = α/(t+t₁)²`; **`g43_radial_hess` (= B12c)** —
+  the Hessian is exactly `−I/(2(t+t₁))` (both eigenvalues equal).
+- **Soundness:** no `sorry`; the false variant (the `−8α(T₀−t)/(C₀Tr)` term of `LF42`
+  sign-flipped, mirroring the sympy false variant) is REJECTED; LEAN_EXIT=0 vs the lean4-cv
+  Mathlib.
+**Honest scope:** radial level. The 3D identification `Δ(φ∘‖·‖) = ∂rrφ + (2/r)∂rφ` needs the
+gradient/Hessian-of-norm substrate — verified to be a genuine Mathlib gap (Mathlib has a pointwise
+`Laplacian` + `contDiffAt_norm` but no computation lemmas: no `Δ‖x‖²`, no product/chain rule, no
+gradient-of-norm) — that substrate is ladder-3 alongside the weighted-L² master identity.
+`:proved`=0; distance UNTOUCHED. *Next:* ladder-3 — norm-calculus substrate (∇‖x‖, Hess‖x‖,
+`Δ(φ∘‖·‖)`) or the weighted-L² `CommutatorMethod` instance.
+
 ## v0.15.5 — 2026-06-10 — Carleman ladder-1: the commutator-method core machine-verified (Tao Lemma 4.1's operator algebra)
 
 New file `formalization/lean-mathlib/Carleman.lean`. **Library infrastructure; `:proved`=0 for the PDE.**
