@@ -65,7 +65,9 @@ Of the **eight** criteria now measured, **not one is both true and useful** on r
 
 The coherent reading — **a suggestive prior, not a theorem**: the easy *conditional* exclusion criteria tend
 to have hypotheses that **don't hold on the very flows that intensify**. That is consistent with *why* the
-problem is open — the cheap conditional routes are plausibly vacuous for the actual mechanism — and it tells a
+problem is open — the cheap conditional routes are plausibly **non-discriminating in the resolved truncation**
+(a triad seat's catch: "vacuous in near-singular flow" must NOT smuggle "irrelevant to PDE truth" — it
+supports only "may be non-discriminating in *this* regime") — and it tells a
 future search **where not to spend effort**: a conditional theorem whose hypothesis a resolved near-singular
 DNS already violates (or drives the wrong way under refinement) is unlikely to be the route, unless the
 singular limit recovers the hypothesis (which the truncation cannot test).
@@ -86,3 +88,15 @@ unresolved on any accessible uniform grid before it concentrates. Completing tho
 the wall corner), which is a substantial numerics undertaking, not a witness probe. The validated `(r,z)`
 solver is the right foundation to build that on; the honest status today is that those two cells are
 **resolution-limited**, and the witness has reproduced *why*.
+
+**Triad-reviewed and banked (2026-06-11).** Before building any adaptive solver, the *decision* was put to an
+adversarial triad (`docs/ns048_adaptive_solver_triad_brief.md` → `..._triad_verdict.md`). A cheap falsifiable
+gate (`scripts/ns048_c0_boundary_transfer.jl`) settled it: the NS-050 two-scale estimator **does** transfer to
+a wall-pinned self-similar collapse (β recovered to 0.2% — the boundary is an anchor, not a contaminant), but
+a competing *fixed* length-scale contaminates it (32–52%), and the real wall DNS is too short/unclean to
+supply a clean window. **Decision: bank — cells (ii)/(iii) stay resolution-limited.** The dynamic-rescaling
+reuse path (C) is *estimator-licensed but data-starved*, unlocked for a future cleaner collapse; a full
+adaptive solver (A) is dominated for this witness objective (justifiable only as separately-argued reusable
+infrastructure). Two over-reach traps were caught and recorded: "vacuous ⇒ irrelevant to PDE truth" (no — only
+non-discriminating in the truncation), and "resolving the wall ⇒ learning about the NS singularity" (no —
+about a known intensification regime under truncation).

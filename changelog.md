@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.9 — 2026-06-11 — Triad VERDICT + (C0) gate: adaptive solver BANKED (B); NS-050 β transfers to the wall but is data-starved
+
+Closed the triad pass on the adaptive-solver decision. Both seats (Grok edge-witness Φ + ChatGPT synthesis)
+returned: **C1 REFUTED** (a full adaptive solver (A) is an infrastructure project disguised as witness
+completion — dominated for the stated objective), **C3 CORRECT** (witness-tier ceiling; "closing in on the
+singularity" is a category error), **C4 NOT ESTABLISHED** (completing the cells is incremental), and the
+synthesis sharpened **C5** into a falsifiable gate **(C0 → C-if-valid → else B)**. Ran (C0)
+(`scripts/ns048_c0_boundary_transfer.jl`): the NS-050 two-scale estimator **does transfer** to a clean
+wall-pinned self-similar collapse (β recovered to **0.2%** — the synthesis was right vs Grok's "likely
+invalid"; the boundary is an anchor, not a contaminant) BUT a competing **fixed** length-scale contaminates it
+(32–52%), and the real wall DNS is too short / unclean to supply a clean window ⇒ **DECISION: bank (B)** —
+cells (ii)/(iii) stay resolution-limited; **(C) is estimator-licensed but data-starved** (unlocked for a future
+cleaner collapse); **(A) dominated**. Folded in two over-reach catches: tightened the map's "vacuous for the
+actual mechanism" → "**non-discriminating in the resolved truncation**" (the seat's "vacuous ⇏ irrelevant to
+PDE truth" catch). Artifacts: `docs/ns048_adaptive_solver_triad_{brief,verdict}.md`,
+`scripts/ns048_c0_boundary_transfer.jl` (+`.out.txt`). No build; no new NS-ID; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.8 — 2026-06-11 — Triad brief OPENED: should we build the adaptive/moving-mesh swirl solver?
 
 Before sinking a Chen–Hou-class effort into an adaptive solver to complete the vacuity map's resolution-limited

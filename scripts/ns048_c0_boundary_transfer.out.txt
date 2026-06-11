@@ -1,0 +1,35 @@
+==========================================================================
+  (C0) boundary-transfer feasibility — does NS-050's two-scale β survive a FIXED WALL?
+  true exponent c = 2.00 ; estimator β = d lnℓ/d ln(1/A), ℓ=‖f‖∞/‖∂f‖∞
+==========================================================================
+
+  (1) INTERIOR (baseline, re-confirm estimator) : β = 1.999   (true 2.00, err 0.0%)
+  (2) WALL-PINNED (the transfer question)        : β = 1.997   (true 2.00, err 0.2%)
+  (3) WALL + FIXED feature, all-s               : β = 2.650   (true 2.00, err 32.5%)
+      WALL + FIXED, deep-collapse subset (s≤0.160): β = 3.041   (true 2.00, err 52.0%)
+
+  per-s wall diagnostics (A=‖f‖∞ grows, ℓ=‖f‖/‖∂f‖ should ∝ λ=s^c):
+    s        A          ℓ          ℓ/s^c (should be ~const)
+   0.400       1.07    0.06862   0.4289
+   0.300       1.43    0.03860   0.4289
+   0.220       1.95    0.02076   0.4289
+   0.160       2.68    0.01098   0.4289
+   0.120       3.57    0.00618   0.4290
+   0.090       4.77    0.00348   0.4293
+   0.065       6.60    0.00182   0.4304
+   0.050       8.58    0.00108   0.4332
+
+==========================================================================
+  (C0) VERDICT
+==========================================================================
+  interior estimator recovers c : YES
+  WALL-PINNED recovers c        : YES  ⇒ the fixed wall does NOT break the two-scale estimator
+  robust to a competing FIXED scale (deep collapse) : NO (fixed scale contaminates)
+
+  ⇒ (C) is ESTIMATOR-LICENSED: NS-050's two-scale β transfers to wall-pinned self-similar
+    collapse. The boundary is an anchor, not a contaminant (synthesis seat was right vs Grok's
+    'likely invalid'). REMAINING gate (C0b, data-sufficiency): can the real wall DNS's RESOLVED
+    phase supply a clean self-similar window before it goes unresolved? — a separate check.
+  Note (3): a competing FIXED scale fools the fit — so on the REAL DNS, β is trustworthy ONLY where the
+  collapse amplitude dominates fixed scales (domain/IC/viscous) — a checkable condition. :proved=0.
+==========================================================================

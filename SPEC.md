@@ -1150,7 +1150,11 @@ mechanism** that prevents different rescaled subsequences converging to differen
   swirl) then **confirms the intensification mechanism** (‖ω‖ 0→24.7, swirl→wall — unlike the relaxing blob)
   but goes **UNRESOLVED** (spurious energy growth + NaN) by t≈0.75 even at ν=2.5e-3 / 192×160 ⇒ `|x₃|^α` +
   Type-I are **RESOLUTION-LIMITED** (a clean read needs the Chen–Hou adaptive-ultra-resolution regime — the
-  witness reproduces *why* the scenario is hard). `:proved`=0; distance UNTOUCHED.
+  witness reproduces *why* the scenario is hard). **Adaptive-solver decision triad-reviewed + BANKED**
+  (`docs/ns048_adaptive_solver_{triad_brief,triad_verdict}.md`): the (C0) gate
+  `scripts/ns048_c0_boundary_transfer.jl` showed the NS-050 two-scale β *transfers* to a clean wall-pinned
+  collapse (0.2%) but is **data-starved** on the real DNS ⇒ **bank**; (C) estimator-licensed-but-unusable-now,
+  (A) dominated. `:proved`=0; distance UNTOUCHED.
 - **Mapped (2026-06-06): `docs/ns048_exclusion_frontier.md`** — the machinery laid out (rescaling →
   ancient limit → Liouville + no-split + backward-uniqueness; Type-I vs Type-II; NS-007 = the
   self-similar sub-case done; general Liouville + no-split + Type-II = the gap), with the one-sentence
