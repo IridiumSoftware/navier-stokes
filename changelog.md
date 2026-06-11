@@ -1,5 +1,20 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.18 — 2026-06-11 — Triad brief OPENED (two parts): NS-046 integral finding + NS-013 consolidated reduction
+
+Move #2 of the open-questions plan: `docs/ns046_ns013_triad_brief.md` — a combined two-part adversarial brief
+(one routing trip) subjecting this week's two witness findings to external seats before they are leaned on.
+**Part 1 (NS-046):** the integral-cancellation reading — P1-C1 the weighting-artifact claim (is `w=|ω|²` the
+right weight, or is the "artifact" itself an artifact of the favorable weight?), P1-C2 the scale-margin locus,
+P1-C3 single-fixture/snapshot/resolution (pre-flagged unconverged), P1-C4 the −λ₃²-self-damping sharpening
+(should domination be restated against the vorticity feed term?). **Part 2 (NS-013):** the consolidated
+reduction — P2-C1 is the 97–99% phase-scramble collapse non-trivial or a calibrated Gaussianity restatement,
+P2-C2 the core ξ-smoothness reading (**pre-flagged: the 1%→0.1% uptick 165→212 that the headline glossed**;
+single-N), P2-C3 reduction-vs-relabeling (what does the complex angle add over plain CFM?), P2-C4 whether
+"witness-supported" is honest or should downgrade to "two adjacent witnesses". Internal pre-screen included
+with my own vulnerabilities flagged. **Awaiting Grok edge-witness Φ + synthesis seat (Aaron routes).**
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.17 — 2026-06-11 — NS-046 sign Required-Check CLOSED (algebraic): pressure-Hessian coefficient −1, convention CORRECT
 
 Executed move #1 of the open-questions plan. The depletion convention all three NS-046 probes adopt
