@@ -51,6 +51,11 @@ function integral_balance(U, op, ν)
     # per-point arrays
     npt=N^3
     W=Vector{Float64}(undef,npt); DEPL=similar(W); VISC=similar(W); SELF=similar(W); KLOC=similar(W)
+    # TRIAD-DEMANDED additions (verdict 2026-06-11): alternative weights + the FEED denominator —
+    # the seats refuted any reading from w=|ω|² alone ("weight-sensitive", P1-C1) and demanded the
+    # domination be tested against the actual growth feed ¼(|ω|²−(ω·e₃)²) (P1-C4), per the
+    # machine-verified Dλ₃ = −λ₃² + FEED − e₃ᵀ∇²p e₃ + visc.
+    WPROD=similar(W); WL3W2=similar(W); WS2=similar(W); FEED=similar(W)
     idx=0
     @inbounds for c in 1:N, b in 1:N, a in 1:N
         idx+=1
@@ -61,14 +66,21 @@ function integral_balance(U, op, ν)
         F = eigen(Symmetric(S)); λ3=F.values[3]; e3=F.vectors[:,3]   # values ascending ⇒ [3]=max
         h11=Hp.xx[a,b,c]; h22=Hp.yy[a,b,c]; h33=Hp.zz[a,b,c]; h12=Hp.xy[a,b,c]; h13=Hp.xz[a,b,c]; h23=Hp.yz[a,b,c]
         pH = e3[1]^2*h11 + e3[2]^2*h22 + e3[3]^2*h33 + 2*(e3[1]*e3[2]*h12 + e3[1]*e3[3]*h13 + e3[2]*e3[3]*h23)
-        DEPL[idx] = pH                      # e₃ᵀ∇²p e₃ — SAME convention as ns046_uniform_domination_probe
-                                            # (term enters Dλ₃ as −e₃ᵀ∇²p e₃ ⇒ Rp>0 depletes, Rp≥1 beats self-amp).
-                                            # We ADOPT that convention, do NOT independently re-derive the sign.
+        DEPL[idx] = pH                      # e₃ᵀ∇²p e₃ — sign convention machine-verified (dlambda3 check)
         VISC[idx] = ν*gω2[a,b,c]
         SELF[idx] = λ3^2
         KLOC[idx] = sqrt(gω2[a,b,c])/(wmag[a,b,c]+1e-12)   # local inverse length (scale proxy)
+        ov = (ωx[a,b,c], ωy[a,b,c], ωz[a,b,c])
+        Sω1 = S[1,1]*ov[1]+S[1,2]*ov[2]+S[1,3]*ov[3]
+        Sω2 = S[2,1]*ov[1]+S[2,2]*ov[2]+S[2,3]*ov[3]
+        Sω3 = S[3,1]*ov[1]+S[3,2]*ov[2]+S[3,3]*ov[3]
+        WPROD[idx] = abs(ov[1]*Sω1 + ov[2]*Sω2 + ov[3]*Sω3)          # |ω·Sω| (actual production)
+        WL3W2[idx] = abs(λ3)*wω                                       # |λ₃||ω|²
+        WS2[idx]   = sum(abs2, S)                                     # |S|² (strain energy)
+        ωe3 = ov[1]*e3[1]+ov[2]*e3[2]+ov[3]*e3[3]
+        FEED[idx]  = 0.25*(wω - ωe3^2)                                # ¼(|ω|²−(ω·e₃)²) ≥ 0, the λ₃ growth feed
     end
-    (W=W, DEPL=DEPL, VISC=VISC, SELF=SELF, KLOC=KLOC)
+    (W=W, DEPL=DEPL, VISC=VISC, SELF=SELF, KLOC=KLOC, WPROD=WPROD, WL3W2=WL3W2, WS2=WS2, FEED=FEED)
 end
 
 function wsum(num,W,mask) ; s=0.0; @inbounds for i in eachindex(W); mask[i] && (s+=num[i]*W[i]); end; s; end
@@ -104,6 +116,19 @@ function main()
         R=(wsum(B.DEPL,B.W,m)+wsum(B.VISC,B.W,m))/wsum(B.SELF,B.W,m)
         pr(@sprintf("    top-%.1f%% : R_int = %.3f", 100q, R))
     end
+    pr("\n  ── TRIAD-DEMANDED (verdict 2026-06-11): weight sensitivity + the FEED denominator ──")
+    pr("    P1-C1: is R_int weight-dependent?  R_int = Σ_w(DEPL+VISC)/Σ_w(λ₃²) under each weight:")
+    for (nm, ww) in (("|ω|² (original)", B.W), ("|ω·Sω| (production)", B.WPROD), ("|λ₃||ω|²", B.WL3W2), ("|S|² (strain energy)", B.WS2))
+        Rw = (wsum(B.DEPL,ww,allmask)+wsum(B.VISC,ww,allmask))/wsum(B.SELF,ww,allmask)
+        pr(@sprintf("      w = %-22s  R_int = %+.3f", nm, Rw))
+    end
+    pr("    P1-C4: against the FEED ¼(|ω|²−(ω·e₃)²) (the actual λ₃ growth source) instead of λ₃²:")
+    for (nm, ww) in (("|ω|² (original)", B.W), ("|ω·Sω| (production)", B.WPROD))
+        Rf = (wsum(B.DEPL,ww,allmask)+wsum(B.VISC,ww,allmask))/wsum(B.FEED,ww,allmask)
+        pr(@sprintf("      w = %-22s  R_feed = %+.3f   (≥1 ⇒ depletion+viscous beat the feed)", nm, Rf))
+    end
+    pr("    (single snapshot, N=64, one fixture — same unconverged caveat as everything above)")
+
     pr("\n  ── SCALE-resolved (the derivative-loss / marginal-cancellation test) ──")
     pr("    bin local k_loc=|∇ω|/|ω| ; does R_int DEGRADE toward 1 at small scale (high k)?")
     kl=B.KLOC; klo,khi=quantile(kl,0.02),quantile(kl,0.98)
@@ -116,20 +141,18 @@ function main()
         push!(Rtrend,R)
         pr(@sprintf("    [%6.2f,%6.2f)    %6.3f", edges[j],edges[j+1],R))
     end
-    pr("\n"*"="^78); pr("  WITNESS READING (vacuity-capped — NOT the inequality)"); pr("="^78)
-    pr(@sprintf("  • PRODUCTION-WEIGHTED INTEGRAL vs unweighted-pointwise: R_int(full)=%.2f  (≥1 ⇒ depletion+viscous", Rfull))
-    pr("    beat self-amp on the w-weighted integral). w=|ω|² concentrates on the cores, so this INTEGRAL form —")
-    pr("    the form the inequality actually takes — can differ from the uniform-domination probe's UNWEIGHTED")
-    pr("    conditional means (which were non-uniform, negative on the bulk). This is the object those probes missed.")
+    pr("\n"*"="^78); pr("  WITNESS READING (TRIAD-TRIMMED 2026-06-11 — vacuity-capped, NOT the inequality)"); pr("="^78)
+    pr(@sprintf("  • R_int(full)=%.2f under w=|ω|² — a WEIGHT-SENSITIVE integral reconciliation (P1-C1 verdict:", Rfull))
+    pr("    'much of the non-uniformity is a weighting artifact' was REFUTED as over-reach; the supportable")
+    pr("    statement is that enstrophy weighting emphasizes coherent cores — see the weight table above).")
     finite=filter(isfinite,Rtrend)
-    pr(@sprintf("  • Scale dependence (derivative-loss test): R_int by scale %.2f (large) → %.2f (small/high-k);", finite[1], finite[end]))
-    pr("    where it is WEAKEST is where the analytic difficulty (marginal cancellation) would sit.")
-    pr("  • SIGN CAVEAT — REQUIRED CHECK, *not resolved here*: the convention 'e₃ᵀ∇²p e₃>0 ⇒ depletes' is ADOPTED")
-    pr("    from ns046_uniform_domination_probe / target §2; its physical correctness rests on the strain-eigenvalue")
-    pr("    evolution sign (Dλ₃ ⊃ −e₃ᵀ∇²p e₃), which is NOT rigorously derived in-repo. PIN it before trusting any")
-    pr("    'depletes/enhances at cores' reading (a candidate over-reach if left unpinned). Discipline forbids winging it.")
-    pr("  • FIREWALL: resolved truncation, no singular set; :proved=0; distance UNTOUCHED. This sharpens WHERE the")
-    pr("    difficulty sits + surfaces the sign Required-Check; it is NOT the inequality or progress.")
+    pr(@sprintf("  • Scale bins %.2f → %.2f: NON-MONOTONE; the 'difficulty locus' reading is WITHDRAWN (P1-C2", finite[1], finite[end]))
+    pr("    REFUTED: k_loc is a sharpness proxy not a spectral scale, and viscous floors force margins ≥1 in a")
+    pr("    regular truncation — the bins may only be rediscovering that regular truncations regularize).")
+    pr("  • Sign convention: machine-verified (ns046_dlambda3_sign_check, algebraic) — pressure coefficient −1.")
+    pr("  • STATUS (P1-C3): unconverged SINGLE-POINT witness — one fixture, one snapshot, one resolution. No")
+    pr("    reading beyond 'suggestive' is licensed before an N-trend + second fixture + multiple times.")
+    pr("  • FIREWALL: resolved truncation, no singular set; :proved=0; distance UNTOUCHED.")
     pr("="^78); close(fo); println(stdout,"\nwrote: $out")
 end
 if abspath(PROGRAM_FILE)==@__FILE__; main(); end

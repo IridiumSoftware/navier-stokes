@@ -14,6 +14,17 @@
     top-1.0% : R_int = 3.046
     top-0.1% : R_int = 3.808
 
+  ── TRIAD-DEMANDED (verdict 2026-06-11): weight sensitivity + the FEED denominator ──
+    P1-C1: is R_int weight-dependent?  R_int = Σ_w(DEPL+VISC)/Σ_w(λ₃²) under each weight:
+      w = |ω|² (original)         R_int = +2.419
+      w = |ω·Sω| (production)     R_int = +1.533
+      w = |λ₃||ω|²                R_int = +1.477
+      w = |S|² (strain energy)    R_int = +0.212
+    P1-C4: against the FEED ¼(|ω|²−(ω·e₃)²) (the actual λ₃ growth source) instead of λ₃²:
+      w = |ω|² (original)         R_feed = +0.984   (≥1 ⇒ depletion+viscous beat the feed)
+      w = |ω·Sω| (production)     R_feed = +1.031   (≥1 ⇒ depletion+viscous beat the feed)
+    (single snapshot, N=64, one fixture — same unconverged caveat as everything above)
+
   ── SCALE-resolved (the derivative-loss / marginal-cancellation test) ──
     bin local k_loc=|∇ω|/|ω| ; does R_int DEGRADE toward 1 at small scale (high k)?
     k_loc range        R_int     (production-weighted, per scale band)
@@ -25,18 +36,16 @@
     [ 88.26,153.02)     1.731
 
 ==============================================================================
-  WITNESS READING (vacuity-capped — NOT the inequality)
+  WITNESS READING (TRIAD-TRIMMED 2026-06-11 — vacuity-capped, NOT the inequality)
 ==============================================================================
-  • PRODUCTION-WEIGHTED INTEGRAL vs unweighted-pointwise: R_int(full)=2.42  (≥1 ⇒ depletion+viscous
-    beat self-amp on the w-weighted integral). w=|ω|² concentrates on the cores, so this INTEGRAL form —
-    the form the inequality actually takes — can differ from the uniform-domination probe's UNWEIGHTED
-    conditional means (which were non-uniform, negative on the bulk). This is the object those probes missed.
-  • Scale dependence (derivative-loss test): R_int by scale 2.49 (large) → 1.73 (small/high-k);
-    where it is WEAKEST is where the analytic difficulty (marginal cancellation) would sit.
-  • SIGN CAVEAT — REQUIRED CHECK, *not resolved here*: the convention 'e₃ᵀ∇²p e₃>0 ⇒ depletes' is ADOPTED
-    from ns046_uniform_domination_probe / target §2; its physical correctness rests on the strain-eigenvalue
-    evolution sign (Dλ₃ ⊃ −e₃ᵀ∇²p e₃), which is NOT rigorously derived in-repo. PIN it before trusting any
-    'depletes/enhances at cores' reading (a candidate over-reach if left unpinned). Discipline forbids winging it.
-  • FIREWALL: resolved truncation, no singular set; :proved=0; distance UNTOUCHED. This sharpens WHERE the
-    difficulty sits + surfaces the sign Required-Check; it is NOT the inequality or progress.
+  • R_int(full)=2.42 under w=|ω|² — a WEIGHT-SENSITIVE integral reconciliation (P1-C1 verdict:
+    'much of the non-uniformity is a weighting artifact' was REFUTED as over-reach; the supportable
+    statement is that enstrophy weighting emphasizes coherent cores — see the weight table above).
+  • Scale bins 2.49 → 1.73: NON-MONOTONE; the 'difficulty locus' reading is WITHDRAWN (P1-C2
+    REFUTED: k_loc is a sharpness proxy not a spectral scale, and viscous floors force margins ≥1 in a
+    regular truncation — the bins may only be rediscovering that regular truncations regularize).
+  • Sign convention: machine-verified (ns046_dlambda3_sign_check, algebraic) — pressure coefficient −1.
+  • STATUS (P1-C3): unconverged SINGLE-POINT witness — one fixture, one snapshot, one resolution. No
+    reading beyond 'suggestive' is licensed before an N-trend + second fixture + multiple times.
+  • FIREWALL: resolved truncation, no singular set; :proved=0; distance UNTOUCHED.
 ==============================================================================

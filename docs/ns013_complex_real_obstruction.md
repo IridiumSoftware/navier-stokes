@@ -159,27 +159,34 @@ the *model fact* that controlled models protect and CLM does not. No `:proved`/`
 scrambled-phase production measurement would test claim 1 — that reality's phase does not generically
 deplete — but `c²_int` from NS-038 already evidences the geometric mechanism of claim 2.)
 
-## Consolidation (2026-06-11) — the surviving reduction is witness-supported; the open core is analytic
+## Consolidation (2026-06-11; TRIAD-TRIMMED same day — `docs/ns046_ns013_triad_verdict.md`)
 
-Two within-truncation probes now characterize the surviving `:argued` reduction (reality's protection ⟶ the
-emergent CFM/Hou–Li geometric depletion). Both Scope: resolved DNS, vacuity-capped, `:proved`=0.
+The consolidation below was put to a two-seat adversarial pass (Grok Φ + synthesis) **and trimmed hard**; the
+GPU N-trend then *empirically confirmed* the seats' central attack. The honest record:
 
-- **Claim 1 — production = phase-coherence object: SUPPORTED.** `ns013_phase_production_3d` — a
-  matched-spectrum phase-scramble (preserving `E,Z,H` to ~1e-16) removes **97% (TG) / 99% (helical)** of
-  `∫ω·Sω` and drives the alignment `c²_int` 0.63→0.36. Reality's *Hermitian constraint per se* (generic
-  phases) supplies no production; the cascade lives in the *dynamical* coherence — exactly as the reduction states.
-- **Claim 2 — the CFM/Hou–Li geometric mechanism's LOCAL content: WITNESSED (N=64).**
-  `ns013_cfm_conditioned_probe` — the vorticity-direction roughness `⟨|∇ξ|²⟩_w` conditioned on `|ω|`-intensity
-  is **LOWER in the intense cores** (top-0.1% ≈ 212) than the bulk (≈ 369), ratio ≈ 0.6: ξ is *comparatively
-  smooth where `|ω|` peaks* — the CFM-regular-leaning, geometrically-organized scenario, consistent with
-  NS-038's `c²_int≈0.72`. **The N-trend (does the core ξ-geometry stay smooth under refinement, or lift — the
-  NS-039 D30 pattern) is GPU-DEFERRED** (N=256↔512, `metal/dns_gpu.swift`); at N=64 this is a single-resolution
-  witness only.
+- **Claim 1 (phase-scramble, `ns013_phase_production_3d`): survives only as "quadratic invariants are
+  insufficient."** The 97–99% production collapse under an invariant-preserving scramble is close to textbook
+  triple-correlation phenomenology (odd moments of phase-random fields vanish); a *negative* result would have
+  been the surprise. The calibration value (E,Z,H held to ~1e-16 while `∫ω·Sω` collapses) stands; the bridge
+  to the *reduction* does not (P2-C1: NOT ESTABLISHED).
+- **Claim 2 (`ns013_cfm_conditioned_probe`): the "ξ smoother in cores" reading is REFUTED — and the N-trend
+  killed it empirically.** The N=64 headline (core/bulk 0.57) **reverses under refinement: 2.62 at N=256**
+  (`ns013_cfm_gpu_trend.jl`; the NS-039 lift pattern). The seats' three attacks all landed: the 1%→0.1% uptick
+  was load-bearing, the single-N footing was weak, and there is a **kinematic confound** (high-`|ω|` sets in a
+  tube fixture are organized *by construction* — "vortex tubes are tube-like" is morphology, not protection).
+  N=512 pending (decides whether the *roughening* converges); the N=64 reading is dead either way.
+- **The "reduction" itself: REFUTED as a reduction (P2-C3) — it is a relabeling.** CFM is a necessary
+  condition for *any* NS flow; "the protective direction reduces to CFM" adds no discriminating content, and
+  the complex-data angle contributes almost nothing (the 1D one-sided Fourier-support mechanism does not
+  transfer to 3D except as analogy). Elimination-by-exhaustion is not a reduction.
 
-**What's left — the open core is analytic.** NS-013's protective direction reduces to the **Constantin–Fefferman
-/ Hou–Li conditional regularity criterion** (ξ Lipschitz where `|ω|` large ⟹ no blowup); the DNS *witnesses*
-that geometry organizing in the cores. But the criterion is **conditional and unproven for general data** —
-*does the emergent dynamics produce enough ξ-regularity to control small scales in the singular limit?* That is
-a `Scope: PDE` analytic question the program will not manufacture. **NS-013 stays `:open`**; the witness side is
-now consolidated; the surviving reduction is `:argued` **+ witness-supported but not re-witnessed** (a triad
-pass on the consolidated reduction is the natural verification step). `:proved`=0; distance UNTOUCHED.
+**The stable landing (adopted from the synthesis seat):**
+> *Reality's phase/Hermitian structure alone does not appear protective; geometric organization remains the
+> leading surviving candidate — but the reduction to CFM is **argued, not witnessed**.*
+
+**Status:** NS-013 stays **`:open`**; the surviving content is `:argued` + **two adjacent, non-diagnostic
+witnesses** (neither touches the load-bearing step). What a *diagnostic* witness would need: a measurement
+that discriminates CFM-geometric protection from the alternatives (helicity depletion, other alignments,
+viscous regularization) — e.g. direction-roughness vs blowup-indicator correlations that differ systematically
+between real and complex data. None exists. The open core is the analytic CFM-sufficiency question, which the
+program will not manufacture. `:proved`=0; distance UNTOUCHED.

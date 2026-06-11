@@ -282,7 +282,7 @@ Distance to prize: UNTOUCHED.**
 
 | # | Priority | Scope | Status |
 |---|---|---|---|
-| P1 | **NS-046** static frontier — critical coercive deformation inequality ("where the prize sits"); **integral-cancellation probe** (witness): production-weighted integral favorable (R_int≈2.4, strengthens to ≈3.8 on cores — apparent pointwise non-uniformity partly a weighting artifact; margin shrinks at small scale; vacuity-capped) — **sign Required-Check ✅ CLOSED** (`ns046_dlambda3_sign_check`, algebraic: pressure coefficient −1, convention correct; −λ₃² is self-damping, the vorticity term is the feed); **NS-046 unchanged `:open`** | PDE | `:open` |
+| P1 | **NS-046** static frontier — critical coercive deformation inequality ("where the prize sits"); **integral-cancellation probe** (witness): integral probe **triad-trimmed**: WEIGHT-SENSITIVE (R_int 2.42→1.53→**0.21** across weights) + **FEED-marginal** (R_feed≈0.98–1.03 vs the machine-verified λ₃ growth source — the 2.4 comfort was a denominator artifact); locus reading withdrawn; **sign Required-Check ✅ CLOSED** (algebraic, coefficient −1); single-point, suggestive only; **NS-046 unchanged `:open`** | PDE | `:open` |
 | P2 | **NS-048** dynamic frontier — Type-I / ancient exclusion (2 cores); **vacuity map** (`docs/ns048_conditional_vacuity_map.md` — 8 hypotheses, none both-true-and-useful) + **axisym swirl DNS** `scripts/ns048_axisym_swirl_dns.jl` (validated 4/4; swirl-sign cell closed: Γ≥0 uninformative about S; **Hou–Luo wall fixture** confirms intensification but goes unresolved ⇒ `|x₃|^α`+Type-I **resolution-limited**, Chen–Hou regime); adaptive-solver decision **triad-reviewed + banked** ((C0) gate: NS-050 β transfers to a clean wall collapse but data-starved on the real DNS ⇒ bank) | PDE | `:open` |
 | P3 | **NS-050** — tuned Chen–Hou **profile reconstruction** (instrument validated; profile OPEN, 4 honest negatives) | 1D-model → PDE-analysis | `:open` |
 | P4 | **NS-010/011** complex-singularity diagnostic — 3D inviscid hunt INCONCLUSIVE (resolution wall, gate refuses artifact) | PDE-method | `:tested` |
@@ -425,7 +425,13 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
   collapses the production `∫ω·Sω` ~97–99% (`ns013_phase_production_3d.jl`), and the controlled L² invariants
   are phase-BLIND while the production is phase-SENSITIVE (`ns013_phase_norm_split.jl`) — a concrete
   phase-space face of supercriticality (NS-002). BKM/Besov-norm sensitivity is intermittency-dependent
-  (coherent-flow only; 14th over-reach declined). Within-truncation; `:proved`=0.
+  (coherent-flow only; 14th over-reach declined). Within-truncation; `:proved`=0. **SECOND TRIAD
+  (2026-06-11, `docs/ns046_ns013_triad_verdict.md`): the consolidated reduction was REFUTED as a reduction**
+  ("reduces to CFM" = relabeling — CFM is necessary for any flow; the complex angle adds ~nothing); the
+  claim-2 ξ-smoothness witness **REVERSED under refinement** (core/bulk 0.57@N=64 → **2.62@N=256**, NS-039
+  pattern + kinematic confound; N=512 in flight). Stable landing: *phase/Hermitian structure alone not
+  protective; geometric organization = leading surviving candidate; reduction to CFM argued NOT witnessed.*
+  Status: `:argued` + two adjacent non-diagnostic witnesses.
 - **Critical-norm detector race (2026-06-07, `ns046_critical_norm_race.jl`, NS-005/NS-010):** raced the σ=0
   norms (all must blow at a singularity, GKP/ESS) on the Kerr-tube reconnection — by peak/baseline
   sharpness the **vorticity Kozono–Taniuchi `Ḃ⁰_{∞,1}` is sharpest (2.5×)**, the **velocity ESS-endpoint
