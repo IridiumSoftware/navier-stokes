@@ -1,0 +1,32 @@
+==========================================================================
+  AXISYM SWIRL DNS — the 3 deferred vacuity-map cells (Γ-sign / |z|^α / Type-I I)
+  Scope: resolved-DNS WITNESS, vacuity-capped. :proved=0.
+==========================================================================
+  grid 160×128  R=4.0 Lz=2π  ν=2.0e-03  dt=4.65e-02  steps=43
+
+   t      ‖ω1‖∞    Γmin     Γmax    | sign(Γ)·sign(S) mismatch% | corr(signΓ,signS) | scaledE I
+  0.00    0.0000  +0.0000 +0.3765 |                50.0 |            0.000 | 1.418e-01
+  0.23    0.3104  +0.0000 +0.3754 |                50.0 |            0.000 | 1.409e-01
+  0.51    0.6597  +0.0000 +0.3741 |                50.0 |            0.000 | 1.400e-01
+  0.74    0.9236  +0.0000 +0.3730 |                50.0 |            0.000 | 1.391e-01
+  1.02    1.2005  +0.0000 +0.3715 |                50.0 |            0.000 | 1.380e-01
+  1.26    1.3955  +0.0000 +0.3704 |                50.0 |            0.000 | 1.372e-01
+  1.49    1.5586  +0.0000 +0.3692 |                50.0 |            0.000 | 1.363e-01
+  1.77    1.7156  +0.0000 +0.3677 |                50.0 |            0.000 | 1.352e-01
+  2.00    1.8166  +0.0000 +0.3665 |                50.0 |            0.000 | 1.343e-01
+
+  ── the 3 deferred cells, read ──
+  (i)  swirl-sign: Γmin over the run = +0.0000  ⇒ Γ stays ≥0 (max principle HOLDS);
+       but Γ-sign predicts S-sign only 50% of the time (mismatch up to 50%) ⇒ Γ≥0 does NOT control the swirl source S.
+  (ii) |z|^α axial growth: swirl source generated ‖ω1‖∞ 0→1.817, BUT Γmax 0.3765→0.3665 and the
+       scaled-energy 1.418e-01→1.343e-01 BOTH DECREASE (viscous) — the no-boundary single-blob does NOT
+       intensify, so no |z|^α concentration develops. PARTIAL — needs an intensifying fixture
+       (Hou–Luo wall / colliding jets), not a decaying blob.
+  (iii) Type-I scaled-energy proxy I: bounded + decreasing ⇒ no Type-I concentration — expected on a
+       non-intensifying resolved flow (vacuity-capped null; same fixture caveat as (ii)).
+
+  SUMMARY: cell (i) swirl-sign COMPLETED (Γ≥0 holds but ⊥ sign(S), corr 0 — structural). Cells (ii)/(iii)
+  need an intensifying fixture this no-boundary blob does not provide — recorded null/partial, honest.
+
+  CAVEAT (vacuity cap): resolved, regular flow — cannot reach the singular limit. Sign-structure read only. :proved=0.
+==========================================================================

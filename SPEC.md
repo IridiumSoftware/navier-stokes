@@ -1143,8 +1143,11 @@ mechanism** that prevents different rescaled subsequences converging to differen
   multi-directional (vacuous), the CKN ≤1-dimension *lifts above 1 under refinement* (resolution artifact),
   pressure-Hessian domination is bulk-negative / cores-only with a margin shrinking 10.9→1.5, Beltramization
   is helicity-conditional + de-Beltramizing, the Besov diagnostics are vacuity-capped. The cheap conditional
-  routes are plausibly vacuous for the actual mechanism — a *where-not-to-look* prior. 3 axisym-swirl cells
-  deferred (need an `(r,z)` fixture). `:proved`=0; distance UNTOUCHED.
+  routes are plausibly vacuous for the actual mechanism — a *where-not-to-look* prior. The axisym-swirl
+  follow-up `scripts/ns048_axisym_swirl_dns.jl` (faithful Hou–Li `(r,z)` NS-with-swirl, **validated 4/4**)
+  **closed the swirl-sign cell** — Γ≥0 holds (max principle) but is *uninformative* about the source
+  `S∝Γ∂_zΓ` (correlation 0; TRUE-BUT-USELESS); `|x₃|^α` + Type-I stay **PARTIAL** (the no-boundary blob
+  viscously relaxes rather than concentrating — need a Hou–Luo wall fixture). `:proved`=0; distance UNTOUCHED.
 - **Mapped (2026-06-06): `docs/ns048_exclusion_frontier.md`** — the machinery laid out (rescaling →
   ancient limit → Liouville + no-split + backward-uniqueness; Type-I vs Type-II; NS-007 = the
   self-similar sub-case done; general Liouville + no-split + Type-II = the gap), with the one-sentence

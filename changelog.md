@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.4 — 2026-06-10 — Axisymmetric swirl DNS: closes the vacuity map's swirl-sign cell (Γ≥0 true-but-useless)
+
+Built `scripts/ns048_axisym_swirl_dns.jl` — a faithful axisymmetric NS-with-swirl solver (Hou–Li nice
+variables `u₁=u^θ/r, ω₁=ω^θ/r, ψ₁=ψ/r²`; cell-centered r, z-periodic FD, flux-form radial operator, sparse 2D
+Poisson LU, RK4). **Validated 4/4**: radial operator 2nd-order vs analytic `(4r²−8)e^{−r²}` (rate 3.5),
+divergence-free to 5.7e-4, `cos(kz)` diffusion = `exp(−νk²t)` to 3e-4, inviscid `‖Γ‖∞` max-principle conserved
+(0% drift). This addresses the vacuity map's 3 deferred axisymmetric-swirl cells:
+- **swirl-sign — CLOSED.** On a single-signed z-modulated swirl blob, Γ=r·u^θ stays **≥0** (max principle
+  confirmed), but `sign(Γ)` predicts `sign(S=∂_z(u₁²)∝Γ∂_zΓ)` only **50%** of the time (**correlation 0**) —
+  Γ≥0 is *true but useless* as a control on the source (structural: `sign S = sign ∂_zΓ`, indefinite).
+  Numerically confirms `ns048_swirl_sign_condition_attack`. The map is now **8 criteria, none both true and
+  useful**.
+- **`|x₃|^α` growth + Type-I `I` — PARTIAL.** The no-boundary single-blob viscously relaxes (Γmax 0.376→0.366,
+  scaled-energy decreases) rather than intensifying, so neither concentration develops. Honestly recorded as
+  needing a genuinely intensifying fixture (a Hou–Luo **wall** / colliding-jet IC on the same validated
+  solver) — its own DNS session. (A reporting bug — a divide-by-~0 growth ratio — was caught by the witness
+  pass and fixed before recording.) Referenced from NS-048; no new NS-ID. `:proved`=0; Scope resolved-DNS witness.
+
 ## v0.15.3 — 2026-06-10 — Carleman ladder-0: Tao §4 full-text audit — "IBP-only" CONFIRMED, all §4 identities sympy-verified
 
 Closes ladder-0 of the Carleman plan (the deep-research recalibration's bite zero: the "summit"

@@ -28,20 +28,27 @@ vacuity signal (a hypothesis that holds at N=256 but breaks at N=512 was a resol
 | **Riesz / pressure-Hessian ratio bounded, no log** (`R_j` flat) ⇒ harmonic-analytic route live | NS-047 critical-Besov | `R_j ∈ [0.58, 0.76]`, **flat across shells**; `Re_tail ≪ 1` | flat | **LIVE-but-capped** — corroborates NS-047 C1; smallness holds "as it must" in a regular truncation | `ns046_besov_smallness_probe` |
 | **vorticity critical-Besov sharper than BKM** (`Ḃ⁰_{∞,1}/‖ω‖∞` diverges faster) — W2 | NS-047 / W2 detector | ratio `Σⱼ‖Δⱼω‖∞/‖ω‖∞` = **1.1–2.0**, bounded (t=3→6) | bounded | **CAPPED** — bounded multiple of BKM in this regular regime; "sharper" is unobservable without the singular limit | computed here from the `ns046_besov` shells |
 
-### Deferred — the axisymmetric-swirl cells (need a new `(r,z)` swirl fixture; not a Cartesian-DNS read)
+### The axisymmetric-swirl cells — a faithful `(r,z)` swirl DNS (`scripts/ns048_axisym_swirl_dns.jl`, 2026-06-10)
 
-| Criterion | Theorem | Status |
-|---|---|---|
-| swirl-sign `Γ ≥ 0` / `∂_zΓ` controllable | NS-048 swirl-source | **DEFERRED** — needs an axisym swirl DNS |
-| `|x₃|^α` axial-swirl growth bound (WHWY) | NS-048 route-i / anisotropic-z | **DEFERRED** |
-| Type-I scaled-energy `I < ∞` | Albritton–Barker | **DEFERRED** — requires the singular-limit scaled energy |
+Built a faithful axisymmetric NS-with-swirl solver (Hou–Li nice variables `u₁=u^θ/r, ω₁=ω^θ/r, ψ₁=ψ/r²`;
+**validated 4/4** — 2nd-order radial operator vs analytic, divergence-free, exact `cos(kz)` diffusion, inviscid
+`‖Γ‖∞` max-principle conserved). Ran a single-signed swirl blob (Γ≥0 by construction, z-modulated so `∂_zΓ`
+changes sign), 160×128, ν=2e-3, T=2.
+
+| Criterion | Theorem | Measured | **Verdict** |
+|---|---|---|---|
+| swirl-sign `Γ ≥ 0` controls source `S`? | NS-048 swirl-source | Γ stays **≥0** (max principle confirmed), but `sign(Γ)` predicts `sign(S = ∂_z(u₁²) ∝ Γ ∂_zΓ)` only **50%** of the time, correlation **0.000** | **TRUE-BUT-USELESS** — Γ≥0 holds yet carries *zero* information about the source sign (`sign S = sign ∂_zΓ`, indefinite). Numerically confirms `ns048_swirl_sign_condition_attack` |
+| `|x₃|^α` axial-swirl growth | NS-048 route-i / anisotropic-z | the no-boundary single-blob does **not intensify** (Γmax 0.376→0.366, scaled-E decreases — viscous); no `|z|^α` concentration | **PARTIAL** — needs a genuinely intensifying fixture (Hou–Luo wall / colliding jets), not a decaying blob |
+| Type-I scaled-energy `I` | Albritton–Barker | scaled-energy proxy `I` bounded + decreasing on the non-intensifying flow | **PARTIAL** (vacuity-capped null) — same fixture caveat |
 
 ## What the map says (the synthesis — read with the cap)
 
-Of the **seven** criteria measured, **not one holds cleanly** on the resolved near-singular flow:
+Of the **eight** criteria now measured, **not one is both true and useful** on resolved flow:
 
 - **two FAIL their hypothesis outright** — `δ_Λ` stays multi-directional (vacuous), and the CKN ≤1 dimension
   *lifts above 1 under refinement* (resolution artifact);
+- **one is TRUE-BUT-USELESS** — `Γ≥0` (swirl-sign) genuinely holds (max principle, confirmed in a validated
+  swirl DNS), yet is *uninformative* about the source it is meant to control (correlation 0 with `sign S`);
 - **two hold only NON-UNIFORMLY / with a shrinking margin** — the pressure-Hessian depletion is real but
   bulk-negative and cores-only, and its dominance margin collapses 10.9→1.5 as production grows;
 - **one is CONDITIONAL + TRANSIENT** — Beltramization needs helicity and de-Beltramizes;
@@ -64,7 +71,9 @@ could still be the operative one in the true limit (the truncation simply cannot
 
 ## Natural next batch
 
-The three deferred axisymmetric-swirl cells are the obvious continuation: build one `(r,z)` axisymmetric
-swirl DNS fixture and read `Γ`-sign, `∂_zΓ`, the `|x₃|^α` growth rate, and a scaled-energy proxy on it —
-completing the matrix for the swirl-source half of NS-048 (the routes mapped in
-`ns048_swirl_source_frontier.md` / `ns048_route_i_blowdown.md`). That is its own DNS session, not a synthesis.
+The `(r,z)` swirl DNS is now built and validated (`scripts/ns048_axisym_swirl_dns.jl`); the **swirl-sign cell
+is closed** (Γ≥0 true but vacuous-as-control). The two remaining cells (`|x₃|^α` growth, Type-I `I`) need a
+genuinely **intensifying** swirl fixture — the no-boundary single-blob viscously relaxes rather than
+concentrating. The honest continuation is a **Hou–Luo wall** (solid-boundary) or colliding-jet IC on the same
+validated solver — where axisymmetric swirl is known to intensify (the routes mapped in
+`ns048_swirl_source_frontier.md` / `ns048_route_i_blowdown.md`). That is its own DNS session.
