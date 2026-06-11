@@ -1371,6 +1371,480 @@ theorem hasDerivAt_weighted_pairing_master
 end TimeLayer
 
 
+
+/-! #### Ladder-4: the CommutatorMethod instance for the weighted-L² pairing
+
+The ladder-1 abstract chain, the ladder-2/3a weight calculus and the ladder-3b master
+identity snap together: on the class of smooth test functions supported in a compact
+`K`, the weighted pairing `P_g t u v = ∫ u·v·e^{g t}`, the backwards-heat evolution
+`L = ∂t + Δ` and the self-adjoint part `S_g = Δ + ∇g·∇ − F/2` form a
+`CommutatorMethod` — with ONE explicitly assumed input: stability of the admissible
+curve class under `S` (`mem_S`), whose discharge requires commuting `∂t` with the
+spatial operators (the Clairaut/mixed-derivative toll — next rung). Every other field
+is proved: `symm`/`nonneg` directly, `selfAdj` from the weighted Green identity,
+`deriv_pair` from the master differential identity. -/
+
+section CommutatorInstance
+
+open MeasureTheory Real Laplacian InnerProductSpace WeightedGreenAux
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+
+variable (K : Set E)
+
+/-- The spatial test class: C^∞ functions vanishing off `K`, as a submodule of `E → ℝ`. -/
+def smoothTestSubmodule : Submodule ℝ (E → ℝ) where
+  carrier := {f | ContDiff ℝ (⊤ : ℕ∞) f ∧ ∀ x ∉ K, f x = 0}
+  add_mem' := fun hf hg => ⟨hf.1.add hg.1, fun x hx => by
+    show _ + _ = (0:ℝ)
+    rw [hf.2 x hx, hg.2 x hx, add_zero]⟩
+  zero_mem' := ⟨contDiff_const, fun _ _ => rfl⟩
+  smul_mem' := fun c f hf => ⟨hf.1.const_smul c, fun x hx => by
+    show c • _ = (0:ℝ)
+    rw [hf.2 x hx, smul_zero]⟩
+
+variable {K}
+
+theorem mem_smoothTestSubmodule_iff {f : E → ℝ} :
+    f ∈ smoothTestSubmodule K ↔ ContDiff ℝ (⊤ : ℕ∞) f ∧ ∀ x ∉ K, f x = 0 :=
+  Iff.rfl
+
+/-- C^∞ functions have C^∞ Laplacian. -/
+theorem contDiff_laplacian {f : E → ℝ} (hf : ContDiff ℝ (⊤ : ℕ∞) f) :
+    ContDiff ℝ (⊤ : ℕ∞) (Δ f) := by
+  rw [laplacian_eq_iteratedFDeriv_orthonormalBasis f (stdOrthonormalBasis ℝ E)]
+  refine ContDiff.sum fun i _ => ?_
+  have h2 : ContDiff ℝ (⊤ : ℕ∞) (iteratedFDeriv ℝ 2 f) :=
+    hf.iteratedFDeriv_right (by norm_cast)
+  exact (ContinuousMultilinearMap.apply ℝ _ ℝ _).contDiff.comp h2
+
+/-- C^∞ functions have C^∞ gradient. -/
+theorem contDiff_gradient {f : E → ℝ} [CompleteSpace E]
+    (hf : ContDiff ℝ (⊤ : ℕ∞) f) :
+    ContDiff ℝ (⊤ : ℕ∞) (∇ f) := by
+  have h : (∇ f) = fun x => (InnerProductSpace.toDual ℝ E).symm (fderiv ℝ f x) :=
+    funext fun x => rfl
+  rw [h]
+  have h2 : ContDiff ℝ (⊤ : ℕ∞) (fderiv ℝ f) :=
+    hf.fderiv_right (by exact_mod_cast le_top)
+  exact (InnerProductSpace.toDual ℝ E).symm.toLinearIsometry.contDiff.comp h2
+
+/-- Pointwise gradient additivity. -/
+theorem gradient_add {f₁ f₂ : E → ℝ} [CompleteSpace E] {x : E}
+    (h₁ : DifferentiableAt ℝ f₁ x) (h₂ : DifferentiableAt ℝ f₂ x) :
+    ∇ (f₁ + f₂) x = ∇ f₁ x + ∇ f₂ x := by
+  have h : fderiv ℝ (f₁ + f₂) x = fderiv ℝ f₁ x + fderiv ℝ f₂ x :=
+    (h₁.hasFDerivAt.add h₂.hasFDerivAt).fderiv
+  show (InnerProductSpace.toDual ℝ E).symm (fderiv ℝ (f₁ + f₂) x) = _
+  rw [h, map_add]
+  rfl
+
+/-- Pointwise gradient homogeneity. -/
+theorem gradient_smul {f : E → ℝ} [CompleteSpace E] {x : E} (c : ℝ)
+    (h : DifferentiableAt ℝ f x) :
+    ∇ (c • f) x = c • ∇ f x := by
+  have h2 : fderiv ℝ (c • f) x = c • fderiv ℝ f x :=
+    (h.hasFDerivAt.const_smul c).fderiv
+  show (InnerProductSpace.toDual ℝ E).symm (fderiv ℝ (c • f) x) = _
+  rw [h2, map_smul]
+  rfl
+
+variable [CompleteSpace E]
+
+/-- The spatial Carleman operator `S_g(t) = Δ + ∇g(t)·∇ − F(t)/2` (with
+    `F = ∂tg − Δg − ‖∇g‖²`), unbundled. -/
+noncomputable def Sfun (g gt : ℝ → E → ℝ) (t : ℝ) (f : E → ℝ) : E → ℝ :=
+  fun x => Δ f x + ⟪∇ (g t) x, ∇ f x⟫
+    - (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2 * f x
+
+theorem Sfun_mem (hKc : IsClosed K) {g gt : ℝ → E → ℝ} {t : ℝ}
+    (hg : ContDiff ℝ (⊤ : ℕ∞) (g t)) (hgt : ContDiff ℝ (⊤ : ℕ∞) (gt t))
+    {f : E → ℝ} (hf : f ∈ smoothTestSubmodule K) :
+    Sfun g gt t f ∈ smoothTestSubmodule K := by
+  have hts : tsupport f ⊆ K :=
+    closure_minimal (fun y hy => by
+      by_contra hyn
+      exact hy (hf.2 y hyn)) hKc
+  refine ⟨?_, fun x hx => ?_⟩
+  · refine ContDiff.sub (ContDiff.add (contDiff_laplacian hf.1) ?_) ?_
+    · exact (contDiff_gradient hg).inner ℝ (contDiff_gradient hf.1)
+    · refine ContDiff.mul (ContDiff.div_const ?_ 2) hf.1
+      exact (hgt.sub (contDiff_laplacian hg)).sub
+        ((contDiff_gradient hg).inner ℝ (contDiff_gradient hg))
+  · have hxts : x ∉ tsupport f := fun hmem => hx (hts hmem)
+    have h0 : f x = 0 := image_eq_zero_of_notMem_tsupport hxts
+    have hΔ0 : Δ f x = 0 := by
+      by_contra hne
+      exact hxts (support_laplacian_subset f (Function.mem_support.mpr hne))
+    have hg0 : ∇ f x = 0 := by
+      by_contra hne
+      exact hxts (support_gradient_subset f (Function.mem_support.mpr hne))
+    show Δ f x + ⟪∇ (g t) x, ∇ f x⟫
+        - (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2 * f x = 0
+    rw [hΔ0, hg0, inner_zero_right, h0]
+    ring
+
+/-- `S_g(t)` as a linear endomorphism of the test class. -/
+noncomputable def Sop (hKc : IsClosed K) (g gt : ℝ → E → ℝ)
+    (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (g t)) (hgt : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (gt t))
+    (t : ℝ) : smoothTestSubmodule K →ₗ[ℝ] smoothTestSubmodule K where
+  toFun f := ⟨Sfun g gt t f, Sfun_mem hKc (hg t) (hgt t) f.2⟩
+  map_add' f₁ f₂ := by
+    ext x
+    show Sfun g gt t (↑f₁ + ↑f₂) x = Sfun g gt t ↑f₁ x + Sfun g gt t ↑f₂ x
+    unfold Sfun
+    have hd₁ : DifferentiableAt ℝ (f₁ : E → ℝ) x :=
+      f₁.2.1.differentiable (by norm_num) x
+    have hd₂ : DifferentiableAt ℝ (f₂ : E → ℝ) x :=
+      f₂.2.1.differentiable (by norm_num) x
+    rw [ContDiffAt.laplacian_add (f₁.2.1.contDiffAt.of_le (by norm_cast))
+          (f₂.2.1.contDiffAt.of_le (by norm_cast)),
+        gradient_add hd₁ hd₂, inner_add_right]
+    show _ = _
+    rw [Pi.add_apply]
+    ring
+  map_smul' c f := by
+    ext x
+    show Sfun g gt t (c • ↑f) x = c • Sfun g gt t ↑f x
+    unfold Sfun
+    have hd : DifferentiableAt ℝ (f : E → ℝ) x :=
+      f.2.1.differentiable (by norm_num) x
+    rw [laplacian_smul c (f.2.1.contDiffAt.of_le (by norm_cast)),
+        gradient_smul c hd, real_inner_smul_right]
+    show _ = _
+    rw [Pi.smul_apply]
+    simp only [smul_eq_mul]
+    ring
+
+/-- The weighted pairing `P_g(t)(u,v) = ∫ u·v·e^{g t}` as a bilinear map on the test
+    class (`K` compact for integrability). -/
+noncomputable def weightedPairing (hK : IsCompact K) (g : ℝ → E → ℝ)
+    (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (g t)) (t : ℝ) :
+    smoothTestSubmodule K →ₗ[ℝ] smoothTestSubmodule K →ₗ[ℝ] ℝ := by
+  classical
+  have hint : ∀ u v : smoothTestSubmodule K,
+      Integrable (fun x => (u : E → ℝ) x * (v : E → ℝ) x * exp (g t x))
+        (volume : Measure E) := by
+    intro u v
+    refine Continuous.integrable_of_hasCompactSupport
+      ((u.2.1.continuous.mul v.2.1.continuous).mul
+        (Real.continuous_exp.comp (hg t).continuous)) ?_
+    refine HasCompactSupport.intro hK fun x hx => ?_
+    rw [u.2.2 x hx]
+    ring
+  exact LinearMap.mk₂ ℝ
+    (fun u v => ∫ x, (u : E → ℝ) x * (v : E → ℝ) x * exp (g t x))
+    (fun u₁ u₂ v => by
+      rw [← integral_add (hint u₁ v) (hint u₂ v)]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      show ((u₁ : E → ℝ) + (u₂ : E → ℝ)) x * (v : E → ℝ) x * exp (g t x)
+          = (u₁ : E → ℝ) x * (v : E → ℝ) x * exp (g t x)
+            + (u₂ : E → ℝ) x * (v : E → ℝ) x * exp (g t x)
+      rw [Pi.add_apply]
+      ring)
+    (fun c u v => by
+      show (∫ x, ((c • u : smoothTestSubmodule K) : E → ℝ) x
+            * (v : E → ℝ) x * exp (g t x))
+          = c • ∫ x, (u : E → ℝ) x * (v : E → ℝ) x * exp (g t x)
+      rw [smul_eq_mul, ← integral_const_mul]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      show ((c • u : smoothTestSubmodule K) : E → ℝ) x * (v : E → ℝ) x * exp (g t x)
+          = c * ((u : E → ℝ) x * (v : E → ℝ) x * exp (g t x))
+      rw [Submodule.coe_smul, Pi.smul_apply]
+      simp only [smul_eq_mul]
+      ring)
+    (fun u v₁ v₂ => by
+      rw [← integral_add (hint u v₁) (hint u v₂)]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      show (u : E → ℝ) x * ((v₁ : E → ℝ) + (v₂ : E → ℝ)) x * exp (g t x)
+          = (u : E → ℝ) x * (v₁ : E → ℝ) x * exp (g t x)
+            + (u : E → ℝ) x * (v₂ : E → ℝ) x * exp (g t x)
+      rw [Pi.add_apply]
+      ring)
+    (fun c u v => by
+      show (∫ x, (u : E → ℝ) x
+            * ((c • v : smoothTestSubmodule K) : E → ℝ) x * exp (g t x))
+          = c • ∫ x, (u : E → ℝ) x * (v : E → ℝ) x * exp (g t x)
+      rw [smul_eq_mul, ← integral_const_mul]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      show (u : E → ℝ) x * ((c • v : smoothTestSubmodule K) : E → ℝ) x * exp (g t x)
+          = c * ((u : E → ℝ) x * (v : E → ℝ) x * exp (g t x))
+      rw [Submodule.coe_smul, Pi.smul_apply]
+      simp only [smul_eq_mul]
+      ring)
+
+
+@[simp]
+theorem weightedPairing_apply (hK : IsCompact K) (g : ℝ → E → ℝ)
+    (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (g t)) (t : ℝ) (u v : smoothTestSubmodule K) :
+    weightedPairing hK g hg t u v
+      = ∫ x, (u : E → ℝ) x * (v : E → ℝ) x * exp (g t x) := rfl
+
+theorem Sop_coe (hKc : IsClosed K) (g gt : ℝ → E → ℝ)
+    (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (g t)) (hgt : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (gt t))
+    (t : ℝ) (f : smoothTestSubmodule K) :
+    ((Sop hKc g gt hg hgt t f : smoothTestSubmodule K) : E → ℝ) = Sfun g gt t f := rfl
+
+/-- Admissible curves: valued in the test class, with a spatially smooth
+    time-derivative curve and jointly continuous data. -/
+def Admissible : Set (ℝ → smoothTestSubmodule K) :=
+  {a | ∃ a' : ℝ → E → ℝ,
+    (∀ t x, HasDerivAt (fun τ => ((a τ : E → ℝ)) x) (a' t x) t)
+    ∧ (∀ t, ContDiff ℝ (⊤ : ℕ∞) (a' t))
+    ∧ Continuous (Function.uncurry fun t x => (a t : E → ℝ) x)
+    ∧ Continuous ↿a'}
+
+variable (K) in
+/-- The backwards-heat evolution `L = ∂t + Δ` on curves (junk `0` off the class). -/
+noncomputable def Lop (a : ℝ → smoothTestSubmodule K) (t : ℝ) :
+    smoothTestSubmodule K := by
+  classical
+  exact if h : (fun x => deriv (fun τ => (a τ : E → ℝ) x) t + Δ (a t : E → ℝ) x)
+      ∈ smoothTestSubmodule K
+    then ⟨_, h⟩ else 0
+
+/-- On admissible curves, `Lop` is genuinely `∂t + Δ`. -/
+theorem Lop_coe (hKc : IsClosed K) {a : ℝ → smoothTestSubmodule K}
+    {a' : ℝ → E → ℝ}
+    (ha'd : ∀ t x, HasDerivAt (fun τ => ((a τ : E → ℝ)) x) (a' t x) t)
+    (ha's : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (a' t)) (t : ℝ) :
+    ((Lop K a t : smoothTestSubmodule K) : E → ℝ)
+      = fun x => a' t x + Δ (a t : E → ℝ) x := by
+  classical
+  have hts : tsupport ((a t : E → ℝ)) ⊆ K :=
+    closure_minimal (fun y hy => by
+      by_contra hyn
+      exact hy ((a t).2.2 y hyn)) hKc
+  have ha'0 : ∀ x, x ∉ K → a' t x = 0 := by
+    intro x hx
+    have h1 : (fun τ => ((a τ : E → ℝ)) x) = fun _ => (0:ℝ) :=
+      funext fun τ => (a τ).2.2 x hx
+    have h2 := ha'd t x
+    rw [h1] at h2
+    exact h2.unique (hasDerivAt_const _ _)
+  have hfun : (fun x => deriv (fun τ => (a τ : E → ℝ) x) t + Δ (a t : E → ℝ) x)
+      = fun x => a' t x + Δ (a t : E → ℝ) x := by
+    funext x
+    rw [(ha'd t x).deriv]
+  have hmem : (fun x => deriv (fun τ => (a τ : E → ℝ) x) t + Δ (a t : E → ℝ) x)
+      ∈ smoothTestSubmodule K := by
+    rw [hfun]
+    refine ⟨(ha's t).add (contDiff_laplacian (a t).2.1), fun x hx => ?_⟩
+    have hΔ0 : Δ (a t : E → ℝ) x = 0 := by
+      by_contra hne
+      exact hx (hts (support_laplacian_subset _ (Function.mem_support.mpr hne)))
+    show a' t x + Δ (a t : E → ℝ) x = 0
+    rw [ha'0 x hx, hΔ0, add_zero]
+  rw [Lop, dif_pos hmem]
+  exact hfun
+
+/-- **The `CommutatorMethod` instance for the weighted-L² pairing** — the ladder-1
+    abstraction realized on test-function curves. The one assumed input is `mem_S`
+    (stability of the admissible class under `S`): its discharge requires commuting
+    `∂t` with the spatial operators — the Clairaut/mixed-derivative toll, next rung.
+    Every other field is PROVED: `symm`/`nonneg` directly, `selfAdj` from the weighted
+    Green identity (B9), `deriv_pair` from the master differential identity. -/
+theorem commutatorMethod_weighted (hK : IsCompact K) {g gt : ℝ → E → ℝ}
+    (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (g t)) (hgt : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (gt t))
+    (hgw : ∀ t x, HasDerivAt (fun τ => g τ x) (gt t x) t)
+    (hcg : Continuous ↿g) (hcgt : Continuous ↿gt)
+    (hmemS : ∀ a ∈ Admissible (K := K),
+      (fun τ => Sop hK.isClosed g gt hg hgt τ (a τ)) ∈ Admissible) :
+    CommutatorMethod (weightedPairing hK g hg) (Lop K)
+      (Sop hK.isClosed g gt hg hgt) Admissible := by
+  classical
+  have hsuppK : ∀ p : E → ℝ, (∀ x, x ∉ K → p x = 0) → Continuous p →
+      Integrable p (volume : Measure E) := fun p hp hc =>
+    hc.integrable_of_hasCompactSupport (HasCompactSupport.intro hK hp)
+  have hgexp : ∀ t, Continuous fun x : E => exp (g t x) := fun t =>
+    Real.continuous_exp.comp (hg t).continuous
+  refine ⟨?_, ?_, ?_, hmemS, ?_⟩
+  · -- symm
+    intro t u v
+    rw [weightedPairing_apply, weightedPairing_apply]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show (u : E → ℝ) x * (v : E → ℝ) x * exp (g t x)
+        = (v : E → ℝ) x * (u : E → ℝ) x * exp (g t x)
+    ring
+  · -- selfAdj: split off the F-part and use the weighted Green identity (B9)
+    intro t u v
+    rw [weightedPairing_apply, weightedPairing_apply]
+    have hcu : HasCompactSupport (u : E → ℝ) := HasCompactSupport.intro hK u.2.2
+    have hcv : HasCompactSupport (v : E → ℝ) := HasCompactSupport.intro hK v.2.2
+    have hu2 : ContDiff ℝ 2 (u : E → ℝ) := u.2.1.of_le (by norm_cast <;> exact le_top)
+    have hv2 : ContDiff ℝ 2 (v : E → ℝ) := v.2.1.of_le (by norm_cast <;> exact le_top)
+    have hu1 : ContDiff ℝ 1 (u : E → ℝ) := hu2.of_le (by norm_num)
+    have hv1 : ContDiff ℝ 1 (v : E → ℝ) := hv2.of_le (by norm_num)
+    have hg2 : ContDiff ℝ 2 (g t) := (hg t).of_le (by norm_cast <;> exact le_top)
+    have hg1 : ContDiff ℝ 1 (g t) := hg2.of_le (by norm_num)
+    have hSg := integral_Sg_symm hu2 hcu hv2 hcv hg1
+    have hcF : Continuous fun x =>
+        (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2 :=
+      (((hgt t).continuous.sub (continuous_laplacian hg2)).sub
+        ((continuous_gradient hg1).inner (continuous_gradient hg1))).div_const 2
+    have hIA : Integrable (fun x => (Δ (u : E → ℝ) x + ⟪∇ (g t) x, ∇ (u : E → ℝ) x⟫)
+        * ((v : E → ℝ) x * exp (g t x))) (volume : Measure E) := by
+      refine hsuppK _ (fun x hx => ?_)
+        (((continuous_laplacian hu2).add
+          ((continuous_gradient hg1).inner (continuous_gradient hu1))).mul
+          (hv1.continuous.mul (hgexp t)))
+      rw [v.2.2 x hx]
+      ring
+    have hIB : Integrable (fun x => (Δ (v : E → ℝ) x + ⟪∇ (g t) x, ∇ (v : E → ℝ) x⟫)
+        * ((u : E → ℝ) x * exp (g t x))) (volume : Measure E) := by
+      refine hsuppK _ (fun x hx => ?_)
+        (((continuous_laplacian hv2).add
+          ((continuous_gradient hg1).inner (continuous_gradient hv1))).mul
+          (hu1.continuous.mul (hgexp t)))
+      rw [u.2.2 x hx]
+      ring
+    have hIF : Integrable (fun x => (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+        * ((u : E → ℝ) x * (v : E → ℝ) x * exp (g t x))) (volume : Measure E) := by
+      refine hsuppK _ (fun x hx => ?_)
+        (hcF.mul ((hu1.continuous.mul hv1.continuous).mul (hgexp t)))
+      rw [u.2.2 x hx]
+      ring
+    calc ∫ x, ((Sop hK.isClosed g gt hg hgt t u : smoothTestSubmodule K) : E → ℝ) x
+          * (v : E → ℝ) x * exp (g t x)
+        = (∫ x, (Δ (u : E → ℝ) x + ⟪∇ (g t) x, ∇ (u : E → ℝ) x⟫)
+            * ((v : E → ℝ) x * exp (g t x)))
+          - ∫ x, (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+            * ((u : E → ℝ) x * (v : E → ℝ) x * exp (g t x)) := by
+          rw [← integral_sub hIA hIF]
+          refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+          show Sfun g gt t (u : E → ℝ) x * (v : E → ℝ) x * exp (g t x) = _
+          unfold Sfun
+          ring
+      _ = (∫ x, (Δ (v : E → ℝ) x + ⟪∇ (g t) x, ∇ (v : E → ℝ) x⟫)
+            * ((u : E → ℝ) x * exp (g t x)))
+          - ∫ x, (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+            * ((u : E → ℝ) x * (v : E → ℝ) x * exp (g t x)) := by
+          rw [hSg]
+      _ = ∫ x, (u : E → ℝ) x
+          * ((Sop hK.isClosed g gt hg hgt t v : smoothTestSubmodule K) : E → ℝ) x
+          * exp (g t x) := by
+          rw [← integral_sub hIB hIF]
+          refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+          show _ = (u : E → ℝ) x * Sfun g gt t (v : E → ℝ) x * exp (g t x)
+          unfold Sfun
+          ring
+  · -- nonneg
+    intro t u
+    rw [weightedPairing_apply]
+    refine integral_nonneg fun x => ?_
+    exact mul_nonneg (mul_self_nonneg _) (Real.exp_pos _).le
+  · -- deriv_pair: the master differential identity
+    rintro a ⟨a', ha'd, ha's, hca, hca'⟩ b ⟨b', hb'd, hb's, hcb, hcb'⟩ t₀
+    have hu2 : ∀ t, ContDiff ℝ 2 ((a t : E → ℝ)) := fun t =>
+      (a t).2.1.of_le (by norm_cast <;> exact le_top)
+    have hv2 : ∀ t, ContDiff ℝ 2 ((b t : E → ℝ)) := fun t =>
+      (b t).2.1.of_le (by norm_cast <;> exact le_top)
+    have hg2 : ∀ t, ContDiff ℝ 2 (g t) := fun t =>
+      (hg t).of_le (by norm_cast <;> exact le_top)
+    have hM := hasDerivAt_weighted_pairing_master (K := K) hK t₀ hu2 hv2 hg2
+      (fun t => (a t).2.2) (fun t => (b t).2.2) ha'd hb'd hgw hca hcb hcg hca' hcb' hcgt
+    convert hM using 1
+    -- value equality: rewrite the three pairings and split the master integrand
+    have hu1 : ContDiff ℝ 1 ((a t₀ : E → ℝ)) := (hu2 t₀).of_le (by norm_num)
+    have hv1 : ContDiff ℝ 1 ((b t₀ : E → ℝ)) := (hv2 t₀).of_le (by norm_num)
+    have hg1 : ContDiff ℝ 1 (g t₀) := (hg2 t₀).of_le (by norm_num)
+    have hPL : weightedPairing hK g hg t₀ (Lop K a t₀) (b t₀)
+        = ∫ x, (a' t₀ x + Δ ((a t₀ : E → ℝ)) x)
+            * ((b t₀ : E → ℝ) x * exp (g t₀ x)) := by
+      rw [weightedPairing_apply]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      rw [Lop_coe hK.isClosed ha'd ha's t₀]
+      show (a' t₀ x + Δ ((a t₀ : E → ℝ)) x) * (b t₀ : E → ℝ) x * exp (g t₀ x) = _
+      ring
+    have hPLb : weightedPairing hK g hg t₀ (a t₀) (Lop K b t₀)
+        = ∫ x, (b' t₀ x + Δ ((b t₀ : E → ℝ)) x)
+            * ((a t₀ : E → ℝ) x * exp (g t₀ x)) := by
+      rw [weightedPairing_apply]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      rw [Lop_coe hK.isClosed hb'd hb's t₀]
+      show (a t₀ : E → ℝ) x * (b' t₀ x + Δ ((b t₀ : E → ℝ)) x) * exp (g t₀ x) = _
+      ring
+    have hPS : weightedPairing hK g hg t₀
+        (Sop hK.isClosed g gt hg hgt t₀ (a t₀)) (b t₀)
+        = ∫ x, Sfun g gt t₀ ((a t₀ : E → ℝ)) x
+            * ((b t₀ : E → ℝ) x * exp (g t₀ x)) := by
+      rw [weightedPairing_apply]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      show Sfun g gt t₀ ((a t₀ : E → ℝ)) x * (b t₀ : E → ℝ) x * exp (g t₀ x) = _
+      ring
+    rw [hPL, hPLb, hPS]
+    -- integrability of the three atoms
+    have ha'0 : ∀ x, x ∉ K → a' t₀ x = 0 := by
+      intro x hx
+      have h1 : (fun τ => ((a τ : E → ℝ)) x) = fun _ => (0:ℝ) :=
+        funext fun τ => (a τ).2.2 x hx
+      have h2 := ha'd t₀ x
+      rw [h1] at h2
+      exact h2.unique (hasDerivAt_const _ _)
+    have hT1 : Integrable (fun x => (a' t₀ x + Δ ((a t₀ : E → ℝ)) x)
+        * ((b t₀ : E → ℝ) x * exp (g t₀ x))) (volume : Measure E) := by
+      refine hsuppK _ (fun x hx => ?_)
+        ((((ha's t₀).continuous).add (continuous_laplacian (hu2 t₀))).mul
+          (hv1.continuous.mul (hgexp t₀)))
+      rw [(b t₀).2.2 x hx]
+      ring
+    have hT2 : Integrable (fun x => (b' t₀ x + Δ ((b t₀ : E → ℝ)) x)
+        * ((a t₀ : E → ℝ) x * exp (g t₀ x))) (volume : Measure E) := by
+      refine hsuppK _ (fun x hx => ?_)
+        ((((hb's t₀).continuous).add (continuous_laplacian (hv2 t₀))).mul
+          (hu1.continuous.mul (hgexp t₀)))
+      rw [(a t₀).2.2 x hx]
+      ring
+    have hT3 : Integrable (fun x => 2 * (Sfun g gt t₀ ((a t₀ : E → ℝ)) x
+        * ((b t₀ : E → ℝ) x * exp (g t₀ x)))) (volume : Measure E) := by
+      have hSc : Continuous (Sfun g gt t₀ ((a t₀ : E → ℝ))) := by
+        unfold Sfun
+        refine Continuous.sub (Continuous.add (continuous_laplacian (hu2 t₀)) ?_) ?_
+        · exact (continuous_gradient hg1).inner (continuous_gradient hu1)
+        · exact ((((hgt t₀).continuous.sub (continuous_laplacian (hg2 t₀))).sub
+            ((continuous_gradient hg1).inner (continuous_gradient hg1))).div_const
+            2).mul hu1.continuous
+      refine hsuppK _ (fun x hx => ?_)
+        (continuous_const.mul (hSc.mul (hv1.continuous.mul (hgexp t₀))))
+      rw [(b t₀).2.2 x hx]
+      ring
+    have hT12 : Integrable (fun x => (a' t₀ x + Δ ((a t₀ : E → ℝ)) x)
+        * ((b t₀ : E → ℝ) x * exp (g t₀ x))
+        + (b' t₀ x + Δ ((b t₀ : E → ℝ)) x)
+        * ((a t₀ : E → ℝ) x * exp (g t₀ x))) (volume : Measure E) := hT1.add hT2
+    calc (∫ x, (a' t₀ x + Δ ((a t₀ : E → ℝ)) x) * ((b t₀ : E → ℝ) x * exp (g t₀ x)))
+          + (∫ x, (b' t₀ x + Δ ((b t₀ : E → ℝ)) x)
+            * ((a t₀ : E → ℝ) x * exp (g t₀ x)))
+          - 2 * ∫ x, Sfun g gt t₀ ((a t₀ : E → ℝ)) x
+            * ((b t₀ : E → ℝ) x * exp (g t₀ x))
+        = (∫ x, (a' t₀ x + Δ ((a t₀ : E → ℝ)) x) * ((b t₀ : E → ℝ) x * exp (g t₀ x))
+            + (b' t₀ x + Δ ((b t₀ : E → ℝ)) x) * ((a t₀ : E → ℝ) x * exp (g t₀ x)))
+          - ∫ x, 2 * (Sfun g gt t₀ ((a t₀ : E → ℝ)) x
+            * ((b t₀ : E → ℝ) x * exp (g t₀ x))) := by
+          rw [integral_add hT1 hT2, integral_const_mul]
+      _ = ∫ x, ((a' t₀ x + Δ ((a t₀ : E → ℝ)) x) * (b t₀ : E → ℝ) x
+            + (a t₀ : E → ℝ) x * (b' t₀ x + Δ ((b t₀ : E → ℝ)) x)
+            - 2 * ((Δ ((a t₀ : E → ℝ)) x + ⟪∇ (g t₀) x, ∇ ((a t₀ : E → ℝ)) x⟫
+                - (gt t₀ x - Δ (g t₀) x - ⟪∇ (g t₀) x, ∇ (g t₀) x⟫) / 2
+                  * (a t₀ : E → ℝ) x)
+              * (b t₀ : E → ℝ) x)) * exp (g t₀ x) := by
+          rw [← integral_sub hT12 hT3]
+          refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+          show _ = ((a' t₀ x + Δ ((a t₀ : E → ℝ)) x) * (b t₀ : E → ℝ) x
+            + (a t₀ : E → ℝ) x * (b' t₀ x + Δ ((b t₀ : E → ℝ)) x)
+            - 2 * ((Δ ((a t₀ : E → ℝ)) x + ⟪∇ (g t₀) x, ∇ ((a t₀ : E → ℝ)) x⟫
+                - (gt t₀ x - Δ (g t₀) x - ⟪∇ (g t₀) x, ∇ (g t₀) x⟫) / 2
+                  * (a t₀ : E → ℝ) x)
+              * (b t₀ : E → ℝ) x)) * exp (g t₀ x)
+          unfold Sfun
+          ring
+
+end CommutatorInstance
+
+
+
 end NSCarleman
 
 #eval "Carleman commutator-method core — machine-verified."

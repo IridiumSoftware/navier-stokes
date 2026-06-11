@@ -1,5 +1,34 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.20 — 2026-06-11 — Carleman ladder-4: the CommutatorMethod INSTANCE — the abstract chain and the analysis SNAP TOGETHER
+
+`Carleman.lean` grows a `CommutatorInstance` section (~1850 lines total). **Library
+infrastructure; `:proved`=0 for the PDE.**
+- **`smoothTestSubmodule K`** — the spatial test class (C^∞ functions vanishing off `K`) as a
+  genuine `Submodule ℝ (E → ℝ)` (algebra for free); closure lemmas: **`contDiff_laplacian`**,
+  **`contDiff_gradient`** (C^∞ ⇒ C^∞ Laplacian/gradient — more pointwise Mathlib gaps),
+  `gradient_add`, `gradient_smul`.
+- **`Sfun`/`Sop`** — the Carleman operator `S_g(t) = Δ + ∇g(t)·∇ − F(t)/2` bundled as a LINEAR
+  ENDOMORPHISM of the test class (linearity via `ContDiffAt.laplacian_add`/`laplacian_smul` +
+  the gradient rules; class-closure via the support lemmas).
+- **`weightedPairing`** — `P_g(t)(u,v) = ∫u·v·e^{g t}` as a bilinear map (`LinearMap.mk₂`, all
+  four (bi)linearity proofs with integrability discharged through the compact support).
+- **`Admissible`** — curves valued in the class with spatially smooth time-derivative curves and
+  jointly continuous data; **`Lop`** — `L = ∂t + Δ` on curves (junk off the class) with
+  **`Lop_coe`** (on admissible curves it is genuinely `∂t + Δ`).
+- **`commutatorMethod_weighted` — THE INSTANCE:** `CommutatorMethod (P_g) (L) (S_g) Admissible`
+  with `symm`/`nonneg` proved directly, **`selfAdj` from the weighted Green identity (B9)**,
+  **`deriv_pair` from the master differential identity (ladder-3b-iii)** — i.e. the ladder-1
+  abstract chain `∂t⟨Su,u⟩ = ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩ − ½⟨(L−2S)u,(L−2S)u⟩` and the drop-the-square
+  inequality now HOLD FOR THE REAL OBJECTS. The ONE assumed input is `mem_S` (stability of the
+  admissible class under `S`): its discharge = commuting `∂t` with the spatial operators — the
+  mixed-derivative/Clairaut toll, explicitly documented as the next rung.
+- **Soundness:** no `sorry`; the false variant (the selfAdj split's pointwise core with the
+  `F`-sign of `S` flipped) is REJECTED by `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Remaining for Lemma 4.1 in Tao's displayed form:** discharge `mem_S` (Clairaut) + the concrete
+commutator identification `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`; then Props 4.2/4.3.
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.19 — 2026-06-11 — Lean→citation bridge FIRED (channel a): the NRŠ H-identity Julia exact rung CLOSED
 
 Move #4 of the open-questions plan — the bridge's first firing. New `formalization/nrs/` (collision-free; the
