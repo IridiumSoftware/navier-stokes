@@ -1,5 +1,31 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.12 — 2026-06-11 — Carleman ladder-3b-i: the weighted Green identity machine-verified (B8/B9 INTEGRATED — S_g self-adjoint on test functions)
+
+`Carleman.lean` grows a `WeightedGreen` section (~625 lines total). **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`integral_laplacian_mul` — the Green identity for Mathlib's pointwise `Δ` (another Mathlib gap
+  filled, upstreamable):** `∫ Δu·w = −∫ ⟪∇u,∇w⟫` for `u` C² compactly supported, `w` C¹. Proof:
+  `Δu = Σᵢ ∂ᵢ(∂ᵢu)` (orthonormal-basis formula + `iteratedFDeriv_two_apply`), per-direction
+  n-dim IBP via Mathlib's `integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable` (Gouëzel 2024 —
+  the survey's "missing n-dim compact-support IBP" turned out to EXIST in integrability form;
+  for compactly supported smooth functions every obligation is automatic), then pointwise
+  Parseval `Σᵢ ∂ᵢu·∂ᵢw = ⟪∇u,∇w⟫` (`sum_inner_mul_inner` + `inner_gradient_left`).
+- **`gradient_mul_exp`** — `∇(v·e^g) = e^g•∇v + (v·e^g)•∇g` (closed by the `module` tactic).
+- **`integral_weighted_green` — record-audit B8 INTEGRATED:**
+  `∫ (Δu + ⟪∇g,∇u⟫)·v·e^g = −∫ ⟪∇u,∇v⟫·e^g` — the weighted Green identity, whose RHS is
+  symmetric in `u,v`.
+- **`integral_Sg_symm` — record-audit B9 INTEGRATED:** the spatial Carleman operator
+  `S_g = Δ + ∇g·∇` is **self-adjoint for the weighted pairing** `⟨u,v⟩_g = ∫uv·e^g` on
+  compactly supported C² functions. This is the spatial core of Tao's master differential
+  identity — the exact self-adjointness input of the ladder-1 `CommutatorMethod`.
+- **Soundness:** no `sorry`; the false variant (`∇(v·e^g)` with the `e^g` factor dropped from the
+  `∇g` term) is REJECTED by `module`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Honest scope:** the spatial (time-frozen) half of the master identity. Remaining for the full
+`CommutatorMethod` instance (ladder-3b-ii): the time layer — differentiation under the integral
+for `t ↦ ∫ u(t)v(t)e^{g(t)}` and the `F = ∂tg − Δg − |∇g|²` bookkeeping. `:proved`=0; distance
+UNTOUCHED.
+
 ## v0.15.11 — 2026-06-11 — NS-046 integral/cancellation probe: production-weighted integral form is favorable (witness, sign-caveated)
 
 Ran the one legitimate within-truncation move on NS-046 (the static hole — 6 over-reaches caught; closing it
