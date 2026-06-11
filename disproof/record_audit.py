@@ -115,6 +115,101 @@ chk("B7  NSop(u_λ,p_λ) = λ³·NSop(u,p)(x₀+λx, T+λ²t)",
     [sp.expand(mom_l[i] - mom_shifted[i]) for i in range(3)],
     "machinery:43 M1 rescaling cornerstone")
 
+
+# ---------- B8-B13: Tao 1908.04958 §4 Carleman identities (ladder-0 transcription audit) ----------
+# Source: arXiv 1908.04958 §4 (pp.27-36): Lemma 4.1 + Props 4.2/4.3. All identities below are the
+# load-bearing computations of the section, transcribed at ladder-0 (2026-06-10) and checked here
+# per the standing rule. Convention: L = ∂t + Δ (backwards heat), F := ∂tg − Δg − |∇g|²,
+# S := Δ + ∇g·∇ − F/2 (the e^g-self-adjoint part of L).
+
+xx, yy, zw = sp.symbols('xx yy zw', real=True)
+XY = (xx, yy, zw)
+def grad3(f): return [sp.diff(f, c) for c in XY]
+def div3(v): return sum(sp.diff(v[i], XY[i]) for i in range(3))
+def lap3(f): return div3(grad3(f))
+
+uF = sp.Function('uu')(*XY); vF = sp.Function('vv')(*XY); gF = sp.Function('gg')(*XY)
+FF = sp.Function('FF')(*XY)  # arbitrary F — the B9 cancellation is structural
+eg = sp.exp(gF)
+
+# B8: the pointwise divergence identity behind Lemma 4.1's IBP step:
+#     Δ(uv)·e^g = div(∇(uv)e^g − uv·e^g·∇g) + uv(Δg+|∇g|²)e^g
+uv = uF*vF
+vec = [sp.diff(uv, c)*eg - uv*eg*sp.diff(gF, c) for c in XY]
+chk("B8  Lemma 4.1 IBP: Δ(uv)e^g = div(...) + uv(Δg+|∇g|²)e^g",
+    sp.expand(lap3(uv)*eg - (div3(vec) + uv*(lap3(gF) + sum(q**2 for q in grad3(gF)))*eg)),
+    "Tao §4 Lemma 4.1 proof, first display chain")
+
+# B9: S is e^g-self-adjoint up to an exact divergence (for ANY F):
+#     (Su)v·e^g − u(Sv)·e^g = div((v∇u − u∇v)e^g)
+def S_of(f): return lap3(f) + sum(sp.diff(gF, c)*sp.diff(f, c) for c in XY) - FF*f/2
+vec2 = [(vF*sp.diff(uF, c) - uF*sp.diff(vF, c))*eg for c in XY]
+chk("B9  (Su)v·e^g − u(Sv)·e^g = div((v∇u−u∇v)e^g)  [any F]",
+    sp.expand((S_of(uF)*vF - uF*S_of(vF))*eg - div3(vec2)),
+    "Tao §4: self-adjointness of S")
+
+# B10: the bilinear expansion in the ∂t⟨Su,u⟩ chain:
+#     ⟨Lu,Sv⟩+⟨Su,Lv⟩−2⟨Su,Sv⟩ = ½⟨Lu,Lv⟩ − ½⟨(L−2S)u,(L−2S)v⟩  (pure bilinear algebra)
+Lu_, Lv_, Su_, Sv_ = sp.symbols('Lu_ Lv_ Su_ Sv_')
+chk("B10 ⟨Lu,Sv⟩+⟨Su,Lv⟩−2⟨Su,Sv⟩ = ½⟨Lu,Lv⟩−½⟨(L−2S)u,(L−2S)v⟩",
+    sp.expand((Lu_*Sv_ + Su_*Lv_ - 2*Su_*Sv_)
+              - (sp.Rational(1,2)*Lu_*Lv_
+                 - sp.Rational(1,2)*(Lu_ - 2*Su_)*(Lv_ - 2*Sv_))),
+    "Tao §4 Lemma 4.1 proof, operator-algebra chain")
+
+# B11: Prop 4.2 weight g = α(T0−t)|x| + |x|²/(C0·T):  the paper's F and LF displays, plus
+#      Hess(|x|) = (I − x̂x̂ᵀ)/|x| (the PSD fact behind D²g ≥ (2/C0T)I on the annulus).
+al, C0, Tb, T0b, tb = sp.symbols('alpha C0 T T0 t', positive=True)
+r = sp.sqrt(xx**2 + yy**2 + zw**2)
+sfac = T0b - tb
+g42 = al*sfac*r + r**2/(C0*Tb)
+F42 = sp.diff(g42, tb) - lap3(g42) - sum(q**2 for q in grad3(g42))
+F42_paper = (-al*r - 2*al*sfac/r - 6/(C0*Tb) - al**2*sfac**2
+             - 4*al*sfac*r/(C0*Tb) - 4*r**2/(C0**2*Tb**2))
+chk("B11a Prop 4.2: F = −αr−2αs/r−6/C0T−α²s²−4αsr/C0T−4r²/C0²T²",
+    sp.simplify(F42 - F42_paper), "s=T0−t; paper p.30 display")
+LF42 = sp.diff(F42, tb) + lap3(F42)
+LF42_paper = 2*al**2*sfac + 4*al*r/(C0*Tb) - 8*al*sfac/(C0*Tb*r) - 24/(C0**2*Tb**2)
+chk("B11b Prop 4.2: LF = 2α²s+4αr/C0T−8αs/(C0Tr)−24/C0²T²",
+    sp.simplify(LF42 - LF42_paper), "paper p.30 display")
+Hess_r = sp.Matrix(3, 3, lambda i, j: sp.diff(r, XY[i], XY[j]))
+Hess_r_closed = (sp.eye(3) - sp.Matrix(3,1,[xx,yy,zw])*sp.Matrix(1,3,[xx,yy,zw])/r**2)/r
+chk("B11c Hess(|x|) = (I − x̂x̂ᵀ)/|x|  (PSD ⇒ D²g ≥ (2/C0T)I)",
+    [sp.simplify(Hess_r[i,j] - Hess_r_closed[i,j]) for i in range(3) for j in range(3)],
+    "convexity input for Prop 4.2")
+
+# B12: Prop 4.3 weight g = −|x|²/4τ − (3/2)log τ − α·log(τ/(T0+t1)) + ατ/(T0+t1), τ=t+t1:
+#      F = α/(T0+t1) − α/τ,  LF = α/τ²,  and  D²g = −I/(2τ) exactly.
+t1b = sp.Symbol('t1', positive=True)
+tau = tb + t1b
+g43 = -r**2/(4*tau) - sp.Rational(3,2)*sp.log(tau) - al*sp.log(tau/(T0b+t1b)) + al*tau/(T0b+t1b)
+F43 = sp.diff(g43, tb) - lap3(g43) - sum(q**2 for q in grad3(g43))
+chk("B12a Prop 4.3: F = α/(T0+t1) − α/(t+t1)",
+    sp.simplify(F43 - (al/(T0b+t1b) - al/tau)), "paper p.33 display")
+LF43 = sp.diff(F43, tb) + lap3(F43)
+chk("B12b Prop 4.3: LF = α/(t+t1)²",
+    sp.simplify(LF43 - al/tau**2), "paper p.33 display")
+Hess_g43 = sp.Matrix(3, 3, lambda i, j: sp.diff(g43, XY[i], XY[j]))
+chk("B12c Prop 4.3: D²g = −I/(2(t+t1)) exactly",
+    [sp.simplify(Hess_g43[i,j] + (sp.eye(3)/(2*tau))[i,j]) for i in range(3) for j in range(3)],
+    "paper p.33: D²g(∇ψu,∇ψu) = −|∇ψu|²/2(t+t1)")
+
+# B13: the elementary max inequality −a/t − b·log t ≤ b·log(b/(ae)) (paper p.35 'From elementary
+#      calculus'). Verified via: critical point t*=a/b, value there equals the bound, and the
+#      deficit b(1/u − 1 + log u) (u = tb/a) has d/du = (u−1)/u², value 0 at u=1, → +∞ at both ends
+#      ⇒ unique global min 0 ⇒ inequality holds for all t>0.
+ab, bb, tv, uvar = sp.symbols('a b t u', positive=True)
+h = -ab/tv - bb*sp.log(tv)
+tstar = ab/bb
+chk("B13a max ineq: critical point h'(a/b)=0 and h(a/b)=b·log(b/(ae))",
+    [sp.simplify(sp.diff(h, tv).subs(tv, tstar)),
+     sp.simplify(h.subs(tv, tstar) - bb*sp.log(bb/(ab*sp.E)))],
+    "paper p.35")
+defic = 1/uvar - 1 + sp.log(uvar)
+chk("B13b deficit: d/du(1/u−1+log u) = (u−1)/u² and value 0 at u=1",
+    [sp.simplify(sp.diff(defic, uvar) - (uvar-1)/uvar**2), defic.subs(uvar, 1)],
+    "unique interior critical point; limits at 0,∞ are +∞ ⇒ global min 0")
+
 print()
 print("ALL TRANSCRIBED IDENTITIES VERIFIED." if PASS else "AUDIT FAILURE — a transcribed identity did not close.")
 raise SystemExit(0 if PASS else 1)

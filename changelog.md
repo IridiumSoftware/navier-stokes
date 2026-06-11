@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.3 — 2026-06-10 — Carleman ladder-0: Tao §4 full-text audit — "IBP-only" CONFIRMED, all §4 identities sympy-verified
+
+Closes ladder-0 of the Carleman plan (the deep-research recalibration's bite zero: the "summit"
+framing was challenged and collapsed; the one unverified reading was Tao §4's toolkit, known only
+from a truncated fetch). Full PDF read end-to-end (arXiv 1908.04958 §4, pp. 27–36: Lemma 4.1 +
+Props 4.2/4.3 **with complete proofs**).
+- **VERDICT: CONFIRMED — no ψDO, no microlocal, no Fourier, no spectral theory, no compactness
+  anywhere in §4.** Complete toolkit: weighted L² inner products + IBP (compact support, no
+  boundary terms); S/A splitting + the commutator chain ∂t⟨Su,u⟩ = ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩ −
+  ½⟨(L−2S)u,(L−2S)u⟩; explicit weight calculus; smooth cutoffs; pigeonhole-in-time;
+  integrating-factor energy method; one 1-variable max inequality; heavy constant bookkeeping.
+- **record_audit.py B8–B13 (per the standing transcription rule), all PASS:** the Lemma-4.1 IBP
+  divergence identity; S self-adjointness up to exact divergence (any F); the bilinear
+  operator-algebra expansion; Prop 4.2's F/LF displays + Hess(|x|) = (I−x̂x̂ᵀ)/|x|; Prop 4.3's
+  F/LF + D²g = −I/2(t+t1) exactly; the max inequality. A sign-flipped LF false variant is
+  REJECTED (residual 16αs/C0Tr).
+- Three formalization divergence points recorded (u≡1 commutator trick → direct coordinate
+  computation; g smooth-near-supp(u) weakening; ∂t-under-∫ justification).
+- Doc: `docs/carleman_ladder0_tao_sec4_audit.md`. Evidence: algebraic (sympy) for identities,
+  manual for the toolkit inventory. No spec changes; `:proved`=0; distance UNTOUCHED.
+*Next:* ladder-1 — Lemma 4.1's S/A commutator chain as Lean operator algebra (B8–B10 = blueprint).
+
 ## v0.15.2 — 2026-06-10 — Conditional-criterion vacuity map v1 (NS-048 witness): do the literature's exclusion hypotheses hold on real flow?
 
 Built the prioritized batch study from the frontier review: `docs/ns048_conditional_vacuity_map.md` — a
