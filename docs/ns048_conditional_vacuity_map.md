@@ -38,8 +38,15 @@ changes sign), 160×128, ν=2e-3, T=2.
 | Criterion | Theorem | Measured | **Verdict** |
 |---|---|---|---|
 | swirl-sign `Γ ≥ 0` controls source `S`? | NS-048 swirl-source | Γ stays **≥0** (max principle confirmed), but `sign(Γ)` predicts `sign(S = ∂_z(u₁²) ∝ Γ ∂_zΓ)` only **50%** of the time, correlation **0.000** | **TRUE-BUT-USELESS** — Γ≥0 holds yet carries *zero* information about the source sign (`sign S = sign ∂_zΓ`, indefinite). Numerically confirms `ns048_swirl_sign_condition_attack` |
-| `|x₃|^α` axial-swirl growth | NS-048 route-i / anisotropic-z | the no-boundary single-blob does **not intensify** (Γmax 0.376→0.366, scaled-E decreases — viscous); no `|z|^α` concentration | **PARTIAL** — needs a genuinely intensifying fixture (Hou–Luo wall / colliding jets), not a decaying blob |
-| Type-I scaled-energy `I` | Albritton–Barker | scaled-energy proxy `I` bounded + decreasing on the non-intensifying flow | **PARTIAL** (vacuity-capped null) — same fixture caveat |
+| `|x₃|^α` axial-swirl growth | NS-048 route-i / anisotropic-z | **Hou–Luo WALL fixture** (`wall` mode, z-odd wall-adjacent swirl): the flow **intensifies hard** (‖ω‖ 0→24.7, swirl→wall `r*`=3.34) BUT goes **unresolved** (spurious energy growth `E/E0→1.32`, then NaN) by t≈0.75 even at ν=2.5e-3 / 192×160; in the resolved phase `ℓ_z` does *not* narrow (1.82→1.97) | **RESOLUTION-LIMITED** — the mechanism is real, but a clean `|z|^α` read needs adaptive ultra-resolution (the Chen–Hou regime), beyond a uniform-grid witness |
+| Type-I scaled-energy `I` | Albritton–Barker | same wall fixture: `I` grows only **×1.36** in the resolved phase (modest); the ×100+ peak is unresolved garbage | **RESOLUTION-LIMITED** — modest resolved growth, no clean Type-I read at accessible resolution |
+
+**Two runs.** (a) a single-signed **axis blob** (ν=2e-3) closes the swirl-sign cell. (b) a **Hou–Luo wall
+fixture** (z-odd wall-adjacent swirl; `scripts/ns048_axisym_swirl_dns.jl wall` → `scripts/ns048_axisym_swirl_wall.out.txt`)
+**confirms the intensification mechanism** (strong ω growth, swirl→wall — unlike the relaxing blob) but goes
+**unresolved** on any accessible uniform grid before a clean concentration read. That negative is itself a
+finding: it numerically reproduces *why* the Hou–Luo blowup required Chen–Hou's adaptive-ultra-resolution
+computer-assisted machinery. Cells (ii)/(iii) are **resolution-limited**, not vacuous.
 
 ## What the map says (the synthesis — read with the cap)
 
@@ -71,9 +78,11 @@ could still be the operative one in the true limit (the truncation simply cannot
 
 ## Natural next batch
 
-The `(r,z)` swirl DNS is now built and validated (`scripts/ns048_axisym_swirl_dns.jl`); the **swirl-sign cell
-is closed** (Γ≥0 true but vacuous-as-control). The two remaining cells (`|x₃|^α` growth, Type-I `I`) need a
-genuinely **intensifying** swirl fixture — the no-boundary single-blob viscously relaxes rather than
-concentrating. The honest continuation is a **Hou–Luo wall** (solid-boundary) or colliding-jet IC on the same
-validated solver — where axisymmetric swirl is known to intensify (the routes mapped in
-`ns048_swirl_source_frontier.md` / `ns048_route_i_blowdown.md`). That is its own DNS session.
+The `(r,z)` swirl DNS is built and validated (`scripts/ns048_axisym_swirl_dns.jl`); **swirl-sign is closed**
+(Γ≥0 true-but-useless) and the **Hou–Luo wall fixture** is built and confirms the intensification mechanism.
+What remains for `|x₃|^α` + Type-I is **not another fixture but more resolution** — the wall flow goes
+unresolved on any accessible uniform grid before it concentrates. Completing those two cells means an
+**adaptive / very-high-resolution** solver (the Chen–Hou regime — moving mesh or spectral with refinement near
+the wall corner), which is a substantial numerics undertaking, not a witness probe. The validated `(r,z)`
+solver is the right foundation to build that on; the honest status today is that those two cells are
+**resolution-limited**, and the witness has reproduced *why*.

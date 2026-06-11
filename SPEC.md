@@ -1146,8 +1146,11 @@ mechanism** that prevents different rescaled subsequences converging to differen
   routes are plausibly vacuous for the actual mechanism — a *where-not-to-look* prior. The axisym-swirl
   follow-up `scripts/ns048_axisym_swirl_dns.jl` (faithful Hou–Li `(r,z)` NS-with-swirl, **validated 4/4**)
   **closed the swirl-sign cell** — Γ≥0 holds (max principle) but is *uninformative* about the source
-  `S∝Γ∂_zΓ` (correlation 0; TRUE-BUT-USELESS); `|x₃|^α` + Type-I stay **PARTIAL** (the no-boundary blob
-  viscously relaxes rather than concentrating — need a Hou–Luo wall fixture). `:proved`=0; distance UNTOUCHED.
+  `S∝Γ∂_zΓ` (correlation 0; TRUE-BUT-USELESS). The **Hou–Luo wall fixture** (`wall` mode, z-odd wall-adjacent
+  swirl) then **confirms the intensification mechanism** (‖ω‖ 0→24.7, swirl→wall — unlike the relaxing blob)
+  but goes **UNRESOLVED** (spurious energy growth + NaN) by t≈0.75 even at ν=2.5e-3 / 192×160 ⇒ `|x₃|^α` +
+  Type-I are **RESOLUTION-LIMITED** (a clean read needs the Chen–Hou adaptive-ultra-resolution regime — the
+  witness reproduces *why* the scenario is hard). `:proved`=0; distance UNTOUCHED.
 - **Mapped (2026-06-06): `docs/ns048_exclusion_frontier.md`** — the machinery laid out (rescaling →
   ancient limit → Liouville + no-split + backward-uniqueness; Type-I vs Type-II; NS-007 = the
   self-similar sub-case done; general Liouville + no-split + Type-II = the gap), with the one-sentence

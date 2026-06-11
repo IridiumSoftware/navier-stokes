@@ -1,0 +1,29 @@
+==========================================================================
+  HOU–LUO WALL fixture — does wall-adjacent z-odd swirl INTENSIFY? (cells ii, iii)
+  Scope: resolved-DNS WITNESS, vacuity-capped. :proved=0.
+==========================================================================
+  grid 192×160  R=4.0  ν=2.5e-03  IC: u^θ peak≈19.2 near r=3.20, z-odd (sin z)
+
+   t      ‖ω1‖∞   ‖ω^θ‖∞   E/E0    ℓ_z(ω peak)   scaledE I    r*(ω peak)
+  0.00    0.0000   0.0000  1.000      0.0000    3.924e+03   0.01
+  0.25    7.6415  25.9617  0.873      1.8152    3.936e+03   3.36
+  0.50   24.6586  83.4255  0.769      1.9690    5.344e+03   3.34
+  0.75  308.0554 1229.0127  1.325      2.1113    6.932e+05   3.99
+  ✗ NaN/Inf — unresolved/unstable at t=0.765; aborting.
+
+  ── cells (ii) |z|^α + (iii) Type-I, read on the WALL fixture ──
+  ✓ MECHANISM CONFIRMED: wall-adjacent z-odd swirl INTENSIFIES — ‖ω1‖∞ 0→24.7 by t=0.50 (resolved),
+    swirl concentrates AT THE WALL (r*→3.34 of R=4.0); the relaxing axis-blob did NOT. But the flow
+    goes UNRESOLVED (spurious energy growth E/E0→1.32, then NaN) by t≈0.75 — even at ν=2.5e-03, 192×160.
+  (ii) |z|^α: over the RESOLVED phase the ω z-width ℓ_z does NOT yet narrow (1.82→1.97); the apparent
+       concentration lives only in the unresolved phase (a grid-scale spike) ⇒ RESOLUTION-LIMITED, not measured.
+  (iii) Type-I I: grows only ×1.36 in the resolved phase (modest); the ×100+ peak is unresolved garbage
+       ⇒ RESOLUTION-LIMITED.
+
+  VERDICT: the WALL mechanism is real (intensifies, swirl→wall) — but a CLEAN |z|^α / Type-I read needs
+  adaptive ULTRA-resolution (the Chen–Hou regime), beyond a uniform-grid witness. Cells (ii)/(iii) stay
+  RESOLUTION-LIMITED: this witness confirms WHY the scenario is hard; it does not resolve it.
+
+  CAVEAT (vacuity cap): resolved, regular, viscous, finite-res — cannot reach the singular limit;
+  Hou–Luo true blowup needs adaptive ultra-resolution (Chen–Hou). This reads the TREND only. :proved=0.
+==========================================================================

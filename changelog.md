@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.7 — 2026-06-11 — Hou–Luo wall fixture: swirl INTENSIFIES (mechanism confirmed) but goes unresolved (Chen–Hou regime)
+
+Added a `wall` mode to `scripts/ns048_axisym_swirl_dns.jl` — the validated `(r,z)` swirl solver with a z-odd
+wall-adjacent swirl IC (the Hou–Luo mechanism: the swirl gradient drives a convergent meridional flow that
+compresses vorticity against the no-penetration wall + z-symmetry planes). **Result:** the flow **intensifies
+hard** — ‖ω‖ 0→24.7, ‖ω^θ‖ 0→83 by t=0.5 (resolved), swirl concentrating **at the wall** (`r*`→3.34 of R=4) —
+which the relaxing axis-blob never did, so the intensification mechanism is real. **But it goes UNRESOLVED**
+(spurious energy growth `E/E0→1.32`, then NaN) by t≈0.75 even at ν=2.5e-3 / 192×160. Witness discipline caught
+this: the apparent `ℓ_z` z-concentration and the ×100+ Type-I growth live entirely in the *unresolved* phase
+(grid-scale spike); over the resolved phase `ℓ_z` does NOT narrow (1.82→1.97) and `I` grows only ×1.36. So the
+vacuity-map cells **`|x₃|^α` + Type-I are RESOLUTION-LIMITED**, not measured — a clean read needs adaptive
+ultra-resolution (the **Chen–Hou** regime). That negative is itself the finding: the witness numerically
+reproduces *why* the Hou–Luo blowup required heavy computer-assisted machinery. Two earlier overclaim/garbage
+readings (divide-by-~0 `ℓ_z`, unresolved-phase contamination) were caught and fixed before recording. Map doc
++ NS-048 source/registry/dashboard updated; no new NS-ID. `:proved`=0; Scope resolved-DNS witness.
+
 ## v0.15.6 — 2026-06-11 — Carleman ladder-2: the radial weight calculus machine-verified (Tao's F/LF/Hessian displays, B11/B12 lean-proved)
 
 `formalization/lean-mathlib/Carleman.lean` grows a `WeightCalculus` section (~375 lines total).
