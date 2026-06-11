@@ -143,7 +143,7 @@ Distance to prize: UNTOUCHED.**
 
 - **NS-050 instrument+tooling arc + REPO PUBLIC (2026-06-09/10):** the modulation/Type-II map
   (NS-050) grew a full within-truncation instrument arc — a dynamic-rescaling fit calibrated on CLM
-  (β=1) **and** the faithful 1D Hou–Luo model (β=2.47 ∈ the proven Chen–Hou–Huang band (2,4.53)), a 3D
+  (β=1) **and** the faithful 1D Hou–Luo model (β=2.47 ∈ the proven Huang–Qin–Wang–Wei band (2,4.53)), a 3D
   Taylor–Green negative control (correct NULL), a validated 2D-Boussinesq Hou–Luo **wall** solver, and
   **mapped-grid ℝ-variable operators (ξ∂_ξ + line-Hilbert) validated to machine precision** — a reusable
   self-similar-profile toolkit (also for NS-048 DSS/ancient profiles). The tuned-profile reconstruction

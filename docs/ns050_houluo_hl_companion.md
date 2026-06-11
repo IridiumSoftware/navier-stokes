@@ -3,7 +3,8 @@
 **Date:** 2026-06-10. **`Scope: 1D-model + pseudospectral truncation` — NOT the NS PDE.**
 **`:proved`=0; distance to the Clay prize UNTOUCHED.** The capstone of the NS-050 instrument arc: validate
 the (c1) two-scale dynamic-rescaling instrument against a *second* known self-similar blow-up — the **Hou–Luo
-(HL) model**, the canonical 1D reduction of the wall-stagnation singularity scenario, which Chen–Hou–Huang
+(HL) model**, the canonical 1D reduction of the wall-stagnation singularity scenario, which Huang–Qin–Wang–Wei (arXiv:2308.01528;
+attribution corrected 2026-06-11 — was "Chen–Hou–Huang", see `docs/ns050_priorart_verification.md`)
 **proved** blows up self-similarly with a **known anomalous spatial exponent** `c_l ∈ (2, 4.53)`
 ([arXiv:2308.01528](https://arxiv.org/abs/2308.01528)). Unlike CLM (`β=1`), this is a `β≫1` target — a much
 stronger test of the instrument.
@@ -35,12 +36,12 @@ The IC **focuses** (finite-time blow-up of the model):
 - `λ=1/A` **halves** per threshold = the `c_ω=−1` rate (`‖ω‖∞~(T−t)^{−1}`) ✓.
 - `ℓ` shrinks **much faster** than `λ` (anomalous) — the signature of `c_l>1`.
 - **`β = d lnℓ/d lnλ = 2.47`** over the resolved window (A=2,4,8,16; tail<1%) — **inside the proven
-  Chen–Hou–Huang band `(2, 4.53)`** ✓. The instrument recovers a *known anomalous exponent*.
+  Huang–Qin–Wang–Wei band `(2, 4.53)`** ✓ (band = full-text claim, line-read pending). The instrument recovers a *known anomalous exponent*.
 
 ## §3 — Verification
 
 **Evidence type: example-tested (within-truncation), against a PROVEN benchmark.** The asserted result —
-*the two-scale instrument recovers the HL self-similar exponent* — is checked against Chen–Hou–Huang's
+*the two-scale instrument recovers the HL self-similar exponent* — is checked against Huang–Qin–Wang–Wei's
 proven `c_l∈(2,4.53)`: measured `β=2.47` is in-band. Combined with the CLM calibration (`β≈1.0`, exact
 `c_l=1`), the instrument is now validated on **two** self-similar blow-ups spanning `β=1` (CLM) to `β≈2.5`
 (HL) — it correctly distinguishes the trivial (`β=1`) from the anomalous (`β≫1`) spatial exponent.
@@ -75,4 +76,4 @@ proven `c_l∈(2,4.53)`: measured `β=2.47` is in-band. Combined with the CLM ca
 
 **Pointers:** `ns050_twoscale_and_control_companion.md` (c1 two-scale + c3 control),
 `ns050_modulation_witness_companion.md` (CLM calibration), `ns050_dss_spectral_gap_companion.md` (b),
-`ns050_modulation_type2_scope.md` (the map). HL model: arXiv:2308.01528 (Chen–Hou–Huang).
+`ns050_modulation_type2_scope.md` (the map). HL model: arXiv:2308.01528 (Huang–Qin–Wang–Wei; attribution corrected 2026-06-11).

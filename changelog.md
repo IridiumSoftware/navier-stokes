@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.21 — 2026-06-11 — NS-050/Type-II prior-art verification round: C1→C2 lifts + a MISATTRIBUTION caught + the DSS branch mapped
+
+Move #5 of the open-questions plan (`docs/ns050_priorart_verification.md`). Read the primary statements of the
+whole NS-050/Type-II citation block (previously all C1 "verify before citing"). **Confirmed C1→C2:** MRRS
+1912.11009 (*"all blow up dynamics obtained for the Navier-Stokes problem are of type II"* — verbatim),
+Chen–Hou 2210.07191 (with-boundary, smooth-data, stable *nearly* self-similar), Elgindi 1904.04795 (C^{1,α}
+3D Euler on ℝ³; our "(Annals of PDE)" journal tag unconfirmed — dropped), Tao 1908.04958 (triple-log lower
+bound, verbatim), Palasek 2101.08586 (double-log axisym `q∈(2,3]`), Seregin 2304.04045+**2507.08733** (the
+conditional Type-II exclusion via Euler scaling + ancient-Euler Liouville — the NS-048 Hole-B machinery,
+confirmed verbatim; author now pinned). **Errors caught:** (1) **arXiv:2308.01528 is Huang–Qin–Wang–Wei, NOT
+"Chen–Hou–Huang"** (the Albritton–Barker misattribution pattern; purely *analytic* fixed-point, not
+computer-assisted) — fixed at all six sites (SPEC, TEST_SPEC T-26, citation_tiers, HL companion ×4,
+dashboard); (2) the `c_l∈(2,4.53)` band is a **full-text claim, not abstract** — line-read flag added;
+(3) Hou 2405.10916 **under-stated** — *generalized* axisym NS (solution-dependent viscosity, effective
+dimension ≈3.19), numerical; row sharpened. **DSS sweep (the M1 de-risk):** the DSS branch has real prior
+art — Bradshaw–Tsai forward-DSS solution theory (1510.07504 / 1801.08060 / 1703.03480, after Chae–Wolf)
+**and a conditional DSS-singularity-REMOVAL result (1610.09464)** — the DSS analog of G3; M1's DSS sub-branch
+re-marked from "untested" to "mapped: partially obstructed, conditions citable" (rows added at C1).
+Citation hygiene only; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.20 — 2026-06-11 — Carleman ladder-4: the CommutatorMethod INSTANCE — the abstract chain and the analysis SNAP TOGETHER
 
 `Carleman.lean` grows a `CommutatorInstance` section (~1850 lines total). **Library

@@ -64,16 +64,20 @@ else's theorem, never that *we* proved anything. A no-go's force in the obstruct
 |---|---|---|---|
 | Lockwood, *Singularity Surgery* Parts I–V (2026, self-contained working papers, no bibliography) | **C0/C1** (UNVERIFIED working papers) | **our** C3-on-line-read verdict (`docs/ns049_lockwood_verification.md`): a *conditional* anisotropy-depletion criterion (assumes `δ_Λ→0`, never derived; a resolved-DNS probe drives `δ_Λ` the *wrong* way) — **NOT** the unconditional proof its framing implies | NS-049 |
 
-## NS-050 — modulation/Type-II prior art (all C1 — named/abstract, verify before citing as established)
+## NS-050 — modulation/Type-II prior art (verification round 2026-06-11, `docs/ns050_priorart_verification.md`)
 
 | Citation | Tier | Note | Used by |
 |---|---|---|---|
-| **Merle–Raphaël–Rodnianski–Szeftel** (arXiv:1912.11009; Annals 2022 I/II; non-radial 2310.05325) | **C1** | smooth imploding self-similar **compressible** Euler/NS; their NS singularities are **Type-II** | NS-050 |
-| **Elgindi** (Annals of PDE) | **C1** | `C^{1,α}` axisym Euler, no swirl — degraded regularity | NS-050 |
-| **Chen–Hou** (arXiv:2210.07191 Analysis + 2305.05660 Rigorous Numerics) | **C1** | computer-assisted 2D Boussinesq / 3D axisym Euler **with boundary**, smooth data | NS-050 |
-| **Chen–Hou–Huang** (arXiv:2308.01528) | **C1** | exact self-similar blow-up of the 1D Hou–Luo model; `c_ω=−1`, `c_l∈(2,4.53)` (the band the NS-050 instrument's `β=2.47` lands in) | NS-050 (T-26) |
-| Conditional Type-II exclusion (arXiv:2304.04045; 2507.08733) | **C1** | ancient-Euler Liouville + generalized LPS = the NS-048 Hole-B machinery | NS-050, NS-048 |
-| Hou — near-self-similar axisym NS (arXiv:2405.10916) | **C1 / numerical** | candidate seed for a DSS profile search | NS-050 |
+| **Merle–Raphaël–Rodnianski–Szeftel** (arXiv:1912.11009; Annals 2022 I/II; non-radial 2310.05325) | **C2** | smooth imploding **compressible** Euler/NS; *"all blow up dynamics obtained for the Navier-Stokes problem are of type II (non self-similar)"* (verbatim); quantized-speed self-similar Euler profiles | NS-050 |
+| **Elgindi** (arXiv:1904.04795) | **C2** | `C^{1,α}` 3D Euler on ℝ³, finite-time singularity from simple flows (journal tag dropped — unconfirmed on arXiv) | NS-050 |
+| **Chen–Hou** (arXiv:2210.07191 Analysis + 2305.05660 Rigorous Numerics) | **C2** | stable *nearly* self-similar blowup, 2D Boussinesq / 3D axisym Euler **with boundary**, smooth finite-energy data | NS-050 |
+| **Huang–Qin–Wang–Wei** (arXiv:2308.01528) — ⚠ **MISATTRIBUTION CAUGHT** (was "Chen–Hou–Huang") | **C2** (statement); the `c_l∈(2,4.53)` band is a **full-text claim, line-read pending** | exact self-similar HL blowup, smooth profiles, **purely analytic** fixed-point (not computer-assisted); `c_ω=−1` | NS-050 (T-26) |
+| **Seregin** — conditional Type-II exclusion (arXiv:2304.04045 scenario; **2507.08733** *"under some assumptions, such blowups cannot happen"*) | **C2** | Euler scaling + **ancient-Euler Liouville** = the NS-048 Hole-B machinery, confirmed verbatim | NS-050, NS-048 |
+| **Hou** — *generalized* axisym NS (arXiv:2405.10916) | **C2 / numerical** | ⚠ sharpened: **solution-dependent viscosity, effective dimension ≈3.19** (→3 as background ν→0), O(10³⁰) vorticity growth — *not* clean 3D NS; numerical | NS-050 |
+| **Bradshaw–Tsai** DSS solution theory (arXiv:1510.07504 weak-`L³`; 1801.08060 `L²_loc`; 1703.03480 Besov; after Chae–Wolf) | **C1** | the DSS function class has an existence theory — the M1 DSS branch is not virgin territory | NS-050 (M1-DSS) |
+| **DSS-singularity removal** (arXiv:1610.09464) | **C1** | conditional *removal* of DSS singularities for 3D NS — the DSS analog of G3's role; any DSS-profile attempt must engage it | NS-050 (M1-DSS), NS-048 |
+| **Tao** triple-log rate (arXiv:1908.04958) | **C2** | `L³` must blow up at `(log log log 1/(T*−t))^c` or faster along a sequence (verbatim); via Carleman | NS-048 (type-II) |
+| **Palasek** double-log axisym (arXiv:2101.08586) | **C2** | weighted critical norms; axisym `q∈(2,3]` ⇒ double-exponential bounds ⇒ **double-log** rate, improving Tao in the axisym case | NS-048 (type-II) |
 
 ## Related (non-PDE — kinship only, fenced)
 
