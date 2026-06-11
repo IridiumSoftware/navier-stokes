@@ -296,7 +296,7 @@ Distance to prize: UNTOUCHED.**
 | G-1 | A5 / A0 | dashboard + CLAUDE.md said "35 entries" / `v0.11.1` (stale post-NS-051) | low | **FIXED → 36 / v0.12.0** |
 | G-2 | A7 (W3) | NS-023/024/037 cite closure-v5 without `substrate_source` (NS-022 was mis-scoped — Waleffe-1992) | low (Scope≠PDE) | **✅ DONE** — fields added (`closure-forces-structure@{9e2f73c,fa39070,860a65a}`); NS-023 cross-build-verified (T-29) |
 | G-3 | meta | count/stamp drift caught **again** (≥2nd time — also flagged 2026-06-09) | meta | **✅ DONE — `.githooks/pre-commit` → `scripts/check_ledger_counts.sh`** (count+stamp+coverage guard; `core.hooksPath=.githooks`; blocks the commit on drift, `--no-verify` bypasses) |
-| G-4 | A2 / A0 | two SPEC entry-header formats (older prose-status vs NS-049/050/051 inline `**Status:**`) | cosmetic | optional: normalize headers |
+| G-4 | A2 / A0 | two SPEC entry-header formats (34 prose vs 2 pipe — NS-050/051; the "NS-049" was mis-scoped, already prose) | cosmetic | **✅ DONE 2026-06-11** — NS-050/051 headers converted to prose; all 36 uniform; header schema-note clarified |
 | G-5 | A6 | no automated CI runner (research repo) | standing | **accepted** — committed `.out.txt` + no-`sorry` Lean compile are the regression discipline |
 
 ### Open items (carried)

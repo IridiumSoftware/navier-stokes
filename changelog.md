@@ -1,5 +1,14 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.13 — 2026-06-11 — G-4 done: SPEC entry-headers normalized (NS-050/051 pipe → prose; all 36 uniform)
+
+Closed the cosmetic audit gap G-4. The SPEC had **2** entries (NS-050, NS-051) using a pipe-delimited header
+line while the other **34** used the prose-header + status convention. Converted NS-050/051 to prose (every
+field kept; ` | ` separators → prose punctuation), so all 36 entry headers are now uniform; clarified the
+SPEC-header schema note (the `NS-ID | Class | …` line is a field *schema*, not a literal layout). The G-4
+description's "NS-049/050/051" over-stated it — NS-049 was already prose; the real split was 34/2. No
+status/count change; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.12 — 2026-06-11 — Carleman ladder-3b-i: the weighted Green identity machine-verified (B8/B9 INTEGRATED — S_g self-adjoint on test functions)
 
 `Carleman.lean` grows a `WeightedGreen` section (~625 lines total). **Library infrastructure;
