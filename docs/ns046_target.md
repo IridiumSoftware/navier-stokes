@@ -70,11 +70,27 @@ the weight concentrating on cores where the pressure term is favorable; (ii) the
 shrinks toward 1 at small scales** (≈2.5→1.4, staying >1 in this truncation), consistent with the doc's
 "marginal cancellation at the critical scaling" hypothesis — the difficulty sits at the small/singular scales.
 **TWO GUARDS (do NOT over-read — this is the over-reach-prone entry):** (a) the depletion **SIGN convention**
-(`e₃ᵀ∇²p e₃>0 ⇒ depletes`) is *adopted* from the uniform-domination probe / §2, **not** independently
-re-derived; its physical correctness rests on the strain-eigenvalue evolution sign `Dλ₃ ⊃ −e₃ᵀ∇²p e₃` — a
-**Required Check** to pin before any "depletes/enhances at cores" reading is trusted; (b) a regular truncation
+(`e₃ᵀ∇²p e₃>0 ⇒ depletes`) — **Required Check now CLOSED, see below**; (b) a regular truncation
 has **no singular set** — `R_int>1` is a *suggestive prior*, NOT the inequality and NOT progress. **NS-046
-stays `:open`; this sharpens only WHERE the difficulty sits (small scales) and surfaces the sign Required-Check.**
+stays `:open`; this sharpens only WHERE the difficulty sits (small scales).**
+
+**Sign Required-Check — CLOSED (2026-06-11, `scripts/ns046_dlambda3_sign_check.{py,jl}` + `.out.txt`;
+evidence class: algebraic).** The full derivation chain is machine-verified exactly: **I1** gradient-of-NS
+`DA/Dt = −A² − ∇²p + νΔA` (symbolic identity, sympy); **I2** `sym(A²) = S² + Ω²`; **I3**
+`Ω² = ¼(ω⊗ω − |ω|²I)`; **I4** the eigen-derivative lemma `dλ₃/dt = e₃ᵀ(dS/dt)e₃` (λ₃ simple —
+Hellmann–Feynman, rotation terms cancel exactly); independently corroborated in Julia (`Rational{BigInt}`
+exact zeros for I2/I3; FD convergence rate 4.00 for I4; assembly to machine-ε). Conclusion:
+
+> `Dλ₃/Dt = −λ₃² + ¼(|ω|² − (ω·e₃)²) − e₃ᵀ(∇²p)e₃ + ν e₃ᵀ(ΔS)e₃`
+
+so the pressure-Hessian projection enters with coefficient **−1**: `e₃ᵀ∇²p e₃ > 0 ⇒ DEPLETES` — **the
+probes' adopted convention is CORRECT.** *Honest sharpening surfaced by the derivation* (recorded, not
+over-read): for λ₃ *itself* the `−λ₃²` term is **self-damping**, and the growth **feed** is the vorticity
+term `¼(|ω|²−(ω·e₃)²)` (maximal for `ω ⊥ e₃`); the probes' ratio `R = e₃ᵀ∇²p e₃/λ₃²` remains a sensible
+*magnitude* comparison (λ₃² is the dynamics' scale), but the §2 phrase "strain self-amplification *of* λ₃"
+is loose — the self-amplification of the *production* `ω·Sω` runs through ω-growth fed by λ₃>0, not through
+λ₃'s own square. Caveat: the lemma needs λ₃ simple (a.e.; crossings excluded). Matches the published
+eigenframe dynamics (Meneveau, Annu. Rev. Fluid Mech. 2011 — C2, statement-level). `:proved`=0.
 
 ## 4. Kill criteria (§11 of the write-up — what would retire this framing)
 

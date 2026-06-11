@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.17 — 2026-06-11 — NS-046 sign Required-Check CLOSED (algebraic): pressure-Hessian coefficient −1, convention CORRECT
+
+Executed move #1 of the open-questions plan. The depletion convention all three NS-046 probes adopt
+(`e₃ᵀ∇²p e₃>0 ⇒ depletes`) rested on the underived claim `Dλ₃ ⊃ −e₃ᵀ∇²p e₃` — flagged as a Required Check.
+Now **machine-verified exactly** (`scripts/ns046_dlambda3_sign_check.{py,jl}` + `.out.txt`, evidence class
+**algebraic**): sympy verifies the full chain symbolically — **I1** gradient-of-NS `DA/Dt=−A²−∇²p+νΔA`
+(identity, no equations assumed), **I2** `sym(A²)=S²+Ω²`, **I3** `Ω²=¼(ω⊗ω−|ω|²I)`, **I4** the
+eigen-derivative lemma `dλ₃/dt=e₃ᵀ(dS/dt)e₃` (λ₃ simple; rotation terms cancel exactly), **A1**
+`e₃ᵀS²e₃=λ₃²`; Julia independently corroborates (Rational{BigInt} exact zeros for I2/I3; FD convergence rate
+4.00 for I4; assembly to machine-ε). Result: `Dλ₃/Dt = −λ₃² + ¼(|ω|²−(ω·e₃)²) − e₃ᵀ∇²p e₃ + νe₃ᵀΔS e₃` —
+the pressure enters with **coefficient −1**, so the probes' convention is **CORRECT** (and Brian's eigenframe
+equation in the NS-046 registry row is confirmed, with the "+rot" terms shown to cancel exactly). **Honest
+sharpening recorded, not over-read:** for λ₃ itself `−λ₃²` is **self-damping**; the growth feed is the
+vorticity term `¼(|ω|²−(ω·e₃)²)` (maximal for ω⊥e₃) — the probes' ratio `R=e₃ᵀ∇²p e₃/λ₃²` stays a sensible
+magnitude comparison, but "strain self-amplification *of* λ₃" is loose phrasing (the amplification runs
+through ω-growth fed by λ₃>0). Caveat: λ₃ simple (a.e.). Scope: kinematic/structural identity of NS — NOT a
+regularity statement; no status change; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.16 — 2026-06-11 — Carleman ladder-3b-iii: TAO'S MASTER DIFFERENTIAL IDENTITY machine-verified (∂t⟨u,v⟩ = ⟨Lu,v⟩+⟨u,Lv⟩−2⟨Su,v⟩)
 
 `Carleman.lean` grows a `TimeLayer` section (~1376 lines total). **Library infrastructure;

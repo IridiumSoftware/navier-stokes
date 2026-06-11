@@ -1,0 +1,30 @@
+==========================================================================
+  NS-046 sign Required-Check — Dλ₃ ⊃ −e₃ᵀ(∇²p)e₃  (exact, sympy)
+==========================================================================
+  [PASS] I1  ∂_k(NS_i) ≡ [DA/Dt + A² + ∇²p − νΔA]_ik  — so on NS solutions DA/Dt = −A² − ∇²p + νΔA
+  [PASS] I2  sym(A²) = S² + Ω²  — ⇒ DS/Dt = −S² − Ω² − ∇²p + νΔS (Hessian is symmetric)
+  [PASS] I3  Ω² = ¼(ω⊗ω − |ω|²I)  — ⇒ e₃ᵀ(−Ω²)e₃ = ¼(|ω|² − (ω·e₃)²) ≥ 0 (the vorticity FEED)
+  [PASS] I4  dλ₃/dt = e₃ᵀ(dS/dt)e₃ (λ₃ simple)  — Hellmann–Feynman; rotation terms cancel exactly
+  [PASS] A1  e₃ᵀS²e₃ = λ₃²  (so e₃ᵀ(−S²)e₃ = −λ₃²)  — the λ₃ 'self' term — note the sign: self-DAMPING for the max eigenvalue
+--------------------------------------------------------------------------
+  ⇒ Dλ₃/Dt = −λ₃² + ¼(|ω|² − (ω·e₃)²) − e₃ᵀ(∇²p)e₃ + ν e₃ᵀ(ΔS)e₃
+  ⇒ the pressure-Hessian projection enters with coefficient −1:
+    e₃ᵀ(∇²p)e₃ > 0  ⇒  DEPLETES the max-stretch growth.   CONVENTION PINNED.
+  NOTE (honest sharpening): for λ₃ itself the −λ₃² term is SELF-DAMPING; the
+  growth feed is the vorticity term ¼(|ω|²−(ω·e₃)²) (maximal for ω ⊥ e₃). The
+  probes' ratio R = e₃ᵀ∇²p e₃ / λ₃² remains a sensible magnitude comparison
+  (λ₃² is the dynamics' scale), but 'λ₃² = self-amplification OF λ₃' is loose.
+  Caveat: I4 needs λ₃ simple (a.e.; crossings excluded). :proved=0.
+==========================================================================
+
+════ Julia corroboration (ns046_dlambda3_sign_check.jl) ════
+==========================================================================
+  NS-046 sign check — Julia corroboration (exact-rational + FD convergence)
+==========================================================================
+  [PASS] I2 exact (25 random Rational{BigInt} A): sym(A²)=S²+Ω²  — max residual = 0//1 (exact zero)
+  [PASS] I3 exact: Ω² = ¼(ω⊗ω − |ω|²I)  — max residual = 0//1 (exact zero)
+  [PASS] I4 FD: dλ₃/dt = e₃ᵀ(dS/dt)e₃ converges O(h²)  — errs 1.44e-06 → 3.59e-07 → 8.98e-08 (rates 4.00, 4.00)
+  [PASS] Assembly: e₃ᵀ(−S²−Ω²−P)e₃ = −λ₃²+¼(|ω|²−(ω·e₃)²)−e₃ᵀPe₃  — |lhs−rhs| = 2.22e-16
+--------------------------------------------------------------------------
+  ⇒ CORROBORATED: the pressure-Hessian enters Dλ₃ with coefficient −1 (convention PINNED).
+==========================================================================
