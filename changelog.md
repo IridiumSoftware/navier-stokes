@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.10 — 2026-06-11 — Carleman ladder-3a: the norm-calculus substrate machine-verified (∇‖x‖, Hess‖x‖, the radial Laplacian — a Mathlib gap filled)
+
+New file `formalization/lean-mathlib/NormCalculus.lean` (~180 lines). **Library infrastructure;
+`:proved`=0 for the PDE. Generic inner-product-space facts — upstreamable.**
+- **`hasFDerivAt_norm` / `hasGradientAt_norm`** — `D‖·‖(x) = ‖x‖⁻¹⟪x,·⟫`, `∇‖·‖(x) = x̂` (`x ≠ 0`;
+  via `hasStrictFDerivAt_norm_sq` + the sqrt chain rule).
+- **`hasFDerivAt_radial`** — the radial chain rule `D(φ∘‖·‖)(y) = (φ'(r)/r)⟪y,·⟫`.
+- **`iteratedFDeriv_two_radial_apply`** — the radial Hessian:
+  `D²(φ∘‖·‖)(x)[v,w] = (φ'/r)⟪v,w⟫ + (φ''/r² − φ'/r³)⟪x,v⟫⟪x,w⟫` — proved by differentiating the
+  CLM-valued derivative field `y ↦ (φ'(‖y‖)·‖y‖⁻¹) • innerSL ℝ y` (smul/mul/inv FDeriv rules +
+  `EventuallyEq.fderiv_eq` + `iteratedFDeriv_two_apply`).
+- **`iteratedFDeriv_two_norm_apply`** — `Hess‖·‖ = (I − x̂x̂ᵀ)/‖x‖` (record-audit **B11c in genuine
+  vector form**, upgrading the ladder-2 radial eigenvalue facts).
+- **`laplacian_radial`** — **the ladder-2 → 3D identification:**
+  `Δ(φ∘‖·‖)(x) = φ''(r) + ((d−1)/r)·φ'(r)` against Mathlib's pointwise `Laplacian` (Kebekus), via
+  the orthonormal-basis formula + Parseval (`sum_sq_inner_left`); corollary `laplacian_norm`
+  (`Δ‖·‖ = (d−1)/‖x‖`). With this, the ladder-2 radial F/LF displays ARE the d=3 vector-calculus
+  quantities for Tao's weights.
+- **Soundness:** no `sorry`; the false variant (`(d+1)/r` for `(d−1)/r`, same proof script) is
+  REJECTED at the final field algebra; LEAN_EXIT=0 vs the lean4-cv Mathlib. Lakefile target added.
+**Mathlib-gap note:** at the pinned rev Mathlib has the pointwise `Laplacian` + `contDiffAt_norm`
+but no radial computation lemmas — this file is the missing layer and is upstreamable as-is.
+`:proved`=0; distance UNTOUCHED. *Next: ladder-3b — the weighted-L² master identity.*
+
 ## v0.15.9 — 2026-06-11 — Triad VERDICT + (C0) gate: adaptive solver BANKED (B); NS-050 β transfers to the wall but is data-starved
 
 Closed the triad pass on the adaptive-solver decision. Both seats (Grok edge-witness Φ + ChatGPT synthesis)
@@ -46,30 +70,6 @@ ultra-resolution (the **Chen–Hou** regime). That negative is itself the findin
 reproduces *why* the Hou–Luo blowup required heavy computer-assisted machinery. Two earlier overclaim/garbage
 readings (divide-by-~0 `ℓ_z`, unresolved-phase contamination) were caught and fixed before recording. Map doc
 + NS-048 source/registry/dashboard updated; no new NS-ID. `:proved`=0; Scope resolved-DNS witness.
-
-## v0.15.7 — 2026-06-11 — Carleman ladder-3a: the norm-calculus substrate machine-verified (∇‖x‖, Hess‖x‖, the radial Laplacian — a Mathlib gap filled)
-
-New file `formalization/lean-mathlib/NormCalculus.lean` (~180 lines). **Library infrastructure;
-`:proved`=0 for the PDE. Generic inner-product-space facts — upstreamable.**
-- **`hasFDerivAt_norm` / `hasGradientAt_norm`** — `D‖·‖(x) = ‖x‖⁻¹⟪x,·⟫`, `∇‖·‖(x) = x̂` (`x ≠ 0`;
-  via `hasStrictFDerivAt_norm_sq` + the sqrt chain rule).
-- **`hasFDerivAt_radial`** — the radial chain rule `D(φ∘‖·‖)(y) = (φ'(r)/r)⟪y,·⟫`.
-- **`iteratedFDeriv_two_radial_apply`** — the radial Hessian:
-  `D²(φ∘‖·‖)(x)[v,w] = (φ'/r)⟪v,w⟫ + (φ''/r² − φ'/r³)⟪x,v⟫⟪x,w⟫` — proved by differentiating the
-  CLM-valued derivative field `y ↦ (φ'(‖y‖)·‖y‖⁻¹) • innerSL ℝ y` (smul/mul/inv FDeriv rules +
-  `EventuallyEq.fderiv_eq` + `iteratedFDeriv_two_apply`).
-- **`iteratedFDeriv_two_norm_apply`** — `Hess‖·‖ = (I − x̂x̂ᵀ)/‖x‖` (record-audit **B11c in genuine
-  vector form**, upgrading the ladder-2 radial eigenvalue facts).
-- **`laplacian_radial`** — **the ladder-2 → 3D identification:**
-  `Δ(φ∘‖·‖)(x) = φ''(r) + ((d−1)/r)·φ'(r)` against Mathlib's pointwise `Laplacian` (Kebekus), via
-  the orthonormal-basis formula + Parseval (`sum_sq_inner_left`); corollary `laplacian_norm`
-  (`Δ‖·‖ = (d−1)/‖x‖`). With this, the ladder-2 radial F/LF displays ARE the d=3 vector-calculus
-  quantities for Tao's weights.
-- **Soundness:** no `sorry`; the false variant (`(d+1)/r` for `(d−1)/r`, same proof script) is
-  REJECTED at the final field algebra; LEAN_EXIT=0 vs the lean4-cv Mathlib. Lakefile target added.
-**Mathlib-gap note:** at the pinned rev Mathlib has the pointwise `Laplacian` + `contDiffAt_norm`
-but no radial computation lemmas — this file is the missing layer and is upstreamable as-is.
-`:proved`=0; distance UNTOUCHED. *Next: ladder-3b — the weighted-L² master identity.*
 
 ## v0.15.6 — 2026-06-11 — Carleman ladder-2: the radial weight calculus machine-verified (Tao's F/LF/Hessian displays, B11/B12 lean-proved)
 
