@@ -1,5 +1,34 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.14 — 2026-06-11 — Carleman ladder-3b-ii (spatial half): the SPATIAL MASTER IDENTITY machine-verified (+ Δ(e^g) chain rule, gradient product rule — more Mathlib gaps filled)
+
+`Carleman.lean` grows a `WeightedGreenAux` section (~1016 lines total). **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **Helpers (reusable):** `support_laplacian_subset` (Δ vanishes off the closed support — no
+  smoothness needed; via `laplacian_congr_nhds`), `continuous_laplacian` (C² ⇒ Δ continuous),
+  `continuous_gradient`, `support_gradient_subset`.
+- **`gradient_exp_comp`** (`∇(e^g) = e^g•∇g`) and **`gradient_mul`** (`∇(uv) = u•∇v + v•∇u`) —
+  pointwise product/chain rules for Mathlib's `gradient` (absent upstream).
+- **`laplacian_exp_comp` — the Laplacian chain rule for the exponential weight (Mathlib gap):**
+  `Δ(e^g) = (Δg + ‖∇g‖²)·e^g` pointwise for `g` C² — proved by differentiating the CLM-valued
+  field `y ↦ e^{g(y)}•Dg(y)` (the same technique as the ladder-3a radial Hessian).
+- **`integral_laplacian_mul'`** — the Green identity with compact support on the MULTIPLIER
+  (`h` arbitrary C² growth, `w` compactly supported): the variant needed because the weight
+  `e^g` is not compactly supported.
+- **`integral_weight_laplacian`** — the B8 "double-IBP" half:
+  `∫(Δg + ‖∇g‖²)·w·e^g = −∫⟪∇g,∇w⟫·e^g`.
+- **`integral_laplacian_pair` — THE SPATIAL MASTER IDENTITY** (the space half of Tao's
+  Lemma 4.1 display): `∫(Δu·v + u·Δv)·e^g = ∫((Δg + ‖∇g‖²)·uv − 2⟪∇u,∇v⟫)·e^g` for `u,v` C²
+  compactly supported, `g` C². Proof: six integral atoms + the two Green identities + the
+  weight-Laplacian identity expanded by the gradient product rule, closed by `linarith`.
+  Combined with the time layer (`∂t` under the integral — ladder-3b-iii) this IS
+  `∂t⟨u,v⟩ = ⟨Lu,v⟩+⟨u,Lv⟩−2⟨Su,v⟩` with `F = ∂tg − Δg − ‖∇g‖²`.
+- **Soundness:** no `sorry`; the false variant (`Δ(e^g) = Δg·e^g`, the `‖∇g‖²` term dropped,
+  same proof script) is REJECTED at the final `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Honest scope:** spatial (time-frozen). Remaining for the `CommutatorMethod` instance
+(ladder-3b-iii): differentiation under the integral for `t ↦ ∫u(t)v(t)e^{g(t)}` + the `F`
+bookkeeping + the instance assembly. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.13 — 2026-06-11 — G-4 done: SPEC entry-headers normalized (NS-050/051 pipe → prose; all 36 uniform)
 
 Closed the cosmetic audit gap G-4. The SPEC had **2** entries (NS-050, NS-051) using a pipe-delimited header

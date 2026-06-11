@@ -620,6 +620,397 @@ theorem integral_Sg_symm {u v g : E → ℝ} [CompleteSpace E]
 end WeightedGreen
 
 
+
+/-! #### Ladder-3b-ii (spatial half): the weight calculus under the integral
+
+The remaining spatial content of Tao's master identity: the swapped-support Green
+variant, the pointwise chain/product rules `Δ(e^g) = (Δg+|∇g|²)e^g` and
+`∇(uv) = u∇v + v∇u` (both Mathlib gaps), the weight-Laplacian integral identity, and
+the **spatial master identity**
+`∫(Δu·v + u·Δv)e^g = ∫((Δg+|∇g|²)uv − 2⟪∇u,∇v⟫)e^g` — the exact space half of
+`∂t⟨u,v⟩ = ⟨Lu,v⟩+⟨u,Lv⟩−2⟨Su,v⟩`. -/
+
+namespace WeightedGreenAux
+
+open MeasureTheory Real Laplacian InnerProductSpace
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E]
+
+/-- The Laplacian vanishes off the (closed) support — no smoothness needed. -/
+theorem support_laplacian_subset (u : E → ℝ) :
+    Function.support (Δ u) ⊆ tsupport u := by
+  intro y hy
+  by_contra hyn
+  have hloc : ∀ᶠ z in nhds y, u z = 0 := by
+    have : (tsupport u)ᶜ ∈ nhds y :=
+      (isClosed_tsupport u).isOpen_compl.mem_nhds hyn
+    filter_upwards [this] with z hz
+    exact image_eq_zero_of_notMem_tsupport hz
+  have hev : u =ᶠ[nhds y] fun _ : E => (0:ℝ) := by
+    filter_upwards [hloc] with z hz
+    exact hz
+  have heq : Δ u y = Δ (fun _ : E => (0:ℝ)) y :=
+    (laplacian_congr_nhds hev).eq_of_nhds
+  refine hy ?_
+  rw [heq]
+  simp
+
+/-- C² functions have continuous Laplacian. -/
+theorem continuous_laplacian {u : E → ℝ} (hu : ContDiff ℝ 2 u) :
+    Continuous (Δ u) := by
+  rw [laplacian_eq_iteratedFDeriv_orthonormalBasis u (stdOrthonormalBasis ℝ E)]
+  refine continuous_finset_sum _ fun i _ => ?_
+  exact (continuous_eval_const _).comp (hu.continuous_iteratedFDeriv (by norm_num))
+
+/-- C¹ functions have continuous gradient. -/
+theorem continuous_gradient {u : E → ℝ} (hu : ContDiff ℝ 1 u) :
+    Continuous (∇ u) :=
+  (LinearIsometryEquiv.continuous _).comp (hu.continuous_fderiv one_ne_zero)
+
+/-- The gradient vanishes off the (closed) support. -/
+theorem support_gradient_subset (u : E → ℝ) :
+    Function.support (∇ u) ⊆ tsupport u := by
+  intro y hy
+  have h1 : fderiv ℝ u y ≠ 0 := by
+    intro h0
+    refine hy ?_
+    rw [_root_.gradient, h0, map_zero]
+  exact support_fderiv_subset ℝ (Function.mem_support.mpr h1)
+
+/-- The gradient of the exponential weight: `∇(e^g) = e^g • ∇g`. -/
+theorem gradient_exp_comp {g : E → ℝ} [CompleteSpace E]
+    (hg : ContDiff ℝ 1 g) (x : E) :
+    ∇ (fun y => exp (g y)) x = exp (g x) • ∇ g x := by
+  have hgd : HasFDerivAt (fun y : E => exp (g y)) (exp (g x) • fderiv ℝ g x) x :=
+    (Real.hasDerivAt_exp (g x)).comp_hasFDerivAt x
+      (hg.differentiable one_ne_zero x).hasFDerivAt
+  rw [_root_.gradient, hgd.fderiv, map_smul, _root_.gradient]
+
+/-- The gradient product rule: `∇(uv) = u•∇v + v•∇u`. -/
+theorem gradient_mul {u v : E → ℝ} [CompleteSpace E]
+    (hu : ContDiff ℝ 1 u) (hv : ContDiff ℝ 1 v) (x : E) :
+    ∇ (fun y => u y * v y) x = u x • ∇ v x + v x • ∇ u x := by
+  have h : HasFDerivAt (fun y => u y * v y)
+      (u x • fderiv ℝ v x + v x • fderiv ℝ u x) x :=
+    HasFDerivAt.mul (hu.differentiable one_ne_zero x).hasFDerivAt
+      (hv.differentiable one_ne_zero x).hasFDerivAt
+  rw [_root_.gradient, h.fderiv]
+  simp only [map_add, map_smul]
+  rw [_root_.gradient, _root_.gradient]
+
+/-- **The Laplacian chain rule for the exponential weight** (pointwise, a Mathlib gap):
+    `Δ(e^g) = (Δg + ‖∇g‖²)·e^g` for `g` C². -/
+theorem laplacian_exp_comp {g : E → ℝ} (hg : ContDiff ℝ 2 g) (x : E) :
+    Δ (fun y => exp (g y)) x = (Δ g x + ⟪∇ g x, ∇ g x⟫) * exp (g x) := by
+  classical
+  set b := stdOrthonormalBasis ℝ E with hb
+  have hgd : ∀ y : E, HasFDerivAt (fun z : E => exp (g z))
+      (exp (g y) • fderiv ℝ g y) y := fun y =>
+    (Real.hasDerivAt_exp (g y)).comp_hasFDerivAt y
+      (hg.differentiable (by norm_num) y).hasFDerivAt
+  have hfg1 : ContDiff ℝ 1 (fderiv ℝ g) := hg.fderiv_right (by norm_num)
+  have hexpc : HasFDerivAt (fun y : E => exp (g y))
+      (exp (g x) • fderiv ℝ g x) x := hgd x
+  have hH : HasFDerivAt (fun y : E => exp (g y) • fderiv ℝ g y) _ x :=
+    HasFDerivAt.smul hexpc (hfg1.differentiable one_ne_zero x).hasFDerivAt
+  have heq : (fderiv ℝ fun y : E => exp (g y))
+      = fun y : E => exp (g y) • fderiv ℝ g y :=
+    funext fun y => (hgd y).fderiv
+  rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis _ b) x]
+  have hterm : ∀ i, iteratedFDeriv ℝ 2 (fun y : E => exp (g y)) x ![b i, b i]
+      = exp (g x) * (fderiv ℝ g x (b i) * fderiv ℝ g x (b i))
+        + exp (g x) * fderiv ℝ (fderiv ℝ g) x (b i) (b i) := by
+    intro i
+    rw [iteratedFDeriv_two_apply, heq, hH.fderiv]
+    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.coe_smul',
+      Pi.smul_apply, ContinuousLinearMap.smulRight_apply,
+      ContinuousLinearMap.smul_apply, smul_eq_mul, Matrix.cons_val_zero,
+      Matrix.cons_val_one, Matrix.head_cons]
+    ring
+  rw [Finset.sum_congr rfl fun i _ => hterm i, Finset.sum_add_distrib,
+      ← Finset.mul_sum, ← Finset.mul_sum]
+  have hpar : ∑ i, fderiv ℝ g x (b i) * fderiv ℝ g x (b i) = ⟪∇ g x, ∇ g x⟫ := by
+    rw [← OrthonormalBasis.sum_inner_mul_inner b (∇ g x) (∇ g x)]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [← inner_gradient_left (hg.differentiable (by norm_num) x),
+        real_inner_comm (∇ g x) (b i)]
+  have hlap : Δ g x = ∑ i, fderiv ℝ (fderiv ℝ g) x (b i) (b i) := by
+    rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis g b) x]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [iteratedFDeriv_two_apply]
+    rfl
+  rw [hpar, ← hlap]
+  ring
+
+/-- Variant of the Green identity with compact support on the MULTIPLIER:
+    `∫ Δh·w = −∫ ⟪∇h,∇w⟫` for `h` C² (arbitrary growth), `w` C¹ compactly supported. -/
+theorem integral_laplacian_mul' {h w : E → ℝ}
+    (hh : ContDiff ℝ 2 h) (hw : ContDiff ℝ 1 w) (hcw : HasCompactSupport w) :
+    ∫ x, Δ h x * w x = - ∫ x, ⟪∇ h x, ∇ w x⟫ := by
+  classical
+  set b := stdOrthonormalBasis ℝ E with hb
+  set U : Fin (Module.finrank ℝ E) → E → ℝ := fun i y => fderiv ℝ h y (b i) with hU
+  have hfd1 : ContDiff ℝ 1 (fderiv ℝ h) := hh.fderiv_right (by norm_num)
+  have hUc1 : ∀ i, ContDiff ℝ 1 (U i) := fun i =>
+    (ContinuousLinearMap.apply ℝ ℝ (b i)).contDiff.comp hfd1
+  -- support package (everything routes through `w`)
+  have htsdw : ∀ i, Function.support (fun x => fderiv ℝ w x (b i)) ⊆ tsupport w := by
+    intro i y hy
+    have h1 : fderiv ℝ w y ≠ 0 := by
+      intro h0
+      exact hy (by simp [h0])
+    exact support_fderiv_subset ℝ (Function.mem_support.mpr h1)
+  -- continuity package
+  have hcontU : ∀ i, Continuous (U i) := fun i => (hUc1 i).continuous
+  have hcontdU : ∀ i, Continuous fun x => fderiv ℝ (U i) x (b i) := fun i =>
+    (ContinuousLinearMap.apply ℝ ℝ (b i)).continuous.comp
+      ((hUc1 i).continuous_fderiv one_ne_zero)
+  have hcontw : Continuous w := hw.continuous
+  have hcontdw : ∀ i, Continuous fun x => fderiv ℝ w x (b i) := fun i =>
+    (ContinuousLinearMap.apply ℝ ℝ (b i)).continuous.comp
+      (hw.continuous_fderiv one_ne_zero)
+  have hInt : ∀ p : E → ℝ, Continuous p → Function.support p ⊆ tsupport w →
+      Integrable p (volume : Measure E) := fun p hc hs =>
+    hc.integrable_of_hasCompactSupport (hcw.mono' hs)
+  -- pointwise: Δh = Σᵢ ∂ᵢUᵢ
+  have hΔ : ∀ x, Δ h x = ∑ i, fderiv ℝ (U i) x (b i) := by
+    intro x
+    rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis h b) x]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [iteratedFDeriv_two_apply]
+    have hdf : DifferentiableAt ℝ (fderiv ℝ h) x := hfd1.differentiable one_ne_zero x
+    have hcomp : HasFDerivAt (U i)
+        ((ContinuousLinearMap.apply ℝ ℝ (b i)).comp (fderiv ℝ (fderiv ℝ h) x)) x :=
+      (ContinuousLinearMap.apply ℝ ℝ (b i)).hasFDerivAt.comp x hdf.hasFDerivAt
+    rw [hcomp.fderiv]
+    rfl
+  -- per-direction IBP (supports route through `w`)
+  have hibp : ∀ i, ∫ x, fderiv ℝ (U i) x (b i) * w x
+      = - ∫ x, U i x * fderiv ℝ w x (b i) := by
+    intro i
+    have h := integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable
+      (μ := (volume : Measure E)) (f := U i) (g := w) (v := b i)
+      (hInt _ ((hcontdU i).mul hcontw)
+        ((Function.support_mul_subset_right _ _).trans subset_closure))
+      (hInt _ ((hcontU i).mul (hcontdw i))
+        ((Function.support_mul_subset_right _ _).trans (htsdw i)))
+      (hInt _ ((hcontU i).mul hcontw)
+        ((Function.support_mul_subset_right _ _).trans subset_closure))
+      (fun x _ => (hUc1 i).differentiable one_ne_zero x)
+      (fun x _ => hw.differentiable one_ne_zero x)
+    linarith [h]
+  have hpar : ∀ x, ∑ i, U i x * fderiv ℝ w x (b i) = ⟪∇ h x, ∇ w x⟫ := by
+    intro x
+    rw [← OrthonormalBasis.sum_inner_mul_inner b (∇ h x) (∇ w x)]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    show fderiv ℝ h x (b i) * fderiv ℝ w x (b i) = ⟪∇ h x, b i⟫ * ⟪b i, ∇ w x⟫
+    rw [← inner_gradient_left (hh.differentiable (by norm_num) x),
+        ← inner_gradient_left (hw.differentiable one_ne_zero x),
+        real_inner_comm (∇ w x) (b i)]
+  calc ∫ x, Δ h x * w x
+      = ∫ x, ∑ i, fderiv ℝ (U i) x (b i) * w x := by
+        refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+        show Δ h x * w x = ∑ i, fderiv ℝ (U i) x (b i) * w x
+        rw [hΔ x, Finset.sum_mul]
+    _ = ∑ i, ∫ x, fderiv ℝ (U i) x (b i) * w x := by
+        refine integral_finset_sum _ fun i _ => ?_
+        exact hInt _ ((hcontdU i).mul hcontw)
+          ((Function.support_mul_subset_right _ _).trans subset_closure)
+    _ = ∑ i, - ∫ x, U i x * fderiv ℝ w x (b i) :=
+        Finset.sum_congr rfl fun i _ => hibp i
+    _ = - ∑ i, ∫ x, U i x * fderiv ℝ w x (b i) := by
+        rw [Finset.sum_neg_distrib]
+    _ = - ∫ x, ∑ i, U i x * fderiv ℝ w x (b i) := by
+        rw [integral_finset_sum]
+        exact fun i _ => hInt _ ((hcontU i).mul (hcontdw i))
+          ((Function.support_mul_subset_right _ _).trans (htsdw i))
+    _ = - ∫ x, ⟪∇ h x, ∇ w x⟫ := by
+        refine congrArg Neg.neg (integral_congr_ae
+          (Filter.Eventually.of_forall fun x => ?_))
+        exact hpar x
+
+/-- **The weight-Laplacian integral identity** (the B8 "double-IBP" half):
+    `∫ (Δg + ‖∇g‖²)·w·e^g = −∫ ⟪∇g,∇w⟫·e^g` for `g` C², `w` C¹ compactly supported. -/
+theorem integral_weight_laplacian {g w : E → ℝ} [CompleteSpace E]
+    (hg : ContDiff ℝ 2 g) (hw : ContDiff ℝ 1 w) (hcw : HasCompactSupport w) :
+    ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * w x * exp (g x)
+      = - ∫ x, ⟪∇ g x, ∇ w x⟫ * exp (g x) := by
+  have hexp2 : ContDiff ℝ 2 fun y : E => exp (g y) :=
+    Real.contDiff_exp.comp hg
+  have h := integral_laplacian_mul' hexp2 hw hcw
+  calc ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * w x * exp (g x)
+      = ∫ x, Δ (fun y : E => exp (g y)) x * w x := by
+        refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+        show (Δ g x + ⟪∇ g x, ∇ g x⟫) * w x * exp (g x)
+            = Δ (fun y : E => exp (g y)) x * w x
+        rw [laplacian_exp_comp hg x]
+        ring
+    _ = - ∫ x, ⟪∇ (fun y : E => exp (g y)) x, ∇ w x⟫ := h
+    _ = - ∫ x, ⟪∇ g x, ∇ w x⟫ * exp (g x) := by
+        refine congrArg Neg.neg (integral_congr_ae
+          (Filter.Eventually.of_forall fun x => ?_))
+        show ⟪∇ (fun y : E => exp (g y)) x, ∇ w x⟫ = ⟪∇ g x, ∇ w x⟫ * exp (g x)
+        rw [gradient_exp_comp (hg.of_le (by norm_num)) x, real_inner_smul_left]
+        ring
+
+/-- **The spatial master identity** (the space half of Tao's Lemma 4.1 display):
+    for `u, v` C² compactly supported and `g` C²,
+    `∫ (Δu·v + u·Δv)·e^g = ∫ ((Δg + ‖∇g‖²)·uv − 2⟪∇u,∇v⟫)·e^g`. -/
+theorem integral_laplacian_pair {u v g : E → ℝ} [CompleteSpace E]
+    (hu : ContDiff ℝ 2 u) (hcu : HasCompactSupport u)
+    (hv : ContDiff ℝ 2 v) (hcv : HasCompactSupport v) (hg : ContDiff ℝ 2 g) :
+    ∫ x, (Δ u x * v x + u x * Δ v x) * exp (g x)
+      = ∫ x, ((Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x)
+          - 2 * ⟪∇ u x, ∇ v x⟫) * exp (g x) := by
+  classical
+  have hg1 : ContDiff ℝ 1 g := hg.of_le (by norm_num)
+  have hu1 : ContDiff ℝ 1 u := hu.of_le (by norm_num)
+  have hv1 : ContDiff ℝ 1 v := hv.of_le (by norm_num)
+  have hgexp : Continuous fun x : E => exp (g x) :=
+    Real.continuous_exp.comp hg.continuous
+  -- integrability discharges, all routed through `u` or `v`
+  have hIntu : ∀ p : E → ℝ, Continuous p → Function.support p ⊆ tsupport u →
+      Integrable p (volume : Measure E) := fun p hc hs =>
+    hc.integrable_of_hasCompactSupport (hcu.mono' hs)
+  have hIntv : ∀ p : E → ℝ, Continuous p → Function.support p ⊆ tsupport v →
+      Integrable p (volume : Measure E) := fun p hc hs =>
+    hc.integrable_of_hasCompactSupport (hcv.mono' hs)
+  -- the six atoms
+  set A1 := ∫ x, Δ u x * (v x * exp (g x)) with hA1
+  set A2 := ∫ x, ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)) with hA2
+  set A3 := ∫ x, ⟪∇ u x, ∇ v x⟫ * exp (g x) with hA3
+  set B1 := ∫ x, Δ v x * (u x * exp (g x)) with hB1
+  set B2 := ∫ x, ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)) with hB2
+  set C1 := ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) * exp (g x) with hC1
+  -- R1: Green for u against v·e^g
+  have hR1 : A1 + A2 = - A3 := by
+    rw [hA1, hA2, ← integral_add
+      (hIntu (fun x => Δ u x * (v x * exp (g x)))
+        ((continuous_laplacian hu).mul (hv.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (support_laplacian_subset u)))
+      (hIntu (fun x => ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)))
+        (((continuous_gradient hg1).inner (continuous_gradient hu1)).mul
+          (hv.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (fun x hx => by
+          refine support_gradient_subset u ?_
+          intro h0
+          exact hx (by simp [h0]))))]
+    rw [hA3, ← integral_weighted_green hu hcu hv1 hg1]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show Δ u x * (v x * exp (g x)) + ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x))
+        = (Δ u x + ⟪∇ g x, ∇ u x⟫) * (v x * exp (g x))
+    ring
+  -- R2: Green for v against u·e^g
+  have hR2 : B1 + B2 = - A3 := by
+    rw [hB1, hB2, ← integral_add
+      (hIntv (fun x => Δ v x * (u x * exp (g x)))
+        ((continuous_laplacian hv).mul (hu.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (support_laplacian_subset v)))
+      (hIntv (fun x => ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)))
+        (((continuous_gradient hg1).inner (continuous_gradient hv1)).mul
+          (hu.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (fun x hx => by
+          refine support_gradient_subset v ?_
+          intro h0
+          exact hx (by simp [h0]))))]
+    have hgr := integral_weighted_green hv hcv hu1 hg1
+    rw [hA3]
+    have hflip : ∫ x, ⟪∇ v x, ∇ u x⟫ * exp (g x) = ∫ x, ⟪∇ u x, ∇ v x⟫ * exp (g x) := by
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      show ⟪∇ v x, ∇ u x⟫ * exp (g x) = ⟪∇ u x, ∇ v x⟫ * exp (g x)
+      rw [real_inner_comm]
+    rw [← hflip, ← hgr]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show Δ v x * (u x * exp (g x)) + ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x))
+        = (Δ v x + ⟪∇ g x, ∇ v x⟫) * (u x * exp (g x))
+    ring
+  -- R3: the weight-Laplacian identity for w := u·v, gradient product rule expanded
+  have hR3 : C1 = - (B2 + A2) := by
+    have huv2 : ContDiff ℝ 1 fun y : E => u y * v y := hu1.mul hv1
+    have hcuv : HasCompactSupport fun y : E => u y * v y :=
+      hcu.mono' ((Function.support_mul_subset_left _ _).trans subset_closure)
+    have h := integral_weight_laplacian hg huv2 hcuv
+    rw [hC1]
+    have hL : ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) * exp (g x)
+        = ∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * (fun y : E => u y * v y) x * exp (g x) := by
+      exact integral_congr_ae (Filter.Eventually.of_forall fun x => rfl)
+    rw [hL, h]
+    rw [hB2, hA2, ← integral_add
+      (hIntu (fun x => ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)))
+        (((continuous_gradient hg1).inner (continuous_gradient hv1)).mul
+          (hu.continuous.mul hgexp))
+        ((Function.support_mul_subset_right _ _).trans
+          ((Function.support_mul_subset_left _ _).trans subset_closure)))
+      (hIntu (fun x => ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x)))
+        (((continuous_gradient hg1).inner (continuous_gradient hu1)).mul
+          (hv.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (fun x hx => by
+          refine support_gradient_subset u ?_
+          intro h0
+          exact hx (by simp [h0]))))]
+    refine congrArg Neg.neg (integral_congr_ae
+      (Filter.Eventually.of_forall fun x => ?_))
+    show ⟪∇ g x, ∇ (fun y : E => u y * v y) x⟫ * exp (g x)
+        = ⟪∇ g x, ∇ v x⟫ * (u x * exp (g x)) + ⟪∇ g x, ∇ u x⟫ * (v x * exp (g x))
+    rw [gradient_mul hu1 hv1 x, inner_add_right, real_inner_smul_right,
+        real_inner_smul_right]
+    ring
+  -- assemble: LHS = A1 + B1, RHS = C1 − 2·A3; from R1,R2,R3: A1+B1 = −2A3 − A2 − B2 = C1 − 2A3
+  have hLHS : ∫ x, (Δ u x * v x + u x * Δ v x) * exp (g x) = A1 + B1 := by
+    rw [hA1, hB1, ← integral_add
+      (hIntu (fun x => Δ u x * (v x * exp (g x)))
+        ((continuous_laplacian hu).mul (hv.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (support_laplacian_subset u)))
+      (hIntv (fun x => Δ v x * (u x * exp (g x)))
+        ((continuous_laplacian hv).mul (hu.continuous.mul hgexp))
+        ((Function.support_mul_subset_left _ _).trans (support_laplacian_subset v)))]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show (Δ u x * v x + u x * Δ v x) * exp (g x)
+        = Δ u x * (v x * exp (g x)) + Δ v x * (u x * exp (g x))
+    ring
+  have hRHS : ∫ x, ((Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x)
+      - 2 * ⟪∇ u x, ∇ v x⟫) * exp (g x) = C1 - 2 * A3 := by
+    rw [hC1, hA3]
+    have hsub : ∫ x, ((Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x)
+        - 2 * ⟪∇ u x, ∇ v x⟫) * exp (g x)
+        = (∫ x, (Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) * exp (g x))
+          - ∫ x, 2 * ⟪∇ u x, ∇ v x⟫ * exp (g x) := by
+      rw [← integral_sub
+        (hIntu (fun x => (Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) * exp (g x))
+          (((((continuous_laplacian hg).add
+            ((continuous_gradient hg1).inner (continuous_gradient hg1)))).mul
+            (hu.continuous.mul hv.continuous)).mul hgexp)
+          (((Function.support_mul_subset_left _ _).trans
+            (Function.support_mul_subset_right _ _)).trans
+            ((Function.support_mul_subset_left _ _).trans subset_closure)))
+        (hIntu (fun x => 2 * ⟪∇ u x, ∇ v x⟫ * exp (g x))
+          ((continuous_const.mul
+            ((continuous_gradient hu1).inner (continuous_gradient hv1))).mul hgexp)
+          (((Function.support_mul_subset_left _ _).trans
+            (Function.support_mul_subset_right _ _)).trans (fun x hx => by
+            refine support_gradient_subset u ?_
+            intro h0
+            exact hx (by simp [h0]))))]
+      refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+      show ((Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) - 2 * ⟪∇ u x, ∇ v x⟫) * exp (g x)
+          = (Δ g x + ⟪∇ g x, ∇ g x⟫) * (u x * v x) * exp (g x)
+            - 2 * ⟪∇ u x, ∇ v x⟫ * exp (g x)
+      ring
+    rw [hsub]
+    congr 1
+    rw [← integral_const_mul]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show 2 * ⟪∇ u x, ∇ v x⟫ * exp (g x) = 2 * (⟪∇ u x, ∇ v x⟫ * exp (g x))
+    ring
+  rw [hLHS, hRHS]
+  linarith [hR1, hR2, hR3]
+
+end WeightedGreenAux
+
+
+
 end NSCarleman
 
 #eval "Carleman commutator-method core — machine-verified."
