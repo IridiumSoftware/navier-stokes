@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.34 — 2026-06-12 — Go-Map verification ROUND 2: the ancient-Liouville wave + NS-053 instruments — ALL NINE BYTE-IDENTICAL
+
+Re-verified the second Grok wave per the A7 protocol (`docs/gomap_verification_round2_2026-06-12.md`; pin
+`grok-test@8e0e066`): GO-013..017 (the ancient-Liouville opportunities) + GO-023/024/025 (the NS-053
+continuation instruments). **All nine re-runs byte-identical to the pin** (7 Python + 2 Julia; fresh
+mtimes confirmed; `git diff` empty — grok-test needs no commit). **The merged NS-053 entry's
+"re-verification pending" flag is CLEARED** for GO-023/024/025 (the Lean-free parts). **Cross-code
+confirmations gained for in-repo work:** GO-017 independently reproduces the route-i blow-down breaks
+(`λ^{1−α}` amplification, the LZZ-vs-axial contrast — a genuine cross-code check of
+`ns048_route_i_blowdown.md`); GO-014's Python half numerically supports the C8 columnar reduction;
+GO-015 ties the modulation clocks to the litmap §4.1 Albritton–Barker edge (proxy-level — flagged, do not
+over-cite). **Standing flags:** the two Lean halves (AxisymColumnarBridge, CarlemanEssBridge) remain
+unverified pending an isolated grok-test build (the `.lake` hazard — the concurrent Carleman session is
+live); and GO-024/025's α≈1.07–1.08 (rigidity instrument) vs this repo's α*_eff(ν=0.2)≈0.93 (blow-up/decay
+bisection) **bracket the asymptotic α*=1 and must not be conflated as one number**. No new catches —
+the wave was ledgered with honest scope tags. `:proved`=0 in both repos; distance UNTOUCHED.
+
 ## v0.15.33 — 2026-06-12 — Carleman ladder-6b-α (substrate i): the Laplacian Leibniz rule + spatial Parseval + finite-sum Laplacian
 
 `Carleman.lean` +~85 lines (2533 total), new section `CommutatorSubstrate`. **Library
