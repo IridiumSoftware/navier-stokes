@@ -1,23 +1,37 @@
 # changelog — Navier–Stokes obstruction program
 
-## v0.15.28 — 2026-06-12 — GO-022 (the composed probe) RAN: KILL MET — the Hole-A DNS lane is FULLY capped
+## v0.15.31 — 2026-06-12 — Carleman ladder-6a: the energy identity `⟨Su,u⟩ = −∫(‖∇u‖² + ½F·u²)e^g`
 
-The single DNS experiment both maps still licensed — **shell-localized R_feed** (GO-001's dominant-shell
-localization on the top-0.1% production set × this repo's machine-verified FEED denominator
-`¼(|ω|²−(ω·e₃)²)`) — was built and run in grok-test (`go022_shell_feed_domination.jl`, N=32 smoke + 64 +
-128; briefly "GO-013", renamed on collision with Grok's concurrent ancient-Liouville wave GO-013..017).
-**The pre-stated kill is MET:** worst-case `min_j R_feed(j) < 1`, **N-stable same-sign at 64↔128, all three
-flows** (HELICAL −1.53→−1.16 @t=2; CONTROL +0.08→−0.15 @t=1; TUBES −1.92→−1.40 @t=0). ⇒ **the Hole-A
-(NS-046) DNS integral-proxy lane is FULLY capped — zero licensed probes remain in either map**; what remains
-is analytic (the true critical-Besov deformation inequality, against the FEED). **Secondary structure
-recorded, NOT promoted** (it would post-hoc weaken the pre-stated criterion): the violations concentrate in
-the early/transient epochs (the TUBES worst is the analytic IC at t=0); at the **peak-intensity epoch**
-min-shell R_feed ≥ 1 at N=128 in all flows (+1.25/+1.79/+1.34), *strengthening* with N — a *pre-stated*
-peak-epoch formulation would be a new experiment, not a rescue. Ledgered: grok-test GO_SPEC/GO_MAP GO-022
-(`:falsified`, grok-test `385c9be`) + this repo's verification-doc addendum + NS-046 target-doc cap note +
-NS-052 registry row. Scope: truncation witness; vacuity-capped; `:proved`=0; distance UNTOUCHED.
+`Carleman.lean` +~100 lines (2435 total), new section `Lemma41`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`weightedPairing_S_self`** — Tao §4's `⟨Su,u⟩` display: for any test function `u` and
+  smooth weight data, `⟨S_g(t)u, u⟩_g = −∫(‖∇u‖² + ½·F·u²)e^g` with
+  `F = ∂tg − Δg − ‖∇g‖²` — the quadratic form of `S` is minus the weighted Dirichlet energy
+  plus the F-potential term. One application of the weighted Green identity (B8) with
+  `v := u`, plus the integrable-split boilerplate.
+- **Soundness:** no `sorry`; the false variant (the identity WITHOUT the ½ on the F-term) is
+  REJECTED at the split's `ring`; LEAN_EXIT=0.
+- (Changelog repair in this commit: the concurrent session's GO-022 entry and my ladder-5c
+  entry had both taken v0.15.28 — 5c renumbered to v0.15.29 and reordered; the NS-053 entry
+  header used the spec-version track by mistake — renumbered v0.13.1 → v0.15.30, content
+  untouched.)
+**Next: ladder-6b** — the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
+staged: 6b-α spatial substrate (Laplacian Leibniz, iFD2 product rule, spatial Parseval +
+third-derivative swaps, the four-index identity `Δ⟪∇f,∇h⟫`); 6b-β the S-curve time
+derivative; 6b-γ the Bochner IBP collapse; 6b-δ assembly into Lemma 4.1's displayed
+inequality. `:proved`=0; distance UNTOUCHED.
 
-## v0.15.28 — 2026-06-12 — Carleman ladder-5c: `mem_S` DISCHARGED — the UNCONDITIONAL CommutatorMethod instance (`commutatorMethod_weighted_joint`)
+## v0.15.30 — 2026-06-12 — NS-053 ported (GO-023 Hou-n FALSIFIED; GO-024 α-only LIVE) *(header renumbered from v0.13.1 — spec-version track mixup; content untouched)*
+
+grok-test NS-053 continuation instrument moves 1–3 + follow-on ledgered and ported per A7:
+**GO-023 Hou n-proxy FALSIFIED** on CLM (stability min n_dyn≈2.75, not 3.188) and HL (n_obs→~1.09);
+program kill #1 met ⇒ **drop n-family**. **GO-024 α-only v2 LIVE** — CLM rigidity transition α≈1.07,
+before Katz–Pavlović rail α=5/4 (math/0104199, C2 partial; line-read in grok-test). **GO-021 hook #1**
+(axisym ancient-Euler swirl) and **GO-019 M5** (quantitative no-split) tested LIVE at witness level.
+New rows: `SPEC.md` NS-053, `docs/ns053_continuation_boundary.md`, `citation_tiers.md` Katz entry.
+Scope: instrument witness; `:proved`=0; distance UNTOUCHED.
+
+## v0.15.29 — 2026-06-12 — Carleman ladder-5c: `mem_S` DISCHARGED — the UNCONDITIONAL CommutatorMethod instance (`commutatorMethod_weighted_joint`)
 
 `Carleman.lean` +~196 lines (2337 total). **Library infrastructure; `:proved`=0 for the PDE.**
 - **Refactor:** `commutatorMethod_weighted` (ladder-4) generalized over the admissible class —
@@ -52,6 +66,23 @@ NS-052 registry row. Scope: truncation witness; vacuity-capped; `:proved`=0; dis
 (Green with `v := u`); 6b: the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`
 (Hessian-bilinear integral calculus — the main remaining unknown). Then Props 4.2/4.3.
 `:proved`=0; distance UNTOUCHED.
+
+## v0.15.28 — 2026-06-12 — GO-022 (the composed probe) RAN: KILL MET — the Hole-A DNS lane is FULLY capped
+
+The single DNS experiment both maps still licensed — **shell-localized R_feed** (GO-001's dominant-shell
+localization on the top-0.1% production set × this repo's machine-verified FEED denominator
+`¼(|ω|²−(ω·e₃)²)`) — was built and run in grok-test (`go022_shell_feed_domination.jl`, N=32 smoke + 64 +
+128; briefly "GO-013", renamed on collision with Grok's concurrent ancient-Liouville wave GO-013..017).
+**The pre-stated kill is MET:** worst-case `min_j R_feed(j) < 1`, **N-stable same-sign at 64↔128, all three
+flows** (HELICAL −1.53→−1.16 @t=2; CONTROL +0.08→−0.15 @t=1; TUBES −1.92→−1.40 @t=0). ⇒ **the Hole-A
+(NS-046) DNS integral-proxy lane is FULLY capped — zero licensed probes remain in either map**; what remains
+is analytic (the true critical-Besov deformation inequality, against the FEED). **Secondary structure
+recorded, NOT promoted** (it would post-hoc weaken the pre-stated criterion): the violations concentrate in
+the early/transient epochs (the TUBES worst is the analytic IC at t=0); at the **peak-intensity epoch**
+min-shell R_feed ≥ 1 at N=128 in all flows (+1.25/+1.79/+1.34), *strengthening* with N — a *pre-stated*
+peak-epoch formulation would be a new experiment, not a rescue. Ledgered: grok-test GO_SPEC/GO_MAP GO-022
+(`:falsified`, grok-test `385c9be`) + this repo's verification-doc addendum + NS-046 target-doc cap note +
+NS-052 registry row. Scope: truncation witness; vacuity-capped; `:proved`=0; distance UNTOUCHED.
 
 ## v0.15.27 — 2026-06-12 — NS-052: the Grok-built Go Map VERIFIED + PORTED (cross-repo, A7 pattern); SPEC 36→37, v0.13.0
 

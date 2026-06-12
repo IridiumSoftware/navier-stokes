@@ -133,4 +133,36 @@ A 2026-06-08 survey corrected an earlier over-estimate: much of the substrate is
   `tendsto_lpLowProjDAt` (`S_M u → u` weak-* in `𝓢′`); **`tendsto_lowProjD_add_sum`** (every tempered
   distribution = the weak-* sum of its LP series); `eq_zero_of_lp_blocks_eq_zero` +
   **`besovNormD_eq_zero_iff`** (full nondegeneracy on ALL of `𝓢′` ⇒ `B^s_{p,q}(𝓢′)` is a genuine
-  normed space). Next: Carleman (the summit) → completeness/embeddings.
+  normed space).
+
+## Carleman layer (`Carleman.lean`) — Tao 1908.04958 §4, the backward-uniqueness machinery
+
+The §4 Carleman inequalities, formalized bite-by-bite per the ladder plan (see `changelog.md`
+v0.15.3→ and `docs/carleman_ladder0_tao_sec4_audit.md`). **Library infrastructure plus citation
+verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
+
+- **Ladder-0 (audit)** — full-text read of §4 confirms IBP-only machinery; every transcribed
+  identity machine-checked in `disproof/record_audit.py` (B8–B13).
+- **Ladder-1 (the abstract commutator method)** — `CommutatorMethod` structure +
+  `hasDerivAt_pair_S` (Tao's chain `∂t⟨Su,u⟩ = ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩ − ½⟨(L−2S)u,(L−2S)u⟩`) +
+  `deriv_pair_S_le` (drop-the-square inequality).
+- **Ladder-2 (`WeightCalculus`)** — the two radial weights g42/g43 with every `F`, `LF`, Hessian
+  display as an exact field identity (B11/B12).
+- **Ladder-3 (`NormCalculus` + `WeightedGreen`/`WeightedGreenAux`)** — norm calculus (∇‖x‖,
+  Hess‖x‖, radial Laplacian — a filled Mathlib gap); the weighted Green identity (B8), `S_g`
+  self-adjointness (B9), `Δ(e^g)` chain rule, and the spatial + full master differential identity.
+- **Ladder-4/5 (`CommutatorInstance` + `SliceCalculus`)** — the weighted-L² `CommutatorMethod`
+  instance with `mem_S` as its single assumed field, then BOTH Clairaut keystones that discharge
+  it: `hasDerivAt_fderiv_slice` (`∂t∂ₓ = ∂ₓ∂t`) and `hasDerivAt_laplacian_slice`
+  (`∂tΔₓ = Δₓ∂t`, the instance-safe `iteratedFDeriv` route around the nested-CLM instance gap).
+- **Ladder-5c (`JointAdmissible`)** — `AdmissibleJoint` (jointly C^∞ test curves; every ladder-4
+  witness derives), `admissibleJoint_mem_S` (the `mem_S` discharge), and
+  **`commutatorMethod_weighted_joint`**: the full `CommutatorMethod` structure from the single
+  hypothesis `ContDiff ℝ ⊤ G` — every field proved, the abstract chain now unconditional on the
+  real weighted-L² objects.
+- **Ladder-6a (`Lemma41`)** — `weightedPairing_S_self`, the energy identity
+  `⟨S_g(t)u, u⟩_g = −∫(‖∇u‖² + ½F·u²)e^g` (Tao's `⟨Su,u⟩` display; weighted Green with `v := u`).
+
+Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
+staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's
+displayed inequality → Props 4.2/4.3 → the backward-uniqueness wrapper.

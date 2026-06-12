@@ -2329,6 +2329,104 @@ theorem commutatorMethod_weighted_joint (hK : IsCompact K) {G : ℝ × E → ℝ
 
 end JointAdmissible
 
+/-! ### Ladder-6a: the energy identity — `⟨Su,u⟩ = −∫(‖∇u‖² + ½F·u²)e^g`
+
+Tao 1908.04958 §4, the display following Lemma 4.1's master identity: the quadratic form of
+`S_g(t)` on a test function is minus the weighted Dirichlet energy plus the `F`-potential
+term. One application of the weighted Green identity (B8) with `v := u`. -/
+
+section Lemma41
+
+open MeasureTheory Real Laplacian InnerProductSpace WeightedGreenAux
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E]
+  {K : Set E}
+
+/-- **The energy identity (Tao §4, Lemma 4.1's `⟨Su,u⟩` display):**
+    `⟨S_g(t)u, u⟩_g = −∫ (‖∇u‖² + ½·F·u²) e^g` with `F = ∂tg − Δg − ‖∇g‖²`. -/
+theorem weightedPairing_S_self (hK : IsCompact K) {g gt : ℝ → E → ℝ}
+    (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (g t)) (hgt : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (gt t))
+    (t : ℝ) (u : smoothTestSubmodule K) :
+    weightedPairing hK g hg t (Sop hK.isClosed g gt hg hgt t u) u
+      = - ∫ x, (⟪∇ (u : E → ℝ) x, ∇ (u : E → ℝ) x⟫
+          + (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+            * ((u : E → ℝ) x) ^ 2) * exp (g t x) := by
+  classical
+  have hu2 : ContDiff ℝ 2 (u : E → ℝ) := u.2.1.of_le (by norm_cast <;> exact le_top)
+  have hu1 : ContDiff ℝ 1 (u : E → ℝ) := hu2.of_le (by norm_num)
+  have hcu : HasCompactSupport (u : E → ℝ) := HasCompactSupport.intro hK u.2.2
+  have hg2 : ContDiff ℝ 2 (g t) := (hg t).of_le (by norm_cast <;> exact le_top)
+  have hg1 : ContDiff ℝ 1 (g t) := hg2.of_le (by norm_num)
+  have hts : tsupport (u : E → ℝ) ⊆ K :=
+    closure_minimal (fun y hy => by
+      by_contra hyn
+      exact hy (u.2.2 y hyn)) hK.isClosed
+  have hgrad0 : ∀ x ∉ K, ∇ (u : E → ℝ) x = 0 := by
+    intro x hx
+    by_contra hne
+    exact (fun hmem => hx (hts hmem))
+      (support_gradient_subset _ (Function.mem_support.mpr hne))
+  have hsuppK : ∀ p : E → ℝ, (∀ x, x ∉ K → p x = 0) → Continuous p →
+      Integrable p (volume : Measure E) := fun p hp hc =>
+    hc.integrable_of_hasCompactSupport (HasCompactSupport.intro hK hp)
+  have hgexp : Continuous fun x : E => exp (g t x) :=
+    Real.continuous_exp.comp (hg t).continuous
+  have hcF : Continuous fun x =>
+      (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2 :=
+    (((hgt t).continuous.sub (continuous_laplacian hg2)).sub
+      ((continuous_gradient hg1).inner (continuous_gradient hg1))).div_const 2
+  -- the two integrable pieces of `Sfun·u·e^g`
+  have hI1 : Integrable (fun x => (Δ (u : E → ℝ) x + ⟪∇ (g t) x, ∇ (u : E → ℝ) x⟫)
+      * ((u : E → ℝ) x * exp (g t x))) (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      (((continuous_laplacian hu2).add
+        ((continuous_gradient hg1).inner (continuous_gradient hu1))).mul
+        (hu1.continuous.mul hgexp))
+    rw [u.2.2 x hx]
+    ring
+  have hI2 : Integrable (fun x =>
+      (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+        * ((u : E → ℝ) x) ^ 2 * exp (g t x)) (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      ((hcF.mul (hu1.continuous.pow 2)).mul hgexp)
+    rw [u.2.2 x hx]
+    ring
+  have hI3 : Integrable (fun x =>
+      ⟪∇ (u : E → ℝ) x, ∇ (u : E → ℝ) x⟫ * exp (g t x)) (volume : Measure E) := by
+    refine hsuppK _ (fun x hx => ?_)
+      (((continuous_gradient hu1).inner (continuous_gradient hu1)).mul hgexp)
+    rw [hgrad0 x hx, inner_zero_right]
+    ring
+  -- expand the pairing and split
+  rw [weightedPairing_apply]
+  have hsplit : (∫ x, ((Sop hK.isClosed g gt hg hgt t u : smoothTestSubmodule K) : E → ℝ) x
+        * (u : E → ℝ) x * exp (g t x))
+      = (∫ x, (Δ (u : E → ℝ) x + ⟪∇ (g t) x, ∇ (u : E → ℝ) x⟫)
+          * ((u : E → ℝ) x * exp (g t x)))
+        - ∫ x, (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+            * ((u : E → ℝ) x) ^ 2 * exp (g t x) := by
+    rw [← integral_sub hI1 hI2]
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show Sfun g gt t (u : E → ℝ) x * (u : E → ℝ) x * exp (g t x) = _
+    unfold Sfun
+    ring
+  rw [hsplit, integral_weighted_green hu2 hcu hu1 hg1,
+    sub_eq_add_neg, ← neg_add, ← integral_add hI3 hI2]
+  refine congrArg Neg.neg (integral_congr_ae
+    (Filter.Eventually.of_forall fun x => ?_))
+  show ⟪∇ (u : E → ℝ) x, ∇ (u : E → ℝ) x⟫ * exp (g t x)
+      + (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+        * ((u : E → ℝ) x) ^ 2 * exp (g t x)
+    = (⟪∇ (u : E → ℝ) x, ∇ (u : E → ℝ) x⟫
+        + (gt t x - Δ (g t) x - ⟪∇ (g t) x, ∇ (g t) x⟫) / 2
+          * ((u : E → ℝ) x) ^ 2) * exp (g t x)
+  ring
+
+end Lemma41
+
+
 
 
 
