@@ -140,6 +140,25 @@ exact self-similar profiles (G3), and any region-filling singularity (G2). **Wha
 engage:** the production geometry at `σ=0` (S2 → the NS-046 static frontier) **or** the ancient/Type-II
 rescaled objects (G4 → the NS-048 dynamic frontier).
 
+### 5a. The what-NOT-to-do checklist (the dead-ends triple {NS-007, NS-008, NS-020}, made explicit)
+
+Before any 3D attack design, check it is **none** of these — each is a mapped dead-end with a named killer:
+
+- [ ] **Not exact self-similar** — NRŠ/Tsai delete the `(−1/2)`-self-similar profile in `L³` (NS-007, G3).
+      A DSS (discretely-self-similar) variant must engage the DSS-removal conditions (arXiv:1610.09464).
+- [ ] **Not energy-only** — Tao's averaged-NS blows up with every energy-class estimate intact (NS-008, G5);
+      any method surviving the averaging cannot prove regularity.
+- [ ] **Not spectrum-only** — the production `∫ω·Sω` is invisible to `E(k)` and every quadratic invariant
+      (W1: phase-scramble kills 97–99% of it with the spectrum fixed); spectral hypotheses alone carry no
+      production control.
+- [ ] **Not topology-only** — our own falsified arc (NS-020): discrete homology/Betti diagnostics carry no
+      regularity signal (`b₁` identical for blowup and regular flows).
+- [ ] **Not region-filling** — CKN bounds the singular set's parabolic dimension ≤1 (NS-006, G2); any
+      mechanism needing a fat singular set is excluded.
+- [ ] **Not pointwise-domination** — the NS-046 probes show the pressure-Hessian depletion is non-uniform
+      (bulk-negative); pointwise coercivity is the wrong form, and any *integral* form must state its weight
+      and measure against the FEED `¼(|ω|²−(ω·e₃)²)`, not `λ₃²` (triad-trimmed, 2026-06-11).
+
 ---
 
 ## 6. The two holes where the class is still non-empty (= the prize)

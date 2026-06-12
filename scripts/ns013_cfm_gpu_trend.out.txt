@@ -1,0 +1,32 @@
+==============================================================================
+  NS-013 ξ N-trend (GPU snapshots) + NS-049 δ_Λ ride-along — vacuity-capped witness
+  CPU N=64 reference: core/bulk ⟨|∇ξ|²⟩_w ratio = 0.57 (212/369); δ_Λ@.1% ≈ 0.54
+==============================================================================
+
+# snap_N256_tubes_t6.00.bin   N=256 t=6.00   E=0.115048 Z=1.72581 winf=96.72 div_rel=5.6e-07
+    top-q |ω|     ⟨|∇ξ|²⟩      enstrophy-wtd ⟨|∇ξ|²⟩    δ_Λ(top-q)
+     100.0%       1596.8621      668.6758          0.4907
+      10.0%        574.5641      518.1867          0.4850
+       1.0%        359.3650      524.6979          0.4354
+       0.1%       1370.8708     1754.4125          0.4900
+
+# snap_N512_tubes_t6.00.bin   N=512 t=6.00   E=0.115042 Z=1.72806 winf=124.15 div_rel=6.1e-07
+    top-q |ω|     ⟨|∇ξ|²⟩      enstrophy-wtd ⟨|∇ξ|²⟩    δ_Λ(top-q)
+     100.0%       1348.4356      539.7278          0.4907
+      10.0%        349.9517      363.2619          0.4851
+       1.0%        287.0543      544.8618          0.4266
+       0.1%       1564.6917     2240.8718          0.4480
+
+==============================================================================
+  N-TREND VERDICT (dimensionless core/bulk ratio; the raw values grow with N by construction)
+==============================================================================
+    N        t        core/bulk ⟨|∇ξ|²⟩_w    δ_Λ@top-0.1%  
+    64       6.00     0.570                  0.54 (helical@N=64)   (CPU probe)
+    256      6.00     2.624                  0.4900        
+    512      6.00     4.152                  0.4480        
+
+  ⇒ the core ratio LIFTS with N (the NS-039 D30 artifact pattern): the N=64 ξ-smoothness
+    reading does NOT survive refinement — record honestly; the claim-2 witness weakens.
+  δ_Λ@cores: 0.490 (N=256) → 0.448 (N=512) — stays MULTI-directional ⇒ the NS-049 wrong-way verdict holds at scale
+  :proved=0; distance UNTOUCHED.
+==============================================================================

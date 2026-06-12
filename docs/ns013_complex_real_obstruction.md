@@ -174,7 +174,10 @@ GPU N-trend then *empirically confirmed* the seats' central attack. The honest r
   (`ns013_cfm_gpu_trend.jl`; the NS-039 lift pattern). The seats' three attacks all landed: the 1%→0.1% uptick
   was load-bearing, the single-N footing was weak, and there is a **kinematic confound** (high-`|ω|` sets in a
   tube fixture are organized *by construction* — "vortex tubes are tube-like" is morphology, not protection).
-  N=512 pending (decides whether the *roughening* converges); the N=64 reading is dead either way.
+  **N=512 final: 4.15 — monotone lift 0.57→2.62→4.15**; the extreme cores roughen with resolution and the
+  roughening is itself unconverged at N=512. The N=64 reading is dead; what the trend *witnesses* (cap intact:
+  regular flow, reconnection physics) is that direction-roughness CONCENTRATES at the most intense set under
+  refinement — the kinematic "tubes are smooth" intuition fails exactly at the cores.
 - **The "reduction" itself: REFUTED as a reduction (P2-C3) — it is a relabeling.** CFM is a necessary
   condition for *any* NS flow; "the protective direction reduces to CFM" adds no discriminating content, and
   the complex-data angle contributes almost nothing (the 1D one-sided Fourier-support mechanism does not

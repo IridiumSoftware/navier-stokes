@@ -26,10 +26,12 @@ faithfully, claims trimmed). `:proved`=0; distance UNTOUCHED.
 
 **1. P2-C2's N-lift — CONFIRMED BY THE GPU N-TREND.** While the brief was out, the deferred ξ N-trend ran
 (`scripts/ns013_cfm_gpu_trend.jl`, tubes @ t=6.00 enstrophy peak): core/bulk `⟨|∇ξ|²⟩_w` ratio
-**0.57 (N=64) → 2.62 (N=256)** — the "smoother in cores" headline **reverses under refinement** (the NS-039
-lift pattern, predicted by the seats from the uptick alone). δ_Λ ride-along: 0.49 at N=256 — the NS-049
-multi-directionality verdict **holds at scale**. (N=512 pending; it decides whether the *roughening* is
-converged — either way the N=64 headline is dead.)
+**0.57 (N=64) → 2.62 (N=256) → 4.15 (N=512)** — a **monotone lift** (the NS-039 pattern, predicted by the
+seats from the uptick alone): the "smoother in cores" headline reverses under refinement, the extreme cores
+ROUGHEN with resolution, and the roughening is itself not yet converged at N=512. δ_Λ ride-along:
+**0.49 (N=256) → 0.448 (N=512)** — solidly multi-directional; the NS-049 wrong-way verdict is **N-stable
+through 512**. (GPU runs reproduce the committed trajectories digit-for-digit — cross-run gate passed at
+both N.)
 
 **2. P1-C1/C4's demanded recomputation — RUN (probe extended, same snapshot; single-point caveats apply):**
 

@@ -1,5 +1,21 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.23 — 2026-06-11 — GPU N-trend CLOSED (ξ monotone lift 0.57→2.62→4.15; δ_Λ N-stable) + queue/band-finding reconciliation
+
+**The GPU session (open-questions plan move #3) is complete.** Both runs reproduce the committed trajectories
+digit-for-digit (cross-run gates passed at N=256 and N=512). Final N-trend
+(`scripts/ns013_cfm_gpu_trend.jl` + `.out.txt`, tubes @ t=6.00 peak): **core/bulk `⟨|∇ξ|²⟩_w` =
+0.57 (N=64) → 2.62 (N=256) → 4.15 (N=512) — monotone lift, unconverged at 512.** The NS-013 claim-2 reading is
+definitively dead (the seats' prediction, now measured at two refinements); what the trend witnesses (vacuity
+cap intact) is that direction-roughness CONCENTRATES at the most intense set under refinement. **δ_Λ
+ride-along: 0.49 → 0.448 — solidly multi-directional; the NS-049 wrong-way verdict is N-stable through
+N=512** (registry row annotated). **Reconciliation (plan move #7's cleanup):** the queued MFE
+causal-symmetrization test was found ALREADY DONE (2026-06-07, honest negative — the dashboard queue was
+stale; marked done); band-finding items 2 (BKM gate = T-06 G3) and 5 (CKN guard = T-08) marked already-implemented;
+item 3's **what-NOT-to-do checklist** added as `docs/ns_blowup_generator_class.md` §5a (six checkboxes, each
+with its named killer, incl. the new FEED rule from the triad); item 8 documented-as-relative-only.
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.22 — 2026-06-11 — Triad VERDICT applied (NS-046 + NS-013): every strong reading trimmed; the seats' demands RUN and empirically vindicated
 
 Both seats returned on `docs/ns046_ns013_triad_brief.md` (Grok Φ + synthesis; verdict

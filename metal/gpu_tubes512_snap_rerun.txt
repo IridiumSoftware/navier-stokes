@@ -1,0 +1,17 @@
+# dns_gpu  GPU=Apple M5 Max  N=512 IC=tubes Re=1600 dt=0.005 T=6.0  [float32]
+# E0=0.125000 Z0=0.954126 divRel0=2.30e-08 (relative max|k·û|/max|û|; ~float32 eps ⇒ div-free)
+  0.00   E/E0=1.000000  Z/Z0=1.0000    H=-1.444e-11  winf=16.51    divRel=2.30e-08 
+  0.50   E/E0=0.995221  Z/Z0=1.0183    H=1.994e-10   winf=16.19    divRel=1.23e-07 
+  1.00   E/E0=0.990073  Z/Z0=1.1547    H=4.281e-10   winf=16.49    divRel=1.84e-07 
+  1.50   E/E0=0.984122  Z/Z0=1.3110    H=4.866e-10   winf=18.79    divRel=3.25e-07 
+  2.00   E/E0=0.977589  Z/Z0=1.4152    H=-1.622e-10  winf=20.53    divRel=3.19e-07 
+  2.50   E/E0=0.970807  Z/Z0=1.4469    H=-9.432e-11  winf=19.50    divRel=3.58e-07 
+  3.00   E/E0=0.963920  Z/Z0=1.4371    H=6.529e-10   winf=18.81    divRel=3.58e-07 
+  3.50   E/E0=0.957095  Z/Z0=1.4259    H=-1.528e-10  winf=22.85    divRel=4.08e-07 
+  4.00   E/E0=0.950290  Z/Z0=1.4306    H=-2.247e-11  winf=28.98    divRel=4.69e-07 
+  4.50   E/E0=0.943409  Z/Z0=1.4575    H=5.984e-10   winf=32.88    divRel=5.50e-07 
+  5.00   E/E0=0.936346  Z/Z0=1.5103    H=8.000e-10   winf=25.79    divRel=5.35e-07 
+  5.50   E/E0=0.928821  Z/Z0=1.6891    H=-4.484e-10  winf=96.58    divRel=5.48e-07 
+  6.00   E/E0=0.920335  Z/Z0=1.8111    H=-2.115e-09  winf=124.15   divRel=6.07e-07 
+# snapshot t=6.00 → snap_N512_tubes_t6.00.bin (3221 MB)
+# DONE 1200 steps in 2768.8 s (2.307 s/step). Validate: TG Re=1600 enstrophy peak ≈ t=9 vs Brachet/CPU.

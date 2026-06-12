@@ -358,12 +358,11 @@ Distance to prize: UNTOUCHED.**
      N=256↔512 in the resolved window, and δ does not co-move with BKM at a common finite t*.
      The gate (G2) correctly refuses a naive δ→0 as a resolution artifact. Default NULL holds;
      `:proved`=0; suggestive-in-a-truncation only. `docs/step2_gate_inviscid_tg_companion.md`.
-2. **[QUEUED, phenomenology] MFE causal-symmetrization test (NS-021 × NS-025).**
-   Test whether Gosme's symmetrization signature (arXiv:2512.09352) appears in the
-   MFE saddle: directional Granger coupling between structure (roll `a₃`) and
-   activity (perturbation energy); does it symmetrize on the self-sustaining branch
-   and collapse at relaminarization? Scope: ODE-truncation — NOT the PDE. Keep the
-   Gosme-vs-(M,R)-symmetry comparison caution-flagged (NS-025).
+2. **✅ DONE (ran 2026-06-07; queue entry was stale — reconciled 2026-06-11) — MFE
+   causal-symmetrization test (NS-021 × NS-025).** `scripts/mfe_gosme_symmetrization.jl` (+.out.txt):
+   Gosme's Granger-symmetrization signature **NOT reproduced** in the MFE saddle (proxies disagree,
+   near noise floor at high Re) — honest NEGATIVE, recorded in the NS-025 registry row.
+   Scope: ODE-truncation — NOT the PDE.
 3. Tighten the obstruction citations (page-level refs for NS-005 endpoint, NS-009
    constants) — `:cited` hygiene.
 4. **DONE** — TCE de-duplication: the 15 turbulence scripts + 2 seam docs pruned
@@ -386,18 +385,19 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
    the blowup-candidate IC to drive vortex stretching (NS-004) *toward* the
    anomalous-dissipation regime (NS-009) against supercriticality (NS-002) — not
    just watch δ→0 in isolation. The "how it blows up" complement to the keystone.
-2. **PDE bridge {NS-003, NS-004, NS-010} (MID @0.833).** Make BKM co-movement the
-   *formal gate* for any 3D δ→0: add a TEST_SPEC row (T-06) asserting δ→0 ⇒
-   ∫‖ω‖∞→∞ co-divergence, else reject as a resolution artifact.
-3. **Dead-ends triple {NS-007, NS-008, NS-020} (MID @0.778, NEW).** Add a
-   "what-NOT-to-do" checklist for the 3D attack: not exact self-similar (NS-007),
-   not energy-only (NS-008), not topology-only (NS-020, our own falsified arc).
+2. **✅ DONE — PDE bridge {NS-003, NS-004, NS-010} (MID @0.833).** The BKM co-movement formal gate
+   *is implemented*: TEST_SPEC **T-06 (G3 co-moving)** — δ→0 counts only if it co-diverges with
+   ∫‖ω‖∞ (applied in the NS-032 N=256↔512 hunt; the gate correctly refused the artifact).
+3. **✅ DONE (2026-06-11) — Dead-ends triple {NS-007, NS-008, NS-020} (MID @0.778).** The
+   "what-NOT-to-do" checklist now lives in `docs/ns_blowup_generator_class.md` §5a (it consolidates
+   the existing "what is dead" line into an explicit checklist).
 4. **Norm-axis {NS-002, NS-005, NS-020} (MID @0.722).** Track that the 3D target
    is a *critical-norm* (NS-005) blowup — the only path NS-002 leaves open; the
    homology failure (NS-020) is the negative evidence that it is the norm.
-5. **CKN consistency guard {NS-002, NS-003, NS-006} (MID @0.833).** Add a check:
-   a 3D numerical near-singularity must respect CKN (singular set parabolic-dim
-   ≤1); a δ→0 spread over more than a 1D spacetime set is an artifact, not blowup.
+   *(Standing orientation, no artifact owed; the detector-norm race already operationalizes it.)*
+5. **✅ DONE — CKN consistency guard {NS-002, NS-003, NS-006} (MID @0.833).** Implemented as
+   TEST_SPEC **T-08** (box-dim ≤1 AND N-convergent; NS-039 calibration: the 0.986→1.426 lift
+   pattern rejects resolution artifacts).
 6. **Live frontier {NS-011, NS-012, NS-013} (MID floor @0.70).** Pair the 3D
    complex-singularity tracking with the open real⇐complex question (NS-013):
    does the nearest complex singularity reach the real axis? (Li–Sinai NS-012 is
@@ -408,6 +408,8 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
 8. **Recalibrate band thresholds.** The 0.85/0.70/0.55 cutoffs are closure-v5
    defaults for a several-hundred-entry corpus; recalibrate (or document as
    relative-only) before over-reading the 20-node absolute scores.
+   *(Documented-as-relative-only 2026-06-11: no absolute reading has been made from these scores;
+   recalibration deferred until a TCE re-run is actually wanted.)*
 
 ## Open gaps / honest unknowns
 
@@ -429,7 +431,8 @@ PDE nugget). All Scope ≠ PDE unless a `:proved` PDE result is produced.
   (2026-06-11, `docs/ns046_ns013_triad_verdict.md`): the consolidated reduction was REFUTED as a reduction**
   ("reduces to CFM" = relabeling — CFM is necessary for any flow; the complex angle adds ~nothing); the
   claim-2 ξ-smoothness witness **REVERSED under refinement** (core/bulk 0.57@N=64 → **2.62@N=256**, NS-039
-  pattern + kinematic confound; N=512 in flight). Stable landing: *phase/Hermitian structure alone not
+  pattern + kinematic confound; **N=512 final: 4.15, monotone lift, unconverged**; δ_Λ ride-along 0.49→0.448
+  — the NS-049 verdict N-stable through 512). Stable landing: *phase/Hermitian structure alone not
   protective; geometric organization = leading surviving candidate; reduction to CFM argued NOT witnessed.*
   Status: `:argued` + two adjacent non-diagnostic witnesses.
 - **Critical-norm detector race (2026-06-07, `ns046_critical_norm_race.jl`, NS-005/NS-010):** raced the σ=0
