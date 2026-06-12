@@ -26,7 +26,7 @@ every individual `Gᵢ` and adds nothing beyond G3∧G4.
 | Pair | What the conjunction says jointly | Verdict |
 |---|---|---|
 | **G1∧G3** | NRŠ's exclusion is *stated in* `L³` — G3's proof already lives inside G1's norm class. A non-self-similar singularity must still blow `L³`, which is just G1. | **internal** — no joint content beyond the conjuncts |
-| **G1∧G4** | the Type-I rescaled ancient solution inherits critical-norm structure, and the **sequential-`L³` Liouville** (AB/Seregin lineage — *attribution + line-read PENDING*, litmap §2.6/§4.1) closes the "`L³`-quiet along a backward sequence" configuration ⇒ jointly: **the ancient limit of an admissible singularity must be critical-norm-wild backward in time** (no `L³`-bounded backward sequence) | **KNOWN-coupling** — the literature's own theorem family; absent from the MDAGC doc's explicit edges → **inventory add**, not a new obstruction |
+| **G1∧G4** | the Type-I rescaled ancient solution inherits critical-norm structure, and the **sequential-`L³` Liouville** (**AB Thm 1.2 — attribution CONFIRMED + architecture-read same day**, `docs/ab_sequential_l3_verification_2026-06-12.md`) closes the "`L³`-quiet along a backward sequence" configuration ⇒ jointly: **the ancient limit of an admissible singularity must be critical-norm-wild backward in time** (no `L³`-bounded backward sequence) | **KNOWN-coupling** — the literature's own theorem family; absent from the MDAGC doc's explicit edges → **inventory add**, not a new obstruction |
 | **G1∧G5** | Tao's averaged counterexample genuinely blows up (critical norms included) — G1 adds no friction to G5's killed method-class; their joint content is S1 (the σ-gap), already a soft conjunct | **internal** |
 | **G2∧G3** | self-similar singularities concentrate at a point (0-D ⊂ 1-D) — CKN never excluded them; G3 did, by different means. No tension, no joint addition | **none** |
 | **G2∧G4** | the KNSS ancient-limit extraction **uses CKN-type ε-regularity for its compactness** — this coupling is already cashed *inside* G4's machinery (and stated, unflagged, in the doc's own G4 paragraph: "parabolic rescaling + CKN compactness") | **already-used** (the second pre-existing coupling, alongside G3∧G4) → flag it explicitly |
@@ -51,10 +51,10 @@ clear RWC-054 in full.
 ## 4. The residual (banked where it belongs)
 
 The **cross-conjunct coupling inventory** — the MDAGC doc used G3∧G4 explicitly and G2∧G4 silently; the
-map now carries four cited edges (G3∧G4, G2∧G4, G1∧G4 *(tier-pending — gates on the litmap §4.1
-line-read)*, G2∧G5) in `docs/ns_blowup_generator_class.md` §5b. The G1∧G4 edge doubles as a sharpened
-motivation for the litmap's priority item (the sequential-`L³` line-read): it is the one coupling whose
-tier is still open.
+map now carries four cited edges (G3∧G4, G2∧G4, G1∧G4 *(tier RESOLVED same day — AB Thm 1.2,
+`docs/ab_sequential_l3_verification_2026-06-12.md`)*, G2∧G5) in `docs/ns_blowup_generator_class.md` §5b.
+The G1∧G4 edge motivated the litmap's priority line-read, executed the same day: the inventory is now
+fully cited.
 
 ## 5. Firewall
 

@@ -168,8 +168,7 @@ NS-054 admissibility pass found *no* new joint obstruction beyond them; its pre-
 - **G3∧G4** (explicit above): the Type-I ancient limit is non-self-similar.
 - **G2∧G4** (was silent in §1's G4 text): the ancient-limit extraction *uses* CKN ε-regularity for its
   compactness — KNSS's machinery is itself a G2-coupling.
-- **G1∧G4** *(tier-pending — gates on the sequential-`L³` line-read, litmap §4.1)*: the ancient limit
-  must be **critical-norm-wild backward in time** (an `L³`-quiet backward sequence would trivialize it).
+- **G1∧G4** *(tier RESOLVED 2026-06-12: AB Thm 1.2, C2+architecture — `docs/ab_sequential_l3_verification_2026-06-12.md`)*: the ancient limit **cannot admit any backward `L³`-quiet sequence** (one would trivialize it via AB's compactness + Rusin–Šverák persistence + the backward-uniqueness-powered weak-`L³` theory).
 - **G2∧G5**: the energy lane's exact ceiling — CKN (an energy theorem) buys ≤1-D; Tao's averaging shows
   energy methods cannot cross the remaining gap to ∅.
 

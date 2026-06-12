@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.39 — 2026-06-12 — Litmap §4.1 EXECUTED: the sequential-L³ Liouville line-read — attribution CONFIRMED (AB Thm 1.2); verdict = a SHARPENED wall-restatement
+
+The litmap's top-ranked edge, run (`docs/ab_sequential_l3_verification_2026-06-12.md`; ar5iv full-text
+extraction with verbatim anchors). **(1) Attribution CONFIRMED — twice-flagged, now closed:** the
+sequential-`L³` Liouville is **Albritton–Barker Theorem 1.2** (`sup_k ‖v(·,t_k)‖_{L³} < ∞` along
+`t_k ↓ −∞` ⇒ `v ≡ 0`), not a Seregin-line result. **(2) The mechanism, located:** sequentiality powers the
+**compactness** step (the rescaling runs at the sequence times); the contradiction routes through
+Rusin–Šverák persistence (JFA 2011) + AB's weak-`L³` Prop 4.2, whose engine is — verbatim —
+*"contradiction and backward uniqueness arguments"* (AB ARMA 2018, on Barker–Seregin–Šverák CPDE 2018). So
+the **Carleman-ladder synergy is confirmed with precision**: the formalization track's
+backward-uniqueness rung will machine-verify the engine one layer beneath this live exclusion theorem.
+**(3) The verdict (the kill, applied honestly): a SHARPENED WALL-RESTATEMENT** — the gap to the
+unconditional KNSS conjecture is **not** "sequence → all times" (the theorem already needs only a
+sequence); it is the **`L³`-decay structure itself** (bounded ancient solutions need not be `L³` at any
+time — constants witness), i.e. the σ=0 wall (litmap §3's missing-monotonicity diagnosis) at one more
+face. Dead as a small-δ lane; **live residual: "σ=0 backward decay ⇒ Type-I exclusion" is now a cited,
+mechanism-mapped reduction** — any future decay mechanism plugs straight into Thm 1.2. Ledger: AB
+citation row extended (Thm 1.2 = C2 + proof-architecture mapped; [3]-core NOT line-verified, flagged;
+lineage named at C1); litmap §2.6 + §4.1 closed; MDAGC §5b G1∧G4 tier RESOLVED; NS-054 companion notes
+updated. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.38 — 2026-06-12 — Carleman ladder-6b-α (substrate iii): the four-index identity `Δ⟪∇f,∇h⟫` — the spatial substrate COMPLETE
 
 `Carleman.lean` +~90 lines (2724 total), completing `CommutatorSubstrate`. **Library

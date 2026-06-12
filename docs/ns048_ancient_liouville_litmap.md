@@ -40,7 +40,7 @@ equations and applications*, Acta Math. 203 (2009); arXiv:0709.3599.
 | 2.3 | **3D axisym WITH swirl** | OPEN in general; partial results via the rv_θ maximum principle; Type-I excluded for axisym (conditional class) | KNSS conjecture + Chen–Strain–Tsai–Yau (two papers, ~2008–09) + successors (Koch-school) | C1 |
 | 2.4 | **2D half-space, Dirichlet** | mild bounded ancient + L_{2,∞} energy condition ⇒ u ≡ 0 | Seregin, arXiv:1310.1494 | C1 |
 | 2.5 | **3D half-space** | properties/partial classification of mild bounded ancient solutions | Barker–Seregin, arXiv:1503.07428 | C1 |
-| 2.6 | **L³-sequential Liouville** | ancient solution bounded in L³ along a backward *sequence* of times ⇒ trivial | **Albritton–Barker, arXiv:1811.00502** | C1→**C3 (priority)** ▸CLAUDE: the in-repo C3 on 1811.00502 (`citation_verification_round2_2026-06-07.md`) covers **Thm 1.1 only** (the Type-I-conditioned equivalence); the sequential-L³ theorem is exactly the **unread** part — and the line-read must also confirm the *attribution* (the result may live in Seregin's L³-sequence line rather than AB) |
+| 2.6 | **L³-sequential Liouville** | ancient solution bounded in L³ along a backward *sequence* of times ⇒ trivial | **Albritton–Barker, arXiv:1811.00502** | **EXECUTED 2026-06-12** ▸CLAUDE: attribution **CONFIRMED — AB Thm 1.2** (`docs/ab_sequential_l3_verification_2026-06-12.md`); now C2+architecture (statement verbatim; mechanism mapped: sequentiality→compactness; backward uniqueness one layer down via Prop 4.2←ARMA-2018←BSŠ) |
 | 2.7 | **Type-I ⟺ ancient (equivalence)** | Type-I singular point exists ⟺ non-trivial mild bounded ancient solution with I < ∞ exists (novelty = reverse direction, "zoom out") | Albritton–Barker, same paper | **C3 in-repo** (round-2 verification; the Type-I-conditioned scope correction is already in SPEC G4 wording) |
 | 2.8 | **Geometric/vorticity-direction exclusions** | singularity exclusion under vorticity-direction confinement (cone/half-space conditions on ω̂ at regular points) | arXiv:2501.08976 (2025) + lineage | C0/C1 |
 
@@ -66,7 +66,7 @@ another face; do not count it twice in the MDAGC.)
 
 ## 4. Sharpenable edges (ranked; each with its first move and kill criterion)
 
-**4.1 The Albritton–Barker L³-sequential Liouville (closest live edge — PRIORITY).**
+**4.1 The Albritton–Barker L³-sequential Liouville — EXECUTED 2026-06-12 (`docs/ab_sequential_l3_verification_2026-06-12.md`). VERDICT: a SHARPENED WALL-RESTATEMENT** — the sequential hypothesis powers compactness (not backward uniqueness, which enters one layer down via Prop 4.2 — the Carleman-ladder synergy confirmed with precision); **the gap to unconditional KNSS is the `L³`-decay structure itself, not the sequence** (the theorem already needs only a sequence; bounded ancient solutions need not be `L³` at any time — constants witness) ⇒ the σ=0 wall (§3's diagnosis) again. Dead as a small-δ lane; live residual: *any* σ=0 backward-decay mechanism plugs directly into Thm 1.2 and closes Type-I. *(Original entry below, kept for the record.)*
 The gap between "bounded in L³ along a backward time-*sequence*" and the unconditional statement is
 the smallest advertised distance to the real theorem in this literature.
 - *First move:* line-read 1811.00502 (the sequential-L³ part; fold into the existing round-2 C3 on
