@@ -2000,7 +2000,137 @@ theorem laplacian_slice_eq {U : ℝ × E → ℝ} (hU : ContDiff ℝ 2 U) (t : �
   rw [← happ]
   exact fderiv_fderiv_slice_apply hU t x _ _
 
+/-- (α) The time derivative of a second-derivative coefficient, through the
+    multilinear (instance-safe) route. -/
+theorem hasDerivAt_iFD2_curve {U : ℝ × E → ℝ} (hU : ContDiff ℝ 3 U)
+    (t₀ : ℝ) (x : E) (m : Fin 2 → ℝ × E) :
+    HasDerivAt (fun t => iteratedFDeriv ℝ 2 U (t, x) m)
+      (fderiv ℝ (iteratedFDeriv ℝ 2 U) (t₀, x) ((1 : ℝ), (0 : E)) m) t₀ := by
+  have hifd : ContDiff ℝ 1 (iteratedFDeriv ℝ 2 U) :=
+    hU.iteratedFDeriv_right (by norm_num)
+  have hap := (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => ℝ × E) ℝ m).hasFDerivAt
+    (x := iteratedFDeriv ℝ 2 U (t₀, x))
+  have hF : HasFDerivAt (fun p : ℝ × E => iteratedFDeriv ℝ 2 U p m)
+      ((ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => ℝ × E) ℝ m).comp
+        (fderiv ℝ (iteratedFDeriv ℝ 2 U) (t₀, x))) (t₀, x) := by
+    exact hap.comp (t₀, x) ((hifd.differentiable one_ne_zero) (t₀, x)).hasFDerivAt
+  have h := hF.comp_hasDerivAt t₀ ((hasDerivAt_id t₀).prodMk (hasDerivAt_const t₀ x))
+  simpa using h
+
+/-- (δ) Left-peeling bridge: third derivatives via the derivative of `iFD2`. -/
+theorem iFD3_eq_left {U : ℝ × E → ℝ} (q : ℝ × E) (a b c : ℝ × E) :
+    iteratedFDeriv ℝ 3 U q ![a, b, c]
+      = fderiv ℝ (iteratedFDeriv ℝ 2 U) q a ![b, c] := by
+  rw [iteratedFDeriv_succ_apply_left]
+  congr 1
+
+/-- (δ′) Directional-application bridge: `iFD2` of `p ↦ DU(p)·d` is `iFD3` with `d`
+    in the last slot. -/
+theorem iFD2_apply_dir {U : ℝ × E → ℝ} (hU : ContDiff ℝ 3 U)
+    (q : ℝ × E) (d a b : ℝ × E) :
+    iteratedFDeriv ℝ 2 (fun p : ℝ × E => fderiv ℝ U p d) q ![a, b]
+      = iteratedFDeriv ℝ 3 U q ![a, b, d] := by
+  have hfd : ContDiff ℝ 2 (fderiv ℝ U) := hU.fderiv_right (by norm_num)
+  have hcomp := (ContinuousLinearMap.apply ℝ ℝ d).iteratedFDeriv_comp_left
+    (f := fderiv ℝ U) (hfd.contDiffAt (x := q)) (i := 2) le_rfl
+  have h1 : iteratedFDeriv ℝ 2 (fun p : ℝ × E => fderiv ℝ U p d) q ![a, b]
+      = iteratedFDeriv ℝ 2 (fderiv ℝ U) q ![a, b] d := by
+    have h2 := congrFun (congrArg DFunLike.coe hcomp) ![a, b]
+    simpa using h2
+  have hinit : Fin.init ![a, b, d] = ![a, b] := by
+    funext i
+    fin_cases i <;> simp [Fin.init]
+  rw [h1]
+  conv_rhs => rw [iteratedFDeriv_succ_apply_right]
+  rw [hinit]
+  rfl
+
+/-- (β′) First-pair swap of the third derivative (scalar Schwarz on `p ↦ DU(p)·c`). -/
+theorem iFD3_swap12 {U : ℝ × E → ℝ} (hU : ContDiff ℝ 3 U)
+    (q : ℝ × E) (a b c : ℝ × E) :
+    iteratedFDeriv ℝ 3 U q ![a, b, c] = iteratedFDeriv ℝ 3 U q ![b, a, c] := by
+  have hfd : ContDiff ℝ 2 (fderiv ℝ U) := hU.fderiv_right (by norm_num)
+  have hV : ContDiff ℝ 2 fun p : ℝ × E => fderiv ℝ U p c :=
+    (ContinuousLinearMap.apply ℝ ℝ c).contDiff.comp hfd
+  have hsymm : IsSymmSndFDerivAt ℝ (fun p : ℝ × E => fderiv ℝ U p c) q :=
+    hV.contDiffAt.isSymmSndFDerivAt (by simp)
+  rw [← iFD2_apply_dir hU q c a b, ← iFD2_apply_dir hU q c b a]
+  exact IsSymmSndFDerivAt.iteratedFDeriv_cons (hf := hsymm)
+
+/-- (γ′) Last-pair swap of the third derivative (differentiated pointwise Schwarz). -/
+theorem iFD3_swap23 {U : ℝ × E → ℝ} (hU : ContDiff ℝ 3 U)
+    (q : ℝ × E) (a b c : ℝ × E) :
+    iteratedFDeriv ℝ 3 U q ![a, b, c] = iteratedFDeriv ℝ 3 U q ![a, c, b] := by
+  have hU2 : ContDiff ℝ 2 U := hU.of_le (by norm_num)
+  have hifd : ContDiff ℝ 1 (iteratedFDeriv ℝ 2 U) :=
+    hU.iteratedFDeriv_right (by norm_num)
+  have hφ : ∀ b c : ℝ × E,
+      fderiv ℝ (fun p : ℝ × E => iteratedFDeriv ℝ 2 U p ![b, c]) q a
+      = fderiv ℝ (iteratedFDeriv ℝ 2 U) q a ![b, c] := by
+    intro b c
+    have hap := (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => ℝ × E) ℝ ![b, c]).hasFDerivAt
+      (x := iteratedFDeriv ℝ 2 U q)
+    have hF : HasFDerivAt (fun p : ℝ × E => iteratedFDeriv ℝ 2 U p ![b, c])
+        ((ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => ℝ × E) ℝ ![b, c]).comp
+          (fderiv ℝ (iteratedFDeriv ℝ 2 U) q)) q := by
+      exact hap.comp q ((hifd.differentiable one_ne_zero) q).hasFDerivAt
+    rw [hF.fderiv]
+    rfl
+  have hpoint : (fun p : ℝ × E => iteratedFDeriv ℝ 2 U p ![b, c])
+      = fun p : ℝ × E => iteratedFDeriv ℝ 2 U p ![c, b] := by
+    funext p
+    exact IsSymmSndFDerivAt.iteratedFDeriv_cons
+      (hf := hU2.contDiffAt.isSymmSndFDerivAt (by simp))
+  rw [iFD3_eq_left, iFD3_eq_left, ← hφ b c, hpoint, hφ c b]
+
+/-- **(ε) The slice-Laplacian Clairaut swap** (the second `mem_S` keystone): for
+    jointly C³ `U`, `∂t(Δₓ U) = Δₓ(∂t U)`. -/
+theorem hasDerivAt_laplacian_slice {U : ℝ × E → ℝ} (hU : ContDiff ℝ 3 U)
+    (t₀ : ℝ) (x : E) :
+    HasDerivAt (fun t => Δ (fun y => U (t, y)) x)
+      (Δ (fun y => fderiv ℝ U (t₀, y) ((1 : ℝ), (0 : E))) x) t₀ := by
+  have hU2 : ContDiff ℝ 2 U := hU.of_le (by norm_num)
+  have hUt2 : ContDiff ℝ 2 fun p : ℝ × E => fderiv ℝ U p ((1 : ℝ), (0 : E)) :=
+    (ContinuousLinearMap.apply ℝ ℝ _).contDiff.comp (hU.fderiv_right (by norm_num))
+  -- both sides in iFD2 coordinates
+  have hfun : (fun t => Δ (fun y => U (t, y)) x)
+      = fun t => ∑ i, iteratedFDeriv ℝ 2 U (t, x)
+          ![((0 : ℝ), stdOrthonormalBasis ℝ E i), ((0 : ℝ), stdOrthonormalBasis ℝ E i)] := by
+    funext t
+    rw [laplacian_slice_eq hU2 t x]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [iteratedFDeriv_two_apply]
+    rfl
+  have hRHS : Δ (fun y => fderiv ℝ U (t₀, y) ((1 : ℝ), (0 : E))) x
+      = ∑ i, iteratedFDeriv ℝ 3 U (t₀, x)
+          ![((0 : ℝ), stdOrthonormalBasis ℝ E i), ((0 : ℝ), stdOrthonormalBasis ℝ E i),
+            ((1 : ℝ), (0 : E))] := by
+    rw [laplacian_slice_eq hUt2 t₀ x]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [← iFD2_apply_dir hU (t₀, x) ((1 : ℝ), (0 : E)) _ _, iteratedFDeriv_two_apply]
+    rfl
+  rw [hfun, hRHS]
+  have h := HasDerivAt.fun_sum (u := Finset.univ) (x := t₀)
+    (A := fun i t => iteratedFDeriv ℝ 2 U (t, x)
+      ![((0 : ℝ), stdOrthonormalBasis ℝ E i), ((0 : ℝ), stdOrthonormalBasis ℝ E i)])
+    (A' := fun i => fderiv ℝ (iteratedFDeriv ℝ 2 U) (t₀, x) ((1 : ℝ), (0 : E))
+      ![((0 : ℝ), stdOrthonormalBasis ℝ E i), ((0 : ℝ), stdOrthonormalBasis ℝ E i)])
+    (fun i _ => hasDerivAt_iFD2_curve hU t₀ x _)
+  convert h using 1
+  refine Finset.sum_congr rfl fun i _ => ?_
+  show iteratedFDeriv ℝ 3 U (t₀, x)
+      ![((0 : ℝ), stdOrthonormalBasis ℝ E i), ((0 : ℝ), stdOrthonormalBasis ℝ E i),
+        ((1 : ℝ), (0 : E))]
+    = fderiv ℝ (iteratedFDeriv ℝ 2 U) (t₀, x) ((1 : ℝ), (0 : E))
+        ![((0 : ℝ), stdOrthonormalBasis ℝ E i), ((0 : ℝ), stdOrthonormalBasis ℝ E i)]
+  rw [← iFD3_eq_left,
+    iFD3_swap12 hU (t₀, x) ((1 : ℝ), (0 : E)) ((0 : ℝ), stdOrthonormalBasis ℝ E i)
+      ((0 : ℝ), stdOrthonormalBasis ℝ E i),
+    iFD3_swap23 hU (t₀, x) ((0 : ℝ), stdOrthonormalBasis ℝ E i) ((1 : ℝ), (0 : E))
+      ((0 : ℝ), stdOrthonormalBasis ℝ E i)]
+
 end LaplacianSwap
+
 
 end SliceCalculus
 

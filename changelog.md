@@ -1,5 +1,35 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.26 — 2026-06-12 — Carleman ladder-5b-ii: the slice-Laplacian Clairaut swap machine-verified (∂tΔₓ = Δₓ∂t) via the instance-safe iFD route
+
+`Carleman.lean`'s `LaplacianSwap` section completed (~2141 lines total). **Library
+infrastructure; `:proved`=0 for the PDE.**
+- The redesign banked at v0.15.24 executed in full — every step routed through
+  `iteratedFDeriv` (multilinear codomains), avoiding the unsynthesizable nested-CLM instance:
+  - **(α) `hasDerivAt_iFD2_curve`** — time derivative of second-derivative coefficients via
+    `ContinuousMultilinearMap.apply ∘ iFD2 ∘ curve` (the comp unifications needed tactic-mode
+    `exact` — Mathlib's own "tricky unification" idiom).
+  - **(δ) `iFD3_eq_left`** — `iFD3 U q ![a,b,c] = fderiv(iFD2 U) q a ![b,c]`
+    (`iteratedFDeriv_succ_apply_left` + `congr`).
+  - **(δ′) `iFD2_apply_dir`** — `iFD2 (p ↦ DU(p)·d) q ![a,b] = iFD3 U q ![a,b,d]`
+    (`ContinuousLinearMap.iteratedFDeriv_comp_left` + `succ_apply_right` with a `conv_rhs`
+    to keep the rewrite off the wrong occurrence).
+  - **(β′) `iFD3_swap12`** — first-pair swap via SCALAR Schwarz on the auxiliary
+    `V_c := p ↦ DU(p)·c` + `IsSymmSndFDerivAt.iteratedFDeriv_cons` — the key move that
+    dodges `IsSymmSndFDerivAt (fderiv U)` (whose mere statement needs the blocked instance).
+  - **(γ′) `iFD3_swap23`** — last-pair swap via differentiated pointwise Fin-2 symmetry
+    (the 5a pattern with `CMM.apply`).
+  - **(ε) `hasDerivAt_laplacian_slice` — THE SECOND CLAIRAUT KEYSTONE:**
+    `∂t(Δₓ U)(x) = Δₓ(∂t U)(x)` for jointly C³ `U` — both sides in iFD2 coordinates,
+    per-term curve derivatives, and the two pairwise swaps
+    `iFD3(1,0)(0,eᵢ)(0,eᵢ) = iFD3(0,eᵢ)(0,eᵢ)(1,0)`.
+- **Soundness:** no `sorry`; the false variant (the bridge with the direction in the FIRST
+  slot, `![d,a,b]`) is REJECTED; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**With both Clairaut keystones (5a: `∂t∂ₓ = ∂ₓ∂t`; 5b-ii: `∂tΔₓ = Δₓ∂t`) machine-verified, the
+`mem_S` discharge for jointly-smooth curves is now assembly** (ladder-5c: the strengthened
+admissible class + the witness computation for `∂t(S(t)u(t))`, needing `(gt,gtt)`-weight data).
+Then the concrete commutator identification → Props 4.2/4.3. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.25 — 2026-06-12 — Plan move #6 found ALREADY EXECUTED (the anisotropic-z ancient-port thread, 2026-06-07); stale pointer fixed + citation rows sharpened
 
 Reconciliation, not new research. The open-questions plan's move #6 ("port Yu + CFZ `|x₃|^α` conditions to
