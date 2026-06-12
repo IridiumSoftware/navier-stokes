@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.27 — 2026-06-12 — NS-052: the Grok-built Go Map VERIFIED + PORTED (cross-repo, A7 pattern); SPEC 36→37, v0.13.0
+
+The Grok collaboration's **positive-attack map** (`~/grok-test`, GO-001..012 — the "go" complement to this
+no-go ledger, with inherited firewall + pre-stated kill criteria) was verified and its durable rows ported.
+**Verification first (the A7 substrate rule):** grok-test pinned at `241bc69` (it had no commits — initial
+pin made); key results re-run against this repo's solver chain
+(`docs/gomap_verification_2026-06-12.{md,out.txt}`, **T-30**): **GO-001 + GO-008 byte-identical** to the
+pinned outputs, **GO-003 + GO-009 numeric-exact** (θ*=0.462; β=1.2199/2.4682/0.8771), GO-005 clean-run.
+**Ported as NS-052** (`:tested`, Scope ≠ PDE): (1) the **Hole-A integral-proxy cap** — their
+shell/CKN/soft-weight Rp probes STRESSED N-stable, **convergent with our triad-trimmed weight/feed result
+from an orthogonal cut**; both maps independently leave exactly one licensed DNS probe: shell-localized
+**R_feed**; (2) **GO-005 swirl-sign falsification** (corroborates our NS-048 cell — S dominant-sign flips
+while Γ≥0); (3) **GO-008, new: the first quantitative NS-045↔NS-049 bridge** — Beltramization *delays* the
+δ_Λ threshold (+1.5 on two thresholds; matched-intensity Δ small ⇒ delay is the robust datum; does NOT
+rescue Lockwood); (4) **GO-003, new: W1 quantified** — production recovery continuous in coherence,
+θ*≈0.46 (partially answers our triad's P2-C1 triviality attack); (5) **GO-009 β band-membership** added to
+the NS-050 kit with the **calibration-window flag** (their CLM 1.22 whole-trajectory vs our T-24 asymptotic
+1.00 — 22% window-dependence). **Catches flowed back to grok-test (`a8aa292`):** the HQWW attribution (the
+misattribution we corrected here on 06-11 had propagated), the β-window flag, and a **`.lake`
+build-isolation hazard** (their Lean bridge symlinks into the LIVE navier-stokes build cache — GO-011 left
+NOT re-verified pending an isolated rebuild). SPEC 36→37 (v0.12.0→v0.13.0); registry + T-30 + dashboard +
+CLAUDE counts updated; guard passes 37/37. `:proved`=0 in both repos; distance UNTOUCHED.
+
 ## v0.15.26 — 2026-06-12 — Carleman ladder-5b-ii: the slice-Laplacian Clairaut swap machine-verified (∂tΔₓ = Δₓ∂t) via the instance-safe iFD route
 
 `Carleman.lean`'s `LaplacianSwap` section completed (~2141 lines total). **Library

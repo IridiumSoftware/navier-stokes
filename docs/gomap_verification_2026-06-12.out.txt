@@ -1,0 +1,49 @@
+=== GO-005 smoke (Nr=64) ===
+# SUMMARY
+  AXIS_BLOB: intensified=true Γ_signed=true max_mismatch=50.0% kill=true
+  WALL_ODD: intensified=true Γ_signed=false max_mismatch=50.0% kill=false
+  WALL_POS: intensified=true Γ_signed=true max_mismatch=50.0% kill=true
+# VERDICT: FALSIFIED — S sign flip while Γ≥0 on intensification
+#          sign-rigidity route dead at witness level
+# Scope: truncation witness only — NOT PDE progress. :proved=0
+# Output: /Users/aarongreen/grok-test/explorations/go005_axisym_swirl_sign_Nr160.out.txt
+go005_exit=0
+=== GO-008 (N=64) ===
+  delay winf>15:    helical t=4.50  control t=3.00  Δt=+1.50
+  peak: helical winf=21.5 δ@.1%=0.527 | control winf=25.4 δ@.1%=0.587
+  δ@.1% at matched winf≈12.9: helical=0.464 control=0.495 (Δ=-0.031)
+  corr(lamb², δ@.1%) pooled: 0.717
+
+# VERDICT: LIVE — Beltramization delay correlates with δ_Λ behavior on matched pair
+#          δ threshold delayed on helical member
+#          lower δ at matched winf on helical
+# Scope: truncation witness only — NOT PDE progress. :proved=0
+# Output: /Users/aarongreen/grok-test/explorations/go008_beltram_delta_correlation_N64.out.txt
+go008_exit=0
+=== GO-009 (full) ===
+  HL        β=  2.4682  n= 4  expect_in_band=true   measured_in_band=true
+  TG_NULL   β=  0.8771  n= 9  expect_in_band=false  measured_in_band=false (rising)
+
+# VERDICT (witness-level):
+  CLM outside band: yes ✓
+  HL inside band:   yes ✓
+  TG outside band:  yes ✓
+  STATUS: LIVE — instrument discriminates Type-I / Type-II / 3D NULL
+# Scope: witness only — NOT PDE progress. :proved=0
+# Output: /Users/aarongreen/grok-test/explorations/go009_type2_beta_scan.out.txt
+go009_exit=0
+=== GO-001 (N=64) ===
+3.00  17.930  +3.736  j=2(262,+3.736)
+4.00  20.138  +0.932  j=2(258,+5.302) j=3(4,+0.932)
+5.00  29.664  +0.633  j=2(162,+3.659) j=3(100,+0.633)
+6.00  31.053  -0.608  j=2(48,-0.608) j=3(66,+1.058) j=4(148,+0.311)
+# peak ‖ω‖∞=31.053 @ t=6.00 minRp=-0.608
+
+# VERDICT (witness-level):
+  HELICAL worst@t=2.00 minRp=-0.701 | peak‖ω‖∞=21.475@t=6.00 minRp=+0.432 → STRESSED
+  CONTROL worst@t=2.00 minRp=-0.839 | peak‖ω‖∞=25.402@t=5.00 minRp=+0.014 → STRESSED
+  TUBES worst@t=6.00 minRp=-0.608 | peak‖ω‖∞=31.053@t=6.00 minRp=-0.608 → STRESSED
+# Scope: truncation witness only — NOT PDE progress. :proved=0
+# Output: /Users/aarongreen/grok-test/explorations/go001_shell_weighted_domination_N64.out.txt
+go001_exit=0
+=== CHAIN DONE ===

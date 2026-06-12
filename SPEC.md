@@ -1,6 +1,6 @@
 # SPEC.md — Navier–Stokes Obstruction Program ledger
 
-**v0.12.0 (2026-06-10).** Every entry (prose form; the pipes here are the field *schema*, not a literal layout): `NS-ID | Class | Statement | Evidence |
+**v0.13.0 (2026-06-12).** Every entry (prose form; the pipes here are the field *schema*, not a literal layout): `NS-ID | Class | Statement | Evidence |
 Status | Scope | Source`. `:cited` = established external theorem (not ours).
 `:falsified` = ruled-out approach. `:tested` = we computed it (read the Scope).
 `:argued` = manual argument. `:open` = unresolved. `:proved` = rigorous proof of a
@@ -13,7 +13,8 @@ Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (extern
 3 RESOLVED-DNS (NS-038/039/040), 5 FORWARD-TARGET (NS-045 `:tested` mechanism audit + NS-046/048 `:open`
 static/dynamic frontiers + NS-049 `:open` Lockwood conditional-criterion audit + NS-050 `:open`
 modulation/Type-II map). **NS-051** = the Python→Lean formalization-ladder infrastructure entry
-(`:tested`, Scope ≠ PDE — machine-verified *definitions*, firewall intact). `:proved` = 0. (36 entries.)
+(`:tested`, Scope ≠ PDE — machine-verified *definitions*, firewall intact). **NS-052** = the cross-repo
+Go-Map witness round (grok-test, verified + ported per A7; `:tested`, Scope ≠ PDE). `:proved` = 0. (37 entries.)
 
 Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..5), Scope ≠ PDE.
 
@@ -1277,3 +1278,9 @@ The verification ladder that walks each algebraic/differential **identity** back
 **Bridge to `docs/citation_tiers.md` (Lean → citation tiers — wired, not yet fired).** A machine-verified proof is *stronger* than the social C5 floor, so when a Lean rung formalizes a **cited** theorem's algebraic identity or inequality core, that citation's tier rises and `citation_tiers.md` is updated (close-out item (vi)). Two channels: **(a)** the **NRŠ H-functional identity** (whose transcription error the disproof caught) fits the algebra→Lean rung *now* — a Lean proof would harden the NRŠ row beyond its hand-line-read C3; **(b)** if the analysis substrate reaches **Carleman**, the **ESS** citation (NS-005, currently C2) could be promoted. Currently the Lean work formalizes general library lemmas, not any cited theorem — **no citation tier has changed**; this is the upstream half that makes the table's "tiers can rise" promise operational.
 
 **Provenance.** The Lean track is the concurrent formalization effort's live work (`formalization/lean-mathlib/*.lean`, advancing — Besov landed at changelog v0.13.0); this is the ledger-side capture, characterized from `formalization/README.md` + the changelog and held deliberately conservative (`:tested`, Scope ≠ PDE) pending that session's confirmation. Depends NS-002 / NS-034 (definitions hardened) / NS-005 / NS-007 (the citation bridge targets). `:proved`=0; distance UNTOUCHED.
+
+---
+
+**NS-052 — Cross-repo Go-Map witness round (grok-test): the positive-attack complement, verified + ported.** *RESULT* (cross-repo witness verification). Evidence: external-spec-reference (`substrate_source: grok-test@241bc69`, corrections `a8aa292`) + computed verification in this repo (**T-30**; artifact `docs/gomap_verification_2026-06-12.{md,out.txt}`). **Status: :tested. Scope: resolved-DNS / 1D-model witness (≠ PDE).** Source: `~/grok-test` (GO_MAP/GO_SPEC, GO-001..012, Grok collaboration); verification chain re-run in this repo. `:proved`=0.
+
+The Grok-built **Go Map** stress-tested positive readings of the two MDAGC holes with pre-stated kill criteria and the inherited firewall. Per the A7 substrate rule the durable rows enter this ledger only after local verification — done: **GO-001/GO-008 re-runs byte-identical** to the pin, **GO-003/GO-009 numeric-exact** (θ*=0.462; β = 1.2199/2.4682/0.8771), GO-005 clean-run. Ported findings: **(1) the Hole-A integral-proxy cap** — shell/CKN-mask/soft-weight Rp probes STRESSED, N-stable in sign 64↔128 (worst-case negative shells), **convergent with the NS-046 triad-trimmed weight/feed result** from an orthogonal cut; both maps independently conclude the "one more DNS probe" lane is capped *unless the witness target changes*, and both name the same composition as the one remaining licensed probe — **shell/CKN-localized R_feed** (their localization × this repo's machine-verified FEED denominator). **(2) GO-005 swirl-sign falsification** — S dominant-sign flips during intensification while Γ≥0 (corroborates + sharpens the NS-048 swirl-sign cell from an independent fixture). **(3) GO-008 — the first quantitative NS-045↔NS-049 bridge:** on the matched-spectrum pair, Beltramization *delays* the δ_Λ threshold (+1.5 on two thresholds; peak δ 0.527 vs 0.587; matched-intensity Δ=−0.031 small ⇒ the delay is the robust datum); explicitly does NOT rescue Lockwood. **(4) GO-003 — W1 quantified:** production recovery is continuous in coherence, θ*≈0.46 — partially answering the NS-013 triad's P2-C1 triviality attack (not a Gaussianity step-function). **(5) GO-009 — β band-membership** added to the NS-050 instrument kit (with the **calibration-window flag**: CLM 1.22 whole-trajectory vs 1.00 asymptotic, 22% window-dependence). **Catches flowed back** (grok-test `a8aa292`): the HQWW attribution, the β-window flag, the `.lake` build-isolation hazard (GO-011's Lean bridge NOT re-verified pending an isolated rebuild). Depends NS-045/046/048/049/050/013. Distance UNTOUCHED.

@@ -41,7 +41,7 @@ adds directions), and cores sit at δ≈0.32–0.54 across TG/tubes/helical (one
 the resolved flow forces `δ_Λ→0`*; it could hold only on the rescaled ancient/Type-I limit, linking NS-049
 to NS-048. Vacuity cap (resolved, not the singular limit).
 
-**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 36 entries as of 2026-06-10).**
+**FORWARD TARGETS (2026-06-05, Brian's extension; SPEC 37 entries as of 2026-06-12).**
 **NS-045 = `:tested` — DONE.** Helicity-depletion mechanism audit run: the mechanism is **(b)
 Beltramization** — strong helicity (u∥ω) crushes the Lamb vector `u×ω` (the nonlinear driver) ~26×,
 switching off production until the field de-Beltramizes (the delay) — **not** (a) ω–S alignment (which
@@ -275,7 +275,7 @@ Distance to prize: UNTOUCHED.**
 
 ## Status board (tabular) — priorities · gaps · open items
 
-*Post-NS-051 **A0–A7 cross-audit**, 2026-06-10. Ledger: **36 entries / 36 registry rows**, `:proved`=0, SPEC
+*Post-NS-051 **A0–A7 cross-audit**, 2026-06-10 (+NS-052 cross-repo port 2026-06-12). Ledger: **37 entries / 37 registry rows**, `:proved`=0, SPEC
 **v0.12.0**. Result: **A1/A2/A3/A4 PASS · A6 PASS (note) · A5/A7/A0 = 3 gaps** (G-1 fixed this pass).*
 
 ### Priorities

@@ -94,6 +94,7 @@ PDE. The licensing check is a no-`sorry` Lean compile + false-variant rejection;
 
 | ID | Check (tier) | Status of check |
 |---|---|---|
+| **T-30** NS-052 (Go-Map cross-repo verification) | cross-method/reproduction: key grok-test results re-run on this machine against this repo's solver chain (`docs/gomap_verification_2026-06-12.{md,out.txt}`; pin `grok-test@241bc69`) — **GO-001 + GO-008 byte-identical** to the pinned outputs; **GO-003 + GO-009 numeric-exact** (θ*=0.462; β=1.2199/2.4682/0.8771); GO-005 clean-run (kill TRIGGERED per pin). GO-011 (Lean bridge) explicitly NOT re-verified (`.lake` build-isolation hazard) — excluded from the `:tested` claim. | PASS, **Scope: resolved-DNS / 1D witness (NOT PDE)** |
 | **T-29** NS-023 (Q₁₀₂ local==canonical, exact) | provenance + exact-structure: `scripts/ns023_q102_exact_vs_fidelity.jl` sha256-pins the canonical closure-v5 inputs (`closure-forces-structure@9e2f73c`) and verifies the loaded Q₁₀₂ matches the canonical definition EXACTLY — n_cl=102 (=2×51), J²=+1, γ chirality, 2571 edges, \|C\| extremes 2/72 (reproduces the local v1 run) — AND that the no-gate verdict is an **exact symmetry** (J an exact automorphism of the coupling C; 18 distinct \|C\| values among 2571 edges; sector weighted-degree multisets J-identical). **10/10 checks PASS.** | PASS, **Scope: abstract closure (A7 substrate provenance; NOT PDE)** |
 
 **Firewall in testing.** Passing T-01..T-07 promotes NS-010/011 to `:tested` with
