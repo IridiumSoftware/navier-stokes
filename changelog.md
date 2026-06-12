@@ -1,5 +1,18 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.35 — 2026-06-12 — SPEC hygiene: GO-022's Hole-A cap woven into NS-046/NS-052 text; round-2 cross-confirmations into the NS-048 row
+
+Closed the two porting gaps the grok-items accounting surfaced. **(1)** The SPEC's own text now carries
+GO-022's outcome (it previously lived only in the registry/docs/dashboard): the **NS-046 entry** gains a
+"witness-lane state" bullet — the full probe-lane history (pointwise → weight/feed-trimmed → shells/CKN
+STRESSED → **the composed probe's kill met N-stably ⇒ the Hole-A DNS lane FULLY capped, zero licensed
+probes remain in either map; what remains is the analytic target vs the FEED**) — and the **NS-052
+paragraph's item (1)** records that the named composition was subsequently run as GO-022 with the kill met.
+**(2)** The **NS-048 registry row** now cites the round-2 byte-identical cross-code confirmations: GO-017
+(reproduces the route-i blow-down breaks), GO-014 python half (supports the C8 columnar reduction), GO-013
+(blocks the saturating-candidate falsification route), GO-015 (clocks ↔ AB `I<∞` at proxy level), with the
+Lean halves still flagged unverified. No status changes; no new entries; guard 38/38; `:proved`=0.
+
 ## v0.15.34 — 2026-06-12 — Go-Map verification ROUND 2: the ancient-Liouville wave + NS-053 instruments — ALL NINE BYTE-IDENTICAL
 
 Re-verified the second Grok wave per the A7 protocol (`docs/gomap_verification_round2_2026-06-12.md`; pin
