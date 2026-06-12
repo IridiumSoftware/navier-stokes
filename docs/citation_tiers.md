@@ -80,6 +80,7 @@ else's theorem, never that *we* proved anything. A no-go's force in the obstruct
 | **DSS-singularity removal** (arXiv:1610.09464) | **C1** | conditional *removal* of DSS singularities for 3D NS — the DSS analog of G3's role; any DSS-profile attempt must engage it | NS-050 (M1-DSS), NS-048 |
 | **Tao** triple-log rate (arXiv:1908.04958) | **C2** | `L³` must blow up at `(log log log 1/(T*−t))^c` or faster along a sequence (verbatim); via Carleman | NS-048 (type-II) |
 | **Palasek** double-log axisym (arXiv:2101.08586) | **C2** | weighted critical norms; axisym `q∈(2,3]` ⇒ double-exponential bounds ⇒ **double-log** rate, improving Tao in the axisym case | NS-048 (type-II) |
+| **Katz–Pavlović** hyperdissipation (arXiv:math/0104199) | **C2** (partial 1<α<5/4); **C1** (α≥5/4 global regularity corollary — proof skim pending) | Hausdorff dim of singular set ≤5−4α for hyperdissipative NS; GO-024 line-read 2026-06-12 | NS-053 |
 
 ## Related (non-PDE — kinship only, fenced)
 
