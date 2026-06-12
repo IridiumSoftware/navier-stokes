@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.37 — 2026-06-12 — NS-054 RUN AND CLOSED (the pre-registered kill fired): admissibility-on-the-conjunction = NS-048(+046) relabeled; residual = the coupling inventory; SPEC 38→39, v0.15.0
+
+Aaron's pre-registration stub (`~/Desktop/NS-054_stub.md` — with its own RWC-054, kill criterion, and
+over-reach pre-declaration) proposed the one unrun CFS-admissibility application: point the NS-037 lens at
+the **MDAGC conjunction** `G1∧…∧G5` and ask for a *joint* obstruction. The stub had already pre-reduced the
+move to a single question (a joint obstruction among {G1,G2,G5}×{G3,G4} beyond the used G3∧G4 link) — and
+**the paper pass settled it (`docs/ns054_admissibility_companion.md`): all six cross-pairs enumerated, NO
+new joint obstruction found.** Every real cross-edge is existing literature: **G1∧G4** (the ancient limit
+must be critical-norm-wild backward in time — the sequential-`L³` family; *tier-pending*, gates on the
+litmap §4.1 line-read, which this sharpens), **G2∧G4** (CKN-ε inside KNSS's compactness — already silently
+used in the doc's own G4 text, now flagged), **G2∧G5** (the energy lane's exact ceiling: ≤1-D but not ∅);
+the rest internal/none. **The pre-registered kill fired ⇒ NS-054 = `:falsified` as an attack-reduction:**
+"is `A` empty?" is NS-048(+NS-046) in possibilistic vocabulary — the predicted exit, formally closed (not a
+failure; it pins the move's prize-relevant content and prevents the relabeling hazard the NS-024/013
+precedents name). **Residual banked:** the four-edge **cross-conjunct coupling inventory** as MDAGC **§5b**.
+Caveat held: enumeration ≠ nonexistence proof; any return clears RWC-054 in full (joint-not-single,
+hard-not-instantaneous, 3-seat-witnessed, emptiness ⇒ machine-checked). SPEC 38→39 (v0.14.0→v0.15.0);
+guard 39/39. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.36 — 2026-06-12 — Carleman ladder-6b-α (substrate ii): the spatial Clairaut swap `Δ(∂_w f) = ∂_w(Δf)`
 
 `Carleman.lean` +~115 lines (2636 total), in `CommutatorSubstrate`. **Library infrastructure;

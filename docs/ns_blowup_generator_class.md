@@ -159,6 +159,20 @@ Before any 3D attack design, check it is **none** of these — each is a mapped 
       (bulk-negative); pointwise coercivity is the wrong form, and any *integral* form must state its weight
       and measure against the FEED `¼(|ω|²−(ω·e₃)²)`, not `λ₃²` (triad-trimmed, 2026-06-11).
 
+### 5b. Cross-conjunct couplings (the NS-054 inventory, 2026-06-12)
+
+The class `A = G1∧…∧G5` carries four **known** cross-conjunct edges (each is existing literature — the
+NS-054 admissibility pass found *no* new joint obstruction beyond them; its pre-registered kill fired,
+`docs/ns054_admissibility_companion.md`):
+
+- **G3∧G4** (explicit above): the Type-I ancient limit is non-self-similar.
+- **G2∧G4** (was silent in §1's G4 text): the ancient-limit extraction *uses* CKN ε-regularity for its
+  compactness — KNSS's machinery is itself a G2-coupling.
+- **G1∧G4** *(tier-pending — gates on the sequential-`L³` line-read, litmap §4.1)*: the ancient limit
+  must be **critical-norm-wild backward in time** (an `L³`-quiet backward sequence would trivialize it).
+- **G2∧G5**: the energy lane's exact ceiling — CKN (an energy theorem) buys ≤1-D; Tao's averaging shows
+  energy methods cannot cross the remaining gap to ∅.
+
 ---
 
 ## 6. The two holes where the class is still non-empty (= the prize)
