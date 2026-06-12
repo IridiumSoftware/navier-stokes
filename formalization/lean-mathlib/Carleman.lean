@@ -2624,6 +2624,94 @@ theorem laplacian_deriv_swap {f : E → ℝ} (hf : ContDiff ℝ 3 f) (x w : E) :
   refine Finset.sum_congr rfl fun i _ => ?_
   rw [eIFD3_swap23 hf x (b i) (b i) w, eIFD3_swap12 hf x (b i) w (b i)]
 
+/-! #### Ladder-6b-α substrate iii: the four-index identity `Δ⟪∇f,∇h⟫` -/
+
+/-- The `fderiv` of a directional derivative is a second iterated derivative:
+    `∂_v(∂_d f) = iFD2 f ![v,d]`. -/
+theorem fderiv_fderiv_dir {f : E → ℝ} (hf : ContDiff ℝ 2 f) (x v d : E) :
+    fderiv ℝ (fun y => fderiv ℝ f y d) x v = iteratedFDeriv ℝ 2 f x ![v, d] := by
+  have hfd : ContDiff ℝ 1 (fderiv ℝ f) := hf.fderiv_right (by norm_num)
+  have hF : HasFDerivAt (fun y => fderiv ℝ f y d)
+      ((ContinuousLinearMap.apply ℝ ℝ d).comp (fderiv ℝ (fderiv ℝ f) x)) x :=
+    ((ContinuousLinearMap.apply ℝ ℝ d).hasFDerivAt (x := fderiv ℝ f x)).comp x
+      ((hfd.differentiable one_ne_zero) x).hasFDerivAt
+  rw [hF.fderiv, iteratedFDeriv_two_apply]; rfl
+
+/-- **The four-index identity** (the engine of `Δ(∇g·∇u)`):
+    `Δ⟪∇f,∇h⟫ = ⟪∇(Δf),∇h⟫ + 2·⟨D²f, D²h⟩_HS + ⟪∇f,∇(Δh)⟫`,
+    where the Hilbert–Schmidt Hessian inner product is the basis double sum. -/
+theorem laplacian_inner_grad {f h : E → ℝ} (hf : ContDiff ℝ 3 f)
+    (hh : ContDiff ℝ 3 h) (x : E) :
+    Δ (fun y => ⟪∇ f y, ∇ h y⟫) x
+      = ⟪∇ (Δ f) x, ∇ h x⟫
+        + 2 * ∑ i, ∑ j, iteratedFDeriv ℝ 2 f x ![stdOrthonormalBasis ℝ E i,
+              stdOrthonormalBasis ℝ E j]
+            * iteratedFDeriv ℝ 2 h x ![stdOrthonormalBasis ℝ E i,
+              stdOrthonormalBasis ℝ E j]
+        + ⟪∇ f x, ∇ (Δ h) x⟫ := by
+  classical
+  set b := stdOrthonormalBasis ℝ E with hb
+  have hf2 : ContDiff ℝ 2 f := hf.of_le (by norm_num)
+  have hh2 : ContDiff ℝ 2 h := hh.of_le (by norm_num)
+  -- `⟪∇f,∇h⟫` as a basis sum of products of directional derivatives
+  have hgrad_eq : (fun y => (⟪∇ f y, ∇ h y⟫ : ℝ))
+      = fun y => ∑ j, fderiv ℝ f y (b j) * fderiv ℝ h y (b j) := by
+    funext y
+    rw [inner_grad_eq_sum (hf.differentiable (by norm_num) y)
+      (hh.differentiable (by norm_num) y)]
+  -- the smoothness of each `j`-summand
+  have huC2 : ∀ j, ContDiff ℝ 2 (fun y => fderiv ℝ f y (b j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (b j)).contDiff.comp (hf.fderiv_right (by norm_num))
+  have hvC2 : ∀ j, ContDiff ℝ 2 (fun y => fderiv ℝ h y (b j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (b j)).contDiff.comp (hh.fderiv_right (by norm_num))
+  -- per-`j` Laplacian of the product, via the Leibniz rule + the spatial swap
+  have hbridge : ∀ j, Δ (fun y => fderiv ℝ f y (b j) * fderiv ℝ h y (b j)) x
+      = fderiv ℝ f x (b j) * fderiv ℝ (Δ h) x (b j)
+        + fderiv ℝ h x (b j) * fderiv ℝ (Δ f) x (b j)
+        + 2 * ∑ i, iteratedFDeriv ℝ 2 f x ![b i, b j]
+              * iteratedFDeriv ℝ 2 h x ![b i, b j] := by
+    intro j
+    rw [laplacian_mul (huC2 j) (hvC2 j) x, laplacian_deriv_swap hh x (b j),
+        laplacian_deriv_swap hf x (b j)]
+    have hcross : (⟪∇ (fun y => fderiv ℝ f y (b j)) x,
+          ∇ (fun y => fderiv ℝ h y (b j)) x⟫ : ℝ)
+        = ∑ i, iteratedFDeriv ℝ 2 f x ![b i, b j]
+            * iteratedFDeriv ℝ 2 h x ![b i, b j] := by
+      rw [inner_grad_eq_sum ((huC2 j).differentiable (by norm_num) x)
+        ((hvC2 j).differentiable (by norm_num) x)]
+      exact Finset.sum_congr rfl fun i _ => by
+        rw [fderiv_fderiv_dir hf2 x (b i) (b j), fderiv_fderiv_dir hh2 x (b i) (b j)]
+    rw [hcross]
+  -- assemble
+  rw [hgrad_eq, laplacian_fun_sum Finset.univ
+    (fun j _ => (huC2 j).mul (hvC2 j)) x]
+  rw [Finset.sum_congr rfl fun j _ => hbridge j]
+  rw [Finset.sum_add_distrib, Finset.sum_add_distrib]
+  have hlapC1 : ∀ {g : E → ℝ}, ContDiff ℝ 3 g → ContDiff ℝ 1 (Δ g) := by
+    intro g hg
+    have he : (Δ g) = fun y => ∑ i, iteratedFDeriv ℝ 2 g y ![b i, b i] :=
+      funext fun y => congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis g b) y
+    rw [he]
+    exact ContDiff.sum fun i _ =>
+      (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![b i, b i]).contDiff.comp
+        (hg.iteratedFDeriv_right (by norm_num))
+  have hA : ∑ j, fderiv ℝ f x (b j) * fderiv ℝ (Δ h) x (b j)
+      = ⟪∇ f x, ∇ (Δ h) x⟫ :=
+    (inner_grad_eq_sum (hf.differentiable (by norm_num) x)
+      ((hlapC1 hh).differentiable (by norm_num) x)).symm
+  have hB : ∑ j, fderiv ℝ h x (b j) * fderiv ℝ (Δ f) x (b j)
+      = ⟪∇ (Δ f) x, ∇ h x⟫ := by
+    rw [← inner_grad_eq_sum (hh.differentiable (by norm_num) x)
+      ((hlapC1 hf).differentiable (by norm_num) x),
+      real_inner_comm]
+  have hC : ∑ j, 2 * ∑ i, iteratedFDeriv ℝ 2 f x ![b i, b j]
+        * iteratedFDeriv ℝ 2 h x ![b i, b j]
+      = 2 * ∑ i, ∑ j, iteratedFDeriv ℝ 2 f x ![b i, b j]
+          * iteratedFDeriv ℝ 2 h x ![b i, b j] := by
+    rw [← Finset.mul_sum, Finset.sum_comm]
+  rw [hA, hB, hC]
+  ring
+
 end CommutatorSubstrate
 
 

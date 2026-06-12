@@ -170,6 +170,11 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   (`eIFD3_eq_left`/`eIFD2_apply_dir`/`eIFD3_swap12`/`eIFD3_swap23`/`fderiv_iFD2_coeff`) and
   `laplacian_deriv_swap`: the spatial Clairaut commutation `Δ(∂_w f) = ∂_w(Δf)` for `f` C³.
   False wrong-slot variant rejected; no `sorry`.
+- **Ladder-6b-α substrate iii (the spatial substrate COMPLETE)** — `fderiv_fderiv_dir`
+  (`∂_v∂_d f = iFD2 f ![v,d]`) and **`laplacian_inner_grad`, the four-index identity**
+  `Δ⟪∇f,∇h⟫ = ⟪∇(Δf),∇h⟫ + 2⟨D²f,D²h⟩_HS + ⟪∇f,∇(Δh)⟫` (the engine of `Δ(∇g·∇u)`; assembled
+  from the Leibniz rule, the spatial Clairaut swap, Parseval and `Finset.sum_comm`). False
+  coefficient-1 variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

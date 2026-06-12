@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.38 — 2026-06-12 — Carleman ladder-6b-α (substrate iii): the four-index identity `Δ⟪∇f,∇h⟫` — the spatial substrate COMPLETE
+
+`Carleman.lean` +~90 lines (2724 total), completing `CommutatorSubstrate`. **Library
+infrastructure; `:proved`=0 for the PDE.**
+- **`fderiv_fderiv_dir`** — `∂_v(∂_d f) = iFD2 f ![v,d]` (the second-order coefficient bridge).
+- **`laplacian_inner_grad` — THE FOUR-INDEX IDENTITY** (the engine of `Δ(∇g·∇u)`):
+  `Δ⟪∇f,∇h⟫ = ⟪∇(Δf),∇h⟫ + 2·⟨D²f,D²h⟩_HS + ⟪∇f,∇(Δh)⟫` for `f,h` C³, with the
+  Hilbert–Schmidt Hessian inner product as the basis double sum
+  `Σᵢⱼ (iFD2 f ![eᵢ,eⱼ])(iFD2 h ![eᵢ,eⱼ])`. Proof: write `⟪∇f,∇h⟫` as `Σⱼ(∂ⱼf)(∂ⱼh)`
+  (`inner_grad_eq_sum`), push `Δ` through the sum (`laplacian_fun_sum`), expand each
+  `Δ((∂ⱼf)(∂ⱼh))` by the Leibniz rule (`laplacian_mul`), convert `Δ(∂ⱼ·) → ∂ⱼ(Δ·)` by the
+  spatial Clairaut swap (`laplacian_deriv_swap`) and the cross term to the iFD2 double sum
+  (`fderiv_fderiv_dir`), then reassemble (`Finset.sum_add_distrib` + `Finset.sum_comm` for the
+  `Σᵢⱼ↔Σⱼᵢ` transpose, two `inner_grad_eq_sum` back-substitutions, `real_inner_comm`).
+- **Soundness:** no `sorry`; the false variant (HS-term coefficient `1` instead of `2`) is
+  REJECTED at `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**The 6b-α spatial substrate is now COMPLETE** — Laplacian Leibniz rule, spatial Parseval,
+finite-sum Laplacian, the full E-domain third-derivative swap chain, the spatial Clairaut swap,
+and the four-index identity. **Next: 6b-β** — the S-curve time derivative `∂t(S(t)u(t))` (the
+two Clairaut keystones + product/chain `HasDerivAt` algebra) → 6b-γ (the Bochner IBP collapse
+`∫2Σᵢⱼgᵢⱼuᵢⱼ·u·ω → −2∫D²g(∇u,∇u)ω`, the `A+B = −2∫D²g(∇u,∇u)ω` exact cancellation) → 6b-δ
+(assembly into Lemma 4.1's displayed inequality). `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.37 — 2026-06-12 — NS-054 RUN AND CLOSED (the pre-registered kill fired): admissibility-on-the-conjunction = NS-048(+046) relabeled; residual = the coupling inventory; SPEC 38→39, v0.15.0
 
 Aaron's pre-registration stub (`~/Desktop/NS-054_stub.md` — with its own RWC-054, kill criterion, and
