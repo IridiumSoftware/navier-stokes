@@ -134,6 +134,18 @@ the verified LZZ mechanism:
    finite-time regularity to ancient Liouville — the natural raw material for Horn A.
 4. **Cleanest entry:** port the anisotropic-`z` swirl conditions to the ancient setting (§6).
 
+**[EXECUTED — annotation 2026-06-12; this §7 pointer was stale and misled a later session's planning.]**
+Item 4 (the port) was carried out the same day and the whole thread run to exhaustion:
+`docs/ns048_anisotropic_z_port.md` (the port — a genuine NEW conjecture; the finite-time proof does NOT
+transfer: Gronwall-anchored-to-data + finite-`T` continuation, both vacuous on `(−∞,0]`; attribution
+corrected — the `|x₃|^α` conditions are **Yu / Wang–Huang–Wei–Yu**, not CFZ, whose criteria are radial) →
+`docs/ns048_route_i_blowdown.md` (route (i) attempted: **broken** — the blow-down amplifies `Γ`'s radial
+growth `λ^{1−α}` and compactness fails by supercriticality; 14th over-reach corrected) →
+`docs/ns048_combined_axial_radial.md` (the combined axial+radial conjecture **collapsed** — redundant where
+radial is strong, stuck where weak). **Net standing: the axial-only ancient conjecture is OPEN; the
+session-scale attacks are exhausted; what remains is the bare conjecture + the un-mechanised `S`-control
+route — genuine analytic undertakings, not session tasks.**
+
 This is a sharpened, defensible problem statement — *not* progress on either horn. The genuine open
 question is now: *is source-control a viable ancient-Liouville strategy at all, or does every route reduce
 to killing `Γ`?*

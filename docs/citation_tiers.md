@@ -55,7 +55,9 @@ else's theorem, never that *we* proved anything. A no-go's force in the obstruct
 | **Lei–Ren–Zhang / Lei–Zhang–Zhao (Thm 3.7)** — swirl-free reduction | **C3** (both) | "every known closer bypasses the `S`-source via `Γ`-decay"; `docs/citation_verification_round3_2026-06-07.md` | NS-048 |
 | **Pan–Li** — sublinear-growth axisym Liouville | **C3** (line-verified) | the blow-down/Liouville-rescaling contrast; `docs/pan_li_verification_2026-06-07.md` | NS-048 (route-i) |
 | **Tsai** — asymptotically-self-similar / Type-II | **C2/C3** | the Type-II ceiling on the ancient-Liouville machinery | NS-048 (type-II) |
-| Yu / Wang–Huang–Wei–Yu — `|x₃|^α` axial-swirl criterion | **C1/C2** (named; not all line-read) | the anisotropic-`z` swirl port (a genuine new question, not implicit) | NS-048 |
+| **Wang–Huang–Wei–Yu** (arXiv:2205.13893) — `|x₃|^α u^θ` mixed-norm criterion (Thm 1.4) | **C3** (read in full: statement + proof — anisotropic Hardy–Sobolev → Gronwall → continuation; `docs/ns048_anisotropic_z_port.md` §9) | the anisotropic-`z` port (a genuine new ancient question, NOT implicit — the finite-time proof does not transfer) | NS-048 |
+| **Yu** (Appl. Anal. 99 (2020)) — `\|x₃\|u^θ` smallness | **C1** (paywalled; via its faithful restatement in 2205.13893) | the `α=1` endpoint of the axial family | NS-048 |
+| **Chen–Fang–Zhang** (arXiv:1802.08956) — *radial* `r^d u^θ` criteria | **C3** (read in full; the data-anchored Gronwall + continuation lemma + the "analogously to Lei–Zhang" critical-endpoint remark) | the radial contrast class (an earlier misattribution of the `\|x₃\|^α` conditions to CFZ was caught + corrected in the port doc) | NS-048 |
 | Tao (triple-log); Palasek (axisym double-log) — Type-II rate bounds | **C1/C2** (primary-read, partial) | the gap-to-full-exclusion is *qualitative* | NS-048 (type-II) |
 
 ## NS-049 — Lockwood "Singularity Surgery" (the one external regularity-*attack*)

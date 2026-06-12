@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.25 — 2026-06-12 — Plan move #6 found ALREADY EXECUTED (the anisotropic-z ancient-port thread, 2026-06-07); stale pointer fixed + citation rows sharpened
+
+Reconciliation, not new research. The open-questions plan's move #6 ("port Yu + CFZ `|x₃|^α` conditions to
+the ancient setting; decide S-control vs Γ-decay routing") turned out to be **fully executed on 2026-06-07**
+across three docs the plan failed to register: `ns048_anisotropic_z_port.md` (the port — a genuine NEW
+conjecture; the finite-time proof does NOT transfer: data-anchored Gronwall + finite-`T` continuation, both
+vacuous on `(−∞,0]`; and the **CFZ attribution my plan repeated was already corrected there** — the axial
+conditions are Yu / Wang–Huang–Wei–Yu; CFZ's are radial) → `ns048_route_i_blowdown.md` (route (i) attempted
+and **broken**: the blow-down amplifies `Γ`'s radial growth `λ^{1−α}`; compactness fails by
+supercriticality) → `ns048_combined_axial_radial.md` (the combined conjecture **collapsed**). Net standing
+(already recorded there): *the axial-only ancient conjecture is OPEN; session-scale attacks exhausted; what
+remains is the bare conjecture + the un-mechanised S-control route — analytic undertakings, not session
+tasks.* **Root cause of the redundant plan item: `ns048_swirl_source_frontier.md` §7 still posed the port as
+the "cleanest entry" — the stale pointer is now annotated EXECUTED** with the outcomes (the same stale-queue
+pattern as the MFE catch). Residual real work applied: `citation_tiers.md` Yu/WHWY row **split + sharpened**
+(WHWY 2205.13893 → **C3**, read in full per the port doc; Yu → C1 paywalled-via-restatement; CFZ 1802.08956
+→ **C3**, radial-contrast class, the caught misattribution noted). Also resolved two changelog
+version-number collisions from the concurrent sessions (renumbered to .22.1/.23/.24). No new NS-ID; no
+status change; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.24 — 2026-06-12 — Carleman ladder-5b-i: second-order slice calculus landed + a NESTED-CLM INSTANCE GAP found (swap chain redesigned to iteratedFDeriv route)
 
 `Carleman.lean` grows a `LaplacianSwap` subsection (~2011 lines total). **Library
@@ -40,7 +60,7 @@ item 3's **what-NOT-to-do checklist** added as `docs/ns_blowup_generator_class.m
 with its named killer, incl. the new FEED rule from the triad); item 8 documented-as-relative-only.
 `:proved`=0; distance UNTOUCHED.
 
-## v0.15.22 — 2026-06-11 — Triad VERDICT applied (NS-046 + NS-013): every strong reading trimmed; the seats' demands RUN and empirically vindicated
+## v0.15.22.1 — 2026-06-11 — Triad VERDICT applied (NS-046 + NS-013): every strong reading trimmed; the seats' demands RUN and empirically vindicated
 
 Both seats returned on `docs/ns046_ns013_triad_brief.md` (Grok Φ + synthesis; verdict
 `docs/ns046_ns013_triad_verdict.md`; harsher seat governs). **NS-046:** P1-C1 "weighting artifact" REFUTED →
