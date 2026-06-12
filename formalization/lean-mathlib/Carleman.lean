@@ -2521,6 +2521,109 @@ theorem laplacian_fun_sum {ι : Type*} (s : Finset ι) {F : ι → E → ℝ}
     rw [hcongr, ContDiffAt.laplacian_add hFa.contDiffAt hsum2.contDiffAt,
         Finset.sum_insert ha, ih hFs]
 
+/-! #### Ladder-6b-α substrate ii: the spatial Clairaut swap `Δ(∂_w f) = ∂_w(Δf)`
+
+The E-domain port of the 5b-ii third-derivative swap chain (those proofs use nothing of the
+`ℝ × E` product structure), assembled into the spatial mixed-partial commutation. -/
+
+/-- (E-domain δ) Left-peeling bridge: `iFD3 f q ![a,b,c] = fderiv(iFD2 f) q a ![b,c]`. -/
+theorem eIFD3_eq_left {f : E → ℝ} (q a b c : E) :
+    iteratedFDeriv ℝ 3 f q ![a, b, c]
+      = fderiv ℝ (iteratedFDeriv ℝ 2 f) q a ![b, c] := by
+  rw [iteratedFDeriv_succ_apply_left]; congr 1
+
+/-- (E-domain δ′) Directional-application bridge. -/
+theorem eIFD2_apply_dir {f : E → ℝ} (hf : ContDiff ℝ 3 f) (q d a b : E) :
+    iteratedFDeriv ℝ 2 (fun p : E => fderiv ℝ f p d) q ![a, b]
+      = iteratedFDeriv ℝ 3 f q ![a, b, d] := by
+  have hfd : ContDiff ℝ 2 (fderiv ℝ f) := hf.fderiv_right (by norm_num)
+  have hcomp := (ContinuousLinearMap.apply ℝ ℝ d).iteratedFDeriv_comp_left
+    (f := fderiv ℝ f) (hfd.contDiffAt (x := q)) (i := 2) le_rfl
+  have h1 : iteratedFDeriv ℝ 2 (fun p : E => fderiv ℝ f p d) q ![a, b]
+      = iteratedFDeriv ℝ 2 (fderiv ℝ f) q ![a, b] d := by
+    have h2 := congrFun (congrArg DFunLike.coe hcomp) ![a, b]
+    simpa using h2
+  have hinit : Fin.init ![a, b, d] = ![a, b] := by
+    funext i; fin_cases i <;> simp [Fin.init]
+  rw [h1]
+  conv_rhs => rw [iteratedFDeriv_succ_apply_right]
+  rw [hinit]; rfl
+
+/-- (E-domain β′) First-pair swap (scalar Schwarz on `p ↦ Df(p)·c`). -/
+theorem eIFD3_swap12 {f : E → ℝ} (hf : ContDiff ℝ 3 f) (q a b c : E) :
+    iteratedFDeriv ℝ 3 f q ![a, b, c] = iteratedFDeriv ℝ 3 f q ![b, a, c] := by
+  have hfd : ContDiff ℝ 2 (fderiv ℝ f) := hf.fderiv_right (by norm_num)
+  have hV : ContDiff ℝ 2 fun p : E => fderiv ℝ f p c :=
+    (ContinuousLinearMap.apply ℝ ℝ c).contDiff.comp hfd
+  have hsymm : IsSymmSndFDerivAt ℝ (fun p : E => fderiv ℝ f p c) q :=
+    hV.contDiffAt.isSymmSndFDerivAt (by simp)
+  rw [← eIFD2_apply_dir hf q c a b, ← eIFD2_apply_dir hf q c b a]
+  exact IsSymmSndFDerivAt.iteratedFDeriv_cons (hf := hsymm)
+
+/-- (E-domain γ′) Last-pair swap (differentiated pointwise Schwarz). -/
+theorem eIFD3_swap23 {f : E → ℝ} (hf : ContDiff ℝ 3 f) (q a b c : E) :
+    iteratedFDeriv ℝ 3 f q ![a, b, c] = iteratedFDeriv ℝ 3 f q ![a, c, b] := by
+  have hf2 : ContDiff ℝ 2 f := hf.of_le (by norm_num)
+  have hifd : ContDiff ℝ 1 (iteratedFDeriv ℝ 2 f) :=
+    hf.iteratedFDeriv_right (by norm_num)
+  have hφ : ∀ b c : E,
+      fderiv ℝ (fun p : E => iteratedFDeriv ℝ 2 f p ![b, c]) q a
+      = fderiv ℝ (iteratedFDeriv ℝ 2 f) q a ![b, c] := by
+    intro b c
+    have hap := (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![b, c]).hasFDerivAt
+      (x := iteratedFDeriv ℝ 2 f q)
+    have hF : HasFDerivAt (fun p : E => iteratedFDeriv ℝ 2 f p ![b, c])
+        ((ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![b, c]).comp
+          (fderiv ℝ (iteratedFDeriv ℝ 2 f) q)) q := by
+      exact hap.comp q ((hifd.differentiable one_ne_zero) q).hasFDerivAt
+    rw [hF.fderiv]; rfl
+  have hpoint : (fun p : E => iteratedFDeriv ℝ 2 f p ![b, c])
+      = fun p : E => iteratedFDeriv ℝ 2 f p ![c, b] := by
+    funext p
+    exact IsSymmSndFDerivAt.iteratedFDeriv_cons
+      (hf := hf2.contDiffAt.isSymmSndFDerivAt (by simp))
+  rw [eIFD3_eq_left, eIFD3_eq_left, ← hφ b c, hpoint, hφ c b]
+
+/-- The `fderiv` of an `iFD2`-coefficient prepends the direction: `∂_w(iFD2 f ·![a,b]) =
+    iFD3 f ![w,a,b]`. -/
+theorem fderiv_iFD2_coeff {f : E → ℝ} (hf : ContDiff ℝ 3 f) (x w a b : E) :
+    fderiv ℝ (fun y => iteratedFDeriv ℝ 2 f y ![a, b]) x w
+      = iteratedFDeriv ℝ 3 f x ![w, a, b] := by
+  have hifd : ContDiff ℝ 1 (iteratedFDeriv ℝ 2 f) :=
+    hf.iteratedFDeriv_right (by norm_num)
+  have hap := (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![a, b]).hasFDerivAt
+    (x := iteratedFDeriv ℝ 2 f x)
+  have hF : HasFDerivAt (fun p : E => iteratedFDeriv ℝ 2 f p ![a, b])
+      ((ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![a, b]).comp
+        (fderiv ℝ (iteratedFDeriv ℝ 2 f) x)) x := by
+    exact hap.comp x ((hifd.differentiable one_ne_zero) x).hasFDerivAt
+  rw [hF.fderiv, eIFD3_eq_left]; rfl
+
+/-- **The spatial Clairaut swap:** `Δ(∂_w f) = ∂_w(Δf)` for `f` C³ — the Laplacian commutes
+    with directional differentiation. -/
+theorem laplacian_deriv_swap {f : E → ℝ} (hf : ContDiff ℝ 3 f) (x w : E) :
+    Δ (fun y => fderiv ℝ f y w) x = fderiv ℝ (Δ f) x w := by
+  classical
+  set b := stdOrthonormalBasis ℝ E with hb
+  have hifd1 : ContDiff ℝ 1 (iteratedFDeriv ℝ 2 f) := hf.iteratedFDeriv_right (by norm_num)
+  have hLHS : Δ (fun y => fderiv ℝ f y w) x
+      = ∑ i, iteratedFDeriv ℝ 3 f x ![b i, b i, w] := by
+    rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis
+      (fun y => fderiv ℝ f y w) b) x]
+    exact Finset.sum_congr rfl fun i _ => eIFD2_apply_dir hf x w (b i) (b i)
+  have hΔf_eq : Δ f = fun y => ∑ i, iteratedFDeriv ℝ 2 f y ![b i, b i] :=
+    funext fun y => congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis f b) y
+  have hdiff : ∀ i ∈ (Finset.univ : Finset (Fin (Module.finrank ℝ E))),
+      DifferentiableAt ℝ (fun y => iteratedFDeriv ℝ 2 f y ![b i, b i]) x := fun i _ =>
+    ((ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![b i, b i]).differentiable.comp
+      (hifd1.differentiable one_ne_zero)) x
+  have hRHS : fderiv ℝ (Δ f) x w = ∑ i, iteratedFDeriv ℝ 3 f x ![w, b i, b i] := by
+    rw [hΔf_eq, fderiv_fun_sum hdiff, ContinuousLinearMap.sum_apply]
+    exact Finset.sum_congr rfl fun i _ => fderiv_iFD2_coeff hf x w (b i) (b i)
+  rw [hLHS, hRHS]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [eIFD3_swap23 hf x (b i) (b i) w, eIFD3_swap12 hf x (b i) w (b i)]
+
 end CommutatorSubstrate
 
 

@@ -166,6 +166,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   commutator quadratic form: `laplacian_mul` (the Laplacian Leibniz rule `Δ(uv) = uΔv + vΔu +
   2⟪∇u,∇v⟫`, a filled Mathlib gap), `inner_grad_eq_sum` (spatial Parseval), `laplacian_fun_sum`
   (finite-sum additivity). False coefficient-1 variant rejected; no `sorry`.
+- **Ladder-6b-α substrate ii** — the 5b-ii third-derivative swap chain ported to the E-domain
+  (`eIFD3_eq_left`/`eIFD2_apply_dir`/`eIFD3_swap12`/`eIFD3_swap23`/`fderiv_iFD2_coeff`) and
+  `laplacian_deriv_swap`: the spatial Clairaut commutation `Δ(∂_w f) = ∂_w(Δf)` for `f` C³.
+  False wrong-slot variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.36 — 2026-06-12 — Carleman ladder-6b-α (substrate ii): the spatial Clairaut swap `Δ(∂_w f) = ∂_w(Δf)`
+
+`Carleman.lean` +~115 lines (2636 total), in `CommutatorSubstrate`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **The 5b-ii third-derivative swap chain, ported to the E-domain** (those proofs use nothing of
+  the `ℝ × E` product structure): `eIFD3_eq_left`, `eIFD2_apply_dir`, `eIFD3_swap12` (scalar
+  Schwarz on `p ↦ Df(p)·c`, dodging the un-stateable `IsSymmSndFDerivAt (fderiv f)`),
+  `eIFD3_swap23`, and `fderiv_iFD2_coeff` (`∂_w(iFD2 f ·![a,b]) = iFD3 f ![w,a,b]`).
+- **`laplacian_deriv_swap` — the spatial mixed-partial commutation:** `Δ(∂_w f) = ∂_w(Δf)` for
+  `f` C³. Both sides expand to `iFD3` coordinates (`eIFD2_apply_dir` for the LHS via the basis
+  Laplacian; `fderiv_fun_sum` + `fderiv_iFD2_coeff` for the RHS), reconciled per-basis-index by
+  the two swaps `iFD3 f ![eᵢ,eᵢ,w] = iFD3 f ![w,eᵢ,eᵢ]` (swap23 then swap12).
+- **Soundness:** no `sorry`; the false variant (`eIFD2_apply_dir` with the direction in the FIRST
+  slot instead of the last) is REJECTED at `rfl`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Next: ladder-6b-α substrate iii — the four-index identity**
+`Δ⟪∇f,∇h⟫ = ⟪∇(Δf),∇h⟫ + 2Σᵢⱼ(∂ᵢⱼf)(∂ᵢⱼh) + ⟪∇f,∇(Δh)⟫` (all ingredients now in hand:
+`inner_grad_eq_sum` + `laplacian_fun_sum` + `laplacian_mul` per-`j` + `laplacian_deriv_swap`).
+Then 6b-β (the S-curve time derivative) / γ (Bochner IBP) / δ (assembly). `:proved`=0; distance
+UNTOUCHED.
+
 ## v0.15.35 — 2026-06-12 — SPEC hygiene: GO-022's Hole-A cap woven into NS-046/NS-052 text; round-2 cross-confirmations into the NS-048 row
 
 Closed the two porting gaps the grok-items accounting surfaced. **(1)** The SPEC's own text now carries
