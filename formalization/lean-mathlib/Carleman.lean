@@ -1937,7 +1937,73 @@ theorem hasDerivAt_fderiv_slice {U : ℝ × E → ℝ} (hU : ContDiff ℝ 2 U)
   rw [hRHS, ← hsymm ((1 : ℝ), (0 : E)) ((0 : ℝ), v)]
   exact hcomp
 
+section LaplacianSwap
+
+open Laplacian InnerProductSpace
+
+variable [FiniteDimensional ℝ E]
+
+/-- Second-order slice conversion: slice second directional derivatives are joint
+    second derivatives in vertical directions. -/
+theorem fderiv_fderiv_slice_apply {U : ℝ × E → ℝ} (hU : ContDiff ℝ 2 U)
+    (t : ℝ) (x : E) (v w : E) :
+    fderiv ℝ (fun y => fderiv ℝ (fun z => U (t, z)) y v) x w
+      = fderiv ℝ (fderiv ℝ U) (t, x) ((0 : ℝ), w) ((0 : ℝ), v) := by
+  have hUd : ∀ p : ℝ × E, DifferentiableAt ℝ U p := fun p =>
+    hU.differentiable (by norm_num) p
+  have hfd : ContDiff ℝ 1 (fderiv ℝ U) := hU.fderiv_right (by norm_num)
+  have hfun : (fun y => fderiv ℝ (fun z => U (t, z)) y v)
+      = fun y => fderiv ℝ U (t, y) ((0 : ℝ), v) := by
+    funext y
+    exact fderiv_slice_apply (p := (t, y)) (hUd (t, y)) v
+  rw [hfun]
+  have hVd : DifferentiableAt ℝ (fun p : ℝ × E => fderiv ℝ U p ((0 : ℝ), v)) (t, x) :=
+    ((ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), v)).differentiable.comp
+      (hfd.differentiable one_ne_zero)) (t, x)
+  rw [fderiv_slice_apply (U := fun p : ℝ × E => fderiv ℝ U p ((0 : ℝ), v))
+    (p := (t, x)) hVd w]
+  have hF : HasFDerivAt (fun p : ℝ × E => fderiv ℝ U p ((0 : ℝ), v))
+      ((ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), v)).comp
+        (fderiv ℝ (fderiv ℝ U) (t, x))) (t, x) :=
+    (ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), v)).hasFDerivAt.comp _
+      ((hfd.differentiable one_ne_zero) (t, x)).hasFDerivAt
+  rw [hF.fderiv]
+  rfl
+
+/-- The slice Laplacian in joint coordinates. -/
+theorem laplacian_slice_eq {U : ℝ × E → ℝ} (hU : ContDiff ℝ 2 U) (t : ℝ) (x : E) :
+    Δ (fun y => U (t, y)) x
+      = ∑ i, fderiv ℝ (fderiv ℝ U) (t, x)
+          ((0 : ℝ), stdOrthonormalBasis ℝ E i)
+          ((0 : ℝ), stdOrthonormalBasis ℝ E i) := by
+  have hsl2 : ContDiff ℝ 2 fun z : E => U (t, z) :=
+    hU.comp ((contDiff_const (c := t)).prodMk contDiff_id)
+  have hsfd : ContDiff ℝ 1 (fderiv ℝ fun z : E => U (t, z)) :=
+    hsl2.fderiv_right (by norm_num)
+  rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis _
+    (stdOrthonormalBasis ℝ E)) x]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [iteratedFDeriv_two_apply]
+  simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons]
+  have happ : fderiv ℝ (fun y => fderiv ℝ (fun z : E => U (t, z)) y
+      (stdOrthonormalBasis ℝ E i)) x (stdOrthonormalBasis ℝ E i)
+      = fderiv ℝ (fderiv ℝ fun z : E => U (t, z)) x
+          (stdOrthonormalBasis ℝ E i) (stdOrthonormalBasis ℝ E i) := by
+    have h : HasFDerivAt (fun y => fderiv ℝ (fun z : E => U (t, z)) y
+        (stdOrthonormalBasis ℝ E i))
+        ((ContinuousLinearMap.apply ℝ ℝ (stdOrthonormalBasis ℝ E i)).comp
+          (fderiv ℝ (fderiv ℝ fun z : E => U (t, z)) x)) x :=
+      (ContinuousLinearMap.apply ℝ ℝ (stdOrthonormalBasis ℝ E i)).hasFDerivAt.comp x
+        ((hsfd.differentiable one_ne_zero) x).hasFDerivAt
+    rw [h.fderiv]
+    rfl
+  rw [← happ]
+  exact fderiv_fderiv_slice_apply hU t x _ _
+
+end LaplacianSwap
+
 end SliceCalculus
+
 
 
 end NSCarleman

@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.24 — 2026-06-12 — Carleman ladder-5b-i: second-order slice calculus landed + a NESTED-CLM INSTANCE GAP found (swap chain redesigned to iteratedFDeriv route)
+
+`Carleman.lean` grows a `LaplacianSwap` subsection (~2011 lines total). **Library
+infrastructure; `:proved`=0 for the PDE.**
+- **`fderiv_fderiv_slice_apply`** — the second-order slice conversion: slice second directional
+  derivatives are joint second derivatives in vertical directions,
+  `∂ₓ(∂ₓ(U(t,·))·v)(x)·w = D²U(t,x)(0,w)(0,v)`.
+- **`laplacian_slice_eq`** — the slice Laplacian in joint coordinates:
+  `Δₓ(U(t,·))(x) = Σᵢ D²U(t,x)(0,eᵢ)(0,eᵢ)` — needed under ANY route to the slice-Laplacian
+  Clairaut swap and to the `mem_S` discharge.
+- **Soundness:** no `sorry`; the false variant (a horizontal slot `(1,w)` in the conversion) is
+  REJECTED at `rfl`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+- **FINDING (Mathlib instance gap, isolated by probe):** for GENERIC inner-product `E`,
+  `NormedAddCommGroup ((ℝ×E) →L[ℝ] ((ℝ×E) →L[ℝ] ℝ))` FAILS to synthesize (it synthesizes for
+  concrete `E := ℝ`) — so differentiability statements about the CLM²-valued map
+  `fderiv(fderiv U)` cannot even be stated generically. The planned ∂tΔₓ-swap chain
+  (`hasDerivAt_d2_curve` + the two pairwise swaps) is therefore REDESIGNED to route through
+  `iteratedFDeriv` (multilinear codomain — instance-rich): the d2-coefficient curve via
+  `CMM.apply ∘ iFD2 ∘ curve`, the outer swap via `iteratedFDeriv_succ_apply_right` + the Fin-2
+  symmetry of `iFD2 (fderiv U)`, the last-two swap via differentiated pointwise Fin-2 symmetry
+  (the 5a `d3_swap_last` pattern with `ContinuousMultilinearMap.apply` in place of the blocked
+  nested CLM apply). Plan banked in memory; the cut chain is ladder-5b-ii.
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.23 — 2026-06-11 — GPU N-trend CLOSED (ξ monotone lift 0.57→2.62→4.15; δ_Λ N-stable) + queue/band-finding reconciliation
 
 **The GPU session (open-questions plan move #3) is complete.** Both runs reproduce the committed trajectories
