@@ -1,6 +1,6 @@
 # SPEC.md — Navier–Stokes Obstruction Program ledger
 
-**v0.13.0 (2026-06-12).** Every entry (prose form; the pipes here are the field *schema*, not a literal layout): `NS-ID | Class | Statement | Evidence |
+**v0.14.0 (2026-06-12).** Every entry (prose form; the pipes here are the field *schema*, not a literal layout): `NS-ID | Class | Statement | Evidence |
 Status | Scope | Source`. `:cited` = established external theorem (not ours).
 `:falsified` = ruled-out approach. `:tested` = we computed it (read the Scope).
 `:argued` = manual argument. `:open` = unresolved. `:proved` = rigorous proof of a
@@ -14,7 +14,8 @@ Counts: 1 PROBLEM, 8 OBSTRUCTION, 2 DIAGNOSTIC, 1 live RESULT/CONJECTURE (extern
 static/dynamic frontiers + NS-049 `:open` Lockwood conditional-criterion audit + NS-050 `:open`
 modulation/Type-II map). **NS-051** = the Python→Lean formalization-ladder infrastructure entry
 (`:tested`, Scope ≠ PDE — machine-verified *definitions*, firewall intact). **NS-052** = the cross-repo
-Go-Map witness round (grok-test, verified + ported per A7; `:tested`, Scope ≠ PDE). `:proved` = 0. (37 entries.)
+Go-Map witness round (grok-test, verified + ported per A7; `:tested`, Scope ≠ PDE). **NS-053** = hyperdissipation
+α-continuation boundary instrument (grok-test GO-023/024; `:open`, Scope ≠ PDE). `:proved` = 0. (38 entries.)
 
 Active-turbulence phenomenology track → `SIM_SPEC.md` (AT-1..5), Scope ≠ PDE.
 
@@ -1283,4 +1284,23 @@ The verification ladder that walks each algebraic/differential **identity** back
 
 **NS-052 — Cross-repo Go-Map witness round (grok-test): the positive-attack complement, verified + ported.** *RESULT* (cross-repo witness verification). Evidence: external-spec-reference (`substrate_source: grok-test@241bc69`, corrections `a8aa292`) + computed verification in this repo (**T-30**; artifact `docs/gomap_verification_2026-06-12.{md,out.txt}`). **Status: :tested. Scope: resolved-DNS / 1D-model witness (≠ PDE).** Source: `~/grok-test` (GO_MAP/GO_SPEC, GO-001..012, Grok collaboration); verification chain re-run in this repo. `:proved`=0.
 
+
+
+---
+
 The Grok-built **Go Map** stress-tested positive readings of the two MDAGC holes with pre-stated kill criteria and the inherited firewall. Per the A7 substrate rule the durable rows enter this ledger only after local verification — done: **GO-001/GO-008 re-runs byte-identical** to the pin, **GO-003/GO-009 numeric-exact** (θ*=0.462; β = 1.2199/2.4682/0.8771), GO-005 clean-run. Ported findings: **(1) the Hole-A integral-proxy cap** — shell/CKN-mask/soft-weight Rp probes STRESSED, N-stable in sign 64↔128 (worst-case negative shells), **convergent with the NS-046 triad-trimmed weight/feed result** from an orthogonal cut; both maps independently conclude the "one more DNS probe" lane is capped *unless the witness target changes*, and both name the same composition as the one remaining licensed probe — **shell/CKN-localized R_feed** (their localization × this repo's machine-verified FEED denominator). **(2) GO-005 swirl-sign falsification** — S dominant-sign flips during intensification while Γ≥0 (corroborates + sharpens the NS-048 swirl-sign cell from an independent fixture). **(3) GO-008 — the first quantitative NS-045↔NS-049 bridge:** on the matched-spectrum pair, Beltramization *delays* the δ_Λ threshold (+1.5 on two thresholds; peak δ 0.527 vs 0.587; matched-intensity Δ=−0.031 small ⇒ the delay is the robust datum); explicitly does NOT rescue Lockwood. **(4) GO-003 — W1 quantified:** production recovery is continuous in coherence, θ*≈0.46 — partially answering the NS-013 triad's P2-C1 triviality attack (not a Gaussianity step-function). **(5) GO-009 — β band-membership** added to the NS-050 instrument kit (with the **calibration-window flag**: CLM 1.22 whole-trajectory vs 1.00 asymptotic, 22% window-dependence). **Catches flowed back** (grok-test `a8aa292`): the HQWW attribution, the β-window flag, the `.lake` build-isolation hazard (GO-011's Lean bridge NOT re-verified pending an isolated rebuild). Depends NS-045/046/048/049/050/013. Distance UNTOUCHED.
+
+---
+
+
+---
+
+**NS-053 — The (d, α) continuation boundary: locating true NS relative to the blow-up onset.** *FORWARD-TARGET* (instrument / attack-geometry map). Evidence: external-spec-reference (rails tier-checked) + computed witnesses (1D-model: in-repo **T-31** + grok-test GO-023/024, the latter **pinned, not yet re-verified here** — A7 pattern, verify-pass pending). **Status: :open (the target). Scope: PDE-analysis (≠ the PDE); probes = 1D-model witness.** Source: **two INDEPENDENT attacks, merged after the fact** — `docs/ns053_continuation_boundary_claude.md` (Claude) + `docs/ns053_continuation_boundary.md` (Grok; grok-test GO-023/024) — seeded by Aaron. An NS-ID collision (both sessions wrote "NS-053" concurrently) was resolved into this single entry 2026-06-12. `:proved`=0.
+
+**The frame.** True NS = **(3,1)** in the (d, α) plane, with the tier-checked spine **α_c(d)=(d+2)/4 ⇔ d_c(α)=4α−2** (Tao 0906.3070 **C2** — regular at/above, *logarithmically* below ⇒ soft rail; this closes the Grok doc's "α≥5/4 line-read pending"). Supporting rigour along the rail: Katz–Pavlović partial regularity, singular-set Hausdorff dim ≤ 5−4α for 1<α<5/4 (**C2**, grok line-read). The plane's blow-up side is **empty of rigorous NS points** near (3,1) — the program is instrument-and-map; the honest target is the **failure mode** approaching (3,1).
+
+**Independent convergences (the strong findings — two sessions, different instruments, same answers):** (1) **Hou's `n` is NOT an ambient dimension** — `n = 1 + 2R(t)/Z(t)`, operator-coefficient continuation whose purpose is *preventing two-scale anisotropy* (Claude: ar5iv formulation extraction; Grok: line-read GO-023 — independent agreement); stabilized `n≈3.188` (= margin +0.19 above NS in d_c-coordinates), **no sensitivity analysis published**. (2) **The α-boundary on the ground-truth CLM family sits at α≈1**: Grok's rigidity monitor loses stability above **α≈1.08**; Claude's blow-up/decay bisection gives **α*_eff(ν=0.2) ∈ (0.9297, 0.9320)** — two instruments bracketing the self-derived asymptotic prediction α*=1 from above and below.
+
+**Complementary findings:** (3) **The failure mode (the entry's central question — Claude):** at the boundary the blow-up dies by **stalling against a marginal state** — t* diverges from below (3.4→5.2) AND a long-lived near-singular "ghost" transient diverges from above (peak 43.7 just past α*): a saddle-node-like profile-marginalization, not a mechanism switch — the model-level template for what a Liouville-side argument must capture. (4) **The 1D n-proxy is FALSIFIED (Grok, GO-023 kill #1):** CLM stability minimum at n_dyn≈2.75, HL n_obs→≈1.09 — **the n-family is dead as a 1D proxy**; scoped honestly, this kills proxies, not the genuine 3D-axisym n-dial (which lives only in the `(r,z)` generalized-axisym setting — the validated `ns048_axisym_swirl_dns.jl` solver can host Hou's coefficients directly; that is the real next d-rung). (5) **Methodological requirement, binding on every future cell (Claude):** finite-amplitude thresholds **cannot see the asymptotic boundary for α>1** (α*_eff(ν=0.05)>1.6: threshold-crossing transients + the periodic IR floor) — **(d,α) mapping requires asymptotic-regime certificates (co-moving gates, the T-06 pattern), not amplitude thresholds.** The probe's anchor gate caught 3 real bugs pre-read (resolution envelope; a fresh-FFT bit-reversal off-by-one — validated T-03 kernel imported verbatim; tail-gate physicality) — T-31.
+
+**Kill criteria (merged):** the seed's two stand (the d-anchor falls if Hou's continuation proves a pure regularizer — *the 1D-proxy half is already met*; the α-family reduces to citation+port if its boundary mechanism is found characterized in the literature); plus Grok's GO-024 watch (α-boundary indistinguishable from regular interior). Next rungs: α-dial on Hou–Luo (HQWW profiles); the genuine d-dial on the `(r,z)` solver; a verify-pass on GO-023/024 per A7. Depends NS-002/007/048/050; the Liouville-map relation (`docs/ns048_ancient_liouville_litmap.md` §5): the same monotonicity-formula hunt from the construction side. Distance UNTOUCHED.

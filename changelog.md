@@ -1,5 +1,31 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.32 — 2026-06-12 — NS-053 LANDED (two independent attacks, merged): the (d,α) continuation boundary; SPEC 37→38, v0.14.0
+
+Aaron's seed (the (d,α) plane embedding true NS=(3,1)) was attacked **twice in parallel by design** —
+Grok (GO-023/024, `docs/ns053_continuation_boundary.md`) and Claude (independent, no peeking,
+`docs/ns053_continuation_boundary_claude.md`) — and the resulting **SPEC ID collision (two NS-053 entries,
+one spliced mid-NS-052) was caught by the ledger guard** and merged into one entry. **Independent
+convergences (the strong findings):** (1) Hou's `n` is NOT ambient dimension — `n=1+2R(t)/Z(t)`,
+operator-coefficient continuation preventing two-scale anisotropy (both attacks, separately); stabilized
+n≈3.188 = margin +0.19 above NS, no published sensitivity. (2) The α-boundary on ground-truth CLM sits at
+α≈1: Grok's rigidity monitor loses stability above ≈1.08; Claude's blow-up/decay bisection gives
+**α*_eff(ν=0.2) ∈ (0.9297, 0.9320)** — two instruments bracketing the self-derived asymptotic prediction
+α*=1. **Complementary:** (3) **the failure mode** (the entry's central question, Claude): a
+**MARGINAL-STATE / saddle-node-like boundary** — t* diverges from below (3.4→5.2) and a near-singular
+"ghost" transient diverges from above (peak 43.7) ⇒ blow-up dies by stalling, not mechanism-switch;
+(4) the **1D n-proxy is FALSIFIED** (Grok kill #1 — scoped to proxies; the genuine d-dial = Hou's
+coefficients on the validated `(r,z)` solver); (5) **binding methodology** (Claude): amplitude thresholds
+cannot see the α>1 asymptotic boundary (α*_eff(ν=0.05)>1.6 — transients + the periodic IR floor) ⇒
+**(d,α) mapping requires co-moving asymptotic certificates (the T-06 pattern)**. Tier pass: Tao 0906.3070
+**C2** (α_c=(d+2)/4, log-soft — closes Grok's "line-read pending"); Katz–Pavlović dim≤5−4α C2; Hou
+C2+formulation. **T-31** = the probe's anchor gate (it refused three broken configurations pre-read, incl.
+a fresh-FFT bit-reversal bug caught by a DFT check — validated T-03 kernel now imported verbatim). Also
+committed: `docs/ns048_ancient_liouville_litmap.md` (the Liouville literature map, filed with ▸CLAUDE
+in-repo cross-check annotations + re-ranked queue 4.1→4.3→4.2; Aaron-approved). grok-side GO-023/024
+witnesses pinned, **re-verification pending** (A7). SPEC 37→38 (v0.13.1→v0.14.0); guard 38/38.
+`:proved`=0 everywhere; distance UNTOUCHED.
+
 ## v0.15.31 — 2026-06-12 — Carleman ladder-6a: the energy identity `⟨Su,u⟩ = −∫(‖∇u‖² + ½F·u²)e^g`
 
 `Carleman.lean` +~100 lines (2435 total), new section `Lemma41`. **Library infrastructure;

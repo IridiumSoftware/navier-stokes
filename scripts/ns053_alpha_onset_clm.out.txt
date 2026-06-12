@@ -1,0 +1,77 @@
+==============================================================================
+  NS-053 α-onset probe — dissipative CLM  ω_t = ωHω − νΛ^α ω   (1D ground-truth model)
+  Scaling prediction to test: boundary at α* ≈ 1, ν-independent (the model's critical line)
+  Scope: 1D-model witness; NOT NS; :proved=0
+==============================================================================
+
+  [anchor ν=0]  verdict=blowup  t*=1.9875  (exact t*=2.0000; err 0.63%)  tail@cross=0.1055
+  [anchor α=2, ν=0.2]  verdict=decay  peak=1.000@t=0.00  (strong dissipation must decay)
+  anchors: PASS — probe licensed
+
+──────────────────────────────────────────────────────────────────────────────
+  ν = 0.05 — coarse sweep then bisection of α*
+    α      verdict     t*        peak       tail@cross
+   0.400   blowup        2.119      83.05   0.1344
+   0.550   blowup        2.134      81.32   0.1319
+   0.700   blowup        2.154      81.38   0.1339
+   0.850   blowup        2.182      81.78   0.1347
+   1.000   blowup        2.222      81.70   0.1275
+   1.150   blowup        2.283      80.55   0.1034
+   1.300   blowup        2.379      80.36   0.0641
+   1.450   blowup        2.531      80.26   0.0171
+   1.600   blowup        2.773      80.03   0.0015
+    bracket: blow-up ≤ 1.600 < α* < Inf
+   Inf  undecided         —       1.00   0.0000
+   Inf  undecided         —       1.00   0.0000
+   Inf  undecided         —       1.00   0.0000
+   Inf  undecided         —       1.00   0.0000
+   Inf  undecided         —       1.00   0.0000
+   Inf  undecided         —       1.00   0.0000
+  ⇒ α*(ν=0.05) ∈ (1.6000, Inf)
+    failure-mode trace (approach from the blow-up side):
+      α=1.4500  blowup     t*=   2.531  peak=    80.26
+      α=1.5000  blowup     t*=   2.599  peak=    80.91
+      α=1.5500  blowup     t*=   2.679  peak=    80.39
+      α=1.5800  blowup     t*=   2.734  peak=    80.32
+      α=1.6000  blowup     t*=   2.773  peak=    80.03
+    regular-side trace (peak transient above α*):
+      α=Inf  undecided  peak=     1.00 @ t=0.00
+      α=Inf  undecided  peak=     1.00 @ t=0.00
+      α=Inf  undecided  peak=     1.00 @ t=0.00
+
+──────────────────────────────────────────────────────────────────────────────
+  ν = 0.20 — coarse sweep then bisection of α*
+    α      verdict     t*        peak       tail@cross
+   0.400   blowup        2.749      82.21   0.2665
+   0.550   blowup        2.901      80.07   0.2813
+   0.700   blowup        3.165      80.00   0.3066
+   0.850   blowup        3.765      80.06   0.3360
+   1.000   decay             —       2.49   0.0000
+   1.150   decay             —       1.31   0.0000
+   1.300   decay             —       1.08   0.0000
+   1.450   decay             —       1.00   0.0000
+   1.600   decay             —       1.00   0.0000
+    bracket: blow-up ≤ 0.850 < α* < 1.000
+   0.9250  blowup        4.864      80.27   0.3742
+   0.9625  decay             —       4.37   0.0000
+   0.9438  decay             —       8.79   0.0000
+   0.9344  decay             —      24.21   0.0000
+   0.9297  blowup        5.188      80.05   0.3888
+   0.9320  decay             —      43.68   0.0000
+  ⇒ α*(ν=0.20) ∈ (0.9297, 0.9320)
+    failure-mode trace (approach from the blow-up side):
+      α=0.7797  blowup     t*=   3.406  peak=    81.93
+      α=0.8297  blowup     t*=   3.638  peak=    80.48
+      α=0.8797  blowup     t*=   4.013  peak=    80.74
+      α=0.9097  blowup     t*=   4.428  peak=    80.12
+      α=0.9297  blowup     t*=   5.188  peak=    80.05
+    regular-side trace (peak transient above α*):
+      α=0.9320  decay      peak=    43.68 @ t=5.41
+      α=0.9820  decay      peak=     3.07 @ t=4.76
+      α=1.0820  decay      peak=     1.56 @ t=3.84
+
+==============================================================================
+  READ (witness): compare α*(0.05) vs α*(0.2) to the scaling prediction α*=1; the
+  failure mode is whichever diverges at the boundary — t* (critical slowing) or the
+  regular-side peak (amplitude gate). 1D model only; :proved=0; distance UNTOUCHED.
+==============================================================================
