@@ -162,6 +162,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   real weighted-L² objects.
 - **Ladder-6a (`Lemma41`)** — `weightedPairing_S_self`, the energy identity
   `⟨S_g(t)u, u⟩_g = −∫(‖∇u‖² + ½F·u²)e^g` (Tao's `⟨Su,u⟩` display; weighted Green with `v := u`).
+- **Ladder-6b-α substrate i (`CommutatorSubstrate`)** — the pure-spatial calculus toward the
+  commutator quadratic form: `laplacian_mul` (the Laplacian Leibniz rule `Δ(uv) = uΔv + vΔu +
+  2⟪∇u,∇v⟫`, a filled Mathlib gap), `inner_grad_eq_sum` (spatial Parseval), `laplacian_fun_sum`
+  (finite-sum additivity). False coefficient-1 variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

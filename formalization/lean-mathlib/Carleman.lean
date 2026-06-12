@@ -2426,6 +2426,104 @@ theorem weightedPairing_S_self (hK : IsCompact K) {g gt : ℝ → E → ℝ}
 
 end Lemma41
 
+/-! ### Ladder-6b-α: the spatial substrate for the concrete commutator
+
+Pure spatial-calculus infrastructure for Tao §4's commutator quadratic form
+`⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`. The foundational gap is the Laplacian Leibniz
+rule (`Δ(fg)` — absent from Mathlib). Everything is `:proved`=0-neutral library infrastructure. -/
+
+section CommutatorSubstrate
+
+open MeasureTheory Real Laplacian InnerProductSpace
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [CompleteSpace E]
+
+/-- **The Laplacian Leibniz rule** (pointwise, a Mathlib gap):
+    `Δ(u·v) = u·Δv + v·Δu + 2⟪∇u, ∇v⟫` for `u, v` C². -/
+theorem laplacian_mul {u v : E → ℝ} (hu : ContDiff ℝ 2 u) (hv : ContDiff ℝ 2 v)
+    (x : E) :
+    Δ (fun y => u y * v y) x
+      = u x * Δ v x + v x * Δ u x + 2 * ⟪∇ u x, ∇ v x⟫ := by
+  classical
+  set b := stdOrthonormalBasis ℝ E with hb
+  have hfu1 : ContDiff ℝ 1 (fderiv ℝ u) := hu.fderiv_right (by norm_num)
+  have hfv1 : ContDiff ℝ 1 (fderiv ℝ v) := hv.fderiv_right (by norm_num)
+  have hud : ∀ y : E, HasFDerivAt u (fderiv ℝ u y) y := fun y =>
+    (hu.differentiable (by norm_num) y).hasFDerivAt
+  have hvd : ∀ y : E, HasFDerivAt v (fderiv ℝ v y) y := fun y =>
+    (hv.differentiable (by norm_num) y).hasFDerivAt
+  -- the first derivative of the product, as a function E → (E →L[ℝ] ℝ)
+  have heq : (fderiv ℝ fun y : E => u y * v y)
+      = fun y : E => u y • fderiv ℝ v y + v y • fderiv ℝ u y := by
+    funext y
+    exact ((hud y).mul (hvd y)).fderiv
+  -- its second derivative at `x`
+  have hH : HasFDerivAt (fun y : E => u y • fderiv ℝ v y + v y • fderiv ℝ u y) _ x :=
+    (HasFDerivAt.smul (hud x) (hfv1.differentiable one_ne_zero x).hasFDerivAt).add
+      (HasFDerivAt.smul (hvd x) (hfu1.differentiable one_ne_zero x).hasFDerivAt)
+  rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis _ b) x]
+  have hterm : ∀ i, iteratedFDeriv ℝ 2 (fun y : E => u y * v y) x ![b i, b i]
+      = u x * fderiv ℝ (fderiv ℝ v) x (b i) (b i)
+        + v x * fderiv ℝ (fderiv ℝ u) x (b i) (b i)
+        + 2 * (fderiv ℝ u x (b i) * fderiv ℝ v x (b i)) := by
+    intro i
+    rw [iteratedFDeriv_two_apply, heq, hH.fderiv]
+    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply,
+      ContinuousLinearMap.smulRight_apply, smul_eq_mul,
+      Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons]
+    ring
+  rw [Finset.sum_congr rfl fun i _ => hterm i, Finset.sum_add_distrib,
+      Finset.sum_add_distrib, ← Finset.mul_sum, ← Finset.mul_sum, ← Finset.mul_sum]
+  have hlapv : Δ v x = ∑ i, fderiv ℝ (fderiv ℝ v) x (b i) (b i) := by
+    rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis v b) x]
+    exact Finset.sum_congr rfl fun i _ => by rw [iteratedFDeriv_two_apply]; rfl
+  have hlapu : Δ u x = ∑ i, fderiv ℝ (fderiv ℝ u) x (b i) (b i) := by
+    rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis u b) x]
+    exact Finset.sum_congr rfl fun i _ => by rw [iteratedFDeriv_two_apply]; rfl
+  have hpar : ∑ i, fderiv ℝ u x (b i) * fderiv ℝ v x (b i) = ⟪∇ u x, ∇ v x⟫ := by
+    rw [← OrthonormalBasis.sum_inner_mul_inner b (∇ u x) (∇ v x)]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [← inner_gradient_left (hu.differentiable (by norm_num) x),
+        ← inner_gradient_left (hv.differentiable (by norm_num) x),
+        real_inner_comm (∇ v x) (b i)]
+  rw [← hlapv, ← hlapu, hpar]
+
+/-- **Spatial Parseval for gradients:** `⟪∇f, ∇h⟫ = Σᵢ (∂ᵢf)(∂ᵢh)` in the standard
+    orthonormal basis. -/
+theorem inner_grad_eq_sum {f h : E → ℝ} (hf : DifferentiableAt ℝ f x)
+    (hh : DifferentiableAt ℝ h x) :
+    ⟪∇ f x, ∇ h x⟫
+      = ∑ i, fderiv ℝ f x (stdOrthonormalBasis ℝ E i)
+          * fderiv ℝ h x (stdOrthonormalBasis ℝ E i) := by
+  set b := stdOrthonormalBasis ℝ E with hb
+  rw [← OrthonormalBasis.sum_inner_mul_inner b (∇ f x) (∇ h x)]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [← inner_gradient_left hf, ← inner_gradient_left hh, real_inner_comm (∇ h x) (b i)]
+
+/-- **The Laplacian is additive over finite sums:** `Δ(Σᵢ Fᵢ) = Σᵢ ΔFᵢ` for C² summands. -/
+theorem laplacian_fun_sum {ι : Type*} (s : Finset ι) {F : ι → E → ℝ}
+    (hF : ∀ i ∈ s, ContDiff ℝ 2 (F i)) (x : E) :
+    Δ (fun y => ∑ i ∈ s, F i y) x = ∑ i ∈ s, Δ (F i) x := by
+  classical
+  induction s using Finset.induction with
+  | empty => simp [laplacian_const]
+  | insert a s ha ih =>
+    have hFa : ContDiff ℝ 2 (F a) := hF a (Finset.mem_insert_self a s)
+    have hFs : ∀ i ∈ s, ContDiff ℝ 2 (F i) := fun i hi =>
+      hF i (Finset.mem_insert_of_mem hi)
+    have hsum2 : ContDiff ℝ 2 (fun y => ∑ i ∈ s, F i y) :=
+      ContDiff.sum fun i hi => hFs i hi
+    have hcongr : (fun y => ∑ i ∈ insert a s, F i y)
+        = F a + fun y => ∑ i ∈ s, F i y := by
+      funext y; rw [Pi.add_apply, Finset.sum_insert ha]
+    rw [hcongr, ContDiffAt.laplacian_add hFa.contDiffAt hsum2.contDiffAt,
+        Finset.sum_insert ha, ih hFs]
+
+end CommutatorSubstrate
+
+
 
 
 

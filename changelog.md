@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.33 — 2026-06-12 — Carleman ladder-6b-α (substrate i): the Laplacian Leibniz rule + spatial Parseval + finite-sum Laplacian
+
+`Carleman.lean` +~85 lines (2533 total), new section `CommutatorSubstrate`. **Library
+infrastructure; `:proved`=0 for the PDE.** The pure-spatial calculus toward Tao §4's commutator
+quadratic form `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`:
+- **`laplacian_mul` — the Laplacian Leibniz rule** (a Mathlib gap; Mathlib has add/smul/neg/sub
+  and CLM-comp but no product rule): `Δ(u·v) = u·Δv + v·Δu + 2⟪∇u,∇v⟫` for `u,v` C². Proof
+  mirrors `laplacian_exp_comp`: expand `Δ` over the orthonormal basis, compute each `iFD2(uv)`
+  term from the once-differentiated product `fderiv(uv) = u•∇v + v•∇u` via `HasFDerivAt.smul`
+  + `smulRight_apply`, then reassemble with `laplacian_eq_iteratedFDeriv` and Parseval.
+- **`inner_grad_eq_sum`** — spatial Parseval `⟪∇f,∇h⟫ = Σᵢ (∂ᵢf)(∂ᵢh)` named as a standalone
+  (was an inline pattern).
+- **`laplacian_fun_sum`** — `Δ(Σᵢ Fᵢ) = Σᵢ ΔFᵢ` for C² summands (`Finset.induction` over
+  `ContDiffAt.laplacian_add`).
+- **Soundness:** no `sorry`; the false variant (cross-term coefficient `1` instead of `2` in
+  the Leibniz rule) is REJECTED at `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Next: ladder-6b-α (substrate ii–iii):** the spatial Clairaut swap `Δ(∂ⱼf) = ∂ⱼ(Δf)`
+(E-domain iFD3 swaps — restated from the 5b-ii domain-generic proofs) → **the four-index
+identity** `Δ⟪∇f,∇h⟫ = ⟪∇(Δf),∇h⟫ + 2Σᵢⱼ (∂ᵢⱼf)(∂ᵢⱼh) + ⟪∇f,∇(Δh)⟫` (assemble via
+`laplacian_fun_sum` + `laplacian_mul` per j + the swap + `inner_grad_eq_sum`). Then 6b-β/γ/δ.
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.32 — 2026-06-12 — NS-053 LANDED (two independent attacks, merged): the (d,α) continuation boundary; SPEC 37→38, v0.14.0
 
 Aaron's seed (the (d,α) plane embedding true NS=(3,1)) was attacked **twice in parallel by design** —
