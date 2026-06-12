@@ -67,3 +67,23 @@ NS-048 / W2 rows — credited in the grok-test ledger, no new content here).
 All witness-tier, vacuity-capped, `Scope ≠ PDE`. The Go Map's own conclusion matches this repo's: Hole A's
 remaining target is analytic (a true Besov deformation inequality, not grid ratios); Hole B's is
 Liouville-level structure. `:proved`=0; distance UNTOUCHED.
+
+## Addendum (same day) — GO-022: the composed probe RAN; KILL MET; the Hole-A DNS lane is FULLY capped
+
+The one experiment both maps still licensed — **shell-localized R_feed** (GO-001's dominant-shell
+localization × this repo's machine-verified FEED denominator) — was built as `grok-test
+explorations/go022_shell_feed_domination.jl` (briefly "GO-013"; renamed on collision with the
+ancient-Liouville wave) and run at N=32/64/128. **The pre-stated kill is MET:** worst-case
+`min_j R_feed(j) < 1` on the top-0.1% production set, **N-stable same-sign at 64↔128, all three flows**
+(HELICAL −1.53→−1.16 @t=2; CONTROL +0.08→−0.15 @t=1; TUBES −1.92→−1.40 @t=0).
+
+> **The Hole-A (NS-046) DNS lane is now FULLY capped: zero licensed integral-proxy probes remain in
+> either map.** What remains is analytic — the true critical-Besov deformation inequality, measured
+> against the FEED — exactly the conclusion both maps reached independently before the composition.
+
+**Secondary structure (recorded, NOT promoted — it would post-hoc weaken the pre-stated criterion):**
+the violations concentrate in the *early/transient* epochs (the TUBES worst is the analytic IC at t=0);
+at the **peak-intensity epoch** `min_j R_feed ≥ 1` at N=128 in all three flows (+1.25/+1.79/+1.34),
+*strengthening* with N (from +0.55/+1.14/+0.17). If anyone returns to this lane, a *pre-stated*
+peak-epoch formulation is the natural new experiment — it is not a rescue of this one. `:proved`=0;
+vacuity cap throughout (a regular truncation has no singular set).

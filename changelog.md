@@ -1,5 +1,22 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.28 — 2026-06-12 — GO-022 (the composed probe) RAN: KILL MET — the Hole-A DNS lane is FULLY capped
+
+The single DNS experiment both maps still licensed — **shell-localized R_feed** (GO-001's dominant-shell
+localization on the top-0.1% production set × this repo's machine-verified FEED denominator
+`¼(|ω|²−(ω·e₃)²)`) — was built and run in grok-test (`go022_shell_feed_domination.jl`, N=32 smoke + 64 +
+128; briefly "GO-013", renamed on collision with Grok's concurrent ancient-Liouville wave GO-013..017).
+**The pre-stated kill is MET:** worst-case `min_j R_feed(j) < 1`, **N-stable same-sign at 64↔128, all three
+flows** (HELICAL −1.53→−1.16 @t=2; CONTROL +0.08→−0.15 @t=1; TUBES −1.92→−1.40 @t=0). ⇒ **the Hole-A
+(NS-046) DNS integral-proxy lane is FULLY capped — zero licensed probes remain in either map**; what remains
+is analytic (the true critical-Besov deformation inequality, against the FEED). **Secondary structure
+recorded, NOT promoted** (it would post-hoc weaken the pre-stated criterion): the violations concentrate in
+the early/transient epochs (the TUBES worst is the analytic IC at t=0); at the **peak-intensity epoch**
+min-shell R_feed ≥ 1 at N=128 in all flows (+1.25/+1.79/+1.34), *strengthening* with N — a *pre-stated*
+peak-epoch formulation would be a new experiment, not a rescue. Ledgered: grok-test GO_SPEC/GO_MAP GO-022
+(`:falsified`, grok-test `385c9be`) + this repo's verification-doc addendum + NS-046 target-doc cap note +
+NS-052 registry row. Scope: truncation witness; vacuity-capped; `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.27 — 2026-06-12 — NS-052: the Grok-built Go Map VERIFIED + PORTED (cross-repo, A7 pattern); SPEC 36→37, v0.13.0
 
 The Grok collaboration's **positive-attack map** (`~/grok-test`, GO-001..012 — the "go" complement to this

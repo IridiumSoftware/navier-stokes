@@ -72,6 +72,11 @@ source of λ₃ — `¼(|ω|²−(ω·e₃)²)`, per the sign-check derivation �
 0.98–1.03 (marginal)**; the comfortable 2.4 was substantially an artifact of the λ₃² denominator (the
 self-*damping* term). Single snapshot / fixture / resolution throughout — *suggestive only*; any future
 domination probe must measure against the FEED, with an N-trend and a second fixture, before any reading.
+
+**The composed probe RAN (2026-06-12, GO-022 in grok-test; `docs/gomap_verification_2026-06-12.md`
+addendum): KILL MET.** Shell-localized R_feed < 1 worst-case, N-stable 64↔128, all three flows ⇒ **the
+Hole-A DNS integral-proxy lane is FULLY capped — zero licensed probes remain in either map.** (Peak-epoch
+ratios ≥1 strengthening with N recorded as observation only, post-hoc.) What remains here is analytic.
 **TWO GUARDS (do NOT over-read — this is the over-reach-prone entry):** (a) the depletion **SIGN convention**
 (`e₃ᵀ∇²p e₃>0 ⇒ depletes`) — **Required Check now CLOSED, see below**; (b) a regular truncation
 has **no singular set** — `R_int>1` is a *suggestive prior*, NOT the inequality and NOT progress. **NS-046
