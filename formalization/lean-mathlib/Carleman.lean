@@ -1650,10 +1650,11 @@ theorem commutatorMethod_weighted (hK : IsCompact K) {g gt : ℝ → E → ℝ}
     (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (g t)) (hgt : ∀ t, ContDiff ℝ (⊤ : ℕ∞) (gt t))
     (hgw : ∀ t x, HasDerivAt (fun τ => g τ x) (gt t x) t)
     (hcg : Continuous ↿g) (hcgt : Continuous ↿gt)
-    (hmemS : ∀ a ∈ Admissible (K := K),
-      (fun τ => Sop hK.isClosed g gt hg hgt τ (a τ)) ∈ Admissible) :
+    {A : Set (ℝ → smoothTestSubmodule K)} (hsub : A ⊆ Admissible)
+    (hmemS : ∀ a ∈ A,
+      (fun τ => Sop hK.isClosed g gt hg hgt τ (a τ)) ∈ A) :
     CommutatorMethod (weightedPairing hK g hg) (Lop K)
-      (Sop hK.isClosed g gt hg hgt) Admissible := by
+      (Sop hK.isClosed g gt hg hgt) A := by
   classical
   have hsuppK : ∀ p : E → ℝ, (∀ x, x ∉ K → p x = 0) → Continuous p →
       Integrable p (volume : Measure E) := fun p hp hc =>
@@ -1736,7 +1737,9 @@ theorem commutatorMethod_weighted (hK : IsCompact K) {g gt : ℝ → E → ℝ}
     refine integral_nonneg fun x => ?_
     exact mul_nonneg (mul_self_nonneg _) (Real.exp_pos _).le
   · -- deriv_pair: the master differential identity
-    rintro a ⟨a', ha'd, ha's, hca, hca'⟩ b ⟨b', hb'd, hb's, hcb, hcb'⟩ t₀
+    intro a haA b hbA t₀
+    obtain ⟨a', ha'd, ha's, hca, hca'⟩ := hsub haA
+    obtain ⟨b', hb'd, hb's, hcb, hcb'⟩ := hsub hbA
     have hu2 : ∀ t, ContDiff ℝ 2 ((a t : E → ℝ)) := fun t =>
       (a t).2.1.of_le (by norm_cast <;> exact le_top)
     have hv2 : ∀ t, ContDiff ℝ 2 ((b t : E → ℝ)) := fun t =>
@@ -2133,6 +2136,199 @@ end LaplacianSwap
 
 
 end SliceCalculus
+
+/-! ### Ladder-5c: the jointly smooth admissible class and the UNCONDITIONAL instance
+
+`AdmissibleJoint` asks for ONE thing: the uncurried curve `(t,x) ↦ a(t)(x)` is jointly C^∞
+(spatial support is already carried by the codomain). Every witness of `Admissible` then
+*derives* (`admissibleJoint_subset`), and — via the two Clairaut keystones (5a/5b) — the class
+is stable under `S_g(t)`: `admissibleJoint_mem_S` exhibits the S-curve's uncurried function as
+a manifestly-smooth expression in joint `iteratedFDeriv`/`fderiv` coordinates. Together these
+discharge `mem_S`, the one assumed hypothesis of ladder-4: `commutatorMethod_weighted_joint`
+is the unconditional `CommutatorMethod` instance. -/
+
+section JointAdmissible
+
+open MeasureTheory Real Laplacian InnerProductSpace WeightedGreenAux
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E]
+  {K : Set E}
+
+/-- `laplacian_slice_eq` in joint `iteratedFDeriv` coordinates. -/
+theorem laplacian_slice_eq_iFD2 {U : ℝ × E → ℝ} (hU : ContDiff ℝ 2 U) (t : ℝ) (x : E) :
+    Δ (fun y => U (t, y)) x
+      = ∑ i, iteratedFDeriv ℝ 2 U (t, x)
+          ![((0 : ℝ), stdOrthonormalBasis ℝ E i),
+            ((0 : ℝ), stdOrthonormalBasis ℝ E i)] := by
+  rw [laplacian_slice_eq hU t x]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [iteratedFDeriv_two_apply]
+  rfl
+
+/-- Parseval for slice gradients, in joint coordinates: the inner product of two spatial
+    slice gradients is the basis sum of products of vertical joint derivatives. -/
+theorem inner_gradients_slice {F H : ℝ × E → ℝ} {p : ℝ × E}
+    (hF : DifferentiableAt ℝ F p) (hH : DifferentiableAt ℝ H p) :
+    ⟪∇ (fun x => F (p.1, x)) p.2, ∇ (fun x => H (p.1, x)) p.2⟫
+      = ∑ i, fderiv ℝ F p ((0 : ℝ), stdOrthonormalBasis ℝ E i)
+          * fderiv ℝ H p ((0 : ℝ), stdOrthonormalBasis ℝ E i) := by
+  set b := stdOrthonormalBasis ℝ E with hb
+  have hFs : DifferentiableAt ℝ (fun x => F (p.1, x)) p.2 :=
+    (hasFDerivAt_slice hF).differentiableAt
+  have hHs : DifferentiableAt ℝ (fun x => H (p.1, x)) p.2 :=
+    (hasFDerivAt_slice hH).differentiableAt
+  rw [← OrthonormalBasis.sum_inner_mul_inner b (∇ (fun x => F (p.1, x)) p.2)
+      (∇ (fun x => H (p.1, x)) p.2)]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [← fderiv_slice_apply hF (b i), ← fderiv_slice_apply hH (b i),
+      ← inner_gradient_left hFs, ← inner_gradient_left hHs,
+      real_inner_comm (∇ (fun x => H (p.1, x)) p.2) (b i)]
+
+/-- Jointly smooth admissible curves: the single requirement is joint smoothness of the
+    uncurried function. Spatial support comes with the codomain. -/
+def AdmissibleJoint : Set (ℝ → smoothTestSubmodule K) :=
+  {a | ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E => (a p.1 : E → ℝ) p.2}
+
+/-- Every witness of `Admissible` derives from joint smoothness: the time-derivative
+    curve is the horizontal joint derivative, smooth and continuous by inheritance. -/
+theorem admissibleJoint_subset :
+    (AdmissibleJoint : Set (ℝ → smoothTestSubmodule K)) ⊆ Admissible := by
+  intro a ha
+  have hU : ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E => (a p.1 : E → ℝ) p.2 := ha
+  have hfU : ContDiff ℝ (⊤ : ℕ∞) (fderiv ℝ fun p : ℝ × E => (a p.1 : E → ℝ) p.2) :=
+    hU.fderiv_right (by exact_mod_cast le_top)
+  refine ⟨fun t x => fderiv ℝ (fun p : ℝ × E => (a p.1 : E → ℝ) p.2) (t, x)
+      ((1 : ℝ), (0 : E)), fun t x => ?_, fun t => ?_, ?_, ?_⟩
+  · exact hasDerivAt_curve (hU.differentiable (by norm_num) (t, x))
+  · exact (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+      (hfU.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+  · exact hU.continuous
+  · exact (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).continuous.comp
+      hfU.continuous
+
+/-- **Stability of the jointly smooth class under `S_g(t)`** — the `mem_S` discharge.
+    The S-curve's uncurried function is rewritten, via the slice calculus, into joint
+    `iteratedFDeriv`/`fderiv` coordinates, where smoothness is inherited termwise. -/
+theorem admissibleJoint_mem_S (hKc : IsClosed K) {G : ℝ × E → ℝ}
+    (hG : ContDiff ℝ (⊤ : ℕ∞) G)
+    (hg : ∀ t, ContDiff ℝ (⊤ : ℕ∞) fun x => G (t, x))
+    (hgt : ∀ t, ContDiff ℝ (⊤ : ℕ∞) fun x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+    {a : ℝ → smoothTestSubmodule K} (ha : a ∈ AdmissibleJoint) :
+    (fun τ => Sop hKc (fun t x => G (t, x))
+      (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E))) hg hgt τ (a τ))
+      ∈ AdmissibleJoint := by
+  have hU : ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E => (a p.1 : E → ℝ) p.2 := ha
+  have hU2 : ContDiff ℝ 2 fun p : ℝ × E => (a p.1 : E → ℝ) p.2 :=
+    hU.of_le (by norm_cast <;> exact le_top)
+  have hG2 : ContDiff ℝ 2 G := hG.of_le (by norm_cast <;> exact le_top)
+  have hUd : Differentiable ℝ fun p : ℝ × E => (a p.1 : E → ℝ) p.2 :=
+    hU.differentiable (by norm_num)
+  have hGd : Differentiable ℝ G := hG.differentiable (by norm_num)
+  set b := stdOrthonormalBasis ℝ E with hb
+  show ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E =>
+    Sfun (fun t x => G (t, x)) (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+      p.1 ((a p.1 : E → ℝ)) p.2
+  have key : (fun p : ℝ × E =>
+      Sfun (fun t x => G (t, x)) (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+        p.1 ((a p.1 : E → ℝ)) p.2)
+      = fun p : ℝ × E =>
+        (∑ i, iteratedFDeriv ℝ 2 (fun q : ℝ × E => (a q.1 : E → ℝ) q.2) p
+            ![((0 : ℝ), b i), ((0 : ℝ), b i)])
+        + (∑ i, fderiv ℝ G p ((0 : ℝ), b i)
+            * fderiv ℝ (fun q : ℝ × E => (a q.1 : E → ℝ) q.2) p ((0 : ℝ), b i))
+        - (fderiv ℝ G p ((1 : ℝ), (0 : E))
+            - (∑ i, iteratedFDeriv ℝ 2 G p ![((0 : ℝ), b i), ((0 : ℝ), b i)])
+            - (∑ i, fderiv ℝ G p ((0 : ℝ), b i) * fderiv ℝ G p ((0 : ℝ), b i))) / 2
+          * (a p.1 : E → ℝ) p.2 := by
+    funext p
+    show Δ ((a p.1 : E → ℝ)) p.2
+        + ⟪∇ (fun x => G (p.1, x)) p.2, ∇ ((a p.1 : E → ℝ)) p.2⟫
+        - (fderiv ℝ G (p.1, p.2) ((1 : ℝ), (0 : E)) - Δ (fun x => G (p.1, x)) p.2
+            - ⟪∇ (fun x => G (p.1, x)) p.2, ∇ (fun x => G (p.1, x)) p.2⟫) / 2
+          * (a p.1 : E → ℝ) p.2 = _
+    have e1 : Δ ((a p.1 : E → ℝ)) p.2
+        = ∑ i, iteratedFDeriv ℝ 2 (fun q : ℝ × E => (a q.1 : E → ℝ) q.2) p
+            ![((0 : ℝ), b i), ((0 : ℝ), b i)] :=
+      laplacian_slice_eq_iFD2 hU2 p.1 p.2
+    have e2 : Δ (fun x => G (p.1, x)) p.2
+        = ∑ i, iteratedFDeriv ℝ 2 G p ![((0 : ℝ), b i), ((0 : ℝ), b i)] :=
+      laplacian_slice_eq_iFD2 hG2 p.1 p.2
+    have e3 : ⟪∇ (fun x => G (p.1, x)) p.2, ∇ ((a p.1 : E → ℝ)) p.2⟫
+        = ∑ i, fderiv ℝ G p ((0 : ℝ), b i)
+            * fderiv ℝ (fun q : ℝ × E => (a q.1 : E → ℝ) q.2) p ((0 : ℝ), b i) :=
+      inner_gradients_slice (hGd p) (hUd p)
+    have e4 : ⟪∇ (fun x => G (p.1, x)) p.2, ∇ (fun x => G (p.1, x)) p.2⟫
+        = ∑ i, fderiv ℝ G p ((0 : ℝ), b i) * fderiv ℝ G p ((0 : ℝ), b i) :=
+      inner_gradients_slice (hGd p) (hGd p)
+    rw [e1, e2, e3, e4]
+  rw [key]
+  have hiU : ContDiff ℝ (⊤ : ℕ∞)
+      (iteratedFDeriv ℝ 2 fun q : ℝ × E => (a q.1 : E → ℝ) q.2) :=
+    hU.iteratedFDeriv_right (by norm_cast)
+  have hiG : ContDiff ℝ (⊤ : ℕ∞) (iteratedFDeriv ℝ 2 G) :=
+    hG.iteratedFDeriv_right (by norm_cast)
+  have hfU : ContDiff ℝ (⊤ : ℕ∞) (fderiv ℝ fun q : ℝ × E => (a q.1 : E → ℝ) q.2) :=
+    hU.fderiv_right (by exact_mod_cast le_top)
+  have hfG : ContDiff ℝ (⊤ : ℕ∞) (fderiv ℝ G) :=
+    hG.fderiv_right (by exact_mod_cast le_top)
+  have hA : ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E =>
+      ∑ i, iteratedFDeriv ℝ 2 (fun q : ℝ × E => (a q.1 : E → ℝ) q.2) p
+        ![((0 : ℝ), b i), ((0 : ℝ), b i)] :=
+    ContDiff.sum fun i _ => by
+      exact (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => ℝ × E) ℝ
+        ![((0 : ℝ), b i), ((0 : ℝ), b i)]).contDiff.comp hiU
+  have hB : ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E =>
+      ∑ i, fderiv ℝ G p ((0 : ℝ), b i)
+        * fderiv ℝ (fun q : ℝ × E => (a q.1 : E → ℝ) q.2) p ((0 : ℝ), b i) :=
+    ContDiff.sum fun i _ => ContDiff.mul
+      ((ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), b i)).contDiff.comp hfG)
+      ((ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), b i)).contDiff.comp hfU)
+  have hC : ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E =>
+      fderiv ℝ G p ((1 : ℝ), (0 : E)) :=
+    (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp hfG
+  have hD : ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E =>
+      ∑ i, iteratedFDeriv ℝ 2 G p ![((0 : ℝ), b i), ((0 : ℝ), b i)] :=
+    ContDiff.sum fun i _ => by
+      exact (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => ℝ × E) ℝ
+        ![((0 : ℝ), b i), ((0 : ℝ), b i)]).contDiff.comp hiG
+  have hE : ContDiff ℝ (⊤ : ℕ∞) fun p : ℝ × E =>
+      ∑ i, fderiv ℝ G p ((0 : ℝ), b i) * fderiv ℝ G p ((0 : ℝ), b i) :=
+    ContDiff.sum fun i _ => ContDiff.mul
+      ((ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), b i)).contDiff.comp hfG)
+      ((ContinuousLinearMap.apply ℝ ℝ ((0 : ℝ), b i)).contDiff.comp hfG)
+  exact (hA.add hB).sub ((((hC.sub hD).sub hE).div_const 2).mul hU)
+
+/-- **Ladder-5c: the UNCONDITIONAL `CommutatorMethod` instance.** For a jointly smooth
+    weight `G`, the weighted pairing / backwards-heat `L` / Carleman `S` triple satisfies
+    the full commutator method on jointly smooth test curves — every field PROVED; the
+    `mem_S` toll of ladder-4 is discharged by the two Clairaut keystones (5a/5b-ii).
+    Library infrastructure; `:proved` = 0 for the PDE. -/
+theorem commutatorMethod_weighted_joint (hK : IsCompact K) {G : ℝ × E → ℝ}
+    (hG : ContDiff ℝ (⊤ : ℕ∞) G) :
+    CommutatorMethod
+      (weightedPairing hK (fun t x => G (t, x))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)))
+      (Lop K)
+      (Sop hK.isClosed (fun t x => G (t, x))
+        (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+        (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+          ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+            ((contDiff_const (c := t)).prodMk contDiff_id))))
+      AdmissibleJoint := by
+  refine commutatorMethod_weighted hK _ _ ?_ ?_ ?_ admissibleJoint_subset ?_
+  · intro t x
+    exact hasDerivAt_curve (hG.differentiable (by norm_num) (t, x))
+  · exact hG.continuous
+  · exact (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).continuous.comp
+      ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).continuous)
+  · intro a ha
+    exact admissibleJoint_mem_S hK.isClosed hG _ _ ha
+
+end JointAdmissible
+
 
 
 

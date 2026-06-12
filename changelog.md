@@ -17,6 +17,42 @@ peak-epoch formulation would be a new experiment, not a rescue. Ledgered: grok-t
 (`:falsified`, grok-test `385c9be`) + this repo's verification-doc addendum + NS-046 target-doc cap note +
 NS-052 registry row. Scope: truncation witness; vacuity-capped; `:proved`=0; distance UNTOUCHED.
 
+## v0.15.28 — 2026-06-12 — Carleman ladder-5c: `mem_S` DISCHARGED — the UNCONDITIONAL CommutatorMethod instance (`commutatorMethod_weighted_joint`)
+
+`Carleman.lean` +~196 lines (2337 total). **Library infrastructure; `:proved`=0 for the PDE.**
+- **Refactor:** `commutatorMethod_weighted` (ladder-4) generalized over the admissible class —
+  now takes `{A} (hsub : A ⊆ Admissible)` and `hmemS` for `A`; old statement = `A := Admissible`.
+- **New section `JointAdmissible`:**
+  - `laplacian_slice_eq_iFD2` — slice Laplacian in joint `iteratedFDeriv` coordinates.
+  - `inner_gradients_slice` — Parseval for slice gradients in joint coordinates
+    (`OrthonormalBasis.sum_inner_mul_inner` + `fderiv_slice_apply` + `inner_gradient_left`).
+  - **`AdmissibleJoint`** — test curves with jointly C^∞ uncurried function `(t,x) ↦ a(t)(x)`;
+    the ONE membership requirement (spatial support rides on the codomain).
+  - `admissibleJoint_subset : AdmissibleJoint ⊆ Admissible` — every ladder-4 witness DERIVES:
+    the time-derivative curve is the horizontal joint derivative (`hasDerivAt_curve`), its
+    slice smoothness and the joint continuities are inherited.
+  - **`admissibleJoint_mem_S` — the `mem_S` discharge** (the toll identified at ladder-4): the
+    S-curve's uncurried function is rewritten via the 5a/5b-ii slice calculus into joint
+    `iteratedFDeriv`/`fderiv` coordinates — `Δₓ`-terms via `laplacian_slice_eq_iFD2` (both `a`
+    and the weight), `∇·∇`-terms via `inner_gradients_slice`, the `∂tg`-term definitional —
+    where joint smoothness is inherited termwise. The jointly smooth class is stable under
+    `S_g(t)`.
+  - **`commutatorMethod_weighted_joint` — THE UNCONDITIONAL INSTANCE:** for any jointly smooth
+    weight `G : ℝ × E → ℝ` (single hypothesis `ContDiff ℝ ⊤ G`), the weighted pairing /
+    backwards-heat `L` / Carleman `S` triple satisfies the FULL `CommutatorMethod` structure on
+    `AdmissibleJoint` — every field proved, nothing assumed. The ladder-1 abstract chain
+    `∂t⟨Su,u⟩ = ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩ − ½⟨(L−2S)u,(L−2S)u⟩` and drop-the-square now hold
+    unconditionally for the real weighted-L² objects.
+- **Soundness:** no `sorry`; the false variant (the instance with the weight's time derivative
+  in the ZERO direction `(0,0)` instead of `(1,0)`) is REJECTED — the discharge produces the
+  genuine `(1,0)`-operator, which cannot match; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+- (Session note: a TCC/FDA flip interrupted the soundness checks mid-batch; state was
+  checkpointed and the file survived untouched — the documented re-toggle restored access.)
+**Next: ladder-6 = Lemma 4.1 in Tao's displayed form** — 6a: `⟨Su,u⟩ = −∫(‖∇u‖² + ½F·u²)e^g`
+(Green with `v := u`); 6b: the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`
+(Hessian-bilinear integral calculus — the main remaining unknown). Then Props 4.2/4.3.
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.27 — 2026-06-12 — NS-052: the Grok-built Go Map VERIFIED + PORTED (cross-repo, A7 pattern); SPEC 36→37, v0.13.0
 
 The Grok collaboration's **positive-attack map** (`~/grok-test`, GO-001..012 — the "go" complement to this
