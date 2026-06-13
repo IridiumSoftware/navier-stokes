@@ -189,6 +189,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   workhorse for the spatial-commutator `A+B` collapse — the `e^g` weight contributes the
   `ψ∂ᵥg` term that produces the cancelling `D²g(∇g,∇u)` cross-terms. Built on Mathlib's
   n-dim compact-support IBP. False missing-weight-term variant rejected; no `sorry`.
+- **Ladder-6b-γ ii core** — `integral_inner_grad_mul_weight`, the triple-product weighted Green
+  identity `∫⟪∇a,∇b⟫·c·e^g = −∫ b·(Δa·c + ⟪∇a,∇c⟫ + c·⟪∇a,∇g⟫)·e^g` (b compactly supported) —
+  the heart of the `A`-collapse, assembled from γ-i summed over the basis. False
+  dropped-weight-term variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

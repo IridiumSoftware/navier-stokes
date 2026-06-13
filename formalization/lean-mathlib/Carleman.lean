@@ -2922,7 +2922,103 @@ theorem integral_fderiv_mul_weight {φ ψ g : E → ℝ} (v : E)
     rw [hW]; ring
   rw [hL, hR, hIBP, neg_neg]
 
+/-- **(γ-ii core) Weighted Green identity for a triple product** — the workhorse for the `A`
+    collapse. For `b` C¹ compactly supported, `a` C², `c, g` C¹:
+    `∫ ⟪∇a,∇b⟫·c·e^g = −∫ b·(Δa·c + ⟪∇a,∇c⟫ + c·⟪∇a,∇g⟫)·e^g`.
+    Each basis-direction IBP (`integral_fderiv_mul_weight`) moves `∂ᵢ` off `b`; the `i`-sums
+    repackage into `Δa`, `⟪∇a,∇c⟫`, `⟪∇a,∇g⟫`. -/
+theorem integral_inner_grad_mul_weight {a b c g : E → ℝ}
+    (ha : ContDiff ℝ 2 a) (hb : ContDiff ℝ 1 b) (hcb : HasCompactSupport b)
+    (hc : ContDiff ℝ 1 c) (hg : ContDiff ℝ 1 g) :
+    ∫ x, ⟪∇ a x, ∇ b x⟫ * c x * exp (g x)
+      = - ∫ x, b x * (Δ a x * c x + ⟪∇ a x, ∇ c x⟫ + c x * ⟪∇ a x, ∇ g x⟫) * exp (g x) := by
+  classical
+  set bb := stdOrthonormalBasis ℝ E with hbb
+  have ha1 : ContDiff ℝ 1 a := ha.of_le (by norm_num)
+  have hfda1 : ContDiff ℝ 1 (fderiv ℝ a) := ha.fderiv_right (by norm_num)
+  have hψc : ∀ i, ContDiff ℝ 1 (fun y => fderiv ℝ a y (bb i) * c y) := fun i =>
+    ((ContinuousLinearMap.apply ℝ ℝ (bb i)).contDiff.comp hfda1).mul hc
+  have hω : Continuous (fun x => exp (g x)) := Real.continuous_exp.comp hg.continuous
+  have hcb_d : ∀ i, Continuous (fun x => fderiv ℝ b x (bb i)) := fun i =>
+    (ContinuousLinearMap.apply ℝ ℝ (bb i)).continuous.comp (hb.continuous_fderiv one_ne_zero)
+  have hca_d : ∀ i, Continuous (fun x => fderiv ℝ a x (bb i)) := fun i =>
+    (ContinuousLinearMap.apply ℝ ℝ (bb i)).continuous.comp (ha1.continuous_fderiv one_ne_zero)
+  have hcg_d : ∀ i, Continuous (fun x => fderiv ℝ g x (bb i)) := fun i =>
+    (ContinuousLinearMap.apply ℝ ℝ (bb i)).continuous.comp (hg.continuous_fderiv one_ne_zero)
+  have hcψ_d : ∀ i, Continuous (fun x => fderiv ℝ (fun y => fderiv ℝ a y (bb i) * c y) x (bb i)) :=
+    fun i => (ContinuousLinearMap.apply ℝ ℝ (bb i)).continuous.comp
+      ((hψc i).continuous_fderiv one_ne_zero)
+  have hInt : ∀ h : E → ℝ, Continuous h → Function.support h ⊆ tsupport b →
+      Integrable h (volume : Measure E) := fun h hch hsh =>
+    hch.integrable_of_hasCompactSupport (hcb.mono' hsh)
+  have hsb : Function.support b ⊆ tsupport b := subset_closure
+  have hsdb : ∀ i, Function.support (fun x => fderiv ℝ b x (bb i)) ⊆ tsupport b := by
+    intro i x hx
+    have : fderiv ℝ b x ≠ 0 := fun h0 => hx (by simp [h0])
+    exact support_fderiv_subset ℝ (Function.mem_support.mpr this)
+  -- the per-direction integrands
+  have hLint : ∀ i, Integrable (fun x => fderiv ℝ b x (bb i)
+      * (fderiv ℝ a x (bb i) * c x) * exp (g x)) (volume : Measure E) := fun i =>
+    hInt _ (((hcb_d i).mul ((hca_d i).mul hc.continuous)).mul hω)
+      ((Function.support_mul_subset_left _ _).trans
+        ((Function.support_mul_subset_left _ _).trans (hsdb i)))
+  have hRint : ∀ i, Integrable (fun x => b x
+      * (fderiv ℝ (fun y => fderiv ℝ a y (bb i) * c y) x (bb i)
+          + (fderiv ℝ a x (bb i) * c x) * fderiv ℝ g x (bb i)) * exp (g x))
+      (volume : Measure E) := fun i =>
+    hInt _ ((hb.continuous.mul ((hcψ_d i).add
+      (((hca_d i).mul hc.continuous).mul (hcg_d i)))).mul hω)
+      ((Function.support_mul_subset_left _ _).trans
+        ((Function.support_mul_subset_left _ _).trans hsb))
+  -- per-direction IBP via γ-i
+  have hpi : ∀ i, (∫ x, fderiv ℝ b x (bb i) * (fderiv ℝ a x (bb i) * c x) * exp (g x))
+      = - ∫ x, b x * (fderiv ℝ (fun y => fderiv ℝ a y (bb i) * c y) x (bb i)
+          + (fderiv ℝ a x (bb i) * c x) * fderiv ℝ g x (bb i)) * exp (g x) := fun i =>
+    integral_fderiv_mul_weight (bb i) hb hcb (hψc i) hg
+  -- product rule for the per-`i` ψ-derivative
+  have hψfd : ∀ (i : Fin (Module.finrank ℝ E)) (x : E),
+      fderiv ℝ (fun y => fderiv ℝ a y (bb i) * c y) x (bb i)
+      = iteratedFDeriv ℝ 2 a x ![bb i, bb i] * c x + fderiv ℝ a x (bb i) * fderiv ℝ c x (bb i) := by
+    intro i x
+    have hd : DifferentiableAt ℝ (fun y => fderiv ℝ a y (bb i)) x :=
+      ((ContinuousLinearMap.apply ℝ ℝ (bb i)).differentiable.comp
+        (hfda1.differentiable one_ne_zero)) x
+    have hmul : HasFDerivAt (fun y => fderiv ℝ a y (bb i) * c y) _ x :=
+      HasFDerivAt.mul hd.hasFDerivAt (hc.differentiable one_ne_zero x).hasFDerivAt
+    rw [hmul.fderiv, ContinuousLinearMap.add_apply,
+        ContinuousLinearMap.smul_apply, ContinuousLinearMap.smul_apply, smul_eq_mul, smul_eq_mul,
+        fderiv_fderiv_dir ha x (bb i) (bb i)]
+    ring
+  -- LHS as a finite sum of integrals
+  have hLHS : (∫ x, ⟪∇ a x, ∇ b x⟫ * c x * exp (g x))
+      = ∑ i, ∫ x, fderiv ℝ b x (bb i) * (fderiv ℝ a x (bb i) * c x) * exp (g x) := by
+    rw [show (fun x => ⟪∇ a x, ∇ b x⟫ * c x * exp (g x))
+        = fun x => ∑ i, fderiv ℝ b x (bb i) * (fderiv ℝ a x (bb i) * c x) * exp (g x) from
+      funext fun x => by
+        rw [inner_grad_eq_sum (ha1.differentiable one_ne_zero x)
+              (hb.differentiable one_ne_zero x), Finset.sum_mul, Finset.sum_mul]
+        exact Finset.sum_congr rfl fun i _ => by ring]
+    exact integral_finsetSum _ (fun i _ => hLint i)
+  -- RHS as a finite sum of integrals
+  have hRHS : (∫ x, b x * (Δ a x * c x + ⟪∇ a x, ∇ c x⟫ + c x * ⟪∇ a x, ∇ g x⟫) * exp (g x))
+      = ∑ i, ∫ x, b x * (fderiv ℝ (fun y => fderiv ℝ a y (bb i) * c y) x (bb i)
+          + (fderiv ℝ a x (bb i) * c x) * fderiv ℝ g x (bb i)) * exp (g x) := by
+    rw [show (fun x => b x * (Δ a x * c x + ⟪∇ a x, ∇ c x⟫ + c x * ⟪∇ a x, ∇ g x⟫) * exp (g x))
+        = fun x => ∑ i, b x * (fderiv ℝ (fun y => fderiv ℝ a y (bb i) * c y) x (bb i)
+            + (fderiv ℝ a x (bb i) * c x) * fderiv ℝ g x (bb i)) * exp (g x) from
+      funext fun x => by
+        rw [congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis a bb) x,
+            inner_grad_eq_sum (ha1.differentiable one_ne_zero x) (hc.differentiable one_ne_zero x),
+            inner_grad_eq_sum (ha1.differentiable one_ne_zero x) (hg.differentiable one_ne_zero x)]
+        simp only [Finset.sum_mul, Finset.mul_sum, mul_add, add_mul]
+        rw [← Finset.sum_add_distrib, ← Finset.sum_add_distrib]
+        refine Finset.sum_congr rfl fun i _ => ?_
+        rw [hψfd i x]; ring]
+    exact integral_finsetSum _ (fun i _ => hRint i)
+  rw [hLHS, hRHS, Finset.sum_congr rfl (fun i _ => hpi i), ← Finset.sum_neg_distrib]
+
 end CommutatorIBP
+
 
 end NSCarleman
 

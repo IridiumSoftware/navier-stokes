@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.44 — 2026-06-12 — Carleman ladder-6b-γ (ii core): the triple-product weighted Green identity
+
+`Carleman.lean` +~95 lines (3025 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.** The heart of the `A`-collapse — a weighted Green identity carrying a
+third factor:
+- **`integral_inner_grad_mul_weight`** — for `b` C¹ compactly supported, `a` C², `c, g` C¹:
+  `∫ ⟪∇a,∇b⟫·c·e^g = −∫ b·(Δa·c + ⟪∇a,∇c⟫ + c·⟪∇a,∇g⟫)·e^g`.
+  Each basis-direction IBP (`integral_fderiv_mul_weight`, γ-i) moves `∂ᵢ` off `b`; the `i`-sums
+  repackage into `Δa` (basis Laplacian), `⟪∇a,∇c⟫` and `c·⟪∇a,∇g⟫` (Parseval). Forward
+  `integral_finsetSum` on both sides (summand pinned by the goal, no Pi-form mismatch); the
+  per-`i` `ψ`-derivative product rule via `HasFDerivAt.mul` (function ascribed to the lambda
+  form so `.fderiv` matches) + `fderiv_fderiv_dir`; the `∑(−·) = −∑` step via `Finset.sum_neg_distrib`.
+- **Soundness:** no `sorry`; the false variant (dropping the `c·⟪∇a,∇g⟫` weight term) is REJECTED;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Next: γ-ii completion (the `A` assembly)** — apply this lemma per-`j` with `a := ∂ⱼg`, `b := ∂ⱼu`
+(compactly supported), `c := u`, sum over `j`, and use the spatial Clairaut swap
+(`Δ(∂ⱼg) = ∂ⱼ(Δg)`, 6b-α) + Parseval to land
+`A = 2∫⟨D²g,D²u⟩_HS·u·e^g = −2∫⟪∇u,∇Δg⟫uω − 2∫D²g(∇u,∇u)ω − 2∫D²g(∇g,∇u)uω`. Then **γ-iii**
+(`B` + the `A+B = −2∫D²g(∇u,∇u)ω` cancellation) → **6b-δ**. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.43 — 2026-06-12 — Carleman ladder-6b-γ (i): the weighted directional integration-by-parts workhorse
 
 `Carleman.lean` +~80 lines (2929 total), new section `CommutatorIBP`. **Library infrastructure;
