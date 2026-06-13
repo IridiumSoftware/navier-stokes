@@ -175,6 +175,11 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   `Δ⟪∇f,∇h⟫ = ⟪∇(Δf),∇h⟫ + 2⟨D²f,D²h⟩_HS + ⟪∇f,∇(Δh)⟫` (the engine of `Δ(∇g·∇u)`; assembled
   from the Leibniz rule, the spatial Clairaut swap, Parseval and `Finset.sum_comm`). False
   coefficient-1 variant rejected; no `sorry`.
+- **Ladder-6b-β substrate i+ii (`CommutatorTime`)** — the time-derivative toolkit for the
+  S-operator's coefficients: `hasDerivAt_slice_inner` (`∂t⟪∇ₓF,∇ₓH⟫ = ⟪∇ₓ∂tF,∇ₓH⟫ +
+  ⟪∇ₓF,∇ₓ∂tH⟫`, from the 5a slice keystone + `HasDerivAt.fun_sum`) and `hasDerivAt_slice_F`
+  (`∂tF = gtt − Δ(∂tg) − 2⟪∇∂tg,∇g⟫` for the Carleman potential `F = ∂tg − Δg − ‖∇g‖²`).
+  False missing-term variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

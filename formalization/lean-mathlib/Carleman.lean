@@ -2719,6 +2719,91 @@ end CommutatorSubstrate
 
 
 
+/-! ### Ladder-6b-β: the S-curve time derivative
+
+`∂t(S(t)u(t))` along a jointly smooth weight/curve. The reusable core (β-i) is the time
+derivative of a slice-gradient inner product, built from the 5a slice keystone. -/
+
+section CommutatorTime
+
+open MeasureTheory Real Laplacian InnerProductSpace
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [CompleteSpace E]
+
+/-- **(β-i) Time derivative of a slice-gradient inner product:** for jointly C² `F, H`,
+    `∂t⟪∇ₓF(t), ∇ₓH(t)⟫ = ⟪∇ₓ(∂tF), ∇ₓH⟫ + ⟪∇ₓF, ∇ₓ(∂tH)⟫` (the product rule with the
+    slice-gradient time derivative `hasDerivAt_fderiv_slice`). -/
+theorem hasDerivAt_slice_inner {F H : ℝ × E → ℝ} (hF : ContDiff ℝ 2 F)
+    (hH : ContDiff ℝ 2 H) (t₀ : ℝ) (x : E) :
+    HasDerivAt (fun t => (⟪∇ (fun y => F (t, y)) x, ∇ (fun y => H (t, y)) x⟫ : ℝ))
+      (⟪∇ (fun y => fderiv ℝ F (t₀, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => H (t₀, y)) x⟫
+        + ⟪∇ (fun y => F (t₀, y)) x,
+            ∇ (fun y => fderiv ℝ H (t₀, y) ((1 : ℝ), (0 : E))) x⟫) t₀ := by
+  classical
+  set b := stdOrthonormalBasis ℝ E with hb
+  have hFt1 : ContDiff ℝ 1 (fun p : ℝ × E => fderiv ℝ F p ((1 : ℝ), (0 : E))) :=
+    (ContinuousLinearMap.apply ℝ ℝ _).contDiff.comp (hF.fderiv_right (by norm_num))
+  have hHt1 : ContDiff ℝ 1 (fun p : ℝ × E => fderiv ℝ H p ((1 : ℝ), (0 : E))) :=
+    (ContinuousLinearMap.apply ℝ ℝ _).contDiff.comp (hH.fderiv_right (by norm_num))
+  -- slice differentiabilities, in the exact lambda forms the goal uses
+  have hdF : DifferentiableAt ℝ (fun y => F (t₀, y)) x :=
+    (hasFDerivAt_slice (hF.differentiable (by norm_num) (t₀, x))).differentiableAt
+  have hdH : DifferentiableAt ℝ (fun y => H (t₀, y)) x :=
+    (hasFDerivAt_slice (hH.differentiable (by norm_num) (t₀, x))).differentiableAt
+  have hdFt : DifferentiableAt ℝ (fun y => fderiv ℝ F (t₀, y) ((1 : ℝ), (0 : E))) x :=
+    (hasFDerivAt_slice (hFt1.differentiable (by norm_num) (t₀, x))).differentiableAt
+  have hdHt : DifferentiableAt ℝ (fun y => fderiv ℝ H (t₀, y) ((1 : ℝ), (0 : E))) x :=
+    (hasFDerivAt_slice (hHt1.differentiable (by norm_num) (t₀, x))).differentiableAt
+  -- the curve as a basis sum of products of slice directional derivatives
+  have hcurve_eq : (fun t => (⟪∇ (fun y => F (t, y)) x, ∇ (fun y => H (t, y)) x⟫ : ℝ))
+      = fun t => ∑ j, fderiv ℝ (fun y => F (t, y)) x (b j)
+          * fderiv ℝ (fun y => H (t, y)) x (b j) := by
+    funext t
+    exact inner_grad_eq_sum
+      (hasFDerivAt_slice (hF.differentiable (by norm_num) (t, x))).differentiableAt
+      (hasFDerivAt_slice (hH.differentiable (by norm_num) (t, x))).differentiableAt
+  rw [hcurve_eq]
+  have hsum : HasDerivAt (fun t => ∑ j, fderiv ℝ (fun y => F (t, y)) x (b j)
+        * fderiv ℝ (fun y => H (t, y)) x (b j)) _ t₀ :=
+    HasDerivAt.fun_sum fun j _ =>
+      (hasDerivAt_fderiv_slice hF t₀ x (b j)).mul (hasDerivAt_fderiv_slice hH t₀ x (b j))
+  convert hsum using 1
+  rw [inner_grad_eq_sum hdFt hdH, inner_grad_eq_sum hdF hdHt, ← Finset.sum_add_distrib]
+
+/-- **(β-ii) Time derivative of the potential `F = ∂tg − Δg − ‖∇g‖²`** along a jointly smooth
+    weight: `∂t F = gtt − Δ(∂tg) − 2⟪∇(∂tg), ∇g⟫`. The `Δg`-piece uses the slice-Laplacian
+    keystone (5b-ii), the `‖∇g‖²`-piece uses `hasDerivAt_slice_inner` (β-i) with `F = H = g`. -/
+theorem hasDerivAt_slice_F {G : ℝ × E → ℝ} (hG : ContDiff ℝ (⊤ : ℕ∞) G) (t₀ : ℝ) (x : E) :
+    HasDerivAt (fun t => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E))
+        - Δ (fun y => G (t, y)) x
+        - ⟪∇ (fun y => G (t, y)) x, ∇ (fun y => G (t, y)) x⟫)
+      (fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t₀, x) ((1 : ℝ), (0 : E))
+        - Δ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x
+        - (⟪∇ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x,
+              ∇ (fun y => G (t₀, y)) x⟫
+            + ⟪∇ (fun y => G (t₀, y)) x,
+              ∇ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x⟫)) t₀ := by
+  have hGt : ContDiff ℝ (⊤ : ℕ∞) (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) :=
+    (ContinuousLinearMap.apply ℝ ℝ _).contDiff.comp (hG.fderiv_right (by exact_mod_cast le_top))
+  -- gtt: the second time derivative
+  have h1 : HasDerivAt (fun t => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+      (fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t₀, x)
+        ((1 : ℝ), (0 : E))) t₀ :=
+    hasDerivAt_curve (hGt.differentiable (by norm_num) (t₀, x))
+  -- ∂t Δg = Δ(∂t g)
+  have h2 : HasDerivAt (fun t => Δ (fun y => G (t, y)) x)
+      (Δ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x) t₀ :=
+    hasDerivAt_laplacian_slice (hG.of_le (by norm_cast <;> exact le_top)) t₀ x
+  -- ∂t ‖∇g‖²
+  have h3 := hasDerivAt_slice_inner (hG.of_le (by norm_cast <;> exact le_top))
+    (hG.of_le (by norm_cast <;> exact le_top)) t₀ x
+  exact (h1.sub h2).sub h3
+
+end CommutatorTime
+
+
 end NSCarleman
 
 #eval "Carleman commutator-method core — machine-verified."

@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.40 — 2026-06-12 — Carleman ladder-6b-β (substrate i+ii): the slice-gradient inner-product time-derivative + `∂tF`
+
+`Carleman.lean` +~95 lines (2809 total), new section `CommutatorTime`. **Library infrastructure;
+`:proved`=0 for the PDE.** The time-derivative toolkit for the S-operator's coefficients along a
+jointly smooth weight/curve:
+- **`hasDerivAt_slice_inner` (β-i, the reusable core):** for jointly C² `F, H`,
+  `∂t⟪∇ₓF(t), ∇ₓH(t)⟫ = ⟪∇ₓ(∂tF), ∇ₓH⟫ + ⟪∇ₓF, ∇ₓ(∂tH)⟫`. Proof: write the curve as the basis
+  sum `Σⱼ(∂ⱼF)(∂ⱼH)` (`inner_grad_eq_sum`), then `HasDerivAt.fun_sum` with per-`j`
+  `(hasDerivAt_fderiv_slice hF …).mul (hasDerivAt_fderiv_slice hH …)` — the 5a slice keystone
+  supplies `∂t[∂ⱼF(t)] = ∂ⱼ(∂tF)`; reconcile the value by `Finset.sum_add_distrib` + two
+  `inner_grad_eq_sum` back-substitutions.
+- **`hasDerivAt_slice_F` (β-ii):** the time derivative of the Carleman potential
+  `F = ∂tg − Δg − ‖∇g‖²` along a jointly smooth weight `G`:
+  `∂tF = gtt − Δ(∂tg) − 2⟪∇(∂tg),∇g⟫` — the `gtt` piece from `hasDerivAt_curve`, the `Δg` piece
+  from the slice-Laplacian keystone (5b-ii), the `‖∇g‖²` piece from β-i with `F = H = g`.
+- **Soundness:** no `sorry`; the false variant (β-i's product rule MISSING the second
+  `⟪∇ₓF, ∇ₓ(∂tH)⟫` term) is REJECTED at the residual rewrite; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Next: 6b-β-iii / assembly** — combine the three time-derivative pieces (Δ-term via 5b-ii,
+`∇g·∇u`-term via β-i, `F·u`-term via β-ii + product rule) into the full `∂t[S(t)u(t)]`, then
+subtract `S(t)u'` to read off the commutator's time part `⟪∇gt,∇u⟫ − ½(∂tF)u`. Then 6b-γ (the
+Bochner IBP collapse) → 6b-δ (Lemma 4.1's displayed inequality). `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.39 — 2026-06-12 — Litmap §4.1 EXECUTED: the sequential-L³ Liouville line-read — attribution CONFIRMED (AB Thm 1.2); verdict = a SHARPENED wall-restatement
 
 The litmap's top-ranked edge, run (`docs/ab_sequential_l3_verification_2026-06-12.md`; ar5iv full-text
