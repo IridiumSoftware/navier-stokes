@@ -184,6 +184,11 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   commutator-decomposed form `∂t(Su) = S(∂tu) + (⟪∇gt,∇u⟫ − ½(∂tF)u)`, exhibiting the
   commutator's time part `[L,S]u|_time = ⟪∇gt,∇u⟫ − ½(∂tF)u`. Assembled from the three β/5b
   time-derivative combinators + `ring`. False missing-term variant rejected; no `sorry`.
+- **Ladder-6b-γ i (`CommutatorIBP`)** — `integral_fderiv_mul_weight`, the weighted directional
+  integration by parts `∫(∂ᵥφ)ψe^g = −∫φ(∂ᵥψ + ψ∂ᵥg)e^g` (φ compactly supported), the
+  workhorse for the spatial-commutator `A+B` collapse — the `e^g` weight contributes the
+  `ψ∂ᵥg` term that produces the cancelling `D²g(∇g,∇u)` cross-terms. Built on Mathlib's
+  n-dim compact-support IBP. False missing-weight-term variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

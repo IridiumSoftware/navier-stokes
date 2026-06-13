@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.43 — 2026-06-12 — Carleman ladder-6b-γ (i): the weighted directional integration-by-parts workhorse
+
+`Carleman.lean` +~80 lines (2929 total), new section `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.** The foundational tool for the Bochner IBP collapse (the `A + B`
+cancellation that drives the spatial commutator integral to `−2∫D²g(∇u,∇u)e^g`):
+- **`integral_fderiv_mul_weight`** — for `φ` C¹ compactly supported, `ψ, g` C¹, direction `v`:
+  `∫ (∂ᵥφ)·ψ·e^g = −∫ φ·(∂ᵥψ + ψ·∂ᵥg)·e^g`. The exponential weight `e^g` contributes the
+  `ψ·∂ᵥg` term (`∂ᵥ e^g = (∂ᵥg) e^g`) — exactly the boundary-free IBP correction that, summed
+  over the basis double-index, produces the `D²g(∇g,∇u)` cross-terms which cancel between
+  `A` and `B`. Proof: Mathlib's n-dim compact-support IBP
+  `integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable` applied to `f := φ`, `g := ψ·e^g`,
+  with `∂ᵥ(ψ·e^g)` expanded by the product/chain rule (`HasFDerivAt.mul` + `Real.hasDerivAt_exp`).
+- **Soundness:** no `sorry`; the false variant (IBP dropping the `ψ·∂ᵥg` weight term) is REJECTED
+  at the integrand `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**6b-γ is the arc's largest computation and is staged.** Next: **γ-ii** = `A := 2∫⟨D²g,D²u⟩_HS·u·e^g`
+collapsed by the per-`(i,j)` IBP (this lemma) + the spatial Clairaut swap (`gᵢⱼᵢ = (Δg)ⱼ`, from
+6b-α) to `−2∫⟪∇u,∇Δg⟫uω − 2∫D²g(∇u,∇u)ω − 2∫D²g(∇g,∇u)uω`; **γ-iii** = `B := ∫⟪∇(2Δg+‖∇g‖²),∇u⟫uω`
+(using `∇‖∇g‖² = 2D²g∇g`) and the `A+B = −2∫D²g(∇u,∇u)ω` exact cancellation; then **6b-δ** assembles
+`⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g` + Lemma 4.1's displayed inequality. `:proved`=0;
+distance UNTOUCHED.
+
 ## v0.15.42 — 2026-06-12 — Carleman ladder-6b-β (assembly): `∂t(Su) = S(∂tu) + (⟪∇gt,∇u⟫ − ½(∂tF)u)` — the commutator's TIME part
 
 `Carleman.lean` +~40 lines (2849 total), completing `CommutatorTime`. **Library infrastructure;

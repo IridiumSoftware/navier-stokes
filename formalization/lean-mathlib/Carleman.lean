@@ -2844,6 +2844,86 @@ end CommutatorTime
 
 
 
+/-! ### Ladder-6b-γ: the Bochner IBP collapse
+
+The spatial commutator part, integrated against `u·e^g`, collapses to `−2∫D²g(∇u,∇u)e^g` (the
+`A + B` exact cancellation). γ-i is the reusable workhorse: a weighted directional integration
+by parts where the exponential weight contributes the `∂ᵥg` term. -/
+
+section CommutatorIBP
+
+open MeasureTheory Real Laplacian InnerProductSpace
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E]
+  [FiniteDimensional ℝ E] [MeasurableSpace E] [BorelSpace E] [CompleteSpace E]
+
+/-- **(γ-i) Weighted directional integration by parts:** for `φ` C¹ compactly supported, `ψ, g`
+    C¹, and a direction `v`,
+    `∫ (∂ᵥφ)·ψ·e^g = −∫ φ·(∂ᵥψ + ψ·∂ᵥg)·e^g`.
+    The exponential weight `e^g` contributes the `ψ·∂ᵥg` term (from `∂ᵥ e^g = (∂ᵥg) e^g`). -/
+theorem integral_fderiv_mul_weight {φ ψ g : E → ℝ} (v : E)
+    (hφ : ContDiff ℝ 1 φ) (hcφ : HasCompactSupport φ)
+    (hψ : ContDiff ℝ 1 ψ) (hg : ContDiff ℝ 1 g) :
+    ∫ x, fderiv ℝ φ x v * ψ x * exp (g x)
+      = - ∫ x, φ x * (fderiv ℝ ψ x v + ψ x * fderiv ℝ g x v) * exp (g x) := by
+  classical
+  -- the weight factor and its directional derivative
+  have hexp : ∀ x, HasFDerivAt (fun y => exp (g y)) (exp (g x) • fderiv ℝ g x) x := fun x =>
+    (Real.hasDerivAt_exp (g x)).comp_hasFDerivAt x (hg.differentiable one_ne_zero x).hasFDerivAt
+  have hWfd : ∀ x, HasFDerivAt (fun y => ψ y * exp (g y))
+      (ψ x • (exp (g x) • fderiv ℝ g x) + exp (g x) • fderiv ℝ ψ x) x := fun x =>
+    (hψ.differentiable one_ne_zero x).hasFDerivAt.mul (hexp x)
+  have hW : ∀ x, fderiv ℝ (fun y => ψ y * exp (g y)) x v
+      = (fderiv ℝ ψ x v + ψ x * fderiv ℝ g x v) * exp (g x) := by
+    intro x
+    rw [(hWfd x).fderiv]
+    simp only [ContinuousLinearMap.add_apply, ContinuousLinearMap.smul_apply, smul_eq_mul]
+    ring
+  -- continuity package
+  have hcφ' : Continuous (fun x => fderiv ℝ φ x v) :=
+    (ContinuousLinearMap.apply ℝ ℝ v).continuous.comp (hφ.continuous_fderiv one_ne_zero)
+  have hcW : Continuous (fun x => ψ x * exp (g x)) :=
+    hψ.continuous.mul (Real.continuous_exp.comp hg.continuous)
+  have hcWfd : Continuous (fun x => fderiv ℝ (fun y => ψ y * exp (g y)) x v) := by
+    have : (fun x => fderiv ℝ (fun y => ψ y * exp (g y)) x v)
+        = fun x => (fderiv ℝ ψ x v + ψ x * fderiv ℝ g x v) * exp (g x) := funext hW
+    rw [this]
+    exact ((((ContinuousLinearMap.apply ℝ ℝ v).continuous.comp
+        (hψ.continuous_fderiv one_ne_zero)).add
+      (hψ.continuous.mul ((ContinuousLinearMap.apply ℝ ℝ v).continuous.comp
+        (hg.continuous_fderiv one_ne_zero)))).mul (Real.continuous_exp.comp hg.continuous))
+  -- integrability discharge (everything carries a `φ`/`∂φ` factor supported in `tsupport φ`)
+  have hInt : ∀ h : E → ℝ, Continuous h → Function.support h ⊆ tsupport φ →
+      Integrable h (volume : Measure E) := fun h hc hs =>
+    hc.integrable_of_hasCompactSupport (hcφ.mono' hs)
+  have hsdφ : Function.support (fun x => fderiv ℝ φ x v) ⊆ tsupport φ := by
+    intro x hx
+    have : fderiv ℝ φ x ≠ 0 := fun h0 => hx (by simp [h0])
+    exact support_fderiv_subset ℝ (Function.mem_support.mpr this)
+  have hIBP := integral_mul_fderiv_eq_neg_fderiv_mul_of_integrable
+    (μ := (volume : Measure E)) (f := φ) (g := fun x => ψ x * exp (g x)) (v := v)
+    (hInt _ (hcφ'.mul hcW) ((Function.support_mul_subset_left _ _).trans hsdφ))
+    (hInt _ (hφ.continuous.mul hcWfd)
+      ((Function.support_mul_subset_left _ _).trans subset_closure))
+    (hInt _ (hφ.continuous.mul hcW)
+      ((Function.support_mul_subset_left _ _).trans subset_closure))
+    (fun x _ => hφ.differentiable one_ne_zero x)
+    (fun x _ => (hWfd x).differentiableAt)
+  -- assemble: rewrite both sides to the IBP shape
+  have hL : (∫ x, fderiv ℝ φ x v * ψ x * exp (g x))
+      = ∫ x, fderiv ℝ φ x v * (ψ x * exp (g x)) := by
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_); ring
+  have hR : (∫ x, φ x * (fderiv ℝ ψ x v + ψ x * fderiv ℝ g x v) * exp (g x))
+      = ∫ x, φ x * fderiv ℝ (fun y => ψ y * exp (g y)) x v := by
+    refine integral_congr_ae (Filter.Eventually.of_forall fun x => ?_)
+    show φ x * (fderiv ℝ ψ x v + ψ x * fderiv ℝ g x v) * exp (g x)
+        = φ x * fderiv ℝ (fun y => ψ y * exp (g y)) x v
+    rw [hW]; ring
+  rw [hL, hR, hIBP, neg_neg]
+
+end CommutatorIBP
+
 end NSCarleman
 
 #eval "Carleman commutator-method core — machine-verified."
