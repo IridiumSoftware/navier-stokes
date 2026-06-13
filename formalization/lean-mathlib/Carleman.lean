@@ -2801,7 +2801,47 @@ theorem hasDerivAt_slice_F {G : ℝ × E → ℝ} (hG : ContDiff ℝ (⊤ : ℕ�
     (hG.of_le (by norm_cast <;> exact le_top)) t₀ x
   exact (h1.sub h2).sub h3
 
+/-- **(β assembly) The full time derivative of `S(t)u(t)`** along jointly smooth weight `G`
+    and curve `U`: `∂t[Δu + ∇g·∇u − ½F·u]` term-by-term — the Δ-term by the slice-Laplacian
+    keystone (5b-ii), the `∇g·∇u`-term by `hasDerivAt_slice_inner` (β-i), the `½F·u`-term by
+    the product rule with `hasDerivAt_slice_F` (β-ii) and `hasDerivAt_curve`. Subtracting
+    `S(t₀)(∂tu)` from this value leaves the commutator's time part `⟪∇gt,∇u⟫ − ½(∂tF)u`. -/
+theorem hasDerivAt_Sslice {G U : ℝ × E → ℝ} (hG : ContDiff ℝ (⊤ : ℕ∞) G)
+    (hU : ContDiff ℝ (⊤ : ℕ∞) U) (t₀ : ℝ) (x : E) :
+    HasDerivAt (fun t => Δ (fun y => U (t, y)) x
+        + ⟪∇ (fun y => G (t, y)) x, ∇ (fun y => U (t, y)) x⟫
+        - (fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)) - Δ (fun y => G (t, y)) x
+            - ⟪∇ (fun y => G (t, y)) x, ∇ (fun y => G (t, y)) x⟫) / 2 * U (t, x))
+      -- `S(t₀)(∂tu)` …
+      ((Δ (fun y => fderiv ℝ U (t₀, y) ((1 : ℝ), (0 : E))) x
+          + ⟪∇ (fun y => G (t₀, y)) x,
+              ∇ (fun y => fderiv ℝ U (t₀, y) ((1 : ℝ), (0 : E))) x⟫
+          - (fderiv ℝ G (t₀, x) ((1 : ℝ), (0 : E)) - Δ (fun y => G (t₀, y)) x
+              - ⟪∇ (fun y => G (t₀, y)) x, ∇ (fun y => G (t₀, y)) x⟫) / 2
+            * fderiv ℝ U (t₀, x) ((1 : ℝ), (0 : E)))
+        -- … plus the commutator's TIME part `⟪∇gt,∇u⟫ − ½(∂tF)u`
+        + (⟪∇ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x,
+                ∇ (fun y => U (t₀, y)) x⟫
+            - (fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t₀, x)
+                  ((1 : ℝ), (0 : E))
+                - Δ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x
+                - (⟪∇ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x,
+                      ∇ (fun y => G (t₀, y)) x⟫
+                  + ⟪∇ (fun y => G (t₀, y)) x,
+                      ∇ (fun y => fderiv ℝ G (t₀, y) ((1 : ℝ), (0 : E))) x⟫)) / 2
+              * U (t₀, x))) t₀ := by
+  have hU3 : ContDiff ℝ 3 U := hU.of_le (by norm_cast <;> exact le_top)
+  have hG2 : ContDiff ℝ 2 G := hG.of_le (by norm_cast <;> exact le_top)
+  have hU2 : ContDiff ℝ 2 U := hU.of_le (by norm_cast <;> exact le_top)
+  have hΔ := hasDerivAt_laplacian_slice hU3 t₀ x
+  have hinner := hasDerivAt_slice_inner hG2 hU2 t₀ x
+  have hFdiv := (hasDerivAt_slice_F hG t₀ x).div_const 2
+  have hUc := hasDerivAt_curve (hU.differentiable (by norm_num) (t₀, x))
+  convert (hΔ.add hinner).sub (hFdiv.mul hUc) using 1
+  ring
+
 end CommutatorTime
+
 
 
 end NSCarleman

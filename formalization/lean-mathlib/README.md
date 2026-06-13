@@ -180,6 +180,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   ⟪∇ₓF,∇ₓ∂tH⟫`, from the 5a slice keystone + `HasDerivAt.fun_sum`) and `hasDerivAt_slice_F`
   (`∂tF = gtt − Δ(∂tg) − 2⟪∇∂tg,∇g⟫` for the Carleman potential `F = ∂tg − Δg − ‖∇g‖²`).
   False missing-term variant rejected; no `sorry`.
+- **Ladder-6b-β assembly** — `hasDerivAt_Sslice`: the full time derivative of `S(t)u(t)` in
+  commutator-decomposed form `∂t(Su) = S(∂tu) + (⟪∇gt,∇u⟫ − ½(∂tF)u)`, exhibiting the
+  commutator's time part `[L,S]u|_time = ⟪∇gt,∇u⟫ − ½(∂tF)u`. Assembled from the three β/5b
+  time-derivative combinators + `ring`. False missing-term variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

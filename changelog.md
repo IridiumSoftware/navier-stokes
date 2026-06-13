@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.42 — 2026-06-12 — Carleman ladder-6b-β (assembly): `∂t(Su) = S(∂tu) + (⟪∇gt,∇u⟫ − ½(∂tF)u)` — the commutator's TIME part
+
+`Carleman.lean` +~40 lines (2849 total), completing `CommutatorTime`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`hasDerivAt_Sslice` — the full time derivative of `S(t)u(t)`** along jointly smooth weight
+  `G` and curve `U`, stated in commutator-decomposed form:
+  `∂t[Δu + ∇g·∇u − ½F·u] = S(t₀)(∂tu) + (⟪∇gt,∇u⟫ − ½(∂tF)u)`.
+  The three time-derivative pieces assemble by the combinators: Δ-term via the slice-Laplacian
+  keystone (5b-ii), `∇g·∇u`-term via `hasDerivAt_slice_inner` (β-i), `½F·u`-term via
+  `hasDerivAt_slice_F` (β-ii) `.div_const 2` `.mul` `hasDerivAt_curve`; the value is then
+  reassociated into `S(∂tu) + commutator` by `convert … using 1; ring`. This directly exhibits
+  the commutator's time part `[L,S]u|_time = ∂t(Su) − S(∂tu) = ⟪∇gt,∇u⟫ − ½(∂tF)u` (the Δ,
+  `∇g·∇u'`, and `−½F·u'` pieces cancel against `S(∂tu)`).
+- **Soundness:** no `sorry`; the false variant (commutator part missing the `−½(∂tF)u` term) is
+  REJECTED at the `ring` reconciliation; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**6b-β is COMPLETE.** Next: **6b-γ** — the Bochner IBP collapse: integrate the spatial commutator
+part (from the four-index identity, 6b-α) against `u·e^g` and collapse
+`∫2Σᵢⱼgᵢⱼuᵢⱼ·u·ω` to `−2∫D²g(∇u,∇u)e^g` (the `A+B = −2∫D²g(∇u,∇u)ω` exact cancellation, using
+`∇‖∇g‖² = 2D²g∇g` and per-`(i,j)` IBP). Then 6b-δ assembles the full
+`⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g` and Lemma 4.1's displayed inequality. `:proved`=0;
+distance UNTOUCHED.
+
 ## v0.15.41 — 2026-06-12 — Litmap §4.3 + §4.2 EXECUTED: the LRT direction-cone census (pre-registered kill, N-stable) + the axisym-swirl sub-table (the exact open sub-case pinned)
 
 The last two litmap edges closed; the whole §4 queue (4.1→4.3→4.2) is now EXECUTED.
