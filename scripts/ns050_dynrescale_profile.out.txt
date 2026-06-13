@@ -1,0 +1,27 @@
+══════════════════════════════════════════════════════════════════════════════════════
+  ns050_dynrescale_profile.jl — NS-050 attempt 5: stabilized dynamic rescaling (Scope: 1D-model)
+  modulation-pinned (c_l,μ) [two-point collocation] + τ-evolution on the T-25 cot-map operators
+  :proved=0; reconstructs a KNOWN object; ZERO prize value; distance UNTOUCHED.
+══════════════════════════════════════════════════════════════════════════════════════
+
+──────────────────────────────────────────────────────────────────────────────────────
+  GATE — CLM  ∂_τW = W·HW − μW − c_l ξW_ξ   (fixed point: Φ=−4η/(1+4η²), μ=c_l=1)
+  PASS required (both seeds → Φ, μ→1, c_l→1 to spectral accuracy) before HL is licensed.
+──────────────────────────────────────────────────────────────────────────────────────
+    seed         N      μ→        c_l→      ‖W∓Φ(s·)‖ resid      (s,sgn)  
+    −ξ/(1+ξ²)    1024   1.0000    1.0000    1.048e-05 1.07e-11   (0.50,+1) ✓
+    −ξ/(1+0.5ξ²) 1024   1.0000    1.0000    1.436e-02 1.29e-11   (0.35,+1) ✓
+
+  GATE VERDICT: PASS — CLM machinery recovers (Φ, μ=1, c_l=1) from both seeds; HL licensed.
+
+──────────────────────────────────────────────────────────────────────────────────────
+  HL  ∂_τW=G_ξ−μW−UW_ξ−c_lξW_ξ (U_ξ=HW),  ∂_τG=−(c_l−2)G−UG_ξ−c_lξG_ξ   [N=2048]
+  Expect: μ→1 (c_ω=−1 consistency), c_l → HL eigenvalue ∈ (2,4.53) [forward β=2.47]
+──────────────────────────────────────────────────────────────────────────────────────
+    seed (W,G)                     N       μ→        c_l→      resid      ξ_peak  
+    DIVERGED: W=−ξ/(1+ξ²), G=1/(1+ξ²) 2048    —         —         —         
+    DIVERGED: W=−ξ/(1+ξ²)·,G=1/(1+0.5ξ²) 2048    —         —         —         
+
+  [HL N=2048 checkpoint. If μ≈1, c_l∈band, seed-independent ⇒ extend to the N-trend
+   {2048,4096,8192} + the §3 cross-checks in the next invocation. :proved=0.]
+══════════════════════════════════════════════════════════════════════════════════════

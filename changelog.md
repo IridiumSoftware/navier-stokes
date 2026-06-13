@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.45 — 2026-06-13 — NS-050 attempt 5: stabilized dynamic rescaling — CLM gate PASS (validated profile solver) + HL clean negative (the profile is a saddle)
+
+Executed the Desktop session brief `ns050_dynrescale_session_brief.md` (Aaron, 2026-06-12): the one
+new element vs attempts 1–4 — modulation-pinned (c_l,μ) solved algebraically each step (removes the
+scaling+amplitude zero-modes) with τ-evolution as the engine, on the T-25 cot-map ℝ-operators.
+- **CLM GATE (mandatory, brief §2.5): PASS.** Derived + verified the CLM profile ODE Φ+ηΦ′=Φ·HΦ
+  (Φ=−4η/(1+4η²)); the identical machinery recovers Φ with (μ,c_l)=(1,1) to residual ~1e-11 and
+  shape ~1e-5, from TWO independent seeds (seed-independent, modulo the scaling symmetry). The
+  stabilized-dynamic-rescaling scheme is a **validated profile solver** — the first in the NS-050 arc
+  to converge at all.
+- **HL: CLEAN NEGATIVE (brief §0).** The same machinery diverges from both seeds; the diagnostic
+  `scripts/ns050_hl_diag.jl` localizes it to a monotone wrong-way drift (μ↛1, c_l↛+2.5), robust
+  across dτ {1e-5,2e-6}, N {1024,2048}, and a G-renorm variant ⇒ the HL self-similar profile behaves
+  as a **saddle** whose unstable modes survive the modulation (which removes only the symmetry
+  zero-modes; CLM is an attractor, HL is not). Reproduces attempt 1's negative with a validated
+  instrument + a localized mechanism. The arc closes pending a genuinely new element — Newton /
+  unstable-mode projection (Chen–Hou), or the higher-resolution forward-run seed.
+- New: `scripts/ns050_dynrescale_profile.jl` (+.out.txt), `scripts/ns050_hl_diag.jl` (+.out.txt),
+  `docs/ns050_dynrescale_profile_companion.md`; TEST_SPEC **T-32**; SPEC NS-050 + registry + dashboard
+  P3 notes (profile OPEN, now 5 honest negatives). No new entry (still 39); SPEC stamp unchanged.
+  Scope: 1D-model / numerical-tooling; reconstructs a KNOWN object (ZERO prize value); `:proved`=0;
+  distance UNTOUCHED.
+
 ## v0.15.44 — 2026-06-12 — Carleman ladder-6b-γ (ii core): the triple-product weighted Green identity
 
 `Carleman.lean` +~95 lines (3025 total), in `CommutatorIBP`. **Library infrastructure;
