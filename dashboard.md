@@ -139,7 +139,7 @@ zone (state = f(path), not params); clumps self-stabilize via deposited density 
 memory (T-22). **ARC COMPLETE (AT-1..7 + the interactive app). Scope: phenomenology — NOT the PDE.
 Distance to prize: UNTOUCHED.**
 
-## Status summary (v0.11.1, 2026-06-10)
+## Status summary (v0.15.0, 2026-06-13)
 
 - **NS-050 instrument+tooling arc + REPO PUBLIC (2026-06-09/10):** the modulation/Type-II map
   (NS-050) grew a full within-truncation instrument arc — a dynamic-rescaling fit calibrated on CLM
@@ -275,8 +275,9 @@ Distance to prize: UNTOUCHED.**
 
 ## Status board (tabular) — priorities · gaps · open items
 
-*Post-NS-051 **A0–A7 cross-audit**, 2026-06-10 (+NS-052 cross-repo port 2026-06-12). Ledger: **39 entries / 39 registry rows**, `:proved`=0, SPEC
-**v0.12.0**. Result: **A1/A2/A3/A4 PASS · A6 PASS (note) · A5/A7/A0 = 3 gaps** (G-1 fixed this pass).*
+*Latest **A0–A7 cross-audit**: 2026-06-13 (`audit_2026-06-13.md`). Ledger: **39 entries / 39 registry rows**, `:proved`=0, SPEC
+**v0.15.0**. Result: **integrity intact** — A1/A2/A3/A4/A6 PASS for all four new entries (NS-051..054); the only drift was the dashboard
+lagging NS-053/054 (board + stamps) — fixed this pass. (Prior: post-NS-051 audit 2026-06-10, `audit_2026-06-10.md`.)*
 
 ### Priorities
 
@@ -288,6 +289,7 @@ Distance to prize: UNTOUCHED.**
 | P4 | **NS-010/011** complex-singularity diagnostic — 3D inviscid hunt INCONCLUSIVE (resolution wall, gate refuses artifact) | PDE-method | `:tested` |
 | P5 | **NS-049** — external-review brief to J. Lockwood: **DECIDED 2026-06-11 — NOT sending** (Lockwood is already aware of the problem). Closed; the `docs/ns_external_review_brief.md` + `docs/ns049_lockwood_verification.md` stand as the internal record. | — | ✅ **DONE** |
 | P6 | **NS-051** formalization ladder — analysis substrate → **Carleman** (T-28 in progress, multi-year) | methodology | `:tested` |
+| P7 | **NS-053** (d, α) continuation boundary — instrument/attack-geometry map; CLM α-onset α\*≈1 (failure mode = marginal-state/saddle-node ghost); next d-rung = Hou's `n` coefficients on the validated `(r,z)` solver. **Litmap §4 fully EXECUTED** (`docs/ns048_ancient_liouville_litmap.md`: §4.1 AB sequential-L³ wall-restatement; §4.2 axisym-swirl sub-table, exact open sub-case pinned; §4.3 LRT cone census = N-stable CF-family kill) | PDE-analysis (probes 1D-model) | `:open` |
 
 ### Audit gaps (A0–A7, 2026-06-10)
 
@@ -308,6 +310,8 @@ Distance to prize: UNTOUCHED.**
 | — | Lockwood external-review brief | ✅ DONE 2026-06-11 — **NOT sending** (Lockwood already aware); decision closed |
 | N2 | `formalization/` Lean ladder ledger entry | ✅ DONE 2026-06-10 (NS-051) |
 | W5 | DESIGN.md sync (complex-plane → frontiers + MDAGC) | ✅ DONE 2026-06-10 |
+| — | **NS-054** CFS-admissibility attack-reduction | ✅ CLOSED 2026-06-12 — `:falsified` (pre-registered kill fired; "A empty?" = NS-048(+046) relabeled). Residual = the 4-edge MDAGC coupling inventory |
+| — | **NS-048 ancient-Liouville litmap** §4.1/4.2/4.3 | ✅ EXECUTED 2026-06-12 — all three edges closed; no litmap edges remain (open core = the bare axisym-swirl conjecture, analytic) |
 
 ---
 
