@@ -193,6 +193,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   identity `∫⟪∇a,∇b⟫·c·e^g = −∫ b·(Δa·c + ⟪∇a,∇c⟫ + c·⟪∇a,∇g⟫)·e^g` (b compactly supported) —
   the heart of the `A`-collapse, assembled from γ-i summed over the basis. False
   dropped-weight-term variant rejected; no `sorry`.
+- **Ladder-6b-γ ii complete (`integral_hessianHS_collapse`)** — the `A`-collapse:
+  `∑ⱼ∫⟪∇∂ⱼg,∇∂ⱼu⟫·u·e^g = −∫⟪∇u,∇Δg⟫u·e^g − ∫D²g(∇u,∇u)·e^g − ∫D²g(∇g,∇u)u·e^g` (`u` C²
+  compactly supported, `g` C³), via the core lemma per-`j` + the spatial Clairaut swap + Parseval.
+  False flipped-sign variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

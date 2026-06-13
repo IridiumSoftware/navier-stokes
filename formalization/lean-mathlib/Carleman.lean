@@ -3017,6 +3017,140 @@ theorem integral_inner_grad_mul_weight {a b c g : E → ℝ}
     exact integral_finsetSum _ (fun i _ => hRint i)
   rw [hLHS, hRHS, Finset.sum_congr rfl (fun i _ => hpi i), ← Finset.sum_neg_distrib]
 
+/-- **(γ-ii completion: the `A`-collapse)** — `A/2 = ∫⟨D²g,D²u⟩_HS·u·e^g` (written
+    `∑ⱼ ∫⟪∇∂ⱼg, ∇∂ⱼu⟫·u·e^g`) collapses, via the triple-product Green identity per-`j` plus the
+    spatial Clairaut swap `Δ(∂ⱼg) = ∂ⱼ(Δg)` (6b-α), to
+    `−∫⟪∇u,∇Δg⟫u·e^g − ∫D²g(∇u,∇u)·e^g − ∫D²g(∇g,∇u)u·e^g`
+    (the Hessian forms in single-sum coordinates). -/
+theorem integral_hessianHS_collapse {u g : E → ℝ} (hu : ContDiff ℝ 2 u)
+    (hcu : HasCompactSupport u) (hg : ContDiff ℝ 3 g) :
+    (∑ j, ∫ x, ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x,
+        ∇ (fun y => fderiv ℝ u y (stdOrthonormalBasis ℝ E j)) x⟫ * u x * exp (g x))
+      = - (∫ x, ⟪∇ u x, ∇ (Δ g) x⟫ * u x * exp (g x))
+        - (∫ x, (∑ j, fderiv ℝ u x (stdOrthonormalBasis ℝ E j)
+            * ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x, ∇ u x⟫) * exp (g x))
+        - (∫ x, (∑ j, fderiv ℝ u x (stdOrthonormalBasis ℝ E j)
+            * ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x, ∇ g x⟫)
+            * u x * exp (g x)) := by
+  classical
+  set sob := stdOrthonormalBasis ℝ E with hsob
+  have hu1 : ContDiff ℝ 1 u := hu.of_le (by norm_num)
+  have hg1 : ContDiff ℝ 1 g := hg.of_le (by norm_num)
+  have hfdg2 : ContDiff ℝ 2 (fderiv ℝ g) := hg.fderiv_right (by norm_num)
+  have hfdu1 : ContDiff ℝ 1 (fderiv ℝ u) := hu.fderiv_right (by norm_num)
+  have hag : ∀ j, ContDiff ℝ 2 (fun y => fderiv ℝ g y (sob j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (sob j)).contDiff.comp hfdg2
+  have hbu : ∀ j, ContDiff ℝ 1 (fun y => fderiv ℝ u y (sob j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (sob j)).contDiff.comp hfdu1
+  have hcbu : ∀ j, HasCompactSupport (fun y => fderiv ℝ u y (sob j)) := fun j =>
+    hcu.fderiv_apply (𝕜 := ℝ) (sob j)
+  -- `Δg` is C¹ (basis formula) ⇒ differentiable; `∇(Δg)` continuous
+  have hΔg1 : ContDiff ℝ 1 (Δ g) := by
+    have he : (Δ g) = fun y => ∑ i, iteratedFDeriv ℝ 2 g y ![sob i, sob i] :=
+      funext fun y => congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis g sob) y
+    rw [he]
+    exact ContDiff.sum fun i _ =>
+      (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![sob i, sob i]).contDiff.comp
+        (hg.iteratedFDeriv_right (by norm_cast))
+  -- continuity package
+  have hω : Continuous (fun x => exp (g x)) := Real.continuous_exp.comp hg.continuous
+  have hcu' : Continuous (∇ u) :=
+    (LinearIsometryEquiv.continuous _).comp (hu1.continuous_fderiv one_ne_zero)
+  have hcg' : Continuous (∇ g) :=
+    (LinearIsometryEquiv.continuous _).comp (hg1.continuous_fderiv one_ne_zero)
+  have hcΔg' : Continuous (∇ (Δ g)) :=
+    (LinearIsometryEquiv.continuous _).comp (hΔg1.continuous_fderiv one_ne_zero)
+  have hc_du : ∀ j, Continuous (fun x => fderiv ℝ u x (sob j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (sob j)).continuous.comp (hu1.continuous_fderiv one_ne_zero)
+  have hc_gradag : ∀ j, Continuous (∇ (fun y => fderiv ℝ g y (sob j))) := fun j =>
+    (LinearIsometryEquiv.continuous _).comp ((hag j).continuous_fderiv (by norm_num))
+  have hc_Δag : ∀ j, Continuous (Δ (fun y => fderiv ℝ g y (sob j))) := fun j =>
+    WeightedGreenAux.continuous_laplacian (hag j)
+  -- vanishing off `tsupport u`
+  have hfdu0 : ∀ x, x ∉ tsupport u → fderiv ℝ u x = 0 := fun x hx => by
+    by_contra h0
+    exact hx (support_fderiv_subset ℝ (Function.mem_support.mpr h0))
+  have hu0 : ∀ x, x ∉ tsupport u → u x = 0 := fun x hx =>
+    image_eq_zero_of_notMem_tsupport hx
+  -- per-`j` triple-product Green identity (the core lemma)
+  have hpj : ∀ j, (∫ x, ⟪∇ (fun y => fderiv ℝ g y (sob j)) x,
+        ∇ (fun y => fderiv ℝ u y (sob j)) x⟫ * u x * exp (g x))
+      = - ∫ x, fderiv ℝ u x (sob j)
+          * (Δ (fun y => fderiv ℝ g y (sob j)) x * u x
+            + ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫
+            + u x * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * exp (g x) := fun j =>
+    integral_inner_grad_mul_weight (hag j) (hbu j) (hcbu j) hu1 hg1
+  have hVint : ∀ j, Integrable (fun x => fderiv ℝ u x (sob j)
+      * (Δ (fun y => fderiv ℝ g y (sob j)) x * u x
+        + ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫
+        + u x * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * exp (g x))
+      (volume : Measure E) := fun j => by
+    exact ((((hc_du j).mul ((((hc_Δag j).mul hu1.continuous).add
+        ((hc_gradag j).inner hcu')).add
+          (hu1.continuous.mul ((hc_gradag j).inner hcg')))).mul hω)).integrable_of_hasCompactSupport
+      (μ := (volume : Measure E)) (HasCompactSupport.intro hcu fun x hx => by simp [hfdu0 x hx, hu0 x hx])
+  have hT1int : Integrable (fun x => ⟪∇ u x, ∇ (Δ g) x⟫ * u x * exp (g x)) (volume : Measure E) := by
+    exact (((hcu'.inner hcΔg').mul hu1.continuous).mul hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hfdu0 x hx, hu0 x hx])
+  have hT2int : Integrable (fun x => (∑ j, fderiv ℝ u x (sob j)
+      * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫) * exp (g x)) (volume : Measure E) := by
+    exact ((continuous_finset_sum _ fun j _ => (hc_du j).mul ((hc_gradag j).inner hcu')).mul
+      hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hfdu0 x hx, hu0 x hx])
+  have hT3int : Integrable (fun x => (∑ j, fderiv ℝ u x (sob j)
+      * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x)) (volume : Measure E) := by
+    exact (((continuous_finset_sum _ fun j _ => (hc_du j).mul ((hc_gradag j).inner hcg')).mul
+      hu1.continuous).mul hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hfdu0 x hx, hu0 x hx])
+  -- collapse
+  rw [Finset.sum_congr rfl (fun j _ => hpj j), Finset.sum_neg_distrib,
+      ← integral_finsetSum _ (fun j _ => hVint j)]
+  have hcl : ∀ (x : E) j, Δ (fun y => fderiv ℝ g y (sob j)) x = fderiv ℝ (Δ g) x (sob j) :=
+    fun x j => laplacian_deriv_swap hg x (sob j)
+  have hpt : ∀ x, (∑ j, fderiv ℝ u x (sob j)
+        * (Δ (fun y => fderiv ℝ g y (sob j)) x * u x
+          + ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫
+          + u x * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * exp (g x))
+      = (⟪∇ u x, ∇ (Δ g) x⟫ * u x
+          + (∑ j, fderiv ℝ u x (sob j) * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫)
+          + (∑ j, fderiv ℝ u x (sob j) * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x)
+        * exp (g x) := by
+    intro x
+    have h1 : (∑ j, fderiv ℝ u x (sob j) * fderiv ℝ (Δ g) x (sob j)) = ⟪∇ u x, ∇ (Δ g) x⟫ :=
+      (inner_grad_eq_sum (hu1.differentiable one_ne_zero x)
+        (hΔg1.differentiable one_ne_zero x)).symm
+    have e1 : (∑ j, fderiv ℝ u x (sob j) * (Δ (fun y => fderiv ℝ g y (sob j)) x * u x))
+        = ⟪∇ u x, ∇ (Δ g) x⟫ * u x := by
+      rw [show (∑ j, fderiv ℝ u x (sob j) * (Δ (fun y => fderiv ℝ g y (sob j)) x * u x))
+          = (∑ j, fderiv ℝ u x (sob j) * fderiv ℝ (Δ g) x (sob j)) * u x from by
+        rw [Finset.sum_mul]; exact Finset.sum_congr rfl fun j _ => by rw [hcl x j]; ring, h1]
+    have e3 : (∑ j, fderiv ℝ u x (sob j)
+          * (u x * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫))
+        = (∑ j, fderiv ℝ u x (sob j)
+            * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x := by
+      rw [Finset.sum_mul]; exact Finset.sum_congr rfl fun j _ => by ring
+    rw [← Finset.sum_mul]
+    congr 1
+    simp only [mul_add]
+    rw [Finset.sum_add_distrib, Finset.sum_add_distrib, e1, e3]
+  have hT12int : Integrable (fun x => ⟪∇ u x, ∇ (Δ g) x⟫ * u x * exp (g x)
+      + (∑ j, fderiv ℝ u x (sob j)
+          * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫) * exp (g x))
+      (volume : Measure E) := hT1int.add hT2int
+  rw [integral_congr_ae (Filter.Eventually.of_forall hpt),
+      show (fun x => (⟪∇ u x, ∇ (Δ g) x⟫ * u x
+            + (∑ j, fderiv ℝ u x (sob j) * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫)
+            + (∑ j, fderiv ℝ u x (sob j) * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x)
+          * exp (g x))
+        = fun x => (⟪∇ u x, ∇ (Δ g) x⟫ * u x * exp (g x)
+            + (∑ j, fderiv ℝ u x (sob j)
+                * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫) * exp (g x))
+          + (∑ j, fderiv ℝ u x (sob j)
+              * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x)
+        from funext fun x => by ring,
+      integral_add hT12int hT3int, integral_add hT1int hT2int]
+  ring
+
 end CommutatorIBP
 
 

@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.46 — 2026-06-13 — Carleman ladder-6b-γ (ii complete): the `A`-collapse `2∫⟨D²g,D²u⟩_HS·u·e^g → −2∫D²g(∇u,∇u)e^g − …`
+
+`Carleman.lean` +~135 lines (3159 total), completing `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`integral_hessianHS_collapse`** — for `u` C² compactly supported, `g` C³:
+  `∑ⱼ ∫⟪∇∂ⱼg, ∇∂ⱼu⟫·u·e^g = −∫⟪∇u,∇Δg⟫u·e^g − ∫D²g(∇u,∇u)·e^g − ∫D²g(∇g,∇u)u·e^g`
+  (= `A/2`; the Hessian forms in single-`j`-sum coordinates). Proof: the triple-product Green
+  identity (γ-ii core) per-`j` with `a := ∂ⱼg`, `b := ∂ⱼu`, `c := u` (∂ⱼu compactly supported via
+  `HasCompactSupport.fderiv_apply`), summed (`Finset.sum_neg_distrib`, `← integral_finsetSum`),
+  then the pointwise integrand collapsed: the spatial Clairaut swap `Δ(∂ⱼg) = ∂ⱼ(Δg)`
+  (`laplacian_deriv_swap`, 6b-α) + Parseval turn the `Σⱼ ∂ⱼu·Δ(∂ⱼg)` term into `⟪∇u,∇Δg⟫`, the
+  other two are the Hessian forms. Integrability throughout via `tsupport u` compactness
+  (uniform `simp [hfdu0, hu0]` vanishing; `by exact` to bridge `Continuous.mul`'s Pi-form vs the
+  stated lambda; left-associated bracket to match).
+- **Soundness:** no `sorry`; the false variant (the middle `D²g(∇u,∇u)` term with a flipped sign)
+  is REJECTED at the final `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**γ-ii is COMPLETE.** Next: **γ-iii** — `B := ∫⟪∇(2Δg+‖∇g‖²),∇u⟫u·e^g = 2∫⟪∇Δg,∇u⟫u·e^g +
+2∫D²g(∇g,∇u)u·e^g` (via `∇‖∇g‖² = 2D²g∇g`), then the `A + B = −2∫D²g(∇u,∇u)e^g` exact cancellation.
+Then **6b-δ** (the full `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g` + Lemma 4.1). `:proved`=0;
+distance UNTOUCHED.
+
 ## v0.15.45 — 2026-06-13 — NS-050 attempt 5: stabilized dynamic rescaling — CLM gate PASS (validated profile solver) + HL clean negative (the profile is a saddle)
 
 Executed the Desktop session brief `ns050_dynrescale_session_brief.md` (Aaron, 2026-06-12): the one
