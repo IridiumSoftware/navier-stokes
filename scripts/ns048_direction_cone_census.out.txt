@@ -1,0 +1,19 @@
+==============================================================================
+  Direction-cone census (litmap §4.3) — LRT double-cone hypothesis vs held cores
+  θ* = smallest enclosing double-cone half-angle at top-q |ω|; θ*≈90° ⇒ no cone
+  Scope: resolved-DNS witness; vacuity-capped; :proved=0
+==============================================================================
+
+# snap_N256_tubes_t6.00.bin  N=256 t=6.00  winf=96.72
+    top-q      n_pts    θ* (strict)   θ*₉₉ (99%-mass)   δ_Λ    verdict vs double-cone
+      0.10%      16777       89.9°          88.5°        0.490   NO cone — bulk-spread (hits every great circle)
+      1.00%     167772       90.0°          88.5°        0.435   NO cone — bulk-spread (hits every great circle)
+
+# snap_N512_tubes_t6.00.bin  N=512 t=6.00  winf=124.15
+    top-q      n_pts    θ* (strict)   θ*₉₉ (99%-mass)   δ_Λ    verdict vs double-cone
+      0.10%     134218       90.0°          88.6°        0.448   NO cone — bulk-spread (hits every great circle)
+      1.00%    1342177       90.0°          88.9°        0.427   NO cone — bulk-spread (hits every great circle)
+
+# READ: θ*≈90° at the cores ⇒ the LRT double-cone hypothesis is violated in the resolved
+# intense regions (non-discriminating in this regime — the CF-family pattern); θ*₉₉ separates
+# bulk spread from outliers. Witness only; does NOT refute the theorem. :proved=0

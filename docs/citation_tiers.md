@@ -59,6 +59,9 @@ else's theorem, never that *we* proved anything. A no-go's force in the obstruct
 | **Yu** (Appl. Anal. 99 (2020)) — `\|x₃\|u^θ` smallness | **C1** (paywalled; via its faithful restatement in 2205.13893) | the `α=1` endpoint of the axial family | NS-048 |
 | **Chen–Fang–Zhang** (arXiv:1802.08956) — *radial* `r^d u^θ` criteria | **C3** (read in full; the data-anchored Gronwall + continuation lemma + the "analogously to Lei–Zhang" critical-endpoint remark) | the radial contrast class (an earlier misattribution of the `\|x₃\|^α` conditions to CFZ was caught + corrected in the port doc) | NS-048 |
 | Tao (triple-log); Palasek (axisym double-log) — Type-II rate bounds | **C1/C2** (primary-read, partial) | the gap-to-full-exclusion is *qualitative* | NS-048 (type-II) |
+| **Lei–Ren–Tian** (arXiv:2501.08976) — double-cone direction-confinement ⇒ regularity | **C2** (hypothesis verbatim) | the litmap §4.3 census (`scripts/ns048_direction_cone_census.jl`): resolved cores violate cone-confinement **bulk-wise** — θ\*≈90°, θ\*₉₉≈88.5–88.9°, N-stable 256↔512 ⇒ non-discriminating in the resolved regime (CF-family filing; does NOT refute the theorem) | NS-048 (litmap §4.3) |
+| **Chen–Strain–Tsai–Yau I / II** (math/0701796, IMRN 2008; 0709.4230, CPDE 34:3 2009) — Type-I-rate exclusions, axisym **with swirl** | **C2** (statements verbatim, both) | `\|v\| ≤ C₊(r²−t)^{−1/2}` ⇒ regular (I); `\|v\| ≤ C₊\|t\|^{−1/2}` or `C₊r^{−1+ε}\|t\|^{−ε/2}` ⇒ regular (II) — litmap §4.2 sub-table rows d/e | NS-048 (litmap §4.2) |
+| **Lei–Zhang lineage** — the `\|v\| ≤ C/r` borderline (no t-decay) | **C1** (named; verify before citing) | the critical scale-invariant *open* borderline — litmap §4.2 sub-table row f | NS-048 (litmap §4.2) |
 
 ## NS-049 — Lockwood "Singularity Surgery" (the one external regularity-*attack*)
 

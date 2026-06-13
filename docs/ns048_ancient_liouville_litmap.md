@@ -79,7 +79,33 @@ the smallest advertised distance to the real theorem in this literature.
 - *Kill:* if the hypothesis is load-bearing at a step requiring ESS-type backward uniqueness in a
   form known to be sharp, the edge is a wall-restatement — log and stop.
 
-**4.2 Axisymmetric with bounded swirl (the KNSS conjecture's last case).**
+**4.2 Axisymmetric with bounded swirl — EXECUTED 2026-06-12. The tiered sub-table + the exact
+open sub-case.** New reads this pass: CSTY I/II at C2 verbatim; the rest assembled from in-repo C3
+material (the port→route-i→combined thread + the LZZ/Pan–Li/WHWY/CFZ reads).
+
+| # | class (axisym ℝ³, mild, unless noted) | result | source | tier |
+|---|---|---|---|---|
+| a | **no swirl**, bounded ancient | u ≡ const — SOLVED | KNSS | C2 |
+| b | **with swirl**, ℝ²×T¹ (axis direction compactified), bounded ancient | SOLVED | Lei–Ren–Zhang | C3 in-repo |
+| c | **with swirl**, Γ=rv_θ ∈ L^p (radial decay), ancient | SOLVED — Γ-decay ⇒ swirl-free reduction ⇒ (a) | Lei–Zhang–Zhao | C3 in-repo |
+| d | finite-time side, **with swirl**: \|v\| ≤ C₊(r²−t)^{−1/2} ⇒ regular at 0 (the Type-I self-similar rate excluded) | SOLVED (conditional) | **CSTY I** — Chen–Strain–Tsai–Yau, math/0701796, IMRN 2008 | **C2 (this pass)** |
+| e | finite-time side: \|v\| ≤ C₊\|t\|^{−1/2} **or** C₊r^{−1+ε}\|t\|^{−ε/2} (ε>0) ⇒ regular | SOLVED (conditional) | **CSTY II** — 0709.4230, CPDE 34:3, 2009 | **C2 (this pass)** |
+| f | the borderline \|v\| ≤ C/r (no t-decay) — the critical scale-invariant bound | PARTIAL — the famous open borderline | Lei–Zhang lineage | C1 — named; verify before citing |
+| g | **no swirl**, sublinear growth \|u\| ≤ Cr^α (α<1), ancient | u ≡ const; the α=1 counterexamples are swirl-FREE | Pan–Li | C3 in-repo |
+| h | axial-only \|x₃\|^α ancient conjecture (**with swirl**) | **OPEN** — the in-repo port thread; session-scale attacks exhausted | `ns048_anisotropic_z_port.md` → `ns048_route_i_blowdown.md` → `ns048_combined_axial_radial.md` | in-repo |
+| i | direction-confinement: ω̂ in a double cone at high \|ω\| ⇒ regular | SOLVED (conditional) | Lei–Ren–Tian, 2501.08976 | C2 (§4.3 + the census) |
+
+**The exact open sub-case: the bare bounded mild ancient axisym solution WITH swirl on ℝ³ — no
+decay, growth, compactification, or confinement side-condition.** Every solved neighbor adds
+exactly one crutch: radial decay (c), axis-compactification (b), temporal/Type-I decay (d, e), or
+direction confinement (i) — and **every with-swirl closer routes through Γ-decay → the swirl-free
+reduction**, never through controlling the source S=(2Γ/r⁴)∂_zΓ directly (the in-repo LZZ verdict;
+§3's scalar-maximum-principle diagnosis at its sharpest).
+*Kill check (equivalence): NOT met* — axisym-with-swirl retains the scalar rv_θ max-principle
+structure absent in general 3D, and no equivalence to the full problem is known ⇒ it stays a
+genuine restricted target. But no session-scale lane remains: the in-repo attacks (port, route-i,
+combined) are exhausted; what's left is the bare conjecture. *(Original entry below, kept for the
+record.)*
 Partial scalar structure exists (rv_θ max principle); the repo already owns axisym machinery.
 - *First move:* assemble the post-KNSS axisym-swirl state of the art into one tiered sub-table;
   identify the *exact* open sub-case.
@@ -93,7 +119,23 @@ Partial scalar structure exists (rv_θ max principle); the repo already owns axi
 - *Kill:* if the open sub-case is already known to be equivalent in difficulty to the full
   problem (some axisym reductions are), log and demote to instrument-only.
 
-**4.3 Vorticity-direction / geometric confinement (newest; connects to in-repo data).**
+**4.3 Vorticity-direction / geometric confinement — EXECUTED 2026-06-12
+(`scripts/ns048_direction_cone_census.jl` + `.out.txt`). VERDICT: the pre-registered KILL, met
+N-STABLY — filed under the CF-family.** The paper is **Lei–Ren–Tian** (arXiv:2501.08976, C2),
+hypothesis verbatim: ω̂ confined to a **double cone** in high-|ω| regions ⇒ regular (⟺ at a
+singularity the directions intersect every great circle). Honesty catch before running: the held
+δ_Λ/|∇ξ|² are *second-moment* diagnostics — the hypothesis is about **support**, so the census
+computed the smallest-enclosing-double-cone half-angle θ\*(q) = arccos(max_e min_{i∈top-q}
+|ω̂_i·e|) (4000 Fibonacci axes + the Λ-eigenvector candidate) plus the outlier-robust 99%-mass
+cone θ\*₉₉, on both held GPU snapshots (tubes @ t=6.00 enstrophy peak). **Result: θ\* =
+89.9–90.0° and θ\*₉₉ = 88.5–88.9° at both top-0.1% and top-1%, at both N=256 and N=512** (δ_Λ
+0.49/0.448 — the latter exactly reproducing the NS-049 probe, a cross-instrument consistency
+check). The spread is **bulk** (even the 99%-mass cone is ≈90°), not outlier-driven: resolved
+intense cores hit every great circle ⇒ the LRT condition is **non-discriminating in the resolved
+regime** — the NS-049/CF-family pattern, exactly as the kill criterion pre-stated. Caps: (i) this
+does NOT refute the theorem — a regular flow violating a *sufficient* condition is consistent;
+(ii) the kinematic confound (tube cores organized by construction) cuts both ways; (iii) vacuity
+cap — resolved ≠ singular limit. *(Original entry below, kept for the record.)*
 2501.08976-type conditions (ω̂ confined to a cone/half-space at regular points ⇒ exclusion) are
 the analytic twin of what NS-038/NS-039 *measure* and what NS-049's δ_Λ probe quantifies.
 - *First move:* check whether the resolved-DNS direction-field statistics already in the repo

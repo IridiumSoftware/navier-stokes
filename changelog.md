@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.41 — 2026-06-12 — Litmap §4.3 + §4.2 EXECUTED: the LRT direction-cone census (pre-registered kill, N-stable) + the axisym-swirl sub-table (the exact open sub-case pinned)
+
+The last two litmap edges closed; the whole §4 queue (4.1→4.3→4.2) is now EXECUTED.
+- **§4.3 (Lei–Ren–Tian, arXiv:2501.08976, C2 — double-cone confinement of ω̂ at high |ω| ⇒
+  regular):** honesty catch — held δ_Λ/ξ are *second-moment*; the hypothesis is about **support**.
+  New census `scripts/ns048_direction_cone_census.jl` (+`.out.txt`) computes the
+  smallest-enclosing-double-cone half-angle θ\*(q) (4000 Fibonacci axes + Λ-eigenvector) + the
+  outlier-robust θ\*₉₉ on both held GPU snapshots (tubes @ t=6.00). **Result: θ\*=89.9–90.0°,
+  θ\*₉₉=88.5–88.9°, at top-0.1% AND top-1%, at N=256 AND N=512** (δ_Λ 0.448 reproduces the NS-049
+  probe exactly — cross-instrument consistency). Bulk-spread, not outlier-driven ⇒ the
+  pre-registered KILL fired: **non-discriminating in the resolved regime — CF-family filing**
+  (does NOT refute the theorem; kinematic-confound + vacuity caps held).
+- **§4.2 (axisym with swirl):** the tiered sub-table assembled (9 rows; new C2 verbatim reads:
+  **CSTY I** math/0701796 `|v|≤C₊(r²−t)^{−1/2}` ⇒ regular; **CSTY II** 0709.4230
+  `|v|≤C₊|t|^{−1/2}` or `C₊r^{−1+ε}|t|^{−ε/2}` ⇒ regular). **The exact open sub-case pinned: the
+  bare bounded mild ancient axisym solution WITH swirl on ℝ³, no side-condition** — every solved
+  neighbor adds exactly one crutch (radial decay / axis-T¹ / temporal decay / confinement), and
+  every with-swirl closer routes through Γ-decay → swirl-free. Equivalence-kill NOT met (rv_θ
+  scalar structure ⇒ genuine restricted target); no session-scale lane remains.
+- `docs/citation_tiers.md`: +LRT (C2 + census), +CSTY I/II (C2), +Lei–Zhang `C/r` borderline (C1).
+No SPEC change (litmap execution under NS-048; no new NS-ID). `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.40 — 2026-06-12 — Carleman ladder-6b-β (substrate i+ii): the slice-gradient inner-product time-derivative + `∂tF`
 
 `Carleman.lean` +~95 lines (2809 total), new section `CommutatorTime`. **Library infrastructure;
