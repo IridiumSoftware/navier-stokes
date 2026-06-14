@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.54 — 2026-06-14 — Carleman ladder-6b-δ COMPLETE: the concrete commutator quadratic form = Tao Lemma 4.1's display
+
+`Carleman.lean` +~110 lines (3609 total), completing `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`commutator_pointwise_eq`** — the pointwise commutator bridge: the full `[L,S]u` value
+  `(⟪∇gt,∇u⟫ − ½(∂tF)u) + (⟪∇Δg,∇u⟫ + 2⟨D²g,D²u⟩_HS − ½uΔF − ⟪∇F,∇u⟫)` (`F = gt − Δg − ‖∇g‖²`)
+  equals `2Σⱼ⟪∇∂ⱼg,∇∂ⱼu⟫ + 2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u) − ½(∂tF+ΔF)u` — the `∇gt` terms cancel
+  (`−⟪∇F,∇u⟫` expansion), `⟪∇‖∇g‖²,∇u⟫ → 2 D²g(∇g,∇u)` (γ-iii), and the HS double-sum ↔
+  `Σⱼ⟪∇∂ⱼg,∇∂ⱼu⟫` are reconciled (Parseval + `fderiv_fderiv_dir` + `Finset.sum_comm`). Via
+  `HasFDerivAt.sub` + `inner_gradient_left` for `∇F`, `real_inner_comm`, `ring`.
+- **`integral_commutator_quadratic`** — the capstone: for `u` C^∞ compactly supported, `g, gt`
+  C^∞, `dtF` (`= ∂tF`) continuous,
+  `∫ [L,S]u·u·e^g = ∫(−2 D²g(∇u,∇u) − ½(LF)u²)·e^g` with `LF = ∂tF + ΔF`. Combines
+  `commutator_pointwise_eq` (pointwise) with `integral_commutator_full` (integral collapse).
+  **This is the value of Tao Lemma 4.1's commutator quadratic form, machine-verified concretely.**
+- **Soundness:** no `sorry`; false variants (potential-term and `D²g(∇u,∇u)` sign flips) REJECTED;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**6b-δ is COMPLETE** — the Carleman commutator quadratic form `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`
+is verified for concrete smooth compactly-supported test data (Tao §4 Lemma 4.1's display). The only
+remaining formal step is the *notation* gluing to the bundled `Lop`/`Sop` abstract pairing (no new
+mathematics). Then Props 4.2/4.3 (instantiate the two weights) + the backward-uniqueness wrapper.
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.53 — 2026-06-14 — Carleman ladder-6b-δ (step 2a): the pointwise spatial commutator `Δ(Su)−S(Δu)`
 
 `Carleman.lean` +~35 lines (3500 total), in `CommutatorIBP`. **Library infrastructure;

@@ -216,6 +216,11 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   `Δ(Su) − S(Δu) = ⟪∇Δg,∇u⟫ + 2⟨D²g,D²u⟩_HS − u·ΔF − 2⟪∇F,∇u⟫` for `Sφ = Δφ + ⟪∇g,∇φ⟫ − F·φ`,
   from the four-index identity + Leibniz via Laplacian additivity. False sign variant rejected;
   no `sorry`.
+- **Ladder-6b-δ COMPLETE** — `commutator_pointwise_eq` (the full `[L,S]u` value, time + space, =
+  the collapsible integrand; `∇gt` cancels, γ-iii + HS reconciliation) and
+  **`integral_commutator_quadratic`** (the capstone:
+  `∫[L,S]u·u·e^g = ∫(−2 D²g(∇u,∇u) − ½(LF)u²)·e^g` — **Tao Lemma 4.1's commutator quadratic form**,
+  verified for concrete smooth compactly-supported data). False sign variants rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's
