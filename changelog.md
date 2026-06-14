@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.47 — 2026-06-13 — Carleman ladder-6b-γ (iii): the gradient-of-`‖∇g‖²` identity `⟪∇‖∇g‖²,∇u⟫ = 2·D²g(∇g,∇u)`
+
+`Carleman.lean` +~45 lines (3204 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.** The last spatial-calculus ingredient for the `A+B` cancellation:
+- **`inner_grad_normSq_eq`** — for `u` C¹, `g` C²:
+  `⟪∇(fun y => ⟪∇g y,∇g y⟫) x, ∇u x⟫ = 2·∑ⱼ ∂ⱼu·⟪∇∂ⱼg,∇g⟫` (the `∇‖∇g‖² = 2 D²g ∇g` identity,
+  with the RHS in γ-ii's single-`j`-sum `D²g(∇g,∇u)` form). Proof: write `‖∇g‖² = Σᵢ(∂ᵢg)²`
+  (Parseval), differentiate (`fderiv_fun_sum` + per-`i` `HasFDerivAt.mul` + `fderiv_fderiv_dir`)
+  to get `∂ⱼ‖∇g‖² = Σᵢ 2 gᵢ·iFD2 g ![eⱼ,eᵢ]`, pair with `∇u` (Parseval), and reconcile the two
+  Hessian index orders by **Schwarz symmetry** (`IsSymmSndFDerivAt.iteratedFDeriv_cons`).
+- **Soundness:** no `sorry`; the false variant (coefficient `1` instead of `2`) is REJECTED at
+  the final `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**6b-γ is COMPLETE** (γ-i weighted directional IBP, γ-ii core triple-product Green + the `A`-collapse,
+γ-iii the `∇‖∇g‖²` identity). The `A+B = −2∫D²g(∇u,∇u)e^g` cancellation is now pure integral
+arithmetic. **Next: 6b-δ** — assemble the full `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g` (combine
+the 6b-β time part + the four-index/Leibniz spatial expansion + the A-collapse + this `B` identity)
+and Lemma 4.1's displayed inequality. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.46 — 2026-06-13 — Carleman ladder-6b-γ (ii complete): the `A`-collapse `2∫⟨D²g,D²u⟩_HS·u·e^g → −2∫D²g(∇u,∇u)e^g − …`
 
 `Carleman.lean` +~135 lines (3159 total), completing `CommutatorIBP`. **Library infrastructure;

@@ -197,6 +197,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   `∑ⱼ∫⟪∇∂ⱼg,∇∂ⱼu⟫·u·e^g = −∫⟪∇u,∇Δg⟫u·e^g − ∫D²g(∇u,∇u)·e^g − ∫D²g(∇g,∇u)u·e^g` (`u` C²
   compactly supported, `g` C³), via the core lemma per-`j` + the spatial Clairaut swap + Parseval.
   False flipped-sign variant rejected; no `sorry`.
+- **Ladder-6b-γ iii (`inner_grad_normSq_eq`)** — the `∇‖∇g‖² = 2 D²g ∇g` identity:
+  `⟪∇‖∇g‖²,∇u⟫ = 2·∑ⱼ ∂ⱼu·⟪∇∂ⱼg,∇g⟫` (γ-ii's `D²g(∇g,∇u)` form), via Parseval + per-`i`
+  differentiation + Hessian Schwarz symmetry. The last ingredient of the `A+B` cancellation.
+  False coefficient-1 variant rejected; no `sorry`. **6b-γ complete.**
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

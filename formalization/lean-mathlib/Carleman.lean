@@ -3151,6 +3151,51 @@ theorem integral_hessianHS_collapse {u g : E → ℝ} (hu : ContDiff ℝ 2 u)
       integral_add hT12int hT3int, integral_add hT1int hT2int]
   ring
 
+/-- **(γ-iii) The gradient of `‖∇g‖²`** paired with `∇u`: `⟪∇‖∇g‖², ∇u⟫ = 2·D²g(∇g,∇u)`
+    (the latter in γ-ii's single-`j`-sum form). This is the `∇‖∇g‖² = 2 D²g ∇g` identity, the
+    ingredient that — via `−⟪∇F,∇u⟫` — produces the `+2 D²g(∇g,∇u)` cancelling the `A`-collapse's
+    `−2 D²g(∇g,∇u)`. The Hessian symmetry (Schwarz) reconciles the two index orders. -/
+theorem inner_grad_normSq_eq {u g : E → ℝ} (hu : ContDiff ℝ 1 u) (hg : ContDiff ℝ 2 g) (x : E) :
+    ⟪∇ (fun y => (⟪∇ g y, ∇ g y⟫ : ℝ)) x, ∇ u x⟫
+      = 2 * ∑ j, fderiv ℝ u x (stdOrthonormalBasis ℝ E j)
+          * ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x, ∇ g x⟫ := by
+  classical
+  set sob := stdOrthonormalBasis ℝ E with hsob
+  have hg1 : ContDiff ℝ 1 g := hg.of_le (by norm_num)
+  have hfdg1 : ContDiff ℝ 1 (fderiv ℝ g) := hg.fderiv_right (by norm_num)
+  have hagd : ∀ i, DifferentiableAt ℝ (fun y => fderiv ℝ g y (sob i)) x := fun i =>
+    ((ContinuousLinearMap.apply ℝ ℝ (sob i)).differentiable.comp
+      (hfdg1.differentiable one_ne_zero)) x
+  have hsymmg : IsSymmSndFDerivAt ℝ g x := hg.contDiffAt.isSymmSndFDerivAt (by simp)
+  have hnormsq : (fun y => (⟪∇ g y, ∇ g y⟫ : ℝ))
+      = fun y => ∑ i, fderiv ℝ g y (sob i) * fderiv ℝ g y (sob i) := by
+    funext y
+    exact inner_grad_eq_sum (hg1.differentiable one_ne_zero y) (hg1.differentiable one_ne_zero y)
+  have hnsq_diff : DifferentiableAt ℝ (fun y => (⟪∇ g y, ∇ g y⟫ : ℝ)) x := by
+    rw [hnormsq]; exact DifferentiableAt.fun_sum fun i _ => (hagd i).mul (hagd i)
+  have hpartial : ∀ j, fderiv ℝ (fun y => (⟪∇ g y, ∇ g y⟫ : ℝ)) x (sob j)
+      = ∑ i, 2 * (fderiv ℝ g x (sob i) * iteratedFDeriv ℝ 2 g x ![sob j, sob i]) := by
+    intro j
+    rw [hnormsq, fderiv_fun_sum (fun i _ => show DifferentiableAt ℝ
+          (fun y => fderiv ℝ g y (sob i) * fderiv ℝ g y (sob i)) x from (hagd i).mul (hagd i)),
+        ContinuousLinearMap.sum_apply]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    have hm : HasFDerivAt (fun y => fderiv ℝ g y (sob i) * fderiv ℝ g y (sob i)) _ x :=
+      HasFDerivAt.mul (hagd i).hasFDerivAt (hagd i).hasFDerivAt
+    rw [hm.fderiv, ContinuousLinearMap.add_apply]
+    simp only [ContinuousLinearMap.smul_apply, smul_eq_mul]
+    rw [fderiv_fderiv_dir hg x (sob j) (sob i)]
+    ring
+  rw [inner_grad_eq_sum hnsq_diff (hu.differentiable one_ne_zero x), Finset.mul_sum]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [hpartial j, inner_grad_eq_sum (hagd j) (hg1.differentiable one_ne_zero x),
+      Finset.sum_mul, Finset.mul_sum, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [fderiv_fderiv_dir hg x (sob i) (sob j),
+      show iteratedFDeriv ℝ 2 g x ![sob j, sob i] = iteratedFDeriv ℝ 2 g x ![sob i, sob j] from
+        IsSymmSndFDerivAt.iteratedFDeriv_cons (hf := hsymmg)]
+  ring
+
 end CommutatorIBP
 
 
