@@ -209,6 +209,9 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   collapse `∫(2Σⱼ⟪∇∂ⱼg,∇∂ⱼu⟫ + 2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u))·u·e^g = −2∫D²g(∇u,∇u)·e^g` (HS sum
   inside the integral), via the HS-swap + `integral_AB_collapse`. False sign variant rejected;
   no `sorry`.
+- **Ladder-6b-δ step 1 complete (`integral_commutator_full`)** — the full commutator integrand
+  (with the `−½·LF·u` potential) integrates to Tao's Lemma 4.1 RHS:
+  `∫(… − ½·LF·u)·u·e^g = ∫(−2 D²g(∇u,∇u) − ½·LF·u²)·e^g`. False sign variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

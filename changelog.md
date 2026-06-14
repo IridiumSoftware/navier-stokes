@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.52 — 2026-06-14 — Carleman ladder-6b-δ (step 1 complete): the full commutator integral identity
+
+`Carleman.lean` +~80 lines (3468 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`integral_commutator_full`** — for `u` C² compactly supported, `g` C³, `lf` (`= LF`) continuous:
+  `∫ (2 Σⱼ⟪∇∂ⱼg,∇∂ⱼu⟫ + 2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u) − ½·LF·u)·u·e^g
+     = ∫(−2 D²g(∇u,∇u) − ½·LF·u²)·e^g`.
+  The full post-cancellation commutator integrand integrates to the Carleman target: the
+  gradient+HS part collapses (`integral_gradHS_collapse`) to `−2∫D²g(∇u,∇u)`, and the `−½·LF·u`
+  pairs with `u` to the `−½·LF·u²` potential term (`integral_sub` + `integral_const_mul`,
+  integrability via `tsupport u` compactness).
+- **Soundness:** no `sorry`; the false variant (RHS potential-term sign flipped) is REJECTED;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Step 1 is COMPLETE** — the concrete commutator integrand integrates to
+`∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`, the displayed RHS of Tao's Lemma 4.1. Remaining (**step 2**):
+the pointwise operator expansion (`Δ(Su)−S(Δu)` via four-index + Leibniz, 6b-α, + the 6b-β time
+part, `∇gt` cancelling) showing `[L,S]u` equals this integrand, and the abstract wiring of
+`⟨[L,S]u,u⟩` through the bundled `Lop`/`Sop` pairing. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.51 — 2026-06-14 — Verify-and-port grok-test GO-018..021 (round 3): all 7 byte-identical
 
 A7 verify-and-port of the grok-test ancient-Liouville/Type-II wave (pin `grok-test@8e0e066`; all stdlib

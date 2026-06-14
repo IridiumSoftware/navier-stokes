@@ -3362,6 +3362,104 @@ theorem integral_gradHS_collapse {u g : E → ℝ} (hu : ContDiff ℝ 2 u)
       from funext fun x => by ring,
     integral_add hHSpart hBint, hHSswap, integral_AB_collapse hu hcu hg]
 
+/-- **(6b-δ step 1: the full commutator integral identity)** — with the post-cancellation
+    commutator integrand `2 Σⱼ⟪∇∂ⱼg,∇∂ⱼu⟫ + 2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u) − ½·LF·u` (where `LF` is
+    the given function `lf`):
+    `∫ (commutator integrand)·u·e^g = ∫(−2 D²g(∇u,∇u) − ½·LF·u²)·e^g`.
+    The gradient+HS part collapses (`integral_gradHS_collapse`) to `−2∫D²g(∇u,∇u)`; the `−½·LF·u`
+    term pairs with `u` to the `−½·LF·u²` potential term. -/
+theorem integral_commutator_full {u g lf : E → ℝ} (hu : ContDiff ℝ 2 u)
+    (hcu : HasCompactSupport u) (hg : ContDiff ℝ 3 g) (hlf : Continuous lf) :
+    (∫ x, (2 * (∑ j, ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x,
+            ∇ (fun y => fderiv ℝ u y (stdOrthonormalBasis ℝ E j)) x⟫)
+        + 2 * ⟪∇ u x, ∇ (Δ g) x⟫
+        + 2 * ∑ j, fderiv ℝ u x (stdOrthonormalBasis ℝ E j)
+            * ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x, ∇ g x⟫
+        - lf x / 2 * u x) * u x * exp (g x))
+      = ∫ x, (-2 * (∑ j, fderiv ℝ u x (stdOrthonormalBasis ℝ E j)
+            * ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x, ∇ u x⟫)
+          - lf x / 2 * (u x) ^ 2) * exp (g x) := by
+  classical
+  set sob := stdOrthonormalBasis ℝ E with hsob
+  have hu1 : ContDiff ℝ 1 u := hu.of_le (by norm_num)
+  have hg1 : ContDiff ℝ 1 g := hg.of_le (by norm_num)
+  have hΔg1 : ContDiff ℝ 1 (Δ g) := by
+    have he : (Δ g) = fun y => ∑ i, iteratedFDeriv ℝ 2 g y ![sob i, sob i] :=
+      funext fun y => congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis g sob) y
+    rw [he]
+    exact ContDiff.sum fun i _ =>
+      (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![sob i, sob i]).contDiff.comp
+        (hg.iteratedFDeriv_right (by norm_cast))
+  have hω : Continuous (fun x => exp (g x)) := Real.continuous_exp.comp hg.continuous
+  have hcu' : Continuous (∇ u) :=
+    (LinearIsometryEquiv.continuous _).comp (hu1.continuous_fderiv one_ne_zero)
+  have hcg' : Continuous (∇ g) :=
+    (LinearIsometryEquiv.continuous _).comp (hg1.continuous_fderiv one_ne_zero)
+  have hcΔg' : Continuous (∇ (Δ g)) :=
+    (LinearIsometryEquiv.continuous _).comp (hΔg1.continuous_fderiv one_ne_zero)
+  have hc_du : ∀ j, Continuous (fun x => fderiv ℝ u x (sob j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (sob j)).continuous.comp (hu1.continuous_fderiv one_ne_zero)
+  have hc_gradag : ∀ j, Continuous (∇ (fun y => fderiv ℝ g y (sob j))) := fun j =>
+    (LinearIsometryEquiv.continuous _).comp
+      ((((ContinuousLinearMap.apply ℝ ℝ (sob j)).contDiff.comp
+        (hg.fderiv_right (by norm_num)))).continuous_fderiv one_ne_zero)
+  have hc_gradau : ∀ j, Continuous (∇ (fun y => fderiv ℝ u y (sob j))) := fun j =>
+    (LinearIsometryEquiv.continuous _).comp
+      ((((ContinuousLinearMap.apply ℝ ℝ (sob j)).contDiff.comp
+        (hu.fderiv_right (by norm_num)))).continuous_fderiv one_ne_zero)
+  have hu0 : ∀ x, x ∉ tsupport u → u x = 0 := fun x hx => image_eq_zero_of_notMem_tsupport hx
+  -- the gradient+HS integrand and the potential integrand are integrable
+  have hgradHS_cont : Continuous (fun x => (2 * (∑ j, ⟪∇ (fun y => fderiv ℝ g y (sob j)) x,
+        ∇ (fun y => fderiv ℝ u y (sob j)) x⟫)
+      + 2 * ⟪∇ u x, ∇ (Δ g) x⟫
+      + 2 * ∑ j, fderiv ℝ u x (sob j)
+          * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x)) :=
+    ((((continuous_const.mul (continuous_finset_sum _ fun j _ =>
+        (hc_gradag j).inner (hc_gradau j))).add (continuous_const.mul (hcu'.inner hcΔg'))).add
+      (continuous_const.mul (continuous_finset_sum _ fun j _ =>
+        (hc_du j).mul ((hc_gradag j).inner hcg')))).mul hu1.continuous).mul hω
+  have hI_collapse : Integrable (fun x => (2 * (∑ j, ⟪∇ (fun y => fderiv ℝ g y (sob j)) x,
+        ∇ (fun y => fderiv ℝ u y (sob j)) x⟫)
+      + 2 * ⟪∇ u x, ∇ (Δ g) x⟫
+      + 2 * ∑ j, fderiv ℝ u x (sob j)
+          * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x))
+      (volume : Measure E) := by
+    exact hgradHS_cont.integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hu0 x hx])
+  have hI_lf : Integrable (fun x => lf x / 2 * (u x) ^ 2 * exp (g x)) (volume : Measure E) := by
+    exact (((hlf.div_const 2).mul (hu1.continuous.pow 2)).mul hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hu0 x hx])
+  have hI_HSuu : Integrable (fun x => (∑ j, fderiv ℝ u x (sob j)
+      * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫) * exp (g x)) (volume : Measure E) := by
+    exact ((continuous_finset_sum _ fun j _ => (hc_du j).mul ((hc_gradag j).inner hcu')).mul
+      hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by
+        have hfdu0 : fderiv ℝ u x = 0 := by
+          by_contra h0; exact hx (support_fderiv_subset ℝ (Function.mem_support.mpr h0))
+        simp [hfdu0])
+  rw [show (fun x => (2 * (∑ j, ⟪∇ (fun y => fderiv ℝ g y (sob j)) x,
+            ∇ (fun y => fderiv ℝ u y (sob j)) x⟫)
+        + 2 * ⟪∇ u x, ∇ (Δ g) x⟫
+        + 2 * ∑ j, fderiv ℝ u x (sob j)
+            * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫
+        - lf x / 2 * u x) * u x * exp (g x))
+      = fun x => (2 * (∑ j, ⟪∇ (fun y => fderiv ℝ g y (sob j)) x,
+            ∇ (fun y => fderiv ℝ u y (sob j)) x⟫)
+          + 2 * ⟪∇ u x, ∇ (Δ g) x⟫
+          + 2 * ∑ j, fderiv ℝ u x (sob j)
+              * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x)
+        - lf x / 2 * (u x) ^ 2 * exp (g x)
+      from funext fun x => by ring,
+    integral_sub hI_collapse hI_lf, integral_gradHS_collapse hu hcu hg,
+    show (fun x => (-2 * (∑ j, fderiv ℝ u x (sob j)
+            * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫)
+          - lf x / 2 * (u x) ^ 2) * exp (g x))
+      = fun x => -2 * ((∑ j, fderiv ℝ u x (sob j)
+            * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ u x⟫) * exp (g x))
+        - lf x / 2 * (u x) ^ 2 * exp (g x)
+      from funext fun x => by ring,
+    integral_sub (hI_HSuu.const_mul (-2)) hI_lf, integral_const_mul]
+
 end CommutatorIBP
 
 
