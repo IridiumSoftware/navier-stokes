@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.50 — 2026-06-13 — Carleman ladder-6b-δ (step 1, integral core): the integrated gradient+HS commutator collapse
+
+`Carleman.lean` +~95 lines (3370 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`integral_gradHS_collapse`** — for `u` C² compactly supported, `g` C³:
+  `∫ (2 Σⱼ⟪∇∂ⱼg,∇∂ⱼu⟫ + 2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u))·u·e^g = −2∫D²g(∇u,∇u)·e^g`,
+  the spatial commutator's gradient+Hessian part (with the HS term as a pointwise basis sum
+  inside the integral) collapsed. Proof: move the HS sum inside (`integral_const_mul` +
+  `integral_finsetSum`, per-`j` integrability via `tsupport u`) to reach `integral_AB_collapse`'s
+  shape, then `integral_AB_collapse`. The `−½(LF)u²` potential term of `⟨[L,S]u,u⟩` rides along
+  trivially (`u·u = u²`).
+- **Soundness:** no `sorry`; the false variant (RHS sign `+2` instead of `−2`) is REJECTED at the
+  final `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Step 1's integral core is complete.** The pointwise commutator expansion (`Δ(Su)−S(Δu)` via the
+four-index identity + Leibniz, both 6b-α — direct rearrangements) feeds this its integrand; with
+the 6b-β time part the `∇gt` terms cancel. Remaining: the pointwise-expansion lemma wiring the
+operator `S` to this explicit integrand, then **step 2** (the abstract `⟨[L,S]u,u⟩` via `Lop`/`Sop`)
++ Lemma 4.1. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.49 — 2026-06-13 — Carleman ladder-6b-δ (core): the `A + B = −2∫D²g(∇u,∇u)e^g` cancellation
 
 `Carleman.lean` +~68 lines (3272 total), in `CommutatorIBP`. **Library infrastructure;

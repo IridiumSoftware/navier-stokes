@@ -205,6 +205,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   `2·(∑ⱼ∫⟪∇∂ⱼg,∇∂ⱼu⟫·u·e^g) + ∫(2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u))·u·e^g = −2∫D²g(∇u,∇u)·e^g`, from
   γ-ii + termwise cancellation (pure integral arithmetic). The hardest analytic content of the
   arc. False coefficient variant rejected; no `sorry`.
+- **Ladder-6b-δ step 1 (`integral_gradHS_collapse`)** — the integrated gradient+HS commutator
+  collapse `∫(2Σⱼ⟪∇∂ⱼg,∇∂ⱼu⟫ + 2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u))·u·e^g = −2∫D²g(∇u,∇u)·e^g` (HS sum
+  inside the integral), via the HS-swap + `integral_AB_collapse`. False sign variant rejected;
+  no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's
