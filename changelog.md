@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.51 — 2026-06-14 — Verify-and-port grok-test GO-018..021 (round 3): all 7 byte-identical
+
+A7 verify-and-port of the grok-test ancient-Liouville/Type-II wave (pin `grok-test@8e0e066`; all stdlib
+Python, **no Lean ⇒ no `.lake` hazard**). **All 7 probes re-run BYTE-IDENTICAL** (the strongest grade);
+the GO-019 exit-1 is its deliberate kill-met signal, not a failure.
+- **GO-018** Seregin Type-II scenario × falsified-witness crosswalk — 0/5 scenarios need a GO-falsified
+  witness (LIVE; the witness column cites in-repo NS-039/049/GO-005 findings). **GO-021** ancient-Euler
+  Liouville port table — general-3D + DSS are OPEN (= the Clay-direction Hole-B gap); swirl ansätze meet
+  the Seregin (3.7)/(3.10) *proxies* in the m-band but [9]'s zero-swirl limit blocks the literal
+  construction (honestly "NOT claimed"). *Positioning: the 2507.08733 theorem-numbers are Grok-read —
+  ported at C1/named, flagged for a Seregin line-read before leaning on them.*
+- **GO-019** M5 no-split = OPEN, two-sided: fixed-scale profile-distance selector survives, singular
+  λ→0 scaling washes the gap (must not read one side alone). **GO-020** Palasek double-log→Besov rate
+  panel — documents the gap; the single-log-Besov target (Ožański–Palasek 2210.10030 Cor 1.2) is not
+  witnessed. Ties to the 2026-06-13 Type-II rate verification.
+- **Catch flowed back:** 2210.10030 = **Ožański–Palasek**, not "Palasek" (GO-020 mislabel).
+New: `docs/gomap_verification_round3_2026-06-14.md`; NS-052 registry round-3 note; citation_tiers Seregin
+row (scenario-map/port-table at C1/named + line-read flag). No SPEC status change (positioning of open
+cores M5 / ancient-Euler Liouville); guard 39/39. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.50 — 2026-06-13 — Carleman ladder-6b-δ (step 1, integral core): the integrated gradient+HS commutator collapse
 
 `Carleman.lean` +~95 lines (3370 total), in `CommutatorIBP`. **Library infrastructure;
