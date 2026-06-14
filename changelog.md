@@ -1,5 +1,25 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.49 — 2026-06-13 — Carleman ladder-6b-δ (core): the `A + B = −2∫D²g(∇u,∇u)e^g` cancellation
+
+`Carleman.lean` +~68 lines (3272 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.** The integral climax of the spatial commutator:
+- **`integral_AB_collapse`** — for `u` C² compactly supported, `g` C³:
+  `2·(∑ⱼ∫⟪∇∂ⱼg,∇∂ⱼu⟫·u·e^g) + ∫(2⟪∇u,∇Δg⟫ + 2·D²g(∇g,∇u))·u·e^g = −2∫D²g(∇u,∇u)·e^g`.
+  Twice the `A`-collapse (γ-ii) plus the `B`-integral cancels termwise — the `⟪∇u,∇Δg⟫` terms
+  (`+2` from B vs `−2` from `2·A`) and the `D²g(∇g,∇u)` terms (`+2` vs `−2`) annihilate, leaving
+  only `−2 D²g(∇u,∇u)`. Proof: `rw [integral_hessianHS_collapse]` (γ-ii) to expand the `A`-side,
+  split the `B`-integral (`integral_add`/`integral_const_mul`, integrability via `tsupport u`
+  compactness), then `ring` on the integral atoms. Everything stated in γ-ii's matching
+  single-`j`-sum forms so the cancellation is literal (no symmetry rewrite needed).
+- **Soundness:** no `sorry`; the false variant (RHS coefficient `−1` instead of `−2`) is REJECTED
+  at the final `ring`; LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**The spatial `A+B` collapse is COMPLETE** — the hardest analytic content of the whole arc is
+machine-verified. Next: **6b-δ assembly** — the pointwise commutator expansion (`[L,S]u` via the
+four-index identity + Leibniz, both 6b-α), combine with the 6b-β time part, plug in this
+cancellation + the `∇‖∇g‖²` identity (γ-iii), and add the trivial `−½(LF)u²` to land the full
+`⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g` + Lemma 4.1. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.48 — 2026-06-13 — NS-048 Type-II rate bounds: re-confirmed vs arXiv + citation-index reconciled to C3
 
 Verification deepening of the Type-II rate-bound edge (NS-048 core c). **Finding: the C3 line-reads

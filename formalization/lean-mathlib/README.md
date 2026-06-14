@@ -201,6 +201,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   `⟪∇‖∇g‖²,∇u⟫ = 2·∑ⱼ ∂ⱼu·⟪∇∂ⱼg,∇g⟫` (γ-ii's `D²g(∇g,∇u)` form), via Parseval + per-`i`
   differentiation + Hessian Schwarz symmetry. The last ingredient of the `A+B` cancellation.
   False coefficient-1 variant rejected; no `sorry`. **6b-γ complete.**
+- **Ladder-6b-δ core (`integral_AB_collapse`)** — the `A+B` cancellation:
+  `2·(∑ⱼ∫⟪∇∂ⱼg,∇∂ⱼu⟫·u·e^g) + ∫(2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u))·u·e^g = −2∫D²g(∇u,∇u)·e^g`, from
+  γ-ii + termwise cancellation (pure integral arithmetic). The hardest analytic content of the
+  arc. False coefficient variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

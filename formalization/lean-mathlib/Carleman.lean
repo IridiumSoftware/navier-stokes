@@ -3196,6 +3196,74 @@ theorem inner_grad_normSq_eq {u g : E → ℝ} (hu : ContDiff ℝ 1 u) (hg : Con
         IsSymmSndFDerivAt.iteratedFDeriv_cons (hf := hsymmg)]
   ring
 
+/-- **(6b-δ core) The `A + B` cancellation.** Twice the `A`-collapse (γ-ii) plus the `B`-integral
+    `∫(2⟪∇u,∇Δg⟫ + 2 D²g(∇g,∇u))·u·e^g` collapses to `−2∫D²g(∇u,∇u)·e^g`: the `⟪∇u,∇Δg⟫` terms
+    cancel (`2` from B against `−2` from `2·A`), and the `D²g(∇g,∇u)` terms cancel (`+2` from B
+    against `−2` from `2·A`), leaving only `−2 D²g(∇u,∇u)`. Pure integral arithmetic on top of γ-ii. -/
+theorem integral_AB_collapse {u g : E → ℝ} (hu : ContDiff ℝ 2 u)
+    (hcu : HasCompactSupport u) (hg : ContDiff ℝ 3 g) :
+    2 * (∑ j, ∫ x, ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x,
+          ∇ (fun y => fderiv ℝ u y (stdOrthonormalBasis ℝ E j)) x⟫ * u x * exp (g x))
+      + ∫ x, (2 * ⟪∇ u x, ∇ (Δ g) x⟫
+          + 2 * ∑ j, fderiv ℝ u x (stdOrthonormalBasis ℝ E j)
+              * ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x, ∇ g x⟫)
+          * u x * exp (g x)
+      = -2 * ∫ x, (∑ j, fderiv ℝ u x (stdOrthonormalBasis ℝ E j)
+          * ⟪∇ (fun y => fderiv ℝ g y (stdOrthonormalBasis ℝ E j)) x, ∇ u x⟫) * exp (g x) := by
+  classical
+  set sob := stdOrthonormalBasis ℝ E with hsob
+  have hu1 : ContDiff ℝ 1 u := hu.of_le (by norm_num)
+  have hg1 : ContDiff ℝ 1 g := hg.of_le (by norm_num)
+  have hfdg1 : ContDiff ℝ 1 (fderiv ℝ g) := hg.fderiv_right (by norm_num)
+  have hΔg1 : ContDiff ℝ 1 (Δ g) := by
+    have he : (Δ g) = fun y => ∑ i, iteratedFDeriv ℝ 2 g y ![sob i, sob i] :=
+      funext fun y => congrFun (laplacian_eq_iteratedFDeriv_orthonormalBasis g sob) y
+    rw [he]
+    exact ContDiff.sum fun i _ =>
+      (ContinuousMultilinearMap.apply ℝ (fun _ : Fin 2 => E) ℝ ![sob i, sob i]).contDiff.comp
+        (hg.iteratedFDeriv_right (by norm_cast))
+  have hω : Continuous (fun x => exp (g x)) := Real.continuous_exp.comp hg.continuous
+  have hcu' : Continuous (∇ u) :=
+    (LinearIsometryEquiv.continuous _).comp (hu1.continuous_fderiv one_ne_zero)
+  have hcg' : Continuous (∇ g) :=
+    (LinearIsometryEquiv.continuous _).comp (hg1.continuous_fderiv one_ne_zero)
+  have hcΔg' : Continuous (∇ (Δ g)) :=
+    (LinearIsometryEquiv.continuous _).comp (hΔg1.continuous_fderiv one_ne_zero)
+  have hc_du : ∀ j, Continuous (fun x => fderiv ℝ u x (sob j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (sob j)).continuous.comp (hu1.continuous_fderiv one_ne_zero)
+  have hc_gradag : ∀ j, Continuous (∇ (fun y => fderiv ℝ g y (sob j))) := fun j =>
+    (LinearIsometryEquiv.continuous _).comp
+      ((((ContinuousLinearMap.apply ℝ ℝ (sob j)).contDiff.comp hfdg1)).continuous_fderiv one_ne_zero)
+  have hfdu0 : ∀ x, x ∉ tsupport u → fderiv ℝ u x = 0 := fun x hx => by
+    by_contra h0; exact hx (support_fderiv_subset ℝ (Function.mem_support.mpr h0))
+  have hu0 : ∀ x, x ∉ tsupport u → u x = 0 := fun x hx => image_eq_zero_of_notMem_tsupport hx
+  -- I_Δ integrable
+  have hI1 : Integrable (fun x => ⟪∇ u x, ∇ (Δ g) x⟫ * u x * exp (g x)) (volume : Measure E) := by
+    exact (((hcu'.inner hcΔg').mul hu1.continuous).mul hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hfdu0 x hx, hu0 x hx])
+  -- I_HSgu integrable
+  have hI3 : Integrable (fun x => (∑ j, fderiv ℝ u x (sob j)
+      * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x)) (volume : Measure E) := by
+    exact (((continuous_finset_sum _ fun j _ => (hc_du j).mul ((hc_gradag j).inner hcg')).mul
+      hu1.continuous).mul hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hfdu0 x hx, hu0 x hx])
+  have hBsplit : (∫ x, (2 * ⟪∇ u x, ∇ (Δ g) x⟫
+        + 2 * ∑ j, fderiv ℝ u x (sob j)
+            * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x))
+      = 2 * (∫ x, ⟪∇ u x, ∇ (Δ g) x⟫ * u x * exp (g x))
+        + 2 * (∫ x, (∑ j, fderiv ℝ u x (sob j)
+            * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x)) := by
+    rw [show (fun x => (2 * ⟪∇ u x, ∇ (Δ g) x⟫
+          + 2 * ∑ j, fderiv ℝ u x (sob j)
+              * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x))
+        = fun x => 2 * (⟪∇ u x, ∇ (Δ g) x⟫ * u x * exp (g x))
+            + 2 * ((∑ j, fderiv ℝ u x (sob j)
+                * ⟪∇ (fun y => fderiv ℝ g y (sob j)) x, ∇ g x⟫) * u x * exp (g x))
+        from funext fun x => by ring,
+      integral_add (hI1.const_mul 2) (hI3.const_mul 2), integral_const_mul, integral_const_mul]
+  rw [integral_hessianHS_collapse hu hcu hg, hBsplit]
+  ring
+
 end CommutatorIBP
 
 
