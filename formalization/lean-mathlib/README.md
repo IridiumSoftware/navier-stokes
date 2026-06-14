@@ -212,6 +212,10 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
 - **Ladder-6b-δ step 1 complete (`integral_commutator_full`)** — the full commutator integrand
   (with the `−½·LF·u` potential) integrates to Tao's Lemma 4.1 RHS:
   `∫(… − ½·LF·u)·u·e^g = ∫(−2 D²g(∇u,∇u) − ½·LF·u²)·e^g`. False sign variant rejected; no `sorry`.
+- **Ladder-6b-δ step 2a (`spatial_commutator_eq`)** — the pointwise spatial commutator
+  `Δ(Su) − S(Δu) = ⟪∇Δg,∇u⟫ + 2⟨D²g,D²u⟩_HS − u·ΔF − 2⟪∇F,∇u⟫` for `Sφ = Δφ + ⟪∇g,∇φ⟫ − F·φ`,
+  from the four-index identity + Leibniz via Laplacian additivity. False sign variant rejected;
+  no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

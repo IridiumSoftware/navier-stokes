@@ -1,5 +1,23 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.53 — 2026-06-14 — Carleman ladder-6b-δ (step 2a): the pointwise spatial commutator `Δ(Su)−S(Δu)`
+
+`Carleman.lean` +~35 lines (3500 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`spatial_commutator_eq`** — for the spatial operator `Sφ = Δφ + ⟪∇g,∇φ⟫ − F·φ` (`u,g,F` C^∞):
+  `Δ(Su) − S(Δu) = ⟪∇Δg,∇u⟫ + 2⟨D²g,D²u⟩_HS − u·ΔF − 2⟪∇F,∇u⟫`. The `Δ²u` and `⟪∇g,∇Δu⟫`
+  terms cancel; the rest is the four-index identity (`laplacian_inner_grad`, for `Δ⟪∇g,∇u⟫`) and
+  the Leibniz rule (`laplacian_mul`, for `Δ(Fu)`) via Laplacian additivity (`ContDiffAt.laplacian_add/sub`,
+  with the summands ascribed to `Pi.add`/`Pi.sub` form to match). The actual Carleman `S` carries
+  `−½F`; the `½` scales at assembly.
+- **Soundness:** no `sorry`; the false variant (`∇F·∇u` term sign flipped) is REJECTED at `ring`;
+  LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Step 2's concrete bridge is done** — the operator commutator now reduces to exactly the terms
+`integral_commutator_full` (step 1) integrates. Remaining (**step 2b**): combine with the 6b-β time
+part (`∂t(Su)−S(∂tu) = ⟪∇gt,∇u⟫ − ½(∂tF)u`, `∇gt` cancelling), substitute `F = gt − Δg − ‖∇g‖²`
+with the `∇‖∇g‖²` identity (γ-iii), and wire `⟨[L,S]u,u⟩` through the bundled `Lop`/`Sop` pairing
+to land Lemma 4.1. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.52 — 2026-06-14 — Carleman ladder-6b-δ (step 1 complete): the full commutator integral identity
 
 `Carleman.lean` +~80 lines (3468 total), in `CommutatorIBP`. **Library infrastructure;

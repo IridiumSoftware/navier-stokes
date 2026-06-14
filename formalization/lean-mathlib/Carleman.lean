@@ -3460,6 +3460,38 @@ theorem integral_commutator_full {u g lf : E → ℝ} (hu : ContDiff ℝ 2 u)
       from funext fun x => by ring,
     integral_sub (hI_HSuu.const_mul (-2)) hI_lf, integral_const_mul]
 
+/-- **(6b-δ step 2: the pointwise spatial commutator)** — for the spatial operator
+    `Sφ = Δφ + ⟪∇g,∇φ⟫ − F·φ`, the spatial commutator `Δ(Sφ) − S(Δφ)`:
+    `= ⟪∇Δg,∇φ⟫ + 2⟨D²g,D²φ⟩_HS − φ·ΔF − 2⟪∇F,∇φ⟫`. Direct from the four-index identity
+    (`laplacian_inner_grad`) and the Leibniz rule (`laplacian_mul`), via Laplacian additivity. The
+    actual Carleman `S` carries `−½F`; the `½` scales this at assembly. -/
+theorem spatial_commutator_eq {u g F : E → ℝ} (hu : ContDiff ℝ (⊤ : ℕ∞) u)
+    (hg : ContDiff ℝ (⊤ : ℕ∞) g) (hF : ContDiff ℝ (⊤ : ℕ∞) F) (x : E) :
+    Δ (fun y => Δ u y + ⟪∇ g y, ∇ u y⟫ - F y * u y) x
+      - (Δ (Δ u) x + ⟪∇ g x, ∇ (Δ u) x⟫ - F x * Δ u x)
+      = ⟪∇ (Δ g) x, ∇ u x⟫
+        + 2 * ∑ i, ∑ j, iteratedFDeriv ℝ 2 g x ![stdOrthonormalBasis ℝ E i,
+              stdOrthonormalBasis ℝ E j]
+            * iteratedFDeriv ℝ 2 u x ![stdOrthonormalBasis ℝ E i, stdOrthonormalBasis ℝ E j]
+        - u x * Δ F x - 2 * ⟪∇ F x, ∇ u x⟫ := by
+  classical
+  have hu2 : ContDiff ℝ 2 u := hu.of_le (by norm_cast <;> exact le_top)
+  have hu3 : ContDiff ℝ 3 u := hu.of_le (by norm_cast <;> exact le_top)
+  have hg3 : ContDiff ℝ 3 g := hg.of_le (by norm_cast <;> exact le_top)
+  have hF2 : ContDiff ℝ 2 F := hF.of_le (by norm_cast <;> exact le_top)
+  have hΔu2 : ContDiff ℝ 2 (Δ u) := (contDiff_laplacian hu).of_le (by norm_cast <;> exact le_top)
+  have hig2 : ContDiff ℝ 2 (fun y => ⟪∇ g y, ∇ u y⟫) :=
+    (((contDiff_gradient hg).inner ℝ (contDiff_gradient hu))).of_le (by norm_cast <;> exact le_top)
+  have hFu2 : ContDiff ℝ 2 (fun y => F y * u y) := hF2.mul hu2
+  have h1 : ContDiffAt ℝ 2 (Δ u + fun y => ⟪∇ g y, ∇ u y⟫) x :=
+    hΔu2.contDiffAt.add hig2.contDiffAt
+  rw [show (fun y => Δ u y + ⟪∇ g y, ∇ u y⟫ - F y * u y)
+      = (Δ u + fun y => ⟪∇ g y, ∇ u y⟫) - fun y => F y * u y from rfl,
+    ContDiffAt.laplacian_sub h1 hFu2.contDiffAt,
+    ContDiffAt.laplacian_add hΔu2.contDiffAt hig2.contDiffAt,
+    laplacian_inner_grad hg3 hu3, laplacian_mul hF2 hu2]
+  ring
+
 end CommutatorIBP
 
 
