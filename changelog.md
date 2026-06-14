@@ -1,5 +1,24 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.56 — 2026-06-14 — Carleman 6b-δ gluing substrate: `Lop` of an `AdmissibleJoint` curve
+
+`Carleman.lean` +~20 lines (3660 total), in `JointAdmissible`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`lop_admissibleJoint_coe`** — for any `AdmissibleJoint` test curve `a`, the backwards-heat
+  `L = ∂t + Δ` realized concretely: `(Lop K a t : E→ℝ) = fderiv(uncurried a)(t,·)(1,0) + Δ(a t)`.
+  Via `Lop_coe` with the joint horizontal derivative as the time-derivative curve (`hasDerivAt_curve`
+  + joint smoothness). The reusable substrate for the `⟨[L,S]u,u⟩` notation gluing — it applies to
+  both `u` and `Sop∘u` (the latter `AdmissibleJoint` by `admissibleJoint_mem_S`, 5c).
+- **Soundness:** no `sorry`; the false variant (dropping the `Δ(a t)` term) is REJECTED (the
+  `Lop_coe` term won't typecheck against it); LEAN_EXIT=0.
+**Gluing assembly mapped, remaining:** the pointwise identity `(Lop(Sop∘u) t − Sop(Lop u) t : E→ℝ)
+= commutator_pointwise_eq's LHS` — via this substrate (both operands), `Sop_coe`, the `Sop∘u`
+time-derivative value pinned by `hasDerivAt_Sslice` + `HasDerivAt.unique`, `Sfun` linearity
+(`laplacian_add`/`gradient_add`), and `spatial_commutator_eq` (half-`F`) — then `weightedPairing_apply`
++ `integral_congr` + `integral_commutator_quadratic` give `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`.
+No new mathematics; ~150 lines of bundled-subtype assembly. Then Props 4.2/4.3 + backward-uniqueness.
+`:proved`=0; distance UNTOUCHED.
+
 ## v0.15.55 — 2026-06-14 — Carleman ladder-6b → Lemma 4.1: the differential inequality `∂t⟨Su,u⟩ ≤ ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩`
 
 `Carleman.lean` +~20 lines (3643 total), in `JointAdmissible`. **Library infrastructure;

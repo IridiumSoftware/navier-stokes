@@ -225,6 +225,9 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   `∂t⟨Su,u⟩ ≤ ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩` for the Carleman weighted-joint instance (drop-the-square
   `deriv_pair_S_le` at `commutatorMethod_weighted_joint`). Both halves of Lemma 4.1 now verified;
   remaining = the `⟨[L,S]u,u⟩`-to-integral notation gluing. False direction variant rejected; no `sorry`.
+- **Ladder-6b-δ gluing substrate (`lop_admissibleJoint_coe`)** — `Lop` of any `AdmissibleJoint`
+  curve realized as `fderiv(uncurried)(t,·)(1,0) + Δ(a t)`; the reusable bridge (for both `u` and
+  `Sop∘u`) toward the `⟨[L,S]u,u⟩`-to-integral gluing. False dropped-Δ variant rejected; no `sorry`.
 
 Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
 staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's

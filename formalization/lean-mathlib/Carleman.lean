@@ -2361,6 +2361,23 @@ theorem carleman_diff_inequality {G : ℝ × E → ℝ} (hK : IsCompact K)
         (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)) t (Lop K u t) (Lop K u t) := by
   exact (commutatorMethod_weighted_joint hK hG).deriv_pair_S_le hu t
 
+/-- **(6b-δ gluing substrate) `Lop` of an `AdmissibleJoint` curve**, concretely: the backwards-heat
+    `L = ∂t + Δ` applied to a jointly smooth test curve is `∂t + Δ` of its uncurried function. -/
+theorem lop_admissibleJoint_coe {a : ℝ → smoothTestSubmodule K} (hKc : IsClosed K)
+    (ha : a ∈ AdmissibleJoint) (t : ℝ) :
+    ((Lop K a t : smoothTestSubmodule K) : E → ℝ)
+      = fun x => fderiv ℝ (fun p : ℝ × E => (a p.1 : E → ℝ) p.2) (t, x) ((1 : ℝ), (0 : E))
+          + Δ (a t : E → ℝ) x := by
+  have hU : ContDiff ℝ (⊤ : ℕ∞) (fun p : ℝ × E => (a p.1 : E → ℝ) p.2) := ha
+  have hfU : ContDiff ℝ (⊤ : ℕ∞) (fderiv ℝ fun p : ℝ × E => (a p.1 : E → ℝ) p.2) :=
+    hU.fderiv_right (by exact_mod_cast le_top)
+  exact Lop_coe hKc
+    (a' := fun t x => fderiv ℝ (fun p : ℝ × E => (a p.1 : E → ℝ) p.2) (t, x) ((1 : ℝ), (0 : E)))
+    (fun t x => hasDerivAt_curve (hU.differentiable (by norm_num) (t, x)))
+    (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+      (hfU.comp ((contDiff_const (c := t)).prodMk contDiff_id))) t
+
+
 end JointAdmissible
 
 /-! ### Ladder-6a: the energy identity — `⟨Su,u⟩ = −∫(‖∇u‖² + ½F·u²)e^g`
