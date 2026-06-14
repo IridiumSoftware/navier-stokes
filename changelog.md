@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.48 — 2026-06-13 — NS-048 Type-II rate bounds: re-confirmed vs arXiv + citation-index reconciled to C3
+
+Verification deepening of the Type-II rate-bound edge (NS-048 core c). **Finding: the C3 line-reads
+already existed** (`docs/ns048_type_ii_frontier.md` §2, 2026-06-07, triad-refined) — this pass
+independently **re-confirmed the two headline statements verbatim against arXiv** and **fixed
+citation-index drift**:
+- **Tao 1908.04958** triple-log (`L³` ≥ `(logloglog 1/(T*−t))^c` along a sequence) and **Palasek
+  2101.08586** weighted axisym double-log (`‖r^{1−3/q}u‖_{L^q}`, `q∈(2,3]`) re-confirmed verbatim.
+- `citation_tiers.md` was stale/inconsistent (NS-048 row "C1/C2 partial", NS-050 rows "C2", two
+  papers — Ożański–Palasek 2210.10030, Palasek 2111.08991 — missing). Reconciled to **C3** with an
+  authoritative consolidated Type-II-rate row.
+- **Honesty catches recorded:** (i) Palasek's abstract makes no explicit "improves Tao" claim — the
+  "double-log ≻ triple-log" improvement is our correct rate-inference but in a *weighted* norm, not
+  apples-to-apples; (ii) the gap-to-exclusion gloss sharpened — it is a *quantitative* race (rate≥ vs
+  rate=, §4) whose closing needs a *qualitative* leap in growth class (§2); both aspects true, do not
+  conflate (caught + fixed an over-correction mid-pass).
+- **Ladder tie-in:** Tao 1908.04958 is exactly what the Carleman ladder (NS-051) formalizes ⇒ even a
+  completed ladder certifies this *rate bound*, not exclusion — sharpens `ns048_sigma0_decay_carleman_tracking.md`.
+New: `docs/ns048_typeii_rate_verification.md`. No SPEC/registry change (no new NS-ID; the rates were
+already C3 in the frontier doc); guard 39/39. `:proved`=0; distance UNTOUCHED.
+
 ## v0.15.47 — 2026-06-13 — Carleman ladder-6b-γ (iii): the gradient-of-`‖∇g‖²` identity `⟪∇‖∇g‖²,∇u⟫ = 2·D²g(∇g,∇u)`
 
 `Carleman.lean` +~45 lines (3204 total), in `CommutatorIBP`. **Library infrastructure;

@@ -46,6 +46,18 @@ a solution can satisfy. Current frontier (all primary-read, **C3** unless noted)
 permits* — the chasm from "diverges like `logloglog`" to "must diverge impossibly fast" **is the whole
 open problem.** (The triple-log is so slow that even *numerically testing* it exceeds computing capacity.)
 
+**[RE-CONFIRMED + INDEX-RECONCILED 2026-06-13, `docs/ns048_typeii_rate_verification.md`.]** The Tao
+1908.04958 (triple-log) and Palasek 2101.08586 (weighted axisym double-log) headline statements were
+re-confirmed **verbatim vs arXiv**; `citation_tiers.md` was found drifted (stale C1/C2, two papers
+missing) and reconciled to the C3 here. Disambiguation banked: "the gap is *qualitative*" (this §2 —
+a leap in growth class, not a constant) and "Type-II is a *quantitative* race, not a qualitative
+dichotomy" (§4 — the nature of the Type-I/II line) describe **two different aspects** and are both
+right; do not conflate. Honesty catch: Palasek's abstract makes no explicit "improves Tao" claim —
+"double-log ≻ triple-log" is our correct rate-inference but in a *weighted* norm (the plain-critical
+axisym double-log is Ożański–Palasek 2210.10030). Also: Tao 1908.04958 is exactly what the Carleman
+ladder (NS-051) formalizes ⇒ even a completed ladder certifies this *rate bound*, not exclusion
+(`docs/ns048_sigma0_decay_carleman_tracking.md`).
+
 **Actual Type-II exclusion: NONE general.** Only **conditional scenario-exclusions** (Seregin 2402.13229,
 2507.08733, **C3** for the scenario / **C2** for status) rule out *specific* axisymmetric concentration
 scenarios. Type-I is excluded only for axisymmetric/self-similar (Seregin); **general Type-I is open**.
