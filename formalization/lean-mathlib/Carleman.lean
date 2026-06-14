@@ -2327,6 +2327,40 @@ theorem commutatorMethod_weighted_joint (hK : IsCompact K) {G : ℝ × E → ℝ
   · intro a ha
     exact admissibleJoint_mem_S hK.isClosed hG _ _ ha
 
+/-- **(6b-δ → Lemma 4.1, the differential inequality)** — instantiating the abstract
+    drop-the-square inequality (`deriv_pair_S_le`, ladder-1) at the Carleman weighted-joint
+    instance (`commutatorMethod_weighted_joint`): for a jointly smooth weight `G` and an
+    `AdmissibleJoint` test curve `u`, `∂t⟨S u, u⟩ ≤ ⟨[L,S]u, u⟩ + ½⟨Lu, Lu⟩`. The commutator
+    quadratic form `⟨[L,S]u,u⟩` here is the weighted pairing of `L(S∘u) − S(Lu)`; its concrete
+    value `∫(−2 D²g(∇u,∇u) − ½(LF)u²)e^g` is `integral_commutator_quadratic`. -/
+theorem carleman_diff_inequality {G : ℝ × E → ℝ} (hK : IsCompact K)
+    (hG : ContDiff ℝ (⊤ : ℕ∞) G) {u : ℝ → smoothTestSubmodule K}
+    (hu : u ∈ AdmissibleJoint) (t : ℝ) :
+    deriv (fun τ => weightedPairing hK (fun t x => G (t, x))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)) τ
+        (Sop hK.isClosed (fun t x => G (t, x))
+        (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+        (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+          ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+            ((contDiff_const (c := t)).prodMk contDiff_id))) τ (u τ)) (u τ)) t
+      ≤ weightedPairing hK (fun t x => G (t, x))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)) t
+          (Lop K (fun τ => Sop hK.isClosed (fun t x => G (t, x))
+        (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+        (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+          ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+            ((contDiff_const (c := t)).prodMk contDiff_id))) τ (u τ)) t - Sop hK.isClosed (fun t x => G (t, x))
+        (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+        (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+          ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+            ((contDiff_const (c := t)).prodMk contDiff_id))) t (Lop K u t)) (u t)
+        + (1 / 2) * weightedPairing hK (fun t x => G (t, x))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)) t (Lop K u t) (Lop K u t) := by
+  exact (commutatorMethod_weighted_joint hK hG).deriv_pair_S_le hu t
+
 end JointAdmissible
 
 /-! ### Ladder-6a: the energy identity — `⟨Su,u⟩ = −∫(‖∇u‖² + ½F·u²)e^g`

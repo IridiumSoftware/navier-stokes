@@ -1,5 +1,26 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.55 — 2026-06-14 — Carleman ladder-6b → Lemma 4.1: the differential inequality `∂t⟨Su,u⟩ ≤ ⟨[L,S]u,u⟩ + ½⟨Lu,Lu⟩`
+
+`Carleman.lean` +~20 lines (3643 total), in `JointAdmissible`. **Library infrastructure;
+`:proved`=0 for the PDE.**
+- **`carleman_diff_inequality`** — Lemma 4.1's differential inequality for the Carleman
+  weighted-joint setting: instantiating the abstract drop-the-square inequality
+  (`deriv_pair_S_le`, ladder-1) at the unconditional instance
+  (`commutatorMethod_weighted_joint`), for a jointly smooth weight `G` and an `AdmissibleJoint`
+  test curve `u`: `∂t⟨S u, u⟩ ≤ ⟨[L,S]u, u⟩ + ½⟨Lu, Lu⟩`. The commutator quadratic form
+  `⟨[L,S]u,u⟩` is the weighted pairing of `L(S∘u) − S(Lu)`; its concrete value
+  `∫(−2 D²g(∇u,∇u) − ½(LF)u²)e^g` is `integral_commutator_quadratic` (6b-δ).
+- **Soundness:** no `sorry`; the false variant (inequality direction flipped `≥`) is REJECTED
+  (the `exact` won't typecheck); LEAN_EXIT=0 vs the lean4-cv Mathlib.
+**Both halves of Lemma 4.1 are now machine-verified for concrete jointly-smooth data:** the
+differential inequality (this) and the commutator quadratic-form value (6b-δ). The remaining
+formal step is the *notation gluing* — realizing the abstract `⟨[L,S]u,u⟩` (the `Lop`/`Sop`
+pairing of `L(S∘u)−S(Lu)`) as that concrete integral, via `Lop_coe`/`Sop_coe` + the 6b-β/spatial
+commutator pieces (no new math, but heavy bundled-subtype + curve-smoothness bookkeeping). Then
+Props 4.2/4.3 (weights g42/g43, ladder-2 facts ready) + backward-uniqueness. `:proved`=0;
+distance UNTOUCHED.
+
 ## v0.15.54 — 2026-06-14 — Carleman ladder-6b-δ COMPLETE: the concrete commutator quadratic form = Tao Lemma 4.1's display
 
 `Carleman.lean` +~110 lines (3609 total), completing `CommutatorIBP`. **Library infrastructure;
