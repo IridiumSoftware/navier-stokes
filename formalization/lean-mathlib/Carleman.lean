@@ -3843,6 +3843,120 @@ theorem commutator_pairing_eq {K : Set E} {G : ℝ × E → ℝ} (hK : IsCompact
   beta_reduce
   rw [hcomm x]
 
+/-- **(Props 4.2/4.3 coercivity spine)** — the convexity step of the Carleman inequalities,
+    abstractly. If the weight `g = G(t,·)` is convex along `u` in the sense
+    `D²g(∇u,∇u) ≥ c‖∇u‖²` (the trace-Hessian form `∑ⱼ ∂ⱼu·⟪∇∂ⱼg,∇u⟫` that appears in
+    `commutator_pairing_eq`, with `c = 2/(C₀T)` for the first weight, etc.), then the bundled
+    commutator quadratic form is bounded by the **coercive Carleman integral**
+    `⟨[L,S]u,u⟩ ≤ ∫(−2c‖∇u‖² − ½(LF)u²)·e^g`. This is the mechanism by which the weight's
+    convexity (Tao's `D²g ≥ (2/C₀T)·I`, lean-proved radially as `g42_radial_hess_lower`) produces
+    the Carleman gain. Combine with `carleman_diff_inequality` for the full `∂t⟨Su,u⟩ ≤ …` estimate.
+    Instantiating `c`/`g` at the concrete weights `g42`/`g43` awaits the radial→ambient bridge. -/
+theorem commutator_pairing_le {K : Set E} {G : ℝ × E → ℝ} (hK : IsCompact K)
+    (hG : ContDiff ℝ (⊤ : ℕ∞) G) {u : ℝ → smoothTestSubmodule K}
+    (hu : u ∈ AdmissibleJoint) (t : ℝ) (hcu : HasCompactSupport ((u t : E → ℝ))) (c : ℝ)
+    (hconv : ∀ x, c * ‖∇ ((u t : E → ℝ)) x‖ ^ 2
+        ≤ ∑ j, fderiv ℝ ((u t : E → ℝ)) x (stdOrthonormalBasis ℝ E j)
+            * ⟪∇ (fun y => fderiv ℝ (fun z => G (t, z)) y (stdOrthonormalBasis ℝ E j)) x,
+                ∇ ((u t : E → ℝ)) x⟫) :
+    weightedPairing hK (fun t x => G (t, x))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)) t
+        (Lop K (fun τ => Sop hK.isClosed (fun t x => G (t, x))
+          (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+          (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+          (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+            ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+              ((contDiff_const (c := t)).prodMk contDiff_id))) τ (u τ)) t
+          - Sop hK.isClosed (fun t x => G (t, x))
+          (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+          (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+          (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+            ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+              ((contDiff_const (c := t)).prodMk contDiff_id))) t (Lop K u t)) (u t)
+      ≤ ∫ x, (-2 * (c * ‖∇ ((u t : E → ℝ)) x‖ ^ 2)
+          - ((fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t, x) ((1 : ℝ), (0 : E))
+                - Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x
+                - (⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => G (t, y)) x⟫
+                    + ⟪∇ (fun y => G (t, y)) x,
+                        ∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x⟫))
+              + Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+                  - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) x) / 2
+              * (((u t : E → ℝ)) x) ^ 2) * exp (G (t, x)) := by
+  classical
+  rw [commutator_pairing_eq hK hG hu t hcu]
+  set sob := stdOrthonormalBasis ℝ E with hsob
+  have hU : ContDiff ℝ (⊤ : ℕ∞) (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) := hu
+  have hut : ContDiff ℝ (⊤ : ℕ∞) ((u t : E → ℝ)) :=
+    hU.comp ((contDiff_const (c := t)).prodMk contDiff_id)
+  have hg : ContDiff ℝ (⊤ : ℕ∞) (fun z => G (t, z)) :=
+    hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)
+  have hut1 : ContDiff ℝ (1 : ℕ∞) ((u t : E → ℝ)) := hut.of_le (by exact_mod_cast le_top)
+  have hg1 : ContDiff ℝ (1 : ℕ∞) (fun z => G (t, z)) := hg.of_le (by exact_mod_cast le_top)
+  have hfdgT : ContDiff ℝ (⊤ : ℕ∞) (fderiv ℝ (fun z => G (t, z))) :=
+    hg.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)
+  have hfdg1 : ContDiff ℝ 1 (fderiv ℝ (fun z => G (t, z))) := hfdgT.of_le (by norm_num)
+  have hgt : ContDiff ℝ (⊤ : ℕ∞) (fun z => fderiv ℝ G (t, z) ((1 : ℝ), (0 : E))) :=
+    (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+      ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+        ((contDiff_const (c := t)).prodMk contDiff_id))
+  have hBigF : ContDiff ℝ (⊤ : ℕ∞) (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+      - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) :=
+    (hgt.sub (contDiff_laplacian hg)).sub ((contDiff_gradient hg).inner ℝ (contDiff_gradient hg))
+  have hω : Continuous (fun x => exp (G (t, x))) := Real.continuous_exp.comp hg.continuous
+  have hcu' : Continuous (∇ ((u t : E → ℝ))) :=
+    (LinearIsometryEquiv.continuous _).comp (hut1.continuous_fderiv one_ne_zero)
+  have hc_du : ∀ j, Continuous (fun x => fderiv ℝ ((u t : E → ℝ)) x (sob j)) := fun j =>
+    (ContinuousLinearMap.apply ℝ ℝ (sob j)).continuous.comp (hut1.continuous_fderiv one_ne_zero)
+  have hc_gradag : ∀ j, Continuous (∇ (fun y => fderiv ℝ (fun z => G (t, z)) y (sob j))) := fun j =>
+    (LinearIsometryEquiv.continuous _).comp
+      ((((ContinuousLinearMap.apply ℝ ℝ (sob j)).contDiff.comp hfdg1)).continuous_fderiv one_ne_zero)
+  have hfdu0 : ∀ x, x ∉ tsupport ((u t : E → ℝ)) → fderiv ℝ ((u t : E → ℝ)) x = 0 := fun x hx => by
+    by_contra h0; exact hx (support_fderiv_subset ℝ (Function.mem_support.mpr h0))
+  have hu0 : ∀ x, x ∉ tsupport ((u t : E → ℝ)) → (u t : E → ℝ) x = 0 := fun x hx =>
+    image_eq_zero_of_notMem_tsupport hx
+  have hgradu0 : ∀ x, x ∉ tsupport ((u t : E → ℝ)) → ∇ ((u t : E → ℝ)) x = 0 := fun x hx => by
+    by_contra h0; exact hx (WeightedGreenAux.support_gradient_subset _ (Function.mem_support.mpr h0))
+  -- continuity of the `LF`-potential coefficient (the dtF + ΔF half)
+  have hGt0_1 : ContDiff ℝ (1 : ℕ∞) (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) :=
+    ((ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+      (hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top))).of_le (by norm_num)
+  have hgt1 : ContDiff ℝ (1 : ℕ∞) (fun z => fderiv ℝ G (t, z) ((1 : ℝ), (0 : E))) :=
+    hgt.of_le (by exact_mod_cast le_top)
+  have hdtFc : Continuous (fun x =>
+      fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t, x) ((1 : ℝ), (0 : E))
+      - Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x
+      - (⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => G (t, y)) x⟫
+          + ⟪∇ (fun y => G (t, y)) x, ∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x⟫)) :=
+    (((ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).continuous.comp
+        ((hGt0_1.continuous_fderiv one_ne_zero).comp (continuous_const.prodMk continuous_id))).sub
+      (WeightedGreenAux.continuous_laplacian (hgt.of_le (by norm_cast <;> exact le_top)))).sub
+      (((WeightedGreenAux.continuous_gradient hgt1).inner
+          (WeightedGreenAux.continuous_gradient hg1)).add
+        ((WeightedGreenAux.continuous_gradient hg1).inner
+          (WeightedGreenAux.continuous_gradient hgt1)))
+  have hpotc : Continuous (fun x =>
+      (fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t, x) ((1 : ℝ), (0 : E))
+        - Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x
+        - (⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => G (t, y)) x⟫
+            + ⟪∇ (fun y => G (t, y)) x, ∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x⟫)
+        + Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+            - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) x) / 2) :=
+    (hdtFc.add (WeightedGreenAux.continuous_laplacian
+      (hBigF.of_le (by norm_cast <;> exact le_top)))).div_const 2
+  have hu2c : Continuous (fun x => ((u t : E → ℝ)) x ^ 2) := hut.continuous.pow 2
+  have hsumc : Continuous (fun x => ∑ j, fderiv ℝ ((u t : E → ℝ)) x (sob j)
+      * ⟪∇ (fun y => fderiv ℝ (fun z => G (t, z)) y (sob j)) x, ∇ ((u t : E → ℝ)) x⟫) :=
+    continuous_finset_sum _ fun j _ => (hc_du j).mul ((hc_gradag j).inner hcu')
+  apply integral_mono
+  · exact (((continuous_const.mul hsumc).sub (hpotc.mul hu2c)).mul hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hfdu0 x hx, hu0 x hx])
+  · exact (((continuous_const.mul (continuous_const.mul (hcu'.norm.pow 2))).sub
+      (hpotc.mul hu2c)).mul hω).integrable_of_hasCompactSupport
+      (HasCompactSupport.intro hcu fun x hx => by simp [hgradu0 x hx, hu0 x hx])
+  · intro x
+    refine mul_le_mul_of_nonneg_right ?_ (Real.exp_pos _).le
+    nlinarith [hconv x]
+
 end CommutatorIBP
 
 

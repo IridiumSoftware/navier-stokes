@@ -238,6 +238,15 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   two `½`-reconciliations + `Sfun`-additivity, `linear_combination`. No new mathematics. False
   leading-coefficient (`−2→−3`) variant rejected; no `sorry`. **Lemma 4.1 fully assembled**
   (value + inequality + abstract-to-concrete gluing) for concrete smooth compactly-supported data.
+- **Props 4.2/4.3 coercivity spine (`commutator_pairing_le`)** — the convexity step common to both
+  Carleman inequalities, abstractly: given weight convexity `D²g(∇u,∇u) ≥ c‖∇u‖²` (the
+  trace-Hessian form, as a hypothesis), the commutator quadratic form is bounded by the coercive
+  integral `⟨[L,S]u,u⟩ ≤ ∫(−2c‖∇u‖² − ½(LF)u²)·e^g`. This is the mechanism turning Tao's
+  `D²g ≥ (2/C₀T)·I` (lean-proved radially, `g42_radial_hess_lower`) into the Carleman gain.
+  Proof: `commutator_pairing_eq` (=) then `integral_mono` (≤). False coercive-sign variant
+  rejected; no `sorry`.
 
-Next rungs: Props 4.2/4.3 (instantiate the Carleman weights `g42`/`g43` — ladder-2 `F`/`LF`/Hessian
-facts ready) → the backward-uniqueness wrapper.
+Next rungs (full Props 4.2/4.3, multi-session): the **radial→ambient bridge** (`∇`/`Δ`/Hessian of
+`x↦φ(‖x‖)` — a Mathlib gap) to instantiate `c`/`g` at the concrete weights `g42`/`g43`; then
+cutoffs + pigeonhole-in-time + region-wise constant bookkeeping → the inequalities with explicit
+gains; then the backward-uniqueness wrapper.

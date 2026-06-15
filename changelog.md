@@ -1,5 +1,29 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.58 — 2026-06-15 — Carleman Props 4.2/4.3: the coercivity spine (`commutator_pairing_le`)
+
+`Carleman.lean` +~95 lines (3925 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE; distance to the prize untouched.**
+- **`commutator_pairing_le`** — the convexity step common to both Carleman inequalities (Props
+  4.2 and 4.3), abstractly. Given a weight `g = G(t,·)` convex along `u` in the sense
+  `D²g(∇u,∇u) ≥ c‖∇u‖²` (the trace-Hessian form `∑ⱼ ∂ⱼu·⟪∇∂ⱼg,∇u⟫` that appears in
+  `commutator_pairing_eq`, as a hypothesis), the bundled commutator quadratic form is bounded by
+  the **coercive Carleman integral**: `⟨[L,S]u,u⟩ ≤ ∫(−2c‖∇u‖² − ½(LF)u²)·e^g`. This is the
+  mechanism by which weight convexity (Tao's `D²g ≥ (2/C₀T)·I`, lean-proved radially as
+  `g42_radial_hess_lower`; `D²g = −I/(2(t+t₁))` as `g43_radial_hess`) produces the Carleman gain.
+- **How:** `commutator_pairing_eq` (the `=`) then `integral_mono` (the `≤`): both integrands
+  `Continuous.integrable_of_hasCompactSupport` (support ⊆ `tsupport(u t)` via the `∇u`/`u`
+  factors); pointwise the convexity hypothesis gives `−2∑ⱼ ≤ −2c‖∇u‖²` (e^g > 0), `nlinarith`.
+- **Soundness:** no `sorry`; the false variant (coercive sign `−2c → 2c`) is REJECTED (the
+  pointwise `nlinarith` cannot derive it from the convexity hypothesis); LEAN_EXIT=0.
+
+Combine with `carleman_diff_inequality` for the full `∂t⟨Su,u⟩ ≤ −2c∫‖∇u‖²e^g − ½∫(LF)u²e^g +
+½⟨Lu,Lu⟩`. Remaining for the full Props 4.2/4.3 (the inequalities with explicit gains): the
+**radial→ambient bridge** (`∇`/`Δ`/Hessian of `x↦φ(‖x‖)` — a Mathlib gap) to instantiate `c`/`g`
+at the concrete weights `g42`/`g43`, plus cutoffs + pigeonhole-in-time + region-wise constant
+bookkeeping (the audit's named cost center). The weight calculus (`WeightCalculus`, B11/B12) and
+this coercivity spine are the algebraic halves; the bridge is the next rung.
+
 ## v0.15.57 — 2026-06-14 — Carleman 6b-δ: the `⟨[L,S]u,u⟩` notation gluing COMPLETE (`commutator_pairing_eq`)
 
 `Carleman.lean` +~170 lines (3829 total), in `CommutatorIBP`. **Library infrastructure;
