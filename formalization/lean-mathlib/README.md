@@ -246,7 +246,15 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   Proof: `commutator_pairing_eq` (=) then `integral_mono` (≤). False coercive-sign variant
   rejected; no `sorry`.
 
-Next rungs (full Props 4.2/4.3, multi-session): the **radial→ambient bridge** (`∇`/`Δ`/Hessian of
-`x↦φ(‖x‖)` — a Mathlib gap) to instantiate `c`/`g` at the concrete weights `g42`/`g43`; then
-cutoffs + pigeonhole-in-time + region-wise constant bookkeeping → the inequalities with explicit
-gains; then the backward-uniqueness wrapper.
+- **Ladder-7 radial→ambient bridge, gradient (`RadialAmbientBridge`)** — the start of the bridge
+  from the radial weight calculus to the ambient `G : ℝ×E→ℝ`, via the smooth squared-norm route
+  (`‖·‖²` is `C^∞`): `gradient_normSq` (`∇(‖·‖²) = 2x`), `gradient_comp_normSq`
+  (`∇(ψ∘‖·‖²) = (2ψ'(‖x‖²))x`), `normSq_gradient_comp_normSq` (`‖∇(ψ∘‖·‖²)‖² = 4ψ'²‖x‖²`, the
+  `(∂rφ)²` of `F`). Covers `g43` and `g42`'s smooth part. False-coefficient variant rejected; no
+  `sorry`.
+
+Next rungs (full Props 4.2/4.3, multi-session): finish the bridge — the `α(T₀−t)‖x‖` part of `g42`
+(non-smooth at `0`, under a cutoff), the **Laplacian** `Δ(ψ∘‖·‖²) = 2d·ψ' + 4‖x‖²·ψ''`, and the
+**Hessian** quadratic form (the convexity input `commutator_pairing_le` takes as hypothesis); then
+instantiate `c`/`g` at `g42`/`g43`; then cutoffs + pigeonhole-in-time + region-wise constant
+bookkeeping → the inequalities with explicit gains; then the backward-uniqueness wrapper.

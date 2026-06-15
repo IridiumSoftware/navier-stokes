@@ -1,5 +1,27 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.59 — 2026-06-15 — Carleman ladder-7: the radial→ambient bridge, gradient (smooth route)
+
+`Carleman.lean` +~60 lines (3985 total), new section `RadialAmbientBridge`. **Library
+infrastructure; `:proved`=0 for the PDE.**
+Starts the bridge from the radial weight calculus (`WeightCalculus`, B11/B12 — verified at the
+radial profile `g42 t r`/`g43 t r`) to the ambient weight `G : ℝ×E→ℝ` the Lemma-4.1 machinery
+needs. Via the **smooth squared-norm route** (`‖·‖²` is `C^∞` everywhere — `contDiff_norm_sq` — no
+`x=0` singularity), so it covers `g43` in full and `g42`'s smooth `‖x‖²/(C₀T)` part.
+- **`gradient_normSq`** — `∇(‖·‖²)(x) = 2x` (atomic: `fderiv_norm_sq_apply` = `2·innerSL`, then
+  `toDual.symm ∘ innerSL = id`).
+- **`gradient_comp_normSq`** — `∇(x ↦ ψ(‖x‖²))(x) = (2 ψ'(‖x‖²)) x` for `ψ` differentiable at
+  `‖x‖²` (chain rule through `‖·‖²`). The bridge for ambient radial weights `G(t,x) = ψ_t(‖x‖²)`.
+- **`normSq_gradient_comp_normSq`** — `‖∇(ψ∘‖·‖²)(x)‖² = 4 ψ'(‖x‖²)² ‖x‖²`, the `(∂rφ)²` term of
+  the radial `F` realized ambiently.
+- **Soundness:** no `sorry`; false variant (`gradient_comp_normSq` coefficient `2→3`) REJECTED
+  (`module`/`ring` fail); LEAN_EXIT=0.
+
+Next bridge rungs: the `α(T₀−t)‖x‖` part of `g42` (non-smooth at `0`, Tao handles under a cutoff);
+the **Laplacian** `Δ(ψ∘‖·‖²) = 2d·ψ' + 4‖x‖²·ψ''` (needs the orthonormal-basis Hessian sum); the
+**Hessian** quadratic form (the convexity input `D²g(∇u,∇u) ≥ c‖∇u‖²` that `commutator_pairing_le`
+takes as hypothesis). Then the full Props 4.2/4.3 (cutoffs + pigeonhole + constant bookkeeping).
+
 ## v0.15.58 — 2026-06-15 — Carleman Props 4.2/4.3: the coercivity spine (`commutator_pairing_le`)
 
 `Carleman.lean` +~95 lines (3925 total), in `CommutatorIBP`. **Library infrastructure;

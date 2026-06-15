@@ -3960,6 +3960,64 @@ theorem commutator_pairing_le {K : Set E} {G : ℝ × E → ℝ} (hK : IsCompact
 end CommutatorIBP
 
 
+/-! ### Ladder-7: the radial→ambient bridge (gradient, smooth route)
+
+The `WeightCalculus` rung (B11/B12) verified Tao's two Carleman weights at the **radial profile**
+level (`g42 t r`, `g43 t r`, with `r = ‖x‖`). To feed them into the abstract Lemma-4.1 machinery
+(`commutator_pairing_eq`, `commutator_pairing_le`), which works with an ambient weight
+`G : ℝ × E → ℝ`, one needs the radial→ambient bridge: `∇`, `Δ`, and the Hessian of `x ↦ φ(‖x‖)`
+on `E`. This section does the **gradient**, via the SMOOTH route `x ↦ ψ(‖x‖²)` (the squared norm
+is `C^∞` everywhere — `contDiff_norm_sq` — so no `x = 0` singularity). This covers `g43` in full
+and `g42`'s smooth `‖x‖²/(C₀T)` part; the `α(T₀−t)‖x‖` part (non-smooth at `0`, handled by Tao
+under a cutoff) and the Laplacian/Hessian are the next rungs. Library infrastructure;
+`:proved` = 0 for the PDE. -/
+
+section RadialAmbientBridge
+
+open InnerProductSpace
+open scoped RealInnerProductSpace Gradient
+
+variable {E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] [CompleteSpace E]
+
+/-- **Gradient of the squared norm:** `∇(‖·‖²)(x) = 2 x`. The atomic radial→ambient fact
+    (`fderiv(‖·‖²) = 2·innerSL`, then `toDual.symm ∘ innerSL = id`). -/
+theorem gradient_normSq (x : E) : ∇ (fun y => ‖y‖ ^ 2) x = 2 • x := by
+  show (InnerProductSpace.toDual ℝ E).symm (fderiv ℝ (fun y => ‖y‖ ^ 2) x) = 2 • x
+  rw [fderiv_norm_sq_apply, map_nsmul]
+  congr 1
+  have h : (InnerProductSpace.toDual ℝ E) x = innerSL ℝ x := by
+    ext y; rw [InnerProductSpace.toDual_apply_apply]; rfl
+  rw [← h, LinearIsometryEquiv.symm_apply_apply]
+
+/-- **Gradient of a smooth radial weight (squared-norm route):** for `ψ : ℝ → ℝ` differentiable at
+    `‖x‖²`, `∇(x ↦ ψ(‖x‖²))(x) = (2 ψ'(‖x‖²)) x`. The chain rule through the smooth `‖·‖²`. This is
+    the bridge for the ambient weights `G(t,x) = ψ_t(‖x‖²)` (e.g. `g43`'s `−‖x‖²/4(t+t₁)`,
+    `g42`'s `‖x‖²/C₀T`): the gradient points radially with magnitude `2 ψ'(‖x‖²)‖x‖`. -/
+theorem gradient_comp_normSq (ψ : ℝ → ℝ) (x : E) (hψ : DifferentiableAt ℝ ψ (‖x‖ ^ 2)) :
+    ∇ (fun y => ψ (‖y‖ ^ 2)) x = (2 * deriv ψ (‖x‖ ^ 2)) • x := by
+  have hq : HasFDerivAt (fun y : E => ‖y‖ ^ 2) (2 • innerSL ℝ x) x := by
+    simpa using (hasStrictFDerivAt_norm_sq x).hasFDerivAt
+  have hcomp : HasFDerivAt (fun y => ψ (‖y‖ ^ 2))
+      ((deriv ψ (‖x‖ ^ 2)) • (2 • innerSL ℝ x)) x :=
+    hψ.hasDerivAt.comp_hasFDerivAt x hq
+  show (InnerProductSpace.toDual ℝ E).symm (fderiv ℝ (fun y => ψ (‖y‖ ^ 2)) x) = _
+  rw [hcomp.fderiv]
+  have h : (InnerProductSpace.toDual ℝ E) x = innerSL ℝ x := by
+    ext y; rw [InnerProductSpace.toDual_apply_apply]; rfl
+  rw [map_smul, map_nsmul, ← h, LinearIsometryEquiv.symm_apply_apply]
+  module
+
+/-- **The weighted-Dirichlet density `‖∇g‖²` for a smooth radial weight:**
+    `‖∇(x ↦ ψ(‖x‖²))(x)‖² = 4 ψ'(‖x‖²)² ‖x‖²`. This is the `(∂rφ)²` term of the radial `F`
+    (`F = ∂tg − Δg − ‖∇g‖²`), now realized ambiently. -/
+theorem normSq_gradient_comp_normSq (ψ : ℝ → ℝ) (x : E) (hψ : DifferentiableAt ℝ ψ (‖x‖ ^ 2)) :
+    ‖∇ (fun y => ψ (‖y‖ ^ 2)) x‖ ^ 2 = 4 * deriv ψ (‖x‖ ^ 2) ^ 2 * ‖x‖ ^ 2 := by
+  rw [gradient_comp_normSq ψ x hψ, norm_smul, mul_pow, Real.norm_eq_abs, sq_abs]
+  ring
+
+end RadialAmbientBridge
+
+
 end NSCarleman
 
 #eval "Carleman commutator-method core — machine-verified."
