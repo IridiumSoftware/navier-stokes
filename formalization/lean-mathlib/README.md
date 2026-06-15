@@ -252,6 +252,12 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
   (`∇(ψ∘‖·‖²) = (2ψ'(‖x‖²))x`), `normSq_gradient_comp_normSq` (`‖∇(ψ∘‖·‖²)‖² = 4ψ'²‖x‖²`, the
   `(∂rφ)²` of `F`). Covers `g43` and `g42`'s smooth part. False-coefficient variant rejected; no
   `sorry`.
+- **Ladder-7 convexity input (`gradient_inner_left`, `trace_hessian_quadratic`)** — connects the
+  bridge to the coercivity spine for the quadratic weight `g = a‖·‖²`: the trace-Hessian form that
+  `commutator_pairing_le` takes as hypothesis evaluates to `∑ⱼ ∂ⱼw·⟪∇∂ⱼg,∇w⟫ = 2a‖∇w‖²` (Hessian
+  `= 2a·I`, each `∇∂ⱼg = 2a·eⱼ`, Parseval collapse). **Discharges** the spine's `hconv` with
+  `c = 2a` (= Tao's `D²g = (2/C₀T)·I`), giving `⟨[L,S]w,w⟩ ≤ ∫(−4a‖∇w‖² − ½(LF)w²)·e^g`. False
+  variant rejected; no `sorry`.
 
 Next rungs (full Props 4.2/4.3, multi-session): finish the bridge — the `α(T₀−t)‖x‖` part of `g42`
 (non-smooth at `0`, under a cutoff), the **Laplacian** `Δ(ψ∘‖·‖²) = 2d·ψ' + 4‖x‖²·ψ''`, and the

@@ -1,5 +1,28 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.60 — 2026-06-15 — Carleman ladder-7: the convexity input for the quadratic weight
+
+`Carleman.lean` +~55 lines (4040 total), in `RadialAmbientBridge`. **Library infrastructure;
+`:proved`=0 for the PDE.** Connects the gradient bridge to the coercivity spine
+`commutator_pairing_le` for the quadratic Carleman weight `g = a‖·‖²` (the smooth part of `g42`
+with `a = 1/(C₀T)`, and the structure of `g43`'s Gaussian).
+- **`gradient_inner_left`** — `∇(y ↦ ⟪y,w⟫)(x) = w` (the gradient of a linear functional; the
+  Hessian columns of a radial weight are such functionals).
+- **`trace_hessian_quadratic`** — the trace-Hessian quadratic form that `commutator_pairing_le`
+  takes as its convexity hypothesis, evaluated for `g = a‖·‖²`:
+  `∑ⱼ ∂ⱼw·⟪∇∂ⱼg,∇w⟫ = 2a‖∇w‖²`. The Hessian of `a‖·‖²` is the constant `2a·I`, so each
+  `∇∂ⱼg = 2a·eⱼ` (via `gradient_inner_left`); the trace collapses by Parseval
+  (`OrthonormalBasis.sum_inner_mul_inner` + `toDual_symm_apply`). This **discharges**
+  `commutator_pairing_le`'s `hconv` with `c = 2a` (= Tao's `D²g = (2/C₀T)·I` for the quadratic
+  weight, an equality), yielding the coercive estimate
+  `⟨[L,S]w,w⟩ ≤ ∫(−4a‖∇w‖² − ½(LF)w²)·e^g`.
+- **Soundness:** no `sorry`; false variant (`trace_hessian_quadratic` result `2a → 3a`) REJECTED;
+  LEAN_EXIT=0.
+
+The smooth quadratic-weight bridge is now complete (gradient + ‖∇g‖² + convexity-trace). Next:
+the Laplacian `Δ(ψ∘‖·‖²) = 2d·ψ' + 4‖x‖²·ψ''` (for `F`), the general (non-quadratic) Hessian, the
+`α(T₀−t)‖x‖` cutoff part of `g42`, then the full Props 4.2/4.3 (cutoffs + pigeonhole + constants).
+
 ## v0.15.59 — 2026-06-15 — Carleman ladder-7: the radial→ambient bridge, gradient (smooth route)
 
 `Carleman.lean` +~60 lines (3985 total), new section `RadialAmbientBridge`. **Library

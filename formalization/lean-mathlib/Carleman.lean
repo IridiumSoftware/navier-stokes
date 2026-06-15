@@ -4015,6 +4015,57 @@ theorem normSq_gradient_comp_normSq (ψ : ℝ → ℝ) (x : E) (hψ : Differenti
   rw [gradient_comp_normSq ψ x hψ, norm_smul, mul_pow, Real.norm_eq_abs, sq_abs]
   ring
 
+/-- **Gradient of a linear functional:** `∇(y ↦ ⟪y,w⟫)(x) = w`. (`fderiv` of a continuous-linear
+    map is itself; `toDual.symm ∘ innerSL = id`.) The Hessian columns of a radial weight reduce to
+    such functionals. -/
+theorem gradient_inner_left (w x : E) : ∇ (fun y => ⟪y, w⟫) x = w := by
+  show (InnerProductSpace.toDual ℝ E).symm (fderiv ℝ (fun y => ⟪y, w⟫) x) = w
+  have hfd : HasFDerivAt (fun y => ⟪y, w⟫) (innerSL ℝ w) x := by
+    simpa [real_inner_comm] using (innerSL ℝ w).hasFDerivAt
+  rw [hfd.fderiv]
+  have h : (InnerProductSpace.toDual ℝ E) w = innerSL ℝ w := by
+    ext y; rw [InnerProductSpace.toDual_apply_apply]; rfl
+  rw [← h, LinearIsometryEquiv.symm_apply_apply]
+
+/-- **(The convexity input for the quadratic Carleman weight)** — for the smooth weight
+    `g = a‖·‖²` (the quadratic part of `g42` with `a = 1/(C₀T)`, and the structure of `g43`'s
+    Gaussian), the trace-Hessian quadratic form that `commutator_pairing_le` takes as its convexity
+    hypothesis evaluates exactly: `∑ⱼ ∂ⱼw·⟪∇∂ⱼg,∇w⟫ = 2a‖∇w‖²`. The Hessian of `a‖·‖²` is the
+    constant `2a·I`, so each `∇∂ⱼg = 2a·eⱼ`; the trace then collapses by Parseval. Discharges
+    `commutator_pairing_le`'s `hconv` with `c = 2a` (Tao's `D²g = (2/C₀T)·I` for the quadratic
+    weight), giving the coercive estimate `⟨[L,S]w,w⟩ ≤ ∫(−4a‖∇w‖² − ½(LF)w²)e^g`. -/
+theorem trace_hessian_quadratic [FiniteDimensional ℝ E] (a : ℝ) (w : E → ℝ) (x : E) :
+    ∑ j, fderiv ℝ w x (stdOrthonormalBasis ℝ E j)
+        * ⟪∇ (fun y => fderiv ℝ (fun z => a * ‖z‖ ^ 2) y (stdOrthonormalBasis ℝ E j)) x, ∇ w x⟫
+      = 2 * a * ‖∇ w x‖ ^ 2 := by
+  set b := stdOrthonormalBasis ℝ E with hb
+  have hgrad : ∀ j, ∇ (fun y => fderiv ℝ (fun z => a * ‖z‖ ^ 2) y (b j)) x = (2 * a) • b j := by
+    intro j
+    have hfun : (fun y => fderiv ℝ (fun z => a * ‖z‖ ^ 2) y (b j))
+        = fun y => ⟪y, (2 * a) • b j⟫ := by
+      funext y
+      have hF : HasFDerivAt (fun z : E => a * ‖z‖ ^ 2) (a • (2 • innerSL ℝ y)) y :=
+        ((hasStrictFDerivAt_norm_sq y).hasFDerivAt).const_mul a
+      rw [hF.fderiv]
+      simp only [ContinuousLinearMap.smul_apply, innerSL_apply, smul_eq_mul, real_inner_smul_right]
+      ring
+    rw [hfun]; exact gradient_inner_left ((2 * a) • b j) x
+  have hstep : ∀ j, fderiv ℝ w x (b j)
+      * ⟪∇ (fun y => fderiv ℝ (fun z => a * ‖z‖ ^ 2) y (b j)) x, ∇ w x⟫
+      = 2 * a * (fderiv ℝ w x (b j) * fderiv ℝ w x (b j)) := by
+    intro j
+    rw [hgrad j, real_inner_smul_left]
+    have hbj : ⟪b j, ∇ w x⟫ = fderiv ℝ w x (b j) := by
+      rw [real_inner_comm]; exact InnerProductSpace.toDual_symm_apply
+    rw [hbj]; ring
+  rw [Finset.sum_congr rfl fun j _ => hstep j, ← Finset.mul_sum]
+  have hpar : ∑ j, fderiv ℝ w x (b j) * fderiv ℝ w x (b j) = ‖∇ w x‖ ^ 2 := by
+    rw [← real_inner_self_eq_norm_sq, ← OrthonormalBasis.sum_inner_mul_inner b (∇ w x) (∇ w x)]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    have h1 : ⟪∇ w x, b j⟫ = fderiv ℝ w x (b j) := InnerProductSpace.toDual_symm_apply
+    rw [h1, real_inner_comm (∇ w x) (b j), h1]
+  rw [hpar]
+
 end RadialAmbientBridge
 
 
