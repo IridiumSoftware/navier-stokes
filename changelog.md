@@ -1,5 +1,33 @@
 # changelog — Navier–Stokes obstruction program
 
+## v0.15.57 — 2026-06-14 — Carleman 6b-δ: the `⟨[L,S]u,u⟩` notation gluing COMPLETE (`commutator_pairing_eq`)
+
+`Carleman.lean` +~170 lines (3829 total), in `CommutatorIBP`. **Library infrastructure;
+`:proved`=0 for the PDE; distance to the prize untouched.**
+- **`commutator_pairing_eq`** — the notation gluing that closes the gap between the *abstract*
+  bundled commutator quadratic form (the RHS term of `carleman_diff_inequality`,
+  `weightedPairing(Lop(S∘u) − S(Lop u))(u)`) and the *concrete* Carleman integral:
+  `⟨[L,S]u,u⟩ = ∫(−2 D²g(∇u,∇u) − ½(LF)u²)·e^g` for a jointly smooth weight `G` and an
+  `AdmissibleJoint` compactly-supported test curve `u`. **No new mathematics** — it realizes the
+  bundled `L`/`S` operators on concrete functions and routes to `integral_commutator_quadratic`.
+- **How:** `weightedPairing_apply` → `integral_congr_ae` → `integral_commutator_quadratic`; the
+  pointwise integrand identity via `Submodule.coe_sub` + `lop_admissibleJoint_coe` on **both**
+  operands (`u` and `S∘u`, the latter `AdmissibleJoint` by `admissibleJoint_mem_S`) + `Sop_coe`,
+  with the `S∘u` time-derivative **pinned** to `hasDerivAt_Sslice`'s value by `HasDerivAt.unique`
+  (across the `Sop_coe` defeq) — the `S(∂tu)` terms then cancel. The residual spatial block
+  `Δ(Su)−S(Δu)` reduces by `spatial_commutator_eq` (with `F = ½(gt−Δg−‖∇g‖²)`); two `½`-facts
+  (`laplacian_smul`/`gradient_smul`+`real_inner_smul_left`) reconcile the half-`F` to the full `F`;
+  `ContDiffAt.laplacian_add`/`gradient_add` split the `∂tu + Δu` sum; `linear_combination` closes it.
+- **Soundness:** no `sorry`; the false variant (RHS leading coefficient `−2 → −3`) is REJECTED
+  (`integral_commutator_quadratic`'s value is `−2`, so the perturbed statement won't typecheck);
+  LEAN_EXIT=0.
+
+**Tao §4 Lemma 4.1 is now fully assembled** for concrete jointly-smooth compactly-supported test
+data: the commutator quadratic-form *value* (`integral_commutator_quadratic`, 6b-δ), the
+differential inequality (`carleman_diff_inequality`), and now the abstract-to-concrete *gluing*
+(`commutator_pairing_eq`) realizing the bundled `⟨[L,S]u,u⟩` as that integral. Next rungs:
+Props 4.2/4.3 (instantiate the Carleman weights `g42`/`g43`) and the backward-uniqueness wrapper.
+
 ## v0.15.56 — 2026-06-14 — Carleman 6b-δ gluing substrate: `Lop` of an `AdmissibleJoint` curve
 
 `Carleman.lean` +~20 lines (3660 total), in `JointAdmissible`. **Library infrastructure;

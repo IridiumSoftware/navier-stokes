@@ -3652,6 +3652,197 @@ theorem integral_commutator_quadratic {u g gt dtF : E → ℝ} (hu : ContDiff �
       from funext fun x => by rw [commutator_pointwise_eq hu hg hgt x],
     integral_commutator_full hu2 hcu hg3 hlf]
 
+/-- **(6b-δ: the notation gluing — `⟨[L,S]u,u⟩` as the concrete integral)** — the abstract
+    bundled commutator quadratic form `weightedPairing (Lop(S∘u) − S(Lop u)) u` (the RHS term of
+    `carleman_diff_inequality`) equals the concrete Carleman integral
+    `∫(−2 D²g(∇u,∇u) − ½(LF)u²)e^g`. Realizes the abstract `L`/`S` bundled operators via
+    `lop_admissibleJoint_coe` (both operands) + `Sop_coe`, pins the `S∘u` time-derivative to
+    `hasDerivAt_Sslice` by `HasDerivAt.unique` (the `S(∂tu)` terms cancel), reduces the spatial
+    block by `spatial_commutator_eq` (with `F = ½(gt−Δg−‖∇g‖²)`), and integrates via
+    `integral_commutator_quadratic`. No new mathematics; the bundled-subtype assembly. -/
+theorem commutator_pairing_eq {K : Set E} {G : ℝ × E → ℝ} (hK : IsCompact K)
+    (hG : ContDiff ℝ (⊤ : ℕ∞) G) {u : ℝ → smoothTestSubmodule K}
+    (hu : u ∈ AdmissibleJoint) (t : ℝ) (hcu : HasCompactSupport ((u t : E → ℝ))) :
+    weightedPairing hK (fun t x => G (t, x))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)) t
+        (Lop K (fun τ => Sop hK.isClosed (fun t x => G (t, x))
+          (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+          (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+          (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+            ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+              ((contDiff_const (c := t)).prodMk contDiff_id))) τ (u τ)) t
+          - Sop hK.isClosed (fun t x => G (t, x))
+          (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+          (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+          (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+            ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+              ((contDiff_const (c := t)).prodMk contDiff_id))) t (Lop K u t)) (u t)
+      = ∫ x, (-2 * (∑ j, fderiv ℝ ((u t : E → ℝ)) x (stdOrthonormalBasis ℝ E j)
+            * ⟪∇ (fun y => fderiv ℝ (fun z => G (t, z)) y (stdOrthonormalBasis ℝ E j)) x,
+                ∇ ((u t : E → ℝ)) x⟫)
+          - ((fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t, x) ((1 : ℝ), (0 : E))
+                - Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x
+                - (⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => G (t, y)) x⟫
+                    + ⟪∇ (fun y => G (t, y)) x,
+                        ∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x⟫))
+              + Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+                  - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) x) / 2
+              * (((u t : E → ℝ)) x) ^ 2) * exp (G (t, x)) := by
+  have hU : ContDiff ℝ (⊤ : ℕ∞) (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) := hu
+  have hut : ContDiff ℝ (⊤ : ℕ∞) ((u t : E → ℝ)) :=
+    hU.comp ((contDiff_const (c := t)).prodMk contDiff_id)
+  have hg : ContDiff ℝ (⊤ : ℕ∞) (fun z => G (t, z)) :=
+    hG.comp ((contDiff_const (c := t)).prodMk contDiff_id)
+  have hgt : ContDiff ℝ (⊤ : ℕ∞) (fun z => fderiv ℝ G (t, z) ((1 : ℝ), (0 : E))) :=
+    (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+      ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+        ((contDiff_const (c := t)).prodMk contDiff_id))
+  have hdtF : Continuous (fun x => fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E)))
+        (t, x) ((1 : ℝ), (0 : E))
+      - Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x
+      - (⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => G (t, y)) x⟫
+          + ⟪∇ (fun y => G (t, y)) x, ∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x⟫)) := by
+    have hGt0 : ContDiff ℝ (⊤ : ℕ∞) (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) :=
+      (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+        (hG.fderiv_right (by exact_mod_cast le_top))
+    have hGt0_1 : ContDiff ℝ (1 : ℕ∞) (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) :=
+      hGt0.of_le (by exact_mod_cast le_top)
+    have hgt1 : ContDiff ℝ (1 : ℕ∞) (fun z => fderiv ℝ G (t, z) ((1 : ℝ), (0 : E))) :=
+      hgt.of_le (by exact_mod_cast le_top)
+    have hgt2 : ContDiff ℝ (2 : ℕ∞) (fun z => fderiv ℝ G (t, z) ((1 : ℝ), (0 : E))) :=
+      hgt.of_le (by exact_mod_cast le_top)
+    have hg1 : ContDiff ℝ (1 : ℕ∞) (fun z => G (t, z)) := hg.of_le (by exact_mod_cast le_top)
+    have hT1 : Continuous (fun x => fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E)))
+        (t, x) ((1 : ℝ), (0 : E))) :=
+      (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).continuous.comp
+        ((hGt0_1.continuous_fderiv one_ne_zero).comp (continuous_const.prodMk continuous_id))
+    have hT2 : Continuous (Δ (fun z => fderiv ℝ G (t, z) ((1 : ℝ), (0 : E)))) :=
+      WeightedGreenAux.continuous_laplacian hgt2
+    have hT3 : Continuous (fun x =>
+        ⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => G (t, y)) x⟫
+          + ⟪∇ (fun y => G (t, y)) x,
+              ∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x⟫) :=
+      ((WeightedGreenAux.continuous_gradient hgt1).inner
+          (WeightedGreenAux.continuous_gradient hg1)).add
+        ((WeightedGreenAux.continuous_gradient hg1).inner
+          (WeightedGreenAux.continuous_gradient hgt1))
+    exact (hT1.sub hT2).sub hT3
+  have hcomm : ∀ x, (((Lop K (fun τ => Sop hK.isClosed (fun t x => G (t, x))
+        (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+        (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+          ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+            ((contDiff_const (c := t)).prodMk contDiff_id))) τ (u τ)) t
+        - Sop hK.isClosed (fun t x => G (t, x))
+        (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+        (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+        (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+          ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+            ((contDiff_const (c := t)).prodMk contDiff_id))) t (Lop K u t))
+          : smoothTestSubmodule K) : E → ℝ) x
+      = (⟪∇ (fun z => fderiv ℝ G (t, z) ((1 : ℝ), (0 : E))) x, ∇ ((u t : E → ℝ)) x⟫
+          - (fderiv ℝ (fun p : ℝ × E => fderiv ℝ G p ((1 : ℝ), (0 : E))) (t, x) ((1 : ℝ), (0 : E))
+              - Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x
+              - (⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x, ∇ (fun y => G (t, y)) x⟫
+                  + ⟪∇ (fun y => G (t, y)) x,
+                      ∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))) x⟫)) / 2
+            * ((u t : E → ℝ)) x)
+        + (⟪∇ (Δ (fun z => G (t, z))) x, ∇ ((u t : E → ℝ)) x⟫
+            + 2 * ∑ i, ∑ j, iteratedFDeriv ℝ 2 (fun z => G (t, z)) x
+                  ![stdOrthonormalBasis ℝ E i, stdOrthonormalBasis ℝ E j]
+                * iteratedFDeriv ℝ 2 ((u t : E → ℝ)) x
+                  ![stdOrthonormalBasis ℝ E i, stdOrthonormalBasis ℝ E j]
+            - ((u t : E → ℝ)) x * Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+                  - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) x / 2
+            - ⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+                  - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) x,
+                ∇ ((u t : E → ℝ)) x⟫) := by
+    intro x
+    have hAJ : (fun τ => Sop hK.isClosed (fun t x => G (t, x))
+          (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+          (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+          (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+            ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+              ((contDiff_const (c := t)).prodMk contDiff_id))) τ (u τ)) ∈ AdmissibleJoint :=
+      admissibleJoint_mem_S hK.isClosed hG _ _ hu
+    have hAJc : ContDiff ℝ (⊤ : ℕ∞) (fun p : ℝ × E =>
+        ((Sop hK.isClosed (fun t x => G (t, x))
+          (fun t x => fderiv ℝ G (t, x) ((1 : ℝ), (0 : E)))
+          (fun t => hG.comp ((contDiff_const (c := t)).prodMk contDiff_id))
+          (fun t => (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+            ((hG.fderiv_right (m := (⊤ : ℕ∞)) (by exact_mod_cast le_top)).comp
+              ((contDiff_const (c := t)).prodMk contDiff_id))) p.1 (u p.1)) : E → ℝ) p.2) := hAJ
+    have hpin := (hasDerivAt_curve (hAJc.differentiable (by norm_num) (t, x))).unique
+      (hasDerivAt_Sslice hG hU t x)
+    rw [Submodule.coe_sub, Pi.sub_apply, lop_admissibleJoint_coe hK.isClosed hAJ t]
+    beta_reduce
+    rw [hpin, Sop_coe, Sop_coe, lop_admissibleJoint_coe hK.isClosed hu t]
+    simp only []
+    unfold Sfun
+    simp only []
+    have hdtu : ContDiff ℝ (⊤ : ℕ∞)
+        (fun y => fderiv ℝ (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) (t, y) ((1 : ℝ), (0 : E))) :=
+      (ContinuousLinearMap.apply ℝ ℝ ((1 : ℝ), (0 : E))).contDiff.comp
+        ((hU.fderiv_right (by exact_mod_cast le_top)).comp
+          ((contDiff_const (c := t)).prodMk contDiff_id))
+    have hΔut : ContDiff ℝ (⊤ : ℕ∞) (Δ ((u t : E → ℝ))) := contDiff_laplacian hut
+    have hBigF : ContDiff ℝ (⊤ : ℕ∞) (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+        - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) :=
+      (hgt.sub (contDiff_laplacian hg)).sub ((contDiff_gradient hg).inner ℝ (contDiff_gradient hg))
+    have hhalfF : ContDiff ℝ (⊤ : ℕ∞) (fun y => (fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+        - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) / 2) :=
+      hBigF.div_const 2
+    have hLapAdd : Δ (fun y => fderiv ℝ (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) (t, y)
+            ((1 : ℝ), (0 : E)) + Δ ((u t : E → ℝ)) y) x
+        = Δ (fun y => fderiv ℝ (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) (t, y) ((1 : ℝ), (0 : E))) x
+          + Δ (Δ ((u t : E → ℝ))) x :=
+      ContDiffAt.laplacian_add (hdtu.contDiffAt.of_le (by norm_cast))
+        (hΔut.contDiffAt.of_le (by norm_cast))
+    have hgadd : ∇ (fun y =>
+          fderiv ℝ (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) (t, y) ((1 : ℝ), (0 : E))
+          + Δ ((u t : E → ℝ)) y) x
+        = ∇ (fun y => fderiv ℝ (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) (t, y) ((1 : ℝ), (0 : E))) x
+          + ∇ (Δ ((u t : E → ℝ))) x :=
+      gradient_add (hdtu.differentiable (by norm_num) x) (hΔut.differentiable (by norm_num) x)
+    have hGradAdd : ⟪∇ (fun z => G (t, z)) x, ∇ (fun y =>
+          fderiv ℝ (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) (t, y) ((1 : ℝ), (0 : E))
+          + Δ ((u t : E → ℝ)) y) x⟫
+        = ⟪∇ (fun z => G (t, z)) x, ∇ (fun y =>
+            fderiv ℝ (fun p : ℝ × E => ((u p.1 : E → ℝ)) p.2) (t, y) ((1 : ℝ), (0 : E))) x⟫
+          + ⟪∇ (fun z => G (t, z)) x, ∇ (Δ ((u t : E → ℝ))) x⟫ := by
+      rw [hgadd, inner_add_right]
+    have hΔhalf : Δ (fun y => (fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+          - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) / 2) x
+        = Δ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+          - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) x / 2 := by
+      have e : (fun y => (fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+            - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) / 2)
+          = (2⁻¹ : ℝ) • (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+            - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) := by
+        funext y; simp only [Pi.smul_apply, smul_eq_mul]; ring
+      rw [e, laplacian_smul (2⁻¹ : ℝ) (hBigF.contDiffAt.of_le (by norm_cast)), smul_eq_mul]; ring
+    have hGradHalf : ⟪∇ (fun y => (fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+          - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) / 2) x,
+            ∇ ((u t : E → ℝ)) x⟫
+        = ⟪∇ (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+          - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) x,
+            ∇ ((u t : E → ℝ)) x⟫ / 2 := by
+      have e : (fun y => (fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+            - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) / 2)
+          = (2⁻¹ : ℝ) • (fun y => fderiv ℝ G (t, y) ((1 : ℝ), (0 : E))
+            - Δ (fun z => G (t, z)) y - ⟪∇ (fun z => G (t, z)) y, ∇ (fun z => G (t, z)) y⟫) := by
+        funext y; simp only [Pi.smul_apply, smul_eq_mul]; ring
+      rw [e, gradient_smul (2⁻¹ : ℝ) (hBigF.differentiable (by norm_num) x),
+        real_inner_smul_left]; ring
+    have hSp := spatial_commutator_eq hut hg hhalfF x
+    simp only [] at hSp
+    linear_combination hSp - hLapAdd - hGradAdd - ((u t : E → ℝ)) x * hΔhalf - 2 * hGradHalf
+  rw [weightedPairing_apply]
+  refine Eq.trans (integral_congr_ae (Filter.Eventually.of_forall fun x => ?_))
+    (integral_commutator_quadratic hut hcu hg hgt hdtF)
+  beta_reduce
+  rw [hcomm x]
+
 end CommutatorIBP
 
 

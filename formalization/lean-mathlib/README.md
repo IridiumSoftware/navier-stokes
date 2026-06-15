@@ -228,7 +228,16 @@ verification; `:proved` = 0 for the PDE — distance to the prize UNTOUCHED.**
 - **Ladder-6b-δ gluing substrate (`lop_admissibleJoint_coe`)** — `Lop` of any `AdmissibleJoint`
   curve realized as `fderiv(uncurried)(t,·)(1,0) + Δ(a t)`; the reusable bridge (for both `u` and
   `Sop∘u`) toward the `⟨[L,S]u,u⟩`-to-integral gluing. False dropped-Δ variant rejected; no `sorry`.
+- **Ladder-6b-δ notation gluing COMPLETE (`commutator_pairing_eq`)** — the *abstract* bundled
+  commutator quadratic form (the RHS term of `carleman_diff_inequality`,
+  `weightedPairing(Lop(S∘u) − S(Lop u))(u)`) realized as the *concrete* Carleman integral
+  `⟨[L,S]u,u⟩ = ∫(−2 D²g(∇u,∇u) − ½(LF)u²)·e^g`. Routes `weightedPairing_apply` → `integral_congr` →
+  `integral_commutator_quadratic` via a pointwise identity: `lop_admissibleJoint_coe` on both
+  operands + `Sop_coe`, the `S∘u` time-derivative **pinned** to `hasDerivAt_Sslice` by
+  `HasDerivAt.unique` (so `S(∂tu)` cancels), spatial block by `spatial_commutator_eq` (half-`F`),
+  two `½`-reconciliations + `Sfun`-additivity, `linear_combination`. No new mathematics. False
+  leading-coefficient (`−2→−3`) variant rejected; no `sorry`. **Lemma 4.1 fully assembled**
+  (value + inequality + abstract-to-concrete gluing) for concrete smooth compactly-supported data.
 
-Next rungs: ladder-6b (the concrete commutator `⟨[L,S]u,u⟩ = ∫(−2D²g(∇u,∇u) − ½(LF)u²)e^g`,
-staged α spatial-substrate / β time-derivative / γ Bochner-IBP / δ assembly) → Lemma 4.1's
-displayed inequality → Props 4.2/4.3 → the backward-uniqueness wrapper.
+Next rungs: Props 4.2/4.3 (instantiate the Carleman weights `g42`/`g43` — ladder-2 `F`/`LF`/Hessian
+facts ready) → the backward-uniqueness wrapper.
